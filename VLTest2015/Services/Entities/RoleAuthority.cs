@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace VLTest2015.Service
+namespace VLTest2015.Services
 {
-    public class UserAuthority
+    public class RoleAuthority
     {
-        public long UserId { set; get; }
+        public long RoleId { set; get; }
         public long AuthorityId { set; get; }
     }
 }

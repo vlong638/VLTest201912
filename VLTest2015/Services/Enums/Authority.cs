@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace VLTest2015.Service
+namespace VLTest2015.Services
 {
     /// <summary>
     /// 权限 

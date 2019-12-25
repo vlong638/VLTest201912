@@ -205,16 +205,16 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service\Entities\Role.cs" />
-    <Compile Include="Service\Entities\RoleAuthority.cs" />
-    <Compile Include="Service\Entities\User.cs" />
-    <Compile Include="Service\Entities\UserAuthority.cs" />
-    <Compile Include="Service\Entities\UserRole.cs" />
-    <Compile Include="Service\Enums\Authority.cs" />
-    <Compile Include="Service\Services\Impl\RoleService.cs" />
-    <Compile Include="Service\Services\Impl\UserService.cs" />
-    <Compile Include="Service\Services\IRoleService.cs" />
-    <Compile Include="Service\Services\IUserService.cs" />
+    <Compile Include="Services\Entities\Role.cs" />
+    <Compile Include="Services\Entities\RoleAuthority.cs" />
+    <Compile Include="Services\Entities\User.cs" />
+    <Compile Include="Services\Entities\UserAuthority.cs" />
+    <Compile Include="Services\Entities\UserRole.cs" />
+    <Compile Include="Services\Enums\Authority.cs" />
+    <Compile Include="Services\Services\Impl\RoleService.cs" />
+    <Compile Include="Services\Services\Impl\UserService.cs" />
+    <Compile Include="Services\Services\IRoleService.cs" />
+    <Compile Include="Services\Services\IUserService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
