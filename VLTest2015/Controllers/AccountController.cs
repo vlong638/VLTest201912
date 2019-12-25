@@ -75,11 +75,10 @@ namespace VLTest2015.Controllers
         {
             if (ModelState.IsValid)
             {
-                var hashPassword = MD5Helper.GetHashValue(model.Password);
-                var result = _userService.CreateUser(model.UserName, hashPassword);
+                var result = _userService.CreateUser(model.UserName, model.Password);
                 if (result.Data > 0)
                 {
-                    _userService.PasswordSignIn(model.UserName, hashPassword, false, false);
+                    _userService.PasswordSignIn(model.UserName, model.Password, false, false);
 
                     // 有关如何启用帐户确认和密码重置的详细信息，请访问 http://go.microsoft.com/fwlink/?LinkID=320771
                     // 发送包含此链接的电子邮件

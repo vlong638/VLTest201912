@@ -1,9 +1,12 @@
+use VLTest;
+
 --用户建表
+drop table [dbo].[User];
 CREATE TABLE [dbo].[User](
 	[Id] [bigint] IDENTITY(1,2) NOT NULL,
 	[Password] [varchar](32) NOT NULL,
 	[Name] [varchar](50) NOT NULL,
-	[db_CreatedAt] [datetime] NULL,
+	--[db_CreatedAt] [datetime] NULL,
  CONSTRAINT [PK_User] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC

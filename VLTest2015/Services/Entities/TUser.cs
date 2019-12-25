@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Dapper.Contrib.Extensions;
 
 namespace VLTest2015.Services
 {
-    public class User
+    [Table("[User]")]
+    public class TUser
     {
         public long Id { set; get; }
         public string Password { set; get; }

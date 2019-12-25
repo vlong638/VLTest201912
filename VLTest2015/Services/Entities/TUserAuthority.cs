@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Dapper.Contrib.Extensions;
 
 namespace VLTest2015.Services
 {
-    public class UserAuthority
+    [Table("UserAuthority")]
+    public class TUserAuthority
     {
         public long UserId { set; get; }
         public long AuthorityId { set; get; }
