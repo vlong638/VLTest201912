@@ -38,18 +38,23 @@ namespace VLTest2015.Controllers
             // 这不会计入到为执行帐户锁定而统计的登录失败次数中
             // 若要在多次输入错误密码的情况下触发帐户锁定，请更改为 shouldLockout: true
             var result = _userService.PasswordSignIn(model.Email, model.Password, model.RememberMe,  false);
-            switch (result)
+            if (result.Data>0)
             {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "无效的登录尝试。");
-                    return View(model);
+                return RedirectToLocal(returnUrl);
+            }
+            else
+            {
+                switch (result.ErrorCode)
+                {
+                    case (int)SignInStatus.LockedOut:
+                        return View("Lockout");
+                    case (int)SignInStatus.RequiresVerification:
+                        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    case (int)SignInStatus.Failure:
+                    default:
+                        ModelState.AddModelError("", "无效的登录尝试。");
+                        return View(model);
+                }
             }
         }
 
@@ -72,7 +77,7 @@ namespace VLTest2015.Controllers
             {
                 var hashPassword = MD5Helper.GetHashValue(model.Password);
                 var result = _userService.CreateUser(model.UserName, hashPassword);
-                if (result > 0)
+                if (result.Data > 0)
                 {
                     _userService.PasswordSignIn(model.UserName, hashPassword, false, false);
 
@@ -84,7 +89,7 @@ namespace VLTest2015.Controllers
 
                     return RedirectToAction("Index", "Home");
                 }
-                AddErrors("注册失败");
+                AddErrors(result.ErrorMessage);
             }
 
             // 如果我们进行到这一步时某个地方出错，则重新显示表单

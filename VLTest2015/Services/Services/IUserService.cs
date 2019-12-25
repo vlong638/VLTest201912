@@ -1,6 +1,5 @@
-﻿using Microsoft.AspNet.Identity.Owin;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using VLTest2015.Common;
 
 namespace VLTest2015.Services
 {
@@ -12,7 +11,7 @@ namespace VLTest2015.Services
         /// <param name="userName"></param>
         /// <param name="password"></param>
         /// <returns>Id</returns>
-        long CreateUser(string userName, string password);
+        ResponseResult<long> CreateUser(string userName, string password);
 
         /// <summary>
         /// 按用户名密码查询用户
@@ -20,7 +19,7 @@ namespace VLTest2015.Services
         /// <param name="userName"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        SignInStatus PasswordSignIn(string userName, string password, bool rememberMe, bool shouldLockout);
+        ResponseResult<long> PasswordSignIn(string userName, string password, bool rememberMe, bool shouldLockout);
 
         /// <summary>
         /// 编辑用户权限
@@ -28,7 +27,7 @@ namespace VLTest2015.Services
         /// <param name="userId"></param>
         /// <param name="authorityIds"></param>
         /// <returns></returns>
-        bool EditUserAuthorities(long userId, IEnumerable<long> authorityIds);
+        ResponseResult<bool> EditUserAuthorities(long userId, IEnumerable<long> authorityIds);
 
         /// <summary>
         /// 编辑用户角色
@@ -36,13 +35,13 @@ namespace VLTest2015.Services
         /// <param name="userId"></param>
         /// <param name="roleIds"></param>
         /// <returns></returns>
-        bool EditUserRoles(long userId, IEnumerable<long> roleIds);
+        ResponseResult<bool> EditUserRoles(long userId, IEnumerable<long> roleIds);
 
         /// <summary>
         /// 查询用户当前权限
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        IEnumerable<long> GetUserAuthorities(long userId);
+        ResponseResult<IEnumerable<long>> GetUserAuthorities(long userId);
     }
 }
