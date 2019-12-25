@@ -1,7 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.Owin;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace VLTest2015.Services
 {
@@ -12,7 +11,7 @@ namespace VLTest2015.Services
             throw new NotImplementedException();
         }
 
-        public User GetUserBy(string userName, string password)
+        public SignInStatus PasswordSignIn(string userName, string password, bool rememberMe, bool shouldLockout)
         {
             throw new NotImplementedException();
         }

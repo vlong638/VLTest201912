@@ -1,7 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.Owin;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace VLTest2015.Services
 {
@@ -21,7 +20,7 @@ namespace VLTest2015.Services
         /// <param name="userName"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        User GetUserBy(string userName, string password);
+        SignInStatus PasswordSignIn(string userName, string password, bool rememberMe, bool shouldLockout);
 
         /// <summary>
         /// 编辑用户权限
