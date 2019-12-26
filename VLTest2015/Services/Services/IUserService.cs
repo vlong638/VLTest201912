@@ -6,18 +6,20 @@ namespace VLTest2015.Services
     public interface IUserService
     {
         /// <summary>
-        /// 创建用户
+        /// 注册用户
         /// </summary>
-        /// <param name="userName"></param>
-        /// <param name="password"></param>
+        /// <param name="userName">用户名</param>
+        /// <param name="password">密码</param>
         /// <returns>Id</returns>
-        ResponseResult<long> CreateUser(string userName, string password);
+        ResponseResult<long> Register(string userName, string password);
 
         /// <summary>
-        /// 按用户名密码查询用户
+        /// 登录(按用户名+密码)
         /// </summary>
-        /// <param name="userName"></param>
-        /// <param name="password"></param>
+        /// <param name="userName">用户名</param>
+        /// <param name="password">密码</param>
+        /// <param name="rememberMe">记住登录</param>
+        /// <param name="shouldLockout">该登录是否会锁死</param>
         /// <returns></returns>
         ResponseResult<long> PasswordSignIn(string userName, string password, bool rememberMe, bool shouldLockout);
 
@@ -38,10 +40,10 @@ namespace VLTest2015.Services
         ResponseResult<bool> EditUserRoles(long userId, IEnumerable<long> roleIds);
 
         /// <summary>
-        /// 查询用户当前权限
+        /// 查询用户当前所有权限
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        ResponseResult<IEnumerable<long>> GetUserAuthorities(long userId);
+        ResponseResult<IEnumerable<long>> GetAllUserAuthorities(long userId);
     }
 }

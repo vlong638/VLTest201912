@@ -2,10 +2,10 @@
 
 namespace VLTest2015.Services
 {
-    [Table("UserRole")]
-    public class TUserRole
+    [Table("UserAuthority")]
+    public class UserAuthority
     {
         public long UserId { set; get; }
-        public long RoleId { set; get; }
+        public long AuthorityId { set; get; }
     }
 }

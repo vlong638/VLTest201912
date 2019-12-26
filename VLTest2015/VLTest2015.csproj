@@ -212,9 +212,17 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="DAL\Impl\RoleRepository.cs" />
     <Compile Include="DAL\Impl\Repositoty.cs" />
+    <Compile Include="DAL\Impl\RoleAuthorityRepository.cs" />
+    <Compile Include="DAL\Impl\UserAuthorityRepository.cs" />
+    <Compile Include="DAL\Impl\UserRoleRepository.cs" />
     <Compile Include="DAL\Impl\UserRepository.cs" />
     <Compile Include="DAL\IRepository.cs" />
+    <Compile Include="DAL\IRoleAuthorityRepository.cs" />
+    <Compile Include="DAL\IUserRoleRepository.cs" />
+    <Compile Include="DAL\IUserAuthorityRepository.cs" />
+    <Compile Include="DAL\IRoleRepository.cs" />
     <Compile Include="DAL\IUserRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -223,11 +231,11 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Entities\TRole.cs" />
-    <Compile Include="Services\Entities\TRoleAuthority.cs" />
-    <Compile Include="Services\Entities\TUser.cs" />
-    <Compile Include="Services\Entities\TUserAuthority.cs" />
-    <Compile Include="Services\Entities\TUserRole.cs" />
+    <Compile Include="Services\Entities\Role.cs" />
+    <Compile Include="Services\Entities\RoleAuthority.cs" />
+    <Compile Include="Services\Entities\User.cs" />
+    <Compile Include="Services\Entities\UserAuthority.cs" />
+    <Compile Include="Services\Entities\UserRole.cs" />
     <Compile Include="Services\Enums\Authority.cs" />
     <Compile Include="Services\Services\Impl\RoleService.cs" />
     <Compile Include="Services\Services\Impl\UserService.cs" />

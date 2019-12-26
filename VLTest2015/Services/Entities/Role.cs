@@ -2,11 +2,10 @@
 
 namespace VLTest2015.Services
 {
-    [Table("[User]")]
-    public class TUser
+    [Table("Role")]
+    public class Role
     {
         public long Id { set; get; }
-        public string Password { set; get; }
         public string Name { set; get; }
     }
 }

@@ -75,7 +75,7 @@ namespace VLTest2015.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = _userService.CreateUser(model.UserName, model.Password);
+                var result = _userService.Register(model.UserName, model.Password);
                 if (result.Data > 0)
                 {
                     _userService.PasswordSignIn(model.UserName, model.Password, false, false);
