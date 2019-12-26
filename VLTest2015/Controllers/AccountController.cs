@@ -65,7 +65,7 @@ namespace VLTest2015.Controllers
                     DateTime.Now,
                     DateTime.Now.Add(FormsAuthentication.Timeout),
                     model.RememberMe,
-                    "UserRole" 
+                    user.Id.ToString()
                     );
                 HttpCookie cookie = new HttpCookie(
                     FormsAuthentication.FormsCookieName,
@@ -106,7 +106,7 @@ namespace VLTest2015.Controllers
 
             }
             ViewData["UserName"] = HttpContext.User.Identity.Name;
-            ViewData["UserRole"] = authTicket.UserData;
+            ViewData["UserId"] = authTicket.UserData;
 
             return View();
         }
