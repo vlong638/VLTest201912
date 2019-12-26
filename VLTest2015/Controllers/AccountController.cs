@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System;
+using System.Linq;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Web;
@@ -48,29 +49,16 @@ namespace VLTest2015.Controllers
             if (result.Status)
             {
                 var user = result.Data;
-                var authorityIds = _userService.GetAllUserAuthorityIds(result.Data.Id);
+                var authorityIds = _userService.GetAllUserAuthorityIds(result.Data.Id).Data;
 
                 #region 登录缓存处理
 
-                //GenericIdentity identity = new GenericIdentity(user.Name);
-                //GenericPrincipal principal = new GenericPrincipal(identity, new string[0]);
-                //HttpContext.User = principal;
-                //FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
-
-                //CacheHelper.SetCache(CacheHelper.GetPermissionCacheKey(result.Data.Id), authorityIds, Cache.NoAbsoluteExpiration, FormsAuthentication.Timeout);
-
-                FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(
-                    1,
-                    user.Name,
-                    DateTime.Now,
-                    DateTime.Now.Add(FormsAuthentication.Timeout),
-                    model.RememberMe,
-                    user.Id.ToString()
-                    );
-                HttpCookie cookie = new HttpCookie(
-                    FormsAuthentication.FormsCookieName,
-                    FormsAuthentication.Encrypt(ticket));
-                Response.Cookies.Add(cookie);
+                SetCurrentUser(new CurrentUser()
+                {
+                    UserId = user.Id,
+                    UserName = user.Name,
+                    AuthorityIds = authorityIds.ToArray(),
+                });
 
                 #endregion
 
