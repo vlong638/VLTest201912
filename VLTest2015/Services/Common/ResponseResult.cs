@@ -12,6 +12,7 @@
         public ResponseResult(T data)
         {
             Data = data;
+            Status = true;
         }
 
         public T Data { set; get; }

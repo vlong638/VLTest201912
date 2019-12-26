@@ -2,7 +2,7 @@
 
 namespace VLTest2015.Controllers
 {
-    public class HomeController : BaseController
+    public class HomeController : Controller
     {
         public ActionResult Index()
         {

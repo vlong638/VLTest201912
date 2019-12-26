@@ -32,6 +32,9 @@ namespace VLTest2015
         }
     }
 
+    #region  关于 ApplicationUserManager 和 ApplicationSignInManager 的理解尚不足以项目中运用
+    //结合ApplicationDbContext,可知这里运用了依赖注入,数据库上下文,具体的用户服务和登录服务各自实现,尚未找到最佳实践的案例
+
     // 配置此应用程序中使用的应用程序用户管理器。UserManager 在 ASP.NET Identity 中定义，并由此应用程序使用。
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {
@@ -40,7 +43,7 @@ namespace VLTest2015
         {
         }
 
-        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
+        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
             var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
             // 配置用户名的验证逻辑
@@ -65,23 +68,24 @@ namespace VLTest2015
             manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
             manager.MaxFailedAccessAttemptsBeforeLockout = 5;
 
-            // 注册双重身份验证提供程序。此应用程序使用手机和电子邮件作为接收用于验证用户的代码的一个步骤
-            // 你可以编写自己的提供程序并将其插入到此处。
-            manager.RegisterTwoFactorProvider("电话代码", new PhoneNumberTokenProvider<ApplicationUser>
-            {
-                MessageFormat = "你的安全代码是 {0}"
-            });
-            manager.RegisterTwoFactorProvider("电子邮件代码", new EmailTokenProvider<ApplicationUser>
-            {
-                Subject = "安全代码",
-                BodyFormat = "你的安全代码是 {0}"
-            });
-            manager.EmailService = new EmailService();
-            manager.SmsService = new SmsService();
+            //// 注册双重身份验证提供程序。此应用程序使用手机和电子邮件作为接收用于验证用户的代码的一个步骤
+            //// 你可以编写自己的提供程序并将其插入到此处。
+            //manager.RegisterTwoFactorProvider("电话代码", new PhoneNumberTokenProvider<ApplicationUser>
+            //{
+            //    MessageFormat = "你的安全代码是 {0}"
+            //});
+            //manager.RegisterTwoFactorProvider("电子邮件代码", new EmailTokenProvider<ApplicationUser>
+            //{
+            //    Subject = "安全代码",
+            //    BodyFormat = "你的安全代码是 {0}"
+            //});
+            //manager.EmailService = new EmailService();
+            //manager.SmsService = new SmsService();
+
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {
-                manager.UserTokenProvider = 
+                manager.UserTokenProvider =
                     new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
             return manager;
@@ -105,5 +109,7 @@ namespace VLTest2015
         {
             return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
         }
-    }
+    } 
+
+    #endregion
 }

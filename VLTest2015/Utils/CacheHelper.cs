@@ -5,7 +5,17 @@ namespace VLTest2015.Utils
 {
     public class CacheHelper
     {
-        static string _permissionCacheKey = "StrPermissionsByUid";
+        static string _loginCacheKey = "StrLogin";
+        /// <summary>
+        /// 获取登录缓存key
+        /// </summary>
+        /// <param name="cacheKey">键</param>
+        public static string GetLoginCacheKey(long userId)
+        {
+            return _loginCacheKey + "_" + userId;
+        }
+
+        static string _permissionCacheKey = "StrPermissions";
         /// <summary>
         /// 获取授权缓存key
         /// </summary>

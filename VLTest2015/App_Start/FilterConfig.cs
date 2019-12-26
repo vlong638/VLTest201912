@@ -1,5 +1,5 @@
-﻿using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using VLTest2015.Attributes;
 
 namespace VLTest2015
 {
@@ -7,6 +7,7 @@ namespace VLTest2015
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
+            //filters.Add(new VLAuthenticationAttribute());
             filters.Add(new HandleErrorAttribute());
         }
     }

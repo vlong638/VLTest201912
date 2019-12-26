@@ -1,5 +1,9 @@
-﻿using Microsoft.AspNet.Identity.Owin;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using System;
+using System.Security.Claims;
+using System.Security.Principal;
+using System.Web;
 using System.Web.Caching;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -40,12 +44,36 @@ namespace VLTest2015.Controllers
 
             // 这不会计入到为执行帐户锁定而统计的登录失败次数中
             // 若要在多次输入错误密码的情况下触发帐户锁定，请更改为 shouldLockout: true
-            var result = _userService.PasswordSignIn(model.UserName, model.Password,  false);
+            var result = _userService.PasswordSignIn(model.UserName, model.Password, false);
             if (result.Status)
             {
+                var user = result.Data;
                 var authorityIds = _userService.GetAllUserAuthorityIds(result.Data.Id);
-                SetFormsAuthentication(result.Data);
-                CacheHelper.SetCache(CacheHelper.GetPermissionCacheKey(result.Data.Id), authorityIds, Cache.NoAbsoluteExpiration, FormsAuthentication.Timeout);
+
+                #region 登录缓存处理
+
+                //GenericIdentity identity = new GenericIdentity(user.Name);
+                //GenericPrincipal principal = new GenericPrincipal(identity, new string[0]);
+                //HttpContext.User = principal;
+                //FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
+
+                //CacheHelper.SetCache(CacheHelper.GetPermissionCacheKey(result.Data.Id), authorityIds, Cache.NoAbsoluteExpiration, FormsAuthentication.Timeout);
+
+                FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(
+                    1,
+                    user.Name,
+                    DateTime.Now,
+                    DateTime.Now.Add(FormsAuthentication.Timeout),
+                    model.RememberMe,
+                    "UserRole" 
+                    );
+                HttpCookie cookie = new HttpCookie(
+                    FormsAuthentication.FormsCookieName,
+                    FormsAuthentication.Encrypt(ticket));
+                Response.Cookies.Add(cookie);
+
+                #endregion
+
                 return RedirectToLocal(returnUrl);
             }
             else
@@ -58,10 +86,29 @@ namespace VLTest2015.Controllers
                         return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                     case (int)SignInStatus.Failure:
                     default:
-                        ModelState.AddModelError("", "无效的登录尝试。");
+                        ModelState.AddModelError("", result.ErrorMessage);
                         return View(model);
                 }
             }
+        }
+
+        public ActionResult UserInfo()
+        {
+            string cookieName = FormsAuthentication.FormsCookieName;
+            HttpCookie authCookie = HttpContext.Request.Cookies[cookieName];
+            FormsAuthenticationTicket authTicket = null;
+            try
+            {
+                authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            ViewData["UserName"] = HttpContext.User.Identity.Name;
+            ViewData["UserRole"] = authTicket.UserData;
+
+            return View();
         }
 
         /// <summary>
@@ -108,17 +155,24 @@ namespace VLTest2015.Controllers
                 var result = _userService.Register(model.UserName, model.Password);
                 if (result.Status)
                 {
-                    _userService.PasswordSignIn(model.UserName, model.Password, false);
+                    var user = _userService.PasswordSignIn(model.UserName, model.Password, false).Data;
+                    var authorityIds = _userService.GetAllUserAuthorityIds(user.Id);
 
+                    #region 邮箱二次确认
                     // 有关如何启用帐户确认和密码重置的详细信息，请访问 http://go.microsoft.com/fwlink/?LinkID=320771
                     // 发送包含此链接的电子邮件
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "确认你的帐户", "请通过单击 <a href=\"" + callbackUrl + "\">這裏</a>来确认你的帐户");
+                    // await UserManager.SendEmailAsync(user.Id, "确认你的帐户", "请通过单击 <a href=\"" + callbackUrl + "\">這裏</a>来确认你的帐户"); 
+                    #endregion
 
-                    var authorityIds = _userService.GetAllUserAuthorityIds(result.Data.Id);
-                    SetFormsAuthentication(result.Data);
-                    CacheHelper.SetCache(CacheHelper.GetPermissionCacheKey(result.Data.Id), authorityIds, Cache.NoAbsoluteExpiration, FormsAuthentication.Timeout);
+                    #region 登录缓存处理
+
+                    SetFormsAuthentication(user);
+                    CacheHelper.SetCache(CacheHelper.GetPermissionCacheKey(user.Id), authorityIds, Cache.NoAbsoluteExpiration, FormsAuthentication.Timeout);
+
+                    #endregion
+
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result.ErrorMessage);
@@ -139,7 +193,7 @@ namespace VLTest2015.Controllers
     //    {
     //    }
 
-    //    public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+    //    public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
     //    {
     //        UserManager = userManager;
     //        SignInManager = signInManager;
@@ -151,9 +205,9 @@ namespace VLTest2015.Controllers
     //        {
     //            return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
     //        }
-    //        private set 
-    //        { 
-    //            _signInManager = value; 
+    //        private set
+    //        {
+    //            _signInManager = value;
     //        }
     //    }
 
@@ -192,7 +246,7 @@ namespace VLTest2015.Controllers
 
     //        // 这不会计入到为执行帐户锁定而统计的登录失败次数中
     //        // 若要在多次输入错误密码的情况下触发帐户锁定，请更改为 shouldLockout: true
-    //        var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+    //        var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
     //        switch (result)
     //        {
     //            case SignInStatus.Success:
@@ -237,7 +291,7 @@ namespace VLTest2015.Controllers
     //        // 如果用户输入错误代码的次数达到指定的次数，则会将
     //        // 该用户帐户锁定指定的时间。
     //        // 可以在 IdentityConfig 中配置帐户锁定设置
-    //        var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+    //        var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
     //        switch (result)
     //        {
     //            case SignInStatus.Success:
@@ -268,11 +322,11 @@ namespace VLTest2015.Controllers
     //    {
     //        if (ModelState.IsValid)
     //        {
-    //            var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+    //            var user = new ApplicationUser { UserName = model.UserName, Email = model.UserName };
     //            var result = await UserManager.CreateAsync(user, model.Password);
     //            if (result.Succeeded)
     //            {
-    //                await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+    //                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
     //                // 有关如何启用帐户确认和密码重置的详细信息，请访问 http://go.microsoft.com/fwlink/?LinkID=320771
     //                // 发送包含此链接的电子邮件
