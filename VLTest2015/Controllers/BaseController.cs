@@ -47,27 +47,20 @@ namespace VLTest2015.Controllers
 
         public CurrentUser GetCurrentUser()
         {
-            try
+            string cookieName = FormsAuthentication.FormsCookieName;
+            var authCookie = HttpContext.Request.Cookies[cookieName];
+            var authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+            var userName = HttpContext.User.Identity.Name;
+            var datas = authTicket.UserData.Split('_');
+            var userId = 0L;
+            Int64.TryParse(datas[0], out userId);
+            var authorityIds = datas[1].Split(',').Select(c => Int64.Parse(c)).ToArray();
+            return new CurrentUser()
             {
-                string cookieName = FormsAuthentication.FormsCookieName;
-                var authCookie = HttpContext.Request.Cookies[cookieName];
-                var authTicket = FormsAuthentication.Decrypt(authCookie.Value);
-                var userName = HttpContext.User.Identity.Name;
-                var datas = authTicket.UserData.Split('_');
-                var userId = 0L;
-                Int64.TryParse(datas[0], out userId);
-                var authorityIds = datas[1].Split(',').Select(c => Int64.Parse(c)).ToArray();
-                return new CurrentUser()
-                {
-                    UserId = userId,
-                    UserName =userName ,
-                    AuthorityIds = authorityIds,
-                };
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
+                UserId = userId,
+                UserName = userName,
+                AuthorityIds = authorityIds,
+            };
         }
     }
 

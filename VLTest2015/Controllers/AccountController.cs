@@ -82,19 +82,7 @@ namespace VLTest2015.Controllers
 
         public ActionResult UserInfo()
         {
-            string cookieName = FormsAuthentication.FormsCookieName;
-            HttpCookie authCookie = HttpContext.Request.Cookies[cookieName];
-            FormsAuthenticationTicket authTicket = null;
-            try
-            {
-                authTicket = FormsAuthentication.Decrypt(authCookie.Value);
-            }
-            catch (Exception ex)
-            {
-
-            }
-            ViewData["UserName"] = HttpContext.User.Identity.Name;
-            ViewData["UserId"] = authTicket.UserData;
+            var currentUser = GetCurrentUser();
 
             return View();
         }
