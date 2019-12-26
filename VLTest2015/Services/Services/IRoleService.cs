@@ -12,7 +12,7 @@ namespace VLTest2015.Services
         /// </summary>
         /// <param name="roleName"></param>
         /// <returns>Id</returns>
-        long CreateRole(string roleName);
+        ResponseResult<long> CreateRole(string roleName);
 
         /// <summary>
         /// 编辑角色权限
@@ -20,13 +20,13 @@ namespace VLTest2015.Services
         /// <param name="roleId"></param>
         /// <param name="authorityIds"></param>
         /// <returns></returns>
-        bool EditRoleAuthorities(long roleId, IEnumerable<long> authorityIds);
+        ResponseResult<bool> EditRoleAuthorities(long roleId, IEnumerable<long> authorityIds);
 
         /// <summary>
         /// 查询角色当前权限
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        IEnumerable<long> GetRoleAuthorities(long roleId);
+        ResponseResult<IEnumerable<long>> GetRoleAuthorityIds(long roleId);
     }
 }

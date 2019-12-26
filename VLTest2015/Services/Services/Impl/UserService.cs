@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Common;
+﻿using System.Collections.Generic;
 using System.Linq;
-using VLTest2015.Common;
 using VLTest2015.DAL;
 using VLTest2015.Utils;
 
 namespace VLTest2015.Services
 {
-    public class UserService : IUserService
+    public class UserService : BaseService, IUserService
     {
-        DbConnection _connection;
         IUserRepository _userRepository;
         IUserAuthorityRepository _userAuthorityRepository;
         IUserRoleRepository _userRoleRepository;
@@ -19,18 +15,11 @@ namespace VLTest2015.Services
 
         public UserService()
         {
-            var connection = DBHelper.GetDbConnection();
-            _connection = connection;
-            _userRepository = new UserRepository(connection);
-            _userAuthorityRepository = new UserAuthorityRepository(connection);
-            _userRoleRepository = new UserRoleRepository(connection);
-            _roleRepository= new RoleRepository(connection);
-            _roleAuthorityRepository = new RoleAuthorityRepository(connection);
-        }
-
-        ~UserService()
-        {
-            _connection.Dispose();
+            _userRepository = new UserRepository(_connection);
+            _userAuthorityRepository = new UserAuthorityRepository(_connection);
+            _userRoleRepository = new UserRoleRepository(_connection);
+            _roleRepository = new RoleRepository(_connection);
+            _roleAuthorityRepository = new RoleAuthorityRepository(_connection);
         }
 
         public ResponseResult<long> Register(string userName, string password)
@@ -96,13 +85,13 @@ namespace VLTest2015.Services
             });
         }
 
-        public ResponseResult<IEnumerable<long>> GetAllUserAuthorities(long userId)
+        public ResponseResult<IEnumerable<long>> GetAllUserAuthorityIds(long userId)
         {
             var userAuthorities = _userAuthorityRepository.GetBy(userId);
             var userRoles = _userRoleRepository.GetBy(userId);
             var roleAuthorities = userRoles.Count() == 0 ? new List<RoleAuthority>() : _roleAuthorityRepository.GetBy(userRoles.Select(c => c.RoleId).ToArray());
-            var allAuthorities = userAuthorities.Select(c => c.AuthorityId).Union(roleAuthorities.Select(c => c.AuthorityId)).Distinct();
-            return new ResponseResult<IEnumerable<long>>(allAuthorities);
+            var allAuthorityIds = userAuthorities.Select(c => c.AuthorityId).Union(roleAuthorities.Select(c => c.AuthorityId)).Distinct();
+            return new ResponseResult<IEnumerable<long>>(allAuthorityIds);
         }
     }
 }

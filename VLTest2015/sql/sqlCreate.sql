@@ -63,6 +63,16 @@ CREATE TABLE [dbo].[UserAuthority](
 
 GO
 
+--存在对User.Name的查询需求,增加非聚簇唯一索引
+create unique nonclustered
+index UQ_NonClu_User_Name
+on [User]([Name])
+;
+--存在对Role.Name的查询需求,增加非聚簇唯一索引
+create unique nonclustered        --表示创建唯一聚集索引
+index UQ_NonClu_Role_Name      --索引名称
+on [Role]([Name])        --数据表名称（建立索引的列名）
+;
 
 
 

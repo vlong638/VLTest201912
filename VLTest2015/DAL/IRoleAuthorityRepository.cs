@@ -10,6 +10,13 @@ namespace VLTest2015.DAL
         /// </summary>
         /// <param name="RoleAuthorityName"></param>
         /// <returns></returns>
-        IEnumerable<RoleAuthority> GetBy(long[] roleIds);
+        IEnumerable<RoleAuthority> GetBy(params long[] roleIds);
+
+        /// <summary>
+        /// 根据角色Id删除权限
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
+        int DeleteBy(long roleId);
     }
 }

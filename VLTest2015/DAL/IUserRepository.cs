@@ -17,6 +17,6 @@ namespace VLTest2015.DAL
         /// <param name="userName"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        User GetBy(object userName, string password);
+        User GetBy(string userName, string password);
     }
 }

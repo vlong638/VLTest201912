@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using VLTest2015.Common;
 
 namespace VLTest2015.Services
 {
@@ -44,6 +43,6 @@ namespace VLTest2015.Services
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        ResponseResult<IEnumerable<long>> GetAllUserAuthorities(long userId);
+        ResponseResult<IEnumerable<long>> GetAllUserAuthorityIds(long userId);
     }
 }

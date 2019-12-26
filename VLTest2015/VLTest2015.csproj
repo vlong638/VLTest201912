@@ -207,7 +207,8 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Common\ResponseResult.cs" />
+    <Compile Include="Services\Common\DbConnectionEx.cs" />
+    <Compile Include="Services\Common\ResponseResult.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -237,6 +238,7 @@
     <Compile Include="Services\Entities\UserAuthority.cs" />
     <Compile Include="Services\Entities\UserRole.cs" />
     <Compile Include="Services\Enums\Authority.cs" />
+    <Compile Include="Services\Services\Impl\BaseService.cs" />
     <Compile Include="Services\Services\Impl\RoleService.cs" />
     <Compile Include="Services\Services\Impl\UserService.cs" />
     <Compile Include="Services\Services\IRoleService.cs" />
