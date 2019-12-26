@@ -244,6 +244,7 @@
     <Compile Include="Services\Services\IRoleService.cs" />
     <Compile Include="Services\Services\IUserService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utils\CacheHelper.cs" />
     <Compile Include="Utils\DBHelper.cs" />
     <Compile Include="Utils\MD5Helper.cs" />
   </ItemGroup>

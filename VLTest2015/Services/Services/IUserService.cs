@@ -10,17 +10,16 @@ namespace VLTest2015.Services
         /// <param name="userName">用户名</param>
         /// <param name="password">密码</param>
         /// <returns>Id</returns>
-        ResponseResult<long> Register(string userName, string password);
+        ResponseResult<User> Register(string userName, string password);
 
         /// <summary>
         /// 登录(按用户名+密码)
         /// </summary>
         /// <param name="userName">用户名</param>
         /// <param name="password">密码</param>
-        /// <param name="rememberMe">记住登录</param>
         /// <param name="shouldLockout">该登录是否会锁死</param>
         /// <returns></returns>
-        ResponseResult<long> PasswordSignIn(string userName, string password, bool rememberMe, bool shouldLockout);
+        ResponseResult<User> PasswordSignIn(string userName, string password, bool shouldLockout);
 
         /// <summary>
         /// 编辑用户权限

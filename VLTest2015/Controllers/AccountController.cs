@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNet.Identity.Owin;
+using System;
+using System.Web.Caching;
 using System.Web.Mvc;
+using System.Web.Security;
 using VLTest2015.Models;
 using VLTest2015.Services;
 using VLTest2015.Utils;
@@ -37,9 +40,12 @@ namespace VLTest2015.Controllers
 
             // 这不会计入到为执行帐户锁定而统计的登录失败次数中
             // 若要在多次输入错误密码的情况下触发帐户锁定，请更改为 shouldLockout: true
-            var result = _userService.PasswordSignIn(model.Email, model.Password, model.RememberMe,  false);
-            if (result.Data>0)
+            var result = _userService.PasswordSignIn(model.UserName, model.Password,  false);
+            if (result.Status)
             {
+                var authorityIds = _userService.GetAllUserAuthorityIds(result.Data.Id);
+                SetFormsAuthentication(result.Data);
+                CacheHelper.SetCache(CacheHelper.GetPermissionCacheKey(result.Data.Id), authorityIds, Cache.NoAbsoluteExpiration, FormsAuthentication.Timeout);
                 return RedirectToLocal(returnUrl);
             }
             else
@@ -56,6 +62,30 @@ namespace VLTest2015.Controllers
                         return View(model);
                 }
             }
+        }
+
+        /// <summary>
+        /// 设置认证信息缓存
+        /// </summary>
+        /// <param name="user"></param>
+        private void SetFormsAuthentication(User user)
+        {
+            DateTime expiration = DateTime.Now.Add(FormsAuthentication.Timeout);
+            FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(
+                1, //指定版本号：可随意指定
+                user.Name, //登录用户名：对应 Web.config 中 <allow users="Admin" … /> 的 users 属性
+                DateTime.Now, //发布时间
+                expiration, //失效时间
+                true, //是否为持久 Cookie
+                user.Id.ToString(),
+                //用户数据：可用 ((System.Web.Security.FormsIdentity)(HttpContext.Current.User.Identity)).Ticket.UserData 获取
+                FormsAuthentication.FormsCookiePath); //指定 Cookie 为 Web.config 中 <forms path="/" … /> path 属性，不指定则默认为“/”
+
+            //声明一个 Cookie，名称为 Web.config 中 <forms name=".APSX" … /> 的 name 属性，对应的值为身份验票加密后的字串
+            var authCookie = FormsAuthentication.GetAuthCookie(FormsAuthentication.FormsCookieName, false);
+            authCookie.Value = FormsAuthentication.Encrypt(ticket);
+            authCookie.Expires = expiration; //此句非常重要，少了的话，就算此 Cookie 在身份验票中指定为持久性 Cookie ，也只是即时型的 Cookie 关闭浏览器后就失效；
+            System.Web.HttpContext.Current.Response.Cookies.Add(authCookie);
         }
 
         //
@@ -76,9 +106,9 @@ namespace VLTest2015.Controllers
             if (ModelState.IsValid)
             {
                 var result = _userService.Register(model.UserName, model.Password);
-                if (result.Data > 0)
+                if (result.Status)
                 {
-                    _userService.PasswordSignIn(model.UserName, model.Password, false, false);
+                    _userService.PasswordSignIn(model.UserName, model.Password, false);
 
                     // 有关如何启用帐户确认和密码重置的详细信息，请访问 http://go.microsoft.com/fwlink/?LinkID=320771
                     // 发送包含此链接的电子邮件
@@ -86,6 +116,9 @@ namespace VLTest2015.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "确认你的帐户", "请通过单击 <a href=\"" + callbackUrl + "\">這裏</a>来确认你的帐户");
 
+                    var authorityIds = _userService.GetAllUserAuthorityIds(result.Data.Id);
+                    SetFormsAuthentication(result.Data);
+                    CacheHelper.SetCache(CacheHelper.GetPermissionCacheKey(result.Data.Id), authorityIds, Cache.NoAbsoluteExpiration, FormsAuthentication.Timeout);
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result.ErrorMessage);

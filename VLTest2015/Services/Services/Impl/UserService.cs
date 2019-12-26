@@ -22,7 +22,7 @@ namespace VLTest2015.Services
             _roleAuthorityRepository = new RoleAuthorityRepository(_connection);
         }
 
-        public ResponseResult<long> Register(string userName, string password)
+        public ResponseResult<User> Register(string userName, string password)
         {
             var hashPassword = MD5Helper.GetHashValue(password);
             User user = new User()
@@ -33,17 +33,17 @@ namespace VLTest2015.Services
             var result = _userRepository.GetBy(user.Name);
             if (result != null)
             {
-                return new ResponseResult<long>()
+                return new ResponseResult<User>()
                 {
                     ErrorCode = -1,
                     ErrorMessage = "用户名已存在",
                 };
             }
-            var id = _userRepository.Insert(user);
-            return new ResponseResult<long>(id);
+            user.Id = _userRepository.Insert(user);     
+            return new ResponseResult<User>(user);
         }
 
-        public ResponseResult<long> PasswordSignIn(string userName, string password, bool rememberMe, bool shouldLockout)
+        public ResponseResult<User> PasswordSignIn(string userName, string password, bool shouldLockout)
         {
             var hashPassword = MD5Helper.GetHashValue(password);
             User user = new User()
@@ -54,13 +54,14 @@ namespace VLTest2015.Services
             var result = _userRepository.GetBy(user.Name, user.Password);
             if (result == null)
             {
-                return new ResponseResult<long>()
+                return new ResponseResult<User>()
                 {
+                    Status= false,
                     ErrorCode = -1,
                     ErrorMessage = "用户名不存在或与密码不匹配",
                 };
             }
-            return new ResponseResult<long>(result.Id);
+            return new ResponseResult<User>(result);
         }
 
         public ResponseResult<bool> EditUserAuthorities(long userId, IEnumerable<long> authorityIds)
