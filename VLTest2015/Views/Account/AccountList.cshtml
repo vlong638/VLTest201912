@@ -8,8 +8,12 @@
     <a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#dlg').dialog('close')">分配权限</a>
 </div>
 @*列表*@
-<table id="dg" style="width:900px;height:550px;" url="GetUsersData">
-</table>
+<dic id="list">
+    <span>用户名:</span>
+    <input id="in_userName" style="line-height:26px;border:1px solid #ccc"/>
+    <a href="#" class="easyui-linkbutton" plain="true" onclick="doSearch()">搜索</a>
+    <table id="dg" style="width:900px;height:550px;" url="GetUsersData"></table>
+</dic>
 @*弹窗-分配角色*@
 <div id="dlg" class="easyui-dialog" title="Basic Dialog" data-options="closed:true,kiconCls:'icon-save'" style="width:550px;height:550px;">
     <table id="tt" class="easyui-datagrid" 
@@ -26,6 +30,12 @@
 </div>
 @*脚本*@
 <script type="text/javascript">
+    function doSearch()
+    {
+        $("#dg").datagrid('load', {
+            username: $('#in_userName').val()
+        });
+    }
     $(function () {
         $("#dg").datagrid({
             pagination: true,

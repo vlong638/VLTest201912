@@ -90,6 +90,12 @@ select ur.UserId,r.Name as RoleName from [Role] r
 left join [UserRole] ur on ur.RoleId = r.Id
 where ur.UserId in (1,3);
 
+--用户列表搜索
+select Id,Name from [User]
+where  Name like '%1%' 
+order by Id offset 0 rows fetch next 3 rows only 
+
+
 
 
 

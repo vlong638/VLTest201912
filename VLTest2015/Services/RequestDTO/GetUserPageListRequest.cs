@@ -15,14 +15,14 @@ namespace VLTest2015.Services
 
         public override string GetWhereCondition()
         {
-            return string.IsNullOrEmpty(UserName) ? "" : " UserName like '%@UserName%' ";
+            return string.IsNullOrEmpty(UserName) ? "" : " Name like @UserName ";
         }
 
         public override Dictionary<string, object> GetParameters()
         {
             return new Dictionary<string, object>()
             {
-                { nameof(UserName),UserName}
+                { nameof(UserName),$"%{UserName}%"}
             };
         }
     }
