@@ -144,8 +144,12 @@ namespace VLTest2015.Controllers
 
                     #region 登录缓存处理
 
-                    SetFormsAuthentication(user);
-                    CacheHelper.SetCache(CacheHelper.GetPermissionCacheKey(user.Id), authorityIds, Cache.NoAbsoluteExpiration, FormsAuthentication.Timeout);
+                    SetCurrentUser(new CurrentUser()
+                    {
+                        UserId = user.Id,
+                        UserName = user.Name,
+                        AuthorityIds = authorityIds.ToArray(),
+                    });
 
                     #endregion
 
