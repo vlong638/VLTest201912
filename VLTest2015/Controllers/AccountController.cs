@@ -132,7 +132,7 @@ namespace VLTest2015.Controllers
                 if (result.Status)
                 {
                     var user = _userService.PasswordSignIn(model.UserName, model.Password, false).Data;
-                    var authorityIds = _userService.GetAllUserAuthorityIds(user.Id);
+                    var authorityIds = _userService.GetAllUserAuthorityIds(user.Id).Data;
 
                     #region 邮箱二次确认
                     // 有关如何启用帐户确认和密码重置的详细信息，请访问 http://go.microsoft.com/fwlink/?LinkID=320771

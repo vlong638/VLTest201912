@@ -1,4 +1,6 @@
-﻿namespace VLTest2015.Services
+﻿using System;
+
+namespace VLTest2015.Services
 {
     /// <summary>
     /// 返回结果
