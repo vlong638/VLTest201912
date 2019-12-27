@@ -86,29 +86,15 @@ namespace VLTest2015.Controllers
 
             return View();
         }
-
-        /// <summary>
-        /// 设置认证信息缓存
-        /// </summary>
-        /// <param name="user"></param>
-        private void SetFormsAuthentication(User user)
+        
+        //
+        // POST: /Account/LogOff
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult LogOff()
         {
-            DateTime expiration = DateTime.Now.Add(FormsAuthentication.Timeout);
-            FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(
-                1, //指定版本号：可随意指定
-                user.Name, //登录用户名：对应 Web.config 中 <allow users="Admin" … /> 的 users 属性
-                DateTime.Now, //发布时间
-                expiration, //失效时间
-                true, //是否为持久 Cookie
-                user.Id.ToString(),
-                //用户数据：可用 ((System.Web.Security.FormsIdentity)(HttpContext.Current.User.Identity)).Ticket.UserData 获取
-                FormsAuthentication.FormsCookiePath); //指定 Cookie 为 Web.config 中 <forms path="/" … /> path 属性，不指定则默认为“/”
-
-            //声明一个 Cookie，名称为 Web.config 中 <forms name=".APSX" … /> 的 name 属性，对应的值为身份验票加密后的字串
-            var authCookie = FormsAuthentication.GetAuthCookie(FormsAuthentication.FormsCookieName, false);
-            authCookie.Value = FormsAuthentication.Encrypt(ticket);
-            authCookie.Expires = expiration; //此句非常重要，少了的话，就算此 Cookie 在身份验票中指定为持久性 Cookie ，也只是即时型的 Cookie 关闭浏览器后就失效；
-            System.Web.HttpContext.Current.Response.Cookies.Add(authCookie);
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
         }
 
         //
