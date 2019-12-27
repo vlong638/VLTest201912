@@ -16,5 +16,23 @@ namespace VLTest2015.Services
         {
             _connection.Dispose();
         }
+
+        public ResponseResult<T> Success<T>(T data)
+        {
+            return new ResponseResult<T>()
+            {
+                Data = data,
+                Status = true,
+            };
+        }
+        public ResponseResult<T> Error<T>(string errorMessage = "", int errorCode = -1)
+        {
+            return new ResponseResult<T>()
+            {
+                Status = false,
+                ErrorCode = errorCode,
+                ErrorMessage = errorMessage,
+            };
+        }
     }
 }

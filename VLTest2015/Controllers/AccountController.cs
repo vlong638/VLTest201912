@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Security.Principal;
@@ -86,7 +87,25 @@ namespace VLTest2015.Controllers
 
             return View();
         }
-        
+
+        public ActionResult AccountList()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult GetUsersData(GetUserPageListRequest request)
+        {
+            var users = _userService.GetUserPageList(request).Data;
+            var roles = _userService.GetUserRoleInfo(users.Data.Select(c => c.Id));
+            IEnumerable<GetUsersDataDTO> result = users.Data.Select(c => new GetUsersDataDTO() {
+                UserId = c.Id,
+                UserName = c.Name,
+                RoleNames  = roles.Data.Where(p=>p.UserId == c.Id).Select(p=>p.RoleName)
+            });
+            return Json(new { total = users.TotalCount, rows = result }, JsonRequestBehavior.AllowGet);
+        }
+
         //
         // POST: /Account/LogOff
         [HttpPost]

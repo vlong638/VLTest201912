@@ -3,6 +3,7 @@ using System;
 using System.Data;
 using System.Linq;
 using VLTest2015.Services;
+using System.Collections.Generic;
 
 namespace VLTest2015.DAL
 {
@@ -24,6 +25,25 @@ namespace VLTest2015.DAL
             return _connection.Query<User>("select * from [User] where Name = @userName and Password = @password;"
                 , new { userName, password })
                 .FirstOrDefault();
+        }
+
+        public int GetUserPageListCount(GetUserPageListRequest paras)
+        {
+            var wheres = paras.GetWhereCondition();
+            var sql = $@"select count(*) from [User]
+{(string.IsNullOrEmpty(wheres) ? "" : "where " + wheres)}
+";
+            return _connection.ExecuteScalar<int>(sql, paras.GetParameters());
+        }
+
+        public List<User> GetUserPageListData(GetUserPageListRequest paras)
+        {
+            var wheres = paras.GetWhereCondition();
+            var sql = $@"select Id,Name from [User]
+{(string.IsNullOrEmpty(wheres) ? "" : "where " + wheres)}
+{ paras.GetLimitCondition(nameof(User.Id))}
+";
+            return _connection.Query<User>(sql, paras.GetParameters()).ToList();
         }
     }
 }

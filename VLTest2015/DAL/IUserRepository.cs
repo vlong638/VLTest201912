@@ -1,4 +1,5 @@
-﻿using VLTest2015.Services;
+﻿using System.Collections.Generic;
+using VLTest2015.Services;
 
 namespace VLTest2015.DAL
 {
@@ -18,5 +19,19 @@ namespace VLTest2015.DAL
         /// <param name="password"></param>
         /// <returns></returns>
         User GetBy(string userName, string password);
+
+        /// <summary>
+        /// 获取用户列表分页数据统计
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        int GetUserPageListCount(GetUserPageListRequest paras);
+
+        /// <summary>
+        /// 获取用户列表分页数据
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        List<User> GetUserPageListData(GetUserPageListRequest paras);
     }
 }

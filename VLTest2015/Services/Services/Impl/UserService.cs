@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using VLTest2015.DAL;
 using VLTest2015.Utils;
@@ -33,14 +34,10 @@ namespace VLTest2015.Services
             var result = _userRepository.GetBy(user.Name);
             if (result != null)
             {
-                return new ResponseResult<User>()
-                {
-                    ErrorCode = -1,
-                    ErrorMessage = "用户名已存在",
-                };
+                return Error<User>("用户名已存在");
             }
-            user.Id = _userRepository.Insert(user);     
-            return new ResponseResult<User>(user);
+            user.Id = _userRepository.Insert(user);
+            return Success(user);
         }
 
         public ResponseResult<User> PasswordSignIn(string userName, string password, bool shouldLockout)
@@ -54,14 +51,9 @@ namespace VLTest2015.Services
             var result = _userRepository.GetBy(user.Name, user.Password);
             if (result == null)
             {
-                return new ResponseResult<User>()
-                {
-                    Status= false,
-                    ErrorCode = -1,
-                    ErrorMessage = "用户名不存在或与密码不匹配",
-                };
+                return Error<User>("用户名不存在或与密码不匹配");
             }
-            return new ResponseResult<User>(result);
+            return Success(result);
         }
 
         public ResponseResult<bool> EditUserAuthorities(long userId, IEnumerable<long> authorityIds)
@@ -92,7 +84,21 @@ namespace VLTest2015.Services
             var userRoles = _userRoleRepository.GetBy(userId);
             var roleAuthorities = userRoles.Count() == 0 ? new List<RoleAuthority>() : _roleAuthorityRepository.GetBy(userRoles.Select(c => c.RoleId).ToArray());
             var allAuthorityIds = userAuthorities.Select(c => c.AuthorityId).Union(roleAuthorities.Select(c => c.AuthorityId)).Distinct();
-            return new ResponseResult<IEnumerable<long>>(allAuthorityIds);
+            return Success(allAuthorityIds);
+        }
+
+        public ResponseResult<PagerResponse<User>> GetUserPageList(GetUserPageListRequest request)
+        {
+            PagerResponse<User> result = new PagerResponse<User>();
+            result.TotalCount = _userRepository.GetUserPageListCount(request);
+            result.Data = _userRepository.GetUserPageListData(request);
+            return Success(result);
+        }
+
+        public ResponseResult<IEnumerable<UserRoleInfo>> GetUserRoleInfo(IEnumerable<long> userIds)
+        {
+            var result = _roleRepository.GetUserRoleInfosBy(userIds.ToArray());
+            return Success(result);
         }
     }
 }

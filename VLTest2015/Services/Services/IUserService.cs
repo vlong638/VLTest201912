@@ -43,5 +43,19 @@ namespace VLTest2015.Services
         /// <param name="userId"></param>
         /// <returns></returns>
         ResponseResult<IEnumerable<long>> GetAllUserAuthorityIds(long userId);
+
+        /// <summary>
+        /// 查询分页用户列表
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        ResponseResult<PagerResponse<User>> GetUserPageList(GetUserPageListRequest request);
+
+        /// <summary>
+        /// 获取用户对应的角色列表
+        /// </summary>
+        /// <param name="enumerable"></param>
+        /// <returns></returns>
+        ResponseResult<IEnumerable<UserRoleInfo>> GetUserRoleInfo(IEnumerable<long> enumerable);
     }
 }

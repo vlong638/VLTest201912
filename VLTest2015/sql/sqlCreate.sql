@@ -74,8 +74,6 @@ index UQ_NonClu_Role_Name      --索引名称
 on [Role]([Name])        --数据表名称（建立索引的列名）
 ;
 
-
-
 use VLTest;
 select * from [User];
 select * from [Role];
@@ -83,16 +81,14 @@ select * from [RoleAuthority];
 select * from [UserRole];
 select * from [UserAuthority];
 
+--用户列表,sqlserver分页
+select * from [User]
+order by Id offset 4 rows fetch next 5 rows only;
 
-
-
-
-
-
-
-
-
-
+--用户列表,根据UserIds查找用户角色
+select ur.UserId,r.Name as RoleName from [Role] r
+left join [UserRole] ur on ur.RoleId = r.Id
+where ur.UserId in (1,3);
 
 
 
