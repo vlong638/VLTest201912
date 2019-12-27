@@ -93,6 +93,25 @@ namespace VLTest2015.Controllers
             return View();
         }
 
+        public ActionResult RoleList()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult AddRole()
+        {
+            var roles = _userService.GetAllRoles().Data;
+            return Json(new { total = roles.Count(), rows = roles }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult GetRoleList()
+        {
+            var roles = _userService.GetAllRoles().Data;
+            return Json(new { total = roles.Count(), rows = roles }, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public JsonResult GetUserPagedList(GetUserPageListRequest request)
         {

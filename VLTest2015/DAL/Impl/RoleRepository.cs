@@ -30,7 +30,7 @@ where ur.UserId in @userIds;"
 
         public IEnumerable<Role> GetAll()
         {
-            return _connection.Query<Role>("select * from [Role];");
+            return _connection.Query<Role>("select * from [Role] order by Id desc;");
         }
     }
 }
