@@ -15,8 +15,14 @@ namespace VLTest2015.DAL
         /// <summary>
         /// 根据userIds查询角色集合
         /// </summary>
-        /// <param name="v"></param>
+        /// <param name="userIds"></param>
         /// <returns></returns>
-        IEnumerable<UserRoleInfo> GetUserRoleInfosBy(long[] v);
+        IEnumerable<UserRoleInfo> GetUserRoleInfosBy(long[] userIds);
+
+        /// <summary>
+        /// 查找所有角色
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<Role> GetAll();
     }
 }

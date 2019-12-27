@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using VLTest2015.Services;
+using System;
 
 namespace VLTest2015.DAL
 {
@@ -16,8 +17,8 @@ namespace VLTest2015.DAL
         {
             return _connection.Query<UserRoleInfo>(@"select ur.UserId,r.Name as RoleName
 from [Role] r
-left join[UserRole] ur on ur.RoleId = r.Id
-where ur.UserId in @userIds"
+left join [UserRole] ur on ur.RoleId = r.Id
+where ur.UserId in @userIds;"
                 , new { userIds });
         }
 
@@ -25,6 +26,11 @@ where ur.UserId in @userIds"
         {
             return _connection.Query<Role>("select * from [Role] where Name = @name;"
                 , new { name }).FirstOrDefault();
+        }
+
+        public IEnumerable<Role> GetAll()
+        {
+            return _connection.Query<Role>("select * from [Role];");
         }
     }
 }

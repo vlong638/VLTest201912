@@ -94,16 +94,35 @@ namespace VLTest2015.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetUsersData(GetUserPageListRequest request)
+        public JsonResult GetUserPagedList(GetUserPageListRequest request)
         {
             var users = _userService.GetUserPageList(request).Data;
-            var roles = _userService.GetUserRoleInfo(users.Data.Select(c => c.Id));
-            IEnumerable<GetUsersDataDTO> result = users.Data.Select(c => new GetUsersDataDTO() {
+            var userRoles = _userService.GetRoleInfoByUserIds(users.Data.Select(c => c.Id).ToArray());
+            IEnumerable<GetUserPagedListResponse> result = users.Data.Select(c => new GetUserPagedListResponse() {
                 UserId = c.Id,
                 UserName = c.Name,
-                RoleNames  = roles.Data.Where(p=>p.UserId == c.Id).Select(p=>p.RoleName)
+                RoleNames  = userRoles.Data.Where(p=>p.UserId == c.Id).Select(p=>p.RoleName)
             });
             return Json(new { total = users.TotalCount, rows = result }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult GetUserRoleListByUser(GetUserRoleListByUserRequest request)
+        {
+            if (request.UserId<=0)
+            {
+                return Json("需选中用户");
+            }
+
+            var roles = _userService.GetAllRoles().Data;
+            var userRoles = _userService.GetRoleInfoByUserIds(request.UserId).Data;
+            IEnumerable<GetUserRoleListByUser> result = roles.Select(c => new GetUserRoleListByUser()
+            {
+                RoleId = c.Id,
+                RoleName = c.Name,
+                HasRole = userRoles.FirstOrDefault(d => d.RoleId == c.Id) != null
+            });
+            return Json(new { total = roles.Count(), rows = result }, JsonRequestBehavior.AllowGet);
         }
 
         //

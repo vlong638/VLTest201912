@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace VLTest2015.Controllers
+namespace VLTest2015.Services
 {
-    public class GetUsersDataDTO
+    public class GetUserPagedListResponse
     {
         public long UserId { set; get; }
         public string UserName { set; get; }

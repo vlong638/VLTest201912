@@ -95,10 +95,52 @@ namespace VLTest2015.Services
             return Success(result);
         }
 
-        public ResponseResult<IEnumerable<UserRoleInfo>> GetUserRoleInfo(IEnumerable<long> userIds)
+        public ResponseResult<IEnumerable<UserRoleInfo>> GetRoleInfoByUserIds(params long[] userIds)
         {
-            var result = _roleRepository.GetUserRoleInfosBy(userIds.ToArray());
+            var result = _roleRepository.GetUserRoleInfosBy(userIds);
             return Success(result);
+        }
+
+        public ResponseResult<long> CreateRole(string roleName)
+        {
+            Role role = new Role()
+            {
+                Name = roleName,
+            };
+            var result = _roleRepository.GetBy(role.Name);
+            if (result != null)
+            {
+                return new ResponseResult<long>()
+                {
+                    ErrorCode = -1,
+                    ErrorMessage = "角色名称已存在",
+                };
+            }
+            var id = _roleRepository.Insert(role);
+            return Success(id);
+        }
+
+        public ResponseResult<bool> EditRoleAuthorities(long roleId, IEnumerable<long> authorityIds)
+        {
+            return _connection.DelegateTransaction(() =>
+            {
+                _roleAuthorityRepository.DeleteBy(roleId);
+                var roleAuthorities = authorityIds.Select(c => new RoleAuthority() { RoleId = roleId, AuthorityId = c }).ToArray();
+                _roleAuthorityRepository.Insert(roleAuthorities);
+                return true;
+            });
+        }
+
+        public ResponseResult<IEnumerable<long>> GetRoleAuthorityIds(long roleId)
+        {
+            var roleAuthorities = _roleAuthorityRepository.GetBy(roleId);
+            return Success(roleAuthorities.Select(c => c.AuthorityId));
+        }
+
+        public ResponseResult<IEnumerable<Role>> GetAllRoles()
+        {
+            var roles = _roleRepository.GetAll();
+            return Success(roles);
         }
     }
 }

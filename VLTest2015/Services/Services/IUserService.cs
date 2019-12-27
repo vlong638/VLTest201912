@@ -56,6 +56,33 @@ namespace VLTest2015.Services
         /// </summary>
         /// <param name="enumerable"></param>
         /// <returns></returns>
-        ResponseResult<IEnumerable<UserRoleInfo>> GetUserRoleInfo(IEnumerable<long> enumerable);
+        ResponseResult<IEnumerable<UserRoleInfo>> GetRoleInfoByUserIds(params long[] enumerable);
+
+        /// <summary>
+        /// 创建角色
+        /// </summary>
+        /// <param name="roleName"></param>
+        /// <returns>Id</returns>
+        ResponseResult<long> CreateRole(string roleName);
+
+        /// <summary>
+        /// 编辑角色权限
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <param name="authorityIds"></param>
+        /// <returns></returns>
+        ResponseResult<bool> EditRoleAuthorities(long roleId, IEnumerable<long> authorityIds);
+
+        /// <summary>
+        /// 查询角色当前权限
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        ResponseResult<IEnumerable<long>> GetRoleAuthorityIds(long roleId);
+
+        /// <summary>
+        /// 查询所有角色
+        /// </summary>
+        ResponseResult<IEnumerable<Role>> GetAllRoles();
     }
 }

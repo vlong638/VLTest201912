@@ -203,6 +203,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Attributes\VLAuthentication.cs" />
+    <Compile Include="Class1.cs" />
     <Compile Include="Services\BO\UserRoleInfo.cs" />
     <Compile Include="Services\Common\DbConnectionEx.cs" />
     <Compile Include="Services\Common\ResponseResult.cs" />
@@ -231,7 +232,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Common\PagerResponse.cs" />
     <Compile Include="Services\Common\PagerRequest.cs" />
-    <Compile Include="Controllers\DTO\GetUsersDataDTO.cs" />
+    <Compile Include="Services\ResponseDTO\GetUserRoleListByUser.cs" />
+    <Compile Include="Services\ResponseDTO\GetUserPagedListResponse.cs" />
     <Compile Include="Services\Entities\Role.cs" />
     <Compile Include="Services\Entities\RoleAuthority.cs" />
     <Compile Include="Services\Entities\User.cs" />
@@ -239,10 +241,9 @@
     <Compile Include="Services\Entities\UserRole.cs" />
     <Compile Include="Services\Enums\Authority.cs" />
     <Compile Include="Services\RequestDTO\GetUserPageListRequest.cs" />
+    <Compile Include="Services\RequestDTO\GetUserRolePagedListByUserRequest.cs" />
     <Compile Include="Services\Services\Impl\BaseService.cs" />
-    <Compile Include="Services\Services\Impl\RoleService.cs" />
     <Compile Include="Services\Services\Impl\UserService.cs" />
-    <Compile Include="Services\Services\IRoleService.cs" />
     <Compile Include="Services\Services\IUserService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utils\CacheHelper.cs" />
