@@ -1,6 +1,12 @@
 ﻿@{
     ViewBag.Title = "角色列表";
 }
+@*功能條*@
+<div id="toolbar">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">New User</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">Edit User</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUser()">Remove User</a>
+</div>
 @*列表*@
 <dic id="list">
     <div style="margin-top:5px">
@@ -14,16 +20,12 @@
     </div>
 </dic>
 @*弹窗-添加角色*@
-<div id="dlg_add" class="easyui-dialog" title="Basic Dialog" data-options="closed:true,kiconCls:'icon-save'" style="width:550px;height:550px;">
-    <form id="fm_add" method="post" novalidate style="margin:0;padding:20px 50px">
+<div id="dlg_add" class="easyui-dialog" style="width:400px" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'" title="添加角色">
+    <form id="fm" method="post" novalidate style="margin:0;padding:20px 50px">
         <div style="margin-bottom:10px">
-            <input name="RoleName" class="easyui-textbox" required label="角色名称:" style="width:100%">
+            <label>角色名称：</label><input name="firstname" class="easyui-textbox" style="width:100%">
         </div>
     </form>
-    <div id="dlg-buttons">
-        <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveRole()" style="width:90px">Save</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript: $('#fm_add').dialog('close')" style="width:90px">Cancel</a>
-    </div>
 </div>
 @*弹窗-编辑角色权限*@
 <div id="dlg_edit" class="easyui-dialog" title="Basic Dialog" data-options="closed:true,kiconCls:'icon-save'" style="width:550px;height:550px;">
@@ -43,8 +45,8 @@
             //pageSize: 3,
             //pageList: [3,10,20,50],
             columns: [[
-              { field: 'RoleId', hidden:'true' },
-              { field: 'RoleName', title: '名称', width: 100, halign: 'center', align: 'left' },
+                { field: 'RoleId', hidden: 'true' },
+                { field: 'RoleName', title: '名称', width: 100, halign: 'center', align: 'left' },
             ]]
         });
     });
@@ -62,7 +64,7 @@
                         msg: result.errorMsg
                     });
                 } else {
-                    $('#dlg').dialog('close'); 
+                    $('#dlg').dialog('close');
                     $('#dg').datagrid('reload');
                 }
             }
