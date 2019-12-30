@@ -14,7 +14,7 @@
         </div>
     </div>
     <div style="margin-top:5px">
-        <table id="dg_role" style="width:900px;height:550px;" url="GetRoleList"></table>
+        <table id="dg_role" style="width:900px;height:500px;" url="GetRoleList"></table>
     </div>
 </dic>
 @*弹窗-添加角色*@
@@ -33,7 +33,7 @@
     </form>
 </div>
 @*弹窗-编辑角色权限*@
-<div id="dlg_edit" class="easyui-dialog" style="width:550px;height:550px;" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'" title="编辑角色权限">
+<div id="dlg_edit" class="easyui-dialog" style="width:250px;height:550px;" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'" title="编辑角色权限">
     <table id="dg_roleauthority" style="width:100%;height:90%;"></table>
     <div style="text-align:center;padding-top:10px;">
         <a href="javascript:void(0)" class="easyui-linkbutton" onclick="editRoleCommit()" style="width:80px">提交</a>
@@ -49,7 +49,7 @@
     $(function () {
         $("#dg_role").datagrid({
             pagination: false,
-            rownumbers: false,
+            rownumbers: true,
             singleSelect: true,
             remoteSort: false,
             fitColumns: false,
@@ -61,6 +61,7 @@
             columns: [[
                 { field: 'Id', hidden: 'true' },
                 { field: 'Name', title: '名称', width: 100, halign: 'center', align: 'left' },
+                //{ field: 'RolesStr', title: '角色', width: 400, halign: 'center', align: 'left' },
             ]]
         });
     });
@@ -93,14 +94,13 @@
                 columns: [[
                   { field: 'IsChecked', checkbox: true },
                   { field: 'Id', hidden: 'true' },
-                  { field: 'Name', title: '角色名称', width: 200, halign: 'center', align: 'left' },
+                  { field: 'Name', title: '权限名称', width: 200, halign: 'center', align: 'left' },
                 ]],
                 queryParams: { RoleId: row.Id },
                 onLoadSuccess:function(data){                   
                     if (data) {
                         $.each(data.rows, function (index, item) {
-                            item.checked = item.IsChecked;
-                            if (item.checked) {
+                            if (item.IsChecked) {
                                 $('#dg_roleauthority').datagrid('checkRow', index);
                             }
                         });
@@ -120,8 +120,6 @@
         }
         $('#authorityIds').val(ids);
         var id = $('#roleId').val();
-        //alert(id);
-        //alert(ids);
         $.ajax({
             url: "EditRoleAuthority",
             type: "POST",

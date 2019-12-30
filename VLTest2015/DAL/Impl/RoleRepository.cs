@@ -15,7 +15,7 @@ namespace VLTest2015.DAL
 
         public IEnumerable<UserRoleInfo> GetUserRoleInfosBy(long[] userIds)
         {
-            return _connection.Query<UserRoleInfo>(@"select ur.UserId,r.Name as RoleName
+            return _connection.Query<UserRoleInfo>(@"select ur.UserId,ur.RoleId,r.Name as RoleName
 from [Role] r
 left join [UserRole] ur on ur.RoleId = r.Id
 where ur.UserId in @userIds;"

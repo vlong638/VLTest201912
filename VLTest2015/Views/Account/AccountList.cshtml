@@ -18,12 +18,20 @@
         </div>
     </div>
     <div style="margin-top:3px;">
-        <table id="dg_user" style="width:900px;height:550px;" url="GetUserPagedList"></table>
+        <table id="dg_user" style="width:900px;height:500px;" url="GetUserPagedList"></table>
     </div>
 </dic>
 @*弹窗-分配角色*@
-<div id="dlg" class="easyui-dialog" title="Basic Dialog" data-options="closed:true,kiconCls:'icon-save'" style="width:550px;height:550px;">
-    <table id="dg_userrole" style="width:100%;height:100%;"></table>
+<div id="dlg_edit" class="easyui-dialog" style="width:250px;height:550px;" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'" title="分配角色">
+    <table id="dg_userrole" style="width:100%;height:90%;"></table>
+    <div style="text-align:center;padding-top:10px;">
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="editUserRoleCommit()" style="width:80px">提交</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#dlg_edit').dialog('close');" style="width:80px">取消</a>
+    </div>
+    <form id="fm_edit" method="post">
+        <input id="userId" name="userId" type="hidden" />
+        <input id="roleIds" name="roleIds" type="hidden" />
+    </form>
 </div>
 @*脚本*@
 <script type="text/javascript">
@@ -55,16 +63,54 @@
     function editUserRole() {
         var row = $('#dg_user').datagrid('getSelected');
         if (row) {
-            $('#dlg').dialog('open').dialog('center').dialog('setTitle', '分配角色');
+            $('#dlg_edit').dialog('open').dialog('center');
             $("#dg_userrole").datagrid({
                 url: 'GetUserRoleListByUser',
                 columns: [[
                   { field: 'IsChecked', checkbox: true },
                   { field: 'Id', hidden: 'true' },
-                  { field: 'Name', title: '角色名称', width: 100, halign: 'center', align: 'left' },
+                  { field: 'Name', title: '角色名称', width: 200, halign: 'center', align: 'left' },
                 ]],
                 queryParams: { UserId: row.UserId },
+                onLoadSuccess: function (data) {
+                    if (data) {
+                        $.each(data.rows, function (index, item) {
+                            if (item.IsChecked) {
+                                $('#dg_userrole').datagrid('checkRow', index);
+                            }
+                        });
+                    };
+                }
             });
+            $('#userId').val(row.UserId);
+            //alert($('#userId').val());
         }
+    }
+    function editUserRoleCommit() {
+        var rows = $('#dg_userrole').datagrid('getSelections');
+        var roleIds = [];
+        for (var i = 0; i < rows.length; i++) {
+            roleIds.push(rows[i].Id);
+        }
+        $('#authorityIds').val(roleIds);
+        var userId = $('#userId').val();
+        $.ajax({
+            url: "EditUserRole",
+            type: "POST",
+            data: { 'userId': userId, 'roleIds': roleIds },
+            success: function (result) {
+                if (result.errorMsg) {
+                    $.messager.show({
+                        title: 'Error',
+                        msg: result.errorMsg
+                    });
+                } else {
+                    $('#dlg_edit').dialog('close');
+                    $("#dg_user").datagrid('load', {
+                        username: $('#in_username').val()
+                    });
+                }
+            }
+        });
     }
 </script>

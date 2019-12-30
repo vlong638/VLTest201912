@@ -114,6 +114,13 @@ namespace VLTest2015.Controllers
         }
 
         [HttpPost]
+        public JsonResult EditUserRole(long userId, long[] roleIds)
+        {
+            var result = _userService.EditUserRoles(userId, roleIds);
+            return Json(new { errorMsg = result.ErrorMessage }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
         public JsonResult EditRoleAuthority(long roleId, long[] authorityIds)
         {
             var result = _userService.EditRoleAuthorities(roleId, authorityIds);
