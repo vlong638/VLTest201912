@@ -93,9 +93,9 @@ namespace VLTest2015.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetRoleAuthorities(GetRoleAuthoritiesRequest request)
+        public JsonResult GetRoleAuthorities(long roleId)
         {
-            if (request.RoleId <= 0)
+            if (roleId <= 0)
             {
                 return Json("需选中角色");
             }
@@ -103,11 +103,6 @@ namespace VLTest2015.Controllers
             var authorities = EnumHelper.GetAllEnums<Authority>();
             var result = authorities.Select(c => new IdNameResponse() { Id = (int)c, Name = c.GetDescription() });
             return Json(new { total = authorities.Count(), rows = result }, JsonRequestBehavior.AllowGet);
-        }
-
-        public class GetRoleAuthoritiesRequest
-        {
-            public long RoleId { set; get; }
         }
 
         [HttpPost]
@@ -120,14 +115,8 @@ namespace VLTest2015.Controllers
         [HttpPost]
         public JsonResult GetRoleList()
         {
-            var roles = _userService.GetAllRoles().Data.Select(c => new GetRoleListResponse() { RoleId = c.Id, RoleName = c.Name });
+            var roles = _userService.GetAllRoles().Data.Select(c => new IdNameResponse() { Id = c.Id, Name = c.Name });
             return Json(new { total = roles.Count(), rows = roles }, JsonRequestBehavior.AllowGet);
-        }
-
-        public class GetRoleListResponse
-        {
-            public long RoleId { set; get; }
-            public string RoleName { set; get; }
         }
 
         [HttpPost]
