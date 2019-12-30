@@ -98,11 +98,17 @@ namespace VLTest2015.Controllers
             return View();
         }
 
-        [HttpPost]
-        public JsonResult AddRole()
+        public class AddRoleRequest
         {
-            var roles = _userService.GetAllRoles().Data;
-            return Json(new { total = roles.Count(), rows = roles }, JsonRequestBehavior.AllowGet);
+            public string RoleName { set; get; }
+
+        }
+
+        [HttpPost]
+        public JsonResult AddRole(AddRoleRequest request)
+        {
+            var result = _userService.CreateRole(request.RoleName);
+            return Json(new { errorMsg = "" }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
