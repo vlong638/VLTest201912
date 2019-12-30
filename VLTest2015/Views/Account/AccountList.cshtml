@@ -9,7 +9,7 @@
 <dic id="list">
     <div style="margin-top:5px">
         <div id="toolbar" style="display:inline;margin-right:20px;">
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="EditUserRole()">分配角色</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="editUserRole()">分配角色</a>
         </div>
         <div style="display:inline;">
             <span>用户名:</span>
@@ -52,17 +52,16 @@
             ]]
         });
     });
-    function EditUserRole() {
+    function editUserRole() {
         var row = $('#dg_user').datagrid('getSelected');
         if (row) {
             $('#dlg').dialog('open').dialog('center').dialog('setTitle', '分配角色');
             $("#dg_userrole").datagrid({
                 url: 'GetUserRoleListByUser',
-                UserId: row.UserId,
                 columns: [[
-                  { field: 'HasRole', checkbox: true },
-                  { field: 'RoleId', hidden: 'true' },
-                  { field: 'RoleName', title: '角色名称', width: 100, halign: 'center', align: 'left' },
+                  { field: 'IsChecked', checkbox: true },
+                  { field: 'Id', hidden: 'true' },
+                  { field: 'Name', title: '角色名称', width: 100, halign: 'center', align: 'left' },
                 ]],
                 queryParams: { UserId: row.UserId },
             });

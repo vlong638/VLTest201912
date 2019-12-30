@@ -10,7 +10,7 @@
     <div style="margin-top:5px">
         <div id="toolbar" style="display:inline;margin-right:20px;">
             <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="$('#dlg_add').dialog('open')">添加角色</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="$('#dlg_edit').dialog('open')">编辑角色权限</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editRole()">编辑角色权限</a>
         </div>
     </div>
     <div style="margin-top:5px">
@@ -27,13 +27,14 @@
             </div>
         </div>
         <div style="text-align:center;padding:0 0 0 10">
-            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveRole()" style="width:80px">提交</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveRoleCommit()" style="width:80px">提交</a>
             <a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#dlg_add').dialog('close');" style="width:80px">取消</a>
         </div>
     </form>
 </div>
 @*弹窗-编辑角色权限*@
-<div id="dlg_edit" class="easyui-dialog" title="Basic Dialog" data-options="closed:true,kiconCls:'icon-save'" style="width:550px;height:550px;">
+<div id="dlg_edit" class="easyui-dialog" style="width:550px;height:550px;" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'" title="编辑角色权限">
+    <table id="dg_roleauthority" style="width:100%;height:100%;"></table>
 </div>
 @*脚本*@
 <script type="text/javascript">
@@ -50,12 +51,12 @@
             //pageSize: 3,
             //pageList: [3,10,20,50],
             columns: [[
-                { field: 'Id', hidden: 'true' },
-                { field: 'Name', title: '名称', width: 100, halign: 'center', align: 'left' },
+                { field: 'RoleId', hidden: 'true' },
+                { field: 'RoleName', title: '名称', width: 100, halign: 'center', align: 'left' },
             ]]
         });
     });
-    function saveRole() {
+    function saveRoleCommit() {
         $('#fm_add').form('submit', {
             url: "AddRole",
             onSubmit: function () {
@@ -74,5 +75,20 @@
                 }
             },
         });
+    }
+    function editRole() {
+        var row = $('#dg_role').datagrid('getSelected');
+        if (row) {
+            $('#dlg_edit').dialog('open').dialog('center').dialog('setTitle', '编辑角色权限');
+            $("#dg_roleauthority").datagrid({
+                url: 'GetRoleAuthorities',
+                columns: [[
+                  { field: 'IsChecked', checkbox: true },
+                  { field: 'Id', hidden: 'true' },
+                  { field: 'Name', title: '角色名称', width: 200, halign: 'center', align: 'left' },
+                ]],
+                queryParams: { RoleId: row.RoleId },
+            });
+        }
     }
 </script>
