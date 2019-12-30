@@ -39,6 +39,10 @@
         <a href="javascript:void(0)" class="easyui-linkbutton" onclick="editRoleCommit()" style="width:80px">提交</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#dlg_edit').dialog('close');" style="width:80px">取消</a>
     </div>
+    <form id="fm_edit" method="post">
+        <input id="roleId" name="roleId" type="hidden" />
+        <input id="authorityIds" name="authorityIds" type="hidden" />
+    </form>
 </div>
 @*脚本*@
 <script type="text/javascript">
@@ -92,7 +96,19 @@
                   { field: 'Name', title: '角色名称', width: 200, halign: 'center', align: 'left' },
                 ]],
                 queryParams: { RoleId: row.Id },
+                onLoadSuccess:function(data){                   
+                    if (data) {
+                        $.each(data.rows, function (index, item) {
+                            item.checked = item.IsChecked;
+                            if (item.checked) {
+                                $('#dg_roleauthority').datagrid('checkRow', index);
+                            }
+                        });
+                    };
+                }
             });
+            $('#roleId').val(row.Id);
+            //alert($('#roleId').val());
         }
     }
     function editRoleCommit()
@@ -102,6 +118,24 @@
         for (var i = 0; i < rows.length; i++) {
             ids.push(rows[i].Id);
         }
-        alert(ids);
+        $('#authorityIds').val(ids);
+        var id = $('#roleId').val();
+        //alert(id);
+        //alert(ids);
+        $.ajax({
+            url: "EditRoleAuthority",
+            type: "POST",
+            data: { 'roleId': id, 'authorityIds': ids },
+            success: function (result) {
+                if (result.errorMsg) {
+                    $.messager.show({
+                        title: 'Error',
+                        msg: result.errorMsg
+                    });
+                } else {
+                    $('#dlg_edit').dialog('close');
+                }
+            }
+        });
     }
 </script>

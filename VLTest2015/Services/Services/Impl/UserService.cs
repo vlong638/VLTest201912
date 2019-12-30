@@ -16,11 +16,11 @@ namespace VLTest2015.Services
 
         public UserService()
         {
-            _userRepository = new UserRepository(_connection);
-            _userAuthorityRepository = new UserAuthorityRepository(_connection);
-            _userRoleRepository = new UserRoleRepository(_connection);
-            _roleRepository = new RoleRepository(_connection);
-            _roleAuthorityRepository = new RoleAuthorityRepository(_connection);
+            _userRepository = new UserRepository(this);
+            _userAuthorityRepository = new UserAuthorityRepository(this);
+            _userRoleRepository = new UserRoleRepository(this);
+            _roleRepository = new RoleRepository(this);
+            _roleAuthorityRepository = new RoleAuthorityRepository(this);
         }
 
         public ResponseResult<User> Register(string userName, string password)
@@ -58,22 +58,28 @@ namespace VLTest2015.Services
 
         public ResponseResult<bool> EditUserAuthorities(long userId, IEnumerable<long> authorityIds)
         {
-            return _connection.DelegateTransaction(() =>
+            return DelegateTransaction(() =>
             {
                 _userAuthorityRepository.DeleteBy(userId);
                 var userAuthorities = authorityIds.Select(c => new UserAuthority() { UserId = userId, AuthorityId = c }).ToArray();
-                _userAuthorityRepository.Insert(userAuthorities);
+                foreach (var userAuthority in userAuthorities)
+                {
+                    userAuthority.AuthorityId = _userAuthorityRepository.Insert(userAuthority);
+                }
                 return true;
             });
         }
 
         public ResponseResult<bool> EditUserRoles(long userId, IEnumerable<long> roleIds)
         {
-            return _connection.DelegateTransaction(() =>
+            return DelegateTransaction(() =>
             {
                 _userRoleRepository.DeleteBy(userId);
                 var userRoles = roleIds.Select(c => new UserRole() { UserId = userId, RoleId = c }).ToArray();
-                _userRoleRepository.Insert(userRoles);
+                foreach (var userRole in userRoles)
+                {
+                    userRole.Id = _userRoleRepository.Insert(userRole);
+                }
                 return true;
             });
         }
@@ -122,11 +128,14 @@ namespace VLTest2015.Services
 
         public ResponseResult<bool> EditRoleAuthorities(long roleId, IEnumerable<long> authorityIds)
         {
-            return _connection.DelegateTransaction(() =>
+            return DelegateTransaction(() =>
             {
                 _roleAuthorityRepository.DeleteBy(roleId);
                 var roleAuthorities = authorityIds.Select(c => new RoleAuthority() { RoleId = roleId, AuthorityId = c }).ToArray();
-                _roleAuthorityRepository.Insert(roleAuthorities);
+                foreach (var roleAuthority in roleAuthorities)
+                {
+                    roleAuthority.Id = _roleAuthorityRepository.Insert(roleAuthority);
+                }
                 return true;
             });
         }

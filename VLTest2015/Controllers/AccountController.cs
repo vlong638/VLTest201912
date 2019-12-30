@@ -101,14 +101,22 @@ namespace VLTest2015.Controllers
             }
 
             var authorities = EnumHelper.GetAllEnums<Authority>();
-            var result = authorities.Select(c => new IdNameResponse() { Id = (int)c, Name = c.GetDescription() });
+            var roleAuthorities = _userService.GetRoleAuthorityIds(roleId).Data;
+            var result = authorities.Select(c => new CheckableIdNameResponse() { Id = (long)c, Name = c.GetDescription(), IsChecked = roleAuthorities.ToList().Contains((long)c) });
             return Json(new { total = authorities.Count(), rows = result }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public JsonResult AddRole(AddRoleRequest request)
+        public JsonResult AddRole(string roleName)
         {
-            var result = _userService.CreateRole(request.RoleName);
+            var result = _userService.CreateRole(roleName);
+            return Json(new { errorMsg = result.ErrorMessage }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult EditRoleAuthority(long roleId, long[] authorityIds)
+        {
+            var result = _userService.EditRoleAuthorities(roleId, authorityIds);
             return Json(new { errorMsg = result.ErrorMessage }, JsonRequestBehavior.AllowGet);
         }
 

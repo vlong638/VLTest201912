@@ -9,7 +9,7 @@ namespace VLTest2015.DAL
 {
     public class UserRepository : Repository<User>, IUserRepository
     {
-        public UserRepository(IDbConnection connection) : base(connection)
+        public UserRepository(BaseService service) : base(service)
         {
         }
 

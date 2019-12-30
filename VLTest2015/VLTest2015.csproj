@@ -233,7 +233,6 @@
     <Compile Include="Services\Common\PagerResponse.cs" />
     <Compile Include="Services\Common\PagerRequest.cs" />
     <Compile Include="Services\Enums\EnumHelper.cs" />
-    <Compile Include="Services\RequestDTO\AddRoleRequest.cs" />
     <Compile Include="Services\ResponseDTO\CheckableIdNameResponse.cs" />
     <Compile Include="Services\ResponseDTO\IdNameResponse.cs" />
     <Compile Include="Services\ResponseDTO\GetUserPagedListResponse.cs" />

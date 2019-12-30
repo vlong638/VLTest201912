@@ -8,14 +8,15 @@ namespace VLTest2015.DAL
 {
     public class UserAuthorityRepository : Repository<UserAuthority>, IUserAuthorityRepository
     {
-        public UserAuthorityRepository(IDbConnection connection) : base(connection)
+        public UserAuthorityRepository(BaseService service) : base(service)
         {
         }
 
         public int DeleteBy(long userId)
         {
             return _connection.Execute("delete from [UserAuthority] where UserId = @userId;"
-                , new { userId });
+                , new { userId }
+                , _transaction);
         }
 
         public IEnumerable<UserAuthority> GetBy(long userId)

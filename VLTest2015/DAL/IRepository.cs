@@ -35,13 +35,6 @@
         TEntity GetById(long id);
 
         /// <summary>
-        /// 插入多条数据
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <returns></returns>
-        int Insert(TEntity[] entitys);
-
-        /// <summary>
         /// 根据Id删除实体
         /// </summary>
         /// <param name="id"></param>

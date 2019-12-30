@@ -7,43 +7,41 @@ namespace VLTest2015.DAL
         where TEntity : class
     {
         protected IDbConnection _connection;
+        protected IDbCommand _command;
+        protected IDbTransaction _transaction { get { return _command.Transaction; } }
 
-        public Repository(IDbConnection connection)
+        public Repository(Services.BaseService service)
         {
-            this._connection = connection;
+            this._connection = service._connection;
+            this._command = service._command;
         }
 
         public long Insert(TEntity entity)
         {
-            return _connection.Insert(entity);
-        }
-
-        public int Insert(TEntity[] entitys)
-        {
-            return (int)this._connection.Insert(entitys);
+            return _connection.Insert(entity, _transaction);
         }
 
         public bool Delete(TEntity entity)
         {
-            return _connection.Delete(entity);
+            return _connection.Delete(entity, _transaction);
         }
 
         public bool DeleteById(long id)
         {
-            var entity = _connection.Get<TEntity>(id);
+            var entity = _connection.Get<TEntity>(id, _transaction);
             if (entity == null)
                 return false;
-            return _connection.Delete(entity);
+            return _connection.Delete(entity, _transaction);
         }
 
         public bool Update(TEntity entity)
         {
-            return _connection.Update(entity);
+            return _connection.Update(entity, _transaction);
         }
 
         public TEntity GetById(long id)
         {
-            return _connection.Get<TEntity>(id);
+            return _connection.Get<TEntity>(id, _transaction);
         }
     }
 }

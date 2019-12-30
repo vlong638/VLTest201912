@@ -9,7 +9,7 @@ namespace VLTest2015.DAL
 {
     public class RoleRepository : Repository<Role>, IRoleRepository
     {
-        public RoleRepository(IDbConnection connection) : base(connection)
+        public RoleRepository(BaseService service) : base(service)
         {
         }
 
