@@ -7,7 +7,7 @@ namespace VLTest2015
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            //filters.Add(new VLAuthenticationAttribute());
+            filters.Add(new VLAuthenticationAttribute());
             filters.Add(new HandleErrorAttribute());
         }
     }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
+using VLTest2015.Attributes;
 using VLTest2015.Models;
 using VLTest2015.Services;
 
@@ -52,7 +53,7 @@ namespace VLTest2015.Controllers
                 {
                     UserId = user.Id,
                     UserName = user.Name,
-                    AuthorityIds = authorityIds.ToArray(),
+                    AuthorityIds = authorityIds.ToList(),
                 });
 
                 #endregion
@@ -75,66 +76,21 @@ namespace VLTest2015.Controllers
             }
         }
 
-        public ActionResult UserInfo()
+        [AllowAnonymous]
+        public ActionResult OnError(string returnMessage)
         {
-            var currentUser = GetCurrentUser();
-
+            ViewBag.Message = returnMessage;
             return View();
         }
 
+        [VLAuthentication(Authority.ViewUserList)]
         public ActionResult AccountList()
         {
             return View();
         }
 
-        public ActionResult RoleList()
-        {
-            return View();
-        }
-
         [HttpPost]
-        public JsonResult GetRoleAuthorities(long roleId)
-        {
-            if (roleId <= 0)
-            {
-                return Json("需选中角色");
-            }
-
-            var authorities = EnumHelper.GetAllEnums<Authority>();
-            var roleAuthorities = _userService.GetRoleAuthorityIds(roleId).Data;
-            var result = authorities.Select(c => new CheckableIdNameResponse() { Id = (long)c, Name = c.GetDescription(), IsChecked = roleAuthorities.ToList().Contains((long)c) });
-            return Json(new { total = authorities.Count(), rows = result }, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpPost]
-        public JsonResult AddRole(string roleName)
-        {
-            var result = _userService.CreateRole(roleName);
-            return Json(new { errorMsg = result.ErrorMessage }, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpPost]
-        public JsonResult EditUserRole(long userId, long[] roleIds)
-        {
-            var result = _userService.EditUserRoles(userId, roleIds);
-            return Json(new { errorMsg = result.ErrorMessage }, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpPost]
-        public JsonResult EditRoleAuthority(long roleId, long[] authorityIds)
-        {
-            var result = _userService.EditRoleAuthorities(roleId, authorityIds);
-            return Json(new { errorMsg = result.ErrorMessage }, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpPost]
-        public JsonResult GetRoleList()
-        {
-            var roles = _userService.GetAllRoles().Data.Select(c => new IdNameResponse() { Id = c.Id, Name = c.Name });
-            return Json(new { total = roles.Count(), rows = roles }, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpPost]
+        [VLAuthentication(Authority.ViewUserList)]
         public JsonResult GetUserPagedList(GetUserPageListRequest request)
         {
             var users = _userService.GetUserPageList(request).Data;
@@ -148,7 +104,39 @@ namespace VLTest2015.Controllers
             return Json(new { total = users.TotalCount, rows = result }, JsonRequestBehavior.AllowGet);
         }
 
+        [VLAuthentication(Authority.ViewRoleList)]
+        public ActionResult RoleList()
+        {
+            return View();
+        }
+
         [HttpPost]
+        [VLAuthentication(Authority.ViewRoleList)]
+        public JsonResult GetRoleList()
+        {
+            var roles = _userService.GetAllRoles().Data.Select(c => new IdNameResponse() { Id = c.Id, Name = c.Name });
+            return Json(new { total = roles.Count(), rows = roles }, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpPost]
+        [VLAuthentication(Authority.AddRole)]
+        public JsonResult AddRole(string roleName)
+        {
+            var result = _userService.CreateRole(roleName);
+            return Json(new { errorMsg = result.ErrorMessage }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [VLAuthentication(Authority.EditUserRole)]
+        public JsonResult EditUserRole(long userId, long[] roleIds)
+        {
+            var result = _userService.EditUserRoles(userId, roleIds);
+            return Json(new { errorMsg = result.ErrorMessage }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [VLAuthentication(Authority.EditUserRole)]
         public JsonResult GetUserRoleListByUser(GetUserRoleListByUserRequest request)
         {
             if (request.UserId <= 0)
@@ -165,6 +153,29 @@ namespace VLTest2015.Controllers
                 IsChecked = userRoles.FirstOrDefault(d => d.RoleId == c.Id) != null
             });
             return Json(new { total = roles.Count(), rows = result }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [VLAuthentication(Authority.EditRoleAuthority)]
+        public JsonResult GetRoleAuthorities(long roleId)
+        {
+            if (roleId <= 0)
+            {
+                return Json("需选中角色");
+            }
+
+            var authorities = EnumHelper.GetAllEnums<Authority>();
+            var roleAuthorities = _userService.GetRoleAuthorityIds(roleId).Data;
+            var result = authorities.Select(c => new CheckableIdNameResponse() { Id = (long)c, Name = c.GetDescription(), IsChecked = roleAuthorities.ToList().Contains((long)c) });
+            return Json(new { total = authorities.Count(), rows = result }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [VLAuthentication(Authority.EditRoleAuthority)]
+        public JsonResult EditRoleAuthority(long roleId, long[] authorityIds)
+        {
+            var result = _userService.EditRoleAuthorities(roleId, authorityIds);
+            return Json(new { errorMsg = result.ErrorMessage }, JsonRequestBehavior.AllowGet);
         }
 
         //
@@ -214,7 +225,7 @@ namespace VLTest2015.Controllers
                     {
                         UserId = user.Id,
                         UserName = user.Name,
-                        AuthorityIds = authorityIds.ToArray(),
+                        AuthorityIds = authorityIds.ToList(),
                     });
 
                     #endregion

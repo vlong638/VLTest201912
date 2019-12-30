@@ -18,7 +18,7 @@ namespace VLTest2015.DAL
 
         public IEnumerable<RoleAuthority> GetBy(long[] roleIds)
         {
-            return _connection.Query<RoleAuthority>("select * from [RoleAuthority] where RoleId in (@roleIds);"
+            return _connection.Query<RoleAuthority>("select * from [RoleAuthority] where RoleId in @roleIds;"
                 , new { roleIds });
         }
     }

@@ -1,40 +1,51 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
+using VLTest2015.Services;
 
 namespace VLTest2015.Attributes
 {
     public class VLAuthenticationAttribute : AuthorizeAttribute
     {
+        public VLAuthenticationAttribute()
+        {
+            Authorities = new List<Authority>();
+        }
+
+        public VLAuthenticationAttribute(params Authority[] authorities)
+        {
+            Authorities = authorities.ToList();
+        }
+
+        public List<Authority> Authorities { set; get; }
+
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
             var isAuth = false;
-            if (!filterContext.RequestContext.HttpContext.Request.IsAuthenticated)
+            bool flag = filterContext.ActionDescriptor.IsDefined(typeof(AllowAnonymousAttribute), true) ||
+               filterContext.ActionDescriptor.ControllerDescriptor.ControllerType.IsDefined(typeof(AllowAnonymousAttribute), true);
+            if (flag)
             {
-                isAuth = false;
+                base.OnAuthorization(filterContext);
+                return;
+            }
+            if (filterContext.RequestContext.HttpContext.Request.IsAuthenticated)
+            {
+                var currentUser = Controllers.CurrentUser.GetCurrentUser(filterContext.RequestContext.HttpContext);
+                if (Authorities.Count() == 0 || currentUser.AuthorityIds.FirstOrDefault(c => Authorities.FirstOrDefault(d => (long)d == c) > 0) > 0)
+                {
+                    isAuth = true;
+                }
             }
             else
             {
-                isAuth = true;
-
-                //if (filterContext.RequestContext.HttpContext.User.Identity != null)
-                //{
-                //    var roleApi = new RoleApi();
-                //    var actionDescriptor = filterContext.ActionDescriptor;
-                //    var controllerDescriptor = actionDescriptor.ControllerDescriptor;
-                //    var controller = controllerDescriptor.ControllerName;
-                //    var action = actionDescriptor.ActionName;
-                //    var ticket = (filterContext.RequestContext.HttpContext.User.Identity as FormsIdentity).Ticket;
-                //    var role = roleApi.GetById(ticket.Version);
-                //    if (role != null)
-                //    {
-                //        isAuth = role.Permissions.Any(x => x.Permission.Controller.ToLower() == controller.ToLower() && x.Permission.Action.ToLower() == action.ToLower());
-                //    }
-                //}
+                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "account", action = "OnError", returnMessage = "用户尚未登录." }));
+                return;
             }
             if (!isAuth)
             {
-                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "account", action = "login", returnUrl = filterContext.HttpContext.Request.Url, returnMessage = "您无权查看." }));
+                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "account", action = "OnError", returnMessage = "您无权查看." }));
                 return;
             }
             else

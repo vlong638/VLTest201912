@@ -679,7 +679,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Account\UserInfo.cshtml" />
+    <Content Include="Views\Account\OnError.cshtml" />
     <Content Include="Views\Account\AccountList.cshtml" />
     <Content Include="Views\Account\RoleList.cshtml" />
   </ItemGroup>

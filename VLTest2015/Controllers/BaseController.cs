@@ -5,10 +5,11 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using VLTest2015.Attributes;
+using VLTest2015.Services;
 
 namespace VLTest2015.Controllers
 {
-    [Authorize]
+    [VLAuthentication]
     public class BaseController : Controller
     {
         protected ActionResult RedirectToLocal(string returnUrl)
@@ -30,37 +31,14 @@ namespace VLTest2015.Controllers
 
         public void SetCurrentUser(CurrentUser currentUser, bool isRemeberMe = false)
         {
-            FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(
-                1,
-                currentUser.UserName,
-                DateTime.Now,
-                DateTime.Now.Add(FormsAuthentication.Timeout),
-                isRemeberMe,
-                currentUser.UserId.ToString() + "_" + string.Join(",", currentUser.AuthorityIds)
-                //UserData有长度限制，后续建议以Session形式存储会话数据
-            );
-            HttpCookie cookie = new HttpCookie(
-                FormsAuthentication.FormsCookieName,
-                FormsAuthentication.Encrypt(ticket));
-            Response.Cookies.Add(cookie);
+            CurrentUser.SetCurrentUser(currentUser, isRemeberMe, Response);
         }
+
 
         public CurrentUser GetCurrentUser()
         {
-            string cookieName = FormsAuthentication.FormsCookieName;
-            var authCookie = HttpContext.Request.Cookies[cookieName];
-            var authTicket = FormsAuthentication.Decrypt(authCookie.Value);
-            var userName = HttpContext.User.Identity.Name;
-            var datas = authTicket.UserData.Split('_');
-            var userId = 0L;
-            Int64.TryParse(datas[0], out userId);
-            var authorityIds = datas[1].Split(',').Select(c => Int64.Parse(c)).ToArray();
-            return new CurrentUser()
-            {
-                UserId = userId,
-                UserName = userName,
-                AuthorityIds = authorityIds,
-            };
+            var httpContext = HttpContext;
+            return CurrentUser.GetCurrentUser(httpContext);
         }
     }
 
@@ -68,10 +46,48 @@ namespace VLTest2015.Controllers
     /// 当前用户
     /// </summary>
     public class CurrentUser
-    { 
+    {
         public long UserId { set; get; }
         public string UserName { set; get; }
-        public long[] AuthorityIds { set; get; }
+        public List<long> AuthorityIds { set; get; }
+
+
+        public static void SetCurrentUser(CurrentUser currentUser, bool isRemeberMe, HttpResponseBase response)
+        {
+            var userName = currentUser.UserName;
+            var idAndAuth = currentUser.UserId.ToString() + "_" + string.Join(",", currentUser.AuthorityIds);
+            FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(
+                1,
+                userName,
+                DateTime.Now,
+                DateTime.Now.Add(FormsAuthentication.Timeout),
+                isRemeberMe,
+                idAndAuth
+            //UserData有长度限制，后续建议以Session形式存储会话数据
+            );
+            HttpCookie cookie = new HttpCookie(
+                FormsAuthentication.FormsCookieName,
+                FormsAuthentication.Encrypt(ticket));
+            response.Cookies.Add(cookie);
+        }
+
+        public static CurrentUser GetCurrentUser(HttpContextBase httpContext)
+        {
+            var cookieName = FormsAuthentication.FormsCookieName;
+            var authCookie = httpContext.Request.Cookies[cookieName];
+            var authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+            var userName = httpContext.User.Identity.Name;
+            var datas = authTicket.UserData.Split('_');
+            var userId = 0L;
+            Int64.TryParse(datas[0], out userId);
+            var authorityIds = string.IsNullOrEmpty(datas[1])?new long[0]:datas[1].Split(',').Select(c => Int64.Parse(c)).ToArray();
+            return new CurrentUser()
+            {
+                UserId = userId,
+                UserName = userName,
+                AuthorityIds = authorityIds.ToList(),
+            };
+        }
     }
 
     /// <summary>
@@ -96,7 +112,7 @@ namespace VLTest2015.Controllers
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
         /// <returns></returns>
-        T Get<T>(string key); 
+        T Get<T>(string key);
         #endregion
 
         #region （前端交互）
@@ -116,7 +132,7 @@ namespace VLTest2015.Controllers
         /// 用户退出
         /// </summary>
         /// <param name="sessionId"></param>
-        void Clear(); 
+        void Clear();
         #endregion
     }
 }

@@ -66,7 +66,7 @@ namespace VLTest2015.Services
         /// 编辑角色权限 003
         /// </summary>
         [Description("编辑角色权限")]
-        EditRole = 999002003,
+        EditRoleAuthority = 999002003,
 
         #endregion
 
