@@ -16,6 +16,7 @@ CREATE TABLE [dbo].[User](
 GO
 
 --角色建表
+drop table [dbo].[Role];
 CREATE TABLE [dbo].[Role](
 	[Id] [bigint] IDENTITY(1,2) NOT NULL,
 	[Name] [varchar](50) NOT NULL,
@@ -28,7 +29,7 @@ CREATE TABLE [dbo].[Role](
 GO
 
 --角色权限建表
---drop table [dbo].[RoleAuthority];
+drop table [dbo].[RoleAuthority];
 CREATE TABLE [dbo].[RoleAuthority](
 	[Id] [bigint] IDENTITY(1,2) NOT NULL,
 	[RoleId] [bigint] NOT NULL,
@@ -42,7 +43,7 @@ CREATE TABLE [dbo].[RoleAuthority](
 GO
 
 --用户角色建表
---drop table [dbo].[UserRole];
+drop table [dbo].[UserRole];
 CREATE TABLE [dbo].[UserRole](
 	[Id] [bigint] IDENTITY(1,2) NOT NULL,
 	[UserId] [bigint] NOT NULL,
@@ -56,7 +57,7 @@ CREATE TABLE [dbo].[UserRole](
 GO
 
 --用户权限建表
---drop table [dbo].[UserAuthority];
+drop table [dbo].[UserAuthority];
 CREATE TABLE [dbo].[UserAuthority](
 	[Id] [bigint] IDENTITY(1,2) NOT NULL,
 	[UserId] [bigint] NOT NULL,

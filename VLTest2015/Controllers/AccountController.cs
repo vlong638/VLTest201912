@@ -83,14 +83,14 @@ namespace VLTest2015.Controllers
             return View();
         }
 
-        [VLAuthentication(Authority.ViewUserList)]
+        [VLAuthentication(Authority.查看用户列表)]
         public ActionResult AccountList()
         {
             return View();
         }
 
         [HttpPost]
-        [VLAuthentication(Authority.ViewUserList)]
+        [VLAuthentication(Authority.查看用户列表)]
         public JsonResult GetUserPagedList(GetUserPageListRequest request)
         {
             var users = _userService.GetUserPageList(request).Data;
@@ -104,14 +104,14 @@ namespace VLTest2015.Controllers
             return Json(new { total = users.TotalCount, rows = result }, JsonRequestBehavior.AllowGet);
         }
 
-        [VLAuthentication(Authority.ViewRoleList)]
+        [VLAuthentication(Authority.查看角色列表)]
         public ActionResult RoleList()
         {
             return View();
         }
 
         [HttpPost]
-        [VLAuthentication(Authority.ViewRoleList)]
+        [VLAuthentication(Authority.查看角色列表)]
         public JsonResult GetRoleList()
         {
             var roles = _userService.GetAllRoles().Data.Select(c => new IdNameResponse() { Id = c.Id, Name = c.Name });
@@ -120,7 +120,7 @@ namespace VLTest2015.Controllers
 
 
         [HttpPost]
-        [VLAuthentication(Authority.AddRole)]
+        [VLAuthentication(Authority.创建角色)]
         public JsonResult AddRole(string roleName)
         {
             var result = _userService.CreateRole(roleName);
@@ -128,7 +128,7 @@ namespace VLTest2015.Controllers
         }
 
         [HttpPost]
-        [VLAuthentication(Authority.EditUserRole)]
+        [VLAuthentication(Authority.编辑用户角色)]
         public JsonResult EditUserRole(long userId, long[] roleIds)
         {
             var result = _userService.EditUserRoles(userId, roleIds);
@@ -136,7 +136,7 @@ namespace VLTest2015.Controllers
         }
 
         [HttpPost]
-        [VLAuthentication(Authority.EditUserRole)]
+        [VLAuthentication(Authority.编辑用户角色)]
         public JsonResult GetUserRoleListByUser(GetUserRoleListByUserRequest request)
         {
             if (request.UserId <= 0)
@@ -156,7 +156,7 @@ namespace VLTest2015.Controllers
         }
 
         [HttpPost]
-        [VLAuthentication(Authority.EditRoleAuthority)]
+        [VLAuthentication(Authority.编辑角色权限)]
         public JsonResult GetRoleAuthorities(long roleId)
         {
             if (roleId <= 0)
@@ -171,7 +171,7 @@ namespace VLTest2015.Controllers
         }
 
         [HttpPost]
-        [VLAuthentication(Authority.EditRoleAuthority)]
+        [VLAuthentication(Authority.编辑角色权限)]
         public JsonResult EditRoleAuthority(long roleId, long[] authorityIds)
         {
             var result = _userService.EditRoleAuthorities(roleId, authorityIds);

@@ -20,12 +20,12 @@ namespace VLTest2015.Services
         /// 查看用户分娩信息 001
         /// </summary>
         [Description("查看用户分娩信息")]
-        ViewChildBirthInfo = 001001001,
+        查看用户分娩信息 = 001001001,
         /// <summary>
         /// 搜索用户分娩信息 002
         /// </summary>
         [Description("搜索用户分娩信息")]
-        SearchChildBirthInfo = 001001002,
+        搜索用户分娩信息 = 001001002,
         #endregion
 
         #endregion
@@ -38,13 +38,13 @@ namespace VLTest2015.Services
         /// 查看用户列表 001
         /// </summary>
         [Description("查看用户列表")]
-        ViewUserList = 999001001,
+        查看用户列表 = 999001001,
 
         /// <summary>
         /// 编辑用户角色 002
         /// </summary>
         [Description("编辑用户角色")]
-        EditUserRole = 999001002,
+        编辑用户角色 = 999001002,
 
         #endregion
 
@@ -54,19 +54,19 @@ namespace VLTest2015.Services
         /// 查看角色列表 001
         /// </summary>
         [Description("查看角色列表")]
-        ViewRoleList = 999002001,
+        查看角色列表 = 999002001,
 
         /// <summary>
         /// 创建角色 002
         /// </summary>
         [Description("创建角色")]
-        AddRole = 999002002,
+        创建角色 = 999002002,
 
         /// <summary>
         /// 编辑角色权限 003
         /// </summary>
         [Description("编辑角色权限")]
-        EditRoleAuthority = 999002003,
+        编辑角色权限 = 999002003,
 
         #endregion
 
