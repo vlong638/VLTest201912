@@ -108,7 +108,7 @@ namespace VLTest2015.Controllers
         public JsonResult AddRole(AddRoleRequest request)
         {
             var result = _userService.CreateRole(request.RoleName);
-            return Json(new { errorMsg = "" }, JsonRequestBehavior.AllowGet);
+            return Json(new { errorMsg = result.ErrorMessage }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
