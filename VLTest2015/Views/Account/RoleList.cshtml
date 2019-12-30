@@ -69,27 +69,10 @@
                         msg: result.errorMsg
                     });
                 } else {
-                    $('#dlg').dialog('close');
-                    $('#dg').datagrid('reload');
+                    $('#dlg_add').dialog('close');
+                    $('#dg_role').datagrid('reload');
                 }
             },
         });
-    }
-    function EditRoleAuthority() {
-        //参考 function EditUserRole() {
-        //var row = $('#dg_user').datagrid('getSelected');
-        //if (row) {
-        //    $('#dlg').dialog('open').dialog('center').dialog('setTitle', '分配角色');
-        //    $("#dg_userrole").datagrid({
-        //        url: 'GetUserRoleListByUser',
-        //        UserId: row.UserId,
-        //        columns: [[
-        //          { field: 'HasRole', checkbox: true },
-        //          { field: 'RoleId', hidden: 'true' },
-        //          { field: 'RoleName', title: '角色名称', width: 100, halign: 'center', align: 'left' },
-        //        ]],
-        //        queryParams: { UserId: row.UserId },
-        //    });
-        //}
     }
 </script>
