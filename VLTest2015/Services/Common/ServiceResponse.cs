@@ -5,13 +5,13 @@ namespace VLTest2015.Services
     /// <summary>
     /// 返回结果
     /// </summary>
-    public class ResponseResult<T> // : IResponse
+    public class ServiceResponse<T> // : IResponse
     {
-        public ResponseResult()
+        public ServiceResponse()
         {
         }
 
-        public ResponseResult(T data)
+        public ServiceResponse(T data)
         {
             Data = data;
             Status = true;

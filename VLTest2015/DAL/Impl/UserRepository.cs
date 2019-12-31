@@ -9,7 +9,7 @@ namespace VLTest2015.DAL
 {
     public class UserRepository : Repository<User>, IUserRepository
     {
-        public UserRepository(BaseService service) : base(service)
+        public UserRepository(BaseContext context) : base(context)
         {
         }
 

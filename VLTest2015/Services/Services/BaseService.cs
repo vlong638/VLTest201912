@@ -6,33 +6,26 @@ namespace VLTest2015.Services
 {
     public class BaseService
     {
-        internal IDbConnection _connection;
-        internal IDbCommand _command;
-        internal IDbTransaction _transaction;
+        public BaseContext _context;
 
         public BaseService()
         {
-            _connection = DBHelper.GetDbConnection();
-            _command = _connection.CreateCommand();
+            //VLTODO,上下文可以以注册发现的形式实现
+            _context = new BaseContext();
         }
 
-        ~BaseService()
+        public ServiceResponse<T> Success<T>(T data)
         {
-            _command.Dispose();
-            _connection.Dispose();
-        }
-
-        public ResponseResult<T> Success<T>(T data)
-        {
-            return new ResponseResult<T>()
+            return new ServiceResponse<T>()
             {
                 Data = data,
                 Status = true,
             };
         }
-        public ResponseResult<T> Error<T>(string errorMessage = "", int errorCode = -1)
+
+        public ServiceResponse<T> Error<T>(string errorMessage = "", int errorCode = -1)
         {
-            return new ResponseResult<T>()
+            return new ServiceResponse<T>()
             {
                 Status = false,
                 ErrorCode = errorCode,
@@ -47,7 +40,7 @@ namespace VLTest2015.Services
         /// <param name="connection"></param>
         /// <param name="exec"></param>
         /// <returns></returns>
-        public ResponseResult<T> DelegateTransaction<T>(Func<T> exec)
+        public ServiceResponse<T> DelegateTransaction<T>(Func<T> exec)
         {
             _connection.Open();
             _transaction = _connection.BeginTransaction();
@@ -57,13 +50,13 @@ namespace VLTest2015.Services
                 var result = exec();
                 _transaction.Commit();
                 _connection.Close();
-                return new ResponseResult<T>(result);
+                return new ServiceResponse<T>(result);
             }
             catch (Exception ex)
             {
                 _transaction.Rollback();
                 _connection.Close();
-                return new ResponseResult<T>()
+                return new ServiceResponse<T>()
                 {
                     ErrorCode = 501,
                     ErrorMessage = ex.ToString(),

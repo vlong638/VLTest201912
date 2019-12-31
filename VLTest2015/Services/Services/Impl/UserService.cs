@@ -16,14 +16,14 @@ namespace VLTest2015.Services
 
         public UserService()
         {
-            _userRepository = new UserRepository(this);
-            _userAuthorityRepository = new UserAuthorityRepository(this);
-            _userRoleRepository = new UserRoleRepository(this);
-            _roleRepository = new RoleRepository(this);
-            _roleAuthorityRepository = new RoleAuthorityRepository(this);
+            _userRepository = new UserRepository(_context);
+            _userAuthorityRepository = new UserAuthorityRepository(_context);
+            _userRoleRepository = new UserRoleRepository(_context);
+            _roleRepository = new RoleRepository(_context);
+            _roleAuthorityRepository = new RoleAuthorityRepository(_context);
         }
 
-        public ResponseResult<User> Register(string userName, string password)
+        public ServiceResponse<User> Register(string userName, string password)
         {
             var hashPassword = MD5Helper.GetHashValue(password);
             User user = new User()
@@ -40,7 +40,7 @@ namespace VLTest2015.Services
             return Success(user);
         }
 
-        public ResponseResult<User> PasswordSignIn(string userName, string password, bool shouldLockout)
+        public ServiceResponse<User> PasswordSignIn(string userName, string password, bool shouldLockout)
         {
             var hashPassword = MD5Helper.GetHashValue(password);
             User user = new User()
@@ -56,7 +56,7 @@ namespace VLTest2015.Services
             return Success(result);
         }
 
-        public ResponseResult<bool> EditUserAuthorities(long userId, IEnumerable<long> authorityIds)
+        public ServiceResponse<bool> EditUserAuthorities(long userId, IEnumerable<long> authorityIds)
         {
             return DelegateTransaction(() =>
             {
@@ -70,7 +70,7 @@ namespace VLTest2015.Services
             });
         }
 
-        public ResponseResult<bool> EditUserRoles(long userId, IEnumerable<long> roleIds)
+        public ServiceResponse<bool> EditUserRoles(long userId, IEnumerable<long> roleIds)
         {
             return DelegateTransaction(() =>
             {
@@ -84,7 +84,7 @@ namespace VLTest2015.Services
             });
         }
 
-        public ResponseResult<IEnumerable<long>> GetAllUserAuthorityIds(long userId)
+        public ServiceResponse<IEnumerable<long>> GetAllUserAuthorityIds(long userId)
         {
             var userAuthorities = _userAuthorityRepository.GetBy(userId);
             var userRoles = _userRoleRepository.GetBy(userId);
@@ -93,7 +93,7 @@ namespace VLTest2015.Services
             return Success(allAuthorityIds);
         }
 
-        public ResponseResult<PagerResponse<User>> GetUserPageList(GetUserPageListRequest request)
+        public ServiceResponse<PagerResponse<User>> GetUserPageList(GetUserPageListRequest request)
         {
             PagerResponse<User> result = new PagerResponse<User>();
             result.TotalCount = _userRepository.GetUserPageListCount(request);
@@ -101,13 +101,13 @@ namespace VLTest2015.Services
             return Success(result);
         }
 
-        public ResponseResult<IEnumerable<UserRoleInfo>> GetRoleInfoByUserIds(params long[] userIds)
+        public ServiceResponse<IEnumerable<UserRoleInfo>> GetRoleInfoByUserIds(params long[] userIds)
         {
             var result = _roleRepository.GetUserRoleInfosBy(userIds);
             return Success(result);
         }
 
-        public ResponseResult<long> CreateRole(string roleName)
+        public ServiceResponse<long> CreateRole(string roleName)
         {
             Role role = new Role()
             {
@@ -116,7 +116,7 @@ namespace VLTest2015.Services
             var result = _roleRepository.GetBy(role.Name);
             if (result != null)
             {
-                return new ResponseResult<long>()
+                return new ServiceResponse<long>()
                 {
                     ErrorCode = -1,
                     ErrorMessage = "角色名称已存在",
@@ -126,7 +126,7 @@ namespace VLTest2015.Services
             return Success(id);
         }
 
-        public ResponseResult<bool> EditRoleAuthorities(long roleId, IEnumerable<long> authorityIds)
+        public ServiceResponse<bool> EditRoleAuthorities(long roleId, IEnumerable<long> authorityIds)
         {
             return DelegateTransaction(() =>
             {
@@ -140,13 +140,13 @@ namespace VLTest2015.Services
             });
         }
 
-        public ResponseResult<IEnumerable<long>> GetRoleAuthorityIds(long roleId)
+        public ServiceResponse<IEnumerable<long>> GetRoleAuthorityIds(long roleId)
         {
             var roleAuthorities = _roleAuthorityRepository.GetBy(roleId);
             return Success(roleAuthorities.Select(c => c.AuthorityId));
         }
 
-        public ResponseResult<IEnumerable<Role>> GetAllRoles()
+        public ServiceResponse<IEnumerable<Role>> GetAllRoles()
         {
             var roles = _roleRepository.GetAll();
             return Success(roles);

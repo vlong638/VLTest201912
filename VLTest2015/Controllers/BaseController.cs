@@ -49,6 +49,7 @@ namespace VLTest2015.Controllers
     {
         public long UserId { set; get; }
         public string UserName { set; get; }
+        public List<Authority> Authorities { set; get; }
         public List<long> AuthorityIds { set; get; }
 
 
@@ -86,6 +87,7 @@ namespace VLTest2015.Controllers
                 UserId = userId,
                 UserName = userName,
                 AuthorityIds = authorityIds.ToList(),
+                Authorities = authorityIds.Select(c=>(Authority)Enum.Parse(typeof(Authority),c.ToString())).ToList()
             };
         }
     }

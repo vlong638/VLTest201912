@@ -10,10 +10,10 @@ namespace VLTest2015.DAL
         protected IDbCommand _command;
         protected IDbTransaction _transaction { get { return _command.Transaction; } }
 
-        public Repository(Services.BaseService service)
+        public Repository(Services.BaseContext context)
         {
-            this._connection = service._connection;
-            this._command = service._command;
+            this._connection = context._connection;
+            this._command = context._command;
         }
 
         public long Insert(TEntity entity)
