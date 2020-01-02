@@ -246,7 +246,7 @@
     <Compile Include="Authentication\Authority.cs" />
     <Compile Include="Services\RequestDTO\GetUserPageListRequest.cs" />
     <Compile Include="Services\RequestDTO\GetUserRolePagedListByUserRequest.cs" />
-    <Compile Include="Services\Services\BaseContext.cs" />
+    <Compile Include="Services\Services\DbContext.cs" />
     <Compile Include="Services\Services\BaseService.cs" />
     <Compile Include="Services\Services\Impl\UserService.cs" />
     <Compile Include="Services\Services\IUserService.cs" />

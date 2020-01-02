@@ -4,19 +4,19 @@ using VLTest2015.Utils;
 
 namespace VLTest2015.Services
 {
-    public class BaseContext
+    public class DbContext
     {
         internal IDbConnection Connection;
         internal IDbCommand Command;
         internal IDbTransaction Transaction;
 
-        public BaseContext()
+        public DbContext()
         {
             Connection = DBHelper.GetDbConnection();
             Command = Connection.CreateCommand();
         }
 
-        ~BaseContext()
+        ~DbContext()
         {
             Command.Dispose();
             Connection.Dispose();

@@ -4,12 +4,12 @@ namespace VLTest2015.Services
 {
     public class BaseService
     {
-        public BaseContext _context;
+        public DbContext _context;
 
         public BaseService()
         {
             //VLTODO,上下文可以以注册发现的形式实现
-            _context = new BaseContext();
+            _context = new DbContext();
         }
 
         public ServiceResponse<T> Success<T>(T data)

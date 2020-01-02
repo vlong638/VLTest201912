@@ -9,7 +9,7 @@ namespace VLTest2015.DAL
 {
     public class RoleRepository : Repository<Role>, IRoleRepository
     {
-        public RoleRepository(BaseContext context) : base(context)
+        public RoleRepository(DbContext context) : base(context)
         {
         }
 

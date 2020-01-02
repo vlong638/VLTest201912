@@ -10,7 +10,7 @@ namespace VLTest2015.DAL
         protected IDbCommand _command;
         protected IDbTransaction _transaction { get { return _command.Transaction; } }
 
-        public Repository(Services.BaseContext context)
+        public Repository(Services.DbContext context)
         {
             this._connection = context.Connection;
             this._command = context.Command;
