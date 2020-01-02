@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Data;
-using VLTest2015.Utils;
 
 namespace VLTest2015.Services
 {
@@ -42,20 +40,20 @@ namespace VLTest2015.Services
         /// <returns></returns>
         public ServiceResponse<T> DelegateTransaction<T>(Func<T> exec)
         {
-            _connection.Open();
-            _transaction = _connection.BeginTransaction();
-            _command.Transaction = _transaction;
+            _context.Connection.Open();
+            _context.Transaction = _context.Connection.BeginTransaction();
+            _context.Command.Transaction = _context.Transaction;
             try
             {
                 var result = exec();
-                _transaction.Commit();
-                _connection.Close();
+                _context.Transaction.Commit();
+                _context.Connection.Close();
                 return new ServiceResponse<T>(result);
             }
             catch (Exception ex)
             {
-                _transaction.Rollback();
-                _connection.Close();
+                _context.Transaction.Rollback();
+                _context.Connection.Close();
                 return new ServiceResponse<T>()
                 {
                     ErrorCode = 501,

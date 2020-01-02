@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Web;
 
-namespace VLTest2015.Services
+namespace VLTest2015.Authentication
 {
     /// <summary>
     /// 权限 

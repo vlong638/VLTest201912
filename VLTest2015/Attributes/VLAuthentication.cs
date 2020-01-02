@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
-using VLTest2015.Services;
+using VLTest2015.Authentication;
 
 namespace VLTest2015.Attributes
 {
@@ -33,7 +33,7 @@ namespace VLTest2015.Attributes
             if (filterContext.RequestContext.HttpContext.Request.IsAuthenticated)
             {
                 //CheckOn Authorities.Count()>0
-                var currentUser = Controllers.CurrentUser.GetCurrentUser(filterContext.RequestContext.HttpContext);
+                var currentUser = CurrentUser.GetCurrentUser(filterContext.RequestContext.HttpContext);
                 if (Authorities.Count() == 0 || currentUser.AuthorityIds.FirstOrDefault(c => Authorities.FirstOrDefault(d => (long)d == c) > 0) > 0)
                 {
                     isAuth = true;

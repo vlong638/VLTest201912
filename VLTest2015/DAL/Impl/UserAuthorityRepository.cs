@@ -8,7 +8,7 @@ namespace VLTest2015.DAL
 {
     public class UserAuthorityRepository : Repository<UserAuthority>, IUserAuthorityRepository
     {
-        public UserAuthorityRepository(BaseService service) : base(service)
+        public UserAuthorityRepository(BaseContext context) : base(context)
         {
         }
 

@@ -6,20 +6,20 @@ namespace VLTest2015.Services
 {
     public class BaseContext
     {
-        internal IDbConnection _connection;
-        internal IDbCommand _command;
-        internal IDbTransaction _transaction;
+        internal IDbConnection Connection;
+        internal IDbCommand Command;
+        internal IDbTransaction Transaction;
 
         public BaseContext()
         {
-            _connection = DBHelper.GetDbConnection();
-            _command = _connection.CreateCommand();
+            Connection = DBHelper.GetDbConnection();
+            Command = Connection.CreateCommand();
         }
 
         ~BaseContext()
         {
-            _command.Dispose();
-            _connection.Dispose();
+            Command.Dispose();
+            Connection.Dispose();
         }
 
         /// <summary>
@@ -31,20 +31,20 @@ namespace VLTest2015.Services
         /// <returns></returns>
         public ServiceResponse<T> DelegateTransaction<T>(Func<T> exec)
         {
-            _connection.Open();
-            _transaction = _connection.BeginTransaction();
-            _command.Transaction = _transaction;
+            Connection.Open();
+            Transaction = Connection.BeginTransaction();
+            Command.Transaction = Transaction;
             try
             {
                 var result = exec();
-                _transaction.Commit();
-                _connection.Close();
+                Transaction.Commit();
+                Connection.Close();
                 return new ServiceResponse<T>(result);
             }
             catch (Exception ex)
             {
-                _transaction.Rollback();
-                _connection.Close();
+                Transaction.Rollback();
+                Connection.Close();
                 return new ServiceResponse<T>()
                 {
                     ErrorCode = 501,

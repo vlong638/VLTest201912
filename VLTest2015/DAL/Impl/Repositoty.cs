@@ -12,8 +12,8 @@ namespace VLTest2015.DAL
 
         public Repository(Services.BaseContext context)
         {
-            this._connection = context._connection;
-            this._command = context._command;
+            this._connection = context.Connection;
+            this._command = context.Command;
         }
 
         public long Insert(TEntity entity)

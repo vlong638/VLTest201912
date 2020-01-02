@@ -203,6 +203,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Attributes\VLAuthentication.cs" />
+    <Compile Include="Authentication\IMySession.cs" />
+    <Compile Include="Authentication\CurrentUser.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Services\BO\UserRoleInfo.cs" />
     <Compile Include="Services\Common\DbConnectionEx.cs" />
@@ -241,7 +243,7 @@
     <Compile Include="Services\Entities\User.cs" />
     <Compile Include="Services\Entities\UserAuthority.cs" />
     <Compile Include="Services\Entities\UserRole.cs" />
-    <Compile Include="Services\Enums\Authority.cs" />
+    <Compile Include="Authentication\Authority.cs" />
     <Compile Include="Services\RequestDTO\GetUserPageListRequest.cs" />
     <Compile Include="Services\RequestDTO\GetUserRolePagedListByUserRequest.cs" />
     <Compile Include="Services\Services\BaseContext.cs" />

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
 using VLTest2015.Attributes;
+using VLTest2015.Authentication;
 using VLTest2015.Models;
 using VLTest2015.Services;
 

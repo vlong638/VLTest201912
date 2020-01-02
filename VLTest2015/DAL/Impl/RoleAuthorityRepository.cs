@@ -6,7 +6,7 @@ namespace VLTest2015.DAL
 {
     public class RoleAuthorityRepository : Repository<RoleAuthority>, IRoleAuthorityRepository
     {
-        public RoleAuthorityRepository(BaseService service) : base(service)
+        public RoleAuthorityRepository(BaseContext context) : base(context)
         {
         }
 
