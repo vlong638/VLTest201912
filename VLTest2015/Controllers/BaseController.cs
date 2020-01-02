@@ -56,14 +56,14 @@ namespace VLTest2015.Controllers
         public static void SetCurrentUser(CurrentUser currentUser, bool isRemeberMe, HttpResponseBase response)
         {
             var userName = currentUser.UserName;
-            var idAndAuth = currentUser.UserId.ToString() + "_" + string.Join(",", currentUser.AuthorityIds);
+            var userData = currentUser.UserId.ToString() + "_" + string.Join(",", currentUser.AuthorityIds);
             FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(
                 1,
                 userName,
                 DateTime.Now,
                 DateTime.Now.Add(FormsAuthentication.Timeout),
                 isRemeberMe,
-                idAndAuth
+                userData
             //UserData有长度限制，后续建议以Session形式存储会话数据
             );
             HttpCookie cookie = new HttpCookie(
@@ -78,10 +78,9 @@ namespace VLTest2015.Controllers
             var authCookie = httpContext.Request.Cookies[cookieName];
             var authTicket = FormsAuthentication.Decrypt(authCookie.Value);
             var userName = httpContext.User.Identity.Name;
-            var datas = authTicket.UserData.Split('_');
-            var userId = 0L;
-            Int64.TryParse(datas[0], out userId);
-            var authorityIds = string.IsNullOrEmpty(datas[1])?new long[0]:datas[1].Split(',').Select(c => Int64.Parse(c)).ToArray();
+            var userData = authTicket.UserData.Split('_');
+            var userId = string.IsNullOrEmpty(userData[0]) ? 0 : Int64.Parse(userData[0]);
+            var authorityIds = string.IsNullOrEmpty(userData[1])?new long[0]:userData[1].Split(',').Select(c => Int64.Parse(c)).ToArray();
             return new CurrentUser()
             {
                 UserId = userId,
