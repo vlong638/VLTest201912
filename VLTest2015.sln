@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VLTest2015", "VLTest2015\VLTest2015.csproj", "{CD7709E9-2B10-4CE6-8186-DA805D8A5D1F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VL.Amusing", "VL.Amusing\VL.Amusing.csproj", "{D6DE71A1-7D49-4DBF-913A-9CF205869CE8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +17,15 @@ Global
 		{CD7709E9-2B10-4CE6-8186-DA805D8A5D1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD7709E9-2B10-4CE6-8186-DA805D8A5D1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD7709E9-2B10-4CE6-8186-DA805D8A5D1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6DE71A1-7D49-4DBF-913A-9CF205869CE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6DE71A1-7D49-4DBF-913A-9CF205869CE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6DE71A1-7D49-4DBF-913A-9CF205869CE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6DE71A1-7D49-4DBF-913A-9CF205869CE8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1BEAF6BD-B42E-40E0-929E-2233182F9868}
 	EndGlobalSection
 EndGlobal
