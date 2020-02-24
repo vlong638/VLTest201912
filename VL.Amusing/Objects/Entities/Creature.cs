@@ -70,22 +70,140 @@ namespace VL.Amusing.Objects.Entities
         /// 名称
         /// </summary>
         public string Name { set; get; }
+        /// <summary>
+        /// 组件
+        /// </summary>
+        public List<EquipmentComponent> EquipmentComponents { set; get; }
 
         /// <summary>
         /// 基础属性加成
         /// </summary>
-        public BaseProperty BaseProperty { set;get;}
+        public BaseProperty BasePropertySummary { get;}
         /// <summary>
         /// 战斗属性加成
         /// </summary>
-        public CombatProperty CombatProperty { set;get; }
+        public CombatProperty CombatPropertySummary { get; }
+    }
+
+    /// <summary>
+    /// 元素词条
+    /// </summary>
+    public enum ElementWord { 
+        金金金=1,
+        木木木=26,
+        水水水=51,
+        火火火=76,
+        土土土=101,
     }
     /// <summary>
-    /// 装备要素
+    /// 工艺词条
+    /// </summary>
+    public enum ArtWord
+    {
+        粗制的 = 1,
+        精致的 = 2,
+        鬼斧神工的 = 10,
+    }
+    /// <summary>
+    /// 材质词条
+    /// </summary>
+    public enum MaterialWord
+    {
+        铁制的 = 1,
+        木制的 = 2,
+        龙鳞的 = 10,
+    }
+
+
+    /// <summary>
+    /// 组件
     /// </summary>
     public class EquipmentComponent
-    { 
+    {
+        /// <summary>
+        /// 标识键
+        /// </summary>
+        public Guid Id { set; get; }
+        /// <summary>
+        /// 名称
+        /// </summary>
+        public string Name { set; get; }
+
+        #region 固定值
+
+        /// <summary>
+        /// 基础属性加成
+        /// </summary>
+        public BaseProperty BaseProperty { set; get; }
+        /// <summary>
+        /// 战斗属性加成
+        /// </summary>
+        public CombatProperty CombatProperty { set; get; }
+
+        #endregion
+
+        #region 随机值
+
+        /// <summary>
+        /// 元素词条
+        /// </summary>
+        public ElementWord ElementWord { set; get; }
+        /// <summary>
+        /// 工艺词条
+        /// </summary>
+        public ArtWord ArtWord { set; get; }
+        /// <summary>
+        /// 材质词条
+        /// </summary>
+        public MaterialWord MaterialWord { set; get; }
+
+        /// <summary>
+        /// 基础属性加成
+        /// </summary>
+        public BaseProperty BasePropertyEx { set; get; }
+        /// <summary>
+        /// 战斗属性加成
+        /// </summary>
+        public CombatProperty CombatPropertyEx { set; get; }
+
+        #endregion
+
+        /// vl设计
+        /// 装备=组件*n
+        /// 组件=词条*n
+        /// 词条=基础属性+战斗属性
+        ///
+        /// 示例
+        /// 词条:坚韧的木板
+        /// 金木水火土
+        /// 五行词条
+        /// 理论上 5^3 125词条
+        /// 金金金=锋锐的     new CombatProperty{ATK=3;}
+        /// 水水火=滚烫的     
+        /// 火火火=炽热的
+        /// 水火火=不稳定的
+        /// 
+        /// 加成的统一建模
+        /// 如星级设定
+        /// 攻击力星级设定
+        /// 1* = 3
+        /// 2* = 5
+        /// 3* = 8
+        /// 4* = 13
+        /// 5* = 21
+        /// 6* = 34(后期开放,预留)
+        /// 采用斐波那契数列
+        /// 
+        /// 词条分为
+        /// 锻造词条,通过锻造行动赋予(提高锻造师的价值)
+        /// 锻造采用材质强度词条+锻造工艺词条
+        /// 
+        /// 附魔词条,通过附魔行动赋予(提高附魔师的价值)
+        /// 附魔采用五行法阵词条
+        /// 
     }
+
+
 
     /// <summary>
     /// 等级的单元
@@ -223,7 +341,7 @@ namespace VL.Amusing.Objects.Entities
 
         #region 特殊攻击
 
-        ///设计.特殊攻击
+        ///vl设计.特殊攻击
         ///特殊攻击通过玩家的特殊攻击概率触发
         ///各种不同的攻击模式有着不同的玩法
         ///考虑到能力需要提炼自玩家统一的能力
