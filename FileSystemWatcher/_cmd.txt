@@ -4,3 +4,5 @@ installutil FileSystemWatcher
 installutil /u FileSystemWatcher
 启动服务
 net start VLFileWatcher
+停止服务
+net stop VLFileWatcher
