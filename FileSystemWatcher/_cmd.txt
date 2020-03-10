@@ -1,0 +1,8 @@
+﻿安装服务
+installutil FileSystemWatcher
+删除服务
+installutil /u FileSystemWatcher
+启动服务
+net start VLFileWatcher
+停止服务
+net stop VLFileWatcher
