@@ -6,7 +6,7 @@ namespace VL.Consoling
     {
         static void Main(string[] args)
         {
-            var config = Configuration.ConfigurationHelper.Build(@"appsettings.json");
+            var config = Configuration.ConfigurationHelper.Build(@"Configuration/appsettings.json");
             Console.WriteLine(config["MessageQueue:Name"]);
             var messageQueue = config.GetSection("MessageQueue");
             Console.WriteLine(messageQueue["Name"]);
