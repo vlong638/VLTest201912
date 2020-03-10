@@ -7,13 +7,12 @@ namespace VL.NUnit
         [SetUp]
         public void Setup()
         {
-            System.Console.WriteLine("11");
+            //System.Console.WriteLine("11");
         }
 
         [Test]
-        public void Test1()
+        public void Test_ConfigurationHelper()
         {
-            System.Console.WriteLine("22");
             Assert.Pass();
         }
     }
