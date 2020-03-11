@@ -11,6 +11,14 @@ namespace VL.Consoling
         static void Main(string[] args)
         {
             CommandCollection cmds = new CommandCollection();
+            cmds.Add(new Command("ls", () =>
+            {
+                foreach (var cmd in cmds)
+                {
+                    Console.WriteLine(cmd.Name);
+                }
+            }));
+
             cmds.Add(new Command("push1", () =>
             {
                 var factory = new RabbitMQ.Client.ConnectionFactory() { HostName = "localhost" };
@@ -63,6 +71,7 @@ namespace VL.Consoling
                     }
                 }
             }));
+
             cmds.Add(new Command("config", () =>
             {
                 var config = Configuration.ConfigurationHelper.Build(@"Configuration/appsettings.json");
@@ -70,18 +79,12 @@ namespace VL.Consoling
                 var messageQueue = config.GetSection("MessageQueue");
                 Console.WriteLine(messageQueue["Name"]);
             }));
-            cmds.Add(new Command("ls", () =>
-            {
-                foreach (var cmd in cmds)
-                {
-                    Console.WriteLine(cmd.Name);
-                }
-            }));
             cmds.Start();
         }
     }
 
-    public class CommandCollection:List<Command>
+    #region CommandMode
+    public class CommandCollection : List<Command>
     {
         public void Start()
         {
@@ -118,5 +121,6 @@ namespace VL.Consoling
         public string Name { set; get; }
 
         public Action Execute { set; get; }
-    }
+    } 
+    #endregion
 }
