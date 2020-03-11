@@ -8,15 +8,17 @@ namespace VL.RabbitMQComsumer
     {
         static void Main(string[] args)
         {
+
+
             var factory = new ConnectionFactory() { HostName = "localhost" };
             using (var connection = factory.CreateConnection())
             {
                 using (var channel = connection.CreateModel())
                 {
-                    channel.QueueDeclare(queue: "hello",
-                                  durable: false,
-                                  exclusive: false,
-                                  autoDelete: false,
+                    channel.QueueDeclare(queue: "hello",//队列名称
+                                  durable: false,//是否持久化保存,重启后保留
+                                  exclusive: false,//是否排他,只有当前Channel才能监听这个Queue
+                                  autoDelete: false,//不再使用的时候自动删除
                                   arguments: null);
 
                     var consumer = new EventingBasicConsumer(channel);

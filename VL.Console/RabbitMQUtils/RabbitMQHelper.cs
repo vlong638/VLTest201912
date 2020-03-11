@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace VL.Consoling.RabbitMQ
+namespace VL.Consoling.RabbitMQUtils
 {
     public class RabbitMQHelper
     {
