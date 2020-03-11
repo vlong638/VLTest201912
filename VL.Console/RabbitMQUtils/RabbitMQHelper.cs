@@ -6,6 +6,8 @@ using System.Text;
 
 namespace VL.Consoling.RabbitMQUtils
 {
+    ///默认用户 guest/guest
+    ///管理后台 http://127.0.0.1:15672/
     public class RabbitMQHelper
     {
 
