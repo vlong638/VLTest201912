@@ -1,4 +1,5 @@
 ﻿using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,25 +37,29 @@ namespace VL.Consoling
             }));
             cmds.Add(new Command("receive1", () =>
             {
-                var factory = new RabbitMQ.Client.ConnectionFactory() { HostName = "localhost" };
+                var factory = new ConnectionFactory() { HostName = "localhost" };
                 using (var connection = factory.CreateConnection())
                 {
                     using (var channel = connection.CreateModel())
                     {
-                        channel.QueueDeclare(queue: "hello",
-                                      durable: false,
-                                      exclusive: false,
-                                      autoDelete: false,
+                        channel.QueueDeclare(queue: "hello",//队列名称
+                                      durable: false,//是否持久化保存,重启后保留
+                                      exclusive: false,//是否排他,只有当前Channel才能监听这个Queue
+                                      autoDelete: false,//不再使用的时候自动删除
                                       arguments: null);
 
-                        string message = "Hello World!";
-                        var body = System.Text.Encoding.UTF8.GetBytes(message);
+                        var consumer = new EventingBasicConsumer(channel);
+                        consumer.Received += (model, ea) =>
+                        {
+                            var body = ea.Body;
+                            var message = System.Text.Encoding.UTF8.GetString(body);
+                            Console.WriteLine(" [x] Received {0}", message);
+                        };
+                        channel.BasicConsume(queue: "hello",
+                                             autoAck: true,
+                                             consumer: consumer);
 
-                        channel.BasicPublish(exchange: "",
-                                             routingKey: "hello",
-                                             basicProperties: null,
-                                             body: body);
-                        Console.WriteLine(" [x] Sent {0}", message);
+                        Console.WriteLine(" Press [enter] to exit.");
                     }
                 }
             }));
@@ -64,6 +69,13 @@ namespace VL.Consoling
                 Console.WriteLine(config["MessageQueue:Name"]);
                 var messageQueue = config.GetSection("MessageQueue");
                 Console.WriteLine(messageQueue["Name"]);
+            }));
+            cmds.Add(new Command("ls", () =>
+            {
+                foreach (var cmd in cmds)
+                {
+                    Console.WriteLine(cmd.Name);
+                }
             }));
             cmds.Start();
         }
@@ -78,14 +90,18 @@ namespace VL.Consoling
             while ((s = Console.ReadLine()) != "q")
             {
                 var command = this.FirstOrDefault(c => c.Name.StartsWith(s));
+                if (command == null)
+                {
+                    Console.WriteLine("wait for a command,enter `q` to close");
+                    continue;
+                }
                 try
                 {
                     command.Execute();
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-
-                    throw;
+                    var error = e;
                 }
                 Console.WriteLine("wait for a command,enter `q` to close");
             }
