@@ -61,21 +61,15 @@ namespace VL.Consoling
                         var consumer = new EventingBasicConsumer(channel);
                         consumer.Received += (model, ea) =>
                         {
-                            try
-                            {
-                                var body = ea.Body;
-                                var message = System.Text.Encoding.UTF8.GetString(body);
-                                Console.WriteLine($" [{DateTime.Now.ToString()}] Received {message}");
-                                File.AppendAllText(logPath, $" [{DateTime.Now.ToString()}] Received {message}");
-                            }
-                            catch (Exception ex)
-                            {
-                                File.AppendAllText(logPath, ex.ToString());
-                            }
+                            var body = ea.Body;
+                            var message = System.Text.Encoding.UTF8.GetString(body);
+                            Console.WriteLine($" [{DateTime.Now.ToString()}] Received {message}");
+                            File.AppendAllLines(logPath, new string[] { $" [{DateTime.Now.ToString()}] Received {message}" });
                         };
                         channel.BasicConsume(queue: "hello",
                                              autoAck: true,
                                              consumer: consumer);
+                        Console.ReadLine();
                     }
                 }
             }));
