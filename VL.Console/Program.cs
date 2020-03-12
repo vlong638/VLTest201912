@@ -4,12 +4,15 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using VL.Consoling.RabitMQUtils;
 
 namespace VL.Consoling
 {
     class Program
     {
-        const string logPath = @"D:\log.txt";
+        static string LogPath = @"D:\log.txt";
+        static bool IsFileLog = false;
+
         static void Main(string[] args)
         {
             CommandCollection cmds = new CommandCollection();
@@ -40,8 +43,8 @@ namespace VL.Consoling
                                              routingKey: "hello",
                                              basicProperties: null,
                                              body: body);
-                        Console.WriteLine(" [x] Sent {message}", message);
-                        File.AppendAllText(logPath, $" [{DateTime.Now.ToString()}] Received {message}");
+                        Console.WriteLine($" [x] Sent {message}");
+                        if (IsFileLog) File.AppendAllText(LogPath, $" [{DateTime.Now.ToString()}] Received {message}");
                     }
                 }
             }));
@@ -64,7 +67,7 @@ namespace VL.Consoling
                             var body = ea.Body;
                             var message = System.Text.Encoding.UTF8.GetString(body);
                             Console.WriteLine($" [{DateTime.Now.ToString()}] Received {message}");
-                            File.AppendAllLines(logPath, new string[] { $" [{DateTime.Now.ToString()}] Received {message}" });
+                            if (IsFileLog) File.AppendAllLines(LogPath, new string[] { $" [{DateTime.Now.ToString()}] Received {message}" });
                         };
                         channel.BasicConsume(queue: "hello",
                                              autoAck: true,
@@ -73,7 +76,91 @@ namespace VL.Consoling
                     }
                 }
             }));
-            cmds.Add(new Command("rWorkQueue", () =>
+            cmds.Add(new Command("p1f_Object", () =>
+            {
+                var exchangeType = ExchangeType.Fanout;
+                var exchangeName = nameof(NamedMessage1);
+                var factory = new RabbitMQ.Client.ConnectionFactory() { HostName = "localhost" };
+                using (var connection = factory.CreateConnection())
+                {
+                    using (var channel = connection.CreateModel())
+                    {
+                        channel.ExchangeDeclare(exchange: exchangeName, type: exchangeType);
+                        string message = Newtonsoft.Json.JsonConvert.SerializeObject(new NamedMessage1(DateTime.Now.Ticks));
+                        var body = System.Text.Encoding.UTF8.GetBytes(message);
+                        channel.BasicPublish(exchange: exchangeName,
+                                             routingKey: "",
+                                             basicProperties: null,
+                                             body: body);
+                        Console.WriteLine($" [x] Sent {message}");
+                        if (IsFileLog) File.AppendAllText(LogPath, $" [{DateTime.Now.ToString()}] Received {message}");
+                    }
+                }
+            }));
+            cmds.Add(new Command("p2f_Object", () =>
+            {
+                var exchangeType = ExchangeType.Fanout;
+                var exchangeName = nameof(NamedMessage2);
+                var factory = new RabbitMQ.Client.ConnectionFactory() { HostName = "localhost" };
+                using (var connection = factory.CreateConnection())
+                {
+                    using (var channel = connection.CreateModel())
+                    {
+                        channel.ExchangeDeclare(exchange: exchangeName, type: exchangeType);
+                        string message = Newtonsoft.Json.JsonConvert.SerializeObject(new NamedMessage2(DateTime.Now.Ticks));
+                        var body = System.Text.Encoding.UTF8.GetBytes(message);
+                        channel.BasicPublish(exchange: exchangeName,
+                                             routingKey: "",
+                                             basicProperties: null,
+                                             body: body);
+                        Console.WriteLine($" [x] Sent {message}");
+                        if (IsFileLog) File.AppendAllText(LogPath, $" [{DateTime.Now.ToString()}] Received {message}");
+                    }
+                }
+            }));
+            cmds.Add(new Command("p3d_Object", () =>
+            {
+                var exchangeType = ExchangeType.Direct;
+                var exchangeName = RabbitMQUtils.RabbitMQHelper.DirectExchangeName;
+                var factory = new RabbitMQ.Client.ConnectionFactory() { HostName = "localhost" };
+                using (var connection = factory.CreateConnection())
+                {
+                    using (var channel = connection.CreateModel())
+                    {
+                        channel.ExchangeDeclare(exchange: exchangeName, type: exchangeType);
+                        string message = Newtonsoft.Json.JsonConvert.SerializeObject(new NamedMessage1(DateTime.Now.Ticks));
+                        var body = System.Text.Encoding.UTF8.GetBytes(message);
+                        channel.BasicPublish(exchange: exchangeName,
+                                             routingKey: nameof(NamedMessage3),
+                                             basicProperties: null,
+                                             body: body);
+                        Console.WriteLine($" [x] Sent {message}");
+                        if (IsFileLog) File.AppendAllText(LogPath, $" [{DateTime.Now.ToString()}] Received {message}");
+                    }
+                }
+            }));
+            cmds.Add(new Command("p4d_Object", () =>
+            {
+                var exchangeType = ExchangeType.Direct;
+                var exchangeName = RabbitMQUtils.RabbitMQHelper.DirectExchangeName;
+                var factory = new RabbitMQ.Client.ConnectionFactory() { HostName = "localhost" };
+                using (var connection = factory.CreateConnection())
+                {
+                    using (var channel = connection.CreateModel())
+                    {
+                        channel.ExchangeDeclare(exchange: exchangeName, type: exchangeType);
+                        string message = Newtonsoft.Json.JsonConvert.SerializeObject(new NamedMessage2(DateTime.Now.Ticks));
+                        var body = System.Text.Encoding.UTF8.GetBytes(message);
+                        channel.BasicPublish(exchange: exchangeName,
+                                             routingKey: nameof(NamedMessage4),
+                                             basicProperties: null,
+                                             body: body);
+                        Console.WriteLine($" [x] Sent {message}");
+                        if (IsFileLog) File.AppendAllText(LogPath, $" [{DateTime.Now.ToString()}] Received {message}");
+                    }
+                }
+            }));
+            cmds.Add(new Command("r1_Object", () =>
             {
                 var name = "Worker" + DateTime.Now.Second.ToString();
                 var factory = new ConnectionFactory() { HostName = "localhost" };
@@ -93,14 +180,15 @@ namespace VL.Consoling
                             var body = ea.Body;
                             var message = System.Text.Encoding.UTF8.GetString(body);
                             Console.WriteLine($" [{DateTime.Now.ToString()}][{name}] Received {message}");
-                            File.AppendAllText(logPath, $" [{DateTime.Now.ToString()}][{name}] Received {message}");
+                            var entity = Newtonsoft.Json.JsonConvert.DeserializeObject<NamedMessage1>(message);
+                            if (IsFileLog) File.AppendAllText(LogPath, $" [{DateTime.Now.ToString()}][{name}] Received {message}");
                             System.Threading.Thread.Sleep(3 * 1000);
                         };
-                        channel.BasicConsume(queue: "hello",
+                        channel.BasicConsume(queue: "entities",
                                              autoAck: true,
                                              consumer: consumer);
                         Console.WriteLine($" [{DateTime.Now.ToString()}][{name}] started!");
-                        File.AppendAllText(logPath, $" [{DateTime.Now.ToString()}][{name}] started!");
+                        if (IsFileLog) File.AppendAllText(LogPath, $" [{DateTime.Now.ToString()}][{name}] started!");
                     }
                 }
             }));
@@ -139,7 +227,7 @@ namespace VL.Consoling
         {
             Console.WriteLine("wait for a command,enter `q` to close");
             string s = "ls";
-            while ((s = Console.ReadLine()) != "q")
+            do
             {
                 var command = this.FirstOrDefault(c => c.Name.StartsWith(s));
                 if (command == null)
@@ -154,16 +242,18 @@ namespace VL.Consoling
                 catch (Exception e)
                 {
                     var error = e;
+                    Console.WriteLine(e.ToString());
                 }
                 Console.WriteLine("wait for a command,enter `q` to close");
             }
+            while ((s = Console.ReadLine().ToLower()) != "q");
         }
     }
     public class Command
     {
         public Command(string name, Action exe)
         {
-            Name = name;
+            Name = name.ToLower();
             Execute = exe;
         }
 

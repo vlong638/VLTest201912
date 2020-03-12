@@ -10,6 +10,7 @@ namespace VL.Consoling.RabbitMQUtils
     ///管理后台 http://127.0.0.1:15672/
     public class RabbitMQHelper
     {
+        public static string DirectExchangeName = "ExchangeType.Direct";
 
         //public static void Send()
         //{
