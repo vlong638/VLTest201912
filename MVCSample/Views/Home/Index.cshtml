@@ -1,0 +1,164 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@using MVCSample.Controllers
+@model DrawTXJHModel
+<div class="jumbotron">
+    <h1>ASP.NET</h1>
+    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+</div>
+<div id="div-canvas">
+    <canvas id="canvas" width="1200" height="1000">您的浏览器不支持 HTML5 canvas 标签。</canvas>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <h2>Getting started</h2>
+        <p>
+            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+            enables a clean separation of concerns and gives you full control over markup
+            for enjoyable, agile development.
+        </p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Get more libraries</h2>
+        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Web Hosting</h2>
+        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    </div>
+</div>
+<input type="hidden" value="@Model.data1" id="data1" />
+@section scripts{
+<script type="text/javascript">
+    $(function () {
+        console.log(111);
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+        //画线
+        ctx.beginPath();
+        ctx.moveTo(10, 10);
+        ctx.lineTo(150, 50);
+        ctx.lineTo(10, 50);
+        ctx.stroke();
+        //标题
+        ctx.beginPath();
+        ctx.textAlign = 'left';
+        ctx.fillStyle = '#000'; // 颜色
+        ctx.font = '16px Microsoft YaHei'
+        ctx.fillText("产 程 进 展 图", 150, 50);
+        ctx.fillText("起始时间:", 150, 100);
+        ctx.stroke();
+        //线集
+
+        var data1 = new Array();
+        var data2 = new Array();
+        var data3 = new Array();
+        var data4 = new Array();
+        var data5 = new Array();
+        @foreach (var value in Model.data1)
+        {
+            <text>
+                data1.push(@value);
+            </text>
+        }
+        @foreach (var value in Model.data2)
+        {
+            <text>
+                data2.push(@value);
+            </text>
+        }
+        @foreach (var value in Model.data3)
+        {
+            <text>
+                data3.push(@value);
+            </text>
+        }
+        @foreach (var value in Model.data4)
+        {
+            <text>
+                data4.push(@value);
+            </text>
+        }
+        @foreach (var value in Model.data5)
+        {
+            <text>
+                data5.push(@value);
+        </text>
+        }
+
+        console.log(data1);
+        console.log(data2);
+        console.log(data3);
+        console.log(data4);
+        console.log(data5);
+
+        ctx.beginPath();
+        var data = data1;
+        var x = 0;
+        var yBase = 0;
+        ctx.moveTo(x, getY(yBase + data[0]));
+        for (var i = 1; i < data.length; i++) {
+
+            var y = data[i];
+            ctx.lineTo(x, getY(yBase + y));
+            x = x + 1;
+        }
+
+        data = data2;
+        x = 0;
+        yBase = 200;
+        ctx.moveTo(x, getY(yBase + data[0]));
+        for (var i = 1; i < data.length; i++) {
+
+            var y = data[i];
+            ctx.lineTo(x, getY(yBase + y));
+            x = x + 1;
+        }
+
+        data = data3;
+        x = 0;
+        yBase = 400;
+        ctx.moveTo(x, getY(yBase + data[0]));
+        for (var i = 1; i < data.length; i++) {
+
+            var y = data[i];
+            ctx.lineTo(x, getY(yBase + y));
+            x = x + 1;
+        }
+
+        data = data4;
+        x = 0;
+        yBase = 600;
+        ctx.moveTo(x, getY(yBase + data[0]));
+        for (var i = 1; i < data.length; i++) {
+
+            var y = data[i];
+            ctx.lineTo(x, getY(yBase + y));
+            x = x + 1;
+        }
+
+        data = data5;
+        x = 0;
+        yBase = 800;
+        ctx.moveTo(x, getY(yBase + data[0]));
+        for (var i = 1; i < data.length; i++) {
+
+            var y = data[i];
+            ctx.lineTo(x, getY(yBase + y));
+            x = x + 1;
+        }
+
+        ctx.stroke();
+    });
+
+    var height = 1000;
+    function getY(sourceY) {
+        return height - sourceY;
+    }
+</script>
+}

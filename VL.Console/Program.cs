@@ -25,7 +25,7 @@ namespace VL.Consoling
             }));
             cmds.Add(new Command("pSimple", () =>
             {
-                var factory = new RabbitMQ.Client.ConnectionFactory() { HostName = "localhost" };
+                var factory = new RabbitMQ.Client.ConnectionFactory() { HostName = "localhost", Port = 5672 };
                 using (var connection = factory.CreateConnection())
                 {
                     using (var channel = connection.CreateModel())
