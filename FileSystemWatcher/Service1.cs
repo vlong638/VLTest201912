@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Data.Common;
+using System.Data.SqlClient;
 using System.IO;
 using System.ServiceProcess;
 using System.Text;
@@ -12,10 +14,10 @@ namespace FileSystemWatcher
             InitializeComponent();
         }
 
+
         protected override void OnStart(string[] args)
         {
-            fileSystemWatcher1.Path = @"D:\Publish\FileWatcherTest";
-
+            fileSystemWatcher1.Path = @"D:\Sync";
             fileSystemWatcher1.EnableRaisingEvents = true;//开始监听
             fileSystemWatcher1.IncludeSubdirectories = true;
 
@@ -50,8 +52,10 @@ namespace FileSystemWatcher
             if (servicePaused == false)
             {
                 logger.Info(e.Name + " 这个文件在：" + DateTime.Now.ToString() + "被创建了！");
-                File.Copy(e.FullPath, @"D:\Publish\FileWatcherTestLog\" + e.Name);
-
+                using (var connection = DBHelper.GetSQLServerDbConnection(@"Data Source=.;Initial Catalog=fmpt;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sa;Password=123"))
+                {
+                    logger.Info("数据库连接成功");
+                }
             }
         }
         private void OnFileDeleted(Object source, FileSystemEventArgs e)
@@ -65,21 +69,15 @@ namespace FileSystemWatcher
 
     public class FileLogger 
     {
-        static string _Path;
-        static string Path
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(_Path))
-                {
-                    _Path = @"D:\Publish\FileWatcherTestLog\log.txt";
-                }
-                return _Path;
-            }
-        }
+        static string _Path= @"D:\SyncLog\log.txt";
+        static string Path { get { return _Path; } }
 
         public void Info(LogData locator)
         {
+            if (!Directory.Exists(Path))
+            {
+                Directory.CreateDirectory(Path);
+            }
             File.AppendAllText(Path, locator.ToString());
         }
 
@@ -145,6 +143,19 @@ namespace FileSystemWatcher
             sb.AppendLine(string.Format("-------LogTime    :{0}", DateTime.Now));
             sb.AppendLine(string.Format("-------Message    :{0}", Message));
             return sb.ToString();
+        }
+    }
+
+    public static class DBHelper
+    {
+        /// <summary>
+        /// 创建数据库连接
+        /// VLTODO 可以优化为连接池
+        /// </summary>
+        /// <returns></returns>
+        public static DbConnection GetSQLServerDbConnection(string connectingString)
+        {
+            return new SqlConnection(connectingString);
         }
     }
 }
