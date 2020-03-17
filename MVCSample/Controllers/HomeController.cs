@@ -7,7 +7,7 @@ using System.Web.Mvc;
 namespace MVCSample.Controllers
 {
     /// <summary>
-    /// 胎心监护
+    /// 胎心监护数据
     /// </summary>
     public class DrawTXJHModel
     {
@@ -24,9 +24,9 @@ namespace MVCSample.Controllers
         /// 胎心监护样例数据
         /// </summary>
         /// <returns></returns>
-        public ActionResult GetDataForTXJH()
+        public ActionResult Index()
         {
-            var filePath = @"D:\Project\VL.Tests\MVCSample\Data\7_20191030103133.bin";
+            var filePath = @"D:\DocHele\01.FMPT(分娩配套)\住院分娩材料\0228胎心监护\1_20200313121056.bin";
             var source = System.IO.File.ReadAllBytes(filePath);
 
             var model = new DrawTXJHModel();
@@ -43,9 +43,10 @@ namespace MVCSample.Controllers
                 {
                     case 3: model.data1[dataIndex] = source[i]; break;
                     case 7: model.data2[dataIndex] = source[i]; break;
-                    case 11: model.data3[dataIndex] = source[i]; break;
-                    case 15: model.data4[dataIndex] = source[i]; break;
-                    case 16: model.data5[dataIndex] = source[i]; break;
+                    //case 11: model.data3[dataIndex] = source[i]; break;
+                    //case 15: model.data4[dataIndex] = source[i]; break;
+                    //case 16: model.data5[dataIndex] = source[i]; break;
+                    default:break;
                 }
             }
             return View(model);
