@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using VL.Consoling.RabitMQUtils;
 
@@ -220,11 +221,11 @@ namespace VL.Consoling
             }));
             cmds.Add(new Command("parseTXJH", () =>
             {
-                var logger = new FileSystemWatcher.FileLogger();
+                var logger = new FileLogger();
                 try
                 {
-                    var dataFile = @"D:\Sync2\1_20200313121056.bin";
-                    var xmlFile = @"D:\Sync2\1_20200313121056.xml";
+                    var dataFile = @"D:\Sync\1_20200313121056.bin";
+                    var xmlFile = @"D:\Sync\1_20200313121056.xml";
                     if (!File.Exists(dataFile) || !File.Exists(xmlFile))
                     {
                         logger.Info($"内容尚未齐全,dataFile:{dataFile},xmlFile:{xmlFile}");
@@ -376,6 +377,83 @@ namespace VL.Consoling
             cmds.Start();
         }
     }
+    #region MyRegion
+
+    public class LogData
+    {
+        public LogData(string message)
+        {
+            Message = message;
+        }
+        public LogData(string className, string fuctionName, string message)
+        {
+            ClassName = className;
+            FuctionName = fuctionName;
+            Message = message;
+        }
+
+        public LogData(string className, string fuctionName, string sesction, string message)
+        {
+            ClassName = className;
+            FuctionName = fuctionName;
+            Section = sesction;
+            Message = message;
+        }
+
+        public string ClassName { set; get; }
+        public string FuctionName { set; get; }
+        public string Section { set; get; }
+        public string Message { set; get; }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("----------------------------");
+            sb.AppendLine(string.Format("-------ClassName  :{0}", ClassName));
+            sb.AppendLine(string.Format("-------FuctionName:{0}", FuctionName));
+            sb.AppendLine(string.Format("-------Section    :{0}", Section));
+            sb.AppendLine(string.Format("-------LogTime    :{0}", DateTime.Now));
+            sb.AppendLine(string.Format("-------Message    :{0}", Message));
+            return sb.ToString();
+        }
+    }
+
+    public class FileLogger
+    {
+        static string _Path = @"D:\Sync\SyncLog.txt";
+        static string Path { get { return _Path; } }
+
+        public void Info(LogData locator)
+        {
+            File.AppendAllText(Path, locator.ToString());
+        }
+
+        public void Info(string message)
+        {
+            Info(new LogData(message));
+        }
+
+        public void Info(string message, Exception ex)
+        {
+            Info(new LogData(message + ex.ToString()));
+        }
+
+        public void Error(LogData locator)
+        {
+            File.AppendAllText(Path, locator.ToString());
+        }
+
+        public void Error(string message)
+        {
+            Error(new LogData(message));
+        }
+
+        public void Error(string message, Exception ex)
+        {
+            Error(new LogData(message + ex.ToString()));
+        }
+    }
+    #endregion
 
     #region CommandMode
     public class CommandCollection : List<Command>
