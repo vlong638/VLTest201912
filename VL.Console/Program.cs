@@ -371,7 +371,7 @@ namespace VL.Consoling
                 }
                 catch (Exception ex)
                 {
-                    logger.Error("数据库无法连接," + ex.ToString());
+                    logger.Error("出现异常," + ex.ToString());
                 }
             }));
             cmds.Start();
