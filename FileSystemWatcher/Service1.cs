@@ -6,6 +6,7 @@ using System.IO;
 using System.ServiceProcess;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace FileSystemWatcher
 {
@@ -17,10 +18,10 @@ namespace FileSystemWatcher
         }
 
 
+        public static string Directory = @"D:\txjh";
         protected override void OnStart(string[] args)
         {
-            var directory = @"D:\Sync2";
-            fileSystemWatcher1.Path = directory;
+            fileSystemWatcher1.Path = Directory;
             fileSystemWatcher1.EnableRaisingEvents = true;//开始监听
             fileSystemWatcher1.IncludeSubdirectories = true;
 
@@ -36,6 +37,32 @@ namespace FileSystemWatcher
             //{
             //    ParseTXJH(file);
             //}
+        }
+        public bool IsFileInUse(string fileName)
+        {
+            bool inUse = true;
+
+            FileStream fs = null;
+            try
+            {
+
+                fs = new FileStream(fileName, FileMode.Open, FileAccess.Read,
+
+                FileShare.None);
+
+                inUse = false;
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                if (fs != null)
+
+                    fs.Close();
+            }
+            return inUse;//true表示正在使用,false没有使用
         }
 
         private void ParseTXJH(string dataFile,string xmlFile)
@@ -53,6 +80,13 @@ namespace FileSystemWatcher
                 //基础数据解析
                 long binglih = 0;
                 DateTime startTime = DateTime.MinValue;
+                int tryCount = 1;
+                while (IsFileInUse(xmlFile)&& tryCount<3)
+                {
+                    System.Threading.Thread.Sleep(1000);
+                    logger.Info($"文件正在占用中,休眠1s,xmlFile:{xmlFile}");
+                    tryCount++;
+                }
                 var xml = System.IO.File.ReadAllText(xmlFile);
                 Regex regexMRID = new Regex(@"\<MRID\>(\d+)\</MRID\>");
                 var matchMRID = regexMRID.Match(xml);
@@ -123,6 +157,13 @@ namespace FileSystemWatcher
                     startTime = new DateTime(year, month, day, hour, minite, second);
                 }
                 //仪器数据解析
+                tryCount = 1;
+                while (IsFileInUse(dataFile) && tryCount < 3)
+                {
+                    System.Threading.Thread.Sleep(1000);
+                    logger.Info($"文件正在占用中,休眠1s,dataFile:{dataFile}");
+                    tryCount++;
+                }
                 var data = System.IO.File.ReadAllBytes(dataFile);
                 var model = new DrawTXJHModel();
                 var dataCount = data.Length / 17;
@@ -150,8 +191,8 @@ namespace FileSystemWatcher
                 entity.UCData = string.Join(",", model.data3);
                 #endregion
 
-                using (var connection = FileSystemWatcher.DBHelper.GetSQLServerDbConnection(@"Data Source=192.168.50.102;Initial Catalog=fmpt;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=huzfypt;Password=huz3305@2018."))
-                //using (var connection = DBHelper.GetSQLServerDbConnection(@"Data Source=10.31.102.24,1434;Initial Catalog=fmpt;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=HELETECHUSER;Password=HELEtech123"))
+                //using (var connection = FileSystemWatcher.DBHelper.GetSQLServerDbConnection(@"Data Source=192.168.50.102;Initial Catalog=fmpt;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=huzfypt;Password=huz3305@2018."))
+                using (var connection = DBHelper.GetSQLServerDbConnection(@"Data Source=10.31.102.24,1434;Initial Catalog=fmpt;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=HELETECHUSER;Password=HELEtech123"))
                 {
                     var command = connection.CreateCommand();
                     try
@@ -259,7 +300,7 @@ namespace FileSystemWatcher
     
     public class FileLogger
     {
-        static string _Path = @"D:\SyncLog.txt";
+        static string _Path = Service1.Directory + "\\SyncLog.txt";
         static string Path { get { return _Path; } }
 
         public void Info(LogData locator)
