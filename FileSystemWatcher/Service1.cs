@@ -78,7 +78,7 @@ namespace FileSystemWatcher
 
                 #region 数据解析
                 //基础数据解析
-                long binglih = 0;
+                string recordCode = "";
                 DateTime startTime = DateTime.MinValue;
                 int tryCount = 1;
                 while (IsFileInUse(xmlFile)&& tryCount<3)
@@ -88,7 +88,7 @@ namespace FileSystemWatcher
                     tryCount++;
                 }
                 var xml = System.IO.File.ReadAllText(xmlFile);
-                Regex regexMRID = new Regex(@"\<MRID\>(\d+)\</MRID\>");
+                Regex regexMRID = new Regex(@"\<MRID\>(\w+)\</MRID\>");
                 var matchMRID = regexMRID.Match(xml);
                 if (matchMRID.Groups.Count != 2)
                 {
@@ -97,11 +97,7 @@ namespace FileSystemWatcher
                 }
                 else
                 {
-                    if (!long.TryParse(matchMRID.Groups[1].Value, out binglih))
-                    {
-                        logger.Error("无效的数据,MRID:" + matchMRID.Groups[1].Value);
-                        return;
-                    }
+                    recordCode = matchMRID.Groups[1].Value;
                 }
                 Regex regexStartTime = new Regex(@"\<StartTime\>([\d\s]+)\</StartTime\>");
                 var matchStartTime = regexStartTime.Match(xml);
@@ -185,7 +181,7 @@ namespace FileSystemWatcher
                     }
                 }
                 GetDataForTXJHModel entity = new GetDataForTXJHModel();
-                entity.binglih = binglih;
+                entity.RecordCode = recordCode;
                 entity.StartTime = startTime;
                 entity.FetalHeartData = string.Join(",", model.data1);
                 entity.UCData = string.Join(",", model.data3);
@@ -198,26 +194,26 @@ namespace FileSystemWatcher
                     try
                     {
                         connection.Open();
-                        command.CommandText = "select count(*) from FM_TXJH where binglih = @binglih and CONVERT(varchar(100), FM_TXJH.StartTime,20)=@FormatStartTime;";
-                        command.Parameters.Add(new SqlParameter("@binglih", entity.binglih));
+                        command.CommandText = "select count(*) from FM_TXJH where RecordCode = @RecordCode and CONVERT(varchar(100), FM_TXJH.StartTime,20)=@FormatStartTime;";
+                        command.Parameters.Add(new SqlParameter("@RecordCode", entity.RecordCode));
                         command.Parameters.Add(new SqlParameter("@FormatStartTime", entity.StartTime.ToString("yyyy-MM-dd HH:mm:ss")));//2020-03-16 15:20:57
                         var result = (int)command.ExecuteScalar();
                         if (result > 0)
                         {
-                            logger.Info($"已有该数据,binglih:{binglih},StartTime:{entity.StartTime.ToString("yyyy-MM-dd HH:mm:ss")}");
+                            logger.Info($"已有该数据,RecordCode:{recordCode},StartTime:{entity.StartTime.ToString("yyyy-MM-dd HH:mm:ss")}");
                             return;
                         }
 
                         command.Parameters.Clear();
-                        command.CommandText = "insert into fm_TXJH(binglih,StartTime,FetalHeartData,UCData)values(@binglih,@StartTime,@FetalHeartData,@UCData)";
-                        command.Parameters.Add(new SqlParameter("@binglih", entity.binglih));
+                        command.CommandText = "insert into fm_TXJH(RecordCode,StartTime,FetalHeartData,UCData)values(@RecordCode,@StartTime,@FetalHeartData,@UCData)";
+                        command.Parameters.Add(new SqlParameter("@RecordCode", entity.RecordCode));
                         command.Parameters.Add(new SqlParameter("@StartTime", entity.StartTime));
                         command.Parameters.Add(new SqlParameter("@FetalHeartData", entity.FetalHeartData));
                         command.Parameters.Add(new SqlParameter("@UCData", entity.UCData));
                         command.ExecuteNonQuery();
                         command.Dispose();
                         connection.Close();
-                        logger.Info($"数据同步成功,binglih:{binglih}");
+                        logger.Info($"数据同步成功,RecordCode:{recordCode}");
                     }
                     catch (Exception ex)
                     {
@@ -283,7 +279,7 @@ namespace FileSystemWatcher
         /// <summary>
         /// 病历号
         /// </summary>
-        public long binglih { set; get; }
+        public string RecordCode { set; get; }
         /// <summary>
         /// 起始时间
         /// </summary>

@@ -328,7 +328,7 @@ namespace VL.Consoling
                         }
                     }
                     var entity = new FileSystemWatcher.GetDataForTXJHModel();
-                    entity.binglih = binglih;
+                    entity.RecordCode = binglih;
                     entity.StartTime = startTime;
                     entity.FetalHeartData = string.Join(",", model.data1);
                     entity.UCData = string.Join(",", model.data3);
@@ -342,7 +342,7 @@ namespace VL.Consoling
                         {
                             connection.Open();
                             command.CommandText = "select count(*) from FM_TXJH where binglih = @binglih and CONVERT(varchar(100), FM_TXJH.StartTime,20)=@FormatStartTime;";
-                            command.Parameters.Add(new SqlParameter("@binglih", entity.binglih));
+                            command.Parameters.Add(new SqlParameter("@binglih", entity.RecordCode));
                             command.Parameters.Add(new SqlParameter("@FormatStartTime", entity.StartTime.ToString("yyyy-MM-dd HH:mm:ss")));//2020-03-16 15:20:57
                             var result = (int)command.ExecuteScalar();
                             if (result > 0)
@@ -353,7 +353,7 @@ namespace VL.Consoling
 
                             command.Parameters.Clear();
                             command.CommandText = "insert into fm_TXJH(binglih,StartTime,FetalHeartData,UCData)values(@binglih,@StartTime,@FetalHeartData,@UCData)";
-                            command.Parameters.Add(new SqlParameter("@binglih", entity.binglih));
+                            command.Parameters.Add(new SqlParameter("@binglih", entity.RecordCode));
                             command.Parameters.Add(new SqlParameter("@StartTime", entity.StartTime));
                             command.Parameters.Add(new SqlParameter("@FetalHeartData", entity.FetalHeartData));
                             command.Parameters.Add(new SqlParameter("@UCData", entity.UCData));
