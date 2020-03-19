@@ -22,9 +22,27 @@ namespace VL.Consoling.RabitMQUtils
 
         public long Id { set; get; }
     }
-    public class NamedMessage3
+    public class NamedMessage2Sub1
     {
-        public NamedMessage3(long id)
+        public NamedMessage2Sub1(long id)
+        {
+            Id = id;
+        }
+
+        public long Id { set; get; }
+    }
+    public class NamedMessage2Sub2
+    {
+        public NamedMessage2Sub2(long id)
+        {
+            Id = id;
+        }
+
+        public long Id { set; get; }
+    }
+    public class NamedMessageDirect1
+    {
+        public NamedMessageDirect1(long id)
         {
             Id = id;
         }

@@ -28,16 +28,16 @@ namespace VL.RabbitMQComsumer
                         ConsumerFor<NamedMessage2>(ExchangeType.Fanout, nameof(NamedMessage2), nameof(NamedMessage2) + "无需");
                         break;
                     case 2:
-                        ConsumerFor<NamedMessage3>(ExchangeType.Direct, Consoling.RabbitMQUtils.RabbitMQHelper.DirectExchangeName, nameof(NamedMessage3));
+                        ConsumerFor<NamedMessageDirect1>(ExchangeType.Direct, Consoling.RabbitMQUtils.RabbitMQHelper.DirectExchangeName1, nameof(NamedMessageDirect1));
                         break;
                     case 3:
-                        ConsumerFor<NamedMessage4>(ExchangeType.Direct, Consoling.RabbitMQUtils.RabbitMQHelper.DirectExchangeName, nameof(NamedMessage4));
+                        ConsumerFor<NamedMessage4>(ExchangeType.Direct, Consoling.RabbitMQUtils.RabbitMQHelper.DirectExchangeName1, nameof(NamedMessage4));
                         break;
                     case 4:
-                        ConsumerFor<NamedMessage4>(ExchangeType.Direct, Consoling.RabbitMQUtils.RabbitMQHelper.DirectExchangeName + "必要", nameof(NamedMessage4));
+                        ConsumerFor<NamedMessage4>(ExchangeType.Direct, Consoling.RabbitMQUtils.RabbitMQHelper.DirectExchangeName1 + "必要", nameof(NamedMessage4));
                         break;
                     case 5:
-                        ConsumerFor<NamedMessage4>(ExchangeType.Direct, Consoling.RabbitMQUtils.RabbitMQHelper.DirectExchangeName, nameof(NamedMessage4) + "必要");
+                        ConsumerFor<NamedMessage4>(ExchangeType.Direct, Consoling.RabbitMQUtils.RabbitMQHelper.DirectExchangeName1, nameof(NamedMessage4) + "必要");
                         break;
                     case 6:
                         break;

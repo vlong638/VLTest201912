@@ -10,7 +10,12 @@ namespace VL.Consoling.RabbitMQUtils
     ///管理后台 http://127.0.0.1:15672/
     public class RabbitMQHelper
     {
-        public static string DirectExchangeName = "ExchangeType.Direct";
+        public static string FunoutExchangeName1 = "ExchangeType.Funout.Logs";
+        public static string FunoutExchangeName2 = "ExchangeType.Funout2";
+
+        public static string DirectExchangeName1 = "ExchangeType.Direct1";
+
+        public static string TopicExchangeName1 = "ExchangeType.Topic1";
 
         //public static void Send()
         //{
