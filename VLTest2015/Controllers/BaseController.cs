@@ -7,6 +7,7 @@ namespace VLTest2015.Controllers
     [VLAuthentication]
     public class BaseController : Controller
     {
+        #region Common
         protected ActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))
@@ -23,7 +24,9 @@ namespace VLTest2015.Controllers
                 ModelState.AddModelError("", error);
             }
         }
+        #endregion
 
+        #region Auth
         public void SetCurrentUser(CurrentUser currentUser, bool isRemeberMe = false)
         {
             CurrentUser.SetCurrentUser(currentUser, isRemeberMe, Response);
@@ -34,6 +37,7 @@ namespace VLTest2015.Controllers
         {
             var httpContext = HttpContext;
             return CurrentUser.GetCurrentUser(httpContext);
-        }
+        } 
+        #endregion
     }
 }

@@ -454,181 +454,207 @@ namespace VL.Consoling
                 }
             }));
             #endregion
+            #region RabbitMQ Headers
+            cmds.Add(new Command("---------------------RabbitMQ Headers-------------------", () => { }));
+
+            #endregion
+            #region Authentication OAuth2.0
+            cmds.Add(new Command("---------------------Authentication OAuth2.0-------------------", () => { }));
             cmds.Add(new Command("multiThread", () =>
             {
-            for (int i = 0; i < 3; i++)
-            {
-                System.Threading.Tasks.Task.Factory.StartNew(() =>
-                {
-                    var name = "Worker" + DateTime.Now.Second.ToString();
-                    Console.WriteLine($" [{name}] started! ");
-                    while (true)
-                    {
-                        Console.WriteLine($" [{name}] says hello ");
-                        System.Threading.Thread.Sleep(2000);
-                    }
-                });
-                System.Threading.Thread.Sleep(2000);
-            }
-        }));
+                string HOST_ADDRESS = "http://localhost:80001";
+                IDisposable _webApp;
+                System.Net.Http.HttpClient _httpClient;
+                _webApp = Microsoft.Owin.Hosting.WebApp.Start<VL.API.Startup>(HOST_ADDRESS);
+                    Console.WriteLine("Web API started!");
+                    _httpClient = new System.Net.Http.HttpClient();
+                _httpClient.BaseAddress = new Uri(HOST_ADDRESS);
+                Console.WriteLine("HttpClient started!");
+                Console.ReadLine();
+            }));
+            #endregion
+            #region Common
+            cmds.Add(new Command("---------------------Common-------------------", () => { }));
             cmds.Add(new Command("config", () =>
             {
-            var config = Configuration.ConfigurationHelper.Build(@"Configuration/appsettings.json");
-            Console.WriteLine(config["MessageQueue:Name"]);
-            var messageQueue = config.GetSection("MessageQueue");
-            Console.WriteLine(messageQueue["Name"]);
-        }));
+                var config = Configuration.ConfigurationHelper.Build(@"Configuration/appsettings.json");
+                Console.WriteLine(config["MessageQueue:Name"]);
+                var messageQueue = config.GetSection("MessageQueue");
+                Console.WriteLine(messageQueue["Name"]);
+            }));
+
+            #endregion
+            #region Others
+            cmds.Add(new Command("---------------------Others-------------------", () => { }));
+            cmds.Add(new Command("multiThread", () =>
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    System.Threading.Tasks.Task.Factory.StartNew(() =>
+                    {
+                        var name = "Worker" + DateTime.Now.Second.ToString();
+                        Console.WriteLine($" [{name}] started! ");
+                        while (true)
+                        {
+                            Console.WriteLine($" [{name}] says hello ");
+                            System.Threading.Thread.Sleep(2000);
+                        }
+                    });
+                    System.Threading.Thread.Sleep(2000);
+                }
+            }));
             cmds.Add(new Command("parseTXJH", () =>
             {
-            var logger = new FileLogger();
-            try
-            {
-                var dataFile = @"D:\Sync\1_20200313121056.bin";
-                var xmlFile = @"D:\Sync\1_20200313121056.xml";
-                if (!File.Exists(dataFile) || !File.Exists(xmlFile))
+                var logger = new FileLogger();
+                try
                 {
-                    logger.Info($"内容尚未齐全,dataFile:{dataFile},xmlFile:{xmlFile}");
-                    return;
-                }
-                logger.Info($"开始解析,dataFile:{dataFile},xmlFile:{xmlFile}");
+                    var dataFile = @"D:\Sync\1_20200313121056.bin";
+                    var xmlFile = @"D:\Sync\1_20200313121056.xml";
+                    if (!File.Exists(dataFile) || !File.Exists(xmlFile))
+                    {
+                        logger.Info($"内容尚未齐全,dataFile:{dataFile},xmlFile:{xmlFile}");
+                        return;
+                    }
+                    logger.Info($"开始解析,dataFile:{dataFile},xmlFile:{xmlFile}");
 
-                #region 数据解析
-                //基础数据解析
-                string binglih = "";
-                DateTime startTime = DateTime.MinValue;
-                var xml = System.IO.File.ReadAllText(xmlFile);
-                Regex regexMRID = new Regex(@"\<MRID\>(\w+)\</MRID\>");
-                var matchMRID = regexMRID.Match(xml);
-                if (matchMRID.Groups.Count != 2)
-                {
-                    logger.Error("必要数据项缺失,MRID");
-                    return;
-                }
-                else
-                {
-                    binglih = matchMRID.Groups[1].Value;
-                }
-                Regex regexStartTime = new Regex(@"\<StartTime\>([\d\s]+)\</StartTime\>");
-                var matchStartTime = regexStartTime.Match(xml);
-                if (matchStartTime.Groups.Count != 2)
-                {
-                    logger.Error("必要数据项缺失,StartTime");
-                    return;
-                }
-                else
-                {
-                    var timeStr = matchStartTime.Groups[1].Value;
-                    var indexer = 0;
-                    if (timeStr.Length != 14)
+                    #region 数据解析
+                    //基础数据解析
+                    string binglih = "";
+                    DateTime startTime = DateTime.MinValue;
+                    var xml = System.IO.File.ReadAllText(xmlFile);
+                    Regex regexMRID = new Regex(@"\<MRID\>(\w+)\</MRID\>");
+                    var matchMRID = regexMRID.Match(xml);
+                    if (matchMRID.Groups.Count != 2)
                     {
-                        logger.Error($"无效的数据,Length:{timeStr.Length},StartTime:{timeStr}");
+                        logger.Error("必要数据项缺失,MRID");
                         return;
                     }
-                    if (!int.TryParse(timeStr.Substring(indexer, 4), out int year))
+                    else
                     {
-                        logger.Error("无效的数据,StartTime:" + timeStr);
+                        binglih = matchMRID.Groups[1].Value;
+                    }
+                    Regex regexStartTime = new Regex(@"\<StartTime\>([\d\s]+)\</StartTime\>");
+                    var matchStartTime = regexStartTime.Match(xml);
+                    if (matchStartTime.Groups.Count != 2)
+                    {
+                        logger.Error("必要数据项缺失,StartTime");
                         return;
                     }
-                    indexer += 4;
-                    if (!int.TryParse(timeStr.Substring(indexer, 2), out int month))
+                    else
                     {
-                        logger.Error("无效的数据,StartTime:" + timeStr);
-                        return;
-                    }
-                    indexer += 2;
-                    if (!int.TryParse(timeStr.Substring(indexer, 2), out int day))
-                    {
-                        logger.Error("无效的数据,StartTime:" + timeStr);
-                        return;
-                    }
-                    indexer += 2;
-                    if (!int.TryParse(timeStr.Substring(indexer, 2), out int hour))
-                    {
-                        logger.Error("无效的数据,StartTime:" + timeStr);
-                        return;
-                    }
-                    indexer += 2;
-                    if (!int.TryParse(timeStr.Substring(indexer, 2), out int minite))
-                    {
-                        logger.Error("无效的数据,StartTime:" + timeStr);
-                        return;
-                    }
-                    indexer += 2;
-                    if (!int.TryParse(timeStr.Substring(indexer, 2), out int second))
-                    {
-                        logger.Error("无效的数据,StartTime:" + timeStr);
-                        return;
-                    }
-                    startTime = new DateTime(year, month, day, hour, minite, second);
-                }
-                //仪器数据解析
-                var data = System.IO.File.ReadAllBytes(dataFile);
-                var model = new FileSystemWatcher.DrawTXJHModel();
-                var dataCount = data.Length / 17;
-                model.data1 = new int[dataCount];
-                model.data2 = new int[dataCount];
-                model.data3 = new int[dataCount];
-                model.data4 = new int[dataCount];
-                model.data5 = new int[dataCount];
-                for (var i = 0; i < data.Length; ++i)
-                {
-                    var dataIndex = i / 17;
-                    switch (i % 17)
-                    {
-                        case 3: model.data1[dataIndex] = data[i]; break;
-                        case 7: model.data2[dataIndex] = data[i]; break;
-                        case 11: model.data3[dataIndex] = data[i]; break;
-                        case 15: model.data4[dataIndex] = data[i]; break;
-                        case 16: model.data5[dataIndex] = data[i]; break;
-                    }
-                }
-                var entity = new FileSystemWatcher.GetDataForTXJHModel();
-                entity.RecordCode = binglih;
-                entity.StartTime = startTime;
-                entity.FetalHeartData = string.Join(",", model.data1);
-                entity.UCData = string.Join(",", model.data3);
-                #endregion
-
-                using (var connection = FileSystemWatcher.DBHelper.GetSQLServerDbConnection(@"Data Source=192.168.50.102;Initial Catalog=fmpt;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=huzfypt;Password=huz3305@2018."))
-                //using (var connection = DBHelper.GetSQLServerDbConnection(@"Data Source=10.31.102.24,1434;Initial Catalog=fmpt;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=HELETECHUSER;Password=HELEtech123"))
-                {
-                    var command = connection.CreateCommand();
-                    try
-                    {
-                        connection.Open();
-                        command.CommandText = "select count(*) from FM_TXJH where binglih = @binglih and CONVERT(varchar(100), FM_TXJH.StartTime,20)=@FormatStartTime;";
-                        command.Parameters.Add(new SqlParameter("@binglih", entity.RecordCode));
-                        command.Parameters.Add(new SqlParameter("@FormatStartTime", entity.StartTime.ToString("yyyy-MM-dd HH:mm:ss")));//2020-03-16 15:20:57
-                        var result = (int)command.ExecuteScalar();
-                        if (result > 0)
+                        var timeStr = matchStartTime.Groups[1].Value;
+                        var indexer = 0;
+                        if (timeStr.Length != 14)
                         {
-                            logger.Info($"已有该数据,binglih:{binglih},StartTime:{entity.StartTime.ToString("yyyy-MM-dd HH:mm:ss")}");
+                            logger.Error($"无效的数据,Length:{timeStr.Length},StartTime:{timeStr}");
                             return;
                         }
-
-                        command.Parameters.Clear();
-                        command.CommandText = "insert into fm_TXJH(binglih,StartTime,FetalHeartData,UCData)values(@binglih,@StartTime,@FetalHeartData,@UCData)";
-                        command.Parameters.Add(new SqlParameter("@binglih", entity.RecordCode));
-                        command.Parameters.Add(new SqlParameter("@StartTime", entity.StartTime));
-                        command.Parameters.Add(new SqlParameter("@FetalHeartData", entity.FetalHeartData));
-                        command.Parameters.Add(new SqlParameter("@UCData", entity.UCData));
-                        command.ExecuteNonQuery();
-                        command.Dispose();
-                        connection.Close();
-                        logger.Info("数据同步成功");
+                        if (!int.TryParse(timeStr.Substring(indexer, 4), out int year))
+                        {
+                            logger.Error("无效的数据,StartTime:" + timeStr);
+                            return;
+                        }
+                        indexer += 4;
+                        if (!int.TryParse(timeStr.Substring(indexer, 2), out int month))
+                        {
+                            logger.Error("无效的数据,StartTime:" + timeStr);
+                            return;
+                        }
+                        indexer += 2;
+                        if (!int.TryParse(timeStr.Substring(indexer, 2), out int day))
+                        {
+                            logger.Error("无效的数据,StartTime:" + timeStr);
+                            return;
+                        }
+                        indexer += 2;
+                        if (!int.TryParse(timeStr.Substring(indexer, 2), out int hour))
+                        {
+                            logger.Error("无效的数据,StartTime:" + timeStr);
+                            return;
+                        }
+                        indexer += 2;
+                        if (!int.TryParse(timeStr.Substring(indexer, 2), out int minite))
+                        {
+                            logger.Error("无效的数据,StartTime:" + timeStr);
+                            return;
+                        }
+                        indexer += 2;
+                        if (!int.TryParse(timeStr.Substring(indexer, 2), out int second))
+                        {
+                            logger.Error("无效的数据,StartTime:" + timeStr);
+                            return;
+                        }
+                        startTime = new DateTime(year, month, day, hour, minite, second);
                     }
-                    catch (Exception ex)
+                    //仪器数据解析
+                    var data = System.IO.File.ReadAllBytes(dataFile);
+                    var model = new FileSystemWatcher.DrawTXJHModel();
+                    var dataCount = data.Length / 17;
+                    model.data1 = new int[dataCount];
+                    model.data2 = new int[dataCount];
+                    model.data3 = new int[dataCount];
+                    model.data4 = new int[dataCount];
+                    model.data5 = new int[dataCount];
+                    for (var i = 0; i < data.Length; ++i)
                     {
-                        logger.Error("插入数据库时报错,", ex);
-                        connection.Close();
+                        var dataIndex = i / 17;
+                        switch (i % 17)
+                        {
+                            case 3: model.data1[dataIndex] = data[i]; break;
+                            case 7: model.data2[dataIndex] = data[i]; break;
+                            case 11: model.data3[dataIndex] = data[i]; break;
+                            case 15: model.data4[dataIndex] = data[i]; break;
+                            case 16: model.data5[dataIndex] = data[i]; break;
+                        }
+                    }
+                    var entity = new FileSystemWatcher.GetDataForTXJHModel();
+                    entity.RecordCode = binglih;
+                    entity.StartTime = startTime;
+                    entity.FetalHeartData = string.Join(",", model.data1);
+                    entity.UCData = string.Join(",", model.data3);
+                    #endregion
+
+                    using (var connection = FileSystemWatcher.DBHelper.GetSQLServerDbConnection(@"Data Source=192.168.50.102;Initial Catalog=fmpt;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=huzfypt;Password=huz3305@2018."))
+                    //using (var connection = DBHelper.GetSQLServerDbConnection(@"Data Source=10.31.102.24,1434;Initial Catalog=fmpt;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=HELETECHUSER;Password=HELEtech123"))
+                    {
+                        var command = connection.CreateCommand();
+                        try
+                        {
+                            connection.Open();
+                            command.CommandText = "select count(*) from FM_TXJH where binglih = @binglih and CONVERT(varchar(100), FM_TXJH.StartTime,20)=@FormatStartTime;";
+                            command.Parameters.Add(new SqlParameter("@binglih", entity.RecordCode));
+                            command.Parameters.Add(new SqlParameter("@FormatStartTime", entity.StartTime.ToString("yyyy-MM-dd HH:mm:ss")));//2020-03-16 15:20:57
+                            var result = (int)command.ExecuteScalar();
+                            if (result > 0)
+                            {
+                                logger.Info($"已有该数据,binglih:{binglih},StartTime:{entity.StartTime.ToString("yyyy-MM-dd HH:mm:ss")}");
+                                return;
+                            }
+
+                            command.Parameters.Clear();
+                            command.CommandText = "insert into fm_TXJH(binglih,StartTime,FetalHeartData,UCData)values(@binglih,@StartTime,@FetalHeartData,@UCData)";
+                            command.Parameters.Add(new SqlParameter("@binglih", entity.RecordCode));
+                            command.Parameters.Add(new SqlParameter("@StartTime", entity.StartTime));
+                            command.Parameters.Add(new SqlParameter("@FetalHeartData", entity.FetalHeartData));
+                            command.Parameters.Add(new SqlParameter("@UCData", entity.UCData));
+                            command.ExecuteNonQuery();
+                            command.Dispose();
+                            connection.Close();
+                            logger.Info("数据同步成功");
+                        }
+                        catch (Exception ex)
+                        {
+                            logger.Error("插入数据库时报错,", ex);
+                            connection.Close();
+                        }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                logger.Error("出现异常," + ex.ToString());
-            }
-        }));
+                catch (Exception ex)
+                {
+                    logger.Error("出现异常," + ex.ToString());
+                }
+            })); 
+            #endregion
             cmds.Start();
         }
 }

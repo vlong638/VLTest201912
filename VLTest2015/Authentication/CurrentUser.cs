@@ -45,7 +45,7 @@ namespace VLTest2015.Authentication
             var userName = httpContext.User.Identity.Name;
             var userData = authTicket.UserData.Split('_');
             var userId = string.IsNullOrEmpty(userData[0]) ? 0 : Int64.Parse(userData[0]);
-            var authorityIds = string.IsNullOrEmpty(userData[1]) ? new long[0] : userData[1].Split(',').Select(c => Int64.Parse(c)).ToArray();
+            var authorityIds = userData.Length<2||string.IsNullOrEmpty(userData[1]) ? new long[0] : userData[1].Split(',').Select(c => Int64.Parse(c)).ToArray();
             return new CurrentUser()
             {
                 UserId = userId,
