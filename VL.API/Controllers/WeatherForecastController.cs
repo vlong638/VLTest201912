@@ -77,5 +77,19 @@ namespace VL.API.Controllers
         {
             return new Dictionary<string, int>() { { "a", 1 }, { "b", 2 } };
         }
+
+        [HttpPost]
+        public List<Dictionary<string, object>> MockData(string input)
+        {
+            var s = @"[{""jiuzhenid"":""1000189789"",""nianling"":null,""xitongsj"":""2019 - 04 - 09 09:38:00"",""jiezhensj"":""2019 - 04 - 09 09:38:00"",""guahaoid"":""1000245303"",""keshidm"":""107"",""keshimc"":""产科"",""guahaobc"":""上午"",""guahaoxh"":""1"",""yishengxm"":""戴贤贤"",""chushengrq"":""1990 - 12 - 18"",""jiuzhenkh"":""2012040000545393"",""xingming"":""张晓玲"",""xingbie"":""2"",""zhengjianhm"":""330304199012189760"",""bingrenid"":""1429738"",""jiatingzz"":""浙江省温州市瓯海区新桥街道站前路１９７号１１幢４０５室"",""lianxidh"":""13566262593"",""status"":4}]";
+            var result=  Newtonsoft.Json.JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(s);
+            return result;
+        }
+
+        [HttpPost]
+        public List<Dictionary<string, object>> MockData2(string input)
+        {
+            throw new NotImplementedException("MockData2 says hello");
+        }
     }
 }
