@@ -1,28 +1,21 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using VL.API.Common.Controllers;
+using VL.API.PT.Entities;
+using VL.API.PT.Services;
 
 namespace VL.API.Controllers
 {
     /// <summary>
     /// 产科
     /// </summary>
-    public class PTController : VLControllerBase
+    public class PTController : V3ControllerBase
     {
         [HttpGet]
-        public List<string> GetStrings()
+        public PregnantInfo GetPregnantInfoById([FromServices] PTService ptService, int id)
         {
-            return new List<string>() { "s1", "s2", "s3" };
-        }
-
-        [HttpGet]
-        public Dictionary<string, int> GetDictionary()
-        {
-            return new Dictionary<string, int>() { { "a", 1 }, { "b", 2 } };
+            var entity = ptService.GetPregnantInfoById(id);
+            return entity;
         }
     }
 }

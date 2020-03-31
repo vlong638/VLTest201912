@@ -8,7 +8,7 @@ namespace VL.API.Common.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public abstract class VLControllerBase: ControllerBase
+    public abstract class V3ControllerBase : ControllerBase
     {
     }
 }

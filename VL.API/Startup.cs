@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using VL.API.PT.Services;
 
 namespace VL.API
 {
@@ -29,6 +30,9 @@ namespace VL.API
 
             ////Ìí¼ÓCache
             //services.AddSingleton<ICache>(p => new RedisCache(Configuration["Cache:Redis"], Configuration["Cache:Prefix"]));
+
+            services.AddScoped<PTService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
