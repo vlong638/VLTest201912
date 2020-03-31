@@ -26,6 +26,9 @@ namespace VL.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            ////Ìí¼ÓCache
+            //services.AddSingleton<ICache>(p => new RedisCache(Configuration["Cache:Redis"], Configuration["Cache:Prefix"]));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
