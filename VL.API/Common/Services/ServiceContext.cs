@@ -15,7 +15,7 @@ namespace VL.API.Common.Services
             {
                 if (dbGroup_Pregnant == null)
                 {
-                    dbGroup_Pregnant = new DbGroup(DBHelper.GetSQLServerDbConnection(ConnectingString_Pregnant));
+                    dbGroup_Pregnant = new DbGroup(DaHelper.GetSQLServerDbConnection(ConnectingString_Pregnant));
                 }
                 return dbGroup_Pregnant;
             }

@@ -3,7 +3,7 @@ using System.Data.SqlClient;
 
 namespace VL.API.Common.Repositories
 {
-    public class DBHelper
+    public class DaHelper
     {
         /// <summary>
         /// 创建数据库连接
