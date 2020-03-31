@@ -460,15 +460,15 @@ namespace VL.Consoling
             #endregion
             #region Authentication OAuth2.0
             cmds.Add(new Command("---------------------Authentication OAuth2.0-------------------", () => { }));
-            cmds.Add(new Command("multiThread", () =>
+            cmds.Add(new Command("OwinAPI", () =>
             {
-                string HOST_ADDRESS = "http://localhost:80001";
-                IDisposable _webApp;
-                System.Net.Http.HttpClient _httpClient;
-                _webApp = Microsoft.Owin.Hosting.WebApp.Start<VL.API.Startup>(HOST_ADDRESS);
-                    Console.WriteLine("Web API started!");
-                    _httpClient = new System.Net.Http.HttpClient();
-                _httpClient.BaseAddress = new Uri(HOST_ADDRESS);
+                //string HOST_ADDRESS = "http://localhost:81420";
+                //IDisposable _webApp;
+                //System.Net.Http.HttpClient _httpClient;
+                //_webApp = Microsoft.Owin.Hosting.WebApp.Start<VL.API.Startup>(HOST_ADDRESS);
+                //    Console.WriteLine("Web API started!");
+                //    _httpClient = new System.Net.Http.HttpClient();
+                //_httpClient.BaseAddress = new Uri(HOST_ADDRESS);
                 Console.WriteLine("HttpClient started!");
                 Console.ReadLine();
             }));
