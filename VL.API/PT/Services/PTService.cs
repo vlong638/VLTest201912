@@ -6,11 +6,21 @@ namespace VL.API.PT.Services
 {
     public class PTService: ServiceBase
     {
+        /// <summary>
+        /// 单数据库查询样例
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public PregnantInfo GetPregnantInfoById(int id)
         {
             return ServiceContext.Repository_PregnantInfo.GetById(id);
         }
 
+        /// <summary>
+        /// 单数据库新增样例
+        /// </summary>
+        /// <param name="pregnant"></param>
+        /// <returns></returns>
         internal ServiceResult<int> CreatePregnantInfo(PregnantInfo pregnant)
         {
             //对于实体创建和更新业务总是进行数据有效性校验
@@ -26,6 +36,11 @@ namespace VL.API.PT.Services
             return result;
         }
 
+        /// <summary>
+        /// 单数据库更新样例
+        /// </summary>
+        /// <param name="pregnant"></param>
+        /// <returns></returns>
         internal ServiceResult<bool> UpdatePregnantInfo(PregnantInfo pregnant)
         {
             //对于实体创建和更新业务总是进行数据有效性校验
@@ -42,7 +57,7 @@ namespace VL.API.PT.Services
         }
 
         /// <summary>
-        /// 多数据库事务
+        /// 多数据库事务样例
         /// </summary>
         /// <param name="pregnant"></param>
         /// <returns></returns>
