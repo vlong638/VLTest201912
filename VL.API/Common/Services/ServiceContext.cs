@@ -21,6 +21,20 @@ namespace VL.API.Common.Services
             }
         }
 
+        string ConnectingString_Sample01 { get { return "Data Source=crm1.heletech.cn,8082;Initial Catalog=HL_Sample01;Pooling=true;Max Pool Size=200;Min Pool Size=0;User ID=HZFYUSER;Password=HZFYPWD"; } }
+        DbGroup dbGroup_Sample01;
+        public DbGroup DbGroup_Sample01
+        {
+            get
+            {
+                if (dbGroup_Sample01 == null)
+                {
+                    dbGroup_Sample01 = new DbGroup(DbHelper.GetSQLServerDbConnection(ConnectingString_Sample01));
+                }
+                return dbGroup_Sample01;
+            }
+        }
+
         #endregion
 
         #region Repositories

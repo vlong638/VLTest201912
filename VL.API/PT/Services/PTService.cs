@@ -18,8 +18,12 @@ namespace VL.API.PT.Services
             if (!validResult.IsValidated)
                 return Error(-1);
 
-            pregnant.Id = (int)ServiceContext.Repository_PregnantInfo.Insert(pregnant);
-            return Success(pregnant.Id);
+            var result = DelegateTransaction(ServiceContext.DbGroup_Pregnant, () =>
+             {
+                 pregnant.Id = (int)ServiceContext.Repository_PregnantInfo.Insert(pregnant);
+                 return pregnant.Id;
+             });
+            return result;
         }
 
         internal ServiceResult<bool> UpdatePregnantInfo(PregnantInfo pregnant)
@@ -29,8 +33,32 @@ namespace VL.API.PT.Services
             if (!validResult.IsValidated)
                 return Error(false);
 
-            var result = ServiceContext.Repository_PregnantInfo.Update(pregnant);
-            return Success(result);
+            var result = DelegateTransaction(ServiceContext.DbGroup_Pregnant, () =>
+            {
+                var result = ServiceContext.Repository_PregnantInfo.Update(pregnant);
+                return result;
+            });
+            return result;
+        }
+
+        /// <summary>
+        /// 多数据库事务
+        /// </summary>
+        /// <param name="pregnant"></param>
+        /// <returns></returns>
+        internal ServiceResult<bool> MultipleSourceSample(PregnantInfo pregnant)
+        {
+            //对于实体创建和更新业务总是进行数据有效性校验
+            var validResult = pregnant.Validate();
+            if (!validResult.IsValidated)
+                return Error(false);
+
+            var result = DelegateTransaction(ServiceContext.DbGroup_Pregnant, ServiceContext.DbGroup_Sample01, () =>
+            {
+                var result = ServiceContext.Repository_PregnantInfo.Update(pregnant);
+                return result;
+            });
+            return result;
         }
     }
 }
