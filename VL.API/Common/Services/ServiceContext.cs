@@ -8,8 +8,7 @@ namespace VL.API.Common.Services
     {
         #region Logger
 
-        public ILogger FileLogger { get { return logger_FileLogger; } }
-        public ILogger logger_FileLogger = new FileLogger();
+        public ILogger FileLogger { get { return new FileLogger(); } }
 
         #endregion
 
