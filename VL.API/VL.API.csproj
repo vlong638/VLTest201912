@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Common\Utils\Database\" />
     <Folder Include="PT\Enums\" />
   </ItemGroup>
 

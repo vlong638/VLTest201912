@@ -8,5 +8,6 @@ namespace VL.API.PT.Repositories
         public PregnantInfoRepository(DbGroup dbGroup) : base(dbGroup)
         {
         }
+
     }
 }
