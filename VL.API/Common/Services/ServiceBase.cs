@@ -13,5 +13,14 @@ namespace VL.API.Common.Services
         {
             this.ServiceContext = new ServiceContext();
         }
+
+        public ServiceResult<T> Success<T>(T data)
+        {
+            return new ServiceResult<T>(data);
+        }
+        public ServiceResult<T> Error<T>(T data, string message = "", int code = 0)
+        {
+            return new ServiceResult<T>(data) { Message = message, Code = code };
+        }
     }
 }

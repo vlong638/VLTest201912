@@ -19,7 +19,7 @@ namespace VL.API.Controllers
         {
             var entity = ptService.GetPregnantInfoById(id);
             return entity;
-        }
+        } 
 
         #region for test
         //for test 
@@ -51,14 +51,20 @@ namespace VL.API.Controllers
             //业务逻辑
             if (pregnant.Id > 0)
             {
-                var id = ptService.CreatePregnantInfo(pregnant);
-                return id > 0;
+                var serviceResult = ptService.CreatePregnantInfo(pregnant);
+                if (serviceResult.IsSuccess)
+                    return serviceResult.Data > 0;
+                else
+                    return false;
             }
             else
             {
-                var result = ptService.UpdatePregnantInfo(pregnant);
-                return result;
+                var serviceResult = ptService.UpdatePregnantInfo(pregnant);
+                if (serviceResult.IsSuccess)
+                    return serviceResult.Data;
+                else
+                    return false;
             }
-        }
+        } 
     }
 }

@@ -11,26 +11,26 @@ namespace VL.API.PT.Services
             return ServiceContext.Repository_PregnantInfo.GetById(id);
         }
 
-        internal long CreatePregnantInfo(PregnantInfo pregnant)
+        internal ServiceResult<int> CreatePregnantInfo(PregnantInfo pregnant)
         {
             //对于实体创建和更新业务总是进行数据有效性校验
             var validResult = pregnant.Validate();
             if (!validResult.IsValidated)
-                return -1;
+                return Error(-1);
 
             pregnant.Id = (int)ServiceContext.Repository_PregnantInfo.Insert(pregnant);
-            return pregnant.Id;
+            return Success(pregnant.Id);
         }
 
-        internal bool UpdatePregnantInfo(PregnantInfo pregnant)
+        internal ServiceResult<bool> UpdatePregnantInfo(PregnantInfo pregnant)
         {
             //对于实体创建和更新业务总是进行数据有效性校验
             var validResult = pregnant.Validate();
             if (!validResult.IsValidated)
-                return false;
+                return Error(false);
 
             var result = ServiceContext.Repository_PregnantInfo.Update(pregnant);
-            return result;
+            return Success(result);
         }
     }
 }
