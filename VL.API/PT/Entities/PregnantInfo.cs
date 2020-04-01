@@ -1,8 +1,5 @@
 ﻿using Dapper.Contrib.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using VL.API.Common.Entities;
 
 namespace VL.API.PT.Entities
 {
@@ -17,29 +14,5 @@ namespace VL.API.PT.Entities
         {
             return ValidateResult.Empty;
         }
-    }
-
-    /// <summary>
-    /// 数据校验
-    /// </summary>
-    public interface IDataValidation
-    {
-        public ValidateResult Validate();
-    }
-
-    /// <summary>
-    /// 数据校验结果集
-    /// </summary>
-    public class ValidateResult
-    {
-        public static ValidateResult Empty = new ValidateResult();
-
-        public ValidateResult(params string[] messages)
-        {
-            Messages = messages;
-        }
-
-        public string[] Messages { set; get; }
-        public bool IsValidated { get { return Messages.Count() == 0; } }
     }
 }

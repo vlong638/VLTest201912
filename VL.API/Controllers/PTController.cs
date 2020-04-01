@@ -60,10 +60,5 @@ namespace VL.API.Controllers
                 return result;
             }
         }
-
-        public class EntityFactory
-        {
-            public PregnantInfo Create()
-        }
     }
 }
