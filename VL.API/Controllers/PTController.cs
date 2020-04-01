@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using VL.API.Common.Controllers;
+using VL.API.Common.Services;
 using VL.API.PT.Entities;
 using VL.API.PT.Services;
 
@@ -19,7 +20,7 @@ namespace VL.API.Controllers
         {
             var entity = ptService.GetPregnantInfoById(id);
             return entity;
-        } 
+        }
 
         #region for test
         //for test 
@@ -27,7 +28,7 @@ namespace VL.API.Controllers
         #endregion
 
         [HttpPost]
-        public bool SavePregnantInfo([FromServices] PTService ptService, [FromForm] string input)
+        public APIResult<bool> SavePregnantInfo([FromServices] PTService ptService, [FromForm] string input)
         {
             input = System.Web.HttpUtility.UrlDecode(input, System.Text.Encoding.GetEncoding("UTF-8"));
             Dictionary<string, object> inputs = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(input);
@@ -46,25 +47,23 @@ namespace VL.API.Controllers
             var validateResult = pregnant.Validate();
             if (!validateResult.IsValidated)
             {
-                return false;
+                return Error(false, validateResult.Messages);
             }
             //业务逻辑
             if (pregnant.Id > 0)
             {
                 var serviceResult = ptService.CreatePregnantInfo(pregnant);
-                if (serviceResult.IsSuccess)
-                    return serviceResult.Data > 0;
-                else
-                    return false;
+                if (!serviceResult.IsSuccess)
+                    return Error(false, serviceResult.Messages);
+                return Success(serviceResult.Data > 0);
             }
             else
             {
                 var serviceResult = ptService.UpdatePregnantInfo(pregnant);
-                if (serviceResult.IsSuccess)
-                    return serviceResult.Data;
-                else
-                    return false;
+                if (!serviceResult.IsSuccess)
+                    return Error(false, serviceResult.Messages);
+                return Success(serviceResult.Data);
             }
-        } 
+        }
     }
 }

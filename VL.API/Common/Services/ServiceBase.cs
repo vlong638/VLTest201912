@@ -18,9 +18,13 @@ namespace VL.API.Common.Services
         {
             return new ServiceResult<T>(data);
         }
-        public ServiceResult<T> Error<T>(T data, string message = "", int code = 0)
+        public ServiceResult<T> Error<T>(T data, params string[] messages)
         {
-            return new ServiceResult<T>(data) { Message = message, Code = code };
+            return new ServiceResult<T>(data, messages);
+        }
+        public ServiceResult<T> Error<T>(T data, int code, params string[] messages)
+        {
+            return new ServiceResult<T>(data, code, messages);
         }
     }
 }
