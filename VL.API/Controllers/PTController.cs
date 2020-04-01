@@ -31,14 +31,24 @@ namespace VL.API.Controllers
         {
             input = System.Web.HttpUtility.UrlDecode(input, System.Text.Encoding.GetEncoding("UTF-8"));
             Dictionary<string, object> inputs = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(input);
+            //参数转换
+            //VLCore:关键原则
+            //如果有一些辅助性的逻辑,认为用户填写了A,B项同时可以解释C,D的录入
+            //录入的辅助在此处理,可以考虑构建Factory进行统一
+            //特殊情况:有些复杂逻辑在业务内进行业务组织得以进行,针对这些,将其规划为领域内的业务逻辑
             var pregnant = new PregnantInfo()
             {
                 Id = Common.Utils.DicUtil.GetDicValue<int>("Id", inputs),
                 PersonName = Common.Utils.DicUtil.GetDicValue<string>("PersonName", inputs),
                 Photo = Common.Utils.DicUtil.GetDicValue<string>("Photo", inputs),
             };
-            //VLCore:关键原则
-            //如果有一些辅助性的逻辑,认为用户填写了A,B项同时可以解释C,D的录入,那么在这一层 或者说一个 Factory 统一进行封装处理
+            //数据校验
+            var validateResult = pregnant.Validate();
+            if (!validateResult.IsValidated)
+            {
+                return false;
+            }
+            //业务逻辑
             if (pregnant.Id > 0)
             {
                 var id = ptService.CreatePregnantInfo(pregnant);
@@ -49,6 +59,11 @@ namespace VL.API.Controllers
                 var result = ptService.UpdatePregnantInfo(pregnant);
                 return result;
             }
+        }
+
+        public class EntityFactory
+        {
+            public PregnantInfo Create()
         }
     }
 }

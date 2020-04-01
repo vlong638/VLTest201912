@@ -13,9 +13,10 @@ namespace VL.API.PT.Services
 
         internal long CreatePregnantInfo(PregnantInfo pregnant)
         {
-            ///VLCore:关键原则
-            ///如果有数据规范性的校验,比如一个创建业务内需要符合的逻辑,应由Factory进行统一
-            ///如 PregnantInfo.Create(){ DoSets();PregnantInfo.Validate();}
+            //对于实体创建和更新业务总是进行数据有效性校验
+            var validResult = pregnant.Validate();
+            if (!validResult.IsValidated)
+                return -1;
 
             pregnant.Id = (int)ServiceContext.Repository_PregnantInfo.Insert(pregnant);
             return pregnant.Id;
@@ -23,9 +24,10 @@ namespace VL.API.PT.Services
 
         internal bool UpdatePregnantInfo(PregnantInfo pregnant)
         {
-            //VLCore:关键原则
-            ///如果有数据规范性的校验,比如一个变更业务内需要符合的逻辑,应由Factory进行统一
-            ///如 PregnantInfo.Update(){ DoSets();PregnantInfo.Validate();}
+            //对于实体创建和更新业务总是进行数据有效性校验
+            var validResult = pregnant.Validate();
+            if (!validResult.IsValidated)
+                return false;
 
             var result = ServiceContext.Repository_PregnantInfo.Update(pregnant);
             return result;
