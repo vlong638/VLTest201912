@@ -12,7 +12,18 @@ namespace VL.API.PT.Entities
 
         public ValidateResult Validate()
         {
-            return ValidateResult.Empty;
+            var result = ValidateResult.Empty;
+            if (string.IsNullOrEmpty(PersonName))
+            {
+                result.Messages.Add("`姓名`不可为空");
+                return result;
+            }
+            if (Photo!=null&& Photo.Length>100)
+            {
+                result.Messages.Add("`照片内容`最大长度为100");
+                return result;
+            }
+            return result;
         }
     }
 }

@@ -11,9 +11,14 @@ namespace VL.API.Common.Controllers
     [Route("api/[controller]/[action]")]
     public abstract class V3ControllerBase : ControllerBase
     {
+        #region APIResult,便捷方法
         public APIResult<T> Success<T>(T data)
         {
             return new APIResult<T>(data);
+        }
+        public APIResult<T> Error<T>(T data, List<string> messages)
+        {
+            return new APIResult<T>(data, messages.ToArray());
         }
         public APIResult<T> Error<T>(T data, params string[] messages)
         {
@@ -22,6 +27,7 @@ namespace VL.API.Common.Controllers
         public APIResult<T> Error<T>(T data, int code, params string[] messages)
         {
             return new APIResult<T>(data, code, messages);
-        }
+        } 
+        #endregion
     }
 }

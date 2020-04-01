@@ -1,4 +1,7 @@
-﻿namespace VL.API.Common.Services
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace VL.API.Common.Services
 {
     /// <summary>
     /// Controller层返回结构
@@ -10,18 +13,20 @@
         public APIResult(params string[] messages)
         {
             this.Code = SuccessCode;
-            this.Messages = messages;
+            if (messages != null & messages.Length != 0)
+                this.Messages.AddRange(messages);
         }
         public APIResult(int code, params string[] messages)
         {
             this.Code = code;
-            this.Messages = messages;
+            if (messages != null & messages.Length != 0)
+                this.Messages.AddRange(messages);
         }
 
         /// <summary>
         /// 信息
         /// </summary>
-        public string[] Messages { set; get; }
+        public List<string> Messages { set; get; } = new List<string>();
         /// <summary>
         /// 状态码
         /// </summary>
@@ -33,7 +38,7 @@
         /// 诸如以下的组件异常
         /// false case: 比如服务层返回异常(如服务层校验未通过,出现事务回滚异常)
         /// </summary>
-        public bool IsSuccess { get { return Messages == null || Messages.Length == 0; } }
+        public bool IsValidated { get { return Messages.Count() == 0; } }
     }
     /// <summary>
     /// Controller层返回结构

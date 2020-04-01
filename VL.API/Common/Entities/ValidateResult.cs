@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace VL.API.Common.Entities
 {
@@ -12,16 +13,18 @@ namespace VL.API.Common.Entities
         public ValidateResult(params string[] messages)
         {
             this.Code = 0;
-            this.Messages = messages;
+            if (messages != null & messages.Length != 0)
+                this.Messages.AddRange(messages);
         }
         public ValidateResult(int code = 0, params string[] messages)
         {
             this.Code = code;
-            this.Messages = messages;
+            if (messages != null & messages.Length != 0)
+                this.Messages.AddRange(messages);
         }
 
         public int Code { set; get; }
-        public string[] Messages { set; get; }
+        public List<string> Messages { set; get; } = new List<string>();
         public bool IsValidated { get { return Messages.Count() == 0; } }
     }
 }
