@@ -56,9 +56,9 @@ namespace VL.API.Common.Services
             }
             catch (Exception ex)
             {
-                //TODO Log
                 dbGroup.Transaction.Rollback();
                 dbGroup.Connection.Close();
+                ServiceContext.FileLogger.Error(ex);
                 return new ServiceResult<T>(default(T), ex.Message);
             }
         }
@@ -90,11 +90,11 @@ namespace VL.API.Common.Services
             }
             catch (Exception ex)
             {
-                //TODO Log
                 dbGroup1.Transaction.Rollback();
                 dbGroup2.Transaction.Rollback();
                 dbGroup1.Connection.Close();
                 dbGroup2.Connection.Close();
+                ServiceContext.FileLogger.Error(ex);
                 return new ServiceResult<T>(default(T), ex.Message);
             }
         } 

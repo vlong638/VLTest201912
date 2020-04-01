@@ -1,10 +1,18 @@
-﻿using VL.API.Common.Repositories;
+﻿using VL.API.Common.Log;
+using VL.API.Common.Repositories;
 using VL.API.PT.Repositories;
 
 namespace VL.API.Common.Services
 {
     public class ServiceContext
     {
+        #region Logger
+
+        public ILogger FileLogger { get { return logger_FileLogger; } }
+        public ILogger logger_FileLogger = new FileLogger();
+
+        #endregion
+
         #region DbGroups
 
         string ConnectingString_Pregnant { get { return "Data Source=crm1.heletech.cn,8082;Initial Catalog=HL_Pregnant;Pooling=true;Max Pool Size=200;Min Pool Size=0;User ID=HZFYUSER;Password=HZFYPWD"; } }
