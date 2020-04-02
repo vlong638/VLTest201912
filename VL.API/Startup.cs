@@ -78,6 +78,7 @@ namespace VL.API
             });
 
             //swagger
+            //Sample saggger
             //·ÃÎÊÂ·¾¶ https://localhost:44347/swagger
             app.UseSwagger();
             app.UseSwaggerUI(p =>
