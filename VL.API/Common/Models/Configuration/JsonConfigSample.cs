@@ -1,4 +1,4 @@
-﻿namespace VL.API.Common.Utils.Configuration
+﻿namespace VL.API.Common.Models.Configuration
 {
     /// <summary>
     /// 配置样例
