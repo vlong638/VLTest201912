@@ -45,7 +45,6 @@ namespace VL.API.Common.Models
 select count(*)
 from PregnantInfo
 {GetWhereCondition()}
-{GetOrderCondition()}
 ";
         }
 
