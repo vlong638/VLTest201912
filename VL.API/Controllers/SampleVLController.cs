@@ -19,7 +19,7 @@ namespace VL.API.Controllers
         //https://localhost:44347/api/pt/GetPregnantInfoById?id=63816
 
         /// <summary>
-        /// 
+        /// Sample 
         /// </summary>
         /// <param name="ptService"></param>
         /// <param name="id"></param>

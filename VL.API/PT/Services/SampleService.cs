@@ -11,6 +11,7 @@ namespace VL.API.PT.Services
     {
         /// <summary>
         /// 单数据库查询样例
+        /// Sample Get
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -22,6 +23,7 @@ namespace VL.API.PT.Services
 
         /// <summary>
         /// 单数据库新增样例
+        /// Sample Create
         /// </summary>
         /// <param name="pregnant"></param>
         /// <returns></returns>
@@ -42,6 +44,7 @@ namespace VL.API.PT.Services
 
         /// <summary>
         /// 单数据库更新样例
+        /// Sample Update
         /// </summary>
         /// <param name="pregnant"></param>
         /// <returns></returns>
@@ -62,6 +65,7 @@ namespace VL.API.PT.Services
 
         /// <summary>
         /// 多数据库事务样例
+        /// Sample MultipleTransaction
         /// </summary>
         /// <param name="pregnant"></param>
         /// <returns></returns>
@@ -82,6 +86,7 @@ namespace VL.API.PT.Services
 
         /// <summary>
         /// 分页查询样例
+        /// Sample PagedList
         /// </summary>
         /// <returns></returns>
         public ServiceResult<VLPageResult<PregnantInfo>> GetPagedListSample(GetPagedListSampleRequest request)
@@ -97,6 +102,7 @@ namespace VL.API.PT.Services
 
         /// <summary>
         /// 带搜索的分页查询样例
+        /// Sample PagedListWithSearch
         /// </summary>
         /// <returns></returns>
         public ServiceResult<VLPageResult<PregnantInfo>> GetComplexPagedListSample(GetComplexPagedListSampleRequest request)
