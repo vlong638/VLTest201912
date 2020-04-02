@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using VL.API.Common.Controllers;
 using VL.API.Common.Models.Entities;
 using VL.API.Common.Services;
+using VL.API.Common.Utils;
 using VL.API.PT.Services;
 
 namespace VL.API.Controllers
@@ -67,5 +69,14 @@ namespace VL.API.Controllers
                 return Success(serviceResult.Data);
             }
         }
+
+
+        [HttpGet]
+        public APIResult<string> TestOptions([FromServices] IOptions<LoggingConfig> loggingConfig)
+        {
+            var result = loggingConfig.ToJson();
+            return Success(result);
+        }
+
     }
 }

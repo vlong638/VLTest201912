@@ -22,17 +22,21 @@ namespace VL.API
             {
                 //显示设置当前程序运行目录
                 builder.SetBasePath(System.IO.Directory.GetCurrentDirectory());
-                //设置内存中的 .NET 对象
-                var arrayDict = new Dictionary<string, string>()
-                {
-                    { "ConfigSample01","张三"},
-                    { "ConfigSample02","李四"},
-                    { "ConfigSample03","王武"},
-                };
-                builder.AddInMemoryCollection(arrayDict);
-                //设置文件, optional选择项为false时 必需存在该文件
-                builder.AddJsonFile("config.json", optional: false, reloadOnChange: false);
-                builder.AddXmlFile("config.xml", optional: false, reloadOnChange: false);
+
+                ////内存配置
+                //var arrayDict = new Dictionary<string, string>()
+                //{
+                //    { "ConfigSample01","张三"},
+                //    { "ConfigSample02","李四"},
+                //    { "ConfigSample03","王武"},
+                //};
+                //builder.AddInMemoryCollection(arrayDict);
+
+                //Json配置
+                builder.AddJsonFile("configs/config.json", optional: false, reloadOnChange: false);
+
+                //XML配置
+                //builder.AddXmlFile("configs/config.xml", optional: false, reloadOnChange: false);
             })
             .ConfigureWebHostDefaults(webBuilder =>
             {

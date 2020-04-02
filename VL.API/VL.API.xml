@@ -1,0 +1,336 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VL.API</name>
+    </assembly>
+    <members>
+        <member name="T:VL.API.Common.Services.APIResult">
+            <summary>
+            Controller层返回结构
+            </summary>
+        </member>
+        <member name="P:VL.API.Common.Services.APIResult.Messages">
+            <summary>
+            信息
+            </summary>
+        </member>
+        <member name="P:VL.API.Common.Services.APIResult.Code">
+            <summary>
+            状态码
+            </summary>
+        </member>
+        <member name="P:VL.API.Common.Services.APIResult.IsValidated">
+            <summary>
+            是否成功
+            诸如以下的业务异常
+            false case: 比如更新对象(没有差异项,那么Service层返回的状态是执行成功,但更新条数是0,由Controller层决定是否对外透出异常信息)
+            诸如以下的组件异常
+            false case: 比如服务层返回异常(如服务层校验未通过,出现事务回滚异常)
+            </summary>
+        </member>
+        <member name="T:VL.API.Common.Services.APIResult`1">
+            <summary>
+            Controller层返回结构
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:VL.API.Common.Services.APIResult`1.Data">
+            <summary>
+            数据
+            </summary>
+        </member>
+        <member name="M:VL.API.Common.Services.ServiceBase.DelegateTransaction``1(VL.API.Common.Repositories.DbGroup,System.Func{``0})">
+            <summary>
+            扩展事务(服务层)通用处理
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="dbGroup"></param>
+            <param name="exec"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.API.Common.Services.ServiceBase.DelegateTransaction``1(VL.API.Common.Repositories.DbGroup,VL.API.Common.Repositories.DbGroup,System.Func{``0})">
+            <summary>
+            扩展事务(服务层)通用处理
+            多库
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="dbGroup1"></param>
+            <param name="dbGroup2"></param>
+            <param name="exec"></param>
+            <returns></returns>
+        </member>
+        <member name="T:VL.API.Common.Services.ServiceResult">
+            <summary>
+            Service层返回结构
+            </summary>
+        </member>
+        <member name="P:VL.API.Common.Services.ServiceResult.Messages">
+            <summary>
+            信息
+            </summary>
+        </member>
+        <member name="P:VL.API.Common.Services.ServiceResult.Code">
+            <summary>
+            状态码
+            </summary>
+        </member>
+        <member name="P:VL.API.Common.Services.ServiceResult.IsSuccess">
+            <summary>
+            是否成功
+            诸如以下的业务异常
+            false case: 校验未通过(通用或非通用校验)
+            false case: 需事务回滚的异常逻辑
+            诸如以下的组件异常
+            false case: 数据库连接异常
+            false case: 事务执行异常
+            false case: 数据库更新异常(如主外键限制,字符串长度截断等)
+            false case: 消息发送失败
+            </summary>
+        </member>
+        <member name="T:VL.API.Common.Services.ServiceResult`1">
+            <summary>
+            服务端返回结构
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:VL.API.Common.Services.ServiceResult`1.Data">
+            <summary>
+            数据
+            </summary>
+        </member>
+        <member name="T:VL.API.Common.Models.IDataValidation">
+            <summary>
+            数据校验
+            </summary>
+        </member>
+        <member name="T:VL.API.Common.Models.ValidateResult">
+            <summary>
+            数据校验结果集
+            </summary>
+        </member>
+        <member name="T:VL.API.Common.Models.GetComplexPagedListSampleRequest">
+            <summary>
+            复杂分页入参样例
+            </summary>
+        </member>
+        <member name="T:VL.API.Common.Models.VLPageRequest">
+            <summary>
+            分页入参规范
+            </summary>
+        </member>
+        <member name="P:VL.API.Common.Models.VLPageRequest.Orders">
+            <summary>
+            排序 true：asc,false:desc
+            </summary>
+        </member>
+        <member name="T:VL.API.Common.Models.VLPageResult`1">
+            <summary>
+            分页出参规范
+            </summary>
+        </member>
+        <member name="T:VL.API.Common.Repositories.DbGroup">
+            <summary>
+            数据库访问单元:支持事务及跨库协作
+            </summary>
+        </member>
+        <member name="M:VL.API.Common.Repositories.DbHelper.GetSQLServerDbConnection(System.String)">
+            <summary>
+            创建数据库连接
+            VLTODO 可以优为连接池
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VL.API.Common.Utils.DicUtil.Union(System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.Dictionary{System.String,System.Object},System.Boolean@,System.Boolean,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="items1">主表</param>
+            <param name="items2">附表</param>
+            <param name="update">当主表和附表含有相同key，且主表为空，附表不为空时，是否覆盖</param>
+            <param name="updatenum">针对数值当主表和附表含有相同key，且主表为0，附表不为0时，是否覆盖</param>
+            <param name="ischange">主表内容是否被修改</param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.API.Common.Utils.DicUtil.Union(System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.Dictionary{System.String,System.Object},System.Boolean,System.Boolean)">
+            <param name="items1">主表</param>
+            <param name="items2">附表</param>
+            <param name="update">当主表和附表含有相同key，且主表为空，附表不为空时，是否覆盖</param>
+            <param name="updatenum">针对数值当主表和附表含有相同key，且主表为0，附表不为0时，是否覆盖</param>
+            <param name="ischange">主表内容是否被修改</param>
+            <returns></returns>
+        </member>
+        <member name="T:VL.API.Common.Utils.ContentUtil">
+             <summary>
+            ContentUtil 的摘要说明
+             </summary>
+        </member>
+        <member name="M:VL.API.Common.Utils.ContentUtil.getContent(System.Int32,System.String)">
+            <summary>
+            认为中文占两个字节
+            英文占一个字节
+            </summary>
+            <param name="len"></param>
+            <param name="con"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.API.Common.Utils.ContentUtil.IntToCHN(System.String)">
+            <summary>
+            转化函数
+            </summary>
+            <param name="IntStr">需要转化的字符串</param>
+            <returns>转化完后的字符串</returns>
+        </member>
+        <member name="M:VL.API.Common.Utils.ContentUtil.SubSectionNumStr(System.String)">
+            <summary>
+            将字符串以亿为单位拆分为字符数组
+            </summary>
+            <param name="NumStr">字符串</param>
+            <returns>得到用“|”号隔开的字符串数组</returns>
+        </member>
+        <member name="M:VL.API.Common.Utils.ContentUtil.ManageStrZero(System.String)">
+            <summary>
+            判断有多个“0”的情况
+            </summary>
+            <param name="ZeroStr">处理字符</param>
+            <returns>多个零处理成“*”号</returns>
+        </member>
+        <member name="M:VL.API.Common.Utils.ContentUtil.NumParseToText(System.Char,System.Int32,System.Boolean)">
+            <summary>
+            将数字字符转化为大写的中文形式
+            </summary>
+            <param name="str">需要转化的字符</param>
+            <param name="count">位数</param>
+            <param name="moreBill">是否超过9位</param>
+            <returns>返回中文形式的数字字符</returns>
+        </member>
+        <member name="M:VL.API.Common.Utils.ContentUtil.IsNumber(System.String)">
+            <summary>
+            判断是否是数字
+            </summary>
+            <param name="strNumber"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.API.Common.Utils.ContentUtil.GetRegValue(System.String,System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            正则表达式取值
+            </summary>
+            <param name="HtmlCode">源码</param>
+            <param name="RegexString">正则表达式</param>
+            <param name="GroupKey">正则表达式分组关键字</param>
+            <param name="RightToLeft">是否从右到左</param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.API.Common.Utils.StringUtil.getStringLength(System.String)">
+            <summary>
+            获取中英文混排字符串的实际长度(字节数)
+            </summary>
+            <param name="str">要获取长度的字符串</param>
+            <returns>字符串的实际长度值（字节数）</returns>
+        </member>
+        <member name="M:VL.API.Common.Utils.StringUtil.HTMLSubstring(System.String,System.Int32,System.String)">
+            <summary>  
+            按文本内容长度截取HTML字符串(支持截取带HTML代码样式的字符串)  
+            </summary>  
+            <param name="html">将要截取的字符串参数</param>  
+            <param name="len">截取的字节长度</param>  
+            <param name="endString">字符串末尾补上的字符串</param>  
+            <returns>返回截取后的字符串</returns>  
+        </member>
+        <member name="T:VL.API.Common.Utils.HtmlUtil">
+             <summary>
+            HtmlUtil 的摘要说明
+             </summary>
+        </member>
+        <member name="M:VL.API.Common.Utils.HtmlUtil.String2Unicode(System.String)">
+            <summary>
+            字符串转Unicode
+            </summary>
+            <param name="source">源字符串</param>
+            <returns>Unicode编码后的字符串</returns>
+        </member>
+        <member name="M:VL.API.Common.Utils.HtmlUtil.StringToUnicode(System.String)">
+            <summary>  
+            字符串转为UniCode码字符串  
+            </summary>  
+            <param name="s"></param>  
+            <returns></returns>  
+        </member>
+        <member name="M:VL.API.Common.Utils.HtmlUtil.UnicodeToString(System.String)">
+            <summary>  
+            Unicode字符串转为正常字符串  
+            </summary>  
+            <param name="srcText"></param>  
+            <returns></returns>  
+        </member>
+        <member name="T:VL.API.Common.Utils.TimeUtil">
+             <summary>
+            TimeUtil 的摘要说明
+             </summary>
+        </member>
+        <member name="T:VL.API.Common.Utils.IdentityCard">
+             <summary>
+            IdentityCard 的摘要说明
+             </summary>
+        </member>
+        <member name="M:VL.API.Common.Utils.EnumEx.GetDescription(System.Enum)">
+            <summary>
+            获取枚举值上的Description特性的说明
+            </summary>
+            <typeparam name="T">枚举类型</typeparam>
+            <param name="obj">枚举值</param>
+            <returns>特性的说明</returns>
+        </member>
+        <member name="T:VL.API.PT.Enums.CaesareanPosition">
+            <summary>
+            剖宫产位置
+            </summary>
+        </member>
+        <member name="M:VL.API.PT.Services.SampleService.GetPregnantInfoById(System.Int32)">
+            <summary>
+            单数据库查询样例
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.API.PT.Services.SampleService.CreatePregnantInfo(VL.API.Common.Models.Entities.PregnantInfo)">
+            <summary>
+            单数据库新增样例
+            </summary>
+            <param name="pregnant"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.API.PT.Services.SampleService.UpdatePregnantInfo(VL.API.Common.Models.Entities.PregnantInfo)">
+            <summary>
+            单数据库更新样例
+            </summary>
+            <param name="pregnant"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.API.PT.Services.SampleService.MultipleSourceSample(VL.API.Common.Models.Entities.PregnantInfo)">
+            <summary>
+            多数据库事务样例
+            </summary>
+            <param name="pregnant"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.API.PT.Services.SampleService.GetPagedListSample(VL.API.Common.Models.GetPagedListSampleRequest)">
+            <summary>
+            分页查询样例
+            </summary>
+            <param name="pregnant"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.API.PT.Services.SampleService.GetComplexPagedListSample(VL.API.Common.Models.GetComplexPagedListSampleRequest)">
+            <summary>
+            带搜索的分页查询样例
+            </summary>
+            <param name="pregnant"></param>
+            <returns></returns>
+        </member>
+        <member name="T:VL.API.Controllers.PTController">
+            <summary>
+            产科
+            </summary>
+        </member>
+    </members>
+</doc>

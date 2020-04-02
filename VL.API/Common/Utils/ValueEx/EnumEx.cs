@@ -3,7 +3,7 @@ using System;
 using System.ComponentModel;
 using System.Reflection;
 
-namespace VL.API.Common.Models
+namespace VL.API.Common.Utils
 {
     public static class EnumEx
     {
