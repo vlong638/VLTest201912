@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using VL.API.Common.Controllers;
+using VL.API.Common.Models.Entities;
 using VL.API.Common.Services;
-using VL.API.PT.Entities;
 using VL.API.PT.Services;
 
 namespace VL.API.Controllers

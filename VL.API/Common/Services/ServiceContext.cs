@@ -1,4 +1,4 @@
-﻿using VL.API.Common.Log;
+﻿using VL.API.Common.Utils;
 using VL.API.Common.Repositories;
 using VL.API.PT.Repositories;
 

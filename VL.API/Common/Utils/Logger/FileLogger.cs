@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace VL.API.Common.Log
+namespace VL.API.Common.Utils
 {
     public class FileLogger : ILogger
     {

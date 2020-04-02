@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using VL.API.Common.Models;
+using VL.API.Common.Models.Entities;
 using VL.API.Common.Repositories;
-using VL.API.PT.Entities;
 
 namespace VL.API.PT.Repositories
 {

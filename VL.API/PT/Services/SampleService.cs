@@ -1,6 +1,6 @@
 ﻿using VL.API.Common.Models;
+using VL.API.Common.Models.Entities;
 using VL.API.Common.Services;
-using VL.API.PT.Entities;
 
 namespace VL.API.PT.Services
 {

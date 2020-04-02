@@ -12,7 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="PT\Enums\" />
+    <Folder Include="Common\Utils\Cache\" />
+    <Folder Include="Common\Utils\MQ\" />
   </ItemGroup>
 
 

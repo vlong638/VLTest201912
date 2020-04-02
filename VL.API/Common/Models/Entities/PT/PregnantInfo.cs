@@ -1,7 +1,6 @@
 ﻿using Dapper.Contrib.Extensions;
-using VL.API.Common.Models;
 
-namespace VL.API.PT.Entities
+namespace VL.API.Common.Models.Entities
 {
     [Table(nameof(PregnantInfo))]//注意 dapper会在表名后默认加s 需指定表名
     public class PregnantInfo: IDataValidation

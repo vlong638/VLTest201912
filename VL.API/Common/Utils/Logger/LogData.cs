@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace VL.API.Common.Log
+namespace VL.API.Common.Utils
 {
     public class LogData
     {
