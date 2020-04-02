@@ -8,16 +8,16 @@ namespace VL.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class WeatherForecastController : ControllerBase
+    public class OrientSampleController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ILogger<OrientSampleController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public OrientSampleController(ILogger<OrientSampleController> logger)
         {
             _logger = logger;
         }
@@ -90,5 +90,15 @@ namespace VL.API.Controllers
         {
             throw new NotImplementedException("MockData2 says hello");
         }
+    }
+    public class WeatherForecast
+    {
+        public DateTime Date { get; set; }
+
+        public int TemperatureC { get; set; }
+
+        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+
+        public string Summary { get; set; }
     }
 }

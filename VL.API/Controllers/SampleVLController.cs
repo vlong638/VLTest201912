@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using VL.API.Common.Controllers;
+using VL.API.Common.Models.Configuration;
 using VL.API.Common.Models.Entities;
 using VL.API.Common.Services;
 using VL.API.Common.Utils;
@@ -9,10 +10,7 @@ using VL.API.PT.Services;
 
 namespace VL.API.Controllers
 {
-    /// <summary>
-    /// 产科
-    /// </summary>
-    public class PTController : V3ControllerBase
+    public class SampleVLController : V3ControllerBase
     {
         //for test 
         //https://localhost:44347/api/pt/GetPregnantInfoById?id=63816
@@ -72,11 +70,10 @@ namespace VL.API.Controllers
 
 
         [HttpGet]
-        public APIResult<string> TestOptions([FromServices] IOptions<LoggingConfig> loggingConfig)
+        public APIResult<string> TestOptions([FromServices] IOptions<JsonConfigSample> loggingConfig)
         {
             var result = loggingConfig.ToJson();
             return Success(result);
         }
-
     }
 }

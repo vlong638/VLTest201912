@@ -1,18 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using System;
+using VL.API.Common.Models.Configuration;
 using VL.API.PT.Services;
-using static VL.API.Controllers.PTController;
 
 namespace VL.API
 {
@@ -37,7 +30,7 @@ namespace VL.API
             services.AddScoped<SampleService>();
 
             //Configs
-            services.Configure<LoggingConfig>(Configuration.GetSection("Logging"));
+            services.Configure<JsonConfigSample>(Configuration.GetSection("Logging"));
 
             //swagger
             services.AddSwaggerGen(p =>
