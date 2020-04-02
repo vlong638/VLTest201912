@@ -88,7 +88,7 @@ namespace VL.API.Controllers
         [HttpPost]
         public List<Dictionary<string, object>> MockData2(string input)
         {
-            throw new NotImplementedException("MockData2 says hello");
+            throw new NotImplementedException("Mock Exceptions");
         }
     }
     public class WeatherForecast
