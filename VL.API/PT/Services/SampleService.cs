@@ -1,19 +1,20 @@
-﻿using System;
+﻿using VL.API.Common.Models;
 using VL.API.Common.Services;
 using VL.API.PT.Entities;
 
 namespace VL.API.PT.Services
 {
-    public class PTService: ServiceBase
+    public class SampleService : ServiceBase
     {
         /// <summary>
         /// 单数据库查询样例
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public PregnantInfo GetPregnantInfoById(int id)
+        public ServiceResult<PregnantInfo> GetPregnantInfoById(int id)
         {
-            return ServiceContext.Repository_PregnantInfo.GetById(id);
+            var entity = ServiceContext.Repository_PregnantInfo.GetById(id);
+            return new ServiceResult<PregnantInfo>(entity);
         }
 
         /// <summary>
@@ -21,7 +22,7 @@ namespace VL.API.PT.Services
         /// </summary>
         /// <param name="pregnant"></param>
         /// <returns></returns>
-        internal ServiceResult<int> CreatePregnantInfo(PregnantInfo pregnant)
+        public ServiceResult<int> CreatePregnantInfo(PregnantInfo pregnant)
         {
             //对于实体创建和更新业务总是进行数据有效性校验
             var validResult = pregnant.Validate();
@@ -41,7 +42,7 @@ namespace VL.API.PT.Services
         /// </summary>
         /// <param name="pregnant"></param>
         /// <returns></returns>
-        internal ServiceResult<bool> UpdatePregnantInfo(PregnantInfo pregnant)
+        public ServiceResult<bool> UpdatePregnantInfo(PregnantInfo pregnant)
         {
             //对于实体创建和更新业务总是进行数据有效性校验
             var validResult = pregnant.Validate();
@@ -72,6 +73,38 @@ namespace VL.API.PT.Services
             {
                 var result = ServiceContext.Repository_PregnantInfo.Update(pregnant);
                 return result;
+            });
+            return result;
+        }
+
+        /// <summary>
+        /// 分页查询样例
+        /// </summary>
+        /// <param name="pregnant"></param>
+        /// <returns></returns>
+        public ServiceResult<VLPageResult<PregnantInfo>> GetPagedListSample(GetPagedListSampleRequest request)
+        {
+            var result = DelegateTransaction(ServiceContext.DbGroup_Pregnant, () =>
+            {
+                var list = ServiceContext.Repository_PregnantInfo.GetPregnantInfoPagedList(request);
+                var count = ServiceContext.Repository_PregnantInfo.GetPregnantInfoPagedListCount(request);
+                return new VLPageResult<PregnantInfo>() { Data = list, Count = count, CurrentIndex = request.PageIndex };
+            });
+            return result;
+        }
+
+        /// <summary>
+        /// 带搜索的分页查询样例
+        /// </summary>
+        /// <param name="pregnant"></param>
+        /// <returns></returns>
+        public ServiceResult<VLPageResult<PregnantInfo>> GetComplexPagedListSample(GetComplexPagedListSampleRequest request)
+        {
+            var result = DelegateTransaction(ServiceContext.DbGroup_Pregnant, () =>
+            {
+                var list = ServiceContext.Repository_PregnantInfo.GetComplexPregnantInfoPagedList(request);
+                var count = ServiceContext.Repository_PregnantInfo.GetComplexPregnantInfoPagedListCount(request);
+                return new VLPageResult<PregnantInfo>() { Data = list, Count = count, CurrentIndex = request.PageIndex };
             });
             return result;
         }

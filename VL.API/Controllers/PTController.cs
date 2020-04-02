@@ -16,10 +16,12 @@ namespace VL.API.Controllers
         //https://localhost:44347/api/pt/GetPregnantInfoById?id=63816
 
         [HttpGet]
-        public PregnantInfo GetPregnantInfoById([FromServices] PTService ptService, int id)
+        public APIResult<PregnantInfo> GetPregnantInfoById([FromServices] SampleService ptService, int id)
         {
-            var entity = ptService.GetPregnantInfoById(id);
-            return entity;
+            var serviceResult = ptService.GetPregnantInfoById(id);
+            if (!serviceResult.IsSuccess)
+                return Error(serviceResult.Data, serviceResult.Messages);
+            return Success(serviceResult.Data);
         }
 
         #region for test
@@ -28,7 +30,7 @@ namespace VL.API.Controllers
         #endregion
 
         [HttpPost]
-        public APIResult<bool> SavePregnantInfo([FromServices] PTService ptService, [FromForm] string input)
+        public APIResult<bool> SavePregnantInfo([FromServices] SampleService ptService, [FromForm] string input)
         {
             input = System.Web.HttpUtility.UrlDecode(input, System.Text.Encoding.GetEncoding("UTF-8"));
             Dictionary<string, object> inputs = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(input);

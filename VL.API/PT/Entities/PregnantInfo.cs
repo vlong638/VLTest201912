@@ -1,5 +1,5 @@
 ﻿using Dapper.Contrib.Extensions;
-using VL.API.Common.Entities;
+using VL.API.Common.Models;
 
 namespace VL.API.PT.Entities
 {

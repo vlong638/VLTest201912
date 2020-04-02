@@ -1,4 +1,4 @@
-﻿namespace VL.API.Common.Entities
+﻿namespace VL.API.Common.Models
 {
     /// <summary>
     /// 数据校验

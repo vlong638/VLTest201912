@@ -31,7 +31,7 @@ namespace VL.API
             ////Ìí¼ÓCache
             //services.AddSingleton<ICache>(p => new RedisCache(Configuration["Cache:Redis"], Configuration["Cache:Prefix"]));
 
-            services.AddScoped<PTService>();
+            services.AddScoped<SampleService>();
 
         }
 

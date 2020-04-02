@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace VL.API.Common.Entities
+namespace VL.API.Common.Models
 {
     /// <summary>
     /// 数据校验结果集
