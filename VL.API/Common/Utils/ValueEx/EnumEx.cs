@@ -5,13 +5,14 @@ using System.Reflection;
 
 namespace VL.API.Common.Utils
 {
+    /// <summary>
+    /// 枚举扩展方法
+    /// </summary>
     public static class EnumEx
     {
         /// <summary>
         /// 获取枚举值上的Description特性的说明
         /// </summary>
-        /// <typeparam name="T">枚举类型</typeparam>
-        /// <param name="obj">枚举值</param>
         /// <returns>特性的说明</returns>
         public static string GetDescription(this Enum obj)
         {

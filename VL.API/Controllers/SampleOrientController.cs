@@ -6,6 +6,9 @@ using System.Linq;
 
 namespace VL.API.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [ApiController]
     [Route("api/[controller]/[action]")]
     public class OrientSampleController : ControllerBase
@@ -17,11 +20,19 @@ namespace VL.API.Controllers
 
         private readonly ILogger<OrientSampleController> _logger;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="logger"></param>
         public OrientSampleController(ILogger<OrientSampleController> logger)
         {
             _logger = logger;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public WeatherForecast GetOne()
         {
@@ -34,6 +45,10 @@ namespace VL.API.Controllers
             };
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IEnumerable<WeatherForecast> GetSome()
         {
@@ -47,36 +62,61 @@ namespace VL.API.Controllers
             .ToArray();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public int GetInt()
         {
             return 1;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public List<int> GetInts()
         {
             return new List<int>() { 1, 2, 3 };
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public string GetString()
         {
             return "s123";
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public List<string> GetStrings()
         {
             return new List<string>() { "s1", "s2", "s3" };
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public Dictionary<string, int> GetDictionary()
         {
             return new Dictionary<string, int>() { { "a", 1 }, { "b", 2 } };
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpPost]
         public List<Dictionary<string, object>> MockData(string input)
         {
@@ -85,20 +125,40 @@ namespace VL.API.Controllers
             return result;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpPost]
         public List<Dictionary<string, object>> MockData2(string input)
         {
             throw new NotImplementedException("Mock Exceptions");
         }
     }
+    /// <summary>
+    /// 
+    /// </summary>
     public class WeatherForecast
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public DateTime Date { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public int TemperatureC { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string Summary { get; set; }
     }
 }

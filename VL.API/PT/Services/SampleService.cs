@@ -4,6 +4,9 @@ using VL.API.Common.Services;
 
 namespace VL.API.PT.Services
 {
+    /// <summary>
+    /// sample
+    /// </summary>
     public class SampleService : ServiceBase
     {
         /// <summary>
@@ -80,7 +83,6 @@ namespace VL.API.PT.Services
         /// <summary>
         /// 分页查询样例
         /// </summary>
-        /// <param name="pregnant"></param>
         /// <returns></returns>
         public ServiceResult<VLPageResult<PregnantInfo>> GetPagedListSample(GetPagedListSampleRequest request)
         {
@@ -96,7 +98,6 @@ namespace VL.API.PT.Services
         /// <summary>
         /// 带搜索的分页查询样例
         /// </summary>
-        /// <param name="pregnant"></param>
         /// <returns></returns>
         public ServiceResult<VLPageResult<PregnantInfo>> GetComplexPagedListSample(GetComplexPagedListSampleRequest request)
         {
