@@ -345,10 +345,10 @@ namespace VL.Consoling
             #endregion
             #region RabbitMQ Direct p3
             cmds.Add(new Command("---------------------RabbitMQ Direct-------------------", () => { }));
-            cmds.Add(new Command($"p3d,Push,Direct,{RabbitMQUtils.RabbitMQHelper.DirectExchangeName1}", () =>
+            cmds.Add(new Command($"p3d,Push,Direct,{RabbitMQUtils.RabbitMQHelper.Direct_Exchange_Durable_Name1}", () =>
             {
                 var exchangeType = ExchangeType.Direct;
-                var exchangeName = RabbitMQUtils.RabbitMQHelper.DirectExchangeName1;
+                var exchangeName = RabbitMQUtils.RabbitMQHelper.Direct_Exchange_Name1;
                 var routingKey = "";
                 var factory = new RabbitMQ.Client.ConnectionFactory() { HostName = "192.168.99.100" };
                 using (var connection = factory.CreateConnection())
@@ -367,10 +367,10 @@ namespace VL.Consoling
                     }
                 }
             }));
-            cmds.Add(new Command($"r3d,Receive,Direct,{RabbitMQUtils.RabbitMQHelper.DirectExchangeName1}", () =>
+            cmds.Add(new Command($"r3d,Receive,Direct,{RabbitMQUtils.RabbitMQHelper.Direct_Exchange_Name1}", () =>
             {
                 var exchangeType = ExchangeType.Direct;
-                var exchangeName = RabbitMQUtils.RabbitMQHelper.DirectExchangeName1;
+                var exchangeName = RabbitMQUtils.RabbitMQHelper.Direct_Exchange_Durable_Name1;
                 string queueName;
                 var routingKey = "";
                 var factory = new ConnectionFactory() { HostName = "192.168.99.100" };
@@ -464,7 +464,7 @@ namespace VL.Consoling
             cmds.Add(new Command("p6s,Push", () =>
             {
                 var exchangeType = ExchangeType.Direct;
-                var exchangeName = RabbitMQUtils.RabbitMQHelper.DirectExchangeName1;
+                var exchangeName = RabbitMQUtils.RabbitMQHelper.Direct_Exchange_Durable_Name1;
                 var routingKey = "";
                 var factory = new RabbitMQ.Client.ConnectionFactory() { HostName = "192.168.99.100" };
                 using (var connection = factory.CreateConnection())
@@ -487,7 +487,7 @@ namespace VL.Consoling
             cmds.Add(new Command("r6s,Receive", () =>
             {
                 var exchangeType = ExchangeType.Direct;
-                var exchangeName = RabbitMQUtils.RabbitMQHelper.DirectExchangeName1;
+                var exchangeName = RabbitMQUtils.RabbitMQHelper.Direct_Exchange_Durable_Name1;
                 string queueName;
                 var routingKey = "";
                 var factory = new ConnectionFactory() { HostName = "192.168.99.100" };
@@ -495,7 +495,7 @@ namespace VL.Consoling
                 {
                     using (var channel = connection.CreateModel())
                     {
-                        channel.ExchangeDeclare(exchange: exchangeName, type: exchangeType);
+                        channel.ExchangeDeclare(exchange: exchangeName, type: exchangeType, durable: true); //Sample: Exchange的持久化
                         queueName = channel.QueueDeclare(durable: true).QueueName;//Sample: Queue的持久化
                         channel.QueueBind(queue: queueName,
                                           exchange: exchangeName,
