@@ -98,6 +98,16 @@
             数据
             </summary>
         </member>
+        <member name="T:VL.API.Common.Models.Configuration.JsonConfigSample">
+            <summary>
+            配置样例
+            </summary>
+        </member>
+        <member name="T:VL.API.Common.Models.Configuration.LogLevelConfig">
+            <summary>
+            配置样例
+            </summary>
+        </member>
         <member name="T:VL.API.Common.Models.IDataValidation">
             <summary>
             数据校验
@@ -272,22 +282,51 @@
             IdentityCard 的摘要说明
              </summary>
         </member>
+        <member name="T:VL.API.Common.Utils.EnumEx">
+            <summary>
+            枚举扩展方法
+            </summary>
+        </member>
         <member name="M:VL.API.Common.Utils.EnumEx.GetDescription(System.Enum)">
             <summary>
             获取枚举值上的Description特性的说明
             </summary>
-            <typeparam name="T">枚举类型</typeparam>
-            <param name="obj">枚举值</param>
             <returns>特性的说明</returns>
+        </member>
+        <member name="T:VL.API.Common.Utils.JsonEx">
+            <summary>
+            Json扩展方法
+            </summary>
+        </member>
+        <member name="M:VL.API.Common.Utils.JsonEx.ToJson(System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.API.Common.Utils.JsonEx.FromJson``1(System.String)">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="obj"></param>
+            <returns></returns>
         </member>
         <member name="T:VL.API.PT.Enums.CaesareanPosition">
             <summary>
             剖宫产位置
             </summary>
         </member>
+        <member name="T:VL.API.PT.Services.SampleService">
+            <summary>
+            sample
+            </summary>
+        </member>
         <member name="M:VL.API.PT.Services.SampleService.GetPregnantInfoById(System.Int32)">
             <summary>
             单数据库查询样例
+            Sample Get
             </summary>
             <param name="id"></param>
             <returns></returns>
@@ -295,6 +334,7 @@
         <member name="M:VL.API.PT.Services.SampleService.CreatePregnantInfo(VL.API.Common.Models.Entities.PregnantInfo)">
             <summary>
             单数据库新增样例
+            Sample Create
             </summary>
             <param name="pregnant"></param>
             <returns></returns>
@@ -302,6 +342,7 @@
         <member name="M:VL.API.PT.Services.SampleService.UpdatePregnantInfo(VL.API.Common.Models.Entities.PregnantInfo)">
             <summary>
             单数据库更新样例
+            Sample Update
             </summary>
             <param name="pregnant"></param>
             <returns></returns>
@@ -309,6 +350,7 @@
         <member name="M:VL.API.PT.Services.SampleService.MultipleSourceSample(VL.API.Common.Models.Entities.PregnantInfo)">
             <summary>
             多数据库事务样例
+            Sample MultipleTransaction
             </summary>
             <param name="pregnant"></param>
             <returns></returns>
@@ -316,21 +358,183 @@
         <member name="M:VL.API.PT.Services.SampleService.GetPagedListSample(VL.API.Common.Models.GetPagedListSampleRequest)">
             <summary>
             分页查询样例
+            Sample PagedList
             </summary>
-            <param name="pregnant"></param>
             <returns></returns>
         </member>
         <member name="M:VL.API.PT.Services.SampleService.GetComplexPagedListSample(VL.API.Common.Models.GetComplexPagedListSampleRequest)">
             <summary>
             带搜索的分页查询样例
+            Sample PagedListWithSearch
             </summary>
-            <param name="pregnant"></param>
             <returns></returns>
         </member>
-        <member name="T:VL.API.Controllers.PTController">
+        <member name="T:VL.API.Controllers.OrientSampleController">
             <summary>
-            产科
+            
             </summary>
+        </member>
+        <member name="M:VL.API.Controllers.OrientSampleController.#ctor(Microsoft.Extensions.Logging.ILogger{VL.API.Controllers.OrientSampleController})">
+            <summary>
+            
+            </summary>
+            <param name="logger"></param>
+        </member>
+        <member name="M:VL.API.Controllers.OrientSampleController.GetOne">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VL.API.Controllers.OrientSampleController.GetSome">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VL.API.Controllers.OrientSampleController.GetInt">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VL.API.Controllers.OrientSampleController.GetInts">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VL.API.Controllers.OrientSampleController.GetString">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VL.API.Controllers.OrientSampleController.GetStrings">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VL.API.Controllers.OrientSampleController.GetDictionary">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VL.API.Controllers.OrientSampleController.MockData(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.API.Controllers.OrientSampleController.MockData2(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="T:VL.API.Controllers.WeatherForecast">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:VL.API.Controllers.WeatherForecast.Date">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:VL.API.Controllers.WeatherForecast.TemperatureC">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:VL.API.Controllers.WeatherForecast.TemperatureF">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:VL.API.Controllers.WeatherForecast.Summary">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:VL.API.Controllers.SampleVLController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VL.API.Controllers.SampleVLController.GetPregnantInfoById(VL.API.PT.Services.SampleService,System.Int32)">
+            <summary>
+            Sample 
+            </summary>
+            <param name="ptService"></param>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.API.Controllers.SampleVLController.SavePregnantInfo(VL.API.PT.Services.SampleService,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="ptService"></param>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.API.Controllers.SampleVLController.TestOptions(Microsoft.Extensions.Options.IOptions{VL.API.Common.Models.Configuration.JsonConfigSample})">
+            <summary>
+            
+            </summary>
+            <param name="loggingConfig"></param>
+            <returns></returns>
+        </member>
+        <member name="T:VL.API.Program">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VL.API.Program.Main(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:VL.API.Program.CreateHostBuilder(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="T:VL.API.Startup">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VL.API.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            
+            </summary>
+            <param name="configuration"></param>
+        </member>
+        <member name="P:VL.API.Startup.Configuration">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VL.API.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This method gets called by the runtime. Use this method to add services to the container.
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:VL.API.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
         </member>
     </members>
 </doc>
