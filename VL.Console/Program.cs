@@ -1,4 +1,5 @@
-﻿using RabbitMQ.Client;
+﻿using Dapper;
+using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;
 using System.Collections.Generic;
@@ -622,6 +623,42 @@ namespace VL.Consoling
             }));
 
             #endregion
+            #region SQL Generate
+            cmds.Add(new Command("---------------------SQL Generate-------------------", () => { }));
+            cmds.Add(new Command("g0408,生成差异化sql", () =>
+            {
+                using (var connection = new SqlConnection("Data Source=heletech.asuscomm.com,8082;Initial Catalog=HELEESB;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=ESBUSER;Password=ESBPWD"))
+                {
+                    var fields = connection.Query<Information_Schema>(@"
+    select v2.* 
+    from 
+    (
+		    SELECT 'v2' as version,a.*
+		    FROM HL_APP.INFORMATION_SCHEMA.COLUMNS a
+    )
+    as v2
+    left join (
+		    SELECT 'v1' as version,a.*
+		    FROM LA2.INFORMATION_SCHEMA.COLUMNS a
+    ) v1 on v2.Table_Name = v1.Table_Name and v2.Column_Name = v1.Column_Name
+    where v1.Column_Name is null
+    order by Table_Name;
+");
+                    var fileName = @"D:\sqlGenerate.txt";
+                    StringBuilder sb = new StringBuilder();
+                    var tableName = "";
+                    for (int i = 0; i < fields.Count(); i++)
+                    {
+                        var field = fields[i];
+                        var current
+
+                    }
+
+
+                    Console.ReadLine();
+                }
+            }));
+            #endregion
             #region Others
             cmds.Add(new Command("---------------------Others-------------------", () => { }));
             cmds.Add(new Command("multiThread", () =>
@@ -796,81 +833,112 @@ namespace VL.Consoling
             cmds.Start();
         }
 }
-#region MyRegion
 
-public class LogData
+    #region SQL Generate
+
+    public class Information_Schema {
+        public string TABLE_CATALOG { get; set; }
+        public string TABLE_SCHEMA { get; set; }
+        public string TABLE_NAME { get; set; }
+        public string COLUMN_NAME { get; set; }
+        public string ORDINAL_POSITION { get; set; }
+        public string COLUMN_DEFAULT { get; set; }
+        public string IS_NULLABLE { get; set; }
+        public string DATA_TYPE { get; set; }
+        public string CHARACTER_MAXIMUM_LENGTH { get; set; }
+        public string CHARACTER_OCTET_LENGTH { get; set; }
+        public string NUMERIC_PRECISION { get; set; }
+        public string NUMERIC_PRECISION_RADIX { get; set; }
+        public string NUMERIC_SCALE { get; set; }
+        public string DATETIME_PRECISION { get; set; }
+        public string CHARACTER_SET_CATALOG { get; set; }
+        public string CHARACTER_SET_SCHEMA { get; set; }
+        public string CHARACTER_SET_NAME { get; set; }
+        public string COLLATION_CATALOG { get; set; }
+        public string COLLATION_SCHEMA { get; set; }
+        public string COLLATION_NAME { get; set; }
+        public string DOMAIN_CATALOG { get; set; }
+        public string DOMAIN_SCHEMA { get; set; }
+        public string DOMAIN_NAME { get; set; }
+    }
+
+    #endregion
+
+    #region MyRegion
+
+    public class LogData
 {
-    public LogData(string message)
-    {
-        Message = message;
-    }
-    public LogData(string className, string fuctionName, string message)
-    {
-        ClassName = className;
-        FuctionName = fuctionName;
-        Message = message;
-    }
+public LogData(string message)
+{
+    Message = message;
+}
+public LogData(string className, string fuctionName, string message)
+{
+    ClassName = className;
+    FuctionName = fuctionName;
+    Message = message;
+}
 
-    public LogData(string className, string fuctionName, string sesction, string message)
-    {
-        ClassName = className;
-        FuctionName = fuctionName;
-        Section = sesction;
-        Message = message;
-    }
+public LogData(string className, string fuctionName, string sesction, string message)
+{
+    ClassName = className;
+    FuctionName = fuctionName;
+    Section = sesction;
+    Message = message;
+}
 
-    public string ClassName { set; get; }
-    public string FuctionName { set; get; }
-    public string Section { set; get; }
-    public string Message { set; get; }
+public string ClassName { set; get; }
+public string FuctionName { set; get; }
+public string Section { set; get; }
+public string Message { set; get; }
 
-    public override string ToString()
-    {
-        StringBuilder sb = new StringBuilder();
-        sb.AppendLine("----------------------------");
-        sb.AppendLine(string.Format("-------ClassName  :{0}", ClassName));
-        sb.AppendLine(string.Format("-------FuctionName:{0}", FuctionName));
-        sb.AppendLine(string.Format("-------Section    :{0}", Section));
-        sb.AppendLine(string.Format("-------LogTime    :{0}", DateTime.Now));
-        sb.AppendLine(string.Format("-------Message    :{0}", Message));
-        return sb.ToString();
-    }
+public override string ToString()
+{
+    StringBuilder sb = new StringBuilder();
+    sb.AppendLine("----------------------------");
+    sb.AppendLine(string.Format("-------ClassName  :{0}", ClassName));
+    sb.AppendLine(string.Format("-------FuctionName:{0}", FuctionName));
+    sb.AppendLine(string.Format("-------Section    :{0}", Section));
+    sb.AppendLine(string.Format("-------LogTime    :{0}", DateTime.Now));
+    sb.AppendLine(string.Format("-------Message    :{0}", Message));
+    return sb.ToString();
+}
 }
 
 public class FileLogger
 {
-    static string _Path = @"D:\Sync\SyncLog.txt";
-    static string Path { get { return _Path; } }
+static string _Path = @"D:\Sync\SyncLog.txt";
+static string Path { get { return _Path; } }
 
-    public void Info(LogData locator)
-    {
-        File.AppendAllText(Path, locator.ToString());
-    }
+public void Info(LogData locator)
+{
+    File.AppendAllText(Path, locator.ToString());
+}
 
-    public void Info(string message)
-    {
-        Info(new LogData(message));
-    }
+public void Info(string message)
+{
+    Info(new LogData(message));
+}
 
-    public void Info(string message, Exception ex)
-    {
-        Info(new LogData(message + ex.ToString()));
-    }
+public void Info(string message, Exception ex)
+{
+    Info(new LogData(message + ex.ToString()));
+}
 
-    public void Error(LogData locator)
-    {
-        File.AppendAllText(Path, locator.ToString());
-    }
+public void Error(LogData locator)
+{
+    File.AppendAllText(Path, locator.ToString());
+}
 
-    public void Error(string message)
-    {
-        Error(new LogData(message));
-    }
+public void Error(string message)
+{
+    Error(new LogData(message));
+}
 
-    public void Error(string message, Exception ex)
-    {
-        Error(new LogData(message + ex.ToString()));
-    }
+public void Error(string message, Exception ex)
+{
+    Error(new LogData(message + ex.ToString()));
+}
 }
 #endregion
 
