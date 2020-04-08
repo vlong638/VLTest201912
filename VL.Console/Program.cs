@@ -629,7 +629,7 @@ namespace VL.Consoling
             {
                 using (var connection = new SqlConnection("Data Source=heletech.asuscomm.com,8082;Initial Catalog=HELEESB;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=ESBUSER;Password=ESBPWD"))
                 {
-                    var fields = connection.Query<Information_Schema>(@"
+                    var allFields = connection.Query<Information_Schema>(@"
     select v2.* 
     from 
     (
@@ -642,19 +642,77 @@ namespace VL.Consoling
 		    FROM LA2.INFORMATION_SCHEMA.COLUMNS a
     ) v1 on v2.Table_Name = v1.Table_Name and v2.Column_Name = v1.Column_Name
     where v1.Column_Name is null
+    union
+    select v2.* 
+    from 
+    (
+		    SELECT 'v2' as version,a.*
+		    FROM HL_Manage.INFORMATION_SCHEMA.COLUMNS a
+    )
+    as v2
+    left join (
+		    SELECT 'v1' as version,a.*
+		    FROM LA2.INFORMATION_SCHEMA.COLUMNS a
+    ) v1 on v2.Table_Name = v1.Table_Name and v2.Column_Name = v1.Column_Name
+    where v1.Column_Name is null
+    union
+    select v2.* 
+    from 
+    (
+		    SELECT 'v2' as version,a.*
+		    FROM HL_Pregnant.INFORMATION_SCHEMA.COLUMNS a
+    )
+    as v2
+    left join (
+		    SELECT 'v1' as version,a.*
+		    FROM LA2.INFORMATION_SCHEMA.COLUMNS a
+    ) v1 on v2.Table_Name = v1.Table_Name and v2.Column_Name = v1.Column_Name
+    where v1.Column_Name is null
+    union
+    select v2.* 
+    from 
+    (
+		    SELECT 'v2' as version,a.*
+		    FROM HL_ReportCard.INFORMATION_SCHEMA.COLUMNS a
+    )
+    as v2
+    left join (
+		    SELECT 'v1' as version,a.*
+		    FROM LA2.INFORMATION_SCHEMA.COLUMNS a
+    ) v1 on v2.Table_Name = v1.Table_Name and v2.Column_Name = v1.Column_Name
+    where v1.Column_Name is null
+    union
+    select v2.* 
+    from 
+    (
+		    SELECT 'v2' as version,a.*
+		    FROM HL_Share.INFORMATION_SCHEMA.COLUMNS a
+    )
+    as v2
+    left join (
+		    SELECT 'v1' as version,a.*
+		    FROM LA2.INFORMATION_SCHEMA.COLUMNS a
+    ) v1 on v2.Table_Name = v1.Table_Name and v2.Column_Name = v1.Column_Name
+    where v1.Column_Name is null
     order by Table_Name;
-");
+").ToList();
                     var fileName = @"D:\sqlGenerate.txt";
                     StringBuilder sb = new StringBuilder();
-                    var tableName = "";
-                    for (int i = 0; i < fields.Count(); i++)
+                    var tables = allFields.GroupBy(c => c.TABLE_NAME);
+                    foreach (var fields in tables)
                     {
-                        var field = fields[i];
-                        var current
-
+                        sb.AppendLine($"alter table [{fields.Key}] add");
+                        foreach (var field in fields)
+                        {
+                            sb.AppendLine($"[{field.COLUMN_NAME}] " +
+                                $"{field.DATA_TYPE}{(string.IsNullOrEmpty(field.CHARACTER_MAXIMUM_LENGTH) ? "" : "(" + field.CHARACTER_MAXIMUM_LENGTH + ")")}" +
+                                $" {(field.IS_NULLABLE.ToUpper() =="YES" ? "null" : "not null")}" +
+                                $" {(field.COLUMN_DEFAULT==null?"": "default "+ field.COLUMN_DEFAULT)}" +
+                                $"{(fields.Last() == field ? "" : ",")}");
+                        }
+                        sb.AppendLine($";");
                     }
-
-
+                    File.WriteAllText(fileName, sb.ToString());
                     Console.ReadLine();
                 }
             }));
