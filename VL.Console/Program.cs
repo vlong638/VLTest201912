@@ -633,68 +633,78 @@ namespace VL.Consoling
     select v2.* 
     from 
     (
-		    SELECT 'v2' as version,a.*
-		    FROM HL_APP.INFORMATION_SCHEMA.COLUMNS a
+		SELECT 'v2' as version,col.*,tb.table_type
+		FROM HL_APP.INFORMATION_SCHEMA.COLUMNS col
+		LEFT JOIN HL_APP.INFORMATION_SCHEMA.TABLEs tb on col.table_name = tb.table_name
+		where tb.table_type = 'BASE TABLE'
     )
     as v2
     left join (
-		    SELECT 'v1' as version,a.*
-		    FROM LA2.INFORMATION_SCHEMA.COLUMNS a
+		SELECT 'v1' as version,a.*
+		FROM LA2.INFORMATION_SCHEMA.COLUMNS a
     ) v1 on v2.Table_Name = v1.Table_Name and v2.Column_Name = v1.Column_Name
     where v1.Column_Name is null
     union
     select v2.* 
     from 
     (
-		    SELECT 'v2' as version,a.*
-		    FROM HL_Manage.INFORMATION_SCHEMA.COLUMNS a
+		SELECT 'v2' as version,col.*,tb.table_type
+		FROM HL_Manage.INFORMATION_SCHEMA.COLUMNS col
+		LEFT JOIN HL_Manage.INFORMATION_SCHEMA.TABLEs tb on col.table_name = tb.table_name
+		where tb.table_type = 'BASE TABLE'
     )
     as v2
     left join (
-		    SELECT 'v1' as version,a.*
-		    FROM LA2.INFORMATION_SCHEMA.COLUMNS a
+		SELECT 'v1' as version,a.*
+		FROM LA2.INFORMATION_SCHEMA.COLUMNS a
     ) v1 on v2.Table_Name = v1.Table_Name and v2.Column_Name = v1.Column_Name
     where v1.Column_Name is null
     union
     select v2.* 
     from 
     (
-		    SELECT 'v2' as version,a.*
-		    FROM HL_Pregnant.INFORMATION_SCHEMA.COLUMNS a
+		SELECT 'v2' as version,col.*,tb.table_type
+		FROM HL_Pregnant.INFORMATION_SCHEMA.COLUMNS col
+		LEFT JOIN HL_Pregnant.INFORMATION_SCHEMA.TABLEs tb on col.table_name = tb.table_name
+		where tb.table_type = 'BASE TABLE'
     )
     as v2
     left join (
-		    SELECT 'v1' as version,a.*
-		    FROM LA2.INFORMATION_SCHEMA.COLUMNS a
+		SELECT 'v1' as version,a.*
+		FROM LA2.INFORMATION_SCHEMA.COLUMNS a
     ) v1 on v2.Table_Name = v1.Table_Name and v2.Column_Name = v1.Column_Name
     where v1.Column_Name is null
     union
     select v2.* 
     from 
     (
-		    SELECT 'v2' as version,a.*
-		    FROM HL_ReportCard.INFORMATION_SCHEMA.COLUMNS a
+		SELECT 'v2' as version,col.*,tb.table_type
+		FROM HL_ReportCard.INFORMATION_SCHEMA.COLUMNS col
+		LEFT JOIN HL_ReportCard.INFORMATION_SCHEMA.TABLEs tb on col.table_name = tb.table_name
+		where tb.table_type = 'BASE TABLE'
     )
     as v2
     left join (
-		    SELECT 'v1' as version,a.*
-		    FROM LA2.INFORMATION_SCHEMA.COLUMNS a
+		SELECT 'v1' as version,a.*
+		FROM LA2.INFORMATION_SCHEMA.COLUMNS a
     ) v1 on v2.Table_Name = v1.Table_Name and v2.Column_Name = v1.Column_Name
     where v1.Column_Name is null
     union
     select v2.* 
     from 
     (
-		    SELECT 'v2' as version,a.*
-		    FROM HL_Share.INFORMATION_SCHEMA.COLUMNS a
+		SELECT 'v2' as version,col.*,tb.table_type
+		FROM HL_Share.INFORMATION_SCHEMA.COLUMNS col
+		LEFT JOIN HL_Share.INFORMATION_SCHEMA.TABLEs tb on col.table_name = tb.table_name
+		where tb.table_type = 'BASE TABLE'
     )
     as v2
     left join (
-		    SELECT 'v1' as version,a.*
-		    FROM LA2.INFORMATION_SCHEMA.COLUMNS a
+		SELECT 'v1' as version,a.*
+		FROM LA2.INFORMATION_SCHEMA.COLUMNS a
     ) v1 on v2.Table_Name = v1.Table_Name and v2.Column_Name = v1.Column_Name
     where v1.Column_Name is null
-    order by Table_Name;
+    order by Table_Name,Column_Name;
 ").ToList();
                     var fileName = @"D:\sqlGenerate.txt";
                     StringBuilder sb = new StringBuilder();
@@ -705,9 +715,9 @@ namespace VL.Consoling
                         foreach (var field in fields)
                         {
                             sb.AppendLine($"[{field.COLUMN_NAME}] " +
-                                $"{field.DATA_TYPE}{(string.IsNullOrEmpty(field.CHARACTER_MAXIMUM_LENGTH) ? "" : "(" + field.CHARACTER_MAXIMUM_LENGTH + ")")}" +
-                                $" {(field.IS_NULLABLE.ToUpper() =="YES" ? "null" : "not null")}" +
-                                $" {(field.COLUMN_DEFAULT==null?"": "default "+ field.COLUMN_DEFAULT)}" +
+                                $"{field.DATA_TYPE}{GetFieldLength(field)}" +
+                                $" {(field.IS_NULLABLE.ToUpper() == "YES" ? "null" : "not null")}" +
+                                $" {(field.COLUMN_DEFAULT == null ? "" : "default " + field.COLUMN_DEFAULT)}" +
                                 $"{(fields.Last() == field ? "" : ",")}");
                         }
                         sb.AppendLine($";");
@@ -890,7 +900,19 @@ namespace VL.Consoling
             #endregion
             cmds.Start();
         }
-}
+
+        private static string GetFieldLength(Information_Schema field)
+        {
+            if (string.IsNullOrEmpty(field.CHARACTER_MAXIMUM_LENGTH))
+                return "";
+
+
+            if (field.CHARACTER_MAXIMUM_LENGTH== "-1")
+                return "(max)";
+
+            return "(" + field.CHARACTER_MAXIMUM_LENGTH + ")";
+        }
+    }
 
     #region SQL Generate
 
