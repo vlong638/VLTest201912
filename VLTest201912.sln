@@ -25,7 +25,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vl.WpfBrowserApp", "vl.WpfB
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VL.OwinAPI", "VL.OWinAPI\VL.OwinAPI.csproj", "{C1EDA459-6B63-4EF6-8E4A-E4037186FB4B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VL.Generator", "VL.Generator\VL.Generator.csproj", "{CDA2F718-32C6-47EA-8C87-520D5850AD51}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VL.Generator", "VL.Generator\VL.Generator.csproj", "{CDA2F718-32C6-47EA-8C87-520D5850AD51}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -9,7 +9,7 @@ namespace VL.API.Common.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public abstract class V3ControllerBase : ControllerBase
+    public abstract class V3APIControllerBase : ControllerBase
     {
         #region APIResult,便捷方法
         public APIResult<T> Success<T>(T data)

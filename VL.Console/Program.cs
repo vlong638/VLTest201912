@@ -641,7 +641,7 @@ namespace VL.Consoling
     as v2
     left join (
 		SELECT 'v1' as version,a.*
-		FROM LA2.INFORMATION_SCHEMA.COLUMNS a
+		FROM LA_Test1.INFORMATION_SCHEMA.COLUMNS a
     ) v1 on v2.Table_Name = v1.Table_Name and v2.Column_Name = v1.Column_Name
     where v1.Column_Name is null
     union
@@ -656,7 +656,7 @@ namespace VL.Consoling
     as v2
     left join (
 		SELECT 'v1' as version,a.*
-		FROM LA2.INFORMATION_SCHEMA.COLUMNS a
+		FROM LA_Test1.INFORMATION_SCHEMA.COLUMNS a
     ) v1 on v2.Table_Name = v1.Table_Name and v2.Column_Name = v1.Column_Name
     where v1.Column_Name is null
     union
@@ -671,7 +671,7 @@ namespace VL.Consoling
     as v2
     left join (
 		SELECT 'v1' as version,a.*
-		FROM LA2.INFORMATION_SCHEMA.COLUMNS a
+		FROM LA_Test1.INFORMATION_SCHEMA.COLUMNS a
     ) v1 on v2.Table_Name = v1.Table_Name and v2.Column_Name = v1.Column_Name
     where v1.Column_Name is null
     union
@@ -686,7 +686,7 @@ namespace VL.Consoling
     as v2
     left join (
 		SELECT 'v1' as version,a.*
-		FROM LA2.INFORMATION_SCHEMA.COLUMNS a
+		FROM LA_Test1.INFORMATION_SCHEMA.COLUMNS a
     ) v1 on v2.Table_Name = v1.Table_Name and v2.Column_Name = v1.Column_Name
     where v1.Column_Name is null
     union
@@ -701,7 +701,7 @@ namespace VL.Consoling
     as v2
     left join (
 		SELECT 'v1' as version,a.*
-		FROM LA2.INFORMATION_SCHEMA.COLUMNS a
+		FROM LA_Test1.INFORMATION_SCHEMA.COLUMNS a
     ) v1 on v2.Table_Name = v1.Table_Name and v2.Column_Name = v1.Column_Name
     where v1.Column_Name is null
     order by Table_Name,Column_Name;
@@ -896,8 +896,41 @@ namespace VL.Consoling
                 {
                     logger.Error("出现异常," + ex.ToString());
                 }
-            })); 
+            }));
             #endregion
+            #region 算法
+            cmds.Add(new Command("---------------------Algorithm,算法-------------------", () => { }));
+            cmds.Add(new Command("a1,冒泡", () =>
+            {
+                int temp = 0;
+                int[] arr = { 23, 44, 66, 76, 98, 11, 3, 9, 7 };
+                Console.WriteLine("排序前的数组：");
+                foreach (int item in arr)
+                {
+                    Console.Write(item + "");
+                }
+                Console.WriteLine();
+                #endregion
+                for (int i = 0; i < arr.Length - 1; i++)
+                {
+                    for (int j = 0; j < arr.Length - 1 - i; j++)
+                    {
+                        if (arr[j] > arr[j + 1])
+                        {
+                            temp = arr[j + 1];
+                            arr[j + 1] = arr[j];
+                            arr[j] = temp;
+                        }
+                    }
+                }
+                Console.WriteLine("排序后的数组：");
+                foreach (int item in arr)
+                {
+                    Console.Write(item + ",");
+                }
+                Console.WriteLine();
+                Console.ReadKey();
+            }));
             cmds.Start();
         }
 
