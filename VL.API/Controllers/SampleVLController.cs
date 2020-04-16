@@ -47,9 +47,6 @@ namespace VL.API.Controllers
         [HttpPost]
         public APIResult<bool> SavePregnantInfo([FromServices] SampleService ptService, [FromForm] string input)
         {
-            Microsoft.AspNetCore.Http.HttpContext
-
-
             input = System.Web.HttpUtility.UrlDecode(input, System.Text.Encoding.GetEncoding("UTF-8"));
             Dictionary<string, object> inputs = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(input);
             //参数转换

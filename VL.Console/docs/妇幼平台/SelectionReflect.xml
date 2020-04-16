@@ -1,0 +1,640 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Reflections>
+  <!--产检-->
+  <Reflect id="ISAGRREGISTER" value= "SHIFOUDM1" />
+  <Reflect id="MORNINGSICKNESS" value= "YOUWUQKDM2" />
+  <Reflect id="PREGNANCYABNORMAL" value= "YOUWUQKDM2" />
+  <Reflect id="HEADACHE" value= "SHIFOUDM0" />
+  <Reflect id="EDEMA" value= "SHIFOUDM0" />
+  <Reflect id="FEVER" value= "SHIFOUDM0" />
+  <Reflect id="BLEEDING" value= "SHIFOUDM0" />
+  <Reflect id="IFLOST" value= "SHIFOUDM0" />
+  <Reflect id="LOSTREASON" value= "SHIFOUDM0" />
+  <Reflect id="MEDICATION" value= "YOUWUQKDM2" />
+  <Reflect id="SELFFEELSYMPTOMFLAG" value= "YOUWUQKDM2" />
+  <Reflect id="BPFLAG" value= "YOUWUQKDM2" />
+  <Reflect id="HEIGHTFUNDUSUTERUSFLAG" value= "YOUWUQKDM2" />
+  <Reflect id="WEIGHTFLAG" value= "YOUWUQKDM2" />
+  <Reflect id="HEARTRATEFLAG" value= "YOUWUQKDM2" />
+  <Reflect id="POSITIONFLAG" value= "YOUWUQKDM2" />
+  <Reflect id="ALBUMINURIA" value= "TESTRESULT" />
+  <Reflect id="HAEMOGLOBIN" value= "TESTRESULT" />
+  <Reflect id="HOMEADDRESS" value= "GUANXIADZBM" />
+  <Reflect id="REALREGIONCODE" value= "GUANXIADZBM" />
+  <Reflect id="MANAGEADDRESSCODE" value= "GUANXIADZBM"/>
+  <Reflect id="MOBILEFLAG" value="SHIFOUDM"/>
+  <Reflect id="CREATEUNITCODE" value="FUWUJGDM"/>
+  <Reflect id="SOURCEUNITCODE" value="FUWUJGDM"/>
+  <Reflect id="AUTHORIZEMANAUNITID" value="FUWUJGDM"/>  
+  
+  <Reflect id="RESTREGIONCODE" value= "GUANXIADZBM" />
+  <Reflect id="MANAUNITID" value= "FUWUJGDM" />
+  <Reflect id="VISITHOSPITALCODE" value="FUWUJGDM"/>
+  <Reflect id="HOSPITALCODE" value= "FUWUJGDM" />
+  <Reflect id="VISITUNITCODE" value= "FUWUJGDM" />
+  <Reflect id="VISITUNIT" value= "FUWUJGDM" />  
+  <Reflect id="SOURCEUNIT" value= "FUWUJGDM" />
+  <Reflect id="GUANXIAJG" value= "FUWUJGDM" />
+  <Reflect id="FETALPOSITION" value= "TAIFANGW" />
+  <Reflect id="VISITFLAG" value= "SHIFOUDM0" />
+  <Reflect id="BREAST" value= "YICHANGDM1" />
+  <Reflect id="VULVA" value= "YICHANGDM1" />
+  <Reflect id="VAGINA" value= "YICHANGDM1" />
+  <Reflect id="UTERUS" value= "YICHANGDM1" />
+  <Reflect id="CERVIX" value= "YICHANGDM1" />
+  <Reflect id="APPENDAGES" value= "YICHANGDM1" />
+  <Reflect id="LOCHIA" value= "YICHANGDM1" />
+  <Reflect id="PUERPERALINFECTION" value= "SHIFOUDM0" />
+  <Reflect id="INFECTANT" value= "SHIFOUDM0" />
+  <Reflect id="SCREENINGRES2" value= "SCREENINGRES" />
+  <Reflect id="SCREENINGRES27" value= "SCREENINGRES" />
+  <Reflect id="HEARSCREENING" value= "SCREENINGRES" />
+  <Reflect id="CHECKMANAUNIT" value= "FUWUJGDM" />
+  <Reflect id="INSPECTUNITCODE" value= "FUWUJGDM" />
+  <Reflect id="COUNTIES" value= "GUANXIADZBM" />
+  <Reflect id="BABYSURVIVE" value= "SHIFOUDM1" />
+  <Reflect id="CRACKEDNIPPLES" value= "YOUWUQKDM2" />
+  <Reflect id="NIPPLEREDNESS" value= "YOUWUQKDM2" />
+  <Reflect id="SMOKING" value= "SHIFOUDM0" />
+  <Reflect id="TYPE1DIABETES" value= "SHIFOUDM0" />
+  <Reflect id="BLOODHOSPITAL" value= "FUWUJGDM" />
+  
+
+  <!--Selection中对应-->
+  <Reflect id="SHIFOU" value= "SHIFOUDM0" />
+  <Reflect id="YICHANGZC" value= "YICHANGDM1" />
+  <Reflect id="YINYANGXING" value= "YINYANGXING" />
+  <Reflect id="NATIONALITYCODE" value= "GUOJIDM" />
+  <Reflect id="EDUCATIONCODE" value= "XUELIDM" />
+  <Reflect id="DIAGNOSISMETHOD" value= "DIAGNOSISMETHOD" />
+  <Reflect id="GESTATIONNEUROPATHY" value= "GESTATIONNEUROPATHY" />
+  <Reflect id="EDEMASTATUS" value= "SHIYANSDXJCJG" />
+  <Reflect id="BLOODCOMCHK" value= "YICHANGDM1" />
+  <Reflect id="HIGHRISKRATING" value= "HIGHRISKRATING" />
+  <Reflect id="OWNERAREA" value= "OWNERAREA" />
+  <Reflect id="OPERATIONHISTORY" value= "OPERATIONHISTORY" />
+  <Reflect id="DISABILITY" value= "DISABILITY" />
+  <Reflect id="CHARGINGMODE" value= "CHARGINGMODE" />
+  <Reflect id="PREGNANCY" value= "PREGNANCY" />
+  <Reflect id="DOCTORNUMBER" value= "DOCTORNUMBER" />
+  <Reflect id="INIT_SCREENINGCHOICE" value= "INIT_SCREENINGCHOICE" />
+  <Reflect id="LEARNINGEVA" value= "LEARNINGEVA" />
+  <Reflect id="AMNIOTICFLUIDCHARACTER" value= "AMNIOTICFLUIDCHARACTER" />
+  <Reflect id="ALLERGYHISTORY" value= "ALLERGYHISTORY" />
+  <Reflect id="OUTCOME" value= "OUTCOME" />
+  <Reflect id="DRUGPSY" value= "DRUGPSY" />
+  <Reflect id="CARDTYPE" value="ZHENGJIANLX"/>
+  <Reflect id="REGISTEREDPERMANENT" value="HUKOULX"/>
+  <Reflect id="NATIONCODE" value= "MINZUDM" />
+  <Reflect id="RHBLOODCODE" value="RHXXDM" />
+  <Reflect id="WORKCODE" value="ZHIYEDM" />
+  <Reflect id="CLOSEUNITCODE" value="FUWUJGDM"/>
+  <Reflect id="CONTACTRELATION" value="GUANXIDM"/>
+  <Reflect id="HUSBANDCARDTYPE" value="ZHENGJIANLX"/>
+  <Reflect id="HUSBANDHOMEADDRESS" value="GUANXIADZBM"/>
+  <Reflect id="TERMINATEPREGNANCYTYPECODE" value="ZHONGZHIRSLB"/>
+  <Reflect id="CHILDBIRTHFLAG" value="SHIFOUDM"/>
+  <Reflect id="CHILDBIRTHNUMCODE" value="TAICHANLX"/>
+  <Reflect id="FILECOMPLETE" value="SHIFOUDM"/>
+  <Reflect id="TERMINATEPREGNANCYFLAG" value="SHIFOUDM"/>
+  <Reflect id="PRESENTHISTORYFLAG" value="YOUWUQKDM2"/>
+  <Reflect id="PASTHISTORYFLAG" value="YOUWUQKDM2"/>
+  <Reflect id="PASTHISTORYCODE" value="JIWANGJBZL"/>
+  <Reflect id="PASTHISTORY" value="JIWANGJBZL"/>
+  <Reflect id="FAMILYHISTORYFLAG" value="YOUWUQKDM2"/>
+  <Reflect id="FAMILYHISTORYCODE" value="JIAZUBS"/>
+  <Reflect id="FAMILYHISTORY" value="JIAZUBS"/>
+  <Reflect id="HUSBANDFAMILYHISFLAG" value="YOUWUQKDM2"/>
+  <Reflect id="HUSBANDFAMILYHISCODE" value="JIAZUBS"/>
+  <Reflect id="HUSBANDFAMILYHISTORY" value="JIAZUBS"/>
+  <Reflect id="TOUCHHARMHISFLAG" value="YOUWUQKDM2"/>
+  <Reflect id="TOUCHHARMHISCODE" value="JIECHUYHYS"/>
+  <Reflect id="DRUGALLERGYHISFLAG" value="YOUWUQKDM2"/>
+  <Reflect id="INJURYHISTORYFLAG" value="YOUWUQKDM2"/>
+  <Reflect id="GYNECOLOGICSURGERYHISFLAG" value="YOUWUQKDM2"/>
+  <Reflect id="REPRODUCTIVEHEALTHCERTIFICATECODE" value="SHENGZHIJKFWZFFDLX"/>
+  <Reflect id="HIGHRISKFLAG" value="SHIFOUDM"/>
+  <Reflect id="OTHERSURGERYFLAG" value="YOUWUQKDM2"/>
+  <Reflect id="BIRTHCONTROLFLAG" value="YOUWUQKDM2"/>
+  <Reflect id="PREPREGNANCYABNORMALFLAG" value="YOUWUQKDM2"/>
+  <Reflect id="HEARTRATECODE" value="XINLVQDM"/>
+  <Reflect id="HEARTMURMURSABNORMALFLAG" value="YICHANGDM1"/>
+  <Reflect id="HEARTABNORMALFLAG" value="YICHANGDM1"/>
+  <Reflect id="LUNGABNORMALFLAG" value="YICHANGDM1"/>
+  <Reflect id="OTHERPHYSICALEXAMABNORMALFLAG" value="YICHANGDM1"/>
+  <Reflect id="VULVAABNORMALFLAG" value="YICHANGDM1"/>
+  <Reflect id="VAGINAABNORMALFLAG" value="YICHANGDM1"/>
+  <Reflect id="CERVIXABNORMALFLAG" value="YICHANGDM1"/>
+  <Reflect id="UTERUSABNORMALFLAG" value="YICHANGDM1"/>
+  <Reflect id="ACCESSORYABNORMALFLAG" value="YICHANGDM1"/>
+  <Reflect id="PRESENTFIXEDCODE" value="TAIXIANLGD"/>
+  <Reflect id="ALBUMINURIARESULT" value="SHIYANSDXJCJG"/>
+  <Reflect id="BULTRASONICFLAG" value="YICHANGDM1"/>
+  <Reflect id="NST" value="NST"/>
+  <Reflect id="BLOODTYPECODE" value= "ABOXXDM" />
+  <Reflect id="SEXCODE" value= "XINGBIEDM" />
+  <Reflect id="PREGESTATIONMODE" value="ZHONGZHIRSFS"/>
+  <Reflect id="GENERALCOMMENTFLAG" value="YICHANGDM1"/>
+  <Reflect id="HEALTHGUIDE" value="JIANKANGZDLB"/>
+  <Reflect id="TPREGNANCYMANNER" value="HUAIYUNFS"/>
+  <Reflect id="POSITION" value="TAIFANGW"/>
+  <Reflect id="NATIONALTYPE" value="MINZUDM"/>
+  <Reflect id="DELIVERYPLACE" value="FENMIANDDLB"/>
+  <Reflect id="PERINEUMSTATUS" value="HUIYINLSDM"/>
+  <Reflect id="MILK" value="RUZHILDM"/>
+  <Reflect id="FUNDUSHEIGHT" value="GONGDIGD"/>
+  <Reflect id="WOUND" value="YICHANGDM1"/>
+  <Reflect id="ZHUANZHEN" value="SHIFOUDM"/>
+  <Reflect id="OUTFLAG" value="SHIFOUDM"/>
+  <Reflect id="NEWBORNSITUATION" value="YICHANGDM1"/>
+  <Reflect id="EPDSRESULT" value="YICHANGDM1"/>
+  <Reflect id="REFERRALAGENCIES_CODE" value="ZHUANZHENJG"/>
+  <Reflect id="REFERRAL" value="SHIFOUDM"/>
+  <Reflect id="PELVICEXAM" value="YICHANGDM1"/>
+  <Reflect id="MILK" value="RUZHILDM"/>
+  <Reflect id="SOURCEUNIT" value="FUWUJGDM"/>
+  <Reflect id="FEEDINGWAY" value="XINSHENGEWYFS"/>
+  <Reflect id="DEFECTIONCOLOR" value="DAIBIANYS"/>
+  <Reflect id="DEFECTIONCHARACTER" value="DAIBIANXZ"/>
+  <Reflect id="JAUNDICE" value="QINGZHONGZDDM"/>
+  <Reflect id="CHECKUNIT" value="FUWUJGDM"/>
+  <Reflect id="REFERRALAGENCIESCODE" value="ZHUANZHENJG"/>
+  <Reflect id="PREGWEEKCALCULATEMETHOD" value="YUNZHOUQDFF"/>
+  <Reflect id="CHECKMETHODCODE" value="CHANQIANSCFF"/>
+  <Reflect id="CHECKITEM" value="CHANQIANSCXM"/>
+  <Reflect id="CHECKRESULTCODE" value="CHANQIANFXZDJG"/>
+  <Reflect id="HIGHBETANAME" value="GAOFENGXXM"/>
+  <Reflect id="BSCANFETAL" value="TAICHANLX"/>
+  <Reflect id="DISCOVERYWAY" value="GWFXFS"/>
+  <Reflect id="DIAGNOSISTYPENAME" value="CHANQIANZDLX"/>
+  <Reflect id="TRAUMAWAY" value="CHUANGSHANGXZDFF"/>
+  <Reflect id="TRAUMARESULT" value="YICHANGDM1"/>
+  <Reflect id="TRAUMAEXCEPTION" value="CHUANGSHANGXZDYCJG"/>
+  <Reflect id="NOTRAUMAWAY" value="FEICHUANGSXZDFF"/>
+  <Reflect id="NOTRAUMARESULT" value="YICHANGDM1"/>
+  <Reflect id="NOTRAUMAEXCEPTION" value="FEICHUANGXZDYCJG"/>
+  <Reflect id="VISITMODE" value="SUIFANGFSDM"/>
+  <Reflect id="PRECHECKFLAG" value="YOUWUQKDM2"/>
+  <Reflect id="PREDIAGNOSISFLAG" value="YOUWUQKDM2"/>
+  <Reflect id="DIAGNOSISEXCEPTIONNAME" value="GAOFENGXXM"/>
+  <Reflect id="OUTCOMEOFPREGNANCY" value="RENSHENJJ"/>
+  <Reflect id="ABNORMALITYFLAG" value="SHIFOUDM"/>
+  <Reflect id="CHECKABNORMALITYNAME" value="QUEZHENJXDM"/>
+  <Reflect id="OUTCOMEOFPREGNANT" value="RENSHENJJ"/>  
+  <Reflect id="ISFULLMONTH" value="ZUYUECDM"/>  
+  <Reflect id="ABORTION" value="LIUCHANFS"/>  
+  <Reflect id="MHC_BABYSURVIVE" value="SHIFOUDM"/>  
+  <Reflect id="MHC_DELIVERYMODE" value="FENMIANFS"/> 
+  <Reflect id="ZIGONGPL" value="YOUWUQKDM2"/>
+  <Reflect id="SYPHILISFUNCTION" value="FEIMEIDLXTKYXQXFF"/>
+  <Reflect id="SYPHILISRESULT" value="YINYANGXJG"/>
+  <Reflect id="NOSYPHILISFUNCTION" value="MEIDULXTKYXQXFF"/>
+  <Reflect id="NOSYPHILISRESULT" value="YINYANGXJG"/>
+  <Reflect id="NEWDELIVER" value="SHIFOUDM"/>
+  <Reflect id="ISOTHERABNORMALITIES" value="SHIFOUDM0"/>
+  <Reflect id="ISHIGHRISKCHILD" value="SHIFOUDM0"/>
+  <Reflect id="HIGHRISKCHILDTYPE" value="GAOWEIERFL"/>
+
+  <!--急诊预诊-->
+  <Reflect id="ABDOMINALPRESS" value= "YOUWUQKDM2" />
+  <Reflect id="COMUNICATIONEVA" value= "YICHANGDM1" />
+  <Reflect id="BATTERED" value= "YOUWUQKDM2" />
+  <Reflect id="ECONOMICEVAFAMILY" value= "ZHENGCHANGQJ" />
+  <Reflect id="ECONOMICEVAPAY" value= "ZHENGCHANGQJ" />
+  <Reflect id="TRANSRULE" value= "SHIFOUDM1" />
+  <Reflect id="GREENCHANEL" value= "SHIFOUDM0" />
+  <Reflect id="VAGINALFLUID" value= "YOUWUQKDM2" />
+  <Reflect id="UTERINE" value= "UTERINECONTRACTION" />
+
+  <!--特殊人群评估-->
+  <Reflect id="RADIOVOMIT" value= "YOUWUQKDM2" />
+  <Reflect id="RADIOPSY" value= "LIANGHAOJC" />
+  <Reflect id="EMOTIONWOUND" value= "YOUWUQKDM2" />
+  <Reflect id="EMOTIONFORCE" value= "LIANGHAOJC" />
+  <Reflect id="EMOTIONSPIRIT" value= "YOUWUQKDM2" />
+  <Reflect id="EMOTIONFAMILY" value= "LIANGHAOJC" />
+  <Reflect id="PAINSLEEP" value= "YOUWUQKDM2" />
+  <Reflect id="PAINACTIVITY" value= "YOUWUQKDM2" />
+  <Reflect id="PAINEVERYDAY" value= "YOUWUQKDM2" />
+  <Reflect id="PAINMEDICINE" value= "YOUWUQKDM2" />
+  <Reflect id="BATTERNOREASON" value= "YOUWUQKDM2" />
+  <Reflect id="BATTERFEAR" value= "YOUWUQKDM2" />
+  <Reflect id="BATTERRETREAT" value= "YOUWUQKDM2" />
+  <Reflect id="IMMUNEMUCOSA" value= "YICHANGDM1" />
+  <Reflect id="DEATHBEDPSY" value= "YICHANGDM1" />
+  <Reflect id="DEATHBEDBODY" value= "LIANGHAOJC" />
+  <Reflect id="DEATHBEDRELIGION" value= "YOUWUQKDM2" />
+  <Reflect id="DEATHBEDPSYTREAT" value= "YOUWUQKDM2" />
+  <Reflect id="DEATHBEDFAMILY" value= "LIANGHAOJC" />
+  <Reflect id="DEATHBEDAUTHPSY" value= "YICHANGDM1" />
+  <Reflect id="DEATHBEDAUTHORGAN" value= "YOUWUQKDM2" />
+  <Reflect id="YOUNGLEARNING" value= "LIANGHAOJC" />
+  <Reflect id="YOUNGFAMILY" value= "LIANGHAOJC" />
+
+  <!--预诊-->
+  <Reflect id="RECOVEREVA" value= "YOUWUQKDM2" />
+  <Reflect id="BROKENWATER" value= "YOUWUQKDM2" />
+
+  <!--接口使用-->
+  <Reflect id="BABYSEXCODE" value= "XINGBIEDM" />
+  <Reflect id="NEONATALSCREENING" value= "YOUWUQKDM2" />
+  <Reflect id="NEWBORNHEARINGSCREENING" value= "YOUWUQKDM2" />
+  <Reflect id="YELLOWISH" value= "YOUWUQKDM2" />
+  <Reflect id="NURSECASE" value= "HAOBUHAO" />
+  <Reflect id="LOUDERRESPONSE" value= "YOUWUQKDM2" />
+  <Reflect id="FREQUENTCRYING" value= "SHIFOUDM0" />
+  <Reflect id="VITAMINDAD" value= "YOUWUQKDM2" />
+  <Reflect id="CONTINUEVITAMINDAD" value= "SHIFOUDM0" />
+  <Reflect id="TALKINGWITH" value= "SHIFOUDM0" />
+  <Reflect id="SMILE" value= "SHIFOUDM0" />
+  <Reflect id="MOVEMENTWATCH" value= "HUIFOU" />
+  <Reflect id="RISING" value= "HUIFOU" />
+  <Reflect id="PLAY" value= "SHIFOUDM0" />
+  <Reflect id="CLENCHEDFIST" value= "SHIFOUDM0" />
+  <Reflect id="GRAB" value= "HUIFOU" />
+  <Reflect id="PRONUNCIATION" value= "HUIFOU" />
+  <Reflect id="ROTARYSIT" value= "NENGFOU" />
+  <Reflect id="HIDEANDSEEK" value= "SHIFOUDM0" />
+  <Reflect id="SOUNDRESPONSIVE" value= "YOUWUQKDM2" />
+  <Reflect id="STRANGERSANDACQUAINTANCES" value= "HUIFOU" />
+  <Reflect id="TOYSTRANSFER" value= "HUIFOU" />
+  <Reflect id="SITTINGALONE" value= "HUIFOU" />
+  <Reflect id="BREASTFEEDING" value= "SHIFOUDM0" />
+  <Reflect id="FOODSITUATION" value= "HAOBUHAO" />
+  <Reflect id="CALLREPSONSE" value= "YOUWUQKDM2" />
+  <Reflect id="IMITATE" value= "HUIFOU" />
+  <Reflect id="PINCHING" value= "HUIFOU" />
+  <Reflect id="HELPTHINGSSTAND" value= "HUIFOU" />
+  <Reflect id="TAKESPOON" value= "NENGFOU" />
+  <Reflect id="HOLDINGCUPTODRINK" value= "NENGFOU" />
+  <Reflect id="GAME" value= "SHIFOUDM0" />
+  <Reflect id="CONSCIOUSLYCALLEDPARENTS" value= "HUIFOU" />
+  <Reflect id="REQUIREDTOIDENTIFY" value= "HUIFOU" />
+  <Reflect id="EYECONTACT" value= "YOUWUQKDM2" />
+  <Reflect id="WALKALONE" value= "HUIFOU" />
+  <Reflect id="REFERRALAGENCIES" value="ZHUANZHENJG"/>
+
+  <Reflect id="DADFIGURE" value= "FIGURE" />
+  <Reflect id="DADPREGNANCYTESTRESULTS" value= "PREGNANCYTESTRESULTS" />
+  <Reflect id="MOMFIGURE" value= "FIGURE" />
+  <Reflect id="MOMPREGNANCYTESTRESULTS" value= "PREGNANCYTESTRESULTS" />
+
+  <Reflect id="VEGETABLES" value= "SHIFOUDM0" />
+  <Reflect id="GARGLE" value= "SHIFOUDM0" />
+  <Reflect id="PAINTING" value= "SHIFOUDM0" />
+  <!--2周育儿检查-->
+  <Reflect id="SAYARTICLENAME" value= "HUIFOU" />
+  <Reflect id="DOSIMPLETHINGS" value= "HUIFOU" />
+  <Reflect id="EATWITHSPOON" value= "HUIFOU" />
+  <Reflect id="CLIMBINGSTAIRS" value= "HUIFOU" />
+  <!--2周半育儿检查-->
+  <Reflect id="PICKYEATERS" value= "YOUWUQKDM2" />
+  <Reflect id="READPICTUREBOOKS" value= "SHIFOUDM0" />
+  <Reflect id="SINGLEINTEREST" value= "SHIFOUDM0" />
+  <Reflect id="SAYPHRASE" value= "HUIFOU" />
+  <Reflect id="SCHEMATICALLYTOILET" value= "HUIFOU" />
+  <Reflect id="CANRUN" value= "HUIFOU" />
+  <!--孕前优生健康检查记录-->
+  <Reflect id="MOMREPRODUCTIVECHECK" value= "YICHANGDM1" />
+  <Reflect id="MOMBLOODTYPECODE" value= "ABOXXDM" />
+  <Reflect id="MOMRHBLOODCODE" value= "YINYANGXING" />
+  <Reflect id="MOMHYPERTENSION" value= "SHIFOUDM0" />
+  <Reflect id="MOMDIABETES" value= "SHIFOUDM0" />
+  <Reflect id="MOMLIVERFUNCTION" value= "YICHANGDM1" />
+  <Reflect id="MOMRENAL" value= "YICHANGDM1" />
+  <Reflect id="MOMTHYROIDSTIMULATINGHORMONE" value= "YICHANGDM1" />
+  <Reflect id="MOMBACTERIALVAGINOSIS" value= "SHIFOUDM0" />
+  <Reflect id="MOMTRICHOMONASINFECTION" value= "YINYANGXING" />
+  <Reflect id="MOMGONOCOCCALINFECTION" value= "YINYANGXING" />
+  <Reflect id="MOMHEPATITISB" value= "YINYANGXING" />
+  <Reflect id="MOMTREPONEMAPALLIDUM" value= "YINYANGXING" />
+  <Reflect id="MOMHIV" value= "YINYANGXING" />
+  <Reflect id="MOMRUBELLAVIRUSIGG" value= "YINYANGXING" />
+  <Reflect id="MOMCYTOMEGALOVIRUSIGM" value= "YINYANGXING" />
+  <Reflect id="MOMCYTOMEGALOVIRUSIGG" value= "YINYANGXING" />
+  <Reflect id="MOMTOXOPLASMAIGM" value= "YINYANGXING" />
+  <Reflect id="MOMTOXOPLASMAIGG" value= "YINYANGXING" />
+  <Reflect id="DADREPRODUCTIVECHECK" value= "YICHANGDM1" />
+  <Reflect id="DADBLOODTYPECODE" value= "ABOXXDM" />
+  <Reflect id="DADRHBLOODCODE" value= "YINYANGXING" />
+  <Reflect id="DADHYPERTENSION" value= "SHIFOUDM0" />
+  <Reflect id="DADDIABETES" value= "SHIFOUDM0" />
+  <Reflect id="DADLIVERFUNCTION" value= "YICHANGDM1" />
+  <Reflect id="DADRENAL" value= "YICHANGDM1" />
+  <Reflect id="DADBACTERIALVAGINOSIS" value= "SHIFOUDM0" />
+  <Reflect id="DADTRICHOMONASINFECTION" value= "YINYANGXING" />
+  <Reflect id="DADGONOCOCCALINFECTION" value= "YINYANGXING" />
+  <Reflect id="DADHEPATITISB" value= "YINYANGXING" />
+  <Reflect id="DADTREPONEMAPALLIDUM" value= "YINYANGXING" />
+  <Reflect id="DADHIV" value= "YINYANGXING" />
+  <!--3周岁育儿记录-->
+  <Reflect id="CHEW" value= "SHIFOUDM0" />
+  <Reflect id="BRUSHTEETH" value= "SHIFOUDM0" />
+  <Reflect id="WASHHANDS" value= "SHIFOUDM0" />
+  <Reflect id="SQUINTING" value= "SHIFOUDM0" />
+  <Reflect id="SAYSELFNAME" value= "HUIFOU" />
+  <Reflect id="IMAGINARYGAMES" value= "HUIFOU" />
+  <Reflect id="DRAWCIRCLE" value= "HUIFOU" />
+  <Reflect id="TWOFEETJUMP" value= "HUIFOU" />
+  <!--4周岁育儿记录-->
+  <Reflect id="CUTTINGTHINGS" value= "NENGFOU" />
+  <Reflect id="GOTOTOILET" value= "NENGFOU" />
+  <Reflect id="TELLSTORY" value= "NENGFOU" />
+  <Reflect id="SAIDADJECTIVES" value= "HUIFOU" />
+  <Reflect id="WAITING" value= "NENGFOU" />
+  <Reflect id="WEARCLOTHES4" value= "HUIFOU" />
+  <Reflect id="STANDINGONONEFOOT4" value= "HUIFOU" />
+  <!--5周岁育儿记录--> 
+  <Reflect id="HOLDPENTODRAW" value= "SHIFOUDM0" />
+  <Reflect id="DISTINGUISHCOLORS" value= "NENGFOU" />
+  <Reflect id="COLLECTIVELIFE" value= "SHIFOUDM0" />
+  <Reflect id="WEARCLOTHES5" value= "NENGFOU" />
+  <Reflect id="TELLINCIDENT" value= "NENGFOU" />
+  <Reflect id="KNOWGENDER" value= "SHIFOUDM0" />
+  <Reflect id="CHOPSTICKSTOEAT" value= "HUIFOU" />
+  <Reflect id="STANDINGONONEFOOT5" value= "HUIFOU" />
+  <!--6周岁育儿记录--> 
+  <Reflect id="HOUSEWORK" value= "HUIFOU" />
+  <Reflect id="SHARE" value= "NENGFOU" />
+  <Reflect id="ABIDERULES" value= "NENGFOU" />
+  <Reflect id="WRITENAME" value= "NENGFOU" />
+  <Reflect id="EXPRESSFEELINGS" value= "HUIFOU" />
+  <Reflect id="ROLEPLAY" value= "HUIFOU" />
+  <Reflect id="DRAWSQUARE" value= "HUIFOU" />
+  <Reflect id="RUN" value= "HUIFOU" />
+  <!--产时--> 
+  <Reflect id="MODEOFDELIVERY" value= "FENMIANFS" /> 
+  <Reflect id="BABYSEX" value= "XINGBIEDM" />
+  <Reflect id="PREDELIVERYMODE" value="FENMIANFS"/>
+  <!--产筛-->
+  <Reflect id="T21_Risk_Conclusion" value= "Risk_Conclusion" />
+  <Reflect id="T18_Risk_Conclusion" value= "Risk_Conclusion" />
+  <Reflect id="NTD_Risk_Conclusion" value= "Risk_Conclusion" />
+  
+  <!--//盆底康复//-->
+  <Reflect id="LEAKAGEDEGREE" value= "CHENGDU" />
+  <Reflect id="LEAKAGEDRUG" value= "SHIFOUDM" />
+  
+  <Reflect id="BREECHDELIVERY" value= "SHIFOUDM" />
+  <Reflect id="CAESAREANSECTION" value= "SHIFOUDM" />  
+  <Reflect id="NORMALLABOR" value= "SHIFOUDM" />
+  <Reflect id="OBSTETRICFORCEPS" value= "SHIFOUDM" />
+  <Reflect id="PAINLESSLABOR" value= "SHIFOUDM" />
+  <Reflect id="PERINEALRESECTION" value= "SHIFOUDM" />
+  <Reflect id="PERINEALTEAR" value= "SHIFOUDM" />
+  <Reflect id="WATERDELIVERY" value= "SHIFOUDM" />
+  <Reflect id="YQNSJ" value= "SHIFOUDM" />
+  
+  <Reflect id="URINARYPRESSURE" value= "CHENGDU" />
+  <Reflect id="IFLACTATION" value= "SHIFOUDM" />
+
+  <Reflect id="NERVOUS" value= "NIAOYIYC" />
+  <Reflect id="COLD" value= "NIAOYIYC" />
+  <Reflect id="WATER" value= "NIAOYIYC" />
+  <Reflect id="COLDWATER" value= "NIAOYIYC" />
+
+  <Reflect id="RECTUSMUSCLE" value= "SHIFOUDM" />
+  <Reflect id="PUBIC" value= "SHIFOUDM" />
+  <Reflect id="PUBICPAIN" value= "SHIFOUDM" />
+
+  <Reflect id="PERINEALREFLEXS2" value= "ZHENGCHANGJTKJ" />
+  <Reflect id="PERINEALREFLEXS3" value= "ZHENGCHANGJTKJ" />
+  <Reflect id="PERINEALREFLEXS4" value= "ZHENGCHANGJTKJ" />
+  <Reflect id="HANDMUSCLESTRENGTH" value= "JISHU" />
+
+  <Reflect id="PELVICFLOORELECTRIC" value= "SHIFOUDM" />
+  <Reflect id="PELVICFLOORPRESSURE" value= "SHIFOUDM" />
+  <Reflect id="PELVICFLOORTENSION" value= "SHIFOUDM" />
+
+  <Reflect id="FIRSTMUSCLE" value= "JISHU" />
+  <Reflect id="SECONDMUSCLE" value= "JISHU" />
+  <Reflect id="FLOORABDOMINAL" value= "XIETIAOBXT" />
+  
+  <Reflect id="FIRSTMUSCLE2" value= "JISHU" />
+  <Reflect id="SECONDMUSCLE2" value= "JISHU" />
+  <Reflect id="FLOORABDOMINAL2" value= "XIETIAOBXT" />
+  <Reflect id="MUSCLEGRADE" value= "JISHU" />
+
+  <Reflect id="FRONTWALL" value= "JISHU" />
+  <Reflect id="BACKWALL" value= "JISHU" />
+  <Reflect id="UTERUSVAULT" value= "JISHU" />
+  <Reflect id="BENPM" value= "SHIFOUDM" />
+
+  <Reflect id="A3" value= "ZHENGCHANGBZC" />  
+  <Reflect id="SEXREFLECTION" value= "LIANGHAOYBC" />
+
+  <Reflect id="FIRSTMUSCLE1" value= "JISHU" />
+  <Reflect id="SECONDMUSCLE1" value= "JISHU" />
+
+  <Reflect id="FIRSTMUSCLE3" value= "JISHU" />
+  <Reflect id="SECONDMUSCLE3" value= "JISHU" />
+  
+  <!--随访记录-->
+  <Reflect id="URINARYINCONTINENCE" value= "CONTINENCE" />
+  <Reflect id="PF_UTERUS" value= "JISHU1" />
+  
+  <!--艾滋病报卡-->
+  <Reflect id="MALENATIONCODE" value= "AIDS_NATIONCODE" />
+  <Reflect id="FEMALENATIONCODE" value= "AIDS_NATIONCODE" />
+  
+  <Reflect id="FEMALEEDUCATIONCODE" value= "AIDS_EDUCATIONCODE" />
+  <Reflect id="MALEEDUCATIONCODE" value= "AIDS_EDUCATIONCODE" />
+  
+  <Reflect id="FEMALEWORKNAME" value= "AIDS_WORKCODE" />
+  <Reflect id="MALEWORKNAME" value= "AIDS_WORKCODE" />
+  
+  <Reflect id="FEMALEMARITALSTATUSCODE" value= "MARITALSTATUSCODE" />
+  <Reflect id="MALEMARITALSTATUSCODE" value= "MARITALSTATUSCODE" />
+  
+  <Reflect id="FEMALEOWNERAREA" value= "AIDS_OWNERAREA" /> 
+  <Reflect id="KNOWNHIV" value= "SHIFOUDM0" />
+  <Reflect id="AIDSCOUNSELBEFORETEST" value= "ZXQK" />
+  <Reflect id="AIDSCOUNSELAFTERTEST" value= "ZXQK" />
+  
+  <!--艾滋病病毒感染孕产妇妊娠及所生婴儿登记卡-->
+  <Reflect id="PREGAIDSMEDICINELEAKAGE" value= "LEAKAGESITUATION" />
+  <Reflect id="INTRAPAIDSMEDICINELEAKAGE" value= "LEAKAGESITUATION" />
+  <Reflect id="POSTAIDSMEDICINELEAKAGE" value= "LEAKAGESITUATION" />
+  
+  
+  <Reflect id="TPPARESULT" value= "TESTINGRESULT" />
+  <Reflect id="RPRRESULT" value= "TESTINGRESULT" />
+  <Reflect id="OTHERRESULT" value= "TESTINGRESULT" />
+  <Reflect id="HBSAGTESTINGRESULT" value= "TESTINGRESULT" />
+  <Reflect id="HBEAGTESTINGRESULT" value= "TESTINGRESULT" />
+  <Reflect id="HCVIGGTESTINGRESULT" value= "TESTINGRESULT" />
+  <Reflect id="HCVIGMTESTINGRESULT" value= "TESTINGRESULT" />
+
+  <Reflect id="SYPHILISTESTING" value= "TESTING" />
+  <Reflect id="HBSAGTESTING" value= "TESTING" />
+  <Reflect id="HBEAGTESTING" value= "TESTING" />
+  <Reflect id="HCVIGGTESTING" value= "TESTING" />
+  <Reflect id="HCVIGMTESTING" value= "TESTING" />
+
+  <Reflect id="AIDSMEDICINE" value= "YONGYAOWYY" />
+  <Reflect id="PREGAIDSMEDICINE" value= "YONGYAOWYY" />
+  <Reflect id="INTRAPAIDSMEDICINE" value= "YONGYAOWYY" />
+  <Reflect id="POSTAIDSMEDICINE" value= "YONGYAOWYY" />
+  <Reflect id="SULFAMETHOXAZOLE" value= "YONGYAOWYY" />
+
+  <Reflect id="STOPAIDSMEDICINE" value= "WEITINGYYTY" />
+  <Reflect id="STOPSULFMEDICINE" value= "WEITINGYYTY" />
+
+  <Reflect id="STOPAIDSMEDICINETIME" value= "PREGSTAGE" />
+  <Reflect id="STOPSULFMEDICINETIME" value= "PREGSTAGE" />
+  <Reflect id="BEGINAIDSTIME" value= "PREGSTAGE" />
+  <Reflect id="BEGINSULFTIME" value= "PREGSTAGE" />
+
+  <Reflect id="STAGE" value= "PREGSTAGE" />
+  <Reflect id="MEDICINE" value= "YONGYAOWYY" />
+  <Reflect id="MEDICINELEAKAGE" value= "LEAKAGESITUATION" />
+  <Reflect id="DEATHCAUSE" value= "UNKNOWN" />
+  
+  <!--梅毒报卡-->
+  <Reflect id="EXDIAGNOSISED" value= "SHIFOUDM" />
+  <Reflect id="IGM" value= "TESTING" />
+  <Reflect id="TPDARK" value= "TESTING" />
+  <Reflect id="EXUNKNOWNDIAGNOSIS" value= "UNKNOWN" />
+  <Reflect id="DIAGNOSISPERIOD" value= "PREGSTAGE" />
+
+  <Reflect id="RPR" value= "SHIFOUDM" />
+  <Reflect id="TRUST" value= "SHIFOUDM" />
+  <Reflect id="TPAOTHER" value= "SHIFOUDM" />
+  <Reflect id="TPPA" value= "SHIFOUDM" />
+  <Reflect id="ELISA" value= "SHIFOUDM" />
+  <Reflect id="RDOS" value= "SHIFOUDM" />
+  <Reflect id="TPPAOTHER" value= "SHIFOUDM" />
+
+  <Reflect id="TPDETECTED" value= "SHIFOUDM" />
+  <Reflect id="UNKNOWNPARTNERDIAGNOSISTIME" value= "UNKNOWN" />
+  
+  <!--梅毒-->
+  <Reflect id="SYPHILIS_IFLOST" value= "AIDS_IFLOST" />
+  <Reflect id="SYPHILISMEDICINE" value= "YONGYAOWYY" />
+  
+  <Reflect id="MEDCINE1" value= "SYPHILIS_MEDCINE" />
+  <Reflect id="MEDCINE2" value= "SYPHILIS_MEDCINE" />
+  <Reflect id="MEDCINE3" value= "SYPHILIS_MEDCINE" />
+
+  <Reflect id="MOTHER_RPRRESULT" value= "YINYANGXING" />
+  <Reflect id="MOTHER_TRUSTRESUL" value= "YINYANGXING" />
+  <Reflect id="MOTHER_TPAOTHERRESULT" value= "YINYANGXING" />
+
+  <Reflect id="MOTHER_RPR" value= "SHIFOUDM" />
+  <Reflect id="MOTHER_TRUST" value= "SHIFOUDM" />
+  <Reflect id="MOTHER_TPAOTHER" value= "SHIFOUDM" />
+  <Reflect id="MOTHER_TRUSTRESULT" value= "YINYANGXING" />
+  <Reflect id="BABY_RPR" value= "SHIFOUDM" />
+  <Reflect id="BABY_TRUST" value= "SHIFOUDM" />
+  <Reflect id="BABY_TPAOTHER" value= "SHIFOUDM" />
+  <Reflect id="BABY_TPPA" value= "SHIFOUDM" />
+  <Reflect id="BABY_ELISA" value= "SHIFOUDM" />
+  <Reflect id="BABY_RDOS" value= "SHIFOUDM" />
+  <Reflect id="BABY_TPPAOTHER" value= "SHIFOUDM" />
+  <Reflect id="BABY_RPRRESULT" value= "YINYANGXING" />
+  <Reflect id="BABY_TRUSTRESULT" value= "YINYANGXING" />
+  <Reflect id="BABY_TPAOTHERRESULT" value= "YINYANGXING" />
+  <Reflect id="BABY_TPPARESULT" value= "YINYANGXING" />
+  <Reflect id="BABY_ELISARESULT" value= "YINYANGXING" />
+  <Reflect id="BABY_RDOSRESULT" value= "YINYANGXING" />
+  <Reflect id="BABY_TPPAOTHERRESULT" value= "YINYANGXING" />
+  
+  <Reflect id="BABY_TPADETECTED" value= "TESTING" />
+  <Reflect id="MOTHERDETECTED" value= "TESTING" />
+  <Reflect id="BABY_TPPADETECTED" value= "TESTING" />
+  <Reflect id="BABY_IGM" value= "TESTING" />
+  <Reflect id="BABY_TPDARK" value= "TESTING" />
+  <Reflect id="BABY_TPDETECTED" value= "SHIFOUDM" />
+  <Reflect id="PRETREAT" value= "SHIFOUDM" />
+  <Reflect id="BABYTREAT" value= "SHIFOUDM" />
+  <Reflect id="SYPHILIS_BABYSEXCODE" value= "AIDS_BABYSEXCODE" />
+
+  <Reflect id="COURSE2" value= "SHIFOUDM" />
+  <Reflect id="COURSE3" value= "SHIFOUDM" />
+
+  <Reflect id="UNKNOWNENDTIME1" value= "UNKNOWN" />
+  <Reflect id="UNKNOWNENDTIME2" value= "UNKNOWN" />
+  <Reflect id="UNKNOWNENDTIME3" value= "UNKNOWN" />
+  
+  <!--DNA 产前诊断-->
+  <Reflect id="NATURECONCEIVED" value= "SHIFOUDM1" />
+  <Reflect id="OVULATIONINDUCTION" value= "SHIFOUDM0" />
+  <Reflect id="IUI" value= "SHIFOUDM0" />
+  <Reflect id="IVF" value= "SHIFOUDM0" />
+
+  <Reflect id="DNA_ABNORMALPREGNANCY" value= "YOUWUQKDM2" />
+
+  <Reflect id="ALLOGENETICTRANSFUSION" value= "YOUWUQKDM" />
+  <Reflect id="TRANSPLANTOPERATION" value= "YOUWUQKDM" />
+  <Reflect id="ALLOGENEICCELLTHERAPY" value= "YOUWUQKDM" />
+  <Reflect id="STEMCELLTHERAPY" value= "YOUWUQKDM" />
+
+  <Reflect id="SENDHOS" value= "FUWUJGDM" />
+  <Reflect id="SCREENINGRISK" value= "Risk_Conclusion" />
+
+  <Reflect id="MATERNALKARYOTYPE" value= "YICHANGDM1" />
+  <Reflect id="HUSKARYOTYPE" value= "YICHANGDM1" />
+
+  <!--产时孕妇+新生儿信息-->
+  <Reflect id="FENMIANTW" value= "TAIFANGW" />
+  <Reflect id="MOTHERNATIONALITY" value= "GUOJIDM" />
+  <Reflect id="FATHERNATIONALITY" value= "GUOJIDM" />
+  <Reflect id="MOTHERNATION" value= "MINZUDM" />
+  <Reflect id="FATHERNATION" value= "MINZUDM" />
+  <Reflect id="MOTHERPLACE" value= "FUWUJGDM" />
+  <Reflect id="HOSPITALNAME" value= "ZHUANZHENJG" />
+  <Reflect id="DELIVERYHOSCODE" value= "ZHUANZHENJG" />
+  <Reflect id="POSTNATALRESTADDRESS" value= "GUANXIADZBM" />
+  <Reflect id="URGENTPREGNANT" value= "SHIFOUDM" />
+
+  <Reflect id="ISSINGLEPARENT" value= "SHIFOUDM0" />
+  <Reflect id="ISTRANSFERCESAREAN" value= "SHIFOUDM0" />
+  <Reflect id="HASTRANSPORTBLOOD" value= "SHIFOUDM0" />
+  <Reflect id="ACCOMPANYDELIVERY" value= "SHIFOUDM" />
+  <Reflect id="EARLYSUCK" value= "SHIFOUDM0" />
+  <Reflect id="VACCINATE1" value= "SHIFOUDM" />
+  <Reflect id="VACCINATE2" value= "SHIFOUDM" />
+  <Reflect id="VACCINATE3" value= "SHIFOUDM" />
+  
+  <Reflect id="FETALDISTRESS" value= "YOUWUQKDM2" />
+  <Reflect id="QIANZHITP" value= "YOUWUQKDM2" />
+  <Reflect id="TAIPANZB" value= "YOUWUQKDM2" />
+  <Reflect id="TAIMOZP" value= "YOUWUQKDM2" />
+  <Reflect id="ECLAMPSISM" value= "YOUWUQKDM2" />
+  <Reflect id="PROLAPSEOFCORD" value= "YOUWUQKDM2" />
+  <Reflect id="NARROWPELVIC" value= "YOUWUQKDM2" />
+  <Reflect id="BIRTHINJURY" value= "YOUWUQKDM2" />
+  <Reflect id="PATHOLOGICALICTERUS" value= "YOUWUQKDM2" />
+  <Reflect id="SCLEREDEMA" value= "YOUWUQKDM2" />
+  <Reflect id="CEREBARLHEMORRHAGE" value= "YOUWUQKDM2" />
+  <Reflect id="PNEUMONIA" value= "YOUWUQKDM2" />
+  <Reflect id="HIE" value= "YOUWUQKDM2" />
+  <Reflect id="NRDS" value= "YOUWUQKDM2" />
+  <Reflect id="SEVEREASPHYXIA" value= "YOUWUQKDM2" />
+
+  <Reflect id="AFP" value= "YICHANGDM1" />
+  <Reflect id="TLFYLX" value= "CHENGDUBX" />
+  
+  <Reflect id="TLFYLX" value= "CHARGINGMODE" />
+  <Reflect id="FYLX" value= "CHARGINGMODE" />
+
+  <Reflect id="COUPONS" value= "SHIFOUDM0" />
+  <Reflect id="HEPATITIS" value= "HIVTEST" />
+  <Reflect id="BABYSEX" value= "CDH_BABYSEXCODE" />
+  <Reflect id="JIANKANGZK" value= "LIANGHAOJC" />
+  <Reflect id="WAISHENGZQLX" value= "LXSEXCODE" />
+  <Reflect id="OUTCOMEOFBIRTH" value= "CHUSHENGJJ" />
+  <Reflect id="PREGNANCYILLNESS" value= "RENSHENQHBQK" />
+  <Reflect id="BIRTHDEFECT" value= "CHUSHENGQX" />
+
+  <!--产后访视孕妇-->
+  <Reflect id="EPDSRESULT" value= "BLOODCOMCHK" />
+  <Reflect id="NEWBORNSITUATION" value= "YICHANGDM1" />
+  <Reflect id="SKIN" value= "YICHANGDM1" />
+  <Reflect id="EYES" value= "YANBUJCJG" />
+  <Reflect id="UMBILICALREGION" value= "QIBUJCJG" />
+  <Reflect id="THRUSH" value= "YOUWUQKDM" />
+  <Reflect id="ECZEMA" value= "YOUWUQKDM" />
+  <Reflect id="REDBUTTOCK" value= "YOUWUQKDM" />
+  <Reflect id="INFECTION" value= "YOUWUQKDM" />
+</Reflections>

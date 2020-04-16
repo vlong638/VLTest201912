@@ -150,6 +150,33 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:VL.API.Common.Utils.Authentication.CurrentUser">
+            <summary>
+            当前用户
+            </summary>
+        </member>
+        <member name="P:VL.API.Common.Utils.Authentication.CurrentUser.UserId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:VL.API.Common.Utils.Authentication.CurrentUser.UserName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:VL.API.Common.Utils.Authentication.CurrentUser.AuthorityIds">
+            <summary>
+            权限集合
+            </summary>
+        </member>
+        <member name="M:VL.API.Common.Utils.Authentication.CurrentUser.GetCurrentUser(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            获取当前用户
+            </summary>
+            <param name="httpContext"></param>
+            <returns></returns>
+        </member>
         <member name="M:VL.API.Common.Utils.DicUtil.Union(System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.Dictionary{System.String,System.Object},System.Boolean@,System.Boolean,System.Boolean)">
             <summary>
             

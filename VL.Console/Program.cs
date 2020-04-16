@@ -9,7 +9,11 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Xml;
+using System.Xml.Linq;
+using VL.Consoling.Entities;
 using VL.Consoling.RabitMQUtils;
+using VL.Consoling.Utils;
 
 namespace VL.Consoling
 {
@@ -32,7 +36,8 @@ namespace VL.Consoling
             cmds.Add(new Command("---------------------RabbitMQ Simple-------------------", () => { }));
             cmds.Add(new Command("p1s,Push_hello", () =>
             {
-                var factory = new RabbitMQ.Client.ConnectionFactory() { HostName = "192.168.99.100", Port = 5672 };
+                //var factory = new RabbitMQ.Client.ConnectionFactory() { HostName = "192.168.99.100", Port = 5672 };
+                var factory = new RabbitMQ.Client.ConnectionFactory() { HostName = "localhost", Port = 5672 };
                 using (var connection = factory.CreateConnection())
                 {
                     using (var channel = connection.CreateModel())
@@ -726,6 +731,176 @@ namespace VL.Consoling
                     Console.ReadLine();
                 }
             }));
+            cmds.Add(new Command("sql,数据库连接测试", () =>
+            {
+                var connectingString = "Data Source=127.0.0.1;Initial Catalog=VL_DEP;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=admin;Password=123";
+                try
+                {
+                    using (var connection = new SqlConnection(connectingString))
+                    {
+                        connection.Open();
+                        connection.Close();
+                    }
+                    Console.WriteLine("数据库连接成功");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("数据库连接失败," + ex.ToString());
+                }
+            }));
+            #endregion
+
+            #region Others
+            cmds.Add(new Command("---------------------XML-------------------", () => { }));
+            cmds.Add(new Command("c2,CompareTwo", () =>
+            {
+                if (false)
+                {
+                    //第一种规格
+                    var file = Path.Combine(System.Environment.CurrentDirectory, @"docs\test1.xml");
+                    XDocument doc = new XDocument();//创建XML文档
+                    var root = new XElement("Employees"); //创建根元素
+                    root.Add(new XElement("Name", "Bob Smith"));
+                    root.Add(new XElement("Name", "Sally Jones"));
+                    doc.Add(root);
+                    doc.Save(file);     //保存文件
+                    var readXML = XDocument.Load(file);  //加载XML文档
+                    var elements = readXML.Root.Elements("Name");
+                    var employees = elements.Select(c => new { Name = c.Value });
+                }
+                if (false)
+                {
+                    //第二种规格
+                    var file = Path.Combine(System.Environment.CurrentDirectory, @"docs\test2.xml");
+                    XDocument doc = new XDocument();//创建XML文档
+                    var root = new XElement("Employees"); //创建根元素
+                    root.Add(new XElement("Employee", new XAttribute("Name", "Bob"), new XAttribute("Age", "16")));
+                    root.Add(new XElement("Employee", new XAttribute("Name", "Sally")));
+                    doc.Add(root);
+                    doc.Save(file);     //保存文件
+                    var readXML = XDocument.Load(file);  //加载XML文档
+                    var elements = readXML.Root.Elements("Employee");
+                    var employees = elements.Select(c => new { Name = c.Attribute("Name")?.Value, Age = c.Attribute("Age")?.Value });
+                }
+                if (false)
+                {
+                    //运用反射解析对象
+                    //TODO
+                }
+                if (true)
+                {
+                    var reflects_DZBL = XDocument.Load(Path.Combine(System.Environment.CurrentDirectory, @"docs\电子病历\SelectionReflect.xml"))
+                        .Root.Elements(nameof(Reflect))
+                        .Select(c => new Reflect { id = c.Attribute("id")?.Value, value = c.Attribute("value")?.Value });
+                    var selections_DZBL = XDocument.Load(Path.Combine(System.Environment.CurrentDirectory, @"docs\电子病历\SelectionXML.xml"))
+                        .Root.Elements(nameof(Select))
+                        .Select(c => new Select
+                        {
+                            id = c.Attribute("id")?.Value,
+                            sourece = c.Attribute("value")?.Value,
+                            Options = c.Elements(nameof(Option)).Select(o => new Option()
+                            {
+                                id = o.Attribute("id")?.Value,
+                                value = o.Attribute("value")?.Value,
+                                text = o.Attribute("text")?.Value,
+                                selected = o.Attribute("selected")?.Value,
+                                groupno = o.Attribute("groupno")?.Value,
+                                rule = o.Attribute("rule")?.Value,
+                                remark = o.Attribute("remark")?.Value,
+                                editable = o.Attribute("editable")?.Value,
+                                dictionary = o.Attribute("dictionary")?.Value,
+                                classfiction = o.Attribute("classfiction")?.Value,
+                                auto = o.Attribute("auto")?.Value,
+                                version = o.Attribute("version")?.Value,
+                                parentid = o.Attribute("parentid")?.Value,
+                            }).ToList()
+                        });
+                    var reflects_FYPT = XDocument.Load(Path.Combine(System.Environment.CurrentDirectory, @"docs\妇幼平台\SelectionReflect.xml"))
+                        .Root.Elements("Reflect")
+                        .Select(c => new Reflect { id = c.Attribute("id")?.Value, value = c.Attribute("value")?.Value });
+                    var selections_FYPT = XDocument.Load(Path.Combine(System.Environment.CurrentDirectory, @"docs\妇幼平台\SelectionXML.xml"))
+                        .Root.Elements(nameof(Select))
+                        .Select(c => new Select
+                        {
+                            id = c.Attribute("id")?.Value,
+                            sourece = c.Attribute("value")?.Value,
+                            Options = c.Elements(nameof(Option)).Select(o => new Option()
+                            {
+                                id = o.Attribute("id")?.Value,
+                                value = o.Attribute("value")?.Value,
+                                text = o.Attribute("text")?.Value,
+                                selected = o.Attribute("selected")?.Value,
+                                groupno = o.Attribute("groupno")?.Value,
+                                rule = o.Attribute("rule")?.Value,
+                                remark = o.Attribute("remark")?.Value,
+                                editable = o.Attribute("editable")?.Value,
+                                dictionary = o.Attribute("dictionary")?.Value,
+                                classfiction = o.Attribute("classfiction")?.Value,
+                                auto = o.Attribute("auto")?.Value,
+                                version = o.Attribute("version")?.Value,
+                                parentid = o.Attribute("parentid")?.Value,
+                            }).ToList()
+                        });
+                    var diffs = new List<SelectDifferent>();
+                    var errrors = new List<string>();
+                    foreach (var reflect_DZBL in reflects_DZBL)
+                    {
+                        var reflect_FYPT = reflects_FYPT.FirstOrDefault(c => c.id == reflect_DZBL.id);
+                        if (reflect_FYPT == null)
+                            continue;
+                        var select_FYPT = selections_FYPT.FirstOrDefault(c => c.id == reflect_FYPT.value);
+                        if (select_FYPT == null)
+                        {
+                            errrors.Add("缺少FYPT.Selection配置,配置项:" + reflect_FYPT.value);
+                            continue;
+                        }
+                        var select_DZBL = selections_DZBL.FirstOrDefault(c => c.id == reflect_DZBL.value);
+                        if (select_DZBL == null)
+                        {
+                            errrors.Add("缺少DZBL.Selection配置,配置项:" + reflect_DZBL.value);
+                            continue;
+                        }
+                        var differentType = 0;
+                        Option option_DZBL = null, option_FYPT = null;
+                        if (select_FYPT.id != select_DZBL.id)
+                        {
+                            differentType = 1;//缺少匹配的 Select 项
+                            AddDiff(diffs, reflect_DZBL, reflect_FYPT, select_FYPT, select_DZBL, differentType, option_DZBL, option_FYPT);
+                        }
+                        else if (select_FYPT.Options.Count!= select_DZBL.Options.Count())
+                        {
+                            differentType = 2;//Options 数不一致
+                            AddDiff(diffs, reflect_DZBL, reflect_FYPT, select_FYPT, select_DZBL, differentType, option_DZBL, option_FYPT);
+                        }
+                        else 
+                        {
+                            foreach (var option in select_FYPT.Options)
+                            {
+                                option_FYPT = option;
+                                option_DZBL = select_DZBL.Options.FirstOrDefault(c => c.value == option_FYPT.value);
+                                if (option_DZBL == null)
+                                {
+                                    differentType = 3;//缺少匹配的 Option 项
+                                    AddDiff(diffs, reflect_DZBL, reflect_FYPT, select_FYPT, select_DZBL, differentType, option_DZBL, option_FYPT);
+                                    continue;
+                                }
+                                if (option_FYPT.text!= option_DZBL.text)
+                                {
+                                    differentType = 4;//Option 值不一致
+                                    AddDiff(diffs, reflect_DZBL, reflect_FYPT, select_FYPT, select_DZBL, differentType, option_DZBL, option_FYPT);
+                                    continue;
+                                }
+                            }
+                        }
+                    }
+                    var reports = diffs.Select(c => $"DifferentType:{c.DifferentType}\r\n" +
+                    $"DZBL 项:{c.SourceReflect.id},Select:{c.SourceSelect?.id},Option:{c.SourceOption?.value},{c.SourceOption?.text}\r\n" +
+                    $"FYPT 项:{c.TargetReflect.id},Select:{c.TargetSelect?.id},Option:{c.TargetOption?.value},{c.TargetOption?.text}\r\n\r\n");
+                    var reportStr = string.Join("", reports);
+                    var errorStr = string.Join("\r\n", errrors);
+
+                }
+            }));
             #endregion
             #region Others
             cmds.Add(new Command("---------------------Others-------------------", () => { }));
@@ -910,7 +1085,6 @@ namespace VL.Consoling
                     Console.Write(item + "");
                 }
                 Console.WriteLine();
-                #endregion
                 for (int i = 0; i < arr.Length - 1; i++)
                 {
                     for (int j = 0; j < arr.Length - 1 - i; j++)
@@ -931,7 +1105,43 @@ namespace VL.Consoling
                 Console.WriteLine();
                 Console.ReadKey();
             }));
+            cmds.Add(new Command("a2,快排", () =>
+            {
+                int temp = 0;
+                int[] arr = { 23, 44, 66, 76, 98, 11, 3, 9, 7 };
+                Console.WriteLine("排序前的数组：");
+                foreach (int item in arr)
+                {
+                    Console.Write(item + "");
+                }
+                Console.WriteLine();
+                //TODO
+                Console.WriteLine("排序后的数组：");
+                foreach (int item in arr)
+                {
+                    Console.Write(item + ",");
+                }
+                Console.WriteLine();
+                Console.ReadKey();
+            }));
             cmds.Start();
+            #endregion
+        }
+
+        private static void AddDiff(List<SelectDifferent> diffs, Reflect reflect_DZBL, Reflect reflect_FYPT, Select select_FYPT, Select select_DZBL, int differentType, Option option_DZBL, Option option_FYPT)
+        {
+            diffs.Add(new SelectDifferent()
+            {
+                SourceReflect = reflect_DZBL,
+                SourceSelect = select_DZBL,
+                SourceOption = option_DZBL,
+
+                TargetReflect = reflect_FYPT,
+                TargetSelect = select_FYPT,
+                TargetOption = option_FYPT,
+
+                DifferentType = differentType,
+            });
         }
 
         private static string GetFieldLength(Information_Schema field)
