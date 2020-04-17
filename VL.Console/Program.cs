@@ -1077,7 +1077,10 @@ namespace VL.Consoling
             cmds.Add(new Command("---------------------Algorithm,算法-------------------", () => { }));
             cmds.Add(new Command("a1,冒泡", () =>
             {
-                int temp = 0;
+                //内容很少,就两个for循环,一个变量交换
+                //核心就是第二个for的边界 -i
+                //基本思想就是:~
+
                 int[] arr = { 23, 44, 66, 76, 98, 11, 3, 9, 7 };
                 Console.WriteLine("排序前的数组：");
                 foreach (int item in arr)
@@ -1085,18 +1088,7 @@ namespace VL.Consoling
                     Console.Write(item + "");
                 }
                 Console.WriteLine();
-                for (int i = 0; i < arr.Length - 1; i++)
-                {
-                    for (int j = 0; j < arr.Length - 1 - i; j++)
-                    {
-                        if (arr[j] > arr[j + 1])
-                        {
-                            temp = arr[j + 1];
-                            arr[j + 1] = arr[j];
-                            arr[j] = temp;
-                        }
-                    }
-                }
+                arr.BubbleSort();
                 Console.WriteLine("排序后的数组：");
                 foreach (int item in arr)
                 {
@@ -1115,7 +1107,7 @@ namespace VL.Consoling
                     Console.Write(item + "");
                 }
                 Console.WriteLine();
-                //TODO
+                arr.QuickSort();
                 Console.WriteLine("排序后的数组：");
                 foreach (int item in arr)
                 {
