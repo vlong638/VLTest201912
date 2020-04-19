@@ -45,26 +45,22 @@ namespace VL.Consoling.Utils
 
         private static int DoSort(int[] array, int leftIndex, int rightIndex)
         {
-            var keyValue = array[leftIndex];
+            var keyIndex = leftIndex;
+            var keyValue = array[keyIndex];
             while (leftIndex < rightIndex)
             {
-                while (leftIndex < rightIndex && array[leftIndex] <= keyValue) //考点2 一个需要包含原值 否则覆盖面不全
-                {
-                    leftIndex++;
-                }
-                while (leftIndex < rightIndex && array[rightIndex] > keyValue)
+                while (leftIndex < rightIndex && array[rightIndex] >= keyValue)//考点2 来回倒腾
                 {
                     rightIndex--;
                 }
-                if (leftIndex < rightIndex)
+                array[leftIndex] = array[rightIndex];
+                while (leftIndex < rightIndex && array[leftIndex] <= keyValue)
                 {
-                    var temp = array[leftIndex];
-                    array[leftIndex] = array[rightIndex];
-                    array[rightIndex] = temp;
+                    leftIndex++;
                 }
+                array[rightIndex] = array[leftIndex];
             }
-
-
+            array[leftIndex] = keyValue;
             return leftIndex;
         }
         #endregion

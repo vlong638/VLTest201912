@@ -749,8 +749,7 @@ namespace VL.Consoling
                 }
             }));
             #endregion
-
-            #region Others
+            #region XML
             cmds.Add(new Command("---------------------XML-------------------", () => { }));
             cmds.Add(new Command("c2,CompareTwo", () =>
             {
@@ -1073,7 +1072,7 @@ namespace VL.Consoling
                 }
             }));
             #endregion
-            #region 算法
+            #region Algorithm
             cmds.Add(new Command("---------------------Algorithm,算法-------------------", () => { }));
             cmds.Add(new Command("a1,冒泡", () =>
             {
