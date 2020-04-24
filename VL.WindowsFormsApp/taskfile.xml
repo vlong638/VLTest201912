@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TaskList>
+  <!--<Task text="获取产筛结果" id="6" freq="每一天"  interval="0" sendtime="04:00" run="true" tasktype="定时任务"/>-->
+  <Task text="清除产检打印单缓存" id="8" freq="每一天"  interval="0" sendtime="05:00:00" run="true" tasktype="定时任务"/>
+ 
+  <!--<Task text="产检提醒" id="2" freq="每一天"  interval="0" sendtime="10:00" run="true" tasktype="定时任务"/>
+  <Task text="产筛回传" id="5" freq="每一天"  interval="0" sendtime="19:00" run="true" tasktype="定时任务"/>
+  <Task text="刷新健康号" id="3" freq="每一天"  interval="0" sendtime="20:00" run="true" tasktype="定时任务"/>
+  <Task text="产检数据处理建议及回传" id="9" freq="每一天"  interval="0" sendtime="22:00" run="true" tasktype="定时任务"/>-->
+  <Task text="回传数据中心" id="10" freq="每一天"  interval="0" sendtime="22:00:11" run="true" tasktype="定时任务"/>
+  <Task text="对账数据中心" id="11" freq="每一天"  interval="0" sendtime="03:11:00" run="true" tasktype="定时任务"/>-->
+  <Task text="实时回传数据中心" id="34" freq="每分钟" interval="5" sendtime="00:00:22" run="true" tasktype="定时任务"/>
+  <!--<Task text="重传妇幼平台" id="36" freq="每分钟" interval="5" sendtime="00:00" run="true" tasktype="定时任务"/>-->
+  <Task text="批量处理过期极危报警" id="20" freq="每分钟" interval="5" sendtime="00:22:00" run="true" tasktype="定时任务"/>
+  <Task text="预读挂号信息" id="7" freq="间隔" interval="5" sendtime="00:00:05" run="true" tasktype="定时任务"/>
+  <Task text="导入检验检查处方数据" id="41" freq="间隔" interval="0" sendtime="00:01:00" run="true" tasktype="队列"/>
+  
+</TaskList>
