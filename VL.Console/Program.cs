@@ -1172,7 +1172,7 @@ order by Table_Name,Column_Name;
                 }
             }));
             #endregion
-            #region 算法
+            #region Algorithm
             cmds.Add(new Command("---------------------Algorithm,算法-------------------", () => { }));
             cmds.Add(new Command("a1,冒泡", () =>
             {
