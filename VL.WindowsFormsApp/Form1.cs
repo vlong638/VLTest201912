@@ -93,6 +93,11 @@ namespace VL.WindowsFormsApp
 
         private void button1_Click(object sender, EventArgs e)
         {
+            StartTasks();
+        }
+
+        private void StartTasks()
+        {
             var taskConfigs = GetTaskConfigs();
             WorkingTasks.Clear();
             bool hasError = false;
@@ -142,6 +147,7 @@ namespace VL.WindowsFormsApp
                 lb.Items.Add(text);
             }
         }
+
         public static bool IsWorking = true;
         private static List<WorkTask> WorkingTasks= new List<WorkTask>();
         public static List<string> Messages = new List<string>();
@@ -173,6 +179,11 @@ namespace VL.WindowsFormsApp
 
         private void button2_Click(object sender, EventArgs e)
         {
+            ClearTasks();
+        }
+
+        private void ClearTasks()
+        {
             WorkingTasks.Clear();
             SetText("任务已清理");
         }
@@ -196,7 +207,7 @@ namespace VL.WindowsFormsApp
             this.TaskType = config.TaskType;
 
             DateTime nextTime = GetNextExecuteTime(Freqency == Freqency.间隔 ? DateTime.Now : SendTime.Value);
-            NextExecuteTime = nextTime;
+            this.NextExecuteTime = nextTime;
         }
 
         public bool NeedWork { get { return NextExecuteTime < DateTime.Now; } }
@@ -269,10 +280,6 @@ namespace VL.WindowsFormsApp
             NextExecuteTime = GetNextExecuteTime(DateTime.Now);
             if (work != null)
                 work();
-            else
-            {
-                throw new NotImplementedException("异常异常异常");
-            }
         }
     }
     public class TaskConfig
