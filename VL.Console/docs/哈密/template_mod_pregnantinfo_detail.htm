@@ -1,0 +1,433 @@
+﻿<div class="back_class_deep" style="height:30px;line-height:30px;width:100%;color:White; position:relative;">
+    <div style="margin-left:9px; ">
+        <a class="btnlink" id="btn_end" style=" text-decoration:none;"><img src="../Images/btn_edit.png" alt=""/>结案新建</a>
+        <a class="btnlink nosave" id="btn_builtkcal"><img src="../Images/queding.png" alt=""/>建大卡</a>
+        <a class="btnlink" id="btn_view" style=" text-decoration:none;"><img src="../Images/icon11.png" alt=""/>表格模式</a>
+        <a class="btnlink nosave" id="btn_exam"><img src="../Images/icon12.png" alt=""/>孕妇检查</a>
+        <a class="btnlink nosave" id="btn_pregnancyhistory"><img src="../Images/icon12.png" alt=""/>孕产史</a>
+    </div>
+    <div style="position:absolute;right:8px;top:0px;font-size:16px;">
+        <a class="btnlink nosave" id="btn_save"><img src="../Images/queding.png" alt=""/>保存</a>
+        <a class="btnlink nosave" id="btn_print"><img src="../Images/dayin.png" alt=""/>打印</a>
+        <a class="btnlink" id="btn_import"><img src="../Images/btn_import.png" alt=""/>自助建档导入</a>
+        <a class="btnlink nosave" id="btn_diff" style=" text-decoration:none;" target="_blank"><img src="../Images/icon11.png" alt="" />痕迹</a>
+    </div>
+</div>
+
+<div class="div_form_wrapper border_wrapper">
+    <div id="form_wrapper" style="width:96%;margin:6px auto 6px auto;">
+        <table width="100%" cellpadding="0" cellspacing="0" class="customtable">
+            <tr>
+                <td class="form_td form_td_title form_td_widthflag"><span style="display:inline-block;width:120px;"></span></td>
+                <td class="form_td form_td_ctrl" colspan="7"></td>
+            </tr>
+            <tr>
+                <td colspan="8">
+                    <fieldset class="allborder"><legend>基本情况</legend></fieldset>
+                </td>
+            </tr>
+            <tr>
+                <td class="form_td form_td_title"><span class="form_td_span_title">姓名</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_personname" data-value="${personname}" data-required="true"></td>
+                <td class="form_td form_td_title" style='color:red'><span class="form_td_span_title">手机号码</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_mobilenumber" data-required="true" data-value="${mobilenumber}"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">就诊卡号</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_patientaccount" data-value="${patientaccount}"></td>  
+                <td class="form_td form_td_title"><span class="form_td_span_title">家庭电话</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_phonenumber" data-value="${phonenumber}"></td>
+            </tr>
+            <tr>
+                <td class="form_td form_td_title"><span class="form_td_span_title">证件类型</span></td>
+                <td class="form_td form_td_ctrl td_combobox" data-id="tmpl_idtype" data-value="${idtype}" data-url="../Services/ConfigService.asmx/Select?q=idtype"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">身份证号</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_idcard" data-value="${idcard}" data-required="true" event-onchanged="idcard_change" data-validtype="idcard"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">性别</span></td>
+                <td class="form_td form_td_ctrl td_combobox" data-id="tmpl_sexcode" data-value="${sexcode}" data-url="../Services/ConfigService.asmx/Select?q=sexcode"></td>                
+                <td class="form_td form_td_title"><span class="form_td_span_title">出生日期</span></td>
+                <td class="form_td form_td_ctrl td_datepicker" data-id="tmpl_birthday" data-value="${birthday}" event-onselected="birthday_selected"></td>
+            </tr>
+            <tr>
+                <td class="form_td form_td_title" style='color:red'><span class="form_td_span_title">民族</span></td>
+                <td class="form_td form_td_ctrl td_combobox" data-id="tmpl_nationcode" data-value="${nationcode}" data-required="true" data-url="../Services/ConfigService.asmx/Select?q=nationcode" data-panelHeight="300"></td>
+                <td class="form_td form_td_title" ><span class="form_td_span_title">国籍</span></td>
+                <td class="form_td form_td_ctrl td_combobox" data-id="tmpl_nationalitycode"  data-value="${nationalitycode}"  data-url="../Services/ConfigService.asmx/Select?q=nationalitycode" data-panelHeight="300"></td>                
+                <td class="form_td form_td_title" style='color:red'><span class="form_td_span_title">婚姻状况</span></td>
+                <td class="form_td form_td_ctrl td_combobox" data-id="tmpl_maritalstatuscode" data-required="true" data-value="${maritalstatuscode}" data-url="../Services/ConfigService.asmx/Select?q=maritalstatuscode"></td>
+                <td class="form_td form_td_title" style='color:red'><span class="form_td_span_title">文化程度</span></td>
+                <td class="form_td form_td_ctrl td_combobox" data-id="tmpl_educationcode" data-required="true" data-value="${educationcode}" data-url="../Services/ConfigService.asmx/Select?q=educationcode" data-panelHeight="150"></td>
+            </tr>
+            <tr>
+               
+                <!--<td class="form_td form_td_title"><span class="form_td_span_title">保险类别</span></td>
+                <td class="form_td form_td_ctrl td_combobox" data-id="tmpl_insurancecode" data-value="${insurancecode}" data-url="../Services/ConfigService.asmx/Select?q=insurancecode"></td>-->
+                
+            </tr>
+            <tr>
+                <td class="form_td form_td_title" style='color:red'><span class="form_td_span_title must">职业</span></td>
+                <td class="form_td form_td_ctrl td_combobox" data-id="tmpl_workcode" data-value="${workcode}" data-required="true" data-url="../Services/ConfigService.asmx/Select?q=workcode"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">工作单位</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_workplace" data-value="${workplace}"></td>
+                <td class="form_td form_td_title" style='color:red'><span class="form_td_span_title">ABO血型</span></td>
+                <td class="form_td form_td_ctrl td_combobox" data-id="tmpl_bloodtypecode"data-required="true"  data-value="${bloodtypecode}" data-url="../Services/ConfigService.asmx/Select?q=bloodtypecode"></td>
+                <td class="form_td form_td_title" style='color:red'><span class="form_td_span_title">Rh血型</span></td>
+                <td class="form_td form_td_ctrl td_combobox" data-id="tmpl_rhbloodcode" data-required="true" data-value="${rhbloodcode}" data-url="../Services/ConfigService.asmx/Select?q=rhbloodcode"></td>
+            </tr>
+             <tr>
+                <td class="form_td form_td_title"><span class="form_td_span_title">孕妇归属地</span></td>
+                <td class="form_td form_td_ctrl td_combobox" data-id="tmpl_ownerarea" data-value="${ownerarea}" data-url="../Services/ConfigService.asmx/Select?q=ownerarea"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">户口类型</span></td>
+                <td class="form_td form_td_ctrl td_combobox" data-id="tmpl_registrationtype" data-value="${registrationtype}" data-url="../Services/ConfigService.asmx/Select?q=registrationtype"></td>
+                <td class="form_td form_td_title" style='color:red'><span class="form_td_span_title">是否农业户籍</span></td>
+                <td class="form_td form_td_ctrl td_combobox" data-id="tmpl_isagrregister" data-required="true" data-value="${isagrregister}" data-url="../Services/ConfigService.asmx/Select?q=isagrregister"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">生殖证发放地</td>
+                <td class="form_td form_td_ctrl td_combobox" data-id="tmpl_healthplace" data-value="${healthplace}" data-url="../Services/ConfigService.asmx/Select?q=healthplace" ></td>                
+            </tr>
+
+            <tr>
+                <td class="form_td form_td_title"><span class="form_td_span_title">产休地</td>
+                <td class="form_td form_td_ctrl td_dropdowntree_async" colspan="3" data-id="tmpl_restregioncode" data-value="${restregioncode}" data-editable="false" data-url="../Services/ConfigService.asmx/GetInstitutionCodeList" data-recordvalue="true"  ></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">产休地详情</span></td>
+                <td class="form_td form_td_ctrl td_textbox" colspan="3" data-id="tmpl_restregiontext" data-value="${restregiontext}"></td>
+            </tr>
+            <tr>
+                <td class="form_td form_td_title"><span class="form_td_span_title must">户籍地址</span></td>
+                <td class="form_td form_td_ctrl td_dropdowntree_async" colspan="3" data-id="tmpl_homeaddress" data-value="${homeaddress}" data-editable="false"   data-url="../Services/ConfigService.asmx/GetInstitutionCodeList" data-fullpath="true" data-recordvalue="true" data-required="true"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">户籍详情</span></td>
+                <td class="form_td form_td_ctrl td_textbox" colspan="3" data-id="tmpl_homeaddress_text" data-value="${homeaddress_text}"></td>
+            </tr>
+            <tr>
+                <!--<td class="form_td form_td_title"><span class="form_td_span_title">居(暂)住证号</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_realregioncode" data-value="${realregioncode}"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">办居住证日期</span></td>
+                <td class="form_td form_td_ctrl td_datepicker" data-id="tmpl_residencepermit" data-value="${residencepermit}"></td>-->
+               
+                <td class="form_td form_td_title"><span class="form_td_span_title must">居住地址</span></td>
+                <td class="form_td form_td_ctrl td_dropdowntree_async " colspan="3" data-id="tmpl_liveplace"  data-value="${liveplace}" data-editable="false" data-url="../Services/ConfigService.asmx/GetInstitutionCodeList" data-recordvalue="true" data-required="true"></td>
+               <!-- <td class="form_td form_td_ctrl td_dropdowntree_async selfwidth" colspan="3" data-id="tmpl_liveplace"  data-width="94%" style="position:relative;" data-value="${liveplace}" data-editable="true" data-url="../Services/ConfigService.asmx/GetInstitutionCodeList" data-recordvalue="true">
+                    <span style="position:absolute;right:2px;top:8px;">
+                        <a class="magnifier btnlink btn_query" id=""></a>
+                    </span>
+                </td>-->
+                <td class="form_td form_td_title"><span class="form_td_span_title">居住地址详情</span></td>
+                <td class="form_td form_td_ctrl td_textbox" colspan="3" data-id="tmpl_liveplace_text" data-value="${liveplace_text}"></td>
+            </tr> 
+            <tr>
+                <td class="form_td form_td_title"><span class="form_td_span_title must">是否建册</span></td>
+                <td class="form_td form_td_ctrl td_combobox" data-id="tmpl_iscreatebook" data-value="${iscreatebook}" data-url="../Services/ConfigService.asmx/Select?q=iscreatebook"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">年龄</span></td>
+                <td class="form_td form_td_ctrl td_numberbox" data-id="tmpl_createage" data-value="${createage}"></td>                        
+                <td class="form_td form_td_title"><span class="form_td_span_title">孕册号</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_pregnantbookid" data-value="${pregnantbookid}"></td>   
+                <td class="form_td form_td_title"><span class="form_td_span_title">建档机构</span></td>
+                <td class="form_td form_td_ctrl td_dropdowntree" colspan="3" data-id="tmpl_createbookunit" data-value="${createbookunit}" data-url="../Services/ConfigService.asmx/DropDownTree?q=createbookunit"></td>   
+            </tr>         
+            <tr>
+                <td colspan="8">
+                    <fieldset class="allborder"><legend>配偶信息</legend></fieldset>
+                </td>
+            </tr>
+            <tr>
+                <td class="form_td form_td_title"><span class="form_td_span_title must">姓名</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_husbandname" data-required="true" data-value="${husbandname}"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">职业</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_husbandworkname" data-value="${husbandworkname}"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">工作单位</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_husbandworkplace" data-value="${husbandworkplace}"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">家族史</span></td>
+                <td class="form_td form_td_ctrl td_combobox" data-id="tmpl_husbandfamilyhistorytext" data-value="${husbandfamilyhistorytext}" data-url="../Services/ConfigService.asmx/Select?q=husbandfamilyhistory" data-multiple="true" data-allowtext="true" colspan="3"></td>
+                <!--<td class="form_td form_td_title"><span class="form_td_span_title">家族史详情</span></td>
+                <td class="form_td form_td_ctrl td_textbox"  data-id="tmpl_husbandfamilyhistorytext" data-value="${husbandfamilyhistorytext}"></td>-->
+            </tr>  
+            <tr>                
+                <td class="form_td form_td_title"><span class="form_td_span_title">证件类型</span></td>
+                <td class="form_td form_td_ctrl td_combobox" data-id="tmpl_husbandidtype" data-value="${husbandidtype}" data-url="../Services/ConfigService.asmx/Select?q=husbandidtype"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">身份证号</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_husbandidcard" data-value="${husbandidcard}" event-onchanged="husbandidcard_change"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">出生日期</span></td>
+                <td class="form_td form_td_ctrl td_datepicker" data-id="tmpl_husbandbirthday" data-value="${husbandbirthday}" event-onselected="husbandbirthday_selected"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">年龄</span></td>
+                <td class="form_td form_td_ctrl td_numberbox" data-id="tmpl_husbandage" data-value="${husbandage}"></td>
+            </tr>
+            <tr>
+                <td class="form_td form_td_title"><span class="form_td_span_title">户籍地址</span></td>
+                <td class="form_td form_td_ctrl td_dropdowntree_async" colspan="3" data-id="tmpl_husbandhomeaddress" data-value="${husbandhomeaddress}" data-editable="false"   data-url="../Services/ConfigService.asmx/GetInstitutionCodeList" data-fullpath="true" data-recordvalue="true"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">户籍详情</span></td>
+                <td class="form_td form_td_ctrl td_textbox" colspan="3" data-id="tmpl_husbandhomeaddress_text" data-value="${husbandhomeaddress_text}"></td>
+            </tr>
+            <tr>
+                <td class="form_td form_td_title"><span class="form_td_span_title">居住地址</span></td>
+                <td class="form_td form_td_ctrl td_dropdowntree_async " colspan="3" data-id="tmpl_husbandliveaddresscode"  data-value="${husbandliveaddresscode}" data-editable="false" data-url="../Services/ConfigService.asmx/GetInstitutionCodeList" data-recordvalue="true"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">居住地址详情</span></td>
+                <td class="form_td form_td_ctrl td_textbox" colspan="3" data-id="tmpl_husbandliveaddresstext" data-value="${husbandliveaddresstext}"></td>
+            </tr>    
+            <tr>
+                <td class="form_td form_td_title"><span class="form_td_span_title">联系电话</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_husbandmobile" data-value="${husbandmobile}"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">ABO血型</span></td>
+                <td class="form_td form_td_ctrl td_combobox" data-id="tmpl_husbandbloodtypecode" data-value="${husbandbloodtypecode}" data-url="../Services/ConfigService.asmx/Select?q=husbandbloodtypecode"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">Rh血型</span></td>
+                <td class="form_td form_td_ctrl td_combobox" data-id="tmpl_husbandrhbloodcode" data-value="${husbandrhbloodcode}" data-url="../Services/ConfigService.asmx/Select?q=husbandrhbloodcode"></td>
+            </tr>       
+            <tr>
+                <td colspan="8">
+                    <fieldset class="allborder"><legend>孕前信息</legend></fieldset>
+                </td>
+            </tr>
+            <tr>
+                <td class="form_td form_td_title" style='color:red'><span class="form_td_span_title">基础体重(kg)</span></td>
+                <td class="form_td form_td_ctrl td_numberbox" data-id="tmpl_weight" data-value="${weight}" data-required="true" event-onchanged="weight_change" data-min="0" data-max="300" data-precision="2"></td>
+                <td class="form_td form_td_title" style='color:red'><span class="form_td_span_title">身高(cm)</span></td>
+                <td class="form_td form_td_ctrl td_numberbox" data-id="tmpl_height" data-value="${height}" data-required="true" event-onchanged="height_change"  data-min="0" data-max="300" data-precision="2"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">孕前BMI</span></td>
+                <td class="form_td form_td_ctrl td_numberbox" data-id="tmpl_bmi" data-value="${bmi}" data-min="0" data-max="100" data-precision="2"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">初潮年龄</span></td>
+                <td class="form_td form_td_ctrl td_numberbox" data-id="tmpl_menarcheage" data-value="${menarcheage}" data-min="0" data-max="100"></td>                    
+            </tr> 
+            <tr>
+                <td class="form_td form_td_title"><span class="form_td_span_title">经期(天)</span></td>
+                <td><span class=" form_td_ctrl td_numberbox" data-id="tmpl_menstrualperiodmin"  style="width:40%;display:inline-block;" data-value="${menstrualperiodmin}" data-min="0" data-max="200" class="selfwidth"></span><span style="display:inline-block;width:18%; text-align:center;">-</span><span class=" form_td_ctrl td_numberbox" data-id="tmpl_menstrualperiodmax"  style="width:40%;display:inline-block;" data-value="${menstrualperiodmax}" data-min="0" data-max="200" class="selfwidth"></span></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">周期</span></td>
+                <td><span class=" form_td_ctrl td_numberbox" data-id="tmpl_cyclemin"  style="width:40%;display:inline-block;" data-value="${cyclemin}" data-min="0" data-max="200" class="selfwidth"></span><span style="display:inline-block;width:18%; text-align:center;">-</span><span class=" form_td_ctrl td_numberbox" data-id="tmpl_cyclemax"  style="width:40%;display:inline-block;" data-value="${cyclemax}" data-min="0" data-max="200" class="selfwidth"></span></td>                    
+                <td class="form_td form_td_title"><span class="form_td_span_title">月经量</span></td>
+                <td class="form_td form_td_ctrl td_combobox" data-id="tmpl_menstrualblood" data-value="${menstrualblood}" data-url="../Services/ConfigService.asmx/Select?q=menstrualblood"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">痛经</span></td>
+                <td class="form_td form_td_ctrl td_combobox" data-id="tmpl_dysmenorrhea" data-value="${dysmenorrhea}" data-url="../Services/ConfigService.asmx/Select?q=dysmenorrhea"></td>
+            </tr>
+            <tr>
+                <td colspan="8">
+                    <fieldset class="allborder"><legend>体格检查</legend></fieldset>
+                </td>
+            </tr>
+            <tr>
+                <td class="form_td form_td_title" style='color:red'><span class="form_td_span_title">收缩压(mmHg)</span></td>
+                <td class="form_td form_td_ctrl td_numberbox" data-id="tmpl_sbp" data-value="${sbp}" data-required="true" data-min="0" data-max="200"></td>
+                <td class="form_td form_td_title" style='color:red'><span class="form_td_span_title">舒张压(mmHg)</span></td>
+                <td class="form_td form_td_ctrl td_numberbox" data-id="tmpl_dbp" data-value="${dbp}" data-required="true" data-min="0" data-max="200"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">脉搏(cpm)</span></td>
+                <td class="form_td form_td_ctrl td_numberbox" data-id="tmpl_pulse" data-value="${pulse}" data-min="0" data-max="300"></td>
+            </tr>
+            <tr>
+                <td colspan="8">
+                    <fieldset class="allborder"><legend>本次孕情</legend></fieldset>
+                </td>
+            </tr>
+            <tr>
+                <td class="form_td form_td_title"><span class="form_td_span_title must">末次月经</span></td>
+                <td class="form_td form_td_ctrl td_datepicker" data-id="tmpl_lastmenstrualperiod" data-value="${lastmenstrualperiod}" data-required="true" event-onselected="lastmenstrualperiod_selected"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title must">预产期</span></td>
+                <td class="form_td form_td_ctrl td_datepicker" data-id="tmpl_dateofprenatal" data-value="${dateofprenatal}" data-required="true" event-onselected="dateofprenatal_selected"></td>
+                <!--<td class="form_td form_td_title"><span class="form_td_span_title">补充叶酸</span></td>
+                <td class="form_td form_td_ctrl td_combobox" data-id="tmpl_folicsupplementation" data-value="${folicsupplementation}" data-url="../Services/ConfigService.asmx/Select?q=folicsupplementation"></td>-->
+                <td class="form_td form_td_title"><span class="form_td_span_title">预产期修改原因</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_dateofprenatalmodifyreason"  data-value="${dateofprenatalmodifyreason}" colspan="3"></td>
+            </tr>                
+            <tr>
+                <td class="form_td form_td_title"><span class="form_td_span_title">怀孕方式</span></td>
+                <td class="form_td form_td_ctrl td_combobox" data-id="tmpl_tpregnancymanner" data-value="${tpregnancymanner}" data-url="../Services/ConfigService.asmx/Select?q=tpregnancymanner"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">怀孕详情</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_tpregnancymanner_text" data-value="${tpregnancymanner_text}"></td>
+            </tr>
+            <tr>
+                <td colspan="8">
+                    <fieldset class="allborder"><legend>孕产史</legend></fieldset>
+                </td>
+            </tr>
+            <tr>
+                <td class="form_td form_td_title" style='color:red'><span class="form_td_span_title">孕次</span></td>
+                <td class="form_td form_td_ctrl td_numberbox" data-id="tmpl_gravidity" data-value="${gravidity}" data-required="true" data-min="0" data-max="30"></td>
+                <td class="form_td form_td_title" style='color:red'><span class="form_td_span_title">产次</span></td>
+                <td class="form_td form_td_ctrl td_numberbox" data-id="tmpl_parity" data-value="${parity}" data-required="true" data-min="0" data-max="30"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">阴道分娩</span></td>
+                <td class="form_td form_td_ctrl td_numberbox" data-id="tmpl_vaginaldeliverynum" data-value="${vaginaldeliverynum}" data-min="0" data-max="30"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">剖宫产次数</span></td>
+                <td class="form_td form_td_ctrl td_numberbox" data-id="tmpl_caesareansectionnum" data-value="${caesareansectionnum}" data-min="0" data-max="30"></td>
+                <!--<td class="form_td form_td_title"><span class="form_td_span_title">异常孕产史</span></td>
+                <td class="form_td form_td_ctrl td_textbox" colspan="3" data-id="tmpl_unusualbone" data-value="${unusualbone}"></td>-->
+            </tr>
+            <!--<tr>
+                <td class="form_td form_td_title"><span class="form_td_span_title">足月产次数</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_termbirthtimes" data-value="${termbirthtimes}"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">早产次数</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_pretermbirthtimes" data-value="${pretermbirthtimes}"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">流产次数</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_abortiontimes" data-value="${abortiontimes}"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">现存子女数</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_existingchildrennum" data-value="${existingchildrennum}"></td>
+            </tr>
+            <tr>
+                <td class="form_td form_td_title"><span class="form_td_span_title">人工流产次数</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_trafficflow" data-value="${trafficflow}"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">自然流产次数</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_naturalabortion" data-value="${naturalabortion}"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">药物流产次数</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_qwetimes" data-value="${qwetimes}"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">中期流产次数</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_odinopoeia" data-value="${odinopoeia}"></td>
+            </tr>
+            <tr>
+                <td class="form_td form_td_title"><span class="form_td_span_title">早产次数</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_preterm" data-value="${preterm}"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">难产次数</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_dystocia" data-value="${dystocia}"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">死胎死产次数</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_died" data-value="${died}"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">畸形儿次数</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_abnormality" data-value="${abnormality}"></td>
+            </tr>
+            <tr>
+                <td class="form_td form_td_title"><span class="form_td_span_title">死亡儿次数</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_newbrondied" data-value="${newbrondied}"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">宫外孕次数</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_ectopicpregnancy" data-value="${ectopicpregnancy}"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">葡萄胎次数</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_vesicularmole" data-value="${vesicularmole}"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">胚胎停育次数</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_embryowithdrawal" data-value="${embryowithdrawal}"></td>
+            </tr>-->
+            <tr id="form_tr_wrapper_pregnanthistory" data-id="form_tr_wrapper_pregnanthistory" data-value="${pregnanthistory}"></tr>
+            <!--<tr>
+                <td class="form_td form_td_title"><span class="form_td_span_title">前次妊娠终止日(28周以前)</span></td>
+                <td class="form_td form_td_ctrl td_datepicker" data-id="tmpl_pregestationdate" data-value="${pregestationdate}"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">终止方式</span></td>
+                <td class="form_td form_td_ctrl td_combobox" data-id="tmpl_pregestationmode" data-value="${pregestationmode}" data-url="../Services/ConfigService.asmx/DropDownTree?q=pregestationmode"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">前次分娩日期</span></td>
+                <td class="form_td form_td_ctrl td_datepicker" data-id="tmpl_predeliverydate" data-value="${predeliverydate}"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">分娩方式</span></td>
+                <td class="form_td form_td_ctrl td_dropdowntree" data-id="tmpl_predeliverymode" data-value="${predeliverymode}" data-url="../Services/ConfigService.asmx/DropDownTree?q=predeliverymode" data-panelHeight="auto"></td>
+            </tr>-->
+            <tr>
+                <td colspan="8">
+                    <fieldset class="allborder"><legend>既往史</legend></fieldset>
+                </td>
+            </tr>
+            <tr>
+                <td class="form_td form_td_title" style='color:red'><span class="form_td_span_title">妊娠并发症史</span></td>
+                <td class="form_td form_td_ctrl td_combobox" colspan="3" data-id="tmpl_gestationneuropathy" data-required="true" data-value="${gestationneuropathy}" data-multiple="true" data-allowtext="true"  data-url="../Services/ConfigService.asmx/Select?q=gestationneuropathy"></td>
+                <td class="form_td form_td_title" style='color:red'><span class="form_td_span_title">既往病史</span></td>
+                <td class="form_td form_td_ctrl td_combobox" colspan="3" data-id="tmpl_pasthistory" data-value="${pasthistory}" data-required="true" data-multiple="true" data-allowtext="true"  data-url="../Services/ConfigService.asmx/Select?q=pasthistory"></td>
+            </tr>
+            <tr>
+                <td class="form_td form_td_title" style='color:red'><span class="form_td_span_title">家族史</span></td>
+                <td class="form_td form_td_ctrl td_dropdowntree" colspan="3" data-id="tmpl_familyhistory"  data-required="true" data-value="${familyhistory}" data-fullpath="true"   data-multiple="true" data-cascadeCheck="false" data-url="../Services/ConfigService.asmx/DropDownTree?q=familyhistory" data-fullpathdelimiter=":" data-entriesdelimiter=" "></td>
+                <td class="form_td form_td_title" style='color:red'><span class="form_td_span_title">手术史</span></td>
+                <td class="form_td form_td_ctrl td_combobox" colspan="3" data-id="tmpl_operationhistory" data-required="true" data-value="${operationhistory}" data-multiple="true" data-allowtext="true"  data-url="../Services/ConfigService.asmx/Select?q=operationhistory"></td>
+            </tr>
+            <tr>
+                <td class="form_td form_td_title" ><span class="form_td_span_title_must">妇科手术史</span></td>
+                <td class="form_td form_td_ctrl td_textbox" colspan="3" data-id="tmpl_gynecologyops"  data-value="${gynecologyops}"></td>
+                <td class="form_td form_td_title" style='color:red'><span class="form_td_span_title">过敏史</span></td>
+                <td class="form_td form_td_ctrl td_combobox" colspan="3" data-id="tmpl_allergichistory" data-required="true" data-value="${allergichistory}" data-multiple="true" data-allowtext="true" data-url="../Services/ConfigService.asmx/Select?q=allergichistory"></td>
+            </tr>
+            <tr>
+                <td class="form_td form_td_title"><span class="form_td_span_title">毒物接触史</span></td>
+                <td class="form_td form_td_ctrl td_textbox" colspan="3" data-id="tmpl_poisontouchhis" data-value="${poisontouchhis}"></td>
+                <td class="form_td form_td_title" style='color:red'><span class="form_td_span_title">个人史</span></td>
+                <td class="form_td form_td_ctrl td_combobox" colspan="3" data-id="tmpl_heredityfamilyhistory"  data-required="true" data-value="${heredityfamilyhistory}" data-multiple="true" data-allowtext="true" data-url="../Services/ConfigService.asmx/Select?q=heredityfamilyhistory"></td>
+            </tr>
+            <tr>
+                <td colspan="8">
+                    <fieldset class="allborder"><legend>建档情况</legend></fieldset>
+                </td>
+            </tr>
+            <tr>
+                <!--<td class="form_td form_td_title"><span class="form_td_span_title">妇保医生</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_mhcdoctorname" data-value="${mhcdoctorname}"></td>-->
+                
+                <td class="form_td form_td_title"><span class="form_td_span_title">建档医生</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_create_localuser" data-value="${create_localuser}" data-readonly="true"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">建档机构</span></td>
+                <td class="form_td form_td_ctrl td_dropdowntree" colspan="3" data-id="tmpl_sourceunit" data-value="${sourceunit}" data-url="../Services/ConfigService.asmx/DropDownTree?q=sourceunit" data-readonly="true"></td>
+                
+                <td class="form_td form_td_title"><span class="form_td_span_title">最后修改医生</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_editorname" data-value="${editorname}" data-readonly="true"></td>
+            </tr>
+            <tr>
+                <td class="form_td form_td_title"><span class="form_td_span_title">建档日期</span></td>
+                <td class="form_td form_td_ctrl td_datepicker" data-id="tmpl_createdate" data-value="${createdate}" data-readonly="false"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">建册孕周</span></td>
+                <td><span class="form_td_ctrl td_numberbox" data-id="tmpl_gestationalweeks"  style="width:40%;display:inline-block;" data-value="${gestationalweeks}" data-min="0" data-max="200" class="selfwidth" data-readonly="false"></span><span style="display:inline-block;width:18%; text-align:center;">+</span><span class=" form_td_ctrl td_numberbox" data-id="tmpl_gestationaldays"  style="width:40%;display:inline-block;" data-value="${gestationaldays}" data-min="0" data-max="200" class="selfwidth" data-readonly="true"></span></td>                
+            </tr>
+            <tr>
+                <td colspan="8">
+                    <fieldset class="allborder"><legend>建大卡情况</legend></fieldset>
+                </td>
+            </tr>
+            <tr>
+                <td class="form_td form_td_title"><span class="form_td_span_title">建大卡日期</span></td>
+                <td class="form_td form_td_ctrl td_label" data-id="tmpl_builtkcal_createtime" data-value="${builtkcal_createtime}"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">建大卡号</span></td>
+                <td class="form_td form_td_ctrl td_label" data-id="tmpl_builtkcal_number" data-value="${builtkcal_number}"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">建大卡医生</span></td>
+                <td class="form_td form_td_ctrl td_label" data-id="tmpl_builtkcal_editorname" data-value="${builtkcal_editorname}"></td>
+            </tr>
+            <tr>
+                <td colspan="8">
+                    <fieldset class="allborder"><legend>转入情况</legend></fieldset>
+                </td>
+            </tr>
+            <tr>
+                <td class="form_td form_td_title"><span class="form_td_span_title">转入来源区属</span></td>
+                <td class="form_td form_td_ctrl td_dropdowntree_async " colspan="3" data-id="tmpl_changein_ascription"  data-value="${changein_ascription}" data-editable="false" data-url="../Services/ConfigService.asmx/GetInstitutionCodeList" data-recordvalue="true"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">转入来源机构</span></td>
+                <td class="form_td form_td_ctrl td_dropdowntree" colspan="3" data-id="tmpl_changein_unit" data-value="${changein_unit}" data-url="../Services/ConfigService.asmx/DropDownTree?q=changein_unit"  data-editable="true"></td>                
+            </tr>
+            <tr>
+                <td class="form_td form_td_title"><span class="form_td_span_title">转入日期</span></td>
+                <td class="form_td form_td_ctrl td_datepicker" data-id="tmpl_changein_date" data-value="${changein_date}"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="hidden">
+    <input type="text" class="form_td_ctrl td_hidden" value="${id}" data-id="tmpl_id"  data-value="${id}" />
+    <input type="text" class="form_td_ctrl td_hidden" value="${editorcode}" data-id="tmpl_editorcode" data-value="${editorcode}" />
+    <input type="text" class="form_td_ctrl td_hidden" value="${patientid}" data-id="tmpl_patientid" data-value="${patientid}" />
+</div>
+
+<!--弹窗-->
+<div id="win_exam" class="mywindow"  data-maximize="true" data-width="700" data-height="400" data-modal="true" data-url="Page_Exam.aspx" data-title="孕妇检查" data-minimizable="false" data-maximizable="false" data-collapsible="false"></div>
+<div id="win_pregnancyhistory" class="mywindow"  data-maximize="true" data-width="700" data-height="400" data-modal="true" data-url="Page_PregnancyHistory.aspx" data-title="孕产史" data-minimizable="false" data-maximizable="false" data-collapsible="false"></div>
+
+
+<script  type="text/javascript" language="javascript">
+    function lastmenstrualperiod_selected(date) {
+        require(["mod_pregnantinfo_detail"], function (a) {
+            a.lastmenstrualperiod_selected(date);
+        });
+    }
+    function dateofprenatal_selected(date) {
+        require(["mod_pregnantinfo_detail"], function (a) {
+            a.dateofprenatal_selected(date);
+        });
+    }
+    function height_change(sender) {
+        require(["mod_pregnantinfo_detail"], function (a) {            
+            a.height_change(sender);
+        });
+    }
+    function weight_change(sender) {
+        require(["mod_pregnantinfo_detail"], function (a) {
+            a.weight_change(sender);
+        });
+    }
+    function idcard_change(sender) {
+        require(["mod_pregnantinfo_detail"], function (a) {
+            a.idcard_change(sender);
+        });
+    } 
+    function husbandidcard_change(sender) {
+        require(["mod_pregnantinfo_detail"], function (a) {
+            a.husbandidcard_change(sender);
+        });
+    }  
+    function birthday_selected(date) {
+        require(["mod_pregnantinfo_detail"], function (a) {
+            a.birthday_selected(date);
+        });
+    } 
+    function husbandbirthday_selected(date) {
+        require(["mod_pregnantinfo_detail"], function (a) {
+            a.husbandbirthday_selected(date);
+        });
+    } 
+</script>

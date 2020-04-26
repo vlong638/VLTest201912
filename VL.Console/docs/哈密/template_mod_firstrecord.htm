@@ -1,0 +1,218 @@
+﻿<div class="back_class_deep" style="height:30px;line-height:30px;width:100%;color:White; position:relative;">
+    <div style="margin-left:9px; "> <a class="btnlink" id="btn_laborder"><img src="../Images/icon9.png" alt=""/>检验</a>
+        <a class="btnlink" id="btn_examorder"><img src="../Images/icon9.png" alt=""/>检查</a>
+        <a class="btnlink" id="btn_chufang"><img src="../Images/icon9.png" alt=""/>处方</a>
+        <a class="btnlink" id="btn_deletevr" style=" text-decoration:none;"><img src="../Images/icon12.png" alt="" />删除</a>
+        <a class="btnlink" id="btn_refresh"><img src="../Images/refresh.png" alt="刷新" title="刷新"/>刷新</a>
+    </div>
+    <div style="position:absolute;right:8px;top:0px;font-size:16px;">
+        <a class="btnlink nosave" id="btn_save"><img src="../Images/queding.png" alt=""/>保存</a>
+        <a class="btnlink nosave" id="btn_print"><img src="../Images/dayin.png" alt=""/>打印</a>
+        <a class="btnlink nosave" id="btn_diff" style=" text-decoration:none;" target="_blank"><img src="../Images/icon11.png" alt="" />痕迹</a>
+    </div>
+</div>
+
+<div class="div_form_wrapper border_wrapper">
+    <div id="form_wrapper" style="width:96%;margin:6px auto 6px auto;">
+        <table width="100%" cellpadding="0" cellspacing="0" class="customtable">
+            <tr>
+                <td class="form_td form_td_title form_td_widthflag"><span style="display:inline-block;width:120px;"></span></td>
+                <td class="form_td form_td_ctrl" colspan="7"></td>
+            </tr>
+            <tr>
+                <td colspan="8">
+                    <fieldset class="allborder"><legend>基本情况</legend></fieldset>
+                </td>
+            </tr>
+            <tr>
+                <td class="form_td form_td_title"><span class="form_td_span_title">孕期异常情况</span></td>
+                <td class="form_td form_td_ctrl td_combobox" data-id="tmpl_pregnancyabnormal" data-value="${pregnancyabnormal}" data-url="../Services/ConfigService.asmx/Select?q=pregnancyabnormal"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">异常情况描述</span></td>
+                <td class="form_td form_td_ctrl td_combobox" data-id="tmpl_pregnancyabnormaltext" data-value="${pregnancyabnormaltext}" data-url="../Services/ConfigService.asmx/Select?q=pregnancyabnormaltext"  colspan="3" data-editable="true" data-multiple="true"></td>
+
+                <td class="form_td form_td_title"><span class="form_td_span_title">本次怀孕方式</span></td>
+                <td class="form_td form_td_ctrl td_combobox" data-id="tmpl_tpregnancymanner" data-value="${tpregnancymanner}" data-url="../Services/ConfigService.asmx/Select?q=tpregnancymanner"></td>
+            </tr>
+            <tr>
+                <td colspan="8">
+                    <fieldset class="allborder"><legend>体格检查</legend></fieldset>
+                </td>
+            </tr>
+            <tr>
+                <td class="form_td form_td_title"><span class="form_td_span_title">脉搏(bpm)</span></td>                
+                <td class="form_td form_td_ctrl td_numberbox" data-id="tmpl_pulse" data-value="${pulse}" data-min="0" data-max="300"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">心率(bpm)</span></td>
+                <td class="form_td form_td_ctrl td_combobox" data-id="tmpl_pulseflag" data-value="${pulseflag}" data-url="../Services/ConfigService.asmx/Select?q=pulseflag"></td>
+				
+                <td class="form_td form_td_title_must"><span class="form_td_span_title_must" style="color:red" data-required="true" >体重(kg)</span></td>
+                <td class="form_td form_td_ctrl td_numberbox" data-id="tmpl_weight" data-value="${weight}"  data-required="true"  event-onchanged="weight_change" data-min="0" data-max="300" data-precision="2"></td>
+                <td class="form_td form_td_title_must"><span class="form_td_span_title_must"    style="color:red">血压(mmHg)</span></td>
+                <td><span class=" form_td_ctrl td_numberbox" data-id="tmpl_sbp"  style="width:40%;display:inline-block;color:red;"  data-required="true"  data-value="${sbp}" data-min="0" data-max="200" class="selfwidth"></span><span style="display:inline-block;width:18%; text-align:center;" data-required="true">/</span><span class=" form_td_ctrl td_numberbox" data-id="tmpl_dbp"  style="width:40%;display:inline-block;" data-value="${dbp}" data-min="0" data-max="200" data-required="true" class="selfwidth"></span></td>
+            </tr>
+            
+            <tr>
+                <td colspan="8">
+                    <fieldset class="allborder"><legend>随访诊断</legend></fieldset>
+                </td>
+            </tr>
+            <tr>
+                <td class="form_td form_td_title"><span class="form_td_span_title">主诉</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_chiefcomplaint" colspan="7" data-value="${chiefcomplaint}"></td>
+            </tr>
+            <tr>
+                <td class="form_td form_td_title"><span class="form_td_span_title"></span></td>
+                <td id="form_td_chiefcomplaint_wrapper" style="width:550px; word-break:normal;" colspan="7" data-type="4" data-stage="2"></td>
+            </tr>
+            <tr>
+                <td class="form_td form_td_title"><span class="form_td_span_title">现病史</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_presenthistory" colspan="7" data-value="${presenthistory}"></td>
+            </tr>
+            <tr>
+                <td class="form_td form_td_title"><span class="form_td_span_title"></span></td>
+                <td id="form_td_presenthistory_wrapper" style="width:550px; word-break:normal;" colspan="7" data-type="6" data-stage="2"></td>
+            </tr>
+            <tr>
+                <td class="form_td form_td_title"><span class="form_td_span_title">主诊断</span></td>
+                <td class="form_td form_td_ctrl td_combobox selfwidth" data-id="tmpl_maindiagnosis" data-url="" data-width="78%" style="position:relative;" data-value="${maindiagnosis}"  data-panelWidth="300" data-panelHeight="200" data-recordtext="true">
+                    <span style="position:absolute;right:2px;top:8px;">
+                        <a class="magnifier btnlink btn_diagnosis_detail"></a>
+                    </span>
+                </td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">主诊断说明</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_diagnosisinfo"  data-value="${diagnosisinfo}"  colspan="3"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">次诊断</span></td>
+                <td class="form_td form_td_ctrl td_combobox selfwidth" data-id="tmpl_secondarydiagnosis" data-allowtext="true" data-url="" data-width="78%" style="position:relative;" data-multiple="true"  data-value="${secondarydiagnosis}"   data-panelWidth="300" data-panelHeight="200">
+                <span style="position:absolute;right:2px;top:8px;">
+                        <a class="magnifier btnlink btn_diagnosis_detail"></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="form_td form_td_title"><span class="form_td_span_title">中医证型</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_tcmsyndrome" colspan="7" data-value="${tcmsyndrome}"></td>
+            </tr>
+            <tr>
+                <td colspan="8">
+                    <fieldset class="allborder"><legend>产检结果</legend></fieldset>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="form_td form_td_title must"><span class="form_td_span_title">高危等级</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_highrisklevel_text" data-readonly="true" data-value="${highrisklevel_text}"></td>
+                
+                <td class="form_td form_td_title must"><span class="form_td_span_title">高危因素</span></td>
+                <td class="form_td form_td_ctrl td_textbox selfwidth" data-id="tmpl_highriskreason" colspan="5" data-value="${highriskreason}" data-readonly="true" data-width="96%" style="position:relative;">
+                    <span style="position:absolute;right:0px;top:8px;">
+                        <a class="magnifier btnlink btn_highrisk_detail"></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="form_td form_td_title"><span class="form_td_span_title">总体评估</span></td>
+                <td class="form_td form_td_ctrl td_combobox" data-id="tmpl_generalcommentval" data-value="${generalcommentval}" data-url="../Services/ConfigService.asmx/Select?q=generalcommentval"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">总体评估详述</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_generalcomment" data-value="${generalcomment}" colspan="5"></td>
+            </tr>
+            <tr>
+                <td class="form_td form_td_title"><span class="form_td_span_title">保健指导</span></td>
+                <td class="form_td form_td_ctrl td_combobox" data-id="tmpl_healthguide" data-value="${healthguide}" data-url="../Services/ConfigService.asmx/Select?q=healthguide" colspan="3" data-editable="true" data-multiple="true"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">处理建议</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_solution" data-value="${solution}" colspan="3"></td>
+            </tr>
+            <tr>
+                <td colspan="8">
+                    <fieldset class="allborder"><legend>转诊</legend></fieldset>
+                </td>
+            </tr>
+            <tr>
+                <td class="form_td form_td_title"><span class="form_td_span_title">住院/转诊</span></td>
+                <td class="form_td form_td_ctrl td_combobox" data-id="tmpl_referral" data-value="${referral}" data-url="../Services/ConfigService.asmx/Select?q=referral"></td>                
+                <td class="form_td form_td_title"><span class="form_td_span_title">转诊原因</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_referralreasons" data-value="${referralreasons}"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">转诊机构</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_referralagencies" data-value="${referralagencies}"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">转诊科室</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_referraldepartment" data-value="${referraldepartment}"></td>
+            </tr>
+             
+            <tr>
+                <td colspan="8">
+                    <fieldset class="allborder"><legend>检查信息</legend></fieldset>
+                </td>
+            </tr>
+            <tr>
+                <td class="form_td form_td_title"><span class="form_td_span_title">检查日期</span></td>
+                <td class="form_td form_td_ctrl td_datepicker" data-id="tmpl_visitdate" data-value="${visitdate}" data-required="true"  event-onselected="visitdate_selected"></td>
+                
+                <td class="form_td form_td_title"><span class="form_td_span_title">孕周</span></td>
+                <td class="form_td form_td_ctrl td_numberbox" data-id="tmpl_checkweek" data-value="${checkweek}" data-min="0" data-max="30"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">孕天</span></td>
+                <td class="form_td form_td_ctrl td_numberbox" data-id="tmpl_checkday" data-value="${checkday}" data-min="0" data-max="30"></td>
+            </tr>                
+            <tr>
+                <td class="form_td form_td_title"><span class="form_td_span_title">下次随访日期</span></td>
+                <td class="form_td form_td_ctrl td_datepicker" data-id="tmpl_followupappointment" data-value="${followupappointment}" data-required="true"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">随访医生</span></td>
+                <td class="form_td form_td_ctrl td_textbox" data-id="tmpl_visitdoctorname" data-value="${visitdoctorname}"></td>
+                <td class="form_td form_td_title"><span class="form_td_span_title">随访机构</span></td>
+                <td class="form_td form_td_ctrl td_dropdowntree" colspan="3" data-id="tmpl_visitunitcode" data-value="${visitunitcode}" data-url="../Services/ConfigService.asmx/DropDownTree?q=visitunitcode"  data-editable="false"></td>                    
+            </tr>
+            
+        </table>
+    </div>
+</div>
+
+<div class="hidden">
+    <input type="text" class="form_td_ctrl td_hidden" value="${id}" data-id="tmpl_id" data-value="${id}" />
+    <input type="text" class="form_td_ctrl td_hidden" value="${pregnantinfoid}" data-id="tmpl_pregnantinfoid" data-value="${pregnantinfoid}"  />
+    <input type="text" class="form_td_ctrl td_hidden" value="${idcard}" data-id="tmpl_idcard" data-value="${idcard}"  />
+    <input type="text" class="form_td_ctrl td_hidden" value="${visitdoctorcode}" data-id="tmpl_visitdoctorcode" data-value="${visitdoctorcode}"  />
+    <input type="text" class="form_td_ctrl td_hidden" value="${jiuzhenid}" data-id="tmpl_jiuzhenid" data-value="${jiuzhenid}"  />
+    <input type="text" class="form_td_ctrl td_hidden" value="${diagnosisdic}" data-id="tmpl_diagnosisdic" data-value="${diagnosisdic}"  />  
+    <input type="text" class="form_td_ctrl td_hidden" value="${mechanism}" data-id="tmpl_mechanism" data-value="${mechanism}"  /> 
+    <input type="text" class="form_td_ctrl td_hidden" value="${departmentname}" data-id="tmpl_departmentname" data-value="${departmentname}"  /> 
+    <input type="text" class="form_td_ctrl td_hidden" value="${highrisklevel}" data-id="tmpl_highrisklevel" data-value="${highrisklevel}" /> 
+    <input type="text" class="form_td_ctrl td_hidden" value="${highriskdic}" data-id="tmpl_highriskdic" data-value="${highriskdic}"  />   
+    <input type="text" class="form_td_ctrl td_hidden" value="${height}" data-id="tmpl_height" data-value="${height}"  />   
+    <input type="text" class="form_td_ctrl td_hidden" value="${bmi}" data-id="tmpl_bmi" data-value="${bmi}"  />   
+
+    <input type="text" class="form_td_ctrl td_hidden" value="${tpregnancymanner}" data-id="tmpl_tpregnancymanner" data-value="${tpregnancymanner}"  />   
+</div>
+<!--弹窗-->
+<div id="win_diagnosis" class="mywindow"  data-maximize="true" data-width="700" data-height="400" data-modal="true" data-url="Page_Diagnosis.aspx" data-title="诊断信息" data-minimizable="false" data-maximizable="false" data-collapsible="false" event-callback="callback_diagnosis" data-back=""></div>
+<div id="win_chufang" class="mywindow"  data-maximize="true" data-width="700" data-height="400" data-modal="true" data-url="Page_ChuFang.aspx" data-title="处方信息" data-minimizable="false" data-maximizable="false" data-collapsible="false"></div>
+<div id="win_examorder" class="mywindow"  data-maximize="true" data-width="700" data-height="400" data-modal="true" data-url="Page_ExamOrder.aspx" data-title="检查信息" data-minimizable="false" data-maximizable="false" data-collapsible="false"></div>
+<div id="win_laborder" class="mywindow"  data-maximize="true" data-width="700" data-height="400" data-modal="true" data-url="Page_LabOrder.aspx" data-title="检验信息" data-minimizable="false" data-maximizable="false" data-collapsible="false"></div>
+<div id="win_highrisk" class="mywindow" data-maximize="true" data-width="700" data-height="400" data-modal="true" data-url="Page_HighRisk.aspx" data-title="高危评估" data-minimizable="false" data-maximizable="false" data-collapsible="false" event-callback="callback_highrisk" data-back=""></div>
+
+<script type="text/javascript" language="javascript">
+    function callback_diagnosis() {
+        require(["page_firstrecord", "base_usercontrol", "jextend"], function (page_firstrecord, base) {
+            var data_back = base.getattr("#win_diagnosis", "data-back");
+            if (data_back != null && data_back != undefined && data_back != "") {
+                var data = JSON.parse(data_back);
+                page_firstrecord.setDiagnosis(data);
+            }
+        });
+    }
+    function visitdate_selected(date) {
+        require(["page_firstrecord", "base_usercontrol", "jextend"], function (page_firstrecord, base) {
+            page_firstrecord.visitdate_selected(date);
+        });
+    }
+    function callback_highrisk() {
+        require(["page_firstrecord", "base_usercontrol", "jextend"], function (page_firstrecord, base) {
+            var data_back = base.getattr("#win_highrisk", "data-back");
+            if (data_back != null && data_back != undefined && data_back != "") {
+                var data = JSON.parse(data_back);
+                page_firstrecord.setHighRisk(data);
+            }
+        });
+    }
+    function weight_change(sender) {
+        require(["page_firstrecord"], function (a) {
+            a.weight_change(sender);
+        });
+    }
+</script>
