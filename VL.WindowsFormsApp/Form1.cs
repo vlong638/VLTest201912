@@ -58,7 +58,7 @@ namespace VL.WindowsFormsApp
                             try
                             {
                                 item.Work();
-                                Messages.Add($"下次执行时间:{item.NextExecuteTime},{DateTime.Now},{item.Text} worked");
+                                Messages.Add($"下次执行时间:{item.NextExecuteTime},{DateTime.Now},{item.Name} worked");
                             }
                             catch (Exception ex)
                             {
@@ -67,7 +67,7 @@ namespace VL.WindowsFormsApp
                                 item.ErrorCount++;
                                 if (item.ErrorCount > 3)
                                 {
-                                    Messages.Add($"任务项:{item.Text},故障次数达到上限限制,停止任务");
+                                    Messages.Add($"任务项:{item.Name},故障次数达到上限限制,停止任务");
                                     WorkingTasks.Remove(item);
                                 }
                             }
@@ -129,7 +129,7 @@ namespace VL.WindowsFormsApp
                 Form1.IsWorking = true;
                 foreach (var WorkingTask in WorkingTasks)
                 {
-                    SetText($@"首次执行时间:{WorkingTask.NextExecuteTime},{WorkingTask.Text}");
+                    SetText($@"首次执行时间:{WorkingTask.NextExecuteTime},{WorkingTask.Name}");
                 }
             }
         }
@@ -167,9 +167,9 @@ namespace VL.WindowsFormsApp
                 taskConfigs.Add(new TaskConfig()
                 {
                     Id = id,
-                    Text = text,
+                    Name = text,
                     Freqency = freq,
-                    SendTime = sendtime,
+                    Time = sendtime,
                     IsRun = run,
                     TaskType = tasktype,
                 });
@@ -189,6 +189,31 @@ namespace VL.WindowsFormsApp
         }
     }
 
+    public class VLScheduler
+    {
+        public static List<WorkTask> WorkingTasks = new List<WorkTask>();
+        public static List<string> Messages = new List<string>();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Start()
+        {
+            
+        }
+
+        public void Stop()
+        {
+            
+        }
+
+        public void AddTask()
+        {
+            
+        }
+    }
+
+
     public enum CommandType
     {
         None,
@@ -200,13 +225,13 @@ namespace VL.WindowsFormsApp
         public WorkTask(TaskConfig config)
         {
             this.Id = config.Id;
-            this.Text = config.Text;
+            this.Name = config.Name;
             this.Freqency = config.Freqency;
-            this.SendTime = config.SendTime;
+            this.Time = config.Time;
             this.IsRun = config.IsRun;
             this.TaskType = config.TaskType;
 
-            DateTime nextTime = GetNextExecuteTime(Freqency == Freqency.间隔 ? DateTime.Now : SendTime.Value);
+            DateTime nextTime = GetNextExecuteTime(Freqency == Freqency.间隔 ? DateTime.Now : Time.Value);
             this.NextExecuteTime = nextTime;
         }
 
@@ -222,9 +247,9 @@ namespace VL.WindowsFormsApp
                     nextTime = nextTime.AddDays(1);
                     break;
                 case Freqency.间隔:
-                    nextTime = nextTime.AddHours(SendTime.Value.Hour);
-                    nextTime = nextTime.AddMinutes(SendTime.Value.Minute);
-                    nextTime = nextTime.AddSeconds(SendTime.Value.Second);
+                    nextTime = nextTime.AddHours(Time.Value.Hour);
+                    nextTime = nextTime.AddMinutes(Time.Value.Minute);
+                    nextTime = nextTime.AddSeconds(Time.Value.Second);
                     break;
                 default:
                     nextTime = DateTime.MaxValue;
@@ -239,13 +264,13 @@ namespace VL.WindowsFormsApp
         internal List<string> Validate()
         {
             List<string> messages = new List<string>();
-            if (string.IsNullOrEmpty(Text))
+            if (string.IsNullOrEmpty(Name))
             {
-                messages.Add($"无效的任务名称:{Text}");
+                messages.Add($"无效的任务名称:{Name}");
             }
             if (Freqency==Freqency.None)
             {
-                messages.Add($"任务名称:{Text},无效的周期:{Freqency.ToString()}");
+                messages.Add($"任务名称:{Name},无效的周期:{Freqency.ToString()}");
             }
             switch (Freqency)
             {
@@ -254,15 +279,15 @@ namespace VL.WindowsFormsApp
                 case Freqency.每一天:
                 case Freqency.每小时:
                 case Freqency.每分钟:
-                    if (!SendTime.HasValue)
+                    if (!Time.HasValue)
                     {
-                        messages.Add($"任务名称:{Text},每x任务,使用执行时间作为间隔,格式{{HH:mm:ss}}");
+                        messages.Add($"任务名称:{Name},每x任务,使用执行时间作为间隔,格式{{HH:mm:ss}}");
                     }
                     break;
                 case Freqency.间隔:
-                    if (!SendTime.HasValue)
+                    if (!Time.HasValue)
                     {
-                        messages.Add($"任务名称:{Text},间隔型任务,使用执行时间作为间隔,格式{{HH:mm:ss}}");
+                        messages.Add($"任务名称:{Name},间隔型任务,使用执行时间作为间隔,格式{{HH:mm:ss}}");
                     }
                     break;
                 default:
@@ -270,7 +295,7 @@ namespace VL.WindowsFormsApp
             }
             if (TaskType == TaskType.None)
             {
-                messages.Add($"任务名称:{Text},无效的任务类型:{TaskType.ToString()}");
+                messages.Add($"任务名称:{Name},无效的任务类型:{TaskType.ToString()}");
             }
             return messages;
         }
@@ -285,9 +310,14 @@ namespace VL.WindowsFormsApp
     public class TaskConfig
     {
         public int Id { set; get; }
-        public string Text { set; get; }
+        public string Name { set; get; }
         public Freqency Freqency { set; get; }
-        public DateTime? SendTime { set; get; }
+        /// <summary>
+        /// 混用并不好
+        /// 对于每天的,它是首次启动时间
+        /// 对于间隔的,它是间隔时间
+        /// </summary>
+        public DateTime? Time { set; get; }
         public bool IsRun { set; get; }
         public TaskType TaskType { set; get; }
     }
@@ -306,3 +336,6 @@ namespace VL.WindowsFormsApp
         队列,
     }
 }
+
+
+
