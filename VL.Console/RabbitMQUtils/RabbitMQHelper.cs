@@ -12,6 +12,7 @@ namespace VL.Consoling.RabbitMQUtils
     {
         public static string FunoutExchangeName1 = "ExchangeType.Funout.Logs";
         public static string FunoutExchangeName2 = "ExchangeType.Funout2";
+        public static string FunoutExchangeName3 = "ExchangeType.Funout3";
 
         public static string Direct_Exchange_Name1 = "ExchangeType.Direct1";
         public static string Direct_Exchange_Durable_Name1 = "ExchangeType.DurableDirect1";

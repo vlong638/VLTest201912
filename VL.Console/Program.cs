@@ -22,6 +22,7 @@ namespace VL.Consoling
     {
         static string LogPath = @"D:\log.txt";
         static bool IsFileLog = false;
+        static string MQHost = "192.168.99.100";
 
         static void Main(string[] args)
         {
@@ -37,7 +38,7 @@ namespace VL.Consoling
             cmds.Add(new Command("---------------------RabbitMQ Simple-------------------", () => { }));
             cmds.Add(new Command("p1s,Push_hello", () =>
             {
-                //var factory = new RabbitMQ.Client.ConnectionFactory() { HostName = "192.168.99.100", Port = 5672 };
+                //var factory = new RabbitMQ.Client.ConnectionFactory() { HostName = MQHost, Port = 5672 };
                 var factory = new RabbitMQ.Client.ConnectionFactory() { HostName = "localhost", Port = 5672 };
                 using (var connection = factory.CreateConnection())
                 {
@@ -63,7 +64,7 @@ namespace VL.Consoling
             }));
             cmds.Add(new Command("r1s,Receive_hello", () =>
             {
-                var factory = new ConnectionFactory() { HostName = "192.168.99.100" };
+                var factory = new ConnectionFactory() { HostName = MQHost };
                 using (var connection = factory.CreateConnection())
                 {
                     using (var channel = connection.CreateModel())
@@ -92,7 +93,7 @@ namespace VL.Consoling
             cmds.Add(new Command($"r11s_Multiworker_Receive_hello", () =>
             {
                 var name = "Worker" + DateTime.Now.Second.ToString();
-                var factory = new ConnectionFactory() { HostName = "192.168.99.100" };
+                var factory = new ConnectionFactory() { HostName = MQHost };
                 using (var connection = factory.CreateConnection())
                 {
                     using (var channel = connection.CreateModel())
@@ -128,7 +129,7 @@ namespace VL.Consoling
                 var exchangeType = ExchangeType.Fanout;
                 var exchangeName = RabbitMQUtils.RabbitMQHelper.FunoutExchangeName1;
                 var routingKey = "";
-                var factory = new RabbitMQ.Client.ConnectionFactory() { HostName = "192.168.99.100" };
+                var factory = new RabbitMQ.Client.ConnectionFactory() { HostName = MQHost };
                 using (var connection = factory.CreateConnection())
                 {
                     using (var channel = connection.CreateModel())
@@ -150,7 +151,7 @@ namespace VL.Consoling
                 var exchangeType = ExchangeType.Fanout;
                 var exchangeName = RabbitMQUtils.RabbitMQHelper.FunoutExchangeName1;
                 var routingKey = "Insert";//证明该配置对类型Fanout无效
-                var factory = new RabbitMQ.Client.ConnectionFactory() { HostName = "192.168.99.100" };
+                var factory = new RabbitMQ.Client.ConnectionFactory() { HostName = MQHost };//192.168.99.100
                 using (var connection = factory.CreateConnection())
                 {
                     using (var channel = connection.CreateModel())
@@ -171,7 +172,51 @@ namespace VL.Consoling
                     var exchangeType = ExchangeType.Fanout;
                     var exchangeName = RabbitMQUtils.RabbitMQHelper.FunoutExchangeName1;
                     var routingKey = "Insert";//证明该配置对类型Fanout无效
-                    var factory = new RabbitMQ.Client.ConnectionFactory() { HostName = "192.168.99.100" };
+                    var factory = new RabbitMQ.Client.ConnectionFactory() { HostName = MQHost };
+                    using (var connection = factory.CreateConnection())
+                    {
+                        using (var channel = connection.CreateModel())
+                        {
+                            channel.ExchangeDeclare(exchange: exchangeName, type: exchangeType);
+                            string message = Newtonsoft.Json.JsonConvert.SerializeObject(new NamedMessage1(DateTime.Now.Ticks));
+                            var body = System.Text.Encoding.UTF8.GetBytes(message);
+                            channel.BasicPublish(exchange: exchangeName,
+                                                 routingKey: routingKey,
+                                                 basicProperties: null,
+                                                 body: body);
+                            Console.WriteLine($" [x] Sent {message}");
+                            if (IsFileLog) File.AppendAllText(LogPath, $" [{DateTime.Now.ToString()}] Received {message}");
+                        }
+                    }
+                }));
+            }));
+            cmds.Add(new Command($"p23f,Push,Funout,{RabbitMQUtils.RabbitMQHelper.FunoutExchangeName3}", () =>
+            {
+                var exchangeType = ExchangeType.Fanout;
+                var exchangeName = RabbitMQUtils.RabbitMQHelper.FunoutExchangeName3;
+                var routingKey = "Insert";//证明该配置对类型Fanout无效
+                var factory = new RabbitMQ.Client.ConnectionFactory() { HostName = MQHost };//192.168.99.100
+                using (var connection = factory.CreateConnection())
+                {
+                    using (var channel = connection.CreateModel())
+                    {
+                        channel.ExchangeDeclare(exchange: exchangeName, type: exchangeType);
+                        string message = Newtonsoft.Json.JsonConvert.SerializeObject(new NamedMessage1(DateTime.Now.Ticks));
+                        var body = System.Text.Encoding.UTF8.GetBytes(message);
+                        channel.BasicPublish(exchange: exchangeName,
+                                             routingKey: routingKey,
+                                             basicProperties: null,
+                                             body: body);
+                        Console.WriteLine($" [x] Sent {message}");
+                        if (IsFileLog) File.AppendAllText(LogPath, $" [{DateTime.Now.ToString()}] Received {message}");
+                    }
+                }
+                cmds.Add(new Command($"p21f,Push,Funout,{RabbitMQUtils.RabbitMQHelper.FunoutExchangeName1}", () =>
+                {
+                    var exchangeType = ExchangeType.Fanout;
+                    var exchangeName = RabbitMQUtils.RabbitMQHelper.FunoutExchangeName1;
+                    var routingKey = "Insert";//证明该配置对类型Fanout无效
+                    var factory = new RabbitMQ.Client.ConnectionFactory() { HostName = MQHost };
                     using (var connection = factory.CreateConnection())
                     {
                         using (var channel = connection.CreateModel())
@@ -195,7 +240,7 @@ namespace VL.Consoling
                 var exchangeName = RabbitMQUtils.RabbitMQHelper.FunoutExchangeName1;
                 string queueName;
                 var routingKey = "";
-                var factory = new ConnectionFactory() { HostName = "192.168.99.100" };
+                var factory = new ConnectionFactory() { HostName = MQHost };
                 using (var connection = factory.CreateConnection())
                 {
                     using (var channel = connection.CreateModel())
@@ -224,11 +269,12 @@ namespace VL.Consoling
             cmds.Add(new Command($"r21f,Receive,Funout,{RabbitMQUtils.RabbitMQHelper.FunoutExchangeName1}", () =>
             {
                 //证明routingKey配置对类型Fanout无效
+                //routingKey:Insert
                 var exchangeType = ExchangeType.Fanout;
                 var exchangeName = RabbitMQUtils.RabbitMQHelper.FunoutExchangeName1;
                 string queueName;
                 var routingKey = "Insert";
-                var factory = new ConnectionFactory() { HostName = "192.168.99.100" };
+                var factory = new ConnectionFactory() { HostName = MQHost };
                 using (var connection = factory.CreateConnection())
                 {
                     using (var channel = connection.CreateModel())
@@ -256,11 +302,12 @@ namespace VL.Consoling
             cmds.Add(new Command($"r22f,Receive,Funout,{RabbitMQUtils.RabbitMQHelper.FunoutExchangeName1}", () =>
             {
                 //证明routingKey配置对类型Fanout无效
+                //routingKey:Update
                 var exchangeType = ExchangeType.Fanout;
                 var exchangeName = RabbitMQUtils.RabbitMQHelper.FunoutExchangeName1;
                 string queueName;
                 var routingKey = "Update";
-                var factory = new ConnectionFactory() { HostName = "192.168.99.100" };
+                var factory = new ConnectionFactory() { HostName = MQHost };
                 using (var connection = factory.CreateConnection())
                 {
                     using (var channel = connection.CreateModel())
@@ -285,13 +332,109 @@ namespace VL.Consoling
                     }
                 }
             }));
+            cmds.Add(new Command($"r221f,Receive,Funout,{RabbitMQUtils.RabbitMQHelper.FunoutExchangeName1}", () =>
+            {
+                //queue:hele-gj-queue-zyysz
+                var exchangeType = ExchangeType.Fanout;
+                var exchangeName = RabbitMQUtils.RabbitMQHelper.FunoutExchangeName1;
+                string queueName;
+                var routingKey = "Update";
+                var factory = new ConnectionFactory() { HostName = MQHost };
+                using (var connection = factory.CreateConnection())
+                {
+                    using (var channel = connection.CreateModel())
+                    {
+                        channel.ExchangeDeclare(exchange: exchangeName, type: exchangeType);
+                        queueName = channel.QueueDeclare("hele-gj-queue-zyysz", true, false, false, null);
+                        channel.QueueBind(queue: queueName,
+                                          exchange: exchangeName,
+                                          routingKey: routingKey);
+                        var consumer = new EventingBasicConsumer(channel);
+                        consumer.Received += (model, ea) =>
+                        {
+                            var body = ea.Body;
+                            var message = System.Text.Encoding.UTF8.GetString(body);
+                            Console.WriteLine($" [{DateTime.Now.ToString()}] Received {message}");
+                        };
+                        channel.BasicConsume(queue: queueName,
+                                             autoAck: true,
+                                             consumer: consumer);
+                        Console.WriteLine($" started for {queueName}");
+                        Console.ReadLine();
+                    }
+                }
+            }));
+            cmds.Add(new Command($"r222f,Receive,Funout,{RabbitMQUtils.RabbitMQHelper.FunoutExchangeName1}", () =>
+            {
+                //queue:hele-gj-queue-zyysz2
+                var exchangeType = ExchangeType.Fanout;
+                var exchangeName = RabbitMQUtils.RabbitMQHelper.FunoutExchangeName1;
+                string queueName;
+                var routingKey = "";
+                var factory = new ConnectionFactory() { HostName = MQHost };
+                using (var connection = factory.CreateConnection())
+                {
+                    using (var channel = connection.CreateModel())
+                    {
+                        channel.ExchangeDeclare(exchange: exchangeName, type: exchangeType);
+                        queueName = channel.QueueDeclare("hele-gj-queue-zyysz2", true, false, false, null);
+                        channel.QueueBind(queue: queueName,
+                                          exchange: exchangeName,
+                                          routingKey: routingKey);
+                        var consumer = new EventingBasicConsumer(channel);
+                        consumer.Received += (model, ea) =>
+                        {
+                            var body = ea.Body;
+                            var message = System.Text.Encoding.UTF8.GetString(body);
+                            Console.WriteLine($" [{DateTime.Now.ToString()}] Received {message}");
+                        };
+                        channel.BasicConsume(queue: queueName,
+                                             autoAck: true,
+                                             consumer: consumer);
+                        Console.WriteLine($" started for {queueName}");
+                        Console.ReadLine();
+                    }
+                }
+            }));
+            cmds.Add(new Command($"r223f,Receive,Funout,{RabbitMQUtils.RabbitMQHelper.FunoutExchangeName1}", () =>
+            {
+                //queue:hele-gj-queue-zyysz3
+                var exchangeType = ExchangeType.Fanout;
+                var exchangeName = RabbitMQUtils.RabbitMQHelper.FunoutExchangeName1;
+                string queueName;
+                var routingKey = "";
+                var factory = new ConnectionFactory() { HostName = MQHost };
+                using (var connection = factory.CreateConnection())
+                {
+                    using (var channel = connection.CreateModel())
+                    {
+                        channel.ExchangeDeclare(exchange: exchangeName, type: exchangeType);
+                        queueName = channel.QueueDeclare("hele-gj-queue-zyysz3", true, false, false, null);
+                        channel.QueueBind(queue: queueName,
+                                          exchange: exchangeName,
+                                          routingKey: routingKey);
+                        var consumer = new EventingBasicConsumer(channel);
+                        consumer.Received += (model, ea) =>
+                        {
+                            var body = ea.Body;
+                            var message = System.Text.Encoding.UTF8.GetString(body);
+                            Console.WriteLine($" [{DateTime.Now.ToString()}] Received {message}");
+                        };
+                        channel.BasicConsume(queue: queueName,
+                                             autoAck: true,
+                                             consumer: consumer);
+                        Console.WriteLine($" started for {queueName}");
+                        Console.ReadLine();
+                    }
+                }
+            }));
             cmds.Add(new Command("---------------------多对多测试-------------------", () => { }));
             cmds.Add(new Command($"p23f,Push,Funout,{RabbitMQUtils.RabbitMQHelper.FunoutExchangeName2}", () =>
             {
                 var exchangeType = ExchangeType.Fanout;
                 var exchangeName = RabbitMQUtils.RabbitMQHelper.FunoutExchangeName2;
                 var routingKey = "";
-                var factory = new RabbitMQ.Client.ConnectionFactory() { HostName = "192.168.99.100" };
+                var factory = new RabbitMQ.Client.ConnectionFactory() { HostName = MQHost };
                 using (var connection = factory.CreateConnection())
                 {
                     using (var channel = connection.CreateModel())
@@ -320,7 +463,7 @@ namespace VL.Consoling
                 var exchangeName2 = RabbitMQUtils.RabbitMQHelper.FunoutExchangeName2;
                 string queueName;
                 var routingKey = "Update";
-                var factory = new ConnectionFactory() { HostName = "192.168.99.100" };
+                var factory = new ConnectionFactory() { HostName = MQHost };
                 using (var connection = factory.CreateConnection())
                 {
                     using (var channel = connection.CreateModel())
@@ -356,37 +499,135 @@ namespace VL.Consoling
             {
                 var exchangeType = ExchangeType.Direct;
                 var exchangeName = RabbitMQUtils.RabbitMQHelper.Direct_Exchange_Name1;
-                var routingKey = "";
-                var factory = new RabbitMQ.Client.ConnectionFactory() { HostName = "192.168.99.100" };
+                var factory = new RabbitMQ.Client.ConnectionFactory() { HostName = MQHost };
                 using (var connection = factory.CreateConnection())
                 {
                     using (var channel = connection.CreateModel())
                     {
                         channel.ExchangeDeclare(exchange: exchangeName, type: exchangeType);
-                        string message = Newtonsoft.Json.JsonConvert.SerializeObject(new NamedMessage1(DateTime.Now.Ticks));
-                        var body = System.Text.Encoding.UTF8.GetBytes(message);
+                        //string message = Newtonsoft.Json.JsonConvert.SerializeObject(new NamedMessage1(DateTime.Now.Ticks));
+                        //var body = System.Text.Encoding.UTF8.GetBytes(message);
+                        var routingKey = "A";
                         channel.BasicPublish(exchange: exchangeName,
                                              routingKey: routingKey,
                                              basicProperties: null,
-                                             body: body);
-                        Console.WriteLine($" [x] Sent {message}");
-                        if (IsFileLog) File.AppendAllText(LogPath, $" [{DateTime.Now.ToString()}] Received {message}");
+                                             body: System.Text.Encoding.UTF8.GetBytes(routingKey));
+                        routingKey = "B";
+                        channel.BasicPublish(exchange: exchangeName,
+                                             routingKey: routingKey,
+                                             basicProperties: null,
+                                             body: System.Text.Encoding.UTF8.GetBytes(routingKey));
+                        Console.WriteLine($" [x] Sent messages");
                     }
                 }
             }));
-            cmds.Add(new Command($"r3d,Receive,Direct,{RabbitMQUtils.RabbitMQHelper.Direct_Exchange_Name1}", () =>
+            cmds.Add(new Command($"r31d,Receive,Direct,{RabbitMQUtils.RabbitMQHelper.Direct_Exchange_Name1}", () =>
             {
                 var exchangeType = ExchangeType.Direct;
-                var exchangeName = RabbitMQUtils.RabbitMQHelper.Direct_Exchange_Durable_Name1;
+                var exchangeName = RabbitMQUtils.RabbitMQHelper.Direct_Exchange_Name1;
                 string queueName;
-                var routingKey = "";
-                var factory = new ConnectionFactory() { HostName = "192.168.99.100" };
+                var routingKey = "A";
+                var factory = new ConnectionFactory() { HostName = MQHost };
                 using (var connection = factory.CreateConnection())
                 {
                     using (var channel = connection.CreateModel())
                     {
                         channel.ExchangeDeclare(exchange: exchangeName, type: exchangeType);
                         queueName = channel.QueueDeclare().QueueName;
+                        channel.QueueBind(queue: queueName,
+                                          exchange: exchangeName,
+                                          routingKey: routingKey);
+                        var consumer = new EventingBasicConsumer(channel);
+                        consumer.Received += (model, ea) =>
+                        {
+                            var body = ea.Body;
+                            var message = System.Text.Encoding.UTF8.GetString(body);
+                            Console.WriteLine($" [{DateTime.Now.ToString()}] Received {message}");
+                        };
+                        var tag = channel.BasicConsume(queue: queueName,
+                                             autoAck: true,
+                                             consumer: consumer);
+                        Console.WriteLine($" started for {queueName},tag:{tag}");
+                        Console.ReadLine();
+                    }
+                }
+            }));
+            cmds.Add(new Command($"r32d,Receive,Direct,{RabbitMQUtils.RabbitMQHelper.Direct_Exchange_Name1}", () =>
+            {
+                var exchangeType = ExchangeType.Direct;
+                var exchangeName = RabbitMQUtils.RabbitMQHelper.Direct_Exchange_Name1;
+                string queueName;
+                var routingKey = "B";
+                var factory = new ConnectionFactory() { HostName = MQHost };
+                using (var connection = factory.CreateConnection())
+                {
+                    using (var channel = connection.CreateModel())
+                    {
+                        channel.ExchangeDeclare(exchange: exchangeName, type: exchangeType);
+                        queueName = channel.QueueDeclare().QueueName;
+                        channel.QueueBind(queue: queueName,
+                                          exchange: exchangeName,
+                                          routingKey: routingKey);
+                        var consumer = new EventingBasicConsumer(channel);
+                        consumer.Received += (model, ea) =>
+                        {
+                            var body = ea.Body;
+                            var message = System.Text.Encoding.UTF8.GetString(body);
+                            Console.WriteLine($" [{DateTime.Now.ToString()}] Received {message}");
+                        };
+                        channel.BasicConsume(queue: queueName,
+                                             autoAck: true,
+                                             consumer: consumer);
+                        Console.WriteLine($" started for {queueName}");
+                        Console.ReadLine();
+                    }
+                }
+            }));
+            cmds.Add(new Command($"r33d,Receive,Direct,{RabbitMQUtils.RabbitMQHelper.Direct_Exchange_Name1}", () =>
+            {
+                var exchangeType = ExchangeType.Direct;
+                var exchangeName = RabbitMQUtils.RabbitMQHelper.Direct_Exchange_Name1;
+                string queueName;
+                var routingKey = "C";
+                var factory = new ConnectionFactory() { HostName = MQHost };
+                using (var connection = factory.CreateConnection())
+                {
+                    using (var channel = connection.CreateModel())
+                    {
+                        channel.ExchangeDeclare(exchange: exchangeName, type: exchangeType);
+                        queueName = channel.QueueDeclare("r3").QueueName;
+                        channel.QueueBind(queue: queueName,
+                                          exchange: exchangeName,
+                                          routingKey: routingKey);
+                        var consumer = new EventingBasicConsumer(channel);
+                        consumer.Received += (model, ea) =>
+                        {
+                            var body = ea.Body;
+                            var message = System.Text.Encoding.UTF8.GetString(body);
+                            Console.WriteLine($" [{DateTime.Now.ToString()}] Received {message}");
+                        };
+                        channel.BasicConsume(queue: queueName,
+                                             autoAck: true,
+                                             consumer: consumer);
+                        Console.WriteLine($" started for {queueName}");
+                        Console.ReadLine();
+                    }
+                }
+            }));
+            cmds.Add(new Command($"r34d,Receive,Direct,{RabbitMQUtils.RabbitMQHelper.Direct_Exchange_Name1}", () =>
+            {
+                //!!! Direct 无法注册 r3 的同名
+                var exchangeType = ExchangeType.Direct;
+                var exchangeName = RabbitMQUtils.RabbitMQHelper.Direct_Exchange_Name1;
+                string queueName;
+                var routingKey = "D";
+                var factory = new ConnectionFactory() { HostName = MQHost };
+                using (var connection = factory.CreateConnection())
+                {
+                    using (var channel = connection.CreateModel())
+                    {
+                        channel.ExchangeDeclare(exchange: exchangeName, type: exchangeType);
+                        queueName = channel.QueueDeclare("r3").QueueName;
                         channel.QueueBind(queue: queueName,
                                           exchange: exchangeName,
                                           routingKey: routingKey);
@@ -413,7 +654,7 @@ namespace VL.Consoling
                 var exchangeType = ExchangeType.Topic;
                 var exchangeName = RabbitMQUtils.RabbitMQHelper.TopicExchangeName1;
                 var routingKey = "";
-                var factory = new RabbitMQ.Client.ConnectionFactory() { HostName = "192.168.99.100" };
+                var factory = new RabbitMQ.Client.ConnectionFactory() { HostName = MQHost };
                 //using (var connection = factory.CreateConnection())
                 //{
                 //    using (var channel = connection.CreateModel())
@@ -436,7 +677,7 @@ namespace VL.Consoling
                 var exchangeName = RabbitMQUtils.RabbitMQHelper.TopicExchangeName1;
                 string queueName;
                 var routingKey = "";
-                var factory = new ConnectionFactory() { HostName = "192.168.99.100" };
+                var factory = new ConnectionFactory() { HostName = MQHost };
                 //using (var connection = factory.CreateConnection())
                 //{
                 //    using (var channel = connection.CreateModel())
@@ -473,7 +714,7 @@ namespace VL.Consoling
                 var exchangeType = ExchangeType.Direct;
                 var exchangeName = RabbitMQUtils.RabbitMQHelper.Direct_Exchange_Durable_Name1;
                 var routingKey = "";
-                var factory = new RabbitMQ.Client.ConnectionFactory() { HostName = "192.168.99.100" };
+                var factory = new RabbitMQ.Client.ConnectionFactory() { HostName = MQHost };
                 using (var connection = factory.CreateConnection())
                 {
                     using (var channel = connection.CreateModel())
@@ -497,7 +738,7 @@ namespace VL.Consoling
                 var exchangeName = RabbitMQUtils.RabbitMQHelper.Direct_Exchange_Durable_Name1;
                 string queueName;
                 var routingKey = "";
-                var factory = new ConnectionFactory() { HostName = "192.168.99.100" };
+                var factory = new ConnectionFactory() { HostName = MQHost };
                 using (var connection = factory.CreateConnection())
                 {
                     using (var channel = connection.CreateModel())
