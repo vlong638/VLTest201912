@@ -164,9 +164,9 @@ namespace VL.WindowsFormsApp
         public void Start()
         {
             IsWorking = true;
-            Task.Factory.StartNew(WorkingThread());
+            Task.Factory.StartNew(DoWorkTask());
         }
-        private System.Action WorkingThread()
+        private System.Action DoWorkTask()
         {
             return () =>
             {
