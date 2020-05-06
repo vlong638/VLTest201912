@@ -5,5 +5,11 @@
       "Microsoft": "Warning"
     }
   },
+  "Redis": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning"
+    }
+  },
   "AllowedHosts": "*"
 }

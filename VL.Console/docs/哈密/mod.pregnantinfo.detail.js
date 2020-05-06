@@ -57,7 +57,7 @@
         var _req = myrequest.getrequest();
 
         //保存
-        EventUtil.showOrHide(getCtrl(ctrl.btn_save), !_req.isInWhite() );
+        EventUtil.showOrHide(getCtrl(ctrl.btn_save), !_req.isInWhite());
         EventUtil.bindclick(getCtrl(ctrl.btn_save), save);
 
         //导入
@@ -66,12 +66,12 @@
 
         //结案新建
         var btn_end = getCtrl(ctrl.btn_end);
-        EventUtil.showOrHide(btn_end, hasfile && !_req.isInWhite() );
+        EventUtil.showOrHide(btn_end, hasfile && !_req.isInWhite());
         EventUtil.bindclick(btn_end, end);
 
         //建大卡
         var btn_builtkcal = getCtrl(ctrl.btn_builtkcal);
-        EventUtil.showOrHide(btn_builtkcal, hasfile && !_req.isInWhite() );
+        EventUtil.showOrHide(btn_builtkcal, hasfile && !_req.isInWhite());
         EventUtil.bindclick(btn_builtkcal, builtkcal);
 
         //表格模式
@@ -404,7 +404,33 @@
 
         myextend.ajaxPost_simple(webglobal.services.GetPrintType, dictionary, web_list_callback, true);
     }
+    var _lastmenstrualperiod_cache = null;
     function lastmenstrualperiod_selected(date) {
+        if (date == undefined || date == null) return;
+        require(["base_usercontrol", "jextend"], function (base) {
+            var tmpl_dateofprenatal = "tmpl_dateofprenatal";
+            var dateofprenatal = base.getVal(tmpl_dateofprenatal);
+            var tmpl_lastmenstrualperiod = "tmpl_lastmenstrualperiod";
+            var lastmenstrualperiod = base.getVal(tmpl_lastmenstrualperiod);
+
+            var cur_dateofprenatal = myextend.myparser(dateofprenatal);
+            if (_lastmenstrualperiod_cache == null)
+                _lastmenstrualperiod_cache = myextend.myparser(base.getCache(globalwrapper, tmpl_lastmenstrualperiod));
+            var old_lastmenstrualperiod = _lastmenstrualperiod_cache;
+
+            var date_1 = old_lastmenstrualperiod != null ? old_lastmenstrualperiod.DateAdd('d', 280) : null;
+
+            if (myextend.isNull(dateofprenatal) || ((date_1 != null && cur_dateofprenatal != null) && (cur_dateofprenatal - date_1) == 0)) {
+                var newdate = date.clone();
+                var d = newdate.DateAdd('d', 280);
+
+                _dateofprenatal_cache = d;
+                base.setVal(tmpl_dateofprenatal, myextend.myformatter(d));
+                setWeekDay();
+            }
+            _lastmenstrualperiod_cache = date;
+        });
+
         require(["base_usercontrol", "jextend"], function (base) {
             var ctrl = "tmpl_dateofprenatal";
             var dateofprenatal = base.getVal(ctrl);
@@ -415,6 +441,35 @@
                 base.setVal(ctrl, myextend.myformatter(d));
                 setWeekDay();
             }
+        });
+    }
+    function createdate_selected(date) {
+        //if (date == undefined || date == null) return;
+        require(["base_usercontrol", "jextend"], function (base) {
+            setWeekDay();
+
+
+            //var tmpl_dateofprenatal = "tmpl_dateofprenatal";//预产期
+            //var dateofprenatal = base.getVal(tmpl_dateofprenatal);
+            //var tmpl_lastmenstrualperiod = "tmpl_lastmenstrualperiod";//末次月经
+            //var lastmenstrualperiod = base.getVal(tmpl_lastmenstrualperiod);
+
+            //var cur_dateofprenatal = myextend.myparser(dateofprenatal);
+            //if (_lastmenstrualperiod_cache == null)
+            //    _lastmenstrualperiod_cache = myextend.myparser(base.getCache(globalwrapper, tmpl_lastmenstrualperiod));
+            //var old_lastmenstrualperiod = _lastmenstrualperiod_cache;
+
+            //var date_1 = old_lastmenstrualperiod != null ? old_lastmenstrualperiod.DateAdd('d', 280) : null;
+
+            //if (myextend.isNull(dateofprenatal) || ((date_1 != null && cur_dateofprenatal != null) && (cur_dateofprenatal - date_1) == 0)) {
+            //    var newdate = date.clone();
+            //    var d = newdate.DateAdd('d', 280);
+
+            //    _dateofprenatal_cache = d;
+            //    //base.setVal(tmpl_dateofprenatal, myextend.myformatter(d));
+            //    setWeekDay();
+            //}
+            //_lastmenstrualperiod_cache = date;
         });
     }
     function dateofprenatal_selected(date) {
@@ -432,17 +487,21 @@
     }
     function setWeekDay() {
 
-        var _dateofprenatal = myextend.myparser(base.getVal("tmpl_dateofprenatal"));
-        var _lastmenstrualperiod = myextend.myparser(base.getVal("tmpl_lastmenstrualperiod"));
-        var _visitdate = myextend.myparser(base.getVal("tmpl_createdate"));
+        var _dateofprenatal = myextend.myparser(base.getVal("tmpl_dateofprenatal"));// 预产期
+        var _lastmenstrualperiod = myextend.myparser(base.getVal("tmpl_lastmenstrualperiod"));// 末次月经
+        var _visitdate = myextend.myparser(base.getVal("tmpl_createdate"));// 建档日期
 
-        var weeks = myextend.getpregweekorday(_lastmenstrualperiod, _dateofprenatal, _visitdate, 2, 1);
-        var days = myextend.getpregweekorday(_lastmenstrualperiod, _dateofprenatal, _visitdate, 2, 2);
+        var weeks = myextend.getpregweekorday(_lastmenstrualperiod, _dateofprenatal, _visitdate, 1, 1);
+        var days = myextend.getpregweekorday(_lastmenstrualperiod, _dateofprenatal, _visitdate, 1, 2);
         if (weeks >= 0 && weeks <= 43 && !isNaN(weeks)) {
             base.setVal("tmpl_gestationalweeks", weeks);
+        } else {
+            base.setVal("tmpl_gestationalweeks", 0);
         }
         if (days >= 0 && days <= 6 && !isNaN(days)) {
             base.setVal("tmpl_gestationaldays", days);
+        } else {
+            base.setVal("tmpl_gestationaldays", 0);
         }
     }
     function height_change(sender) {
@@ -538,8 +597,7 @@
                     msg: "<span style='color:red;'>覆盖</span>请点击【是】，只填入空缺字段不修改已有内容请点【否】",
                     fn: function (r) {
                         base.reload_reverse(globalwrapper, data.info, r);
-                        if(r)
-                        {
+                        if (r) {
                             var p = data.info.pregnanthistory;
                             loadpregnanthistory(globalmod, JSON.parse(p), $(ctrl.form_tr_wrapper_pregnanthistory));
                         }
@@ -563,6 +621,7 @@
         show: show,
         setBMI: setBMI,
         lastmenstrualperiod_selected: lastmenstrualperiod_selected,
+        createdate_selected: createdate_selected,
         dateofprenatal_selected: dateofprenatal_selected,
         height_change: height_change,
         weight_change: weight_change,

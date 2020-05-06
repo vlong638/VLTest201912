@@ -29,7 +29,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VL.Generator", "VL.Generato
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VL.ConsoleFramework", "VL.ConsoleFramework\VL.ConsoleFramework.csproj", "{37B652F9-7DA6-4A2A-B6AF-4E9135645816}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VL.WindowsFormsApp", "VL.WindowsFormsApp\VL.WindowsFormsApp.csproj", "{7767A9D0-1BB6-4751-B1C2-63A785A856F5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VL.Scheduler", "VL.WindowsFormsApp\VL.Scheduler.csproj", "{7767A9D0-1BB6-4751-B1C2-63A785A856F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

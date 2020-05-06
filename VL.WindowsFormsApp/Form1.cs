@@ -20,10 +20,14 @@ namespace VL.WindowsFormsApp
 
         }
 
+        public VLScheduler VLScheduler { set; get; }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             loadtask();
-            Task.Factory.StartNew(WorkingThread());
+            VLScheduler = new VLScheduler();
+            VLScheduler.LogInfo += SetText;
+            VLScheduler.Start();
         }
 
         private System.Action WorkingThread()
@@ -31,14 +35,8 @@ namespace VL.WindowsFormsApp
             return () =>
             {
                 SetText("已启动执行进程");
-                //int errorCount = 0;
                 while (Form1.IsWorking)
                 {
-                    //if (errorCount>10)
-                    //{
-                    //    Messages.Add($"故障次数达到上限限制");
-                    //    Form1.IsWorking = false;
-                    //}
                     //报告输出
                     foreach (var Message in Messages)
                     {
@@ -99,39 +97,7 @@ namespace VL.WindowsFormsApp
         private void StartTasks()
         {
             var taskConfigs = GetTaskConfigs();
-            WorkingTasks.Clear();
-            bool hasError = false;
-            foreach (var taskConfig in taskConfigs)
-            {
-                var tempTaskConfig = WorkingTasks.FirstOrDefault(c => c.Id == taskConfig.Id);
-                if (tempTaskConfig != null)
-                {
-                    continue;
-                }
-                var workTask = new WorkTask(taskConfig);
-                var messages = workTask.Validate();
-                if (messages.Count > 0)
-                {
-                    foreach (var message in messages)
-                    {
-                        SetText(message);
-                    }
-                    hasError = true;
-                }
-                else
-                {
-                    if (workTask.IsRun)
-                        WorkingTasks.Add(workTask);
-                }
-            }
-            if (!hasError)
-            {
-                Form1.IsWorking = true;
-                foreach (var WorkingTask in WorkingTasks)
-                {
-                    SetText($@"首次执行时间:{WorkingTask.NextExecuteTime},{WorkingTask.Name}");
-                }
-            }
+            VLScheduler.SetTasks(taskConfigs);
         }
 
         delegate void SetTextCallBack(string text);
@@ -193,26 +159,92 @@ namespace VL.WindowsFormsApp
     {
         public static List<WorkTask> WorkingTasks = new List<WorkTask>();
         public static List<string> Messages = new List<string>();
+        public bool IsWorking { set; get; }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public void Start()
         {
-            
+            IsWorking = true;
+            Task.Factory.StartNew(WorkingThread());
         }
+        private System.Action WorkingThread()
+        {
+            return () =>
+            {
+                LogInfo?.Invoke("已启动执行进程");
+                while (IsWorking)
+                {
+                    //报告输出
+                    foreach (var Message in Messages)
+                    {
+                        LogInfo?.Invoke(Message);
+                    }
+                    Messages.Clear();
+                    //任务运行
+                    if (WorkingTasks.FirstOrDefault(c => c.NeedWork) != null)
+                    {
+                        Messages.Add($"--------------------------------------------------------------");
+                    }
+                    for (int i = 0; i < WorkingTasks.Count; i++)
+                    {
+                        var item = WorkingTasks[i];
+                        if (item.NeedWork)
+                        {
+                            try
+                            {
+                                item.Work();
+                                Messages.Add($"{DateTime.Now},{item.Name}:下次执行时间:{item.NextExecuteTime}");
+                            }
+                            catch (Exception ex)
+                            {
+                                Messages.Add(ex.ToString());
+
+                                item.ErrorCount++;
+                                if (item.ErrorCount > 3)
+                                {
+                                    Messages.Add($"任务项:{item.Name},故障次数达到上限限制,停止任务");
+                                    WorkingTasks.Remove(item);
+                                }
+                            }
+                        }
+                    }
+
+                    System.Threading.Thread.Sleep(3 * 1000);
+                }
+            };
+        }
+
+        public delegate void DoLog(string message);
+        public event DoLog LogInfo;
 
         public void Stop()
         {
-            
+            IsWorking = false;
         }
 
-        public void AddTask()
+        internal void SetTasks(List<TaskConfig> taskConfigs)
         {
-            
+            var workTasks = taskConfigs.Where(c => c.IsRun)
+                .Select(c => new WorkTask(c))
+                .ToList();
+            foreach (var workTask in workTasks)
+            {
+                var messages = workTask.Validate();
+                if (messages.Count > 0)
+                {
+                    foreach (var message in messages)
+                    {
+                        LogInfo(message);
+                        return;
+                    }
+                }
+            }
+            WorkingTasks = workTasks;
+            foreach (var WorkingTask in WorkingTasks)
+            {
+                LogInfo($@"首次执行时间:{WorkingTask.NextExecuteTime},{WorkingTask.Name}");
+            }
         }
     }
-
 
     public enum CommandType
     {
