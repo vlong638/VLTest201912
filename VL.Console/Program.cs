@@ -525,7 +525,7 @@ namespace VL.Consoling
             {
                 var exchangeType = ExchangeType.Direct;
                 var exchangeName = RabbitMQUtils.RabbitMQHelper.Direct_Exchange_Name1;
-                string queueName;
+                string queueName = "QueueForDirectA";
                 var routingKey = "A";
                 var factory = new ConnectionFactory() { HostName = MQHost };
                 using (var connection = factory.CreateConnection())
@@ -533,7 +533,7 @@ namespace VL.Consoling
                     using (var channel = connection.CreateModel())
                     {
                         channel.ExchangeDeclare(exchange: exchangeName, type: exchangeType);
-                        queueName = channel.QueueDeclare().QueueName;
+                        queueName = channel.QueueDeclare(queueName).QueueName;
                         channel.QueueBind(queue: queueName,
                                           exchange: exchangeName,
                                           routingKey: routingKey);
@@ -556,7 +556,7 @@ namespace VL.Consoling
             {
                 var exchangeType = ExchangeType.Direct;
                 var exchangeName = RabbitMQUtils.RabbitMQHelper.Direct_Exchange_Name1;
-                string queueName;
+                string queueName = "QueueForDirectB";
                 var routingKey = "B";
                 var factory = new ConnectionFactory() { HostName = MQHost };
                 using (var connection = factory.CreateConnection())
@@ -564,7 +564,7 @@ namespace VL.Consoling
                     using (var channel = connection.CreateModel())
                     {
                         channel.ExchangeDeclare(exchange: exchangeName, type: exchangeType);
-                        queueName = channel.QueueDeclare().QueueName;
+                        queueName = channel.QueueDeclare(queueName).QueueName;
                         channel.QueueBind(queue: queueName,
                                           exchange: exchangeName,
                                           routingKey: routingKey);
@@ -587,7 +587,7 @@ namespace VL.Consoling
             {
                 var exchangeType = ExchangeType.Direct;
                 var exchangeName = RabbitMQUtils.RabbitMQHelper.Direct_Exchange_Name1;
-                string queueName;
+                string queueName = "QueueForDirectC";
                 var routingKey = "C";
                 var factory = new ConnectionFactory() { HostName = MQHost };
                 using (var connection = factory.CreateConnection())
@@ -595,7 +595,7 @@ namespace VL.Consoling
                     using (var channel = connection.CreateModel())
                     {
                         channel.ExchangeDeclare(exchange: exchangeName, type: exchangeType);
-                        queueName = channel.QueueDeclare("r3").QueueName;
+                        queueName = channel.QueueDeclare(queueName).QueueName;
                         channel.QueueBind(queue: queueName,
                                           exchange: exchangeName,
                                           routingKey: routingKey);
@@ -616,18 +616,17 @@ namespace VL.Consoling
             }));
             cmds.Add(new Command($"r34d,Receive,Direct,{RabbitMQUtils.RabbitMQHelper.Direct_Exchange_Name1}", () =>
             {
-                //!!! Direct 无法注册 r3 的同名
                 var exchangeType = ExchangeType.Direct;
                 var exchangeName = RabbitMQUtils.RabbitMQHelper.Direct_Exchange_Name1;
-                string queueName;
-                var routingKey = "D";
+                string queueName = "QueueForDirectA2";
+                var routingKey = "A";
                 var factory = new ConnectionFactory() { HostName = MQHost };
                 using (var connection = factory.CreateConnection())
                 {
                     using (var channel = connection.CreateModel())
                     {
                         channel.ExchangeDeclare(exchange: exchangeName, type: exchangeType);
-                        queueName = channel.QueueDeclare("r3").QueueName;
+                        queueName = channel.QueueDeclare(queueName).QueueName;
                         channel.QueueBind(queue: queueName,
                                           exchange: exchangeName,
                                           routingKey: routingKey);
