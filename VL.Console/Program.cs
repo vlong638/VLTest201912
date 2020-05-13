@@ -492,6 +492,45 @@ namespace VL.Consoling
                     }
                 }
             }));
+
+            cmds.Add(new Command($"rGJ,Receive,Funout", () =>
+            {
+                //dzblMqIp = 10.31.102.49
+                //dzblMqName = hele
+                //dzblMqPwd = hl@gj2019
+                //dzblMqQueueName = hl_mq
+                //dzblQueueName = hele-gj-queue-zyysz-record
+
+                //routingKey:Update
+                var exchangeType = ExchangeType.Fanout;
+                var exchangeName = "hl_mq";
+                var queueName = "hele-gj-queue-zyysz-record";
+                var factory = new ConnectionFactory() { HostName = "10.31.102.49" };
+                using (var connection = factory.CreateConnection())
+                {
+                    using (var channel = connection.CreateModel())
+                    {
+                        channel.ExchangeDeclare(exchange: exchangeName, type: exchangeType);
+                        queueName = channel.QueueDeclare(queueName).QueueName;
+                        channel.QueueBind(queue: queueName,
+                                          exchange: exchangeName,
+                                          routingKey: "");
+                        var consumer = new EventingBasicConsumer(channel);
+                        consumer.Received += (model, ea) =>
+                        {
+                            var body = ea.Body;
+                            var message = System.Text.Encoding.UTF8.GetString(body);
+                            Console.WriteLine($" [{DateTime.Now.ToString()}] Received {message}");
+                        };
+                        channel.BasicConsume(queue: queueName,
+                                             autoAck: true,
+                                             consumer: consumer);
+                        Console.WriteLine($" started for {queueName}");
+                        Console.ReadLine();
+                    }
+                }
+            }));
+
             #endregion
             #region RabbitMQ Direct p3
             cmds.Add(new Command("---------------------RabbitMQ Direct-------------------", () => { }));
