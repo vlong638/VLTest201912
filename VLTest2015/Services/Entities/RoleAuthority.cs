@@ -2,7 +2,7 @@
 
 namespace VLTest2015.Services
 {
-    [Table("RoleAuthority")]
+    [Table("A_RoleAuthority")]
     public class RoleAuthority
     {
         public long Id { set; get; }

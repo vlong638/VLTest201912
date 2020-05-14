@@ -12,13 +12,13 @@ namespace VLTest2015.DAL
 
         public int DeleteBy(long roleId)
         {
-            return _connection.Execute("delete from [RoleAuthority] where RoleId = @roleId;"
+            return _connection.Execute("delete from [A_RoleAuthority] where RoleId = @roleId;"
                 , new { roleId }, _transaction);
         }
 
         public IEnumerable<RoleAuthority> GetBy(long[] roleIds)
         {
-            return _connection.Query<RoleAuthority>("select * from [RoleAuthority] where RoleId in @roleIds;"
+            return _connection.Query<RoleAuthority>("select * from [A_RoleAuthority] where RoleId in @roleIds;"
                 , new { roleIds });
         }
     }

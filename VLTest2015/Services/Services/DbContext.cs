@@ -29,7 +29,7 @@ namespace VLTest2015.Services
         /// <param name="connection"></param>
         /// <param name="exec"></param>
         /// <returns></returns>
-        public ServiceResponse<T> DelegateTransaction<T>(Func<T> exec)
+        public ServiceResult<T> DelegateTransaction<T>(Func<T> exec)
         {
             Connection.Open();
             Transaction = Connection.BeginTransaction();
@@ -39,18 +39,13 @@ namespace VLTest2015.Services
                 var result = exec();
                 Transaction.Commit();
                 Connection.Close();
-                return new ServiceResponse<T>(result);
+                return new ServiceResult<T>(result);
             }
             catch (Exception ex)
             {
                 Transaction.Rollback();
                 Connection.Close();
-                return new ServiceResponse<T>()
-                {
-                    ErrorCode = 501,
-                    ErrorMessage = ex.ToString(),
-                    Status = false,
-                };
+                return new ServiceResult<T>(default(T), ex.Message);
             }
         }
     }

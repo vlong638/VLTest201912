@@ -43,7 +43,7 @@ namespace VLTest2015.Controllers
             // 这不会计入到为执行帐户锁定而统计的登录失败次数中
             // 若要在多次输入错误密码的情况下触发帐户锁定，请更改为 shouldLockout: true
             var result = _userService.PasswordSignIn(model.UserName, model.Password, false);
-            if (result.Status)
+            if (result.IsSuccess)
             {
                 var user = result.Data;
                 var authorityIds = _userService.GetAllUserAuthorityIds(result.Data.Id).Data;
@@ -63,7 +63,7 @@ namespace VLTest2015.Controllers
             }
             else
             {
-                switch (result.ErrorCode)
+                switch (result.Code)
                 {
                     case (int)SignInStatus.LockedOut:
                         return View("Lockout");
@@ -71,7 +71,7 @@ namespace VLTest2015.Controllers
                         return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                     case (int)SignInStatus.Failure:
                     default:
-                        ModelState.AddModelError("", result.ErrorMessage);
+                        ModelState.AddModelError("", string.Join(",", result.Messages));
                         return View(model);
                 }
             }
@@ -84,6 +84,7 @@ namespace VLTest2015.Controllers
             return View();
         }
 
+        [HttpGet]
         [VLAuthentication(Authority.查看用户列表)]
         public ActionResult AccountList()
         {
@@ -105,6 +106,7 @@ namespace VLTest2015.Controllers
             return Json(new { total = users.TotalCount, rows = result }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
         [VLAuthentication(Authority.查看角色列表)]
         public ActionResult RoleList()
         {
@@ -125,7 +127,7 @@ namespace VLTest2015.Controllers
         public JsonResult AddRole(string roleName)
         {
             var result = _userService.CreateRole(roleName);
-            return Json(new { errorMsg = result.ErrorMessage }, JsonRequestBehavior.AllowGet);
+            return Json(new { errorMsg = string.Join(",", result.Messages) }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -133,7 +135,7 @@ namespace VLTest2015.Controllers
         public JsonResult EditUserRole(long userId, long[] roleIds)
         {
             var result = _userService.EditUserRoles(userId, roleIds);
-            return Json(new { errorMsg = result.ErrorMessage }, JsonRequestBehavior.AllowGet);
+            return Json(new { errorMsg = string.Join(",", result.Messages) }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -176,7 +178,7 @@ namespace VLTest2015.Controllers
         public JsonResult EditRoleAuthority(long roleId, long[] authorityIds)
         {
             var result = _userService.EditRoleAuthorities(roleId, authorityIds);
-            return Json(new { errorMsg = result.ErrorMessage }, JsonRequestBehavior.AllowGet);
+            return Json(new { errorMsg = string.Join(",", result.Messages) }, JsonRequestBehavior.AllowGet);
         }
 
         //
@@ -207,7 +209,7 @@ namespace VLTest2015.Controllers
             if (ModelState.IsValid)
             {
                 var result = _userService.Register(model.UserName, model.Password);
-                if (result.Status)
+                if (result.IsSuccess)
                 {
                     var user = _userService.PasswordSignIn(model.UserName, model.Password, false).Data;
                     var authorityIds = _userService.GetAllUserAuthorityIds(user.Id).Data;
@@ -233,7 +235,7 @@ namespace VLTest2015.Controllers
 
                     return RedirectToAction("Index", "Home");
                 }
-                AddErrors(result.ErrorMessage);
+                AddErrors(result.Messages);
             }
 
             // 如果我们进行到这一步时某个地方出错，则重新显示表单

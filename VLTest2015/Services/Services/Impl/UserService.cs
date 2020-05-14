@@ -23,7 +23,7 @@ namespace VLTest2015.Services
             _roleAuthorityRepository = new RoleAuthorityRepository(_context);
         }
 
-        public ServiceResponse<User> Register(string userName, string password)
+        public ServiceResult<User> Register(string userName, string password)
         {
             var hashPassword = MD5Helper.GetHashValue(password);
             User user = new User()
@@ -40,7 +40,7 @@ namespace VLTest2015.Services
             return Success(user);
         }
 
-        public ServiceResponse<User> PasswordSignIn(string userName, string password, bool shouldLockout)
+        public ServiceResult<User> PasswordSignIn(string userName, string password, bool shouldLockout)
         {
             var hashPassword = MD5Helper.GetHashValue(password);
             User user = new User()
@@ -56,7 +56,7 @@ namespace VLTest2015.Services
             return Success(result);
         }
 
-        public ServiceResponse<bool> EditUserAuthorities(long userId, IEnumerable<long> authorityIds)
+        public ServiceResult<bool> EditUserAuthorities(long userId, IEnumerable<long> authorityIds)
         {
             return DelegateTransaction(() =>
             {
@@ -70,7 +70,7 @@ namespace VLTest2015.Services
             });
         }
 
-        public ServiceResponse<bool> EditUserRoles(long userId, IEnumerable<long> roleIds)
+        public ServiceResult<bool> EditUserRoles(long userId, IEnumerable<long> roleIds)
         {
             return DelegateTransaction(() =>
             {
@@ -84,7 +84,7 @@ namespace VLTest2015.Services
             });
         }
 
-        public ServiceResponse<IEnumerable<long>> GetAllUserAuthorityIds(long userId)
+        public ServiceResult<IEnumerable<long>> GetAllUserAuthorityIds(long userId)
         {
             var userAuthorities = _userAuthorityRepository.GetBy(userId);
             var userRoles = _userRoleRepository.GetBy(userId);
@@ -93,7 +93,7 @@ namespace VLTest2015.Services
             return Success(allAuthorityIds);
         }
 
-        public ServiceResponse<PagerResponse<User>> GetUserPageList(GetUserPageListRequest request)
+        public ServiceResult<PagerResponse<User>> GetUserPageList(GetUserPageListRequest request)
         {
             PagerResponse<User> result = new PagerResponse<User>();
             result.TotalCount = _userRepository.GetUserPageListCount(request);
@@ -101,13 +101,13 @@ namespace VLTest2015.Services
             return Success(result);
         }
 
-        public ServiceResponse<IEnumerable<UserRoleInfo>> GetRoleInfoByUserIds(params long[] userIds)
+        public ServiceResult<IEnumerable<UserRoleInfo>> GetRoleInfoByUserIds(params long[] userIds)
         {
             var result = _roleRepository.GetUserRoleInfosBy(userIds);
             return Success(result);
         }
 
-        public ServiceResponse<long> CreateRole(string roleName)
+        public ServiceResult<long> CreateRole(string roleName)
         {
             Role role = new Role()
             {
@@ -116,17 +116,13 @@ namespace VLTest2015.Services
             var result = _roleRepository.GetBy(role.Name);
             if (result != null)
             {
-                return new ServiceResponse<long>()
-                {
-                    ErrorCode = -1,
-                    ErrorMessage = "角色名称已存在",
-                };
+                return Error<long>("角色名称已存在", 501);
             }
             var id = _roleRepository.Insert(role);
             return Success(id);
         }
 
-        public ServiceResponse<bool> EditRoleAuthorities(long roleId, IEnumerable<long> authorityIds)
+        public ServiceResult<bool> EditRoleAuthorities(long roleId, IEnumerable<long> authorityIds)
         {
             return DelegateTransaction(() =>
             {
@@ -140,13 +136,13 @@ namespace VLTest2015.Services
             });
         }
 
-        public ServiceResponse<IEnumerable<long>> GetRoleAuthorityIds(long roleId)
+        public ServiceResult<IEnumerable<long>> GetRoleAuthorityIds(long roleId)
         {
             var roleAuthorities = _roleAuthorityRepository.GetBy(roleId);
             return Success(roleAuthorities.Select(c => c.AuthorityId));
         }
 
-        public ServiceResponse<IEnumerable<Role>> GetAllRoles()
+        public ServiceResult<IEnumerable<Role>> GetAllRoles()
         {
             var roles = _roleRepository.GetAll();
             return Success(roles);

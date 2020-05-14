@@ -1,19 +1,20 @@
 ﻿using Dapper.Contrib.Extensions;
 using System.Data;
+using VLTest2015.Services;
 
 namespace VLTest2015.DAL
 {
     public class Repository<TEntity> : IRepository<TEntity>
         where TEntity : class
     {
-        protected IDbConnection _connection;
-        protected IDbCommand _command;
+        protected DbContext _context;
+        protected IDbConnection _connection { get { return _context.Connection; } }
+        protected IDbCommand _command { get { return _context.Command; } }
         protected IDbTransaction _transaction { get { return _command.Transaction; } }
 
         public Repository(Services.DbContext context)
         {
-            this._connection = context.Connection;
-            this._command = context.Command;
+            this._context = context;
         }
 
         public long Insert(TEntity entity)

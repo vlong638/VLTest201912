@@ -12,23 +12,14 @@ namespace VLTest2015.Services
             _context = new DbContext();
         }
 
-        public ServiceResponse<T> Success<T>(T data)
+        public ServiceResult<T> Success<T>(T data)
         {
-            return new ServiceResponse<T>()
-            {
-                Data = data,
-                Status = true,
-            };
+            return new ServiceResult<T>(data);
         }
 
-        public ServiceResponse<T> Error<T>(string errorMessage = "", int errorCode = -1)
+        public ServiceResult<T> Error<T>(string errorMessage = "", int errorCode = -1)
         {
-            return new ServiceResponse<T>()
-            {
-                Status = false,
-                ErrorCode = errorCode,
-                ErrorMessage = errorMessage,
-            };
+            return new ServiceResult<T>(default(T), errorCode, errorMessage);
         }
 
         /// <summary>
@@ -38,7 +29,7 @@ namespace VLTest2015.Services
         /// <param name="connection"></param>
         /// <param name="exec"></param>
         /// <returns></returns>
-        public ServiceResponse<T> DelegateTransaction<T>(Func<T> exec)
+        public ServiceResult<T> DelegateTransaction<T>(Func<T> exec)
         {
             _context.Connection.Open();
             _context.Transaction = _context.Connection.BeginTransaction();
@@ -48,18 +39,13 @@ namespace VLTest2015.Services
                 var result = exec();
                 _context.Transaction.Commit();
                 _context.Connection.Close();
-                return new ServiceResponse<T>(result);
+                return new ServiceResult<T>(result);
             }
             catch (Exception ex)
             {
                 _context.Transaction.Rollback();
                 _context.Connection.Close();
-                return new ServiceResponse<T>()
-                {
-                    ErrorCode = 501,
-                    ErrorMessage = ex.ToString(),
-                    Status = false,
-                };
+                return new ServiceResult<T>(default(T), ex.Message);
             }
         }
     }

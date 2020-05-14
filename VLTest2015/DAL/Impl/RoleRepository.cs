@@ -16,21 +16,21 @@ namespace VLTest2015.DAL
         public IEnumerable<UserRoleInfo> GetUserRoleInfosBy(long[] userIds)
         {
             return _connection.Query<UserRoleInfo>(@"select ur.UserId,ur.RoleId,r.Name as RoleName
-from [Role] r
-left join [UserRole] ur on ur.RoleId = r.Id
+from [A_Role] r
+left join [A_UserRole] ur on ur.RoleId = r.Id
 where ur.UserId in @userIds;"
                 , new { userIds });
         }
 
         public Role GetBy(string name)
         {
-            return _connection.Query<Role>("select * from [Role] where Name = @name;"
+            return _connection.Query<Role>("select * from [A_Role] where Name = @name;"
                 , new { name }).FirstOrDefault();
         }
 
         public IEnumerable<Role> GetAll()
         {
-            return _connection.Query<Role>("select * from [Role] order by Id desc;");
+            return _connection.Query<Role>("select * from [A_Role] order by Id desc;");
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace VLTest2015.Services
 {
-    [Table("[User]")]
+    [Table("[A_User]")]
     public class User
     {
         public long Id { set; get; }

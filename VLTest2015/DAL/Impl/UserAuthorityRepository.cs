@@ -14,14 +14,14 @@ namespace VLTest2015.DAL
 
         public int DeleteBy(long userId)
         {
-            return _connection.Execute("delete from [UserAuthority] where UserId = @userId;"
+            return _connection.Execute("delete from [A_UserAuthority] where UserId = @userId;"
                 , new { userId }
                 , _transaction);
         }
 
         public IEnumerable<UserAuthority> GetBy(long userId)
         {
-            return _connection.Query<UserAuthority>("select * from [UserAuthority] where UserId = @userId;"
+            return _connection.Query<UserAuthority>("select * from [A_UserAuthority] where UserId = @userId;"
                 , new { userId });
         }
     }

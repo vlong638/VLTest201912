@@ -30,6 +30,18 @@ namespace VLTest2015.Authentication
 
         #endregion
 
+        #region Pregnant 002
+
+        [Description("查看用户分娩信息")]
+        查看孕妇档案 = 002001001,
+        查看产检记录 = 002002001,
+        查看检查记录 = 002003001,
+        查看检验记录 = 002004001,
+
+
+        #endregion
+
+
         #region 账户系统 999
 
         #region 账户模块 001
@@ -71,5 +83,6 @@ namespace VLTest2015.Authentication
         #endregion
 
         #endregion
+
     }
 }
