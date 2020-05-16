@@ -21,13 +21,31 @@ namespace VLTest2015.DAL
             return _context.Connection.Query<T_PregnantInfo>($"select * from [{TableName}] order by Id desc;", transaction: _transaction);
         }
 
+        /// <summary>
+        /// 根据 PregnantInfoId 查询 PregnantInfo
+        /// </summary>
+        /// <param name="pregnantInfoId"></param>
+        /// <returns></returns>
+        public T_PregnantInfo GetPregnantInfoById(long pregnantInfoId)
+        {
+            return _context.Connection.Query<T_PregnantInfo>($"select * from [{TableName}] where Id = @PregnantInfoId;", new { pregnantInfoId }, transaction: _transaction).FirstOrDefault();
+        }
+        /// <summary>
+        /// 获取孕妇档案分页列表
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         internal IEnumerable<PagedListOfPregnantInfoModel> GetPregnantInfoPagedList(GetPagedListOfPregnantInfoRequest request)
         {
             var sql = request.ToListSQL();
             var pars = request.GetParams();
             return _context.Connection.Query<PagedListOfPregnantInfoModel>(sql, pars, transaction: _transaction).ToList();
         }
-
+        /// <summary>
+        /// 获取孕妇档案分页计数
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         internal int GetPregnantInfoPagedListCount(GetPagedListOfPregnantInfoRequest request)
         {
             var sql = request.ToCountSQL();

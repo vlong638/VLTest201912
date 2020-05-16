@@ -3,11 +3,15 @@ using System;
 
 namespace VLTest2015.Services
 {
+    //替换用 (\w+)\s+(\w+)\s+\d+\s+[-\d]+\s+[-\d]+\s+[-\d]+\s+([\w:\(\)]+).+
+    //public $2 $1 {set;get;} //$3
     [Table("T_PregnantInfo")]
     public class T_PregnantInfo
     {
         public long Id { set; get; }
-        public string PatientCode { set; get; }//病人编码
+        public long InstitutionCode { set; get; } //机构编码
+        public long CreatorId { set; get; } //创建者
+        public long PregnantInfoId { set; get; }
 
 
 

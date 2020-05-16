@@ -1,0 +1,57 @@
+﻿@{
+    Layout = "_Pregnant.cshtml";
+}
+@*列表*@
+<dic id="list">
+    <div style="margin-top:5px">
+        <div style="display:inline;">
+            <span>姓名:</span>
+            <input id="in_name" style="line-height:26px;border:1px solid #ccc" />
+            <a href="#" class="easyui-linkbutton" plain="true" onclick="doSearch()">搜索</a>
+        </div>
+    </div>
+    <div style="margin-top:5px">
+        <table id="db_list" style="width:100%;height:600px;"></table>
+    </div>
+</dic>
+@*脚本*@
+<script type="text/javascript">
+    var pregnantInfoId = getQueryString("pregnantInfoId");
+    function doSearch() {
+        $("#db_list").datagrid('load', {
+            pregnantInfoId: pregnantInfoId,
+            name: $('#in_name').val()
+        });
+    }
+    $(function () {
+        $("#db_list").datagrid({
+            url: "GetPagedListOfVisitRecord",
+            onBeforeLoad: function (params) {
+                params.pregnantInfoId = pregnantInfoId;
+            },
+            pagination: true,
+            rownumbers: true,
+            singleSelect: true,
+            remoteSort: true,
+            fitColumns: false,
+            selectOnCheck: false,
+            checkOnSelect: false,
+            striped: true,
+            pageSize: 10,
+            pageList: [10, 20, 50],
+            columns: [[
+                { field: 'Id', hidden: 'true' },
+                { field: 'PregnantInfoId', hidden: 'true' },
+
+                { field: 'VisitDate', title: '检查时间', width: 100, halign: 'center', align: 'left' },
+                { field: 'DBP', title: '舒张压(mmhg)', width: 100, halign: 'center', align: 'left' },
+                { field: 'SBP', title: '收缩压(mmhg)', width: 100, halign: 'center', align: 'left' },
+                { field: 'Weight', title: '体重(kg)', width: 100, halign: 'center', align: 'left' },
+                { field: 'HeightFundusuterus', title: '宫高(cm)', width: 100, halign: 'center', align: 'left' },
+                { field: 'AbdomenCircumference', title: '腹围(cm)', width: 100, halign: 'center', align: 'left' },
+                { field: 'FetalHeartRate', title: '胎心率(次', width: 100, halign: 'center', align: 'left' },
+                { field: 'EdemaStatus', title: '浮肿', width: 100, halign: 'center', align: 'left' },
+            ]]
+        });
+    });
+</script>

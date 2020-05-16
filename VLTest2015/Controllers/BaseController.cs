@@ -44,21 +44,21 @@ namespace VLTest2015.Controllers
         #endregion
 
         #region APIResult,便捷方法
-        public APIResult<T> Success<T>(T data)
+        public JsonResult Success<T>(T data)
         {
-            return new APIResult<T>(data);
+            return Json(new APIResult<T>(data));
         }
-        public APIResult<T> Error<T>(T data, IList<string> messages)
+        public JsonResult Error<T>(T data, IList<string> messages)
         {
-            return new APIResult<T>(data, messages.ToArray());
+            return Json(new APIResult<T>(data, messages.ToArray()));
         }
-        public APIResult<T> Error<T>(T data, params string[] messages)
+        public JsonResult Error<T>(T data, params string[] messages)
         {
-            return new APIResult<T>(data, messages);
+            return Json(new APIResult<T>(data, messages));
         }
-        public APIResult<T> Error<T>(T data, int code, params string[] messages)
+        public JsonResult Error<T>(T data, int code, params string[] messages)
         {
-            return new APIResult<T>(data, code, messages);
+            return Json(new APIResult<T>(data, code, messages));
         }
         #endregion
     }

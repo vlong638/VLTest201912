@@ -2,12 +2,10 @@
 
 namespace VLTest2015.Services
 {
-    public class PagedListOfPregnantInfoModel
+    public class PagedListOfLabOrderModel
     {
         public long Id { set; get; }
         public long PregnantInfoId { set; get; }
-
-
 
         public string Name { set; get; } //孕妇姓名
         public int? Sex { set; get; } //性别

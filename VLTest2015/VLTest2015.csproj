@@ -207,11 +207,18 @@
     <Compile Include="Common\Authentication\CurrentUser.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Common\Controllers\APIResult.cs" />
+    <Compile Include="Common\Models\DTO\PagedListOfVisitRecordModel.cs" />
+    <Compile Include="Common\Models\DTO\PagedListOfLabOrderModel.cs" />
+    <Compile Include="Common\Models\RequestDTO\GetPagedListOfVisitRecordRequest.cs" />
+    <Compile Include="Common\Models\RequestDTO\GetPagedListOfLabOrderRequest.cs" />
     <Compile Include="Common\Models\RequestDTO\GetPagedListOfPregnantInfoRequest.cs" />
-    <Compile Include="Common\Pager\IQueriablePagedList.cs" />
-    <Compile Include="Common\Pager\VLPageRequest.cs" />
-    <Compile Include="Common\Pager\VLPageResult.cs" />
+    <Compile Include="Common\Models\Pager\IQueriablePagedList.cs" />
+    <Compile Include="Common\Models\Pager\VLPageRequest.cs" />
+    <Compile Include="Common\Models\Pager\VLPageResult.cs" />
     <Compile Include="Controllers\PregnantController.cs" />
+    <Compile Include="DAL\Impl\LabCheckRepository.cs" />
+    <Compile Include="DAL\Impl\VisitRecordRepository.cs" />
+    <Compile Include="DAL\Impl\LabOrderRepository.cs" />
     <Compile Include="DAL\Impl\PregnantInfoRepository.cs" />
     <Compile Include="Common\Models\DTO\PagedListOfPregnantInfoModel.cs" />
     <Compile Include="Common\Models\BO\UserRoleInfo.cs" />
@@ -246,7 +253,7 @@
     <Compile Include="Common\Models\Entities\T_LabOrder.cs" />
     <Compile Include="Common\Models\Entities\T_VisitRecord.cs" />
     <Compile Include="Common\Models\Entities\T_PregnantInfo.cs" />
-    <Compile Include="Common\Utils\Enums\EnumHelper.cs" />
+    <Compile Include="Common\Utils\Values\EnumHelper.cs" />
     <Compile Include="Common\Models\ResponseDTO\CheckableIdNameResponse.cs" />
     <Compile Include="Common\Models\ResponseDTO\IdNameResponse.cs" />
     <Compile Include="Common\Models\ResponseDTO\GetUserPagedListResponse.cs" />
@@ -700,6 +707,10 @@
     <Content Include="Views\Account\AccountList.cshtml" />
     <Content Include="Views\Account\RoleList.cshtml" />
     <Content Include="Views\Pregnant\PregnantInfoList.cshtml" />
+    <Content Include="Views\Pregnant\_Pregnant.cshtml" />
+    <Content Include="Views\Pregnant\PregnantInfo.cshtml" />
+    <Content Include="Views\Pregnant\LabOrderList.cshtml" />
+    <Content Include="Views\Pregnant\VisitRecordList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

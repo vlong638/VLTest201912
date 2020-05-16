@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - 我的 ASP.NET 应用程序</title>
@@ -16,6 +16,26 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/easyui")
     @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+        /**
+        *  返回url的参数值
+        * name 参数名称
+        */
+        function getQueryString(name) {
+            //获取到Url并且解析Url编码
+            var url = decodeURI(location.search);
+            var theRequest = new Object();
+            if (url.indexOf("?") != -1) {
+
+                var str = url.substr(1);
+                strs = str.split("&");
+                for (var i = 0; i < strs.length; i++) {
+                    theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+                }
+            }
+            return theRequest[name];
+        }
+    </script>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">

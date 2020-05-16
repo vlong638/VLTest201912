@@ -1,10 +1,6 @@
 ﻿@{
-    ViewBag.Title = "孕妇档案列表";
+    Layout = "_Pregnant.cshtml";
 }
-<div id="toolbar">
-    @*奇怪的页面样式问题...上面有一段空白"*@
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="return false;">无法显示</a>
-</div>
 @*列表*@
 <dic id="list">
     <div style="margin-top:5px">
@@ -27,7 +23,7 @@
     }
     $(function () {
         $("#db_list").datagrid({
-            url: "GetPagedListOfPregnantInfo",
+            url: "GetPagedListOfLabOrder",
             pagination: true,
             rownumbers: true,
             singleSelect: true,
@@ -37,7 +33,6 @@
             checkOnSelect: false,
             striped: true,
             pageSize: 10,
-            
             pageList: [10, 20, 50],
             columns: [[
                 { field: 'Id', hidden: 'true' },
@@ -54,10 +49,10 @@
                 { field: 'LastMenstrualPeriod', title: '末次月经', width: 100, halign: 'center', align: 'left' },
                 { field: 'DateOfPrenatal', title: '预产期', width: 100, halign: 'center', align: 'left' },
                 { field: 'FileStatus', title: '是否结案结案', width: 100, halign: 'center', align: 'left' },
-            ]],
-            onDblClickRow: function (rowIndex, rowData) {
-                var PregnantInfoId = rowData.Id;
-                window.open("PregnantInfo?pregnantInfoId=" + PregnantInfoId);
+            ]]
+            ,onDblClickRow: function (rowIndex, rowData) {
+                var pregnantInfoId = rowData.PregnantInfoId;
+                window.open("PregnantInfo?PregnantInfoId=" + pregnantInfoId);
             }
         });
     });

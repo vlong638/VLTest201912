@@ -19,12 +19,10 @@ namespace VLTest2015.Authentication
         /// <summary>
         /// 查看用户分娩信息 001
         /// </summary>
-        [Description("查看用户分娩信息")]
         查看用户分娩信息 = 001001001,
         /// <summary>
         /// 搜索用户分娩信息 002
         /// </summary>
-        [Description("搜索用户分娩信息")]
         搜索用户分娩信息 = 001001002,
         #endregion
 
@@ -32,12 +30,12 @@ namespace VLTest2015.Authentication
 
         #region Pregnant 002
 
-        [Description("查看用户分娩信息")]
-        查看孕妇档案 = 002001001,
-        查看产检记录 = 002002001,
-        查看检查记录 = 002003001,
-        查看检验记录 = 002004001,
+        查看孕妇档案列表 = 002001001,
+        查看孕妇档案详情 = 002001002,
+        查看产检列表 = 002002001,
 
+        查看检查列表 = 002003001,
+        查看检查详情 = 002003002,
 
         #endregion
 
