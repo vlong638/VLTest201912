@@ -30,7 +30,7 @@ namespace VLTest2015.Common.Models.RequestDTO
         {
             if (wheres.Count == 0)
             {
-                wheres.Add($"PregnantInfoId = @PregnantInfoId");
+                //wheres.Add($"v.PregnantInfoId = @PregnantInfoId");
             }
             return wheres.Count == 0 ? "" : "where " + string.Join(" and", wheres);
         }
@@ -39,7 +39,8 @@ namespace VLTest2015.Common.Models.RequestDTO
         {
             return $@"
 select count(*)
-from {nameof(T_VisitRecord)}
+from {VisitRecord.TableName} v
+inner join {PregnantInfo.TableName} p on p.idcard = v.idcard and p.Id = @PregnantInfoId
 {GetWhereCondition()}
 ";
         }
@@ -48,11 +49,12 @@ from {nameof(T_VisitRecord)}
         {
             if (Orders.Count == 0)
             {
-                Orders.Add("Id", false);
+                Orders.Add("v.Id", false);
             }
             return $@"
-select *
-from {nameof(T_VisitRecord)}
+select v.*
+from {VisitRecord.TableName} v
+inner join {PregnantInfo.TableName} p on p.idcard = v.idcard and p.Id = @PregnantInfoId
 {GetWhereCondition()}
 {GetOrderCondition()}
 {GetLimitCondition()}

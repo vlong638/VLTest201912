@@ -64,12 +64,14 @@ namespace VLTest2015.Controllers
         {
             var pars = new GetPagedListOfPregnantInfoRequest()
             {
-                Name = name,
+                PersonName = name,
                 PageIndex = page,
                 PageSize = rows,
             };
             var serviceResult = _PregnantService.GetPagedListOfPregnantInfo(pars);
-            return Json(new { total = serviceResult.Data.Count, rows = serviceResult.Data.List }, JsonRequestBehavior.AllowGet);
+            if (!serviceResult.IsSuccess)
+                return Error(serviceResult.Data, serviceResult.Messages);
+            return Json(new { total = serviceResult.Data.Count, rows = serviceResult.Data.List.ToList() });
         }
 
         [HttpPost]
@@ -78,7 +80,7 @@ namespace VLTest2015.Controllers
         {
             if (pregnantInfoId == 0)
             {
-                return Error(default(T_PregnantInfo), messages: "缺少有效的 pregnantInfoId");
+                return Error(default(PregnantInfo), messages: "缺少有效的 pregnantInfoId");
             }
             var serviceResult = _PregnantService.GetPregnantInfoByPregnantInfoId(pregnantInfoId);
             if (!serviceResult.IsSuccess)
@@ -97,7 +99,9 @@ namespace VLTest2015.Controllers
                 PageSize = rows,
             };
             var serviceResult = _PregnantService.GetPagedListOfVisitRecord(pars);
-            return Json(new { total = serviceResult.Data.Count, rows = serviceResult.Data.List }, JsonRequestBehavior.AllowGet);
+            if (!serviceResult.IsSuccess)
+                return Error(serviceResult.Data, serviceResult.Messages);
+            return Json(new { total = serviceResult.Data.Count, rows = serviceResult.Data.List });
         }
 
         [HttpPost]
@@ -111,7 +115,9 @@ namespace VLTest2015.Controllers
                 PageSize = rows,
             };
             var serviceResult = _PregnantService.GetPagedListOfLabOrder(pars);
-            return Json(new { total = serviceResult.Data.Count, rows = serviceResult.Data.List }, JsonRequestBehavior.AllowGet);
+            if (!serviceResult.IsSuccess)
+                return Error(serviceResult.Data, serviceResult.Messages);
+            return Json(new { total = serviceResult.Data.Count, rows = serviceResult.Data.List });
         }
     }
 }

@@ -21,7 +21,7 @@ namespace VLTest2015.Common.Models.RequestDTO
 
             if (PregnantInfoId.HasValue && PregnantInfoId != 0)
             {
-                args.Add(nameof(PregnantInfoId), $"%{PregnantInfoId}%");
+                args.Add(nameof(PregnantInfoId), PregnantInfoId);
             }
             return args;
         }
@@ -30,7 +30,7 @@ namespace VLTest2015.Common.Models.RequestDTO
         {
             if (wheres.Count == 0)
             {
-                wheres.Add($"PregnantInfoId  = @PregnantInfoId");
+                //wheres.Add($"l.PregnantInfoId  = @PregnantInfoId");
             }
             return wheres.Count == 0 ? "" : "where " + string.Join(" and", wheres);
         }
@@ -39,7 +39,8 @@ namespace VLTest2015.Common.Models.RequestDTO
         {
             return $@"
 select count(*)
-from {nameof(T_LabOrder)}
+from {LabOrder.TableName} l
+inner join {PregnantInfo.TableName} p on p.idcard = l.idcard and p.id= @PregnantInfoId
 {GetWhereCondition()}
 ";
         }
@@ -48,11 +49,12 @@ from {nameof(T_LabOrder)}
         {
             if (Orders.Count == 0)
             {
-                Orders.Add("Id", false);
+                Orders.Add("l.Id", false);
             }
             return $@"
-select *
-from {nameof(T_LabOrder)}
+select l.*
+from {LabOrder.TableName} l
+inner join {PregnantInfo.TableName} p on p.idcard = l.idcard and p.Id  = @PregnantInfoId
 {GetWhereCondition()}
 {GetOrderCondition()}
 {GetLimitCondition()}

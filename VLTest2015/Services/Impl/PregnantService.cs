@@ -9,8 +9,8 @@ namespace VLTest2015.Services
     public class PregnantService : BaseService
     {
         PregnantInfoRepository _PregnantInfoRepository { get { return new PregnantInfoRepository(_context); } }
-        VisitRecordRepository _VisitRecordRepository  { get { return new VisitRecordRepository(_context); } }
-        LabOrderRepository _LabOrderRepository  { get { return new LabOrderRepository(_context); } }
+        VisitRecordRepository _VisitRecordRepository { get { return new VisitRecordRepository(_context); } }
+        LabOrderRepository _LabOrderRepository { get { return new LabOrderRepository(_context); } }
         LabCheckRepository _LabCheckRepository { get { return new LabCheckRepository(_context); } }
 
         public PregnantService()
@@ -38,7 +38,7 @@ namespace VLTest2015.Services
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public ServiceResult<T_PregnantInfo> GetPregnantInfoByPregnantInfoId(long pregnantInfoId)
+        public ServiceResult<PregnantInfo> GetPregnantInfoByPregnantInfoId(long pregnantInfoId)
         {
             var result = DelegateTransaction(() =>
             {

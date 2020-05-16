@@ -8,17 +8,17 @@ using VLTest2015.Common.Models.RequestDTO;
 
 namespace VLTest2015.DAL
 {
-    public class LabOrderRepository : Repository<T_LabOrder>
+    public class LabOrderRepository : Repository<LabOrder>
     {
-        public string TableName { set; get; } = nameof(T_LabOrder);
+        public string TableName { set; get; } = nameof(LabOrder);
 
         public LabOrderRepository(DbContext context) : base(context)
         {
         }
 
-        public IEnumerable<T_LabOrder> GetAll()
+        public IEnumerable<LabOrder> GetAll()
         {
-            return _context.Connection.Query<T_LabOrder>($"select * from [{TableName}] order by Id desc;", transaction: _transaction);
+            return _context.Connection.Query<LabOrder>($"select * from [{TableName}] order by Id desc;", transaction: _transaction);
         }
 
         internal IEnumerable<PagedListOfLabOrderModel> GetLabOrderPagedList(GetPagedListOfLabOrderRequest request)

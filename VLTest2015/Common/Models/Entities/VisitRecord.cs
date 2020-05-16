@@ -5,9 +5,11 @@ namespace VLTest2015.Services
 {
     //替换用 (\w+)\s+(\w+)\s+\d+\s+[-\d]+\s+[-\d]+\s+[-\d]+\s+([\w:\(\)]+).+
     //public $2 $1 {set;get;} //$3
-    [Table("T_VisitRecord")]
-    public class T_VisitRecord
+    [Table(TableName)]
+    public class VisitRecord
     {
+        public const string TableName = "O_VisitRecord";
+
         public long Id { set; get; } //自动编号
         public long InstitutionCode { set; get; } //机构编码
         public long CreatorId { set; get; } //创建者

@@ -8,17 +8,15 @@ using VLTest2015.Common.Models.RequestDTO;
 
 namespace VLTest2015.DAL
 {
-    public class PregnantInfoRepository : Repository<T_PregnantInfo>
+    public class PregnantInfoRepository : Repository<PregnantInfo>
     {
-        public string TableName { set; get; } = nameof(T_PregnantInfo);
-
         public PregnantInfoRepository(DbContext context) : base(context)
         {
         }
 
-        public IEnumerable<T_PregnantInfo> GetAll()
+        public IEnumerable<PregnantInfo> GetAll()
         {
-            return _context.Connection.Query<T_PregnantInfo>($"select * from [{TableName}] order by Id desc;", transaction: _transaction);
+            return _context.Connection.Query<PregnantInfo>($"select * from [{PregnantInfo.TableName}] order by Id desc;", transaction: _transaction);
         }
 
         /// <summary>
@@ -26,9 +24,9 @@ namespace VLTest2015.DAL
         /// </summary>
         /// <param name="pregnantInfoId"></param>
         /// <returns></returns>
-        public T_PregnantInfo GetPregnantInfoById(long pregnantInfoId)
+        public PregnantInfo GetPregnantInfoById(long pregnantInfoId)
         {
-            return _context.Connection.Query<T_PregnantInfo>($"select * from [{TableName}] where Id = @PregnantInfoId;", new { pregnantInfoId }, transaction: _transaction).FirstOrDefault();
+            return _context.Connection.Query<PregnantInfo>($"select * from [{PregnantInfo.TableName}] where Id = @PregnantInfoId;", new { pregnantInfoId }, transaction: _transaction).FirstOrDefault();
         }
         /// <summary>
         /// 获取孕妇档案分页列表

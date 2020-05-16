@@ -5,9 +5,9 @@
 <dic id="list">
     <div style="margin-top:5px">
         <div style="display:inline;">
-            <span>姓名:</span>
+            @*<span>姓名:</span>
             <input id="in_name" style="line-height:26px;border:1px solid #ccc" />
-            <a href="#" class="easyui-linkbutton" plain="true" onclick="doSearch()">搜索</a>
+            <a href="#" class="easyui-linkbutton" plain="true" onclick="doSearch()">搜索</a>*@
         </div>
     </div>
     <div style="margin-top:5px">
@@ -16,6 +16,7 @@
 </dic>
 @*脚本*@
 <script type="text/javascript">
+    var pregnantInfoId = getQueryString("pregnantInfoId");
     function doSearch() {
         $("#db_list").datagrid('load', {
             name: $('#in_name').val()
@@ -24,6 +25,9 @@
     $(function () {
         $("#db_list").datagrid({
             url: "GetPagedListOfLabOrder",
+            onBeforeLoad: function (params) {
+                params.pregnantInfoId = pregnantInfoId;
+            },
             pagination: true,
             rownumbers: true,
             singleSelect: true,
@@ -37,20 +41,17 @@
             columns: [[
                 { field: 'Id', hidden: 'true' },
                 { field: 'PregnantInfoId', hidden: 'true' },
-                { field: 'Name', title: '姓名', width: 100, halign: 'center', align: 'left' },
-                { field: 'Sex', title: '性别', width: 100, halign: 'center', align: 'left' },
-                { field: 'IdCard', title: '身份证号', width: 100, halign: 'center', align: 'left' },
-                { field: 'ContactPhone', title: '联系人电话', width: 100, halign: 'center', align: 'left' },
-                { field: 'Birthday', title: '出生日期', width: 100, halign: 'center', align: 'left' },
-                { field: 'Gravidity', title: '孕次', width: 100, halign: 'center', align: 'left' },
-                { field: 'Parity', title: '产次', width: 100, halign: 'center', align: 'left' },
-                { field: 'IsCreateBook', title: '是否建册', width: 100, halign: 'center', align: 'left' },
-                { field: 'GestationalWeeks', title: '建册孕周', width: 100, halign: 'center', align: 'left' },
-                { field: 'LastMenstrualPeriod', title: '末次月经', width: 100, halign: 'center', align: 'left' },
-                { field: 'DateOfPrenatal', title: '预产期', width: 100, halign: 'center', align: 'left' },
-                { field: 'FileStatus', title: '是否结案结案', width: 100, halign: 'center', align: 'left' },
+                //public [\w\?]+\s+(\w+).+//(\w+)
+                //{ field: '$1', title: '$2', width: 100, halign: 'center', align: 'left' },
+
+                { field: 'orderid', title: '检查id', width: 100, halign: 'center', align: 'left' },
+                { field: 'examname', title: '检查名称', width: 100, halign: 'center', align: 'left' },
+                { field: 'examcode', title: '检查编码', width: 100, halign: 'center', align: 'left' },
+                { field: 'ordertime', title: '检查时间', width: 100, halign: 'center', align: 'left' },
+                { field: 'orderdocid', title: '检查医生Id', width: 100, halign: 'center', align: 'left' },
+                { field: 'orderdocname', title: '检查医生名称', width: 100, halign: 'center', align: 'left' },
             ]]
-            ,onDblClickRow: function (rowIndex, rowData) {
+            , onDblClickRow: function (rowIndex, rowData) {
                 var pregnantInfoId = rowData.PregnantInfoId;
                 window.open("PregnantInfo?PregnantInfoId=" + pregnantInfoId);
             }

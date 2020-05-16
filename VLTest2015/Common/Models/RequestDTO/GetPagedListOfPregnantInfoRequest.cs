@@ -9,7 +9,7 @@ namespace VLTest2015.Common.Models.RequestDTO
 {
     public class GetPagedListOfPregnantInfoRequest : VLPageRequest, IQueriablePagedList
     {
-        public string Name { set; get; }
+        public string PersonName { set; get; }
 
         Dictionary<string, object> args = new Dictionary<string, object>();
         List<string> wheres = new List<string>();
@@ -19,9 +19,9 @@ namespace VLTest2015.Common.Models.RequestDTO
             if (args.Count > 0)
                 return args;
 
-            if (!string.IsNullOrEmpty(Name))
+            if (!string.IsNullOrEmpty(PersonName))
             {
-                args.Add(nameof(Name), $"%{Name}%");
+                args.Add(nameof(PersonName), $"%{PersonName}%");
             }
             return args;
         }
@@ -30,9 +30,9 @@ namespace VLTest2015.Common.Models.RequestDTO
         {
             if (wheres.Count == 0)
             {
-                if (!string.IsNullOrEmpty(Name))
+                if (!string.IsNullOrEmpty(PersonName))
                 {
-                    wheres.Add($"Name Like @Name");
+                    wheres.Add($"{nameof(PersonName)} Like @PersonName");
                 }
             }
             return wheres.Count == 0 ? "" : "where " + string.Join(" and", wheres);
@@ -42,7 +42,7 @@ namespace VLTest2015.Common.Models.RequestDTO
         {
             return $@"
 select count(*)
-from {nameof(T_PregnantInfo)}
+from {PregnantInfo.TableName}
 {GetWhereCondition()}
 ";
         }
@@ -55,7 +55,7 @@ from {nameof(T_PregnantInfo)}
             }
             return $@"
 select *
-from {nameof(T_PregnantInfo)}
+from {PregnantInfo.TableName}
 {GetWhereCondition()}
 {GetOrderCondition()}
 {GetLimitCondition()}

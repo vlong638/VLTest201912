@@ -5,21 +5,21 @@ namespace VLTest2015.Services
 {
     //替换用 (\w+)\s+(\w+)\s+\d+\s+[-\d]+\s+[-\d]+\s+[-\d]+\s+([\w:\(\)]+).+
     //public $2 $1 {set;get;} //$3
-    [Table("T_PregnantInfo")]
-    public class T_PregnantInfo
+    [Table(TableName)]
+    public class PregnantInfo
     {
+        public const string TableName = "O_PregnantInfo";
+
         public long Id { set; get; }
         public long InstitutionCode { set; get; } //机构编码
         public long CreatorId { set; get; } //创建者
-        public long PregnantInfoId { set; get; }
-
-
-
-        public string Name { set; get; } //孕妇姓名
-        public int? Sex { set; get; } //性别
+        public string PatientId { set; get; }
         public string IdCard { set; get; } //身份证号
+
+        public string PersonName { set; get; } //孕妇姓名
+        public int? SexCode { set; get; } //性别
         public string ContactPhone { set; get; } //联系人电话
-        public DateTime? Birthday { set; get; } //出生日期
+        public DateTime? Birthday { set; get; } //出生日期 
         public int? Gravidity { set; get; } //孕次
         public int? Parity { set; get; } //产次
         public int? IsCreateBook { set; get; } //是否建册

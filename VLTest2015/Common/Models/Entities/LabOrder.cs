@@ -1,10 +1,14 @@
-﻿using System;
+﻿using Dapper.Contrib.Extensions;
+using System;
 
 namespace VLTest2015.Services
 {
-    public class PagedListOfLabOrderModel
+    //替换用 (\w+)\s+(\w+)\s+\d+\s+[-\d]+\s+[-\d]+\s+[-\d]+\s+([\w:\(\)]+).+
+    //public $2 $1 {set;get;} //$3
+    [Table(TableName)]
+    public class LabOrder
     {
-        public long Id { set; get; }
+        public const string TableName = "O_LabOrder";
 
         public string orderid { set; get; } //检查id
         public string examname { set; get; } //检查名称
