@@ -94,9 +94,11 @@
                     required: true,
                     data: data
                 });
-                for (var i = 0; i < data.length; i++) {
-                    $("#sex2").append("<option value='" + data[i].value + "'>" + data[i].text + "</option>");
-                }
+                vl.combobox("#sex2", data);
+                //for (var i = 0; i < data.length; i++) {
+                //    $("#sex2").append("<option value='" + data[i].value + "'>" + data[i].text + "</option>");
+                //    vl.combobox("#sex2", data);
+                //}
             },
             error: function (data) {
                 console.log(2);

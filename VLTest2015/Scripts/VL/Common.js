@@ -32,6 +32,11 @@
             }
         }
         return theRequest[name];
+    },
+    combobox: function select(controlId, data) {
+        for (var i = 0; i < data.length; i++) {
+            $(controlId).append("<option value='" + data[i].value + "'>" + data[i].text + "</option>");
+        }
     }
 }
 
