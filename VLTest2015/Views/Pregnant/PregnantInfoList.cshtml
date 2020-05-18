@@ -13,6 +13,7 @@
             <input id="in_name" style="line-height:26px;border:1px solid #ccc" />
             <select class="easyui-combobox" id="name" style="width:200px;"></select>
             <select class="easyui-combobox" id="sex" style="width:200px;"></select>
+            <select id="sex2"></select>
             <a href="#" class="easyui-linkbutton" plain="true" onclick="doSearch()">搜索</a>
         </div>
     </div>
@@ -93,6 +94,9 @@
                     required: true,
                     data: data
                 });
+                for (var i = 0; i < data.length; i++) {
+                    $("#sex2").append("<option value='" + data[i].value + "'>" + data[i].text + "</option>");
+                }
             },
             error: function (data) {
                 console.log(2);
