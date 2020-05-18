@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace VL.API.Controllers
@@ -135,6 +136,22 @@ namespace VL.API.Controllers
         {
             throw new NotImplementedException("Mock Exceptions");
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public void SaveJson_PersonNames()
+        {
+            List<string> names = new List<string>()
+            {
+                "张三","李四","王五"
+            };
+            var file = (Path.Combine(AppContext.BaseDirectory, "configs", "PersonNames.json"));
+            System.IO.File.WriteAllText(file, Newtonsoft.Json.JsonConvert.SerializeObject(names));
+        }
+
     }
     /// <summary>
     /// 
