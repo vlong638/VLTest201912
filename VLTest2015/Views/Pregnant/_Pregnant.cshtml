@@ -14,11 +14,11 @@
         height: 32px;
     }
 </style>
-<div id="submenu">
+<div id="submenu" style="margin-bottom: 0px;">
     @*样式问题有留白,需要填充"*@
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="return false;"> 无法显示</a>
     @*列表*@
-    <div style="margin-top:5px">
+    <div style="margin-top:5px;">
         <div style="display:inline;">
             <a id="Link_PregnantInfo" href="javascript:void(0)" class="easyui-linkbutton easyui-linkbuttonex" plain="true">孕妇档案</a>
             <a id="Link_VisitRecordList" href="javascript:void(0)" class="easyui-linkbutton easyui-linkbuttonex" plain="true">产检列表</a>
@@ -26,12 +26,21 @@
         </div>
     </div>
 </div>
+<div>
+    <fieldset class="allborder">
+        <legend style="background: #efefef;">
+            当前孕妇档案-
+            姓名:<label id="Top_Name"></label>
+            性别:<label id="Top_Sex"></label>
+            出生日期:<label id="Top_Birthday"></label>
+        </legend>
+    </fieldset>
+</div>
 @RenderBody()
-
 
 <script type="text/javascript">
     function initData() {
-        var pregnantInfoId = getQueryString("pregnantInfoId");
+        var pregnantInfoId = vl.getQueryString("pregnantInfoId");
         $.ajax({
             url: "/Pregnant/GetPregnantInfo",
             type: "post",
@@ -39,6 +48,15 @@
             data: { pregnantInfoId },
             success: function (resp) {
                 console.log(1);
+                if (resp.Code == 200) {
+                    $("#Top_Name").text(resp.Data.PersonName);
+                    var sexCode = resp.Data.SexCode;
+                    $("#Top_Sex").text(sexCode == 2 ? "女" : (sexCode == 1 ? "男" : sexCode));
+                    var birthday = resp.Data.Birthday;
+                    $("#Top_Birthday").text(vl.getDate(birthday));
+                }
+
+
                 //if (resp.data) {
                 //    //对命名与返回值一致的统一作赋值处理
                 //    var $items = $("#data-form input,select,textarea");
@@ -69,7 +87,7 @@
         initData();
 
         //初始化控件
-        var pregnantInfoId = getQueryString("pregnantInfoId");
+        var pregnantInfoId = vl.getQueryString("pregnantInfoId");
         $("#Link_PregnantInfo").on("click", function () {
             window.location = "PregnantInfo?pregnantInfoId=" + pregnantInfoId;
         });

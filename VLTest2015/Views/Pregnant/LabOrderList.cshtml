@@ -16,7 +16,7 @@
 </dic>
 @*脚本*@
 <script type="text/javascript">
-    var pregnantInfoId = getQueryString("pregnantInfoId");
+    var pregnantInfoId = vl.getQueryString("pregnantInfoId");
     function doSearch() {
         $("#db_list").datagrid('load', {
             name: $('#in_name').val()

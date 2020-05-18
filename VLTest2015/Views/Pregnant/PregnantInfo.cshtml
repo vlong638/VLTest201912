@@ -10,15 +10,16 @@
             </td>
         </tr>
         <tr>
-            <td><span>姓名</span></td>
-            <td>吴志艳</td>
-            <td><span>手机号码</span></td>
-            <td>88913747</td>
-            <td><span>就诊卡号</span></td>
-            <td></td>
-            <td><span>家庭电话</span></td>
-            <td></td>
+            <td>姓名</td>
+            <td><label id="name"></label></td>
+            <td>性别</td>
+            <td><label id="sex"></label></td>
+            <td>出生日期</td>
+            <td><label id="birthday"></label></td>
+            <td>手机号码</td>
+            <td><label id="contactphone"></label></td>
         </tr>
+        @*
         <tr>
             <td><span>证件类型</span></td>
             <td>居民身份证</td>
@@ -59,7 +60,6 @@
             <td><span>生殖证发放地</span></td>
             <td></td>
         </tr>
-
         <tr>
             <td><span>产休地</span></td>
             <td></td>
@@ -88,13 +88,13 @@
             <td></td>
             <td><span>建册机构</span></td>
             <td></td>
-        </tr>
+        </tr>*@
         <tr>
             <td colspan="8">
                 <fieldset class="allborder"><legend>配偶信息</legend></fieldset>
             </td>
         </tr>
-        <tr>
+        @*<tr>
             <td><span>姓名</span></td>
             <td></td>
             <td><span>职业</span></td>
@@ -130,13 +130,13 @@
         <tr>
             <td><span>联系电话</span></td>
             <td></td>
-        </tr>
+        </tr>*@
         <tr>
             <td colspan="8">
                 <fieldset class="allborder"><legend>孕前信息</legend></fieldset>
             </td>
         </tr>
-        <tr>
+        @*<tr>
             <td><span>基础体重(kg)</span></td>
             <td></td>
             <td><span>身高(cm)</span></td>
@@ -155,26 +155,26 @@
             <td></td>
             <td><span>痛经</span></td>
             <td></td>
-        </tr>
+        </tr>*@
         <tr>
             <td colspan="8">
                 <fieldset class="allborder"><legend>体格检查</legend></fieldset>
             </td>
         </tr>
-        <tr>
+        @*<tr>
             <td><span>收缩压(mmHg)</span></td>
             <td></td>
             <td><span>舒张压(mmHg)</span></td>
             <td></td>
             <td><span>脉搏(cpm)</span></td>
             <td></td>
-        </tr>
+        </tr>*@
         <tr>
             <td colspan="8">
                 <fieldset class="allborder"><legend>本次孕情</legend></fieldset>
             </td>
         </tr>
-        <tr>
+        @*<tr>
             <td><span>末次月经</span></td>
             <td>2019-10-03</td>
             <td><span>预产期</span></td>
@@ -184,13 +184,13 @@
             <td></td>
             <td><span>怀孕详情</span></td>
             <td></td>
-        </tr>
+        </tr>*@
         <tr>
             <td colspan="8">
                 <fieldset class="allborder"><legend>孕产史</legend></fieldset>
             </td>
         </tr>
-        <tr>
+        @*<tr>
             <td><span>孕次</span></td>
             <td>1</td>
             <td><span>产次</span></td>
@@ -203,13 +203,13 @@
         <tr>
             <td><span>孕产详情</span></td>
             <td colspan="7">性别：女，</td>
-        </tr>
+        </tr>*@
         <tr>
             <td colspan="8">
                 <fieldset class="allborder"><legend>既往史</legend></fieldset>
             </td>
         </tr>
-        <tr>
+        @*<tr>
             <td><span>妊娠并发症史</span></td>
             <td colspan="3">无</td>
             <td><span>既往病史</span></td>
@@ -232,13 +232,13 @@
             <td colspan="3"></td>
             <td><span>遗传家族史</span></td>
             <td colspan="3">无</td>
-        </tr>
+        </tr>*@
         <tr>
             <td colspan="8">
                 <fieldset class="allborder"><legend>建档情况</legend></fieldset>
             </td>
         </tr>
-        <tr>
+        @*<tr>
             <td><span>建档医生</span></td>
             <td></td>
             <td><span>建档机构</span></td>
@@ -251,13 +251,13 @@
             <td>2019-12-09</td>
             <td><span>建册孕周</span></td>
             <td><span class=" form_td_ctrl">17+4</span></td>
-        </tr>
+        </tr>*@
         <tr>
             <td colspan="8">
                 <fieldset class="allborder"><legend>转入情况</legend></fieldset>
             </td>
         </tr>
-        <tr>
+        @*<tr>
             <td><span>转入来源区属</span></td>
             <td colspan="3"></td>
             <td><span>转入来源机构</span></td>
@@ -266,34 +266,28 @@
         <tr>
             <td><span>转入日期</span></td>
             <td></td>
-        </tr>
+        </tr>*@
     </tbody>
 </table>
 
-
-@*基本情况*@
-@*姓名	    手机号码	    就诊卡号		家庭电话
-    证件类型	身份证号	    性别	        出生日期
-    民族	    国籍	        婚姻状况		文化程度
-    职业		工作单位		ABO血型		    Rh血型
-    孕妇归属地	户口类型		是否农业户籍	生殖证发放地
-    产休地		产休地详情
-    户籍地址	户籍详情
-    居住地址	居住地址详情
-    是否检查	建册年龄	    孕册号		    建册机构*@
-
-
-
 <script type="text/javascript">
     function initData() {
-        var pregnantInfoId = getQueryString("pregnantInfoId");
+        var pregnantInfoId = vl.getQueryString("pregnantInfoId");
         $.ajax({
             url: "/Pregnant/GetPregnantInfo",
             type: "post",
             dataType: "json",
             data: { pregnantInfoId },
             success: function (resp) {
-                console.log(1);
+                console.log(2);
+                if (resp.Code == 200) {
+                    $("#name").text(resp.Data.PersonName);
+                    var sexCode = resp.Data.SexCode;
+                    $("#sex").text(sexCode == 2 ? "女" : (sexCode == 1 ? "男" : sexCode));
+                    $("#birthday").text(vl.getDate(resp.Data.Birthday));
+                    $("#contactphone").text(resp.Data.ContactPhone);
+                }
+
                 //if (resp.data) {
                 //    //对命名与返回值一致的统一作赋值处理
                 //    var $items = $("#data-form input,select,textarea");
@@ -314,12 +308,13 @@
                 //名称不一致的需另做赋值
             },
             error: function (resp) {
-                console.log(2);
+                console.log(22);
             }
-       })
+        })
     }
 
     $(function () {
+        console.log(2);
         //初始化数据
         initData();
     })
