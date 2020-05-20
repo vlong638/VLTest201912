@@ -769,6 +769,7 @@
     </Content>
     <None Include="Scripts\jquery-1.11.3.intellisense.js" />
     <Content Include="Scripts\easyloader.js" />
+    <Content Include="Scripts\echarts.js" />
     <Content Include="Scripts\jquery-1.11.3.js" />
     <Content Include="Scripts\jquery-1.11.3.min.js" />
     <Content Include="Scripts\jquery-1.11.3.min.map" />
@@ -856,6 +857,7 @@
     <Content Include="Views\Pregnant\PregnantInfo.cshtml" />
     <Content Include="Views\Pregnant\LabOrderList.cshtml" />
     <Content Include="Views\Pregnant\VisitRecordList.cshtml" />
+    <Content Include="Views\Pregnant\AllStatistics.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

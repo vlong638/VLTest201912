@@ -1,0 +1,100 @@
+﻿@{
+    ViewBag.Title = "用户列表";
+}
+@*功能条*@
+<div id="toolbar">
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#dlg').dialog('open')">分配角色</a>
+</div>
+@*列表*@
+<div id="main" style="width: 800px;height:400px;"></div>
+@*脚本*@
+<script src="../Scripts/echarts.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var myChart = echarts.init(document.getElementById('main'));
+        //下拉项配置化方案
+        $.ajax({
+            url: '/Pregnant/GetAllStatics',
+            type: 'post',
+            dataType: 'json',
+            success: function (result) {
+                var titles = [];
+                titles.push("顺产人数");
+                titles.push("剖宫产人数");
+                titles.push("引产人数");
+                titles.push("顺转剖人数");
+                titles.push("侧切人数");
+                titles.push("裂伤人数");
+                titles.push("新生儿人数");
+                var datas = [];
+                datas.push(result.Data.EutociaCount);
+                datas.push(result.Data.CesareanCount);
+                datas.push(result.Data.OdinopoeiaCount);
+                datas.push(result.Data.EutociaChangeToCesarean);
+                datas.push(result.Data.CutCount);
+                datas.push(result.Data.BreakCount);
+                datas.push(result.Data.ChildCount);
+                var option = {
+                    title: {
+                        text: '全统计报告'
+                    },
+                    color: ['#3398DB'],
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                        }
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    xAxis: [
+                        {
+                            type: 'category',
+                            data: titles,
+                            axisTick: {
+                                alignWithLabel: true
+                            }
+                        }
+                    ],
+                    yAxis: [
+                        {
+                            type: 'value'
+                        }
+                    ],
+                    series: [
+                        {
+                            name: '直接访问',
+                            type: 'bar',
+                            barWidth: '60%',
+                            data: datas,
+                            label: {
+                                show: true,
+                                position: 'inside'
+                            },
+                        }
+                    ],
+                    //itemStyle: {
+                    //    normal: {
+                    //        label: {
+                    //            show: true, //开启显示
+                    //            position: 'top', //在上方显示
+                    //            textStyle: { //数值样式
+                    //                color: 'black',
+                    //                fontSize: 16
+                    //            }
+                    //        }
+                    //    }
+                    //}
+                };
+                myChart.setOption(option);
+            },
+            error: function (data) {
+                //console.log(2);
+            }
+        });
+    });
+</script>

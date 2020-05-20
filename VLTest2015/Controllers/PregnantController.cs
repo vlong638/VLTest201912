@@ -119,6 +119,75 @@ namespace VLTest2015.Controllers
                 return Error(serviceResult.Data, serviceResult.Messages);
             return Json(new { total = serviceResult.Data.Count, rows = serviceResult.Data.List });
         }
+
+        [HttpGet]
+        [VLAuthentication]
+        public ActionResult AllStatistics()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 全统计汇总
+        ///顺产人数
+        ///剖宫产人数
+        ///引产人数
+        ///顺转剖人数
+        ///侧切人数
+        ///裂伤人数
+        ///新生儿人数
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult GetAllStatics()
+        {
+            var serviceResult = new ServiceResult<AllStatics>(new AllStatics()
+            {
+                EutociaCount = 100,
+                CesareanCount = 22,
+                OdinopoeiaCount = 3,
+                EutociaChangeToCesarean = 1,
+                CutCount = 44,
+                BreakCount = 55,
+                ChildCount = 111,
+            });
+            if (!serviceResult.IsSuccess)
+                return Error(serviceResult.Data, "");
+            return Success(serviceResult.Data);
+        }
+
+        public class AllStatics
+        {
+            /// <summary>
+            /// 顺产人数
+            /// </summary>
+            public int EutociaCount { set; get; }
+            /// <summary>
+            /// 剖宫产人数
+            /// </summary>
+            public int CesareanCount { set; get; }
+            /// <summary>
+            /// 引产人数
+            /// </summary>
+            public int OdinopoeiaCount { set; get; }
+            /// <summary>
+            /// 顺转剖人数
+            /// </summary>
+            public int EutociaChangeToCesarean { set; get; }
+            /// <summary>
+            /// 侧切人数
+            /// </summary>
+            public int CutCount { set; get; }
+            /// <summary>
+            /// 裂伤人数
+            /// </summary>
+            public int BreakCount { set; get; }
+            /// <summary>
+            /// 新生儿人数
+            /// </summary>
+            public int ChildCount { set; get; }
+        }
+
     }
 }
 
