@@ -7,8 +7,15 @@ using VL.API.Common.Repositories;
 
 namespace VL.API.PT.Repositories
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class PregnantInfoRepository : DapperRepository<PregnantInfo>
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dbGroup"></param>
         public PregnantInfoRepository(DbGroup dbGroup) : base(dbGroup)
         {
         }

@@ -10,7 +10,6 @@ using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Xml;
 using System.Xml.Linq;
 using VL.Consoling.Entities;
 using VL.Consoling.RabitMQUtils;
@@ -23,7 +22,10 @@ namespace VL.Consoling
         static string LogPath = @"D:\log.txt";
         static bool IsFileLog = false;
         static string MQHost = "192.168.99.100";
-
+        static string LocalMSSQL = "Data Source=127.0.0.1,1433;Initial Catalog=VLTest;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sa;Password=123";
+        static string HeleOuterMSSQL = "Data Source=heletech.asuscomm.com,8082;Initial Catalog=HELEESB;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=ESBUSER;Password=ESBPWD";
+        static string HeleInnerMSSQL = "Data Source=192.168.50.102,8082;Initial Catalog=HELEESB;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=ESBUSER;Password=ESBPWD";
+        
         static void Main(string[] args)
         {
             ///命令对象有助于代码的版本控制,集体非方法的形式堆在一起不利于
@@ -913,7 +915,7 @@ namespace VL.Consoling
             cmds.Add(new Command("---------------------SQL Generate-------------------", () => { }));
             cmds.Add(new Command("g0408,生成差异化sql for 临安2.0升级 ", () =>
             {
-                using (var connection = new SqlConnection("Data Source=heletech.asuscomm.com,8082;Initial Catalog=HELEESB;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=ESBUSER;Password=ESBPWD"))
+                using (var connection = new SqlConnection(HeleOuterMSSQL))
                 {
                     var allFields = connection.Query<Information_Schema>(@"
     select v2.* 
@@ -1014,7 +1016,7 @@ namespace VL.Consoling
             }));
             cmds.Add(new Command("g0420,生成差异化sql for 哈密产科 ", () =>
             {
-                using (var connection = new SqlConnection("Data Source=heletech.asuscomm.com,8082;Initial Catalog=HELEESB;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=ESBUSER;Password=ESBPWD"))
+                using (var connection = new SqlConnection(HeleOuterMSSQL))
                 {
                     #region v1
                     //                    var allFields = connection.Query<Information_Schema>(@"
@@ -1111,7 +1113,7 @@ order by Table_Name,Column_Name;
                     Console.WriteLine("Task Completed");
                 }
             }));
-            cmds.Add(new Command("sql0000,数据库连接测试", () =>
+            cmds.Add(new Command("s0000,数据库连接测试", () =>
             {
                 var connectingString = "Data Source=127.0.0.1;Initial Catalog=VL_DEP;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=admin;Password=123";
                 try
@@ -1128,15 +1130,165 @@ order by Table_Name,Column_Name;
                     Console.WriteLine("数据库连接失败," + ex.ToString());
                 }
             }));
-            cmds.Add(new Command("sql0525", () =>
+            cmds.Add(new Command("s0525,数据库插入性能测试", () =>
             {
-                using (var connection = new SqlConnection("Data Source=heletech.asuscomm.com,8082;Initial Catalog=HELEESB;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=ESBUSER;Password=ESBPWD"))
+                var amount = 10000;
+                Console.WriteLine($"基于连接:{nameof(LocalMSSQL)}测试");
+                if (false)
                 {
-                    var result = connection.Execute(@"
-
-");
-                    Console.WriteLine("Task Completed");
+                    using (var connection = new SqlConnection(LocalMSSQL))
+                    {
+                        var id = connection.ExecuteScalar<long>(@"select max(id) from O_LabResult");
+                        id++;
+                        var t1 = DateTime.Now;
+                        for (long i = id; i < id + amount; i++)
+                        {
+                            O_LabResult entity = new O_LabResult()
+                            {
+                                ID = i,
+                                patientid = 0,
+                                idcard = i.ToString(),
+                                name = i.ToString(),
+                                orderid = i.ToString(),
+                                setid = 0,
+                                deliverydate = DateTime.Now,
+                            };
+                            var sql = @$"insert into O_LabResult(ID,patientid,idcard,name,orderid,setid,deliverydate) values(@ID,@patientid,@idcard,@name,@orderid,@setid,@deliverydate)";
+                            var result = connection.Execute(sql, entity);
+                        }
+                        var t2 = DateTime.Now;
+                        var ts = t2 - t1;
+                        Console.WriteLine($"一次连接{amount}次插入(无事务),耗时:{ts.TotalSeconds}");
+                    } 
                 }
+                if (false)
+                {
+                    var id = 0L;
+                    using (var connection = new SqlConnection(LocalMSSQL))
+                    {
+                        id = connection.ExecuteScalar<long>(@"select max(id) from O_LabResult");
+                    }
+                    id++;
+                    var t1 = DateTime.Now;
+                    for (long i = id; i <= id + amount; i++)
+                    {
+                        using (var connection = new SqlConnection(LocalMSSQL))
+                        {
+                            O_LabResult entity = new O_LabResult()
+                            {
+                                ID = i,
+                                patientid = 0,
+                                idcard = i.ToString(),
+                                name = i.ToString(),
+                                orderid = i.ToString(),
+                                setid = 0,
+                                deliverydate = DateTime.Now,
+                            };
+                            var sql = @$"insert into O_LabResult(ID,patientid,idcard,name,orderid,setid,deliverydate) values(@ID,@patientid,@idcard,@name,@orderid,@setid,@deliverydate)";
+                            var result = connection.Execute(sql, entity);
+                        }
+                    }
+                    var t2 = DateTime.Now;
+                    var ts = t2 - t1;
+                    Console.WriteLine($"独立连接{amount}次插入(无事务),耗时:{ts.TotalSeconds}");
+                }
+                if (false)
+                {
+                    var id = 0L;
+                    using (var connection = new SqlConnection(LocalMSSQL))
+                    {
+                        id = connection.ExecuteScalar<long>(@"select max(id) from O_LabResult");
+                    }
+                    id++;
+                    var t1 = DateTime.Now;
+                    for (long i = id; i <= id + amount; i++)
+                    {
+                        using (var connection = new SqlConnection(LocalMSSQL))
+                        {
+                            connection.Open();
+                            var transaction = connection.BeginTransaction();
+                            O_LabResult entity = new O_LabResult()
+                            {
+                                ID = i,
+                                patientid = 0,
+                                idcard = i.ToString(),
+                                name = i.ToString(),
+                                orderid = i.ToString(),
+                                setid = 0,
+                                deliverydate = DateTime.Now,
+                            };
+                            var sql = @$"insert into O_LabResult(ID,patientid,idcard,name,orderid,setid,deliverydate) values(@ID,@patientid,@idcard,@name,@orderid,@setid,@deliverydate)";
+                            var result = connection.Execute(sql, entity, transaction);
+                            transaction.Commit();
+                            connection.Close();
+                        }
+                    }
+                    var t2 = DateTime.Now;
+                    var ts = t2 - t1;
+                    Console.WriteLine($"独立连接{amount}次插入(有事务),耗时:{ts.TotalSeconds}");
+                }
+                if (false)
+                {
+                    using (var connection = new SqlConnection(LocalMSSQL))
+                    {
+                        var bach = 100;
+                        var id = connection.ExecuteScalar<long>(@"select max(id) from O_LabResult");
+                        id++;
+                        var t1 = DateTime.Now;
+                        var currentBach = 1;
+                        for (long i = id; i < id + amount; i++)
+                        {
+                            O_LabResult entity = new O_LabResult()
+                            {
+                                ID = i,
+                                patientid = 0,
+                                idcard = i.ToString(),
+                                name = i.ToString(),
+                                orderid = i.ToString(),
+                                setid = 0,
+                                deliverydate = DateTime.Now,
+                            };
+                            for (int j = currentBach; j <= bach; j++)
+                            {
+                                var sql = @$"insert into O_LabResult(ID,patientid,idcard,name,orderid,setid,deliverydate) values(@ID,@patientid,@idcard,@name,@orderid,@setid,@deliverydate)";
+                                var result = connection.Execute(sql, entity);
+                                i++;
+                            }
+                        }
+                        var t2 = DateTime.Now;
+                        var ts = t2 - t1;
+                        Console.WriteLine($"一次连接{amount}次一批次{bach}条插入(无事务),耗时:{ts.TotalSeconds}");
+                    }
+                }
+                Console.WriteLine($"基于连接:{nameof(HeleInnerMSSQL)}测试");
+                if (true)
+                {
+                    using (var connection = new SqlConnection(HeleInnerMSSQL))
+                    {
+                        var id = connection.ExecuteScalar<long>(@"select max(id) from O_LabResult");
+                        id++;
+                        var t1 = DateTime.Now;
+                        for (long i = id; i < id + amount; i++)
+                        {
+                            O_LabResult entity = new O_LabResult()
+                            {
+                                ID = i,
+                                patientid = 0,
+                                idcard = i.ToString(),
+                                name = i.ToString(),
+                                orderid = i.ToString(),
+                                setid = 0,
+                                deliverydate = DateTime.Now,
+                            };
+                            var sql = @$"insert into O_LabResult(ID,patientid,idcard,name,orderid,setid,deliverydate) values(@ID,@patientid,@idcard,@name,@orderid,@setid,@deliverydate)";
+                            var result = connection.Execute(sql, entity);
+                        }
+                        var t2 = DateTime.Now;
+                        var ts = t2 - t1;
+                        Console.WriteLine($"一次连接{amount}次插入(无事务),耗时:{ts.TotalSeconds}");
+                    }
+                }
+
             }));
             #endregion
             #region XML
@@ -1529,8 +1681,26 @@ order by Table_Name,Column_Name;
                 Console.WriteLine();
                 Console.ReadKey();
             }));
-            cmds.Start();
             #endregion
+            cmds.Start();
+        }
+
+        class O_LabResult
+        {
+            public long ID { set; get; }
+            public long patientid { set; get; }
+            public string idcard { set; get; }
+            public string name { set; get; }
+            public string orderid { set; get; }
+            public int setid { set; get; }
+            public string itemid { set; get; }
+            public string itemname { set; get; }
+            public string value { set; get; }
+            public string unit { set; get; }
+            public string reference { set; get; }
+            public long resultflag { set; get; }
+            public long status { set; get; }
+            public DateTime deliverydate { set; get; }
         }
 
         private static string GetCSType(string 数据类型)
@@ -1752,7 +1922,8 @@ order by Table_Name,Column_Name;
                 {
                     command.Execute();
                 }
-                catch (Exception e)
+                catch (Exception e
+                )
                 {
                     var error = e;
                     Console.WriteLine(e.ToString());

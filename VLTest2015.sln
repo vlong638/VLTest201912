@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VL.API", "VL.API\VL.API.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VL.WebApplication", "VL.WebApplication\VL.WebApplication.csproj", "{820048BF-9A93-49F7-80CD-89E779278D2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrameworkTest", "FrameworkTest\FrameworkTest.csproj", "{975342C6-A3C5-4AC6-AACE-109F01C5AA93}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VL.Consoling", "FrameworkTest\VL.Consoling.csproj", "{975342C6-A3C5-4AC6-AACE-109F01C5AA93}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
