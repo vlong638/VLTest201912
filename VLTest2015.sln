@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VL.API", "VL.API\VL.API.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VL.WebApplication", "VL.WebApplication\VL.WebApplication.csproj", "{820048BF-9A93-49F7-80CD-89E779278D2E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrameworkTest", "FrameworkTest\FrameworkTest.csproj", "{975342C6-A3C5-4AC6-AACE-109F01C5AA93}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +69,10 @@ Global
 		{820048BF-9A93-49F7-80CD-89E779278D2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{820048BF-9A93-49F7-80CD-89E779278D2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{820048BF-9A93-49F7-80CD-89E779278D2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{975342C6-A3C5-4AC6-AACE-109F01C5AA93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{975342C6-A3C5-4AC6-AACE-109F01C5AA93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{975342C6-A3C5-4AC6-AACE-109F01C5AA93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{975342C6-A3C5-4AC6-AACE-109F01C5AA93}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,6 +87,7 @@ Global
 		{0E73551E-4CB0-4B1E-BD5C-0A60E4704545} = {0355904F-ECB9-4A31-994D-08B2711B62A2}
 		{4773F251-1808-47BD-AC7C-C0CD96106689} = {0355904F-ECB9-4A31-994D-08B2711B62A2}
 		{820048BF-9A93-49F7-80CD-89E779278D2E} = {0355904F-ECB9-4A31-994D-08B2711B62A2}
+		{975342C6-A3C5-4AC6-AACE-109F01C5AA93} = {45085A16-EC66-42D3-BE91-964E3BBCD42F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1BEAF6BD-B42E-40E0-929E-2233182F9868}

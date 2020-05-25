@@ -26,6 +26,7 @@ namespace VL.Consoling
 
         static void Main(string[] args)
         {
+            ///命令对象有助于代码的版本控制,集体非方法的形式堆在一起不利于
             CommandCollection cmds = new CommandCollection();
             cmds.Add(new Command("ls", () =>
             {
@@ -1110,7 +1111,7 @@ order by Table_Name,Column_Name;
                     Console.WriteLine("Task Completed");
                 }
             }));
-            cmds.Add(new Command("sql,数据库连接测试", () =>
+            cmds.Add(new Command("sql0000,数据库连接测试", () =>
             {
                 var connectingString = "Data Source=127.0.0.1;Initial Catalog=VL_DEP;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=admin;Password=123";
                 try
@@ -1125,6 +1126,16 @@ order by Table_Name,Column_Name;
                 catch (Exception ex)
                 {
                     Console.WriteLine("数据库连接失败," + ex.ToString());
+                }
+            }));
+            cmds.Add(new Command("sql0525", () =>
+            {
+                using (var connection = new SqlConnection("Data Source=heletech.asuscomm.com,8082;Initial Catalog=HELEESB;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=ESBUSER;Password=ESBPWD"))
+                {
+                    var result = connection.Execute(@"
+
+");
+                    Console.WriteLine("Task Completed");
                 }
             }));
             #endregion
@@ -1384,7 +1395,7 @@ order by Table_Name,Column_Name;
                     }
                     //仪器数据解析
                     var data = System.IO.File.ReadAllBytes(dataFile);
-                    var model = new FileSystemWatcher.DrawTXJHModel();
+                    var model = new DrawTXJHModel();
                     var dataCount = data.Length / 17;
                     model.data1 = new int[dataCount];
                     model.data2 = new int[dataCount];
@@ -1403,7 +1414,7 @@ order by Table_Name,Column_Name;
                             case 16: model.data5[dataIndex] = data[i]; break;
                         }
                     }
-                    var entity = new FileSystemWatcher.GetDataForTXJHModel();
+                    var entity = new GetDataForTXJHModel();
                     entity.RecordCode = binglih;
                     entity.StartTime = startTime;
                     entity.FetalHeartData = string.Join(",", model.data1);
@@ -1567,6 +1578,42 @@ order by Table_Name,Column_Name;
             return "(" + field.CHARACTER_MAXIMUM_LENGTH + ")";
         }
     }
+
+    #region FileWatcher
+
+    /// <summary>
+    /// 胎心监护数据
+    /// </summary>
+    public class DrawTXJHModel
+    {
+        public int[] data1 { set; get; }
+        public int[] data2 { set; get; }
+        public int[] data3 { set; get; }
+        public int[] data4 { set; get; }
+        public int[] data5 { set; get; }
+    }
+
+    public class GetDataForTXJHModel
+    {
+        /// <summary>
+        /// 病历号
+        /// </summary>
+        public string RecordCode { set; get; }
+        /// <summary>
+        /// 起始时间
+        /// </summary>
+        public DateTime StartTime { set; get; }
+        /// <summary>
+        /// 胎心数据
+        /// </summary>
+        public string FetalHeartData { set; get; }
+        /// <summary>
+        /// 宫缩数据
+        /// </summary>
+        public string UCData { set; get; }
+    }
+
+    #endregion
 
     #region SQL Generate
 
