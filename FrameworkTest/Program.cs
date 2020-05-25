@@ -1,4 +1,4 @@
-﻿using ConsoleTest0213.SemiAutoExport;
+﻿using VL.Consoling.SemiAutoExport;
 using Dapper;
 using System;
 using System.Collections.Generic;

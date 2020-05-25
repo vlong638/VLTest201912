@@ -1,6 +1,6 @@
 ﻿using System.Data;
 
-namespace ConsoleTest0213.SemiAutoExport
+namespace VL.Consoling.SemiAutoExport
 {
     /// <summary>
     /// 配置文件 服务

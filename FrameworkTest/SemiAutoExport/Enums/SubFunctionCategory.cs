@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ConsoleTest0213.SemiAutoExport
+namespace VL.Consoling.SemiAutoExport
 {
     /// <summary>
     /// 项目分类,0 000 00中的第2-4位

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ConsoleTest0213.SemiAutoExport
+namespace VL.Consoling.SemiAutoExport
 {
     /// <summary>
     /// 配置文件输出项集合

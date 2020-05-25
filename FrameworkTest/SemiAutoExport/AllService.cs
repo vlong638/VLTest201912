@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 
-namespace ConsoleTest0213.SemiAutoExport
+namespace VL.Consoling.SemiAutoExport
 {
     public class AllService : IAllService
     {
