@@ -2,11 +2,11 @@
 using System.Reflection;
 using System.Xml;
 
-namespace VL.Consoling.Utils
+namespace VL.Consoling.XML
 {
     public class XMLHelper
     {
-        public static T XmlDataToModel<T>(String xmlData)
+        public static T XmlDataToModel<T>(string xmlData)
         {
             XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.LoadXml(xmlData);
@@ -18,7 +18,7 @@ namespace VL.Consoling.Utils
             {
                 PropertyInfo pi = objModel.GetType().GetProperty(childNode.Name);
                 if (pi == null) continue;
-                if (!String.IsNullOrEmpty(childNode.InnerXml.Trim()))
+                if (!string.IsNullOrEmpty(childNode.InnerXml.Trim()))
                     pi.SetValue(objModel, childNode.InnerXml, null);
             }
 

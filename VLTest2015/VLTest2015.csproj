@@ -858,6 +858,7 @@
     <Content Include="Views\Pregnant\LabOrderList.cshtml" />
     <Content Include="Views\Pregnant\VisitRecordList.cshtml" />
     <Content Include="Views\Pregnant\AllStatistics.cshtml" />
+    <Content Include="Views\Account\Sample.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

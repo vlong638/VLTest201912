@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using ConsoleTest0213.SemiAutoExport;
+using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -190,7 +191,7 @@ namespace FrameworkTest
                     Console.WriteLine($"独立连接{amount}次插入(有事务),耗时:{ts.TotalSeconds}");
                 }
                 //SqlBulkCopy批量,10000条,耗时0.2秒
-                if (true)
+                if (false)
                 {
                     var t1 = DateTime.Now;
                     var id = 0L;
@@ -280,6 +281,12 @@ namespace FrameworkTest
                         Console.WriteLine($"一次连接{amount}次插入(无事务),耗时:{ts.TotalSeconds}");
                     }
                 }
+            }));
+            #endregion
+            #region SemiAutoExport,半自动导出
+            cmds.Add(new Command("sae,", () =>
+            {
+                var data = new AllService().GetData(1);
             }));
             #endregion
             cmds.Start();

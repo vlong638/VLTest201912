@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "孕妇档案列表";
+}
+<div id="toolbar">
+    @*奇怪的页面样式问题...上面有一段空白"*@
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="return false;">无法显示</a>
+</div>
+@*列表*@
+<dic id="list">
+    <div style="margin-top:5px">
+        <div style="display:inline;">
+            <select class="easyui-combobox" id="name" style="width:200px;"></select>
+            <select class="easyui-combobox" id="sex" style="width:200px;"></select>
+            <select class="easyui-combobox" id="sex2" style="width:200px;"></select>
+        </div>
+    </div>
+    <div style="margin-top:5px">
+    </div>
+</dic>
+@*脚本*@
+<script type="text/javascript">
+    $(function () {
+        //下拉项配置化方案
+        $.ajax({
+            url: '/Home/GetDropDowns?type=name&isForceChange=false',
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+                //console.log(1);
+                $("#name").combobox({
+                    valueField: 'value',
+                    textField: 'text',
+                    multiple: true,
+                    required: true,
+                    data: data
+                });
+            },
+            error: function (data) {
+                //console.log(2);
+            }
+        });
+        $.ajax({
+            url: '/Home/GetDropDowns?type=sex&isForceChange=false',
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+                console.log(1);
+                $("#sex").combobox({
+                    valueField: 'value',
+                    textField: 'text',
+                    multiple: false,
+                    required: true,
+                    data: data
+                });
+                vl.combobox("#sex2", data);
+                //for (var i = 0; i < data.length; i++) {
+                //    $("#sex2").append("<option value='" + data[i].value + "'>" + data[i].text + "</option>");
+                //    vl.combobox("#sex2", data);
+                //}
+            },
+            error: function (data) {
+                console.log(2);
+            }
+        });
+    });
+</script>

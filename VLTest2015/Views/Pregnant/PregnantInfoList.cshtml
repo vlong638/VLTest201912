@@ -11,9 +11,6 @@
         <div style="display:inline;">
             <span>姓名:</span>
             <input id="in_name" style="line-height:26px;border:1px solid #ccc" />
-            <select class="easyui-combobox" id="name" style="width:200px;"></select>
-            <select class="easyui-combobox" id="sex" style="width:200px;"></select>
-            <select id="sex2"></select>
             <a href="#" class="easyui-linkbutton" plain="true" onclick="doSearch()">搜索</a>
         </div>
     </div>
@@ -59,49 +56,6 @@
             onDblClickRow: function (rowIndex, rowData) {
                 var PregnantInfoId = rowData.Id;
                 window.open("PregnantInfo?pregnantInfoId=" + PregnantInfoId);
-            }
-        });
-
-        //下拉项配置化方案
-        $.ajax({
-            url: '/Home/GetDropDowns?type=name&isForceChange=false',
-            type: 'get',
-            dataType: 'json',
-            success: function (data) {
-                //console.log(1);
-                $("#name").combobox({
-                    valueField: 'value',
-                    textField: 'text',
-                    multiple: true,
-                    required: true,
-                    data: data
-                });
-            },
-            error: function (data) {
-                //console.log(2);
-            }
-        });
-        $.ajax({
-            url: '/Home/GetDropDowns?type=sex&isForceChange=false',
-            type: 'get',
-            dataType: 'json',
-            success: function (data) {
-                console.log(1);
-                $("#sex").combobox({
-                    valueField: 'value',
-                    textField: 'text',
-                    multiple: false,
-                    required: true,
-                    data: data
-                });
-                vl.combobox("#sex2", data);
-                //for (var i = 0; i < data.length; i++) {
-                //    $("#sex2").append("<option value='" + data[i].value + "'>" + data[i].text + "</option>");
-                //    vl.combobox("#sex2", data);
-                //}
-            },
-            error: function (data) {
-                console.log(2);
             }
         });
     });

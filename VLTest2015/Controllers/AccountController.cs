@@ -85,6 +85,13 @@ namespace VLTest2015.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
+        public ActionResult Sample()
+        {
+            return View();
+        }
+
+        [HttpGet]
         [VLAuthentication(Authority.查看用户列表)]
         public ActionResult AccountList()
         {
