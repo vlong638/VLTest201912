@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FrameworkTest.DBSolution
+namespace FrameworkTest.Common.DBSolution
 {
     /// <summary>
     /// Service层返回结构

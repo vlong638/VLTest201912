@@ -8,8 +8,9 @@ using System.Linq;
 using System.Text;
 using FrameworkTest.Kettle;
 using FrameworkTest.ConfigurableEntity;
-using FrameworkTest.DBSolution;
+using FrameworkTest.Common.DBSolution;
 using System.Runtime.CompilerServices;
+using FrameworkTest.Common.XMLSolution;
 
 namespace FrameworkTest
 {
@@ -50,9 +51,9 @@ namespace FrameworkTest
                     Console.WriteLine("数据库连接失败," + ex.ToString());
                 }
             }));
-            cmds.Add(new Command("s11_0000,数据库连接测试", () =>
+            cmds.Add(new Command("s12_0000,数据库连接测试", () =>
             {
-                var context = DBSolution.GetDbContext(LocalMSSQL);
+                var context = DBHelper.GetDbContext(LocalMSSQL);
                 var serviceResult = context.DelegateTransaction((group) =>
                 {
                     var id = group.Connection.ExecuteScalar<long>(@"select max(id) from O_LabResult", transaction: group.Transaction);
@@ -310,7 +311,7 @@ namespace FrameworkTest
             #region ConfigurableEntity,配置化对象
             cmds.Add(new Command("c2_0526,数据库表结构配置", () =>
             {
-                var context = DBSolution.GetDbContext(LocalMSSQL);
+                var context = DBHelper.GetDbContext(LocalMSSQL);
                 var serviceResult = context.DelegateTransaction((group) =>
                 {
                     var sql = $@"
@@ -354,7 +355,7 @@ order by def.[TableName],def.Id
             }));
             cmds.Add(new Command("c3_0526,应用显示配置", () =>
             {
-                var context = DBSolution.GetDbContext(LocalMSSQL);
+                var context = DBHelper.GetDbContext(LocalMSSQL);
                 var serviceResult = context.DelegateTransaction((group) =>
                 {
                     var sql = $@"
@@ -396,6 +397,12 @@ order by def.[TableName],def.Id
                     var appConfigs = entityDBConfig.Select(c => new EntityAppConfig(c));
                     return appConfigs;
                 });
+            }));
+            #endregion
+            #region XML
+            cmds.Add(new Command("x1,xml", () =>
+            {
+                XMLHelper.TestCreate(@"D:\a.xml");
             }));
             #endregion
             cmds.Start();

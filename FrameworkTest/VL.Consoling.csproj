@@ -53,30 +53,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DBSolution\DbContext.cs" />
-    <Compile Include="DBSolution\DbGroup.cs" />
-    <Compile Include="DBSolution\DBHelper.cs" />
-    <Compile Include="DBSolution\ServiceResult.cs" />
-    <Compile Include="ConfigurableEntity\EntityConfig.cs" />
-    <Compile Include="ConfigurableEntity\EntityAppConfig.cs" />
-    <Compile Include="ConfigurableEntity\EntityDBConfig.cs" />
-    <Compile Include="ConfigurableEntity\SampleEntity.cs" />
-    <Compile Include="Kettle\O_LabResult.cs" />
+    <Compile Include="Common\DBSolution\DbContext.cs" />
+    <Compile Include="Common\DBSolution\DbGroup.cs" />
+    <Compile Include="Common\DBSolution\DBHelper.cs" />
+    <Compile Include="Common\DBSolution\ServiceResult.cs" />
+    <Compile Include="Business\ConfigurableEntity\EntityConfig.cs" />
+    <Compile Include="Business\ConfigurableEntity\EntityAppConfig.cs" />
+    <Compile Include="Business\ConfigurableEntity\EntityDBConfig.cs" />
+    <Compile Include="Business\ConfigurableEntity\SampleEntity.cs" />
+    <Compile Include="Business\Kettle\O_LabResult.cs" />
+    <Compile Include="Common\XMLSolution\XMLHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SemiAutoExport\AllService.cs" />
-    <Compile Include="SemiAutoExport\ConfigContext.cs" />
-    <Compile Include="SemiAutoExport\ConfigEntity.cs" />
-    <Compile Include="SemiAutoExport\ConfigEntityCondition.cs" />
-    <Compile Include="SemiAutoExport\ConfigEntityOutput.cs" />
-    <Compile Include="SemiAutoExport\Enums\ControlType.cs" />
-    <Compile Include="SemiAutoExport\Enums\FunctionCategory.cs" />
-    <Compile Include="SemiAutoExport\Enums\OperatorType.cs" />
-    <Compile Include="SemiAutoExport\Enums\SubFunctionCategory.cs" />
-    <Compile Include="SemiAutoExport\Enums\SubFunctionField.cs" />
-    <Compile Include="SemiAutoExport\FileConfigField.cs" />
-    <Compile Include="SemiAutoExport\FileConfigSource.cs" />
-    <Compile Include="SemiAutoExport\IAllService.cs" />
+    <Compile Include="Business\SemiAutoExport\AllService.cs" />
+    <Compile Include="Business\SemiAutoExport\ConfigContext.cs" />
+    <Compile Include="Business\SemiAutoExport\ConfigEntity.cs" />
+    <Compile Include="Business\SemiAutoExport\ConfigEntityCondition.cs" />
+    <Compile Include="Business\SemiAutoExport\ConfigEntityOutput.cs" />
+    <Compile Include="Business\SemiAutoExport\Enums\ControlType.cs" />
+    <Compile Include="Business\SemiAutoExport\Enums\FunctionCategory.cs" />
+    <Compile Include="Business\SemiAutoExport\Enums\OperatorType.cs" />
+    <Compile Include="Business\SemiAutoExport\Enums\SubFunctionCategory.cs" />
+    <Compile Include="Business\SemiAutoExport\Enums\SubFunctionField.cs" />
+    <Compile Include="Business\SemiAutoExport\FileConfigField.cs" />
+    <Compile Include="Business\SemiAutoExport\FileConfigSource.cs" />
+    <Compile Include="Business\SemiAutoExport\IAllService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
