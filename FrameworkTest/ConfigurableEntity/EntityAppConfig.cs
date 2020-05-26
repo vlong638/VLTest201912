@@ -28,14 +28,26 @@ namespace FrameworkTest.ConfigurableEntity
         /// <summary>
         /// 最大值(校验)
         /// </summary>
-        public long MaxValue { set; get; }
+        public long? MaxValue { set; get; }
         /// <summary>
         /// 最小值(校验)
         /// </summary>
-        public long MinValue { set; get; }
+        public long? MinValue { set; get; }
         /// <summary>
         /// 是否允许空(校验)
         /// </summary>
-        public bool IsNullable { set; get; }
+        public bool IsRequired { set; get; }
+
+        public EntityAppConfig(EntityDBConfig dbConfig)
+        {
+            this.Id = dbConfig.Id;
+            this.ColumnName = dbConfig.ColumnName;
+            this.Description = dbConfig.Description;
+            this.DisplayName = "";
+            this.DataType = dbConfig.DataType;
+            this.MaxValue = null;
+            this.MinValue = null;
+            this.IsRequired = !dbConfig.IsNullable;
+        }
     }
 }

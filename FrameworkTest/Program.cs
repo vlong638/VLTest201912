@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using FrameworkTest.Kettle;
 using FrameworkTest.ConfigurableEntity;
+using FrameworkTest.Common;
+using System.Runtime.CompilerServices;
 
 namespace FrameworkTest
 {
@@ -47,6 +49,19 @@ namespace FrameworkTest
                 {
                     Console.WriteLine("数据库连接失败," + ex.ToString());
                 }
+            }));
+            cmds.Add(new Command("s11_0000,数据库连接测试", () =>
+            {
+                var context = DBHelper.GetDbContext(LocalMSSQL);
+                var serviceResult = context.DelegateTransaction((group) =>
+                {
+                    var id = group.Connection.ExecuteScalar<long>(@"select max(id) from O_LabResult", transaction: group.Transaction);
+                    return id;
+                });
+
+                //if (!serviceResult.IsSuccess)
+                //    return Error(serviceResult.Data, serviceResult.Messages);
+                //return Json(new { total = serviceResult.Data.Count, rows = serviceResult.Data.List });
             }));
             cmds.Add(new Command("s2_0525,数据库插入性能测试", () =>
             {
@@ -293,7 +308,7 @@ namespace FrameworkTest
             }));
             #endregion
             #region ConfigurableEntity,配置化对象
-            cmds.Add(new Command("c2_0526,配置化对象", () =>
+            cmds.Add(new Command("c2_0526,数据库表结构配置", () =>
             {
                 var connectingString = LocalMSSQL;
                 try
@@ -338,6 +353,61 @@ select
 order by def.[TableName],def.Id
                         ";
                         var entityDBConfig = connection.Query<EntityDBConfig>(sql);
+                        connection.Close();
+                    }
+                    Console.WriteLine("数据库连接成功");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("数据库连接失败," + ex.ToString());
+                }
+            }));
+            cmds.Add(new Command("c3_0526,应用显示配置", () =>
+            {
+                var connectingString = LocalMSSQL;
+                try
+                {
+                    using (var connection = new SqlConnection(connectingString))
+                    {
+                        connection.Open();
+
+                        var sql = $@"
+select 
+    def.*
+    from
+    (
+	    SELECT
+			    tb.name as TableName,
+			    col.column_id Id,
+			    col.name AS ColumnName,
+			    typ.name as DataType,
+			    col.max_length AS MaxLength,
+			    col.[precision] AS Precision,
+			    col.scale AS Scale,
+			    col.is_nullable AS IsNullable,
+			    col.is_identity AS IsIdentity,
+		        case when exists
+				    (SELECT 1
+					    FROM
+						    sys.indexes idx
+							    join sys.index_columns idxCol
+							    on(idx.object_id = idxCol.object_id)
+					     WHERE
+							    idx.object_id = col.object_id
+							     AND idxCol.index_column_id = col.column_id
+							     AND idx.is_primary_key = 1
+				     ) THEN 1 ELSE 0 END AS IsPrimaryKey,
+			    cast(isnull(prop.[value], '-') as varchar(200)) AS Description
+	    FROM sys.columns col
+	    left join sys.types typ on(col.system_type_id = typ.system_type_id)
+	    left join sys.extended_properties prop on(col.object_id = prop.major_id AND prop.minor_id = col.column_id)
+	    left join sys.tables tb on col.object_id = tb.object_id
+	    where tb.name is not null
+    ) as def
+order by def.[TableName],def.Id
+                        ";
+                        var dbConfigs = connection.Query<EntityDBConfig>(sql);
+                        var appConfigs = dbConfigs.Select(c => new EntityAppConfig(c));
                         connection.Close();
                     }
                     Console.WriteLine("数据库连接成功");

@@ -53,6 +53,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\DbContext.cs" />
+    <Compile Include="Common\DbGroup.cs" />
+    <Compile Include="Common\DBHelper.cs" />
+    <Compile Include="Common\ServiceResult.cs" />
     <Compile Include="ConfigurableEntity\EntityConfig.cs" />
     <Compile Include="ConfigurableEntity\EntityAppConfig.cs" />
     <Compile Include="ConfigurableEntity\EntityDBConfig.cs" />
