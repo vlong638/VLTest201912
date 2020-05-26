@@ -6,6 +6,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using FrameworkTest.Kettle;
+using FrameworkTest.ConfigurableEntity;
 
 namespace FrameworkTest
 {
@@ -28,7 +30,7 @@ namespace FrameworkTest
             }));
             #region SQL
             cmds.Add(new Command("---------------------SQL-------------------", () => { }));
-            cmds.Add(new Command("s0000,数据库连接测试", () =>
+            cmds.Add(new Command("s1_0000,数据库连接测试", () =>
             {
                 var connectingString = LocalMSSQL;
                 try
@@ -36,6 +38,7 @@ namespace FrameworkTest
                     using (var connection = new SqlConnection(connectingString))
                     {
                         connection.Open();
+                        var id = connection.ExecuteScalar<long>(@"select max(id) from O_LabResult");
                         connection.Close();
                     }
                     Console.WriteLine("数据库连接成功");
@@ -45,7 +48,7 @@ namespace FrameworkTest
                     Console.WriteLine("数据库连接失败," + ex.ToString());
                 }
             }));
-            cmds.Add(new Command("s0525,数据库插入性能测试", () =>
+            cmds.Add(new Command("s2_0525,数据库插入性能测试", () =>
             {
                 var amount = 10000;
                 Console.WriteLine($"基于连接:{nameof(LocalMSSQL)}测试");
@@ -284,32 +287,71 @@ namespace FrameworkTest
             }));
             #endregion
             #region SemiAutoExport,半自动导出
-            cmds.Add(new Command("sae,", () =>
+            cmds.Add(new Command("c1_0525,半自动导出", () =>
             {
                 var data = new AllService().GetData(1);
+            }));
+            #endregion
+            #region ConfigurableEntity,配置化对象
+            cmds.Add(new Command("c2_0526,配置化对象", () =>
+            {
+                var connectingString = LocalMSSQL;
+                try
+                {
+                    using (var connection = new SqlConnection(connectingString))
+                    {
+                        connection.Open();
+
+                        var sql = $@"
+select 
+    def.*
+    from
+    (
+	    SELECT
+			    tb.name as TableName,
+			    col.column_id Id,
+			    col.name AS ColumnName,
+			    typ.name as DataType,
+			    col.max_length AS MaxLength,
+			    col.[precision] AS Precision,
+			    col.scale AS Scale,
+			    col.is_nullable AS IsNullable,
+			    col.is_identity AS IsIdentity,
+		        case when exists
+				    (SELECT 1
+					    FROM
+						    sys.indexes idx
+							    join sys.index_columns idxCol
+							    on(idx.object_id = idxCol.object_id)
+					     WHERE
+							    idx.object_id = col.object_id
+							     AND idxCol.index_column_id = col.column_id
+							     AND idx.is_primary_key = 1
+				     ) THEN 1 ELSE 0 END AS IsPrimaryKey,
+			    cast(isnull(prop.[value], '-') as varchar(200)) AS Description
+	    FROM sys.columns col
+	    left join sys.types typ on(col.system_type_id = typ.system_type_id)
+	    left join sys.extended_properties prop on(col.object_id = prop.major_id AND prop.minor_id = col.column_id)
+	    left join sys.tables tb on col.object_id = tb.object_id
+	    where tb.name is not null
+    ) as def
+order by def.[TableName],def.Id
+                        ";
+                        var entityDBConfig = connection.Query<EntityDBConfig>(sql);
+                        connection.Close();
+                    }
+                    Console.WriteLine("数据库连接成功");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("数据库连接失败," + ex.ToString());
+                }
             }));
             #endregion
             cmds.Start();
         }
     }
 
-    class O_LabResult
-    {
-        public long ID { set; get; }
-        public long patientid { set; get; }
-        public string idcard { set; get; }
-        public string name { set; get; }
-        public string orderid { set; get; }
-        public int setid { set; get; }
-        public string itemid { set; get; }
-        public string itemname { set; get; }
-        public string value { set; get; }
-        public string unit { set; get; }
-        public string reference { set; get; }
-        public long resultflag { set; get; }
-        public long status { set; get; }
-        public DateTime deliverydate { set; get; }
-    }
 
     #region CommandMode
 

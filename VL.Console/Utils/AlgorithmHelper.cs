@@ -9,7 +9,7 @@ namespace VL.Consoling.Utils
         #region 冒泡
         public static void BubbleSort(this int[] arr)
         {
-            for (int i = 0; i < arr.Length - 1; i++)
+            for (int i = 0; i < arr.Length - 1; i++)//双for结构,一次解决一个数的排位 所以-i
             {
                 for (int j = 0; j < arr.Length - 1 - i; j++)
                 {
