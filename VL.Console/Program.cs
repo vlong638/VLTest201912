@@ -1622,11 +1622,11 @@ order by Table_Name,Column_Name;
                 //核心就是第二个for的边界 -i
                 //基本思想就是:~
 
-                int[] arr = { 23, 44, 66, 76, 98, 11, 3, 9, 7 };
+                int[] arr = { 23, 44, 66, 76, 98, 11, 3, 9, 7, 23, 44, 66, 98, 11, 3, 9, 7, 23, 44, 66, 76, 98, 11, 3, 9, 7 };
                 Console.WriteLine("排序前的数组：");
                 foreach (int item in arr)
                 {
-                    Console.Write(item + "");
+                    Console.Write(item + ",");
                 }
                 Console.WriteLine();
                 arr.BubbleSort();
@@ -1641,11 +1641,11 @@ order by Table_Name,Column_Name;
             cmds.Add(new Command("a2,快排", () =>
             {
                 int temp = 0;
-                int[] arr = { 23, 44, 66, 76, 98, 11, 3, 9, 7 };
+                int[] arr = { 23, 44, 66, 76, 98, 11, 3, 9, 7, 23, 98, 11, 3, 9, 7, 23, 44, 66, 44, 66, 76, 98, 11, 3, 9, 7 };
                 Console.WriteLine("排序前的数组：");
                 foreach (int item in arr)
                 {
-                    Console.Write(item + "");
+                    Console.Write(item + ",");
                 }
                 Console.WriteLine();
                 arr.QuickSort();
