@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 
-namespace FrameworkTest.Common
+namespace FrameworkTest.DBSolution
 {
     public class DbContext
     {

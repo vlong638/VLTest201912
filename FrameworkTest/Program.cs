@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using FrameworkTest.Kettle;
 using FrameworkTest.ConfigurableEntity;
-using FrameworkTest.Common;
+using FrameworkTest.DBSolution;
 using System.Runtime.CompilerServices;
 
 namespace FrameworkTest
@@ -52,7 +52,7 @@ namespace FrameworkTest
             }));
             cmds.Add(new Command("s11_0000,数据库连接测试", () =>
             {
-                var context = DBHelper.GetDbContext(LocalMSSQL);
+                var context = DBSolution.GetDbContext(LocalMSSQL);
                 var serviceResult = context.DelegateTransaction((group) =>
                 {
                     var id = group.Connection.ExecuteScalar<long>(@"select max(id) from O_LabResult", transaction: group.Transaction);
@@ -310,14 +310,10 @@ namespace FrameworkTest
             #region ConfigurableEntity,配置化对象
             cmds.Add(new Command("c2_0526,数据库表结构配置", () =>
             {
-                var connectingString = LocalMSSQL;
-                try
+                var context = DBSolution.GetDbContext(LocalMSSQL);
+                var serviceResult = context.DelegateTransaction((group) =>
                 {
-                    using (var connection = new SqlConnection(connectingString))
-                    {
-                        connection.Open();
-
-                        var sql = $@"
+                    var sql = $@"
 select 
     def.*
     from
@@ -352,26 +348,16 @@ select
     ) as def
 order by def.[TableName],def.Id
                         ";
-                        var entityDBConfig = connection.Query<EntityDBConfig>(sql);
-                        connection.Close();
-                    }
-                    Console.WriteLine("数据库连接成功");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("数据库连接失败," + ex.ToString());
-                }
+                    var entityDBConfig = group.Connection.Query<EntityDBConfig>(sql, transaction: group.Transaction);
+                    return entityDBConfig;
+                });
             }));
             cmds.Add(new Command("c3_0526,应用显示配置", () =>
             {
-                var connectingString = LocalMSSQL;
-                try
+                var context = DBSolution.GetDbContext(LocalMSSQL);
+                var serviceResult = context.DelegateTransaction((group) =>
                 {
-                    using (var connection = new SqlConnection(connectingString))
-                    {
-                        connection.Open();
-
-                        var sql = $@"
+                    var sql = $@"
 select 
     def.*
     from
@@ -406,16 +392,10 @@ select
     ) as def
 order by def.[TableName],def.Id
                         ";
-                        var dbConfigs = connection.Query<EntityDBConfig>(sql);
-                        var appConfigs = dbConfigs.Select(c => new EntityAppConfig(c));
-                        connection.Close();
-                    }
-                    Console.WriteLine("数据库连接成功");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("数据库连接失败," + ex.ToString());
-                }
+                    var entityDBConfig = group.Connection.Query<EntityDBConfig>(sql, transaction: group.Transaction);
+                    var appConfigs = entityDBConfig.Select(c => new EntityAppConfig(c));
+                    return appConfigs;
+                });
             }));
             #endregion
             cmds.Start();

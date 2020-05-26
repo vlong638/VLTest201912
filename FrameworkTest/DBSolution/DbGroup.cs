@@ -1,6 +1,6 @@
 ﻿using System.Data;
 
-namespace FrameworkTest.Common
+namespace FrameworkTest.DBSolution
 {
     /// <summary>
     /// 数据库访问单元:支持事务及跨库协作
