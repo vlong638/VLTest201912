@@ -8,32 +8,20 @@ using System.Xml.Linq;
 
 namespace FrameworkTest.ConfigurableEntity
 {
-    class EntityAppConfigTable
+    /// <summary>
+    /// 显示类型
+    /// </summary>
+    public enum DisplayType
     {
-        public static string ElementName = "TableName";
-
-        public string TableName { set; get; }
-        public List<EntityAppConfigProperty> Properties { set; get; }
-
-        public EntityAppConfigTable()
-        { 
-
-        }
-        public EntityAppConfigTable(XElement element)
-        {
-            TableName = element.Attribute(ElementName).Value;
-            Properties = element.Descendants(EntityAppConfigProperty.ElementName).Select(c => new EntityAppConfigProperty(c)).ToList();
-        }
-
-        public XElement ToXElement()
-        {
-            var table = new XElement("Table");
-            table.SetAttributeValue(nameof(TableName), TableName);
-            var properties = Properties.Select(p => p.ToXElement());
-            table.Add(properties);
-            return table;
-        }
+        None = 0,
+        Hidden = 1,
+        TextString = 2,
+        TextInt = 21,
+        TextDecimal = 22,
+        Date = 3,
+        DateTime = 31,
     }
+
     class EntityAppConfigProperty
     {
         public static string ElementName = "Property";
@@ -43,23 +31,30 @@ namespace FrameworkTest.ConfigurableEntity
         /// </summary>
         public string ColumnName { set; get; }
         /// <summary>
+        /// 说明(显示,编辑时易理解)
+        /// </summary>
+        public string Description { set; get; }
+
+        #region 显示设置
+        /// <summary>
         /// 列名(显示)
         /// </summary>
         public string DisplayName { set; get; }
         /// <summary>
-        /// 说明(显示,编辑时易理解)
+        /// 显示方案
         /// </summary>
-        public string Description { set; get; }
+        public DisplayType DisplayType { set; get; } 
+        #endregion
 
         #region 页面控制开关
         /// <summary>
         /// 是否在列表页显示
         /// </summary>
-        public bool IsDisplayOnList { set; get; }
+        public bool IsNeedOnList { set; get; }
         /// <summary>
         /// 是否在详情页显示
         /// </summary>
-        public bool IsDisplayOnDetail { set; get; }
+        public bool IsNeedOnDetail { set; get; }
         #endregion
 
         #region 数据格式及校验
@@ -85,19 +80,21 @@ namespace FrameworkTest.ConfigurableEntity
         {
             ColumnName = dbConfig.ColumnName;
             DisplayName = "";
+            DisplayType = DisplayType.None;
             DataType = dbConfig.DataType;
-            IsDisplayOnList = false;
-            IsDisplayOnDetail = false;
+            IsNeedOnList = false;
+            IsNeedOnDetail = false;
             Description = dbConfig.Description;
         }
         public EntityAppConfigProperty(XElement element)
         {
-            ColumnName= element.Attribute(nameof(ColumnName)).Value;
-            DisplayName = element.Attribute(nameof(DisplayName)).Value;
-            DataType = element.Attribute(nameof(DataType)).Value;
-            IsDisplayOnList = element.Attribute(nameof(IsDisplayOnList)).Value.ToBool();
-            IsDisplayOnDetail = element.Attribute(nameof(IsDisplayOnDetail)).Value.ToBool();
-            Description = element.Attribute(nameof(Description)).Value;
+            ColumnName = element.Attribute(nameof(ColumnName))?.Value;
+            DisplayName = element.Attribute(nameof(DisplayName))?.Value;
+            DisplayType = element.Attribute(nameof(DisplayType))?.Value.ToEnum<DisplayType>() ?? DisplayType.None;
+            DataType = element.Attribute(nameof(DataType))?.Value;
+            IsNeedOnList = element.Attribute(nameof(IsNeedOnList))?.Value.ToBool() ?? false;
+            IsNeedOnDetail = element.Attribute(nameof(IsNeedOnDetail))?.Value.ToBool() ?? false;
+            Description = element.Attribute(nameof(Description))?.Value;
         }
 
         public XElement ToXElement()
@@ -105,8 +102,8 @@ namespace FrameworkTest.ConfigurableEntity
             var property = new XElement(ElementName);
             property.SetAttributeValue(nameof(ColumnName), ColumnName);
             property.SetAttributeValue(nameof(DisplayName), DisplayName);
-            property.SetAttributeValue(nameof(IsDisplayOnList), IsDisplayOnList);
-            property.SetAttributeValue(nameof(IsDisplayOnDetail), IsDisplayOnDetail);
+            property.SetAttributeValue(nameof(IsNeedOnList), IsNeedOnList);
+            property.SetAttributeValue(nameof(IsNeedOnDetail), IsNeedOnDetail);
             property.SetAttributeValue(nameof(DataType), DataType);
             property.SetAttributeValue(nameof(Description), Description);
             return property;

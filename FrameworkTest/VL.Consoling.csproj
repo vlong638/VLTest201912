@@ -53,11 +53,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business\ConfigurableEntity\EntityAppConfigTable.cs" />
     <Compile Include="Common\DBSolution\DbContext.cs" />
     <Compile Include="Common\DBSolution\DbGroup.cs" />
     <Compile Include="Common\DBSolution\DBHelper.cs" />
     <Compile Include="Common\DBSolution\ServiceResult.cs" />
-    <Compile Include="Business\ConfigurableEntity\EntityConfig.cs" />
+    <Content Include="Business\ConfigurableEntity\sql.txt" />
     <Compile Include="Business\ConfigurableEntity\EntityAppConfigProperty.cs" />
     <Compile Include="Business\ConfigurableEntity\EntityDBConfig.cs" />
     <Compile Include="Business\ConfigurableEntity\SampleEntity.cs" />

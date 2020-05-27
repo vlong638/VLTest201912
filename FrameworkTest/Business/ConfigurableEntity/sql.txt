@@ -1,0 +1,33 @@
+﻿select 
+    def.*
+    from
+    (
+	    SELECT
+			    tb.name as TableName,
+			    col.column_id Id,
+			    col.name AS ColumnName,
+			    typ.name as DataType,
+			    col.max_length AS MaxLength,
+			    col.[precision] AS Precision,
+			    col.scale AS Scale,
+			    col.is_nullable AS IsNullable,
+			    col.is_identity AS IsIdentity,
+		        case when exists
+				    (SELECT 1
+					    FROM
+						    sys.indexes idx
+							    join sys.index_columns idxCol
+							    on(idx.object_id = idxCol.object_id)
+					     WHERE
+							    idx.object_id = col.object_id
+							     AND idxCol.index_column_id = col.column_id
+							     AND idx.is_primary_key = 1
+				     ) THEN 1 ELSE 0 END AS IsPrimaryKey,
+			    cast(isnull(prop.[value], '-') as varchar(200)) AS Description
+	    FROM sys.columns col
+	    left join sys.types typ on(col.system_type_id = typ.system_type_id)
+	    left join sys.extended_properties prop on(col.object_id = prop.major_id AND prop.minor_id = col.column_id)
+	    left join sys.tables tb on col.object_id = tb.object_id
+	    where tb.name is not null
+    ) as def
+order by def.[TableName],def.Id
