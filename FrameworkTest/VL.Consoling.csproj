@@ -58,10 +58,13 @@
     <Compile Include="Common\DBSolution\DBHelper.cs" />
     <Compile Include="Common\DBSolution\ServiceResult.cs" />
     <Compile Include="Business\ConfigurableEntity\EntityConfig.cs" />
-    <Compile Include="Business\ConfigurableEntity\EntityAppConfig.cs" />
+    <Compile Include="Business\ConfigurableEntity\EntityAppConfigProperty.cs" />
     <Compile Include="Business\ConfigurableEntity\EntityDBConfig.cs" />
     <Compile Include="Business\ConfigurableEntity\SampleEntity.cs" />
     <Compile Include="Business\Kettle\O_LabResult.cs" />
+    <Compile Include="Common\EnumSolution\EnumHelper.cs" />
+    <Compile Include="Common\ValuesSolution\EnumEx.cs" />
+    <Compile Include="Common\ValuesSolution\ValueEx.cs" />
     <Compile Include="Common\XMLSolution\XMLHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

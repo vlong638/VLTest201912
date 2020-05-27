@@ -11,6 +11,7 @@ using FrameworkTest.ConfigurableEntity;
 using FrameworkTest.Common.DBSolution;
 using System.Runtime.CompilerServices;
 using FrameworkTest.Common.XMLSolution;
+using System.Xml.Linq;
 
 namespace FrameworkTest
 {
@@ -353,7 +354,7 @@ order by def.[TableName],def.Id
                     return entityDBConfig;
                 });
             }));
-            cmds.Add(new Command("c3_0526,应用显示配置", () =>
+            cmds.Add(new Command("c3_0526,应用配置,保存XML", () =>
             {
                 var context = DBHelper.GetDbContext(LocalMSSQL);
                 var serviceResult = context.DelegateTransaction((group) =>
@@ -394,9 +395,32 @@ select
 order by def.[TableName],def.Id
                         ";
                     var entityDBConfig = group.Connection.Query<EntityDBConfig>(sql, transaction: group.Transaction);
-                    var appConfigs = entityDBConfig.Select(c => new EntityAppConfig(c));
-                    return appConfigs;
+                    return entityDBConfig;
                 });
+
+                var path = @"D:\tables.xml";
+                //写成xml
+                var groupedProperties = serviceResult.Data.GroupBy(c => c.TableName).ToList();
+                var root = new XElement("Tables");
+                var tableConfigs = groupedProperties.Select(ps => {
+                    var configTable = new EntityAppConfigTable()
+                    {
+                        TableName = ps.Key,
+                        Properties = ps.Select(p => new EntityAppConfigProperty(p)).ToList()
+                    };
+                    return configTable;
+                });
+                root.Add(tableConfigs.Select(c => c.ToXElement()));
+                root.SaveAs(path);
+            }));
+            cmds.Add(new Command("c4_0527,应用配置,读取XML", () =>
+            {
+                var path = @"D:\tables.xml";
+                //读取xml
+                XDocument doc = XDocument.Load(path);
+                var tableElements = doc.Descendants("Table");
+                var tableConfig = new EntityAppConfigTable(tableElements.First());
+                var tableConfigs = tableElements.Select(c => new EntityAppConfigTable(c));
             }));
             #endregion
             #region XML
@@ -409,6 +433,9 @@ order by def.[TableName],def.Id
         }
     }
 
+    public class Constraints
+    {
+    }
 
     #region CommandMode
 

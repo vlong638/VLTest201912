@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace FrameworkTest.Common.XMLSolution
 {
-    public class XMLHelper
+    public static class XMLHelper
     {
         /// <summary>
         /// 创建简单的xml并保存
@@ -35,6 +36,25 @@ namespace FrameworkTest.Common.XMLSolution
             root.Add(items);
             XDocument xdoc = new XDocument(
             new XDeclaration("1.0", "utf-8", "yes"), root);
+            xdoc.Save(path);
+        }
+
+        public static XElement ToXElement<T>(this T entity) where T : class
+        {
+            var type = entity.GetType();
+            var properties = type.GetProperties();
+            var element = new XElement(type.Name);
+            foreach (var property in properties)
+            {
+                element.SetAttributeValue(property.Name, property.GetValue(entity));
+            }
+            return element;
+        }
+
+        public static void SaveAs(this XElement element,string path)
+        {
+            XDocument xdoc = new XDocument(
+            new XDeclaration("1.0", "utf-8", "yes"), element);
             xdoc.Save(path);
         }
     }
