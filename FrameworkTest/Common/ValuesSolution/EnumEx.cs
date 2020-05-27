@@ -15,5 +15,17 @@ namespace FrameworkTest.Common.ValuesSolution
             var att = Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute), false);
             return att == null ? field.Name : ((DescriptionAttribute)att).Description;
         }
+
+        public static T ToEnum<T>(this string value) where T : struct
+        {
+            if (value == null)
+            {
+                return default(T);
+            }
+
+            T t;
+            Enum.TryParse<T>(value, out t);
+            return t;
+        }
     }
 }
