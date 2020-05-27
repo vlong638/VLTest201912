@@ -356,6 +356,7 @@ order by def.[TableName],def.Id
             }));
             cmds.Add(new Command("c3_0526,应用配置,保存XML", () =>
             {
+                //读取数据
                 var context = DBHelper.GetDbContext(LocalMSSQL);
                 var serviceResult = context.DelegateTransaction((group) =>
                 {
@@ -398,8 +399,8 @@ order by def.[TableName],def.Id
                     return entityDBConfig;
                 });
 
-                var path = @"D:\tables.xml";
                 //写成xml
+                var path = @"D:\tables.xml";
                 var groupedProperties = serviceResult.Data.GroupBy(c => c.TableName).ToList();
                 var root = new XElement("Tables");
                 var tableConfigs = groupedProperties.Select(ps => {
@@ -415,8 +416,8 @@ order by def.[TableName],def.Id
             }));
             cmds.Add(new Command("c4_0527,应用配置,读取XML", () =>
             {
-                var path = @"D:\tables.xml";
                 //读取xml
+                var path = @"D:\tables.xml";
                 XDocument doc = XDocument.Load(path);
                 var tableElements = doc.Descendants("Table");
                 var tableConfig = new EntityAppConfigTable(tableElements.First());
