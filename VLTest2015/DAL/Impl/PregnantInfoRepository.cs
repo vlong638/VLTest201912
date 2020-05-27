@@ -28,6 +28,7 @@ namespace VLTest2015.DAL
         {
             return _context.Connection.Query<PregnantInfo>($"select * from [{PregnantInfo.TableName}] where Id = @PregnantInfoId;", new { pregnantInfoId }, transaction: _transaction).FirstOrDefault();
         }
+
         /// <summary>
         /// 获取孕妇档案分页列表
         /// </summary>
@@ -39,6 +40,24 @@ namespace VLTest2015.DAL
             var pars = request.GetParams();
             return _context.Connection.Query<PagedListOfPregnantInfoModel>(sql, pars, transaction: _transaction).ToList();
         }
+
+        /// <summary>
+        /// 获取孕妇档案分页列表
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        internal DataTable GetConfigurablePregnantInfoPagedList(GetPagedListOfPregnantInfoRequest request)
+        {
+            var sql = request.ToListSQL();
+            var pars = request.GetParams();
+
+            DataTable table = new DataTable("MyTable");
+            var reader=  _context.Connection.ExecuteReader(sql, pars, transaction: _transaction);
+            table.Load(reader);
+            return table;
+
+        }
+
         /// <summary>
         /// 获取孕妇档案分页计数
         /// </summary>

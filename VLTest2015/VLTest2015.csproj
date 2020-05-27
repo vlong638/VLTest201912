@@ -356,6 +356,7 @@
     <Compile Include="Common\Utils\ConfigurableEntity\EntityAppConfigProperty.cs" />
     <Compile Include="Common\Utils\ConfigurableEntity\EntityAppConfigTable.cs" />
     <Compile Include="Common\Utils\ConfigurableEntity\EntityDBConfig.cs" />
+    <Compile Include="Common\Utils\Values\DataTableEx.cs" />
     <Compile Include="Common\Utils\Values\JsonEx.cs" />
     <Compile Include="Common\Utils\Values\EnumEx.cs" />
     <Compile Include="Common\Utils\Values\ValueEx.cs" />

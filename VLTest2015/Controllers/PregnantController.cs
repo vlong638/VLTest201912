@@ -1,15 +1,20 @@
 ﻿using Microsoft.AspNet.Identity.Owin;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Xml.Linq;
 using VLTest2015.Attributes;
 using VLTest2015.Authentication;
 using VLTest2015.Common.Controllers;
 using VLTest2015.Common.Models.RequestDTO;
 using VLTest2015.Models;
 using VLTest2015.Services;
+using VLTest2015.Utils;
 using VLVLTest2015.Common.Pager;
 
 namespace VLTest2015.Controllers
@@ -72,6 +77,32 @@ namespace VLTest2015.Controllers
             if (!serviceResult.IsSuccess)
                 return Error(serviceResult.Data, serviceResult.Messages);
             return Json(new { total = serviceResult.Data.Count, rows = serviceResult.Data.List.ToList() });
+        }
+
+        [HttpPost]
+        [VLAuthentication(Authority.查看孕妇档案列表)]
+        public JsonResult GetConfigurablePagedListOfPregnantInfo(int page, int rows, string name)
+        {
+            var pars = new GetPagedListOfPregnantInfoRequest()
+            {
+                PersonName = name,
+                PageIndex = page,
+                PageSize = rows,
+            };
+
+            var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", "ListPages.xml");
+            XDocument doc = XDocument.Load(path);
+            var tableElements = doc.Descendants("Table");
+            var tableConfigs = tableElements.Select(c => new EntityAppConfigTable(c));
+            var tableConfig = tableConfigs.FirstOrDefault(c => c.TableName == "O_PregnantInfo");
+            var displayProperties = tableConfig.Properties.Where(c => c.IsNeedOnPage);
+            pars.FieldNames = displayProperties.Select(c => c.ColumnName).ToList();
+
+            var serviceResult = _PregnantService.GetConfigurablePagedListOfPregnantInfo(pars);
+            if (!serviceResult.IsSuccess)
+                return Error(serviceResult.Data, serviceResult.Messages);
+            var result = Json(new { total = serviceResult.Data.Count, rows = serviceResult.Data.DataTable.ToList() });
+            return result;
         }
 
         [HttpPost]

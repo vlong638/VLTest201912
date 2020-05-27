@@ -26,15 +26,18 @@
         });
     }
 
-    $(function () {
-        var displayType = {};
-        displayType.None = 1;
-        displayType.TextString = 2;
-        displayType.TextInt = 21;
-        displayType.TextDecimal = 22;
-        displayType.Date = 3;
-        displayType.DateTime = 31;
+    var displayType = {};
+    displayType.None = 1;
+    displayType.TextString = 2;
+    displayType.TextInt = 21;
+    displayType.TextDecimal = 22;
+    displayType.Date = 3;
+    displayType.DateTime = 31;
+    //TODO enum的统一归档
+    //TODO getEnumByName()
+    //TODO getEnumByValue()
 
+    $(function () {
         $.ajax
             ({
                 url: "../Home/GetListConfig",
@@ -62,7 +65,7 @@
                         }
 
                         $("#db_list").datagrid({
-                            url: "GetPagedListOfPregnantInfo",
+                            url: "GetConfigurablePagedListOfPregnantInfo",
                             pagination: true,
                             rownumbers: true,
                             singleSelect: true,
@@ -74,10 +77,6 @@
                             pageSize: 10,
                             pageList: [10, 20, 50],
                             columns: columns,
-                            //标准显示方案
-                            //columns: [[
-                            //    { field: 'Id', hidden: 'true' }
-                            //]],
                             onDblClickRow: function (rowIndex, rowData) {
                                 var PregnantInfoId = rowData.Id;
                                 window.open("PregnantInfo?pregnantInfoId=" + PregnantInfoId);

@@ -10,6 +10,7 @@ namespace VLTest2015.Common.Models.RequestDTO
     public class GetPagedListOfPregnantInfoRequest : VLPageRequest, IQueriablePagedList
     {
         public string PersonName { set; get; }
+        public List<string> FieldNames { get; internal set; }
 
         Dictionary<string, object> args = new Dictionary<string, object>();
         List<string> wheres = new List<string>();
@@ -54,7 +55,7 @@ from {PregnantInfo.TableName}
                 Orders.Add("Id", false);
             }
             return $@"
-select *
+select {string.Join(",", FieldNames)}
 from {PregnantInfo.TableName}
 {GetWhereCondition()}
 {GetOrderCondition()}

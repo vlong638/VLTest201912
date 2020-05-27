@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using VLTest2015.Common.Models.RequestDTO;
 using VLTest2015.DAL;
 using VLVLTest2015.Common.Pager;
@@ -29,6 +30,22 @@ namespace VLTest2015.Services
                 var list = _PregnantInfoRepository.GetPregnantInfoPagedList(request);
                 var count = _PregnantInfoRepository.GetPregnantInfoPagedListCount(request);
                 return new VLPageResult<PagedListOfPregnantInfoModel>() { List = list, Count = count, CurrentIndex = request.PageIndex };
+            });
+            return result;
+        }
+
+        /// <summary>
+        /// 孕妇档案列表
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public ServiceResult<VLPageSingleResult<DataTable>> GetConfigurablePagedListOfPregnantInfo(GetPagedListOfPregnantInfoRequest request)
+        {
+            var result = DelegateTransaction(() =>
+            {
+                var list = _PregnantInfoRepository.GetConfigurablePregnantInfoPagedList(request);
+                var count = _PregnantInfoRepository.GetPregnantInfoPagedListCount(request);
+                return new VLPageSingleResult<DataTable>() { DataTable = list, Count = count, CurrentIndex = request.PageIndex };
             });
             return result;
         }
