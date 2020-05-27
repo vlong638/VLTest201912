@@ -3,16 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 
-namespace VLTest2015.Services
+namespace VLTest2015
 {
-    public static class EnumHelper
+    public static class EnumEx
     {
-        public static IEnumerable<T> GetAllEnums<T>()
-        {
-            var enums = Enum.GetNames(typeof(T)).Select(c => (T)Enum.Parse(typeof(T), c));
-            return enums;
-        }
-
         public static string GetDescription(this Enum @this)
         {
             var name = @this.ToString();
@@ -20,6 +14,18 @@ namespace VLTest2015.Services
             if (field == null) return name;
             var att = Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute), false);
             return att == null ? field.Name : ((DescriptionAttribute)att).Description;
+        }
+
+        public static T ToEnum<T>(this string value) where T : struct
+        {
+            if (value == null)
+            {
+                return default(T);
+            }
+
+            T t;
+            Enum.TryParse<T>(value, out t);
+            return t;
         }
     }
 }

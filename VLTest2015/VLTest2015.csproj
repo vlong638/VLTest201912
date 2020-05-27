@@ -353,6 +353,12 @@
     <Compile Include="Common\Models\Pager\IQueriablePagedList.cs" />
     <Compile Include="Common\Models\Pager\VLPageRequest.cs" />
     <Compile Include="Common\Models\Pager\VLPageResult.cs" />
+    <Compile Include="Common\Utils\ConfigurableEntity\EntityAppConfigProperty.cs" />
+    <Compile Include="Common\Utils\ConfigurableEntity\EntityAppConfigTable.cs" />
+    <Compile Include="Common\Utils\ConfigurableEntity\EntityDBConfig.cs" />
+    <Compile Include="Common\Utils\Values\JsonEx.cs" />
+    <Compile Include="Common\Utils\Values\EnumEx.cs" />
+    <Compile Include="Common\Utils\Values\ValueEx.cs" />
     <Compile Include="Controllers\PregnantController.cs" />
     <Compile Include="DAL\Impl\LabCheckRepository.cs" />
     <Compile Include="DAL\Impl\VisitRecordRepository.cs" />
@@ -391,7 +397,7 @@
     <Compile Include="Common\Models\Entities\LabOrder.cs" />
     <Compile Include="Common\Models\Entities\VisitRecord.cs" />
     <Compile Include="Common\Models\Entities\PregnantInfo.cs" />
-    <Compile Include="Common\Utils\Values\EnumHelper.cs" />
+    <Compile Include="Common\Utils\EnumHelper.cs" />
     <Compile Include="Common\Models\ResponseDTO\CheckableIdNameResponse.cs" />
     <Compile Include="Common\Models\ResponseDTO\IdNameResponse.cs" />
     <Compile Include="Common\Models\ResponseDTO\GetUserPagedListResponse.cs" />
@@ -811,6 +817,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Scripts\VL\Common.js" />
+    <Content Include="XMLConfig\ListPages.xml" />
     <Content Include="管理_sql\2.新建表_.sql" />
     <Content Include="管理_sql\1.新建表_用户角色权限.sql" />
     <Content Include="Web.config">

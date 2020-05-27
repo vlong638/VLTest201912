@@ -25,38 +25,105 @@
             name: $('#in_name').val()
         });
     }
+
     $(function () {
-        $("#db_list").datagrid({
-            url: "GetPagedListOfPregnantInfo",
-            pagination: true,
-            rownumbers: true,
-            singleSelect: true,
-            remoteSort: true,
-            fitColumns: false,
-            selectOnCheck: false,
-            checkOnSelect: false,
-            striped: true,
-            pageSize: 10,
-            pageList: [10, 20, 50],
-            columns: [[
-                { field: 'Id', hidden: 'true' },
-                { field: 'PersonName', title: '姓名', width: 100, halign: 'center', align: 'left' },
-                { field: 'SexCode', title: '性别', width: 100, halign: 'center', align: 'left' },
-                { field: 'IdCard', title: '身份证号', width: 100, halign: 'center', align: 'left' },
-                { field: 'ContactPhone', title: '联系人电话', width: 100, halign: 'center', align: 'left' },
-                { field: 'Birthday', title: '出生日期', width: 100, halign: 'center', align: 'left' },
-                { field: 'Gravidity', title: '孕次', width: 100, halign: 'center', align: 'left' },
-                { field: 'Parity', title: '产次', width: 100, halign: 'center', align: 'left' },
-                { field: 'IsCreateBook', title: '是否建册', width: 100, halign: 'center', align: 'left' },
-                { field: 'GestationalWeeks', title: '建册孕周', width: 100, halign: 'center', align: 'left' },
-                { field: 'LastMenstrualPeriod', title: '末次月经', width: 100, halign: 'center', align: 'left' },
-                { field: 'DateOfPrenatal', title: '预产期', width: 100, halign: 'center', align: 'left' },
-                { field: 'FileStatus', title: '是否结案结案', width: 100, halign: 'center', align: 'left' },
-            ]],
-            onDblClickRow: function (rowIndex, rowData) {
-                var PregnantInfoId = rowData.Id;
-                window.open("PregnantInfo?pregnantInfoId=" + PregnantInfoId);
-            }
-        });
+        var displayType = {};
+        displayType.None = 1;
+        displayType.TextString = 2;
+        displayType.TextInt = 21;
+        displayType.TextDecimal = 22;
+        displayType.Date = 3;
+        displayType.DateTime = 31;
+
+        $.ajax
+            ({
+                url: "../Home/GetListConfig",
+                type: "post",
+                dataType: "json",
+                data: JSON.stringify({ listName: "O_PregnantInfo" }),
+                contentType: "application/json",
+                success: function (resp) {
+                    //console.log(resp);
+                    if (resp.Code == 200) {
+                        if (resp.msg != null && resp.msg != "") {
+                            ShowMessage(resp.msg);
+                        }
+                        console.log(1);
+                        var columns = [[]]
+                        for (var i = 0; i < resp.Data.length; i++) {
+                            var column = {}
+                            var item = resp.Data[i];
+                            column.field = item.ColumnName;
+                            column.title = item.DisplayName;
+                            column.width = 100;
+                            column.halign = 'center';
+                            column.align = 'left';
+                            columns[0].push(column);
+                        }
+
+                        $("#db_list").datagrid({
+                            url: "GetPagedListOfPregnantInfo",
+                            pagination: true,
+                            rownumbers: true,
+                            singleSelect: true,
+                            remoteSort: true,
+                            fitColumns: false,
+                            selectOnCheck: false,
+                            checkOnSelect: false,
+                            striped: true,
+                            pageSize: 10,
+                            pageList: [10, 20, 50],
+                            columns: columns,
+                            //标准显示方案
+                            //columns: [[
+                            //    { field: 'Id', hidden: 'true' }
+                            //]],
+                            onDblClickRow: function (rowIndex, rowData) {
+                                var PregnantInfoId = rowData.Id;
+                                window.open("PregnantInfo?pregnantInfoId=" + PregnantInfoId);
+                            }
+                        });
+                    } else {
+                        if (resp.msg != null && resp.msg != "") {
+                            ShowMessage(resp.msg);
+                        }
+                        console.log(2);
+                    }
+                }
+            });
+
+        //原始标准方案
+        //$("#db_list").datagrid({
+        //    url: "GetPagedListOfPregnantInfo",
+        //    pagination: true,
+        //    rownumbers: true,
+        //    singleSelect: true,
+        //    remoteSort: true,
+        //    fitColumns: false,
+        //    selectOnCheck: false,
+        //    checkOnSelect: false,
+        //    striped: true,
+        //    pageSize: 10,
+        //    pageList: [10, 20, 50],
+        //    columns: [[
+        //        { field: 'Id', hidden: 'true' },
+        //        { field: 'PersonName', title: '姓名', width: 100, halign: 'center', align: 'left' },
+        //        { field: 'SexCode', title: '性别', width: 100, halign: 'center', align: 'left' },
+        //        { field: 'IdCard', title: '身份证号', width: 100, halign: 'center', align: 'left' },
+        //        { field: 'ContactPhone', title: '联系人电话', width: 100, halign: 'center', align: 'left' },
+        //        { field: 'Birthday', title: '出生日期', width: 100, halign: 'center', align: 'left' },
+        //        { field: 'Gravidity', title: '孕次', width: 100, halign: 'center', align: 'left' },
+        //        { field: 'Parity', title: '产次', width: 100, halign: 'center', align: 'left' },
+        //        { field: 'IsCreateBook', title: '是否建册', width: 100, halign: 'center', align: 'left' },
+        //        { field: 'GestationalWeeks', title: '建册孕周', width: 100, halign: 'center', align: 'left' },
+        //        { field: 'LastMenstrualPeriod', title: '末次月经', width: 100, halign: 'center', align: 'left' },
+        //        { field: 'DateOfPrenatal', title: '预产期', width: 100, halign: 'center', align: 'left' },
+        //        { field: 'FileStatus', title: '是否结案结案', width: 100, halign: 'center', align: 'left' },
+        //    ]],
+        //    onDblClickRow: function (rowIndex, rowData) {
+        //        var PregnantInfoId = rowData.Id;
+        //        window.open("PregnantInfo?pregnantInfoId=" + PregnantInfoId);
+        //    }
+        //});
     });
 </script>

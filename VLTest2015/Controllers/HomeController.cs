@@ -1,7 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Web.Mvc;
+using System.Xml.Linq;
+using VLTest2015.Common.Controllers;
+using VLTest2015.Services;
+using VLTest2015.Utils;
 
 namespace VLTest2015.Controllers
 {
@@ -26,6 +31,7 @@ namespace VLTest2015.Controllers
             return View();
         }
 
+        #region JsonConfig
         static Dictionary<string, string> JsonConfigs = new Dictionary<string, string>();
         /// <summary>
         /// 获取下拉项        /// </summary>
@@ -34,7 +40,7 @@ namespace VLTest2015.Controllers
         /// <returns></returns>
         [HttpGet]
         [AllowAnonymous]
-        public JsonResult GetDropDowns(string type,bool isForceChange)
+        public JsonResult GetDropDowns(string type, bool isForceChange)
         {
             //List<DropDownItem> names = new List<DropDownItem>()
             //{
@@ -60,7 +66,6 @@ namespace VLTest2015.Controllers
             var entity = Newtonsoft.Json.JsonConvert.DeserializeObject<List<DropDownItem>>(data);
             return Json(entity, JsonRequestBehavior.AllowGet);
         }
-
         public class DropDownItem
         {
             public DropDownItem(string text, string value)
@@ -72,5 +77,29 @@ namespace VLTest2015.Controllers
             public string text { set; get; }
             public string value { set; get; }
         }
+        #endregion
+
+        #region XMLConfig
+
+        /// <summary>
+        /// 列表配置
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="isForceChange"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [AllowAnonymous]
+        public JsonResult GetListConfig(string listName)
+        {
+            var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", "ListPages.xml");
+            XDocument doc = XDocument.Load(path);
+            var tableElements = doc.Descendants("Table");
+            var tableConfigs = tableElements.Select(c => new EntityAppConfigTable(c));
+            var tableConfig = tableConfigs.FirstOrDefault(c => c.TableName == listName);
+            var displayProperties = tableConfig.Properties.Where(c => c.IsNeedOnPage);
+            return Json(new APIResult<IEnumerable<EntityAppConfigProperty>>(displayProperties));
+        }
+
+        #endregion
     }
 }

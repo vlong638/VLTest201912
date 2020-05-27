@@ -1,0 +1,554 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Tables>
+  <Table TableName="A_Role">
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="Id" DisplayType="None" DataType="bigint" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="Name" DisplayType="None" DataType="varchar" Description="-" />
+  </Table>
+  <Table TableName="A_RoleAuthority">
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="Id" DisplayType="None" DataType="bigint" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="RoleId" DisplayType="None" DataType="bigint" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="AuthorityId" DisplayType="None" DataType="bigint" Description="-" />
+  </Table>
+  <Table TableName="A_User">
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="Id" DisplayType="None" DataType="bigint" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="Password" DisplayType="None" DataType="varchar" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="Name" DisplayType="None" DataType="varchar" Description="-" />
+  </Table>
+  <Table TableName="A_UserAuthority">
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="Id" DisplayType="None" DataType="bigint" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="UserId" DisplayType="None" DataType="bigint" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="AuthorityId" DisplayType="None" DataType="bigint" Description="-" />
+  </Table>
+  <Table TableName="A_UserRole">
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="Id" DisplayType="None" DataType="bigint" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="UserId" DisplayType="None" DataType="bigint" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="RoleId" DisplayType="None" DataType="bigint" Description="-" />
+  </Table>
+  <Table TableName="Lock1">
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="C1" DisplayType="None" DataType="int" Description="-" />
+  </Table>
+  <Table TableName="Lock2">
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="C1" DisplayType="None" DataType="int" Description="-" />
+  </Table>
+  <Table TableName="O_LabOrder">
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="ID" DisplayType="None" DataType="bigint" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="patientid" DisplayType="None" DataType="nvarchar" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="patientid" DisplayType="None" DataType="sysname" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="idcard" DisplayType="None" DataType="nchar" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="name" DisplayType="None" DataType="nvarchar" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="name" DisplayType="None" DataType="sysname" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="orderid" DisplayType="None" DataType="nvarchar" Description="检查id" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="orderid" DisplayType="None" DataType="sysname" Description="检查id" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="examname" DisplayType="None" DataType="nvarchar" Description="检查名称" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="examname" DisplayType="None" DataType="sysname" Description="检查名称" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="examcode" DisplayType="None" DataType="nvarchar" Description="检查编码" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="examcode" DisplayType="None" DataType="sysname" Description="检查编码" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="ordertime" DisplayType="None" DataType="datetime" Description="检查时间" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="orderdocid" DisplayType="None" DataType="nchar" Description="检查医生Id" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="orderdocname" DisplayType="None" DataType="nvarchar" Description="检查医生名称" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="orderdocname" DisplayType="None" DataType="sysname" Description="检查医生名称" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="technician" DisplayType="None" DataType="nvarchar" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="technician" DisplayType="None" DataType="sysname" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="executer" DisplayType="None" DataType="nvarchar" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="executer" DisplayType="None" DataType="sysname" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="examtime" DisplayType="None" DataType="datetime" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="reporttime" DisplayType="None" DataType="datetime" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="examfinished" DisplayType="None" DataType="bit" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="status" DisplayType="None" DataType="bit" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="examhospital" DisplayType="None" DataType="varchar" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="importtime" DisplayType="None" DataType="datetime" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="jigoudm" DisplayType="None" DataType="varchar" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="deliverydate" DisplayType="None" DataType="datetime" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="deliveryid" DisplayType="None" DataType="varchar" Description="-" />
+  </Table>
+  <Table TableName="O_LabResult">
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="ID" DisplayType="None" DataType="bigint" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="patientid" DisplayType="None" DataType="nvarchar" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="patientid" DisplayType="None" DataType="sysname" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="idcard" DisplayType="None" DataType="nchar" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="name" DisplayType="None" DataType="nvarchar" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="name" DisplayType="None" DataType="sysname" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="orderid" DisplayType="None" DataType="nvarchar" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="orderid" DisplayType="None" DataType="sysname" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="setid" DisplayType="None" DataType="int" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="itemid" DisplayType="None" DataType="nvarchar" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="itemid" DisplayType="None" DataType="sysname" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="itemname" DisplayType="None" DataType="nvarchar" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="itemname" DisplayType="None" DataType="sysname" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="value" DisplayType="None" DataType="nvarchar" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="value" DisplayType="None" DataType="sysname" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="unit" DisplayType="None" DataType="nvarchar" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="unit" DisplayType="None" DataType="sysname" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="reference" DisplayType="None" DataType="nvarchar" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="reference" DisplayType="None" DataType="sysname" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="resultflag" DisplayType="None" DataType="nchar" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="status" DisplayType="None" DataType="bit" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="deliverydate" DisplayType="None" DataType="datetime" Description="-" />
+  </Table>
+  <Table TableName="O_PregnantInfo">
+    <Property IsNeedOnPage="true" DisplayName="" ColumnName="id" DisplayType="None" DataType="int" Description="自动编号" />
+    <Property IsNeedOnPage="true" DisplayName="姓名" ColumnName="personname" DisplayType="None" DataType="varchar" Description="孕妇姓名" />
+    <Property IsNeedOnPage="true" DisplayName="性别" ColumnName="sexcode" DisplayType="None" DataType="char" Description="性别" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="photo" DisplayType="None" DataType="varchar" Description="证件照编号" />
+    <Property IsNeedOnPage="true" DisplayName="就诊卡号" ColumnName="cardno" DisplayType="None" DataType="varchar" Description="就诊卡号" />
+    <Property IsNeedOnPage="true" DisplayName="身份证" ColumnName="idcard" DisplayType="None" DataType="varchar" Description="孕妇证件号" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="registeredpermanent" DisplayType="None" DataType="varchar" Description="户籍标志" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="bloodtypecode" DisplayType="None" DataType="char" Description="血型" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="homeplace" DisplayType="None" DataType="varchar" Description="出生地" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="address" DisplayType="None" DataType="varchar" Description="联系地址" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="zipcode" DisplayType="None" DataType="varchar" Description="邮政编码" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="birthday" DisplayType="None" DataType="datetime" Description="出生日期" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="nationalitycode" DisplayType="None" DataType="varchar" Description="国籍" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="nationcode" DisplayType="None" DataType="varchar" Description="民族" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="rhbloodcode" DisplayType="None" DataType="char" Description="RH血型" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="maritalstatuscode" DisplayType="None" DataType="char" Description="婚姻状况" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="workcode" DisplayType="None" DataType="varchar" Description="职业类别" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="insurancecode" DisplayType="None" DataType="varchar" Description="保险类别" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="educationcode" DisplayType="None" DataType="varchar" Description="文化程度" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="status" DisplayType="None" DataType="char" Description="状态" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="workplace" DisplayType="None" DataType="varchar" Description="工作单位" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="contact" DisplayType="None" DataType="varchar" Description="联系人" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="contactphone" DisplayType="None" DataType="varchar" Description="联系人电话" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="insurancetype" DisplayType="None" DataType="varchar" Description="医保类别" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="isagrregister" DisplayType="None" DataType="char" Description="是否农业户籍" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="dateofprenatal" DisplayType="None" DataType="date" Description="预产期" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="gravidity" DisplayType="None" DataType="varchar" Description="孕次" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="phrid" DisplayType="None" DataType="varchar" Description="健康档案编号" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="parity" DisplayType="None" DataType="varchar" Description="产次" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="predeliverymode" DisplayType="None" DataType="varchar" Description="前次分娩方式" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="lastmenstrualperiod" DisplayType="None" DataType="date" Description="末次月经时间" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="gestationneuropathy" DisplayType="None" DataType="varchar" Description="妊娠并发症史" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="operationhistory" DisplayType="None" DataType="varchar" Description="手术史" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="sbp" DisplayType="None" DataType="int" Description="收缩压(mmHg)" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="dbp" DisplayType="None" DataType="int" Description="舒张压(mmHg)" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="homeaddress" DisplayType="None" DataType="varchar" Description="户籍地址" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="pregnantbookid" DisplayType="None" DataType="varchar" Description="孕册号" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="mhcdoctorname" DisplayType="None" DataType="varchar" Description="妇保医生姓名" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="restregioncode" DisplayType="None" DataType="varchar" Description="产休地" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="ownerarea" DisplayType="None" DataType="varchar" Description="孕妇归属地" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="realregioncode" DisplayType="None" DataType="varchar" Description="居(暂)住地址" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="residencecode" DisplayType="None" DataType="varchar" Description="居(暂)住地址-文本" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="residencepermit" DisplayType="None" DataType="date" Description="办居住证日期" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="menarcheage" DisplayType="None" DataType="int" Description="初潮年龄" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="menstrualperiod" DisplayType="None" DataType="int" Description="经期(天)" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="cycle" DisplayType="None" DataType="int" Description="周期" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="menstrualblood" DisplayType="None" DataType="char" Description="月经量" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="dysmenorrhea" DisplayType="None" DataType="char" Description="痛经" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="unusualbone" DisplayType="None" DataType="varchar" Description="(无)异常孕产史" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="trafficflow" DisplayType="None" DataType="int" Description="人工流产次数" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="naturalabortion" DisplayType="None" DataType="int" Description="自然流产次数" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="odinopoeia" DisplayType="None" DataType="int" Description="中期引产次数" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="preterm" DisplayType="None" DataType="int" Description="早产次数" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="dystocia" DisplayType="None" DataType="int" Description="难产次数" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="died" DisplayType="None" DataType="int" Description="死胎死产次数" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="abnormality" DisplayType="None" DataType="int" Description="畸形儿次数" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="newbrondied" DisplayType="None" DataType="int" Description="死亡儿次数" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="qwetimes" DisplayType="None" DataType="int" Description="药物流产次数" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="ectopicpregnancy" DisplayType="None" DataType="int" Description="宫外孕次数" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="vesicularmole" DisplayType="None" DataType="int" Description="葡萄胎次数" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="pregestationdate" DisplayType="None" DataType="date" Description="前妊娠终止日期" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="pregestationmode" DisplayType="None" DataType="varchar" Description="前次终止方式" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="predeliverydate" DisplayType="None" DataType="date" Description="前次分娩日期" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="pasthistory" DisplayType="None" DataType="varchar" Description="既往病史" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="familyhistory" DisplayType="None" DataType="varchar" Description="家族史" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="gynecologyops" DisplayType="None" DataType="varchar" Description="妇科手术史" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="allergichistory" DisplayType="None" DataType="varchar" Description="过敏史" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="poisontouchhis" DisplayType="None" DataType="varchar" Description="毒物接触史" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="heredityfamilyhistory" DisplayType="None" DataType="varchar" Description="遗传家族史" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="husbandfamilyhistory" DisplayType="None" DataType="varchar" Description="丈夫家族史" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="gestationalweeks" DisplayType="None" DataType="int" Description="建册孕周" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="height" DisplayType="None" DataType="decimal" Description="身高(cm)" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="weight" DisplayType="None" DataType="decimal" Description="基础体重(kg)" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="pregnantid" DisplayType="None" DataType="varchar" Description="孕妇档案号" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="manaunitid" DisplayType="None" DataType="varchar" Description="管辖机构" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="createdate" DisplayType="None" DataType="date" Description="建册日期" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="mark" DisplayType="None" DataType="char" Description="处理标志" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="uploadtime" DisplayType="None" DataType="date" Description="上传时间" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="updatetime" DisplayType="None" DataType="datetime" Description="处理时间" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="reserved0" DisplayType="None" DataType="varchar" Description="预留0" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="reserved1" DisplayType="None" DataType="varchar" Description="预留1" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="reserved2" DisplayType="None" DataType="varchar" Description="预留2" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="reserved3" DisplayType="None" DataType="varchar" Description="预留3" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="reserved4" DisplayType="None" DataType="varchar" Description="预留4" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="phonenumber" DisplayType="None" DataType="varchar" Description="家庭电话" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="mobilenumber" DisplayType="None" DataType="varchar" Description="本人电话" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="responsedoctorname" DisplayType="None" DataType="varchar" Description="妇保医生姓名" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="husbandname" DisplayType="None" DataType="varchar" Description="丈夫姓名" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="inputpregweeks" DisplayType="None" DataType="int" Description="录入孕周" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="folicsupplementation" DisplayType="None" DataType="char" Description="是否补充叶酸" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="patientid" DisplayType="None" DataType="varchar" Description="病人id" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="patientaccount" DisplayType="None" DataType="varchar" Description="医保卡号" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="schedule" DisplayType="None" DataType="varchar" Description="计划表" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="homeaddress_text" DisplayType="None" DataType="varchar" Description="户籍地址-文本" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="followupdoctorname" DisplayType="None" DataType="varchar" Description="随访医生姓名" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="createtime" DisplayType="None" DataType="datetime" Description="创建时间" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="editorcode" DisplayType="None" DataType="varchar" Description="录入护士工号" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="editorname" DisplayType="None" DataType="varchar" Description="录入护士姓名" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="pulse" DisplayType="None" DataType="int" Description="脉搏" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="dateofprenatalflag" DisplayType="None" DataType="int" Description="预产期修正标志" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="lastmodifydate" DisplayType="None" DataType="datetime" Description="最后修改时间" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="create_localuser" DisplayType="None" DataType="varchar" Description="建档医生" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="sourceunit" DisplayType="None" DataType="varchar" Description="来源单位" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="updateflag" DisplayType="None" DataType="char" Description="修改标志" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="deliverydate" DisplayType="None" DataType="datetime" Description="上传至传输平台时间" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="filestatus" DisplayType="None" DataType="int" Description="结案标志" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="builtkcal" DisplayType="None" DataType="datetime" Description="建大卡时间" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="deliveryid" DisplayType="None" DataType="varchar" Description="数据中心关联的唯一键" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="embryowithdrawal" DisplayType="None" DataType="int" Description="胚胎停育次数" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="gestationaldays" DisplayType="None" DataType="int" Description="建册孕天" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="husbandfamilyhistorytext" DisplayType="None" DataType="varchar" Description="丈夫家族史详情" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="liveplace" DisplayType="None" DataType="varchar" Description="居住地址" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="workname" DisplayType="None" DataType="varchar" Description="职业" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="termbirthtimes" DisplayType="None" DataType="int" Description="足月产次数" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="pretermbirthtimes" DisplayType="None" DataType="int" Description="早产次数" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="abortiontimes" DisplayType="None" DataType="int" Description="流产次数" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="existingchildrennum" DisplayType="None" DataType="int" Description="现存子女数" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="pregnanthistory" DisplayType="None" DataType="varchar" Description="孕产史" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="tpregnancymanner" DisplayType="None" DataType="char" Description="本次怀孕方式" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="bmi" DisplayType="None" DataType="varchar" Description="体质指数" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="tpregnancymanner_text" DisplayType="None" DataType="varchar" Description="本次怀孕详情" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="liveplace_text" DisplayType="None" DataType="varchar" Description="居住地址详情" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="husbandidcard" DisplayType="None" DataType="varchar" Description="丈夫身份证号" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="changein_unit" DisplayType="None" DataType="varchar" Description="转入机构" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="changein_date" DisplayType="None" DataType="date" Description="转入日期" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="changein_ascription" DisplayType="None" DataType="varchar" Description="转入来源区属" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="jiuzhenid" DisplayType="None" DataType="nchar" Description="门诊号" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="idtype" DisplayType="None" DataType="varchar" Description="证件类型" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="createage" DisplayType="None" DataType="int" Description="建册年龄" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="husbandbirthday" DisplayType="None" DataType="date" Description="丈夫出生日期" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="husbandage" DisplayType="None" DataType="int" Description="丈夫年龄 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="husbandmobile" DisplayType="None" DataType="varchar" Description="丈夫联系电话 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="husbandworkplace" DisplayType="None" DataType="varchar" Description="丈夫工作单位 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="husbandnationcode" DisplayType="None" DataType="varchar" Description="丈夫民族 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="husbandnationalitycode" DisplayType="None" DataType="varchar" Description="丈夫国籍编码 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="homeaddressphone" DisplayType="None" DataType="varchar" Description="户籍地址联系电话 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="liveaddresscode" DisplayType="None" DataType="varchar" Description="家庭地址编号 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="liveaddresstext" DisplayType="None" DataType="varchar" Description="家庭地址名称 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="restregiontext" DisplayType="None" DataType="varchar" Description="产后休养地址" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="restregionphone" DisplayType="None" DataType="varchar" Description="产后休养地址电话 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="husbandhomeaddress" DisplayType="None" DataType="varchar" Description="丈夫户籍地址编号 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="husbandhomeaddress_text" DisplayType="None" DataType="varchar" Description="丈夫户籍地址 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="registrationtype" DisplayType="None" DataType="varchar" Description="户口类型 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="healthplace" DisplayType="None" DataType="varchar" Description="生殖健康服务证发放地 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="sourceunittext" DisplayType="None" DataType="varchar" Description="录入机构名称 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="nationtext" DisplayType="None" DataType="varchar" Description="孕妇民族名称 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="vaginaldeliverynum" DisplayType="None" DataType="int" Description="阴道分娩 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="caesareansectionnum" DisplayType="None" DataType="int" Description="剖宫产 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="presenthistory" DisplayType="None" DataType="varchar" Description="现病史 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="presenthistorytext" DisplayType="None" DataType="varchar" Description="现病史异常详述 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="pasthistorytext" DisplayType="None" DataType="varchar" Description="既往病史详述" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="pasthistoryval" DisplayType="None" DataType="varchar" Description="既往病史详述值，逗号相隔" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="heredityfamilyhistorytext" DisplayType="None" DataType="varchar" Description="遗传家族史" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="mentalhistory" DisplayType="None" DataType="varchar" Description="精神疾病史 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="mentalhistorytext" DisplayType="None" DataType="varchar" Description="精神疾病史详述 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="retarded" DisplayType="None" DataType="varchar" Description="智障 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="retardedlevel" DisplayType="None" DataType="varchar" Description="智障程度 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="retardedtext" DisplayType="None" DataType="varchar" Description="智障详述 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="malformation" DisplayType="None" DataType="varchar" Description="畸形 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="malformationtext" DisplayType="None" DataType="varchar" Description="畸形详述 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="otherfamilyhistory" DisplayType="None" DataType="varchar" Description="孕妇其他家族病史 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="otherfamilyhistorytext" DisplayType="None" DataType="varchar" Description="孕妇其他家族史详述 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="husheredityfamilyhistory" DisplayType="None" DataType="varchar" Description="丈夫遗传性疾病史 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="husheredityfamilyhistorytext" DisplayType="None" DataType="varchar" Description="丈夫遗传性疾病史详述 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="husmentalhistory" DisplayType="None" DataType="varchar" Description="精神疾病史 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="husmentalhistorytext" DisplayType="None" DataType="varchar" Description="精神疾病史详述 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="husretarded" DisplayType="None" DataType="varchar" Description="智障 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="husretardedlevel" DisplayType="None" DataType="varchar" Description="智障程度 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="husretardedtext" DisplayType="None" DataType="varchar" Description="智障详述 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="husmalformation" DisplayType="None" DataType="varchar" Description="畸形 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="husmalformationtext" DisplayType="None" DataType="varchar" Description="畸形详述 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="husotherfamilyhistory" DisplayType="None" DataType="varchar" Description="丈夫其他家族病史 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="husotherfamilyhistorytext" DisplayType="None" DataType="varchar" Description="丈夫其他家族史详述 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="personnalhistory" DisplayType="None" DataType="varchar" Description="个人史 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="smoking" DisplayType="None" DataType="varchar" Description="吸烟 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="smokingtext" DisplayType="None" DataType="varchar" Description="吸烟详述 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="drinking" DisplayType="None" DataType="varchar" Description="饮酒 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="drinkingtext" DisplayType="None" DataType="varchar" Description="饮酒详述 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="medicine" DisplayType="None" DataType="varchar" Description="服用药物 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="medicinetext" DisplayType="None" DataType="varchar" Description="服用药物详述 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="allergichistorytext" DisplayType="None" DataType="varchar" Description="药物过敏史详述 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="poisontouchhistext" DisplayType="None" DataType="varchar" Description="接触有毒有害物质详述 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="radiation" DisplayType="None" DataType="varchar" Description="接触放射线 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="radiationtext" DisplayType="None" DataType="varchar" Description="接触放射线详述 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="traumahistory" DisplayType="None" DataType="varchar" Description="外伤史 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="traumahistorytext" DisplayType="None" DataType="varchar" Description="外伤史详述 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="otherpersonnalhistory" DisplayType="None" DataType="varchar" Description="其他个人史 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="otherpersonnalhistorytext" DisplayType="None" DataType="varchar" Description="其他个人史详述 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="gynecologyopstext" DisplayType="None" DataType="varchar" Description="妇科手术史" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="otheroperationhistory" DisplayType="None" DataType="varchar" Description="其他手术史 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="otheroperationhistorytext" DisplayType="None" DataType="varchar" Description="其他手术史详述 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="contraceptionhistory" DisplayType="None" DataType="varchar" Description="是否有避孕史 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="contraception" DisplayType="None" DataType="varchar" Description="是否避孕 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="contraceptiontext" DisplayType="None" DataType="varchar" Description="避孕史详述 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="pregnancyhistory" DisplayType="None" DataType="varchar" Description="孕产史 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="downloadtime" DisplayType="None" DataType="datetime" Description="下载时间" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="dateofprenataltext" DisplayType="None" DataType="varchar" Description="预产期详述" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="birthhistorytext" DisplayType="None" DataType="varchar" Description="生育史" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="manageaddresscode" DisplayType="None" DataType="varchar" Description="管辖地址编码" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="manageaddresstext" DisplayType="None" DataType="varchar" Description="管辖地址-详细地址" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="isflowpeople" DisplayType="None" DataType="char" Description="是否流动人群" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="cyclemin" DisplayType="None" DataType="int" Description="周期-下限" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="cyclemax" DisplayType="None" DataType="int" Description="周期-上限" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="menstrualperiodmin" DisplayType="None" DataType="int" Description="经期(天)-下限" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="menstrualperiodmax" DisplayType="None" DataType="int" Description="经期(天)-上限" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="husbandidtype" DisplayType="None" DataType="varchar" Description="丈夫证件类型" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="husbandworkcode" DisplayType="None" DataType="varchar" Description="丈夫职业类别" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="husbandworkname" DisplayType="None" DataType="varchar" Description="丈夫职业名称" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="husbandeducationcode" DisplayType="None" DataType="varchar" Description="丈夫文化程度" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="husbandphonenumber" DisplayType="None" DataType="varchar" Description="丈夫家庭电话" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="husbandliveaddresscode" DisplayType="None" DataType="varchar" Description="丈夫家庭地址编号 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="husbandliveaddresstext" DisplayType="None" DataType="varchar" Description="丈夫家庭地址名称 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="husbandregistrationtype" DisplayType="None" DataType="varchar" Description="丈夫户口类型 " />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="preblood" DisplayType="None" DataType="varchar" Description="产前出血" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="afterblood" DisplayType="None" DataType="varchar" Description="产后出血" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="pih" DisplayType="None" DataType="varchar" Description="妊高症" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="husbandisagrregister" DisplayType="None" DataType="char" Description="丈夫是否农业户籍" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="died_fetal" DisplayType="None" DataType="int" Description="死胎次数" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="died_stillbirth" DisplayType="None" DataType="int" Description="死产次数" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="overdelivery" DisplayType="None" DataType="int" Description="过期产次数" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="restregionname" DisplayType="None" DataType="varchar" Description="产休地名称" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="homeaddressname" DisplayType="None" DataType="varchar" Description="户籍地址名称" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="husbandhomeaddressname" DisplayType="None" DataType="varchar" Description="丈夫户籍地址名称" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="husbandliveaddressname" DisplayType="None" DataType="varchar" Description="丈夫居住地址名称" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="iscreatebook" DisplayType="None" DataType="char" Description="是否建册" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="dateofprenatalmodifyreason" DisplayType="None" DataType="varchar" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="husbandbloodtypecode" DisplayType="None" DataType="varchar" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="husbandrhbloodcode" DisplayType="None" DataType="varchar" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="createbookunit" DisplayType="None" DataType="varchar" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="bloodtransfution" DisplayType="None" DataType="varchar" Description="输血史" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="eggretrievaltime" DisplayType="None" DataType="datetime" Description="取卵时间" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="implanttime" DisplayType="None" DataType="datetime" Description="植入时间" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="PublicHealth" DisplayType="None" DataType="int" Description="基本情况-基本公共卫生" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="HealthCheck" DisplayType="None" DataType="int" Description="基本情况-全面健康体检" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="PermanentResidence" DisplayType="None" DataType="int" Description="基本情况-常住地" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="SettleYear" DisplayType="None" DataType="int" Description="基本情况-定居年份" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="SettleMonth" DisplayType="None" DataType="int" Description="基本情况-定居月份" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="Guide" DisplayType="None" DataType="varchar" Description="本次孕情-指导" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="IsHealthcare" DisplayType="None" DataType="int" Description="孕前保健-孕前保健有无" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="IsConsult" DisplayType="None" DataType="int" Description="孕前保健-优生咨询" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="IsCheck" DisplayType="None" DataType="int" Description="孕前保健-孕前检查" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="IsPrepare" DisplayType="None" DataType="int" Description="孕前保健-孕前准备" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="IsFolicAcid" DisplayType="None" DataType="int" Description="孕前保健-服用叶酸" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="ReceiveNumber" DisplayType="None" DataType="int" Description="领用情况-领取数量" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="ReceiveDate" DisplayType="None" DataType="datetime" Description="领用情况-领取时间" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="ProvideUnit" DisplayType="None" DataType="varchar" Description="领用情况-发放单位" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="ReceiveRemark" DisplayType="None" DataType="varchar" Description="领用情况-备注" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="PregnantInfoId" DisplayType="None" DataType="int" Description="自动编号" />
+  </Table>
+  <Table TableName="O_VisitRecord">
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="id" DisplayType="None" DataType="int" Description="编号" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="checkid" DisplayType="None" DataType="int" Description="弃用" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="idcard" DisplayType="None" DataType="varchar" Description="身份证" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="visitid" DisplayType="None" DataType="char" Description="产检ID" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="checkweek" DisplayType="None" DataType="varchar" Description="检查孕周" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="selffeelsymptom" DisplayType="None" DataType="varchar" Description="自觉症状描述" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="selffeelsymptomflag" DisplayType="None" DataType="char" Description="自觉症状异常" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="quickeningtimes" DisplayType="None" DataType="int" Description="胎动次数" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="weight" DisplayType="None" DataType="decimal" Description="体重(kg)" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="weightflag" DisplayType="None" DataType="char" Description="体重异常" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="dbp" DisplayType="None" DataType="int" Description="舒张压(mmhg)" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="sbp" DisplayType="None" DataType="int" Description="收缩压(mmhg)" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="bpflag" DisplayType="None" DataType="char" Description="血压异常" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="heightfundusuterus" DisplayType="None" DataType="decimal" Description="宫高(cm)" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="heightfundusuterusflag" DisplayType="None" DataType="char" Description="宫高异常" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="abdomencircumference" DisplayType="None" DataType="decimal" Description="腹围(cm)" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="fetalposition" DisplayType="None" DataType="varchar" Description="胎方位" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="fetalpositionflag" DisplayType="None" DataType="char" Description="胎位异常" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="fetalheartrate" DisplayType="None" DataType="int" Description="胎心率(次/分）" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="fetalheartflag" DisplayType="None" DataType="char" Description="胎心异常" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="presentposition" DisplayType="None" DataType="varchar" Description="先露" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="xianjie" DisplayType="None" DataType="varchar" Description="衔接" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="edemastatus" DisplayType="None" DataType="varchar" Description="浮肿" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="haemoglobin" DisplayType="None" DataType="varchar" Description="血红蛋白" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="albuminuria" DisplayType="None" DataType="varchar" Description="尿蛋白" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="liverfunction" DisplayType="None" DataType="varchar" Description="肝功能" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="bloodsugar" DisplayType="None" DataType="varchar" Description="血糖" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="otherexam" DisplayType="None" DataType="varchar" Description="其他化验描述" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="bultrasonicdiagnosis" DisplayType="None" DataType="varchar" Description="B超诊断" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="amnioticfluiddepth" DisplayType="None" DataType="varchar" Description="羊水垂直深度" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="afi" DisplayType="None" DataType="varchar" Description="羊水指数" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="bultrasonicdate" DisplayType="None" DataType="date" Description="B超诊断日期" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="bultrasonicid" DisplayType="None" DataType="varchar" Description="B超检查单号" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="highriskscore" DisplayType="None" DataType="int" Description="高危评分" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="highrisklevel" DisplayType="None" DataType="varchar" Description="高危评级" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="category" DisplayType="None" DataType="varchar" Description="分类" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="suggestion" DisplayType="None" DataType="varchar" Description="处理建议" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="visitdate" DisplayType="None" DataType="date" Description="检查时间" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="doctorid" DisplayType="None" DataType="varchar" Description="检查医生姓名工号" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="hospitalcode" DisplayType="None" DataType="varchar" Description="检查机构" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="cancellationreason" DisplayType="None" DataType="varchar" Description="终止管理原因" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="highriskreason" DisplayType="None" DataType="varchar" Description="高危因素" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="otherhighreasons" DisplayType="None" DataType="varchar" Description="其他危险因素" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="visitmode" DisplayType="None" DataType="varchar" Description="随访方式" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="iflost" DisplayType="None" DataType="varchar" Description="是否失访" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="lostreason" DisplayType="None" DataType="varchar" Description="失访原因" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="visitresult" DisplayType="None" DataType="varchar" Description="随访结果" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="exceptiondesc" DisplayType="None" DataType="varchar" Description="异常描述" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="guide" DisplayType="None" DataType="varchar" Description="指导" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="lastmodifyuser" DisplayType="None" DataType="varchar" Description="最后修改人" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="lastmodifydate" DisplayType="None" DataType="datetime" Description="最后修改日期" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="mark" DisplayType="None" DataType="char" Description="处理标志" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="uploadtime" DisplayType="None" DataType="date" Description="上传时间" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="updatetime" DisplayType="None" DataType="datetime" Description="处理时间" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="reserved0" DisplayType="None" DataType="varchar" Description="预留0" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="reserved1" DisplayType="None" DataType="varchar" Description="预留1" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="reserved2" DisplayType="None" DataType="varchar" Description="预留2" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="reserved3" DisplayType="None" DataType="varchar" Description="预留3" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="reserved4" DisplayType="None" DataType="varchar" Description="预留4" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="referral" DisplayType="None" DataType="char" Description="转诊" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="referraldate" DisplayType="None" DataType="datetime" Description="转诊日期" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="referralreasons" DisplayType="None" DataType="varchar" Description="转诊原因" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="referraldepartment" DisplayType="None" DataType="varchar" Description="转诊科室" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="referralagencies" DisplayType="None" DataType="varchar" Description="转诊机构" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="pregnantid" DisplayType="None" DataType="varchar" Description="孕妇档案号" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="chiefcomplaint" DisplayType="None" DataType="varchar" Description="主诉" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="followupappointment" DisplayType="None" DataType="date" Description="随访预约时间" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="multifetal" DisplayType="None" DataType="varchar" Description="多胎字典" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="pregnantinfoid" DisplayType="None" DataType="int" Description="孕妇档案编号，外键" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="medication" DisplayType="None" DataType="char" Description="是否用药" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="plandate" DisplayType="None" DataType="date" Description="计划时间" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="checkday" DisplayType="None" DataType="varchar" Description="检查孕天" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="highriskruleweek" DisplayType="None" DataType="varchar" Description="随访规则" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="highriskruleday" DisplayType="None" DataType="varchar" Description="随访规则" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="jobnumber" DisplayType="None" DataType="varchar" Description="随访医生工号" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="generalcomment" DisplayType="None" DataType="varchar" Description="总体评估" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="doctorname" DisplayType="None" DataType="varchar" Description="检查医生姓名" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="createtime" DisplayType="None" DataType="datetime" Description="创建时间" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="editorcode" DisplayType="None" DataType="varchar" Description="录入护士工号" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="editorname" DisplayType="None" DataType="varchar" Description="录入护士姓名" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="heartrate" DisplayType="None" DataType="int" Description="脉搏" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="haemoglobincheckdate" DisplayType="None" DataType="date" Description="血红蛋白检查日期" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="albuminuriacheckdate" DisplayType="None" DataType="date" Description="尿蛋白检查日期" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="bloodsugarcheckdate" DisplayType="None" DataType="date" Description="血糖检查日期" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="othertest" DisplayType="None" DataType="varchar" Description="其他检查" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="printoptions" DisplayType="None" DataType="varchar" Description="弃用" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="highriskdic" DisplayType="None" DataType="varchar" Description="高危字典" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="maindiagnosis" DisplayType="None" DataType="varchar" Description="主诊断" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="secondarydiagnosis" DisplayType="None" DataType="varchar" Description="次诊断" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="diagnosis" DisplayType="None" DataType="varchar" Description="弃用" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="diagnosisdic" DisplayType="None" DataType="varchar" Description="诊断字典" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="suggestionsortlist" DisplayType="None" DataType="varchar" Description="处理建议分类字典" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="psyeva" DisplayType="None" DataType="varchar" Description="心理评估" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="paineva" DisplayType="None" DataType="varchar" Description="疼痛评估" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="recovereva" DisplayType="None" DataType="varchar" Description="康复需求" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="nutritioneva" DisplayType="None" DataType="varchar" Description="营养评估" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="falleva" DisplayType="None" DataType="varchar" Description="跌倒评估" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="socialeva" DisplayType="None" DataType="varchar" Description="社会经济评估（社会支持）" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="economiceva" DisplayType="None" DataType="varchar" Description="社会经济评估（经济状况）" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="comunicationeva" DisplayType="None" DataType="varchar" Description="沟通能力筛选" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="medicationlog" DisplayType="None" DataType="varchar" Description="用药记录" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="presenthistory" DisplayType="None" DataType="varchar" Description="现病史" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="emergrade" DisplayType="None" DataType="varchar" Description="急诊分级" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="pregnantstatus" DisplayType="None" DataType="varchar" Description="状态" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="diagnosisinfo" DisplayType="None" DataType="varchar" Description="诊断说明" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="jiuzhenid" DisplayType="None" DataType="varchar" Description="就诊编号" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="uterinecontraction" DisplayType="None" DataType="varchar" Description="宫缩" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="amnioticfluidcharacter" DisplayType="None" DataType="varchar" Description="羊水性状" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="vaginalbleeding" DisplayType="None" DataType="varchar" Description="阴道流血" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="brokenwater" DisplayType="None" DataType="varchar" Description="破水" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="othercommonexam" DisplayType="None" DataType="varchar" Description="其他检验检查" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="mechanism" DisplayType="None" DataType="varchar" Description="就诊科室编号" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="palacemouth" DisplayType="None" DataType="varchar" Description="宫口" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="departmentname" DisplayType="None" DataType="varchar" Description="就诊科室名称" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="printgs" DisplayType="None" DataType="varchar" Description="打印宫缩" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="learningeva" DisplayType="None" DataType="varchar" Description="学习意愿评估" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="specialeva" DisplayType="None" DataType="varchar" Description="特殊人群评估" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="specialevaid" DisplayType="None" DataType="int" Description="特殊人群评估编号，外键" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="otherbodyexam" DisplayType="None" DataType="varchar" Description="其他体格检查" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="deliveryid" DisplayType="None" DataType="varchar" Description="上级传输平台唯一标志" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="pregdeliveryid" DisplayType="None" DataType="varchar" Description="孕妇档案上级传输平台唯一标志" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="heartbultrasonicdiagnosis" DisplayType="None" DataType="varchar" Description="心超诊断" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="heartbultrasonicdate" DisplayType="None" DataType="date" Description="心超诊断日期" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="heartbultrasonicid" DisplayType="None" DataType="varchar" Description="心超检查单号" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="bbheartbultrasonicdate" DisplayType="None" DataType="date" Description="胎儿心超诊断日期" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="bbheartbultrasonicid" DisplayType="None" DataType="varchar" Description="胎儿心超诊断单号" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="bbheartbultrasonicdiagnosis" DisplayType="None" DataType="varchar" Description="胎儿心超诊断" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="sound" DisplayType="None" DataType="varchar" Description="心肺听诊" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="touchdiagnosis" DisplayType="None" DataType="char" Description="腹部触诊" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="fetalmove" DisplayType="None" DataType="char" Description="胎动" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="monitor" DisplayType="None" DataType="char" Description="胎心监护" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="status" DisplayType="None" DataType="varchar" Description="状态位，1为有效，0为作废，9为删除" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="medicationtf" DisplayType="None" DataType="varchar" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="openpalace" DisplayType="None" DataType="varchar" Description="宫口开大" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="cervicalreg" DisplayType="None" DataType="varchar" Description="宫颈管消退" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="presentationpos" DisplayType="None" DataType="varchar" Description="先露位置" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="cervicalhard" DisplayType="None" DataType="varchar" Description="宫颈硬度" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="uterusloc" DisplayType="None" DataType="varchar" Description="宫口位置" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="bishopscore" DisplayType="None" DataType="int" Description="宫颈bishop评分" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="filedtime" DisplayType="None" DataType="datetime" Description="归档日期" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="deliverydate" DisplayType="None" DataType="datetime" Description="上传至上及传输平台日期" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="tcmsyndrome" DisplayType="None" DataType="varchar" Description="中医证型" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="temperature" DisplayType="None" DataType="varchar" Description="体温" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="heart" DisplayType="None" DataType="varchar" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="hearttext" DisplayType="None" DataType="varchar" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="lungs" DisplayType="None" DataType="varchar" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="lungstext" DisplayType="None" DataType="varchar" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="vulva" DisplayType="None" DataType="varchar" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="vulvatext" DisplayType="None" DataType="varchar" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="vagina" DisplayType="None" DataType="varchar" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="vaginatext" DisplayType="None" DataType="varchar" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="cervix" DisplayType="None" DataType="varchar" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="cervixtext" DisplayType="None" DataType="varchar" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="uterus" DisplayType="None" DataType="varchar" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="uterustext" DisplayType="None" DataType="varchar" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="appendages" DisplayType="None" DataType="varchar" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="appendagestext" DisplayType="None" DataType="varchar" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="pregnancytype" DisplayType="None" DataType="varchar" Description="-" />
+  </Table>
+  <Table TableName="T_LabCheck">
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="Id" DisplayType="None" DataType="bigint" Description="自动编号" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="InstitutionCode" DisplayType="None" DataType="bigint" Description="机构编码" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="CreatorId" DisplayType="None" DataType="bigint" Description="创建者（？）" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="PatientId" DisplayType="None" DataType="bigint" Description="病人Id" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="db_createtime" DisplayType="None" DataType="datetime" Description="(非业务字段)数据创建时间" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="db_updatetime" DisplayType="None" DataType="datetime" Description="(非业务字段)数据更新时间" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="XUEHONGDB" DisplayType="None" DataType="decimal" Description="血红蛋白(g/dl)" />
+  </Table>
+  <Table TableName="T_LabOrder">
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="Id" DisplayType="None" DataType="bigint" Description="自动编号" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="InstitutionCode" DisplayType="None" DataType="bigint" Description="机构编码" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="CreatorId" DisplayType="None" DataType="bigint" Description="创建者（？）" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="PatientId" DisplayType="None" DataType="bigint" Description="病人Id" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="db_createtime" DisplayType="None" DataType="datetime" Description="(非业务字段)数据创建时间" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="db_updatetime" DisplayType="None" DataType="datetime" Description="(非业务字段)数据更新时间" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="XUEHONGDB" DisplayType="None" DataType="decimal" Description="血红蛋白(g/dl)" />
+  </Table>
+  <Table TableName="T_PregnantInfo">
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="OldId" DisplayType="None" DataType="bigint" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="Id" DisplayType="None" DataType="bigint" Description="自动编号" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="InstitutionCode" DisplayType="None" DataType="bigint" Description="机构编码" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="CreatorId" DisplayType="None" DataType="bigint" Description="创建者（建档医生）" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="db_createtime" DisplayType="None" DataType="datetime" Description="(非业务字段)数据创建时间" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="db_updatetime" DisplayType="None" DataType="datetime" Description="(非业务字段)数据更新时间" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="PatientCode" DisplayType="None" DataType="varchar" Description="病人编码" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="Name" DisplayType="None" DataType="varchar" Description="孕妇姓名" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="Sex" DisplayType="None" DataType="int" Description="性别" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="IdCard" DisplayType="None" DataType="varchar" Description="身份证号" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="ContactPhone" DisplayType="None" DataType="varchar" Description="联系人电话" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="Birthday" DisplayType="None" DataType="datetime" Description="出生日期" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="Gravidity" DisplayType="None" DataType="int" Description="孕次" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="Parity" DisplayType="None" DataType="int" Description="产次" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="IsCreateBook" DisplayType="None" DataType="int" Description="是否建册" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="GestationalWeeks" DisplayType="None" DataType="int" Description="建册孕周" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="LastMenstrualPeriod" DisplayType="None" DataType="datetime" Description="末次月经" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="DateOfPrenatal" DisplayType="None" DataType="datetime" Description="预产期" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="FileStatus" DisplayType="None" DataType="int" Description="档案状态:(结案标识)" />
+  </Table>
+  <Table TableName="T_VisitRecord">
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="OldId" DisplayType="None" DataType="bigint" Description="-" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="Id" DisplayType="None" DataType="bigint" Description="自动编号" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="InstitutionCode" DisplayType="None" DataType="bigint" Description="机构编码" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="CreatorId" DisplayType="None" DataType="bigint" Description="创建者（？）" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="PregnantInfoId" DisplayType="None" DataType="bigint" Description="孕妇档案编码" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="db_createtime" DisplayType="None" DataType="datetime" Description="(非业务字段)数据创建时间" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="db_updatetime" DisplayType="None" DataType="datetime" Description="(非业务字段)数据更新时间" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="VisitDate" DisplayType="None" DataType="datetime" Description="检查时间" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="DBP" DisplayType="None" DataType="int" Description="舒张压(mmhg)" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="SBP" DisplayType="None" DataType="int" Description="收缩压(mmhg)" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="Weight" DisplayType="None" DataType="decimal" Description="体重(kg)" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="HeightFundusuterus" DisplayType="None" DataType="decimal" Description="宫高(cm)" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="AbdomenCircumference" DisplayType="None" DataType="decimal" Description="腹围(cm)" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="FetalHeartRate" DisplayType="None" DataType="int" Description="胎心率(次/分）" />
+    <Property IsNeedOnPage="false" DisplayName="" ColumnName="EdemaStatus" DisplayType="None" DataType="varchar" Description="浮肿" />
+  </Table>
+</Tables>

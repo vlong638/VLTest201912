@@ -1,12 +1,6 @@
-﻿using FrameworkTest.Common.ValuesSolution;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 
-namespace FrameworkTest.ConfigurableEntity
+namespace VLTest2015.Utils
 {
     /// <summary>
     /// 显示类型
@@ -94,10 +88,9 @@ namespace FrameworkTest.ConfigurableEntity
         public XElement ToXElement()
         {
             var property = new XElement(ElementName);
-            property.SetAttributeValue(nameof(IsNeedOnPage), IsNeedOnPage);
-            property.SetAttributeValue(nameof(DisplayName), DisplayName);
             property.SetAttributeValue(nameof(ColumnName), ColumnName);
-            property.SetAttributeValue(nameof(DisplayType), DisplayType.ToString());
+            property.SetAttributeValue(nameof(DisplayName), DisplayName);
+            property.SetAttributeValue(nameof(IsNeedOnPage), IsNeedOnPage);
             property.SetAttributeValue(nameof(DataType), DataType);
             property.SetAttributeValue(nameof(Description), Description);
             return property;

@@ -12,21 +12,21 @@ namespace VLTest2015.Common.Controllers
 
         public APIResult(params string[] messages)
         {
-            this.Code = SuccessCode;
+            Code = SuccessCode;
             if (messages != null & messages.Length != 0)
-                this.Messages.AddRange(messages);
+                Message = string.Join(",", messages);
         }
         public APIResult(int code, params string[] messages)
         {
-            this.Code = code;
+            Code = code;
             if (messages != null & messages.Length != 0)
-                this.Messages.AddRange(messages);
+                Message = string.Join(",", messages);
         }
 
         /// <summary>
         /// 信息
         /// </summary>
-        public List<string> Messages { set; get; } = new List<string>();
+        public string Message { set; get; }
         /// <summary>
         /// 状态码
         /// </summary>
@@ -38,7 +38,7 @@ namespace VLTest2015.Common.Controllers
         /// 诸如以下的组件异常
         /// false case: 比如服务层返回异常(如服务层校验未通过,出现事务回滚异常)
         /// </summary>
-        public bool IsValidated { get { return Messages.Count() == 0; } }
+        public bool IsValidated { get { return Code == 200; } }
     }
     /// <summary>
     /// Controller层返回结构

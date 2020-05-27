@@ -354,7 +354,7 @@ order by def.[TableName],def.Id
                     return entityDBConfig;
                 });
             }));
-            cmds.Add(new Command("c3_0526,应用配置,保存XML", () =>
+            cmds.Add(new Command("c3_0526,List应用配置,保存XML", () =>
             {
                 //读取数据
                 var context = DBHelper.GetDbContext(LocalMSSQL);
@@ -400,7 +400,6 @@ order by def.[TableName],def.Id
                 });
 
                 //写成xml
-                var path = @"D:\tables.xml";
                 var groupedProperties = serviceResult.Data.GroupBy(c => c.TableName).ToList();
                 var root = new XElement("Tables");
                 var tableConfigs = groupedProperties.Select(ps => {
@@ -412,6 +411,7 @@ order by def.[TableName],def.Id
                     return configTable;
                 });
                 root.Add(tableConfigs.Select(c => c.ToXElement()));
+                var path = @"D:\ListPages.xml";
                 root.SaveAs(path);
             }));
             cmds.Add(new Command("c4_0527,应用配置,读取XML", () =>

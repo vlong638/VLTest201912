@@ -120,6 +120,8 @@ namespace VLTest2015.Controllers
             return Json(new { total = serviceResult.Data.Count, rows = serviceResult.Data.List });
         }
 
+        #region 统计方案测试
+
         [HttpGet]
         [VLAuthentication]
         public ActionResult AllStatistics()
@@ -186,8 +188,9 @@ namespace VLTest2015.Controllers
             /// 新生儿人数
             /// </summary>
             public int ChildCount { set; get; }
-        }
+        } 
 
+        #endregion
     }
 }
 
