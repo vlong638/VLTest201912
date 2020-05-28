@@ -38,6 +38,14 @@ namespace VLTest2015.Utils
         /// 显示方案
         /// </summary>
         public DisplayType DisplayType { set; get; }
+        /// <summary>
+        /// 显示宽度
+        /// </summary>
+        public int DisplayWidth { set; get; }
+        /// <summary>
+        /// 可排序的
+        /// </summary>
+        public bool IsSortable { set; get; }
         #endregion
 
         #region 数据配置
@@ -80,6 +88,8 @@ namespace VLTest2015.Utils
             ColumnName = element.Attribute(nameof(ColumnName))?.Value;
             DisplayName = element.Attribute(nameof(DisplayName))?.Value;
             DisplayType = element.Attribute(nameof(DisplayType))?.Value.ToEnum<DisplayType>() ?? DisplayType.None;
+            DisplayWidth = element.Attribute(nameof(DisplayWidth))?.Value.ToInt() ?? 100;
+            IsSortable = element.Attribute(nameof(IsSortable))?.Value.ToBool() ?? false;
             DataType = element.Attribute(nameof(DataType))?.Value;
             IsNeedOnPage = element.Attribute(nameof(IsNeedOnPage))?.Value.ToBool() ?? false;
             Description = element.Attribute(nameof(Description))?.Value;
@@ -88,9 +98,12 @@ namespace VLTest2015.Utils
         public XElement ToXElement()
         {
             var property = new XElement(ElementName);
-            property.SetAttributeValue(nameof(ColumnName), ColumnName);
-            property.SetAttributeValue(nameof(DisplayName), DisplayName);
             property.SetAttributeValue(nameof(IsNeedOnPage), IsNeedOnPage);
+            property.SetAttributeValue(nameof(DisplayName), DisplayName);
+            property.SetAttributeValue(nameof(ColumnName), ColumnName);
+            property.SetAttributeValue(nameof(DisplayType), DisplayType.ToString());
+            property.SetAttributeValue(nameof(DisplayWidth), DisplayWidth.ToString());
+            property.SetAttributeValue(nameof(IsSortable), IsSortable.ToString());
             property.SetAttributeValue(nameof(DataType), DataType);
             property.SetAttributeValue(nameof(Description), Description);
             return property;

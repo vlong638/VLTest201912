@@ -47,21 +47,21 @@
                 data: JSON.stringify({ listName: "O_PregnantInfo" }),
                 contentType: "application/json",
                 success: function (resp) {
-                    //console.log(resp);
                     if (resp.Code == 200) {
                         if (resp.msg != null && resp.msg != "") {
                             ShowMessage(resp.msg);
                         }
+                        console.log(1);
                         var columns = [[]]
                         for (var i = 0; i < resp.Data.length; i++) {
                             var column = {}
                             var item = resp.Data[i];
                             column.field = item.ColumnName;
                             column.title = item.DisplayName;
-                            column.width = 100;
+                            column.width = item.DisplayWidth;
+                            column.sortable = item.IsSortable;
                             column.halign = 'center';
                             column.align = 'left';
-                            column.sortable = true;
                             columns[0].push(column);
                         }
 

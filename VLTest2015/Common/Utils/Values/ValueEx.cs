@@ -14,8 +14,33 @@ namespace VLTest2015
         public static bool ToBool(this string str)
         {
             return bool.Parse(str);
-        } 
+        }
         #endregion
+
+        #region int
+        public static int? ToInt(this object item)
+        {
+            if (item == null)
+                return null;
+            return int.Parse(item.ToString());
+        }
+        #endregion
+
+        #region MyRegion
+        public static long? ToLong(this object item)
+        {
+            if (item == null)
+                return null;
+            return long.Parse(item.ToString());
+        } /**/
+        #endregion
+
+        public static DateTime? ToDateTime(this object item)
+        {
+            if (item == null)
+                return null;
+            return DateTime.Parse(item.ToString());
+        }
 
         #region string
         public static string TrimStart(this string str, string strToTrim)
