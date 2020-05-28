@@ -41,6 +41,9 @@
     <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.2.0.35\lib\net461\Dapper.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SqlClient, Version=4.6.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -64,7 +67,9 @@
     <Compile Include="Business\ConfigurableEntity\SampleEntity.cs" />
     <Compile Include="Business\Kettle\O_LabResult.cs" />
     <Compile Include="Common\EnumSolution\EnumHelper.cs" />
+    <Compile Include="Common\ValuesSolution\JsonEx.cs" />
     <Compile Include="Common\ValuesSolution\EnumEx.cs" />
+    <Compile Include="Common\ValuesSolution\DataTableEx.cs" />
     <Compile Include="Common\ValuesSolution\ValueEx.cs" />
     <Compile Include="Common\XMLSolution\XMLHelper.cs" />
     <Compile Include="Program.cs" />

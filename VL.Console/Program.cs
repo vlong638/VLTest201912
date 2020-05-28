@@ -1,4 +1,6 @@
 ﻿using Dapper;
+using FrameworkTest.Common.DBSolution;
+using FrameworkTest.Common.ValuesSolution;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;
@@ -1132,8 +1134,9 @@ order by Table_Name,Column_Name;
             }));
             cmds.Add(new Command("s0525,数据库插入性能测试", () =>
             {
-                var amount = 10000;
+                var amount = 100000;
                 Console.WriteLine($"基于连接:{nameof(LocalMSSQL)}测试");
+                //一次连接{amount}次插入(无事务),耗时:{ts.TotalSeconds}
                 if (false)
                 {
                     using (var connection = new SqlConnection(LocalMSSQL))
@@ -1146,7 +1149,7 @@ order by Table_Name,Column_Name;
                             O_LabResult entity = new O_LabResult()
                             {
                                 ID = i,
-                                patientid = 0,
+                                patientid = 0.ToString(),
                                 idcard = i.ToString(),
                                 name = i.ToString(),
                                 orderid = i.ToString(),
@@ -1161,6 +1164,7 @@ order by Table_Name,Column_Name;
                         Console.WriteLine($"一次连接{amount}次插入(无事务),耗时:{ts.TotalSeconds}");
                     } 
                 }
+                //独立连接{amount}次插入(无事务),耗时:{ts.TotalSeconds}
                 if (false)
                 {
                     var id = 0L;
@@ -1177,7 +1181,7 @@ order by Table_Name,Column_Name;
                             O_LabResult entity = new O_LabResult()
                             {
                                 ID = i,
-                                patientid = 0,
+                                patientid = "0",
                                 idcard = i.ToString(),
                                 name = i.ToString(),
                                 orderid = i.ToString(),
@@ -1192,6 +1196,7 @@ order by Table_Name,Column_Name;
                     var ts = t2 - t1;
                     Console.WriteLine($"独立连接{amount}次插入(无事务),耗时:{ts.TotalSeconds}");
                 }
+                //独立连接{amount}次插入(有事务),耗时:{ts.TotalSeconds}
                 if (false)
                 {
                     var id = 0L;
@@ -1210,7 +1215,7 @@ order by Table_Name,Column_Name;
                             O_LabResult entity = new O_LabResult()
                             {
                                 ID = i,
-                                patientid = 0,
+                                patientid = "0",
                                 idcard = i.ToString(),
                                 name = i.ToString(),
                                 orderid = i.ToString(),
@@ -1227,6 +1232,7 @@ order by Table_Name,Column_Name;
                     var ts = t2 - t1;
                     Console.WriteLine($"独立连接{amount}次插入(有事务),耗时:{ts.TotalSeconds}");
                 }
+                //一次连接{amount}次一批次{bach}条插入(无事务),耗时:{ts.TotalSeconds}
                 if (false)
                 {
                     using (var connection = new SqlConnection(LocalMSSQL))
@@ -1241,7 +1247,7 @@ order by Table_Name,Column_Name;
                             O_LabResult entity = new O_LabResult()
                             {
                                 ID = i,
-                                patientid = 0,
+                                patientid = "0",
                                 idcard = i.ToString(),
                                 name = i.ToString(),
                                 orderid = i.ToString(),
@@ -1260,8 +1266,71 @@ order by Table_Name,Column_Name;
                         Console.WriteLine($"一次连接{amount}次一批次{bach}条插入(无事务),耗时:{ts.TotalSeconds}");
                     }
                 }
-                Console.WriteLine($"基于连接:{nameof(HeleInnerMSSQL)}测试");
+                //一次连接{amount}次插入(无事务+SqlBulkCopy),耗时:{ts.TotalSeconds}
                 if (true)
+                {
+                    var id = 0L;
+                    using (var connection = new SqlConnection(LocalMSSQL))
+                    {
+                        id = connection.ExecuteScalar<long>(@"select max(id) from O_LabResult");
+                        id++;
+                    }
+                    List<O_LabResult> entities = new List<O_LabResult>();
+                    List<string> items = new List<string>() {
+                        "胆红素",
+                        "滴虫",
+                        "电解质六项",
+                        "外观",
+                        "球菌",
+                        "有核红细胞",
+                        "抗链球菌溶血素O",
+                        "中性粒细胞百分比",
+                        "尿比重",
+                        "尿隐血",
+                        "促甲状腺激素",
+                        };
+                    var itemsCount = items.Count;
+                    Random r = new Random();
+                    for (long i = id; i < id + amount; i++)
+                    {
+                        var personId = i % 7777;
+                        var itemId = r.Next(0, itemsCount);
+                        O_LabResult entity = new O_LabResult()
+                        {
+                            ID = i,
+                            patientid = "E" + personId,
+                            idcard = "3303" + personId.ToString().ToMD5().Substring(0, 12),//330326 6 19910508 8 0033 4
+                            name = personId.ToString(),
+                            orderid = i.ToString(),
+                            setid = null,
+                            itemid = itemId.ToString(),
+                            itemname = items[itemId],
+                            value = r.Next(1, 1000).ToString(),
+                            deliverydate = DateTime.Now.AddDays(-r.Next(1, 100)),
+                        };
+                        entities.Add(entity);
+                    }
+                    var dt = entities.ToDataTable();
+                    var t1 = DateTime.Now;
+                    using (SqlBulkCopy sbc = new SqlBulkCopy(LocalMSSQL))
+                    {
+                        sbc.BatchSize = dt.Rows.Count;
+                        sbc.BulkCopyTimeout = 10;
+                        sbc.DestinationTableName = "O_LabResult";
+                        for (int i = 0; i < dt.Columns.Count; i++)
+                        {
+                            sbc.ColumnMappings.Add(dt.Columns[i].ColumnName, i);
+                        }
+                        //全部写入数据库
+                        sbc.WriteToServer(dt);
+                    }
+                    var t2 = DateTime.Now;
+                    var ts = t2 - t1;
+                    Console.WriteLine($"一次连接{amount}次插入(无事务+SqlBulkCopy),耗时:{ts.TotalSeconds}");
+                }
+                Console.WriteLine($"基于连接:{nameof(HeleInnerMSSQL)}测试");
+                //一次连接{amount}次插入(无事务),耗时:{ts.TotalSeconds}
+                if (false)
                 {
                     using (var connection = new SqlConnection(HeleInnerMSSQL))
                     {
@@ -1273,7 +1342,7 @@ order by Table_Name,Column_Name;
                             O_LabResult entity = new O_LabResult()
                             {
                                 ID = i,
-                                patientid = 0,
+                                patientid = 0.ToString(),
                                 idcard = i.ToString(),
                                 name = i.ToString(),
                                 orderid = i.ToString(),
@@ -1573,7 +1642,7 @@ order by Table_Name,Column_Name;
                     entity.UCData = string.Join(",", model.data3);
                     #endregion
 
-                    using (var connection = FileSystemWatcher.DBHelper.GetSQLServerDbConnection(@"Data Source=192.168.50.102;Initial Catalog=fmpt;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=huzfypt;Password=huz3305@2018."))
+                    using (var connection = DBHelper.GetDbConnection(@"Data Source=192.168.50.102;Initial Catalog=fmpt;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=huzfypt;Password=huz3305@2018."))
                     //using (var connection = DBHelper.GetSQLServerDbConnection(@"Data Source=10.31.102.24,1434;Initial Catalog=fmpt;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=HELETECHUSER;Password=HELEtech123"))
                     {
                         var command = connection.CreateCommand();
@@ -1688,11 +1757,11 @@ order by Table_Name,Column_Name;
         class O_LabResult
         {
             public long ID { set; get; }
-            public long patientid { set; get; }
+            public string patientid { set; get; }
             public string idcard { set; get; }
             public string name { set; get; }
             public string orderid { set; get; }
-            public int setid { set; get; }
+            public int? setid { set; get; }
             public string itemid { set; get; }
             public string itemname { set; get; }
             public string value { set; get; }
