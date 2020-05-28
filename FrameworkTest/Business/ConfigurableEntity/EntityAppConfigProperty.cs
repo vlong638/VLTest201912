@@ -86,6 +86,8 @@ namespace FrameworkTest.ConfigurableEntity
             DisplayName = "";
             DisplayType = DisplayType.None;
             DataType = dbConfig.DataType;
+            DisplayWidth = 100;
+            IsSortable = false;
             IsNeedOnPage = false;
             Description = dbConfig.Description;
         }

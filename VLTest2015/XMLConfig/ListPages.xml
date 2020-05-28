@@ -94,14 +94,14 @@
 		<Property IsNeedOnPage="false" DisplayName="证件照编号" ColumnName="photo" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="证件照编号" />
 		<Property IsNeedOnPage="true" DisplayName="就诊卡号" ColumnName="cardno" DisplayType="None" DisplayWidth="0" IsSortable="True" DataType="varchar" Description="就诊卡号" />
 		<Property IsNeedOnPage="true" DisplayName="孕妇证件号" ColumnName="idcard" DisplayType="None" DisplayWidth="80" IsSortable="False" DataType="varchar" Description="孕妇证件号" />
-		<Property IsNeedOnPage="false" DisplayName="户籍标志" ColumnName="registeredpermanent" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="户籍标志" />
-		<Property IsNeedOnPage="false" DisplayName="血型" ColumnName="bloodtypecode" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="char" Description="血型" />
-		<Property IsNeedOnPage="false" DisplayName="出生地" ColumnName="homeplace" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="出生地" />
-		<Property IsNeedOnPage="false" DisplayName="联系地址" ColumnName="address" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="联系地址" />
-		<Property IsNeedOnPage="false" DisplayName="邮政编码" ColumnName="zipcode" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="邮政编码" />
-		<Property IsNeedOnPage="false" DisplayName="出生日期" ColumnName="birthday" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="datetime" Description="出生日期" />
-		<Property IsNeedOnPage="false" DisplayName="国籍" ColumnName="nationalitycode" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="国籍" />
-		<Property IsNeedOnPage="false" DisplayName="民族" ColumnName="nationcode" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="民族" />
+		<Property IsNeedOnPage="true" DisplayName="户籍标志" ColumnName="registeredpermanent" DisplayType="None" DisplayWidth="120" IsSortable="False" DataType="varchar" Description="户籍标志" />
+		<Property IsNeedOnPage="true" DisplayName="血型" ColumnName="bloodtypecode" DisplayType="None" DisplayWidth="120" IsSortable="False" DataType="char" Description="血型" />
+		<Property IsNeedOnPage="true" DisplayName="出生地" ColumnName="homeplace" DisplayType="None" DisplayWidth="120" IsSortable="False" DataType="varchar" Description="出生地" />
+		<Property IsNeedOnPage="true" DisplayName="联系地址" ColumnName="address" DisplayType="None" DisplayWidth="120" IsSortable="False" DataType="varchar" Description="联系地址" />
+		<Property IsNeedOnPage="true" DisplayName="邮政编码" ColumnName="zipcode" DisplayType="None" DisplayWidth="120" IsSortable="False" DataType="varchar" Description="邮政编码" />
+		<Property IsNeedOnPage="true" DisplayName="出生日期" ColumnName="birthday" DisplayType="None" DisplayWidth="120" IsSortable="False" DataType="datetime" Description="出生日期" />
+		<Property IsNeedOnPage="true" DisplayName="国籍" ColumnName="nationalitycode" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="国籍" />
+		<Property IsNeedOnPage="true" DisplayName="民族" ColumnName="nationcode" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="民族" />
 		<Property IsNeedOnPage="false" DisplayName="RH血型" ColumnName="rhbloodcode" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="char" Description="RH血型" />
 		<Property IsNeedOnPage="false" DisplayName="婚姻状况" ColumnName="maritalstatuscode" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="char" Description="婚姻状况" />
 		<Property IsNeedOnPage="false" DisplayName="职业类别" ColumnName="workcode" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="职业类别" />
