@@ -88,77 +88,77 @@
 	<!--IsNeedOnPage="false" DisplayName="" (.+) Description="(\w+)"(.+)\r\n
 	IsNeedOnPage="true" DisplayName="$2" $1 Description="$2"$3\r\n-->
 	<Table TableName="O_PregnantInfo">
-		<Property IsNeedOnPage="true" DisplayName="编号" ColumnName="id" DisplayType="None" DisplayWidth="120" IsSortable="True" DataType="int" Description="自动编号" />
-		<Property IsNeedOnPage="true" DisplayName="孕妇姓名" ColumnName="personname" DisplayType="None" DisplayWidth="80" IsSortable="True" DataType="varchar" Description="孕妇姓名" />
+		<Property IsNeedOnPage="true" DisplayName="编号" ColumnName="id" DisplayType="None" DisplayWidth="120" IsSortable="true" DataType="int" Description="自动编号" />
+		<Property IsNeedOnPage="true" DisplayName="孕妇姓名" ColumnName="personname" DisplayType="None" DisplayWidth="80" IsSortable="true" DataType="varchar" Description="孕妇姓名" />
 		<Property IsNeedOnPage="true" DisplayName="性别" ColumnName="sexcode" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="char" Description="性别" />
-		<Property IsNeedOnPage="true" DisplayName="证件照编号" ColumnName="photo" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="证件照编号" />
+		<Property IsNeedOnPage="false" DisplayName="证件照编号" ColumnName="photo" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="证件照编号" />
 		<Property IsNeedOnPage="true" DisplayName="就诊卡号" ColumnName="cardno" DisplayType="None" DisplayWidth="0" IsSortable="True" DataType="varchar" Description="就诊卡号" />
 		<Property IsNeedOnPage="true" DisplayName="孕妇证件号" ColumnName="idcard" DisplayType="None" DisplayWidth="80" IsSortable="False" DataType="varchar" Description="孕妇证件号" />
-		<Property IsNeedOnPage="true" DisplayName="户籍标志" ColumnName="registeredpermanent" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="户籍标志" />
-		<Property IsNeedOnPage="true" DisplayName="血型" ColumnName="bloodtypecode" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="char" Description="血型" />
-		<Property IsNeedOnPage="true" DisplayName="出生地" ColumnName="homeplace" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="出生地" />
-		<Property IsNeedOnPage="true" DisplayName="联系地址" ColumnName="address" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="联系地址" />
-		<Property IsNeedOnPage="true" DisplayName="邮政编码" ColumnName="zipcode" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="邮政编码" />
-		<Property IsNeedOnPage="true" DisplayName="出生日期" ColumnName="birthday" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="datetime" Description="出生日期" />
-		<Property IsNeedOnPage="true" DisplayName="国籍" ColumnName="nationalitycode" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="国籍" />
-		<Property IsNeedOnPage="true" DisplayName="民族" ColumnName="nationcode" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="民族" />
-		<Property IsNeedOnPage="true" DisplayName="RH血型" ColumnName="rhbloodcode" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="char" Description="RH血型" />
-		<Property IsNeedOnPage="true" DisplayName="婚姻状况" ColumnName="maritalstatuscode" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="char" Description="婚姻状况" />
-		<Property IsNeedOnPage="true" DisplayName="职业类别" ColumnName="workcode" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="职业类别" />
-		<Property IsNeedOnPage="true" DisplayName="保险类别" ColumnName="insurancecode" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="保险类别" />
-		<Property IsNeedOnPage="true" DisplayName="文化程度" ColumnName="educationcode" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="文化程度" />
-		<Property IsNeedOnPage="true" DisplayName="状态" ColumnName="status" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="char" Description="状态" />
-		<Property IsNeedOnPage="true" DisplayName="工作单位" ColumnName="workplace" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="工作单位" />
-		<Property IsNeedOnPage="true" DisplayName="联系人" ColumnName="contact" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="联系人" />
-		<Property IsNeedOnPage="true" DisplayName="联系人电话" ColumnName="contactphone" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="联系人电话" />
-		<Property IsNeedOnPage="true" DisplayName="医保类别" ColumnName="insurancetype" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="医保类别" />
-		<Property IsNeedOnPage="true" DisplayName="是否农业户籍" ColumnName="isagrregister" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="char" Description="是否农业户籍" />
-		<Property IsNeedOnPage="true" DisplayName="预产期" ColumnName="dateofprenatal" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="date" Description="预产期" />
-		<Property IsNeedOnPage="true" DisplayName="孕次" ColumnName="gravidity" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="孕次" />
-		<Property IsNeedOnPage="true" DisplayName="健康档案编号" ColumnName="phrid" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="健康档案编号" />
-		<Property IsNeedOnPage="true" DisplayName="产次" ColumnName="parity" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="产次" />
-		<Property IsNeedOnPage="true" DisplayName="前次分娩方式" ColumnName="predeliverymode" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="前次分娩方式" />
-		<Property IsNeedOnPage="true" DisplayName="末次月经时间" ColumnName="lastmenstrualperiod" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="date" Description="末次月经时间" />
-		<Property IsNeedOnPage="true" DisplayName="妊娠并发症史" ColumnName="gestationneuropathy" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="妊娠并发症史" />
-		<Property IsNeedOnPage="true" DisplayName="手术史" ColumnName="operationhistory" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="手术史" />
+		<Property IsNeedOnPage="false" DisplayName="户籍标志" ColumnName="registeredpermanent" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="户籍标志" />
+		<Property IsNeedOnPage="false" DisplayName="血型" ColumnName="bloodtypecode" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="char" Description="血型" />
+		<Property IsNeedOnPage="false" DisplayName="出生地" ColumnName="homeplace" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="出生地" />
+		<Property IsNeedOnPage="false" DisplayName="联系地址" ColumnName="address" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="联系地址" />
+		<Property IsNeedOnPage="false" DisplayName="邮政编码" ColumnName="zipcode" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="邮政编码" />
+		<Property IsNeedOnPage="false" DisplayName="出生日期" ColumnName="birthday" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="datetime" Description="出生日期" />
+		<Property IsNeedOnPage="false" DisplayName="国籍" ColumnName="nationalitycode" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="国籍" />
+		<Property IsNeedOnPage="false" DisplayName="民族" ColumnName="nationcode" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="民族" />
+		<Property IsNeedOnPage="false" DisplayName="RH血型" ColumnName="rhbloodcode" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="char" Description="RH血型" />
+		<Property IsNeedOnPage="false" DisplayName="婚姻状况" ColumnName="maritalstatuscode" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="char" Description="婚姻状况" />
+		<Property IsNeedOnPage="false" DisplayName="职业类别" ColumnName="workcode" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="职业类别" />
+		<Property IsNeedOnPage="false" DisplayName="保险类别" ColumnName="insurancecode" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="保险类别" />
+		<Property IsNeedOnPage="false" DisplayName="文化程度" ColumnName="educationcode" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="文化程度" />
+		<Property IsNeedOnPage="false" DisplayName="状态" ColumnName="status" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="char" Description="状态" />
+		<Property IsNeedOnPage="false" DisplayName="工作单位" ColumnName="workplace" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="工作单位" />
+		<Property IsNeedOnPage="false" DisplayName="联系人" ColumnName="contact" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="联系人" />
+		<Property IsNeedOnPage="false" DisplayName="联系人电话" ColumnName="contactphone" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="联系人电话" />
+		<Property IsNeedOnPage="false" DisplayName="医保类别" ColumnName="insurancetype" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="医保类别" />
+		<Property IsNeedOnPage="false" DisplayName="是否农业户籍" ColumnName="isagrregister" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="char" Description="是否农业户籍" />
+		<Property IsNeedOnPage="false" DisplayName="预产期" ColumnName="dateofprenatal" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="date" Description="预产期" />
+		<Property IsNeedOnPage="false" DisplayName="孕次" ColumnName="gravidity" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="孕次" />
+		<Property IsNeedOnPage="false" DisplayName="健康档案编号" ColumnName="phrid" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="健康档案编号" />
+		<Property IsNeedOnPage="false" DisplayName="产次" ColumnName="parity" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="产次" />
+		<Property IsNeedOnPage="false" DisplayName="前次分娩方式" ColumnName="predeliverymode" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="前次分娩方式" />
+		<Property IsNeedOnPage="false" DisplayName="末次月经时间" ColumnName="lastmenstrualperiod" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="date" Description="末次月经时间" />
+		<Property IsNeedOnPage="false" DisplayName="妊娠并发症史" ColumnName="gestationneuropathy" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="妊娠并发症史" />
+		<Property IsNeedOnPage="false" DisplayName="手术史" ColumnName="operationhistory" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="手术史" />
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="sbp" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="int" Description="收缩压(mmHg)" />
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="dbp" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="int" Description="舒张压(mmHg)" />
-		<Property IsNeedOnPage="true" DisplayName="户籍地址" ColumnName="homeaddress" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="户籍地址" />
-		<Property IsNeedOnPage="true" DisplayName="孕册号" ColumnName="pregnantbookid" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="孕册号" />
-		<Property IsNeedOnPage="true" DisplayName="妇保医生姓名" ColumnName="mhcdoctorname" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="妇保医生姓名" />
-		<Property IsNeedOnPage="true" DisplayName="产休地" ColumnName="restregioncode" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="产休地" />
-		<Property IsNeedOnPage="true" DisplayName="孕妇归属地" ColumnName="ownerarea" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="孕妇归属地" />
+		<Property IsNeedOnPage="false" DisplayName="户籍地址" ColumnName="homeaddress" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="户籍地址" />
+		<Property IsNeedOnPage="false" DisplayName="孕册号" ColumnName="pregnantbookid" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="孕册号" />
+		<Property IsNeedOnPage="false" DisplayName="妇保医生姓名" ColumnName="mhcdoctorname" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="妇保医生姓名" />
+		<Property IsNeedOnPage="false" DisplayName="产休地" ColumnName="restregioncode" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="产休地" />
+		<Property IsNeedOnPage="false" DisplayName="孕妇归属地" ColumnName="ownerarea" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="孕妇归属地" />
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="realregioncode" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="居(暂)住地址" />
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="residencecode" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="居(暂)住地址-文本" />
-		<Property IsNeedOnPage="true" DisplayName="办居住证日期" ColumnName="residencepermit" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="date" Description="办居住证日期" />
-		<Property IsNeedOnPage="true" DisplayName="初潮年龄" ColumnName="menarcheage" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="int" Description="初潮年龄" />
+		<Property IsNeedOnPage="false" DisplayName="办居住证日期" ColumnName="residencepermit" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="date" Description="办居住证日期" />
+		<Property IsNeedOnPage="false" DisplayName="初潮年龄" ColumnName="menarcheage" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="int" Description="初潮年龄" />
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="menstrualperiod" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="int" Description="经期(天)" />
-		<Property IsNeedOnPage="true" DisplayName="周期" ColumnName="cycle" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="int" Description="周期" />
-		<Property IsNeedOnPage="true" DisplayName="月经量" ColumnName="menstrualblood" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="char" Description="月经量" />
-		<Property IsNeedOnPage="true" DisplayName="痛经" ColumnName="dysmenorrhea" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="char" Description="痛经" />
+		<Property IsNeedOnPage="false" DisplayName="周期" ColumnName="cycle" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="int" Description="周期" />
+		<Property IsNeedOnPage="false" DisplayName="月经量" ColumnName="menstrualblood" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="char" Description="月经量" />
+		<Property IsNeedOnPage="false" DisplayName="痛经" ColumnName="dysmenorrhea" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="char" Description="痛经" />
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="unusualbone" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="(无)异常孕产史" />
-		<Property IsNeedOnPage="true" DisplayName="人工流产次数" ColumnName="trafficflow" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="int" Description="人工流产次数" />
-		<Property IsNeedOnPage="true" DisplayName="自然流产次数" ColumnName="naturalabortion" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="int" Description="自然流产次数" />
-		<Property IsNeedOnPage="true" DisplayName="中期引产次数" ColumnName="odinopoeia" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="int" Description="中期引产次数" />
-		<Property IsNeedOnPage="true" DisplayName="早产次数" ColumnName="preterm" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="int" Description="早产次数" />
-		<Property IsNeedOnPage="true" DisplayName="难产次数" ColumnName="dystocia" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="int" Description="难产次数" />
-		<Property IsNeedOnPage="true" DisplayName="死胎死产次数" ColumnName="died" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="int" Description="死胎死产次数" />
-		<Property IsNeedOnPage="true" DisplayName="畸形儿次数" ColumnName="abnormality" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="int" Description="畸形儿次数" />
-		<Property IsNeedOnPage="true" DisplayName="死亡儿次数" ColumnName="newbrondied" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="int" Description="死亡儿次数" />
-		<Property IsNeedOnPage="true" DisplayName="药物流产次数" ColumnName="qwetimes" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="int" Description="药物流产次数" />
-		<Property IsNeedOnPage="true" DisplayName="宫外孕次数" ColumnName="ectopicpregnancy" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="int" Description="宫外孕次数" />
-		<Property IsNeedOnPage="true" DisplayName="葡萄胎次数" ColumnName="vesicularmole" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="int" Description="葡萄胎次数" />
-		<Property IsNeedOnPage="true" DisplayName="前妊娠终止日期" ColumnName="pregestationdate" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="date" Description="前妊娠终止日期" />
-		<Property IsNeedOnPage="true" DisplayName="前次终止方式" ColumnName="pregestationmode" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="前次终止方式" />
-		<Property IsNeedOnPage="true" DisplayName="前次分娩日期" ColumnName="predeliverydate" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="date" Description="前次分娩日期" />
-		<Property IsNeedOnPage="true" DisplayName="既往病史" ColumnName="pasthistory" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="既往病史" />
-		<Property IsNeedOnPage="true" DisplayName="家族史" ColumnName="familyhistory" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="家族史" />
-		<Property IsNeedOnPage="true" DisplayName="妇科手术史" ColumnName="gynecologyops" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="妇科手术史" />
-		<Property IsNeedOnPage="true" DisplayName="过敏史" ColumnName="allergichistory" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="过敏史" />
-		<Property IsNeedOnPage="true" DisplayName="毒物接触史" ColumnName="poisontouchhis" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="毒物接触史" />
-		<Property IsNeedOnPage="true" DisplayName="遗传家族史" ColumnName="heredityfamilyhistory" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="遗传家族史" />
-		<Property IsNeedOnPage="true" DisplayName="丈夫家族史" ColumnName="husbandfamilyhistory" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="丈夫家族史" />
-		<Property IsNeedOnPage="true" DisplayName="建册孕周" ColumnName="gestationalweeks" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="int" Description="建册孕周" />
+		<Property IsNeedOnPage="false" DisplayName="人工流产次数" ColumnName="trafficflow" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="int" Description="人工流产次数" />
+		<Property IsNeedOnPage="false" DisplayName="自然流产次数" ColumnName="naturalabortion" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="int" Description="自然流产次数" />
+		<Property IsNeedOnPage="false" DisplayName="中期引产次数" ColumnName="odinopoeia" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="int" Description="中期引产次数" />
+		<Property IsNeedOnPage="false" DisplayName="早产次数" ColumnName="preterm" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="int" Description="早产次数" />
+		<Property IsNeedOnPage="false" DisplayName="难产次数" ColumnName="dystocia" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="int" Description="难产次数" />
+		<Property IsNeedOnPage="false" DisplayName="死胎死产次数" ColumnName="died" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="int" Description="死胎死产次数" />
+		<Property IsNeedOnPage="false" DisplayName="畸形儿次数" ColumnName="abnormality" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="int" Description="畸形儿次数" />
+		<Property IsNeedOnPage="false" DisplayName="死亡儿次数" ColumnName="newbrondied" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="int" Description="死亡儿次数" />
+		<Property IsNeedOnPage="false" DisplayName="药物流产次数" ColumnName="qwetimes" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="int" Description="药物流产次数" />
+		<Property IsNeedOnPage="false" DisplayName="宫外孕次数" ColumnName="ectopicpregnancy" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="int" Description="宫外孕次数" />
+		<Property IsNeedOnPage="false" DisplayName="葡萄胎次数" ColumnName="vesicularmole" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="int" Description="葡萄胎次数" />
+		<Property IsNeedOnPage="false" DisplayName="前妊娠终止日期" ColumnName="pregestationdate" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="date" Description="前妊娠终止日期" />
+		<Property IsNeedOnPage="false" DisplayName="前次终止方式" ColumnName="pregestationmode" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="前次终止方式" />
+		<Property IsNeedOnPage="false" DisplayName="前次分娩日期" ColumnName="predeliverydate" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="date" Description="前次分娩日期" />
+		<Property IsNeedOnPage="false" DisplayName="既往病史" ColumnName="pasthistory" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="既往病史" />
+		<Property IsNeedOnPage="false" DisplayName="家族史" ColumnName="familyhistory" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="家族史" />
+		<Property IsNeedOnPage="false" DisplayName="妇科手术史" ColumnName="gynecologyops" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="妇科手术史" />
+		<Property IsNeedOnPage="false" DisplayName="过敏史" ColumnName="allergichistory" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="过敏史" />
+		<Property IsNeedOnPage="false" DisplayName="毒物接触史" ColumnName="poisontouchhis" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="毒物接触史" />
+		<Property IsNeedOnPage="false" DisplayName="遗传家族史" ColumnName="heredityfamilyhistory" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="遗传家族史" />
+		<Property IsNeedOnPage="false" DisplayName="丈夫家族史" ColumnName="husbandfamilyhistory" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="丈夫家族史" />
+		<Property IsNeedOnPage="false" DisplayName="建册孕周" ColumnName="gestationalweeks" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="int" Description="建册孕周" />
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="height" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="decimal" Description="身高(cm)" />
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="weight" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="decimal" Description="基础体重(kg)" />
 		<Property IsNeedOnPage="false" DisplayName="孕妇档案号" ColumnName="pregnantid" DisplayType="None" DisplayWidth="0" IsSortable="False" DataType="varchar" Description="孕妇档案号" />
