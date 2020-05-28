@@ -33,7 +33,8 @@
     displayType.TextDecimal = 22;
     displayType.Date = 3;
     displayType.DateTime = 31;
-    //TODO enum的统一归档
+
+    //TODO enum的统一定义方案
     //TODO getEnumByName()
     //TODO getEnumByValue()
 
@@ -51,7 +52,6 @@
                         if (resp.msg != null && resp.msg != "") {
                             ShowMessage(resp.msg);
                         }
-                        console.log(1);
                         var columns = [[]]
                         for (var i = 0; i < resp.Data.length; i++) {
                             var column = {}
@@ -61,6 +61,7 @@
                             column.width = 100;
                             column.halign = 'center';
                             column.align = 'left';
+                            column.sortable = true;
                             columns[0].push(column);
                         }
 
@@ -74,11 +75,12 @@
                             selectOnCheck: false,
                             checkOnSelect: false,
                             striped: true,
-                            pageSize: 10,
+                            pageSize: 20,
                             pageList: [10, 20, 50],
                             columns: columns,
                             onDblClickRow: function (rowIndex, rowData) {
-                                var PregnantInfoId = rowData.Id;
+                                //console.log(1);
+                                var PregnantInfoId = rowData.id;
                                 window.open("PregnantInfo?pregnantInfoId=" + PregnantInfoId);
                             }
                         });

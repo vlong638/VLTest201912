@@ -11,7 +11,7 @@
         </div>
     </div>
     <div style="margin-top:5px">
-        <table id="db_list" style="width:100%;height:600px;"></table>
+        <table id="db_list" style="width:100%;height:728px;"></table>
     </div>
 </dic>
 @*脚本*@
@@ -37,12 +37,11 @@
             selectOnCheck: false,
             checkOnSelect: false,
             striped: true,
-            pageSize: 10,
+            pageSize: 20,
             pageList: [10, 20, 50],
             columns: [[
                 { field: 'Id', hidden: 'true' },
                 { field: 'PregnantInfoId', hidden: 'true' },
-
                 { field: 'VisitDate', title: '检查时间', width: 100, halign: 'center', align: 'left' },
                 { field: 'DBP', title: '舒张压(mmhg)', width: 100, halign: 'center', align: 'left' },
                 { field: 'SBP', title: '收缩压(mmhg)', width: 100, halign: 'center', align: 'left' },

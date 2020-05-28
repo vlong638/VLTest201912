@@ -81,15 +81,15 @@ namespace VLTest2015.Controllers
 
         [HttpPost]
         [VLAuthentication(Authority.查看孕妇档案列表)]
-        public JsonResult GetConfigurablePagedListOfPregnantInfo(int page, int rows, string name)
+        public JsonResult GetConfigurablePagedListOfPregnantInfo(int page, int rows, string name, string sort, string order)
         {
             var pars = new GetPagedListOfPregnantInfoRequest()
             {
                 PersonName = name,
                 PageIndex = page,
                 PageSize = rows,
+                Orders = sort == null ? new Dictionary<string, bool>() : (new Dictionary<string, bool>() { { sort, (order == "asc") } }),
             };
-
             var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", "ListPages.xml");
             XDocument doc = XDocument.Load(path);
             var tableElements = doc.Descendants("Table");
