@@ -93,7 +93,7 @@ namespace VLTest2015.Controllers
         {
             var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", "ListPages.xml");
             XDocument doc = XDocument.Load(path);
-            var tableElements = doc.Descendants("Table");
+            var tableElements = doc.Descendants(EntityAppConfigTable.ElementName);
             var tableConfigs = tableElements.Select(c => new EntityAppConfigTable(c));
             var tableConfig = tableConfigs.FirstOrDefault(c => c.TableName == listName);
             var displayProperties = tableConfig.Properties.Where(c => c.IsNeedOnPage);

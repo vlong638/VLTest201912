@@ -6,7 +6,7 @@ namespace VLTest2015.Utils
 {
     class EntityAppConfigTable
     {
-        public static string ElementName = "TableName";
+        public static string ElementName = "Table";
 
         public string TableName { set; get; }
         public List<EntityAppConfigProperty> Properties { set; get; }
@@ -17,13 +17,13 @@ namespace VLTest2015.Utils
         }
         public EntityAppConfigTable(XElement element)
         {
-            TableName = element.Attribute(ElementName).Value;
+            TableName = element.Attribute(nameof(TableName)).Value;
             Properties = element.Descendants(EntityAppConfigProperty.ElementName).Select(c => new EntityAppConfigProperty(c)).ToList();
         }
 
         public XElement ToXElement()
         {
-            var table = new XElement("Table");
+            var table = new XElement(ElementName);
             table.SetAttributeValue(nameof(TableName), TableName);
             var properties = Properties.Select(p => p.ToXElement());
             table.Add(properties);

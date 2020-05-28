@@ -1134,7 +1134,7 @@ order by Table_Name,Column_Name;
             }));
             cmds.Add(new Command("s0525,数据库插入性能测试", () =>
             {
-                var amount = 100000;
+                var amount = 1000000;
                 Console.WriteLine($"基于连接:{nameof(LocalMSSQL)}测试");
                 //一次连接{amount}次插入(无事务),耗时:{ts.TotalSeconds}
                 if (false)
@@ -1293,7 +1293,7 @@ order by Table_Name,Column_Name;
                     Random r = new Random();
                     for (long i = id; i < id + amount; i++)
                     {
-                        var personId = i % 7777;
+                        var personId = i % 777777;
                         var itemId = r.Next(0, itemsCount);
                         O_LabResult entity = new O_LabResult()
                         {
