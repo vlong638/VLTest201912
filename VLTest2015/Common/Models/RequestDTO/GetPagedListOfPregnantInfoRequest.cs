@@ -10,7 +10,7 @@ namespace VLTest2015.Common.Models.RequestDTO
     public class GetPagedListOfPregnantInfoRequest : VLPageRequest, IQueriablePagedList
     {
         public string PersonName { set; get; }
-        public List<string> FieldNames { get; internal set; }
+        public List<string> FieldNames { get; internal set; } = new List<string>() { "*" };
 
         Dictionary<string, object> args = new Dictionary<string, object>();
         List<string> wheres = new List<string>();

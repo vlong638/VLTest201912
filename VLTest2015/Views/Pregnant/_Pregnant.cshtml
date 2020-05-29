@@ -28,7 +28,7 @@
 </div>
 <div>
     <fieldset class="allborder">
-        <legend style="background: #efefef;">
+        <legend style="padding-bottom:0px;margin-bottom:0px">
             当前孕妇档案-
             姓名:<label id="Top_Name"></label>
             性别:<label id="Top_Sex"></label>
@@ -55,26 +55,6 @@
                     var birthday = resp.Data.Birthday;
                     $("#Top_Birthday").text(vl.getDate(birthday));
                 }
-
-
-                //if (resp.data) {
-                //    //对命名与返回值一致的统一作赋值处理
-                //    var $items = $("#data-form input,select,textarea");
-                //    $.each($items, function (index, item) {
-                //        if (item.name != "MotherId" && item.name != "DeliveryId") {
-                //            $(item).val("");
-                //        }
-                //        //console.log(item);
-                //        if (resp.data[item.name]) {
-                //            if (item.name == "pomo_time" || item.name == "TPDeliveryTime") {
-                //                $(item).val(new Date(parseInt(resp.data[item.name].slice(6))).format("yyyy-MM-dd hh:mm"));
-                //            }
-                //            else {
-                //                $(item).val(resp.data[item.name]);
-                //            }
-                //        }
-                //    });
-                //名称不一致的需另做赋值
             },
             error: function (resp) {
                 console.log(2);

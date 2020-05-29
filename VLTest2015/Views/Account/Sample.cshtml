@@ -15,6 +15,7 @@
         </div>
     </div>
     <div style="margin-top:5px">
+        <table id="db_list" style="width:100%;height:728px;"></table>
     </div>
 </dic>
 @*脚本*@
@@ -60,6 +61,40 @@
             },
             error: function (data) {
                 console.log(2);
+            }
+        });
+
+        //原始标准方案
+        $("#db_list").datagrid({
+            url: "../Pregnant/GetPagedListOfPregnantInfo",
+            pagination: true,
+            rownumbers: true,
+            singleSelect: true,
+            remoteSort: true,
+            fitColumns: false,
+            selectOnCheck: false,
+            checkOnSelect: false,
+            striped: true,
+            pageSize: 10,
+            pageList: [10, 20, 50],
+            columns: [[
+                { field: 'Id', hidden: 'true' },
+                { field: 'PersonName', title: '姓名', width: 100, halign: 'center', align: 'left' },
+                { field: 'SexCode', title: '性别', width: 100, halign: 'center', align: 'left' },
+                { field: 'IdCard', title: '身份证号', width: 100, halign: 'center', align: 'left' },
+                { field: 'ContactPhone', title: '联系人电话', width: 100, halign: 'center', align: 'left' },
+                { field: 'Birthday', title: '出生日期', width: 100, halign: 'center', align: 'left' },
+                { field: 'Gravidity', title: '孕次', width: 100, halign: 'center', align: 'left' },
+                { field: 'Parity', title: '产次', width: 100, halign: 'center', align: 'left' },
+                { field: 'IsCreateBook', title: '是否建册', width: 100, halign: 'center', align: 'left' },
+                { field: 'GestationalWeeks', title: '建册孕周', width: 100, halign: 'center', align: 'left' },
+                { field: 'LastMenstrualPeriod', title: '末次月经', width: 100, halign: 'center', align: 'left' },
+                { field: 'DateOfPrenatal', title: '预产期', width: 100, halign: 'center', align: 'left' },
+                { field: 'FileStatus', title: '是否结案结案', width: 100, halign: 'center', align: 'left' },
+            ]],
+            onDblClickRow: function (rowIndex, rowData) {
+                var PregnantInfoId = rowData.Id;
+                window.open("PregnantInfo?pregnantInfoId=" + PregnantInfoId);
             }
         });
     });
