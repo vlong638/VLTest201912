@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
@@ -15,7 +16,7 @@ namespace VLTest2015.Utils
         {
             //return new SqlConnection("Data Source=LAPTOP-NQBU1OIS\\SQLEXPRESS;Initial Catalog=VLTest;Integrated Security=True;MultipleActiveResultSets=True");
             //return new SqlConnection("Data Source=heletech.asuscomm.com,8082;Initial Catalog=VLTest;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=HZFYUSER;Password=HZFYPWD");
-            return new SqlConnection("Data Source=127.0.0.1,1433;Initial Catalog=VLTest;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sa;Password=123");
+            return new SqlConnection(System.Web.Configuration.WebConfigurationManager.ConnectionStrings["DefaultConnection"].ToString());
         }
     }
 }

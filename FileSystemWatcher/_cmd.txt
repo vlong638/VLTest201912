@@ -1,7 +1,7 @@
 ﻿安装服务
-C:\Windows\Microsoft.NET\Framework\v4.0.30319\InstallUtil.exe D:\Project\VLTest2015\FileSystemWatcher\bin\Debug\FileSystemWatcher.exe
+C:\Windows\Microsoft.NET\Framework\v4.0.30319\InstallUtil.exe D:\WorkSpace\Repository\VLTest201912\FileSystemWatcher\bin\Debug\FileSystemWatcher.exe
 删除服务
-C:\Windows\Microsoft.NET\Framework\v4.0.30319\InstallUtil.exe /u D:\Project\VLTest2015\FileSystemWatcher\bin\Debug\FileSystemWatcher.exe
+C:\Windows\Microsoft.NET\Framework\v4.0.30319\InstallUtil.exe /u D:\WorkSpace\Repository\VLTest201912\FileSystemWatcher\bin\Debug\FileSystemWatcher.exe
 启动服务
 net start VLFileWatcher
 停止服务
