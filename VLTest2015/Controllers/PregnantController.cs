@@ -155,6 +155,13 @@ namespace VLTest2015.Controllers
 
         [HttpGet]
         [VLAuthentication]
+        public ActionResult Test()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [VLAuthentication]
         public ActionResult AllStatistics()
         {
             return View();

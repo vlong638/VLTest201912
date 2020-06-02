@@ -12,6 +12,8 @@ using FrameworkTest.Common.DBSolution;
 using System.Runtime.CompilerServices;
 using FrameworkTest.Common.XMLSolution;
 using System.Xml.Linq;
+using System.Net;
+using System.IO;
 
 namespace FrameworkTest
 {
@@ -430,12 +432,182 @@ order by def.[TableName],def.Id
                 XMLHelper.TestCreate(@"D:\a.xml");
             }));
             #endregion
+            #region MockLogin
+            cmds.Add(new Command("mlogin,0602,模拟用户登录", () =>
+            {
+                CookieContainer container = new CookieContainer();
+
+                //模拟登陆,成功(注意需要关闭AntiForgeryToken)
+                string url = "http://localhost/Research/Account/Login";
+                string postData = string.Format("UserName={0}&Password={1}", "vlong638", "701616");
+                var result = HttpHelper.Post(url, postData,ref container);
+                Console.WriteLine(result);
+
+                //模拟登陆后 请求可匿名的GET接口,成功
+                if (false)
+                {
+                    url = "http://localhost/Research/Home/GetListConfig";
+                    postData = "listName=O_PregnantInfo";
+                    result = HttpHelper.Post(url, postData, ref container);
+                }
+
+                //模拟登陆后 请求带权限的GET接口,成功
+                if (false)
+                {
+                    url = "http://localhost/Research/Pregnant/AllStatistics";
+                    postData = "";
+                    result = HttpHelper.Get(url, postData, ref container);
+                }
+
+                //模拟登陆后 列表GET及POST接口,成功
+                if (true)
+                {
+                    url = "http://localhost/Research/Pregnant/VisitRecordList?pregnantInfoId=67116";
+                    postData = "";
+                    result = HttpHelper.Get(url, postData, ref container);
+
+
+                    //Request URL: http://localhost/Research/Pregnant/GetPagedListOfVisitRecord
+                    //Request Method: POST
+                    //Status Code: 200 OK
+                    //Remote Address: [::1]:80
+                    //Referrer Policy: no - referrer - when - downgrade
+
+                    //Accept: application / json, text / javascript, */*; q=0.01
+                    //Accept-Encoding: gzip, deflate, br
+                    //Accept-Language: zh-CN,zh;q=0.9
+                    //Connection: keep-alive
+                    //Content-Length: 35
+                    //Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+                    //Cookie: __RequestVerificationToken_L1Jlc2VhcmNo0=kJfR9jnJV5Q5rnvYYtM0KWVJA4EaYioZ2HUSxpmLNmEVkIS8-KEqum7SduHjinr3hS5CUjINli5bR6EffSLoFbwnd9ISMRzzYx1WMPs_Uiw1; .ASPXAUTH=F8B0F3F0678201D6AA0C80061769C204AAFA650929054D5EFC113CCEC9A5E7DFD198C21BD699ED22A0812DB2DACD875F16D0B7EA129FC292B839C6F1C208417633963DBB122D8AE3916D0E1D6680E97B3595EF446D13E6518DB3A8D3293804EEA56DB8A1218EB8665EC684D8335489806559B5B83F7258D0B54BFDE3ED80E700C7A85D76EF675814D95A231D58FC6F53D2445759C0B84242DC6668F79632F42B9AC2A24E3212040BD0CDE24BCF9F891A10BF9F1C05DB674468852860B88AA0D674142252BDE9703AD8DFE6C0B7393FB664D62C2D3829793F7E00B9C53CB16147EF5456ED04442772101F72DFA88E8ACABF0336EE88DE0BDC429EA4DF264B7C60B7E058210AF909430827DE020514A5B90717D68B19F32368D3E97AF7FB1C52581C06690EC3DADA821706CE74B1A6FB4B102BC23DDA5055B6E7FFADD81CFA6219
+                    //Host: localhost
+                    //Origin: http://localhost
+                    //Referer: http://localhost/Research/Pregnant/VisitRecordList?pregnantInfoId=64116
+                    //Sec-Fetch-Dest: empty
+                    //Sec-Fetch-Mode: cors
+                    //Sec-Fetch-Site: same-origin
+                    //User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36
+                    //X-Requested-With: XMLHttpRequest
+                    //page: 1
+                    //rows: 20
+                    //pregnantInfoId: 64116
+
+                    url = "http://localhost/Research/Pregnant/GetPagedListOfVisitRecord";
+                    postData = "page=1&rows=20&pregnantInfoId=64116";
+                    result = HttpHelper.Post(url, postData, ref container);
+                }
+
+                //模拟登陆后 请求带权限的POST接口,404(注意 此处有奇怪的问题,发布站点页面无法访问,调试可以访问,暂时无法解决)
+                if (false)
+                {
+//Accept: application / json, text / javascript, */*; q=0.01
+//Accept-Encoding: gzip, deflate, br
+//Accept-Language: zh-CN,zh;q=0.9
+//Connection: keep-alive
+//Content-Length: 14
+//Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+//Cookie: __RequestVerificationToken_L1Jlc2VhcmNo0=kJfR9jnJV5Q5rnvYYtM0KWVJA4EaYioZ2HUSxpmLNmEVkIS8-KEqum7SduHjinr3hS5CUjINli5bR6EffSLoFbwnd9ISMRzzYx1WMPs_Uiw1; .ASPXAUTH=6AA32F3BDD9F97CFB1894C9E6C5FC68B743BD199C685C2C5F2796822A62D0700E84BE84CBB682E29C6CA4EA7CC97B3E402947859B5AA5F4A58ADAD09D09013282C7E38D6E735C2F7AD0C1EC46922BB02A482227672545C1BBC25388AB688CD08C8A2D21D13BFDA642909A1130DFCD185FBB57DBE7C858558CFA6424C1EFEA05EAB35BBD459A162D9CA8B44FC8CE2A8A358B2579D3859FB7F853E58EB7EDFC8B8CD5A12F6F82860C8C1B685FC7218E20E70F7E642F230FE374530890A6F05C86C5E470742E221C96F0E4178015A6437BDDA821E3E6D0C8C981158E189B78A2AD88465DBC3EE11CFE935097559082DD4C5E87957FDA46206BA993743EE8EA070B2476C00BD5BFE9649C80A507EEC0EB4049E22974F25D6A987CAB2254D2762582E6700878FEDC36305CBB4AA2F114536017E85724EF84D0690F1D6DD483A87D30C
+//Host: localhost
+//Origin: http://localhost
+//Referer: http://localhost/Research/Pregnant/PregnantInfoList
+//Sec-Fetch-Dest: empty
+//Sec-Fetch-Mode: cors
+//Sec-Fetch-Site: same-origin
+//User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36
+//X-Requested-With: XMLHttpRequest
+
+                    url = "http://localhost/Pregnant/GetPagedListOfPregnantInfo";
+                    postData = string.Format("page={0}&rows={1}", "1", "20");
+                    result = HttpHelper.Post(url, postData, ref container); 
+                }
+
+                Console.WriteLine(result);
+            }));
+            #endregion
             cmds.Start();
         }
     }
 
-    public class Constraints
+    public class HttpHelper
     {
+        public static string Post(string url, string postData, ref CookieContainer container, string contentType = "application/x-www-form-urlencoded; charset=UTF-8")
+        {
+            var result = "";
+            HttpWebRequest request = null;
+            HttpWebResponse response = null;
+            ASCIIEncoding encoding = new ASCIIEncoding();
+            byte[] bytepostData = encoding.GetBytes(postData); ;
+            try
+            {
+                request = (HttpWebRequest)HttpWebRequest.Create(url);
+                request.Method = "Post";
+                request.ContentType = contentType;
+                request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36";
+                request.AllowAutoRedirect = true;
+                request.CookieContainer = container;//获取验证码时候获取到的cookie会附加在这个容器里面
+                request.KeepAlive = true;//建立持久性连接
+                if (bytepostData!=null)
+                {
+                    request.ContentLength = bytepostData.Length;
+                    using (Stream requestStm = request.GetRequestStream())
+                    {
+                        requestStm.Write(bytepostData, 0, bytepostData.Length);
+                    }
+                }
+                //响应
+                response = (HttpWebResponse)request.GetResponse();
+                container.Add(response.Cookies);
+                using (Stream responseStm = response.GetResponseStream())
+                {
+                    StreamReader redStm = new StreamReader(responseStm, Encoding.UTF8);
+                    result = redStm.ReadToEnd();
+                }
+            }
+            catch (Exception ex)
+            {
+                result = ex.Message;
+            }
+            return result;
+        }
+
+        public static string Get(string url, string postData, ref CookieContainer container)
+        {
+            var result = "";
+            HttpWebRequest request = null;
+            HttpWebResponse response = null;
+            ASCIIEncoding encoding = new ASCIIEncoding();
+            byte[] bytepostData = encoding.GetBytes(postData); ;
+            try
+            {
+                request = (HttpWebRequest)WebRequest.Create(url);
+                request.Method = "GET";
+                request.ContentType = "application/x-www-form-urlencoded";
+                request.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:5.0.1) Gecko/20100101 Firefox/5.0.1";
+                request.Accept = "image/webp,*/*;q=0.8";
+
+                #region cookie处理
+                request.CookieContainer = container;
+
+                //request.CookieContainer = new CookieContainer();//!Very Important.!!!
+                //container = request.CookieContainer;
+                //var c = request.CookieContainer.GetCookies(request.RequestUri);
+                //response = (HttpWebResponse)request.GetResponse();
+                //response.Cookies = container.GetCookies(request.RequestUri); 
+                #endregion
+
+                response = (HttpWebResponse)request.GetResponse();
+                using (Stream responseStm = response.GetResponseStream())
+                {
+                    StreamReader redStm = new StreamReader(responseStm, Encoding.UTF8);
+                    result = redStm.ReadToEnd();
+                }
+            }
+            catch (Exception ex)
+            {
+                result = ex.Message;
+            }
+            return result;
+        }
     }
 
     #region CommandMode

@@ -33,14 +33,16 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     @*
-            <li>@Html.ActionLink("主页", "Index", "Home")</li>
-            <li>@Html.ActionLink("关于", "About", "Home")</li>
-            <li>@Html.ActionLink("联系方式", "Contact", "Home")</li>
+        <li>@Html.ActionLink("主页", "Index", "Home")</li>
+        <li>@Html.ActionLink("关于", "About", "Home")</li>
+        <li>@Html.ActionLink("联系方式", "Contact", "Home")</li>
                     *@
                     <li>@Html.ActionLink("账户列表", "AccountList", "Account")</li>
                     <li>@Html.ActionLink("角色列表", "RoleList", "Account")</li>
                     <li>@Html.ActionLink("孕妇档案列表", "PregnantInfoList", "Pregnant")</li>
                     <li>@Html.ActionLink("测试样例", "Sample", "Account")</li>
+                    <li>@Html.ActionLink("统计样例", "AllStatistics", "Pregnant")</li>
+                    <li>@Html.ActionLink("统计样例", "Test", "Pregnant")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

@@ -775,6 +775,7 @@
     <Content Include="JsonConfigs\sex.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.11.3.intellisense.js" />
     <Content Include="Scripts\easyloader.js" />
     <Content Include="Scripts\echarts.js" />
@@ -868,6 +869,7 @@
     <Content Include="Views\Pregnant\VisitRecordList.cshtml" />
     <Content Include="Views\Pregnant\AllStatistics.cshtml" />
     <Content Include="Views\Account\Sample.cshtml" />
+    <Content Include="Views\Pregnant\Test.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
