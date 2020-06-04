@@ -1727,7 +1727,7 @@ order by Table_Name,Column_Name;
                 Console.ReadKey();
             }));
             #endregion
-            #region Patterns,模式
+            #region Gang Of 4 Patterns,21种设计模式
             #region Creational
             //Creational design patterns are design patterns that deal with object creation mechanisms, trying to create objects in a manner suitable to the situation.
 
@@ -1764,7 +1764,7 @@ order by Table_Name,Column_Name;
             /// It reduces the cost of creating and manipulating a large number of similar objects.
             /// Proxy-代理结构
             /// It provides a placeholder for another object to control access, reduce cost, and reduce complexity.
-            
+
 
             #endregion
             #region Behavioral
@@ -1796,6 +1796,24 @@ order by Table_Name,Column_Name;
 
 
             #endregion
+            #endregion
+            #region Architectural Patterns,企业应用设计模式
+
+            //Active Record,活动记录
+            //Action-Domain-Responder,ADR
+            //Data Access Object,DAO
+            //Data Transfer Object,DTO
+            //Front Controller,前端控制器
+            //Identity Map,标识地图
+            //Interceptor,拦截者
+            //Inversion of Control,IoC
+            //Model-View-Controller,MVC
+            //n-tier,分层
+            //Naked Objects,裸对象
+            //Publish-Subscribe,发布/订阅
+            //Service Locator,服务定位器
+            //Specification,规格
+
             #endregion
             #region Scheduler
             cmds.Add(new Command("---------------------Scheduler-------------------", () => { }));
