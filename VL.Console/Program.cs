@@ -1683,7 +1683,7 @@ order by Table_Name,Column_Name;
                 }
             }));
             #endregion
-            #region Algorithm
+            #region Algorithm,算法
             cmds.Add(new Command("---------------------Algorithm,算法-------------------", () => { }));
             cmds.Add(new Command("a1,冒泡", () =>
             {
@@ -1726,6 +1726,76 @@ order by Table_Name,Column_Name;
                 Console.WriteLine();
                 Console.ReadKey();
             }));
+            #endregion
+            #region Patterns,模式
+            #region Creational
+            //Creational design patterns are design patterns that deal with object creation mechanisms, trying to create objects in a manner suitable to the situation.
+
+
+            /// Factory Method-工厂方法
+            /// It creates objects without specifying the exact class to create.
+            /// Abstract Factory-抽象工厂
+            /// It provides a way to encapsulate a group of individual factories that have a common theme.
+            /// Builder-构造器模式,隔离复杂对象的创建和表现
+            /// It constructs complex objects by separating construction and representation.
+            /// Prototype-原型
+            /// It creates objects by cloning an existing object.
+            /// Singleton-单例
+            /// It restricts object creation for a class to only one instance.
+
+
+            #endregion
+            #region Structural
+            //Structural design patterns are design patterns that ease the design by identifying a simple way to realize relationships between entities.
+
+
+            /// Adapter - 适配结构
+            /// It allows classes with incompatible interfaces to work together by wrapping its own interface around that of an already existing class.
+            /// Bridge-异化结构
+            /// It decouples an abstraction from its implementation so that the two can vary independently.
+            /// Composite-集合结构
+            /// It composes zero-or-more similar objects so that they can be manipulated as one object.
+            /// Decorator-扩展结构,额外的装饰类,可以动态更改主体行为
+            /// It dynamically adds/overrides behavior in an existing method of an object.
+            /// Facade-界面结构
+            /// It provides a simplified interface to a large body of code.
+            /// Flyweight-共享结构
+            /// A large quantity of objects share a common properties object to save space.
+            /// It reduces the cost of creating and manipulating a large number of similar objects.
+            /// Proxy-代理结构
+            /// It provides a placeholder for another object to control access, reduce cost, and reduce complexity.
+            
+
+            #endregion
+            #region Behavioral
+            //Behavioral design patterns are design patterns that identify common communication patterns between objects and realize these patterns.
+
+
+            /// Chain of responsibility-责任链-行为传递
+            /// It delegates commands to a chain of processing objects.
+            /// Command-命令-封装
+            /// It creates objects which encapsulate all information needed to perform an action or trigger an event at a later time.
+            /// Interpreter-翻译-转译
+            /// It implements a specialized language.
+            /// Iterator-迭代-查阅
+            /// It accesses the elements of an object sequentially without exposing its underlying representation.
+            /// Mediator-中介-协调
+            /// It allows loose coupling between classes by being the only class that has detailed knowledge of their methods.
+            /// Memento-备忘录-备份
+            /// It provides the ability to restore an object to its previous state.
+            /// Observer-观测者-一对多订阅
+            /// It is a publish/subscribe pattern which allows a number of observer objects to see an event.
+            /// State-状态-状态影响系列行为,强调状态与行为的归整,易更改
+            /// It allows an object to alter its behavior when its internal state changes.
+            /// Strategy-策略-策略主导行为, 强调行为的多样性, 策略化的易替换
+            /// It allows one of a family of algorithms to be selected on-the-fly at runtime.
+            /// Template method-模板-套路
+            /// It defines the skeleton of an algorithm as an abstract class, allowing its subclasses to provide concrete behavior.
+            /// Visitor-访问者-查阅
+            /// It separates an algorithm from an object structure by moving the hierarchy of methods into one object.
+
+
+            #endregion
             #endregion
             #region Scheduler
             cmds.Add(new Command("---------------------Scheduler-------------------", () => { }));
