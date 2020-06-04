@@ -12,6 +12,7 @@
             <select class="easyui-combobox" id="name" style="width:200px;"></select>
             <select class="easyui-combobox" id="sex" style="width:200px;"></select>
             <select class="easyui-combobox" id="sex2" style="width:200px;"></select>
+            <a href="#" class="easyui-linkbutton" plain="true" onclick="doDownloadXML()">导出</a>
         </div>
     </div>
     <div style="margin-top:5px">
@@ -20,6 +21,11 @@
 </dic>
 @*脚本*@
 <script type="text/javascript">
+
+    function doDownloadXML() {
+        window.open("/Pregnant/GetFileSample");
+    }
+
     $(function () {
         //下拉项配置化方案
         $.ajax({

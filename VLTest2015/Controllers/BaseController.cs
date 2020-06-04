@@ -61,5 +61,14 @@ namespace VLTest2015.Controllers
             return Json(new APIResult<T>(data, code, messages));
         }
         #endregion
+
+        #region FileDownload
+
+        public FileResult Download(string path, string fileName)
+        {
+            return File(path, "text/plain", fileName);
+        }
+
+        #endregion
     }
 }

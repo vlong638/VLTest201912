@@ -1,21 +1,17 @@
-﻿using Microsoft.AspNet.Identity.Owin;
-using Newtonsoft.Json;
+﻿using NPOI.HSSF.UserModel;
+using NPOI.SS.UserModel;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
 using System.Web.Mvc;
-using System.Web.Security;
 using System.Xml.Linq;
 using VLTest2015.Attributes;
 using VLTest2015.Authentication;
-using VLTest2015.Common.Controllers;
 using VLTest2015.Common.Models.RequestDTO;
-using VLTest2015.Models;
 using VLTest2015.Services;
 using VLTest2015.Utils;
-using VLVLTest2015.Common.Pager;
 
 namespace VLTest2015.Controllers
 {
@@ -103,6 +99,79 @@ namespace VLTest2015.Controllers
                 return Error(serviceResult.Data, serviceResult.Messages);
             var result = Json(new { total = serviceResult.Data.Count, rows = serviceResult.Data.DataTable.ToList() });
             return result;
+        }
+
+        [HttpGet]
+        public FileResult GetFileSample()
+        {
+            string fileName = "Remark.txt";
+            string filePath = Server.MapPath("~/Download/Remark.txt");
+            return Download(filePath, fileName);
+        }
+
+        [HttpGet]
+        public FileResult GetConfigurablePagedListOfPregnantInfoExcel(string name)
+        {
+            var sort = "";
+            var order = "";
+            var pars = new GetPagedListOfPregnantInfoRequest()
+            {
+                PersonName = name,
+                PageIndex = 1,
+                PageSize = 100000,
+                Orders = string.IsNullOrEmpty(sort) ? new Dictionary<string, bool>() : (new Dictionary<string, bool>() { { sort, (order == "asc") } }),
+            };
+            string fileName = $"GetConfigurablePagedListOfPregnantInfoExcel{ DateTime.Now.ToString("yyyyMMdd_HHmmss")}.xls";
+            string filePath = Server.MapPath("~/Download/" + fileName);
+            var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", "ListPages.xml");
+            XDocument doc = XDocument.Load(path);
+            var tableElements = doc.Descendants("Table");
+            var tableConfigs = tableElements.Select(c => new EntityAppConfigTable(c));
+            var tableConfig = tableConfigs.FirstOrDefault(c => c.TableName == "O_PregnantInfo");
+            var displayProperties = tableConfig.Properties.Where(c => c.IsNeedOnPage);
+            pars.FieldNames = displayProperties.Select(c => c.ColumnName).ToList();
+            var serviceResult = _PregnantService.GetConfigurablePagedListOfPregnantInfo(pars);
+            if (!serviceResult.IsSuccess)
+                throw new NotImplementedException(serviceResult.Message);
+
+            var displayNames = displayProperties.Select(c => c.DisplayName).ToList();
+            var dt = serviceResult.Data.DataTable;
+            IWorkbook workbook = null;
+            FileStream fs = null;
+            IRow row = null;
+            ISheet sheet = null;
+            ICell cell = null;
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                workbook = new HSSFWorkbook();
+                sheet = workbook.CreateSheet("Sheet0");//创建一个名称为Sheet0的表  
+                int rowCount = dt.Rows.Count;//行数  
+                int columnCount = dt.Columns.Count;//列数  
+
+                //设置列头  
+                row = sheet.CreateRow(0);//excel第一行设为列头  
+                for (int c = 0; c < displayNames.Count(); c++)
+                {
+                    cell = row.CreateCell(c);
+                    cell.SetCellValue(displayNames[c]);
+                }
+
+                //设置每行每列的单元格,  
+                for (int i = 0; i < rowCount; i++)
+                {
+                    row = sheet.CreateRow(i + 1);
+                    for (int j = 0; j < columnCount; j++)
+                    {
+                        cell = row.CreateCell(j);//excel第二行开始写入数据  
+                        cell.SetCellValue(dt.Rows[i][j].ToString());
+                    }
+                }
+                using (fs = System.IO.File.OpenWrite(filePath))
+                {
+                    workbook.Write(fs);//向打开的这个xls文件中写入数据  
+                }
+            }
+            return Download(filePath, fileName);
         }
 
         [HttpPost]
