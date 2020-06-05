@@ -1,19 +1,21 @@
-﻿using VL.Consoling.SemiAutoExport;
-using Dapper;
+﻿using Dapper;
+using FrameworkTest.Common.DBSolution;
+using FrameworkTest.Common.HttpSolution;
+using FrameworkTest.Common.ValuesSolution;
+using FrameworkTest.Common.XMLSolution;
+using FrameworkTest.ConfigurableEntity;
+using FrameworkTest.Kettle;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using FrameworkTest.Kettle;
-using FrameworkTest.ConfigurableEntity;
-using FrameworkTest.Common.DBSolution;
-using System.Runtime.CompilerServices;
-using FrameworkTest.Common.XMLSolution;
-using System.Xml.Linq;
 using System.Net;
-using System.IO;
+using System.Reflection;
+using System.Security.Cryptography;
+using System.Text;
+using System.Xml.Linq;
+using VL.Consoling.SemiAutoExport;
 
 namespace FrameworkTest
 {
@@ -254,13 +256,13 @@ namespace FrameworkTest
                                 //插入到数据库的目标表 TbA：表名
                                 bulkCopy.DestinationTableName = "[dbo].[O_LabResult]";
                                 //内存表的字段 对应数据库表的字段 
-                                bulkCopy.ColumnMappings.Add("ID","ID");
-                                bulkCopy.ColumnMappings.Add("patientid","patientid");
-                                bulkCopy.ColumnMappings.Add("idcard","idcard");
-                                bulkCopy.ColumnMappings.Add("name","name");
-                                bulkCopy.ColumnMappings.Add("orderid","orderid");
-                                bulkCopy.ColumnMappings.Add("setid","setid");
-                                bulkCopy.ColumnMappings.Add("deliverydate","deliverydate");
+                                bulkCopy.ColumnMappings.Add("ID", "ID");
+                                bulkCopy.ColumnMappings.Add("patientid", "patientid");
+                                bulkCopy.ColumnMappings.Add("idcard", "idcard");
+                                bulkCopy.ColumnMappings.Add("name", "name");
+                                bulkCopy.ColumnMappings.Add("orderid", "orderid");
+                                bulkCopy.ColumnMappings.Add("setid", "setid");
+                                bulkCopy.ColumnMappings.Add("deliverydate", "deliverydate");
                                 bulkCopy.WriteToServer(dt);
                             }
                             catch (Exception ex)
@@ -432,15 +434,15 @@ order by def.[TableName],def.Id
                 XMLHelper.TestCreate(@"D:\a.xml");
             }));
             #endregion
-            #region MockLogin
-            cmds.Add(new Command("mlogin,0602,模拟用户登录", () =>
+            #region MockLogin,顺德
+            cmds.Add(new Command("m1,0602,模拟用户登录-本地实验", () =>
             {
                 CookieContainer container = new CookieContainer();
 
                 //模拟登陆,成功(注意需要关闭AntiForgeryToken)
                 string url = "http://localhost/Research/Account/Login";
                 string postData = string.Format("UserName={0}&Password={1}", "vlong638", "701616");
-                var result = HttpHelper.Post(url, postData,ref container);
+                var result = HttpHelper.Post(url, postData, ref container);
                 Console.WriteLine(result);
 
                 //模拟登陆后 请求可匿名的GET接口,成功
@@ -500,114 +502,157 @@ order by def.[TableName],def.Id
                 //模拟登陆后 请求带权限的POST接口,404(注意 此处有奇怪的问题,发布站点页面无法访问,调试可以访问,暂时无法解决)
                 if (false)
                 {
-//Accept: application / json, text / javascript, */*; q=0.01
-//Accept-Encoding: gzip, deflate, br
-//Accept-Language: zh-CN,zh;q=0.9
-//Connection: keep-alive
-//Content-Length: 14
-//Content-Type: application/x-www-form-urlencoded; charset=UTF-8
-//Cookie: __RequestVerificationToken_L1Jlc2VhcmNo0=kJfR9jnJV5Q5rnvYYtM0KWVJA4EaYioZ2HUSxpmLNmEVkIS8-KEqum7SduHjinr3hS5CUjINli5bR6EffSLoFbwnd9ISMRzzYx1WMPs_Uiw1; .ASPXAUTH=6AA32F3BDD9F97CFB1894C9E6C5FC68B743BD199C685C2C5F2796822A62D0700E84BE84CBB682E29C6CA4EA7CC97B3E402947859B5AA5F4A58ADAD09D09013282C7E38D6E735C2F7AD0C1EC46922BB02A482227672545C1BBC25388AB688CD08C8A2D21D13BFDA642909A1130DFCD185FBB57DBE7C858558CFA6424C1EFEA05EAB35BBD459A162D9CA8B44FC8CE2A8A358B2579D3859FB7F853E58EB7EDFC8B8CD5A12F6F82860C8C1B685FC7218E20E70F7E642F230FE374530890A6F05C86C5E470742E221C96F0E4178015A6437BDDA821E3E6D0C8C981158E189B78A2AD88465DBC3EE11CFE935097559082DD4C5E87957FDA46206BA993743EE8EA070B2476C00BD5BFE9649C80A507EEC0EB4049E22974F25D6A987CAB2254D2762582E6700878FEDC36305CBB4AA2F114536017E85724EF84D0690F1D6DD483A87D30C
-//Host: localhost
-//Origin: http://localhost
-//Referer: http://localhost/Research/Pregnant/PregnantInfoList
-//Sec-Fetch-Dest: empty
-//Sec-Fetch-Mode: cors
-//Sec-Fetch-Site: same-origin
-//User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36
-//X-Requested-With: XMLHttpRequest
+                    //Accept: application / json, text / javascript, */*; q=0.01
+                    //Accept-Encoding: gzip, deflate, br
+                    //Accept-Language: zh-CN,zh;q=0.9
+                    //Connection: keep-alive
+                    //Content-Length: 14
+                    //Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+                    //Cookie: __RequestVerificationToken_L1Jlc2VhcmNo0=kJfR9jnJV5Q5rnvYYtM0KWVJA4EaYioZ2HUSxpmLNmEVkIS8-KEqum7SduHjinr3hS5CUjINli5bR6EffSLoFbwnd9ISMRzzYx1WMPs_Uiw1; .ASPXAUTH=6AA32F3BDD9F97CFB1894C9E6C5FC68B743BD199C685C2C5F2796822A62D0700E84BE84CBB682E29C6CA4EA7CC97B3E402947859B5AA5F4A58ADAD09D09013282C7E38D6E735C2F7AD0C1EC46922BB02A482227672545C1BBC25388AB688CD08C8A2D21D13BFDA642909A1130DFCD185FBB57DBE7C858558CFA6424C1EFEA05EAB35BBD459A162D9CA8B44FC8CE2A8A358B2579D3859FB7F853E58EB7EDFC8B8CD5A12F6F82860C8C1B685FC7218E20E70F7E642F230FE374530890A6F05C86C5E470742E221C96F0E4178015A6437BDDA821E3E6D0C8C981158E189B78A2AD88465DBC3EE11CFE935097559082DD4C5E87957FDA46206BA993743EE8EA070B2476C00BD5BFE9649C80A507EEC0EB4049E22974F25D6A987CAB2254D2762582E6700878FEDC36305CBB4AA2F114536017E85724EF84D0690F1D6DD483A87D30C
+                    //Host: localhost
+                    //Origin: http://localhost
+                    //Referer: http://localhost/Research/Pregnant/PregnantInfoList
+                    //Sec-Fetch-Dest: empty
+                    //Sec-Fetch-Mode: cors
+                    //Sec-Fetch-Site: same-origin
+                    //User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36
+                    //X-Requested-With: XMLHttpRequest
 
                     url = "http://localhost/Pregnant/GetPagedListOfPregnantInfo";
                     postData = string.Format("page={0}&rows={1}", "1", "20");
-                    result = HttpHelper.Post(url, postData, ref container); 
+                    result = HttpHelper.Post(url, postData, ref container);
                 }
 
                 Console.WriteLine(result);
             }));
+            cmds.Add(new Command("m2,0604,模拟用户登录-申请公钥", () =>
+            {
+                CookieContainer container = new CookieContainer();
+                string url = "http://19.130.211.1:8090/FSFY/logon/publicKey";
+                string postData = "";
+                var result = HttpHelper.Get(url, postData, ref container);
+                Console.WriteLine(result);
+                //http://localhost/VL.API/api/OrientSample/GetOne
+            }));
+            cmds.Add(new Command("m3,0604,模拟用户登录-公钥及加密本地测试", () =>
+            {
+                //public key
+                //"exponent":"010001"
+                //"modulus":"00af8dfa5a14e97e58cac7238a5d4ca89478cedcfd196ea643735d64c74df659cd259c8bd60ec046c4d3f6dec3965dc0351f117f8a0ae62ad61c3a41d38c6a93215025c658587f4aa7ceaa9ed08c2ced8873254c417a77403aff9a0abb3bc1d2ff42f856e1a4d447ed0a1626e1099f304b6602e69cdca1a376ae6bf0dad13844cf"
+                //密码
+                //123
+                //加密结果
+                //2d36cfe9d49ccdb6cd313c75a7f4308036092f701a068f7fa66ab1835cd03baa3cbc80191e3bf502453d0cacec215a51adcfb883aa24ecc09025b6dc68d9cca20c722dc3e766e92fb15103b434a6c5fc640bbf7937f016c63a11ecad72018a30b0800a67f21d57f6014057f49c29595e7c3f9e5d1874e109a8e9c37be46ce59b
+
+                var exponent = "010001";
+                var modulus = "00af8dfa5a14e97e58cac7238a5d4ca89478cedcfd196ea643735d64c74df659cd259c8bd60ec046c4d3f6dec3965dc0351f117f8a0ae62ad61c3a41d38c6a93215025c658587f4aa7ceaa9ed08c2ced8873254c417a77403aff9a0abb3bc1d2ff42f856e1a4d447ed0a1626e1099f304b6602e69cdca1a376ae6bf0dad13844cf";
+
+                //使用
+                if (true)
+                {
+                    RSAParameters rsaParameters = new RSAParameters()
+                    {
+                        Exponent = FromHex(exponent), // new byte[] {01, 00, 01}
+                        Modulus = FromHex(modulus),   // new byte[] {A3, A6, ...}
+                    };
+                    RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
+                    rsa.ImportParameters(rsaParameters);
+                    var password = "123";
+                    var passwordBytes = Encoding.UTF8.GetBytes(password);
+                    var encryptedBytes = rsa.Encrypt(passwordBytes, false);
+
+
+                    //验证结果 base64格式 与原结果不一致
+                    var encryptedPasswordBase64 = Convert.ToBase64String(encryptedBytes);
+                    //AEAmntPiYgcluUUFdr5sfaNnTX1ebIxfBSB8TgGM5hmToJPneaLDBv4OTWsv3JOA51A028KIkArFzEeDWJkGgf/sYzH407hwsu4pMAWWyDbvX7sqwVlLQ+Q0/zuqqCXEQYmzvFJUW+Oy3oOQpYJDZdTzKOxqY4CUQ9WyAhmlo3Hx 
+
+                    var encryptedPasswordHex = encryptedBytes.ToHex();
+                    //00385429C2844A501574CAAC9F40791A7BC967D8638FE5FBA0B6462048E2F9C11BE1030D2E0ACFFFBF871CA4971927BF14BBE1E9CBB5002B7DD8E127C530C659258EA78B67ADBBD428FB538895078FD2FDAF336426C92586A780E6F60498944D6C9AF4CCC4250402C539F4CD9441062819A6389F904A5C4BFFED295C8DC3AEF08B
+
+
+
+
+                    //原始加密结果
+                    //2d36cfe9d49ccdb6cd313c75a7f4308036092f701a068f7fa66ab1835cd03baa3cbc80191e3bf502453d0cacec215a51adcfb883aa24ecc09025b6dc68d9cca20c722dc3e766e92fb15103b434a6c5fc640bbf7937f016c63a11ecad72018a30b0800a67f21d57f6014057f49c29595e7c3f9e5d1874e109a8e9c37be46ce59b
+                }
+
+
+                //using (RSACryptoServiceProvider rSACryptoServiceProvider = new RSACryptoServiceProvider())
+                //{
+                //    rSACryptoServiceProvider.ImportParameters(new RSAParameters());
+                //    encryptedData = rSACryptoServiceProvider.Encrypt(data, fOAEP);
+                //}
+
+
+                //CookieContainer container = new CookieContainer();
+                //string url = "http://localhost/VL.API/api/OrientSample/GetPublicKey";
+                //string postData = "";
+                //var result = HttpHelper.Get(url, postData, ref container);
+                //var publicKey = result.FromJson<PublicKey>();
+                //var partyId = "35";
+                //var userId = "021069";
+                //var password = 123;
+                //var encryptedPassword = "";
+                //var keyPair = new RSAKeyPair(publicKey.exponent, publicKey.modulus);
+                //encryptedPassword = Encrypt(keyPair, password);
+                //postData = $"pwd={encryptedPassword}&uid={partyId + userId}&url={"logon/myRoles"}";
+                //result = HttpHelper.Post(url, postData, ref container);
+                //Console.WriteLine(result);
+            }));
+            cmds.Add(new Command("m4,0604,模拟用户登录-线上模拟登录测试", () =>
+            {
+                //本地测试 模拟json传参登陆
+                if (false)
+                {
+                    CookieContainer container = new CookieContainer();
+                    var url = "http://localhost:51228/api/OrientSample/MockLogin";
+                    var postData = new { url = "logon/myRoles", uid = 35000528, pwd = "2d36cfe9d49ccdb6cd313c75a7f4308036092f701a068f7fa66ab1835cd03baa3cbc80191e3bf502453d0cacec215a51adcfb883aa24ecc09025b6dc68d9cca20c722dc3e766e92fb15103b434a6c5fc640bbf7937f016c63a11ecad72018a30b0800a67f21d57f6014057f49c29595e7c3f9e5d1874e109a8e9c37be46ce59b" }.ToJson();
+                    var result = HttpHelper.Post(url, postData, ref container, contentType: "application/json;charset=utf-8");
+                    Console.WriteLine(result);
+                }
+                //线上测试
+                if (true)
+                {
+                    CookieContainer container = new CookieContainer();
+                    var url = "http://19.130.211.1:8090/FSFY/logon/myRoles";
+                    var postData = new { url = "logon/myRoles", uid = "35000528", pwd = "2d36cfe9d49ccdb6cd313c75a7f4308036092f701a068f7fa66ab1835cd03baa3cbc80191e3bf502453d0cacec215a51adcfb883aa24ecc09025b6dc68d9cca20c722dc3e766e92fb15103b434a6c5fc640bbf7937f016c63a11ecad72018a30b0800a67f21d57f6014057f49c29595e7c3f9e5d1874e109a8e9c37be46ce59b" }.ToJson();
+                    var result = HttpHelper.Post(url, postData, ref container);
+                    Console.WriteLine(result); 
+                }
+            }));
+            cmds.Add(new Command("m5,0605,模拟用户登录-WebKit", () =>
+            {
+                //Type obj = Type.GetTypeFromProgID("ScriptControl");
+                //if (obj == null) return;`
+                //object ScriptControl = Activator.CreateInstance(obj);
+                //obj.InvokeMember("Language", BindingFlags.SetProperty, null, ScriptControl, new object[] { "JavaScript" });
+                //string js = "function time(a, b, msg){ var sum = a + b; return new Date().getTime() + ': ' + msg + ' = ' + sum }";
+                //obj.InvokeMember("AddCode", BindingFlags.InvokeMethod, null, ScriptControl, new object[] { js });
+                //var result = obj.InvokeMember("Eval", BindingFlags.InvokeMethod, null, ScriptControl, new object[] { "time(a, b, 'a + b')" }).ToString();
+
+            }));
             #endregion
+
             cmds.Start();
+        }
+
+        static byte[] FromHex(string hex)
+        {
+            if (string.IsNullOrEmpty(hex) || hex.Length % 2 != 0) throw new ArgumentException("not a hexidecimal string");
+            List<byte> bytes = new List<byte>();
+            for (int i = 0; i < hex.Length; i += 2)
+            {
+                bytes.Add(Convert.ToByte(hex.Substring(i, 2), 16));
+            }
+            return bytes.ToArray();
         }
     }
 
-    public class HttpHelper
+    public class LoginModel
     {
-        public static string Post(string url, string postData, ref CookieContainer container, string contentType = "application/x-www-form-urlencoded; charset=UTF-8")
-        {
-            var result = "";
-            HttpWebRequest request = null;
-            HttpWebResponse response = null;
-            ASCIIEncoding encoding = new ASCIIEncoding();
-            byte[] bytepostData = encoding.GetBytes(postData); ;
-            try
-            {
-                request = (HttpWebRequest)HttpWebRequest.Create(url);
-                request.Method = "Post";
-                request.ContentType = contentType;
-                request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36";
-                request.AllowAutoRedirect = true;
-                request.CookieContainer = container;//获取验证码时候获取到的cookie会附加在这个容器里面
-                request.KeepAlive = true;//建立持久性连接
-                if (bytepostData!=null)
-                {
-                    request.ContentLength = bytepostData.Length;
-                    using (Stream requestStm = request.GetRequestStream())
-                    {
-                        requestStm.Write(bytepostData, 0, bytepostData.Length);
-                    }
-                }
-                //响应
-                response = (HttpWebResponse)request.GetResponse();
-                container.Add(response.Cookies);
-                using (Stream responseStm = response.GetResponseStream())
-                {
-                    StreamReader redStm = new StreamReader(responseStm, Encoding.UTF8);
-                    result = redStm.ReadToEnd();
-                }
-            }
-            catch (Exception ex)
-            {
-                result = ex.Message;
-            }
-            return result;
-        }
-
-        public static string Get(string url, string postData, ref CookieContainer container)
-        {
-            var result = "";
-            HttpWebRequest request = null;
-            HttpWebResponse response = null;
-            ASCIIEncoding encoding = new ASCIIEncoding();
-            byte[] bytepostData = encoding.GetBytes(postData); ;
-            try
-            {
-                request = (HttpWebRequest)WebRequest.Create(url);
-                request.Method = "GET";
-                request.ContentType = "application/x-www-form-urlencoded";
-                request.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:5.0.1) Gecko/20100101 Firefox/5.0.1";
-                request.Accept = "image/webp,*/*;q=0.8";
-
-                #region cookie处理
-                request.CookieContainer = container;
-
-                //request.CookieContainer = new CookieContainer();//!Very Important.!!!
-                //container = request.CookieContainer;
-                //var c = request.CookieContainer.GetCookies(request.RequestUri);
-                //response = (HttpWebResponse)request.GetResponse();
-                //response.Cookies = container.GetCookies(request.RequestUri); 
-                #endregion
-
-                response = (HttpWebResponse)request.GetResponse();
-                using (Stream responseStm = response.GetResponseStream())
-                {
-                    StreamReader redStm = new StreamReader(responseStm, Encoding.UTF8);
-                    result = redStm.ReadToEnd();
-                }
-            }
-            catch (Exception ex)
-            {
-                result = ex.Message;
-            }
-            return result;
-        }
+        public string url { set; get; }
+        public int uid { set; get; }
+        public string pwd { set; get; }
     }
 
     #region CommandMode

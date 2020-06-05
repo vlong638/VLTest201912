@@ -97,9 +97,13 @@
     <Compile Include="Business\ConfigurableEntity\SampleEntity.cs" />
     <Compile Include="Business\Kettle\O_LabResult.cs" />
     <Compile Include="Common\EnumSolution\EnumHelper.cs" />
+    <Compile Include="Common\HttpSolution\HttpHelper.cs" />
+    <Compile Include="Common\RSASolution\RSASample.cs" />
+    <Compile Include="Common\RSASolution\RSAHelper.cs" />
     <Compile Include="Common\ValuesSolution\JsonEx.cs" />
     <Compile Include="Common\ValuesSolution\EnumEx.cs" />
     <Compile Include="Common\ValuesSolution\DataTableEx.cs" />
+    <Compile Include="Common\ValuesSolution\HexadecimalEx.cs" />
     <Compile Include="Common\ValuesSolution\ValueEx.cs" />
     <Compile Include="Common\XMLSolution\XMLHelper.cs" />
     <Compile Include="Program.cs" />

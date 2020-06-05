@@ -839,6 +839,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\RSA\RSAUtils.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Scripts\VL\Common.js" />
     <Content Include="XMLConfig\ListPages.xml" />
@@ -893,6 +894,7 @@
     <Content Include="Views\Pregnant\AllStatistics.cshtml" />
     <Content Include="Views\Account\Sample.cshtml" />
     <Content Include="Views\Pregnant\Test.cshtml" />
+    <Content Include="Views\Home\RSATest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

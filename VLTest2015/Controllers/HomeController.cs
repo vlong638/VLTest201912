@@ -102,5 +102,13 @@ namespace VLTest2015.Controllers
 
         #endregion
 
+        #region 登陆模拟
+
+        public ActionResult RSATest()
+        {
+            return View();
+        }
+
+        #endregion
     }
 }

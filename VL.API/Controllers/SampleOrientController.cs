@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -122,7 +123,7 @@ namespace VL.API.Controllers
         public List<Dictionary<string, object>> MockData(string input)
         {
             var s = @"[{""jiuzhenid"":""1000189789"",""nianling"":null,""xitongsj"":""2019 - 04 - 09 09:38:00"",""jiezhensj"":""2019 - 04 - 09 09:38:00"",""guahaoid"":""1000245303"",""keshidm"":""107"",""keshimc"":""产科"",""guahaobc"":""上午"",""guahaoxh"":""1"",""yishengxm"":""戴贤贤"",""chushengrq"":""1990 - 12 - 18"",""jiuzhenkh"":""2012040000545393"",""xingming"":""张晓玲"",""xingbie"":""2"",""zhengjianhm"":""330304199012189760"",""bingrenid"":""1429738"",""jiatingzz"":""浙江省温州市瓯海区新桥街道站前路１９７号１１幢４０５室"",""lianxidh"":""13566262593"",""status"":4}]";
-            var result=  Newtonsoft.Json.JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(s);
+            var result = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(s);
             return result;
         }
 
@@ -152,7 +153,40 @@ namespace VL.API.Controllers
             System.IO.File.WriteAllText(file, Newtonsoft.Json.JsonConvert.SerializeObject(names));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public JsonResult GetPublicKey()
+        {
+            var result = new { exponent = "010001", code = 200, modulus = @"00af8dfa5a14e97e58cac7238a5d4ca89478c
+edcfd196ea643735d64c74df659cd259c8bd60ec046c4d3f6dec3965dc0351f117f8a0ae62ad61c3
+a41d38c6a93215025c658587f4aa7ceaa9ed08c2ced8873254c417a77403aff9a0abb3bc1d2ff42f
+856e1a4d447ed0a1626e1099f304b6602e69cdca1a376ae6bf0dad13844cf" };
+            return new JsonResult(result);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [AllowAnonymous]
+        public int MockLogin(LoginModel request)
+        {
+            return 1;
+        }
     }
+
+    public class LoginModel
+    {
+        public string url { set; get; }
+        public int uid { set; get; }
+        public string pwd { set; get; }
+    }
+
     /// <summary>
     /// 
     /// </summary>

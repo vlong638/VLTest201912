@@ -1709,7 +1709,10 @@ order by Table_Name,Column_Name;
             }));
             cmds.Add(new Command("a2,快排", () =>
             {
-                int temp = 0;
+                //时间复杂度
+                //在a取数组的第一项时候，是最糟的情况，完成每层需要的时间是n，栈的高度是n，时间复杂度就是n²
+                //当取中间的值得时候，完成每层的时间是n，但是调用栈的高度变成了logn
+
                 int[] arr = { 23, 44, 66, 76, 98, 11, 3, 9, 7, 23, 98, 11, 3, 9, 7, 23, 44, 66, 44, 66, 76, 98, 11, 3, 9, 7 };
                 Console.WriteLine("排序前的数组：");
                 foreach (int item in arr)
