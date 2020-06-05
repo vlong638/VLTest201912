@@ -611,7 +611,7 @@ order by def.[TableName],def.Id
                     Console.WriteLine(result);
                 }
                 //线上测试 模拟登陆
-                if (true)
+                if (false)
                 {
                     var url = "http://19.130.211.1:8090/FSFY/logon/myRoles";
                     var postData = new { url = "logon/myRoles", uid = "35000528", pwd = "2d36cfe9d49ccdb6cd313c75a7f4308036092f701a068f7fa66ab1835cd03baa3cbc80191e3bf502453d0cacec215a51adcfb883aa24ecc09025b6dc68d9cca20c722dc3e766e92fb15103b434a6c5fc640bbf7937f016c63a11ecad72018a30b0800a67f21d57f6014057f49c29595e7c3f9e5d1874e109a8e9c37be46ce59b" }.ToJson();

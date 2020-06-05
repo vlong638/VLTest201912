@@ -403,6 +403,12 @@
     <Compile Include="DAL\IUserAuthorityRepository.cs" />
     <Compile Include="DAL\IRoleRepository.cs" />
     <Compile Include="DAL\IUserRepository.cs" />
+    <Content Include="Content\imgs\Login\名称.png" />
+    <Content Include="Content\imgs\Login\整体效果.png" />
+    <Content Include="Content\imgs\Login\球.png" />
+    <Content Include="Content\imgs\Login\登录框.png" />
+    <Content Include="Content\imgs\Login\登录页-说明.png" />
+    <Content Include="Content\imgs\Login\背景.png" />
     <Content Include="Download\Remark.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
