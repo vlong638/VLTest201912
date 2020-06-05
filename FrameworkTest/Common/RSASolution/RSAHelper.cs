@@ -11,7 +11,7 @@ namespace FrameworkTest.Common.RSASolution
         //public static string Encrypt(RSAKeyPair key, string s)
         //{
         //    var cs = s.ToCharArray();
-        //    while (cs.Length%key.chunkSizebiFromHex != 0)
+        //    while (cs.Length % key.chunkSizebiFromHex != 0)
         //    {
 
         //    }
@@ -30,6 +30,8 @@ namespace FrameworkTest.Common.RSASolution
         //        result.di
         //    }
         //}
+
+
     }
 
     public class BigInt

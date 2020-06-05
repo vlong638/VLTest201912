@@ -178,6 +178,19 @@ a41d38c6a93215025c658587f4aa7ceaa9ed08c2ced8873254c417a77403aff9a0abb3bc1d2ff42f
         {
             return 1;
         }
+
+        static int CommonId = 1;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [AllowAnonymous]
+        public int MockAdd(int value)
+        {
+            CommonId += value;
+            return CommonId;
+        }
     }
 
     public class LoginModel
