@@ -18,24 +18,14 @@
         width: 500px;
         height: 566px;
         float: right;
-        margin-top: 170px;
+        margin-top: 100px;
         margin-right: 10%;
-    }
-
-    #loginFormTitle {
-        text-align: center;
-        color: white;
-        font-size: 32px;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        padding-top: 12px;
-        padding-bottom: 12px;
     }
 
 
     #loginFormTableImg {
         display: inline-block;
-        margin-top: 226px;
+        margin-top: 150px;
         margin-left: 10%;
     }
 
@@ -54,6 +44,68 @@
         width: 402px;
         height: 40px;
     }
+
+    #loginForm .Title {
+        text-align: center;
+        color: white;
+        font-size: 32px;
+        letter-spacing: 2px;
+        padding-top: 56px;
+        padding-bottom: 64px;
+        font-weight:bold;
+    }
+
+    #loginForm .input_block {
+        padding: 0 48px 0 48px;
+    }
+
+    #loginForm .input_line {
+        width: 100%;
+        height: 48px;
+        margin-top: 12px;
+        border: 1px solid #55bad8;
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    #loginForm .input_text {
+        width: 100%;
+        height: 100%;
+        background: #081f64;
+        border: 0px;
+        padding: 0 0 0 18px;
+        color: white;
+    }
+    #loginForm input {
+        font-size: large;
+    }
+    #loginForm input:-webkit-autofill {
+        box-shadow: 0 0 0px 1000px #081f64 inset !important;
+        text-fill-color: white;
+        -webkit-text-fill-color: white;
+    }
+    #loginForm .text-danger {
+        color: red;
+    }
+
+    #loginForm .input_buttonline {
+        width: 100%;
+        height: 48px;
+        border: 1px solid #55bad8;
+        border-radius: 3px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    #loginForm .input_button {
+        width: 100%;
+        height: 100%;
+        background: #37d4e8;
+        border: 0px;
+        padding: 0 0 0 18px;
+        color: white;
+    }
 </style>
 
 <body>
@@ -64,48 +116,27 @@
         <img src="/Content/imgs/Login/球.png" />
     </div>
     <div id="loginForm">
-        <section>
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-                <div id="loginFormTitle">用户登录</div>
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                @*<div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <div class="checkbox">
-                                @Html.CheckBoxFor(m => m.RememberMe)
-                                @Html.LabelFor(m => m.RememberMe)
-                            </div>
-                        </div>
-                    </div>*@
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                    </div>
-                </div>
-                <p>
-                    @Html.ActionLink("注册为新用户", "Register")
-                </p>
-                @* 在为密码重置功能启用帐户确认后启用此项
-                    <p>
-                        @Html.ActionLink("忘记了密码?", "ForgotPassword")
-                    </p>*@
-            }
-        </section>
+        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="Title">用户登录</div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <ul class="input_block">
+                <li class="input_line">
+                    <img src="/Content/imgs/Login/img_account.png" style="width:22px;height:26px;padding: 0 10 0 10px;">
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "input_text", @placeholder = "请输入账号" })
+                    @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                </li>
+                <li class="input_line" style="margin-top:48px;">
+                    <img src="/Content/imgs/Login/img_lock.png" style="width:22px;height:26px;padding: 0 10 0 10px;">
+                    @Html.TextBoxFor(m => m.Password, new { @class = "input_text", @placeholder = "请输入密码" })
+                    @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                </li>
+                <li class="input_buttonline" style="margin-top:96px;">
+                    <input type="submit" value="登录" class="input_button" />
+                </li>
+            </ul>
+        }
     </div>
 </body>
 
