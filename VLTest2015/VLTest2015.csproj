@@ -372,7 +372,7 @@
     <Compile Include="Common\Models\Pager\VLPageRequest.cs" />
     <Compile Include="Common\Models\Pager\VLPageResult.cs" />
     <Compile Include="Common\Utils\ConfigurableEntity\EntityAppConfigProperty.cs" />
-    <Compile Include="Common\Utils\ConfigurableEntity\EntityAppConfigTable.cs" />
+    <Compile Include="Common\Utils\ConfigurableEntity\EntityAppConfig.cs" />
     <Compile Include="Common\Utils\ConfigurableEntity\EntityDBConfig.cs" />
     <Compile Include="Common\Utils\Values\DataTableEx.cs" />
     <Compile Include="Common\Utils\Values\JsonEx.cs" />
@@ -850,7 +850,9 @@
     <Content Include="Scripts\RSA\RSAUtils.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Scripts\VL\Common.js" />
-    <Content Include="XMLConfig\ListPages.xml" />
+    <Content Include="XMLConfig\ListPages.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="管理_sql\4.必要数据准备.sql" />
     <Content Include="管理_sql\3.新建表_[SyncRecordLog].sql" />
     <Content Include="管理_sql\2.新建表_[SyncRecord].sql" />

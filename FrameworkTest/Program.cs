@@ -405,11 +405,11 @@ order by def.[TableName],def.Id
 
                 //写成xml
                 var groupedProperties = serviceResult.Data.GroupBy(c => c.TableName).ToList();
-                var root = new XElement("Tables");
+                var root = new XElement(EntityAppConfig.RootElementName);
                 var tableConfigs = groupedProperties.Select(ps => {
-                    var configTable = new EntityAppConfigTable()
+                    var configTable = new EntityAppConfig()
                     {
-                        TableName = ps.Key,
+                        ViewName = ps.Key,
                         Properties = ps.Select(p => new EntityAppConfigProperty(p)).ToList()
                     };
                     return configTable;
@@ -423,9 +423,9 @@ order by def.[TableName],def.Id
                 //读取xml
                 var path = @"D:\tables.xml";
                 XDocument doc = XDocument.Load(path);
-                var tableElements = doc.Descendants("Table");
-                var tableConfig = new EntityAppConfigTable(tableElements.First());
-                var tableConfigs = tableElements.Select(c => new EntityAppConfigTable(c));
+                var tableElements = doc.Descendants(EntityAppConfig.NodeElementName);
+                var tableConfig = new EntityAppConfig(tableElements.First());
+                var tableConfigs = tableElements.Select(c => new EntityAppConfig(c));
             }));
             #endregion
             #region XML
@@ -434,6 +434,7 @@ order by def.[TableName],def.Id
                 XMLHelper.TestCreate(@"D:\a.xml");
             }));
             #endregion
+            cmds.Add(new Command("---------------------MockLogin-------------------", () => { }));
             #region MockLogin,顺德
             cmds.Add(new Command("m1,0602,模拟用户登录-本地实验", () =>
             {

@@ -89,15 +89,21 @@ namespace VLTest2015.Controllers
         /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
-        public JsonResult GetListConfig(string listName)
+        public JsonResult GetListConfig(GetListConfigRequest request)
         {
             var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", "ListPages.xml");
             XDocument doc = XDocument.Load(path);
-            var tableElements = doc.Descendants(EntityAppConfigTable.ElementName);
-            var tableConfigs = tableElements.Select(c => new EntityAppConfigTable(c));
-            var tableConfig = tableConfigs.FirstOrDefault(c => c.TableName == listName);
+            var tableElements = doc.Descendants(EntityAppConfig.NodeElementName);
+            var tableConfigs = tableElements.Select(c => new EntityAppConfig(c));
+            var tableConfig = tableConfigs.FirstOrDefault(c => c.ViewName == request.ListName);
             var displayProperties = tableConfig.Properties.Where(c => c.IsNeedOnPage);
             return Json(new APIResult<IEnumerable<EntityAppConfigProperty>>(displayProperties));
+        }
+
+        public class GetListConfigRequest
+        {
+            public string ListName { set; get; }
+            public long CustomId { set; get; }
         }
 
         #endregion

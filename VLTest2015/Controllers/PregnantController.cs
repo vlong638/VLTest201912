@@ -88,9 +88,9 @@ namespace VLTest2015.Controllers
             };
             var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", "ListPages.xml");
             XDocument doc = XDocument.Load(path);
-            var tableElements = doc.Descendants("Table");
-            var tableConfigs = tableElements.Select(c => new EntityAppConfigTable(c));
-            var tableConfig = tableConfigs.FirstOrDefault(c => c.TableName == "O_PregnantInfo");
+            var tableElements = doc.Descendants(EntityAppConfig.NodeElementName);
+            var tableConfigs = tableElements.Select(c => new EntityAppConfig(c));
+            var tableConfig = tableConfigs.FirstOrDefault(c => c.ViewName == "O_PregnantInfo");
             var displayProperties = tableConfig.Properties.Where(c => c.IsNeedOnPage);
             pars.FieldNames = displayProperties.Select(c => c.ColumnName).ToList();
 
@@ -126,8 +126,8 @@ namespace VLTest2015.Controllers
             var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", "ListPages.xml");
             XDocument doc = XDocument.Load(path);
             var tableElements = doc.Descendants("Table");
-            var tableConfigs = tableElements.Select(c => new EntityAppConfigTable(c));
-            var tableConfig = tableConfigs.FirstOrDefault(c => c.TableName == "O_PregnantInfo");
+            var tableConfigs = tableElements.Select(c => new EntityAppConfig(c));
+            var tableConfig = tableConfigs.FirstOrDefault(c => c.ViewName == "O_PregnantInfo");
             var displayProperties = tableConfig.Properties.Where(c => c.IsNeedOnPage);
             pars.FieldNames = displayProperties.Select(c => c.ColumnName).ToList();
             var serviceResult = _PregnantService.GetConfigurablePagedListOfPregnantInfo(pars);

@@ -4,27 +4,28 @@ using System.Xml.Linq;
 
 namespace VLTest2015.Utils
 {
-    class EntityAppConfigTable
+    class EntityAppConfig
     {
-        public static string ElementName = "Table";
+        public static string RootElementName = "Views";
+        public static string NodeElementName = "View";
 
-        public string TableName { set; get; }
+        public string ViewName { set; get; }
         public List<EntityAppConfigProperty> Properties { set; get; }
 
-        public EntityAppConfigTable()
-        { 
+        public EntityAppConfig()
+        {
 
         }
-        public EntityAppConfigTable(XElement element)
+        public EntityAppConfig(XElement element)
         {
-            TableName = element.Attribute(nameof(TableName)).Value;
+            ViewName = element.Attribute(nameof(ViewName)).Value;
             Properties = element.Descendants(EntityAppConfigProperty.ElementName).Select(c => new EntityAppConfigProperty(c)).ToList();
         }
 
         public XElement ToXElement()
         {
-            var table = new XElement(ElementName);
-            table.SetAttributeValue(nameof(TableName), TableName);
+            var table = new XElement(NodeElementName);
+            table.SetAttributeValue(nameof(ViewName), ViewName);
             var properties = Properties.Select(p => p.ToXElement());
             table.Add(properties);
             return table;
