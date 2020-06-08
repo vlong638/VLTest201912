@@ -129,7 +129,7 @@
                 </li>
                 <li class="input_line" style="margin-top:48px;">
                     <img src="/Content/imgs/Login/img_lock.png" style="width:22px;height:26px;padding: 0 10 0 10px;">
-                    @Html.TextBoxFor(m => m.Password, new { @class = "input_text", @placeholder = "请输入密码" })
+                    @Html.PasswordFor(m => m.Password, new { @class = "input_text", @placeholder = "请输入密码" })
                     @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
                 </li>
                 <li class="input_buttonline" style="margin-top:96px;">
