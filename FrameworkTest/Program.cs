@@ -410,7 +410,9 @@ order by def.[TableName],def.Id
                     var configTable = new EntityAppConfig()
                     {
                         ViewName = ps.Key,
-                        Properties = ps.Select(p => new EntityAppConfigProperty(p)).ToList()
+                        Properties = ps.Select(p => new EntityAppConfigProperty(p)).ToList(),
+                        Wheres = new List<EntityAppConfigWhere> { new EntityAppConfigWhere() },
+                        OrderBy = new EntityAppConfigOrderBy(),
                     };
                     return configTable;
                 });
@@ -421,7 +423,7 @@ order by def.[TableName],def.Id
             cmds.Add(new Command("c4_0527,应用配置,读取XML", () =>
             {
                 //读取xml
-                var path = @"D:\tables.xml";
+                var path = @"D:\ListPages.xml";
                 XDocument doc = XDocument.Load(path);
                 var tableElements = doc.Descendants(EntityAppConfig.NodeElementName);
                 var tableConfig = new EntityAppConfig(tableElements.First());

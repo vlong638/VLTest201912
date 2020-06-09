@@ -10,7 +10,7 @@ using VLTest2015.Utils;
 
 namespace VLTest2015.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public ActionResult Index()
         {
@@ -91,19 +91,82 @@ namespace VLTest2015.Controllers
         [AllowAnonymous]
         public JsonResult GetListConfig(GetListConfigRequest request)
         {
-            var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", "ListPages.xml");
-            XDocument doc = XDocument.Load(path);
-            var tableElements = doc.Descendants(EntityAppConfig.NodeElementName);
-            var tableConfigs = tableElements.Select(c => new EntityAppConfig(c));
-            var tableConfig = tableConfigs.FirstOrDefault(c => c.ViewName == request.ListName);
-            var displayProperties = tableConfig.Properties.Where(c => c.IsNeedOnPage);
-            return Json(new APIResult<IEnumerable<EntityAppConfigProperty>>(displayProperties));
+            if (request.CustomConfigId > 0)
+            {
+                var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", "CustomConfig.xml");
+                XDocument doc = XDocument.Load(path);
+                var viewElements = doc.Descendants(EntityAppConfig.NodeElementName);
+                var viewConfigs = viewElements.Select(c => new EntityAppConfig(c));
+                var viewConfig = viewConfigs.FirstOrDefault(c => c.ViewName == request.ListName);
+                viewConfig.Properties.RemoveAll(c => !c.IsNeedOnPage);
+                var result = new GetListConfigResponse()
+                {
+                    CustomConfigId = request.CustomConfigId,
+                    ViewConfig = viewConfig,
+                };
+                return Json(new APIResult<GetListConfigResponse>(result));
+            }
+            else
+            {
+                var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", "ListPages.xml");
+                XDocument doc = XDocument.Load(path);
+                var viewElements = doc.Descendants(EntityAppConfig.NodeElementName);
+                var viewConfigs = viewElements.Select(c => new EntityAppConfig(c));
+                var viewConfig = viewConfigs.FirstOrDefault(c => c.ViewName == request.ListName);
+                viewConfig.Properties.RemoveAll(c => !c.IsNeedOnPage);
+                var result = new GetListConfigResponse()
+                {
+                    CustomConfigId = request.CustomConfigId,
+                    ViewConfig = viewConfig,
+                };
+                return Json(new APIResult<GetListConfigResponse>(result));
+            }
         }
 
         public class GetListConfigRequest
         {
             public string ListName { set; get; }
-            public long CustomId { set; get; }
+            public long CustomConfigId { set; get; }
+        }
+
+        public class GetListConfigResponse
+        {
+            public long CustomConfigId { set; get; }
+            public EntityAppConfig ViewConfig { set; get; }
+        }
+
+        public class SaveListConfigRequest
+        {
+            public long CustomConfigId { set; get; }
+            public string ListName { set; get; }
+            public EntityAppConfig ViewConfig { set; get; }
+        }
+
+        [HttpPost]
+        public JsonResult SaveListConfig(SaveListConfigRequest request)
+        {
+            var userMenu = new UserMenu()
+            {
+                Id = request.CustomConfigId,
+                UserId = GetCurrentUser().UserId,
+                MenuName = request.ListName,
+                URL = "/Pregnant/GetConfigurablePagedListOfPregnantInfoExcel?CustomConfigId={0}",
+                EntityAppConfig = request.ViewConfig.ToJson(),
+            };
+            if (request.CustomConfigId > 0)
+            {
+                var serviceResult = UserService.UpdateUserMenu(userMenu);
+                if (!serviceResult.IsSuccess)
+                    return Error(serviceResult.Data, serviceResult.Messages);
+                return Success(serviceResult.Data);
+            }
+            else
+            {
+                var serviceResult = UserService.CreateUserMenu(userMenu);
+                if (!serviceResult.IsSuccess)
+                    return Error(serviceResult.Data, serviceResult.Messages);
+                return Success(serviceResult.Data);
+            }
         }
 
         #endregion

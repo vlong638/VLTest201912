@@ -13,6 +13,7 @@ namespace VLTest2015.Services
         IUserRoleRepository _userRoleRepository;
         IRoleRepository _roleRepository;
         IRoleAuthorityRepository _roleAuthorityRepository;
+        UserMenuRepository _userMenuRepository;
 
         public UserService()
         {
@@ -21,6 +22,7 @@ namespace VLTest2015.Services
             _userRoleRepository = new UserRoleRepository(_context);
             _roleRepository = new RoleRepository(_context);
             _roleAuthorityRepository = new RoleAuthorityRepository(_context);
+            _userMenuRepository = new UserMenuRepository(_context);
         }
 
         public ServiceResult<User> Register(string userName, string password)
@@ -146,6 +148,18 @@ namespace VLTest2015.Services
         {
             var roles = _roleRepository.GetAll();
             return Success(roles);
+        }
+
+        public ServiceResult<bool> UpdateUserMenu(UserMenu userMenu)
+        {
+            var isSuccess = _userMenuRepository.Update(userMenu);
+            return Success(isSuccess);
+        }
+
+        public ServiceResult<long> CreateUserMenu(UserMenu userMenu)
+        {
+            var id = _userMenuRepository.Insert(userMenu);
+            return Success(id);
         }
     }
 }

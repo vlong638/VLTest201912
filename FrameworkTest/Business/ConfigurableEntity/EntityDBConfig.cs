@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FrameworkTest.ConfigurableEntity
 {
-    class EntityDBConfig
+    public class EntityDBConfig
     {
         public long Id { set; get; }
         /// <summary>

@@ -5,12 +5,15 @@ using System.Web.Mvc;
 using VLTest2015.Attributes;
 using VLTest2015.Authentication;
 using VLTest2015.Common.Controllers;
+using VLTest2015.Services;
 
 namespace VLTest2015.Controllers
 {
     [VLAuthentication]
     public class BaseController : Controller
     {
+        protected IUserService UserService { get { return new UserService(); } }
+
         #region Common
         protected ActionResult RedirectToLocal(string returnUrl)
         {

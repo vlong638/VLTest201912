@@ -365,6 +365,7 @@
     <Compile Include="Common\Controllers\APIResult.cs" />
     <Compile Include="Common\Models\DTO\PagedListOfVisitRecordModel.cs" />
     <Compile Include="Common\Models\DTO\PagedListOfLabOrderModel.cs" />
+    <Compile Include="Common\Models\Entities\UserMenu.cs" />
     <Compile Include="Common\Models\RequestDTO\GetPagedListOfVisitRecordRequest.cs" />
     <Compile Include="Common\Models\RequestDTO\GetPagedListOfLabOrderRequest.cs" />
     <Compile Include="Common\Models\RequestDTO\GetPagedListOfPregnantInfoRequest.cs" />
@@ -380,6 +381,7 @@
     <Compile Include="Common\Utils\Values\ValueEx.cs" />
     <Compile Include="Controllers\PregnantController.cs" />
     <Compile Include="DAL\Impl\LabCheckRepository.cs" />
+    <Compile Include="DAL\Impl\UserMenuRepository.cs" />
     <Compile Include="DAL\Impl\VisitRecordRepository.cs" />
     <Compile Include="DAL\Impl\LabOrderRepository.cs" />
     <Compile Include="DAL\Impl\PregnantInfoRepository.cs" />
@@ -448,6 +450,11 @@
     <Compile Include="Common\Utils\CacheHelper.cs" />
     <Compile Include="Common\Utils\DBHelper.cs" />
     <Compile Include="Common\Utils\MD5Helper.cs" />
+    <Content Include="XMLConfig\CustomConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="管理_sql\5.新建表_A_UserMenu.sql" />
+    <Content Include="管理_sql\5.新建表_A_UserMenuO.sql" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />

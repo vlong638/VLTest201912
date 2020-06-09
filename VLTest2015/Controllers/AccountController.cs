@@ -13,11 +13,9 @@ namespace VLTest2015.Controllers
 {
     public class AccountController : BaseController
     {
-        private IUserService _userService;
 
         public AccountController()
         {
-            this._userService = new UserService();
         }
         //
         // GET: /Account/Login
@@ -42,11 +40,11 @@ namespace VLTest2015.Controllers
 
             // 这不会计入到为执行帐户锁定而统计的登录失败次数中
             // 若要在多次输入错误密码的情况下触发帐户锁定，请更改为 shouldLockout: true
-            var result = _userService.PasswordSignIn(model.UserName, model.Password, false);
+            var result = UserService.PasswordSignIn(model.UserName, model.Password, false);
             if (result.IsSuccess)
             {
                 var user = result.Data;
-                var authorityIds = _userService.GetAllUserAuthorityIds(result.Data.Id).Data;
+                var authorityIds = UserService.GetAllUserAuthorityIds(result.Data.Id).Data;
 
                 #region 登录缓存处理
 
@@ -102,8 +100,8 @@ namespace VLTest2015.Controllers
         [VLAuthentication(Authority.查看用户列表)]
         public JsonResult GetUserPagedList(GetUserPageListRequest request)
         {
-            var users = _userService.GetUserPageList(request).Data;
-            var userRoles = _userService.GetRoleInfoByUserIds(users.Data.Select(c => c.Id).ToArray());
+            var users = UserService.GetUserPageList(request).Data;
+            var userRoles = UserService.GetRoleInfoByUserIds(users.Data.Select(c => c.Id).ToArray());
             IEnumerable<GetUserPagedListResponse> result = users.Data.Select(c => new GetUserPagedListResponse()
             {
                 UserId = c.Id,
@@ -124,7 +122,7 @@ namespace VLTest2015.Controllers
         [VLAuthentication(Authority.查看角色列表)]
         public JsonResult GetRoleList()
         {
-            var roles = _userService.GetAllRoles().Data.Select(c => new IdNameResponse() { Id = c.Id, Name = c.Name });
+            var roles = UserService.GetAllRoles().Data.Select(c => new IdNameResponse() { Id = c.Id, Name = c.Name });
             return Json(new { total = roles.Count(), rows = roles }, JsonRequestBehavior.AllowGet);
         }
 
@@ -133,7 +131,7 @@ namespace VLTest2015.Controllers
         [VLAuthentication(Authority.创建角色)]
         public JsonResult AddRole(string roleName)
         {
-            var result = _userService.CreateRole(roleName);
+            var result = UserService.CreateRole(roleName);
             return Json(new { errorMsg = string.Join(",", result.Messages) }, JsonRequestBehavior.AllowGet);
         }
 
@@ -141,7 +139,7 @@ namespace VLTest2015.Controllers
         [VLAuthentication(Authority.编辑用户角色)]
         public JsonResult EditUserRole(long userId, long[] roleIds)
         {
-            var result = _userService.EditUserRoles(userId, roleIds);
+            var result = UserService.EditUserRoles(userId, roleIds);
             return Json(new { errorMsg = string.Join(",", result.Messages) }, JsonRequestBehavior.AllowGet);
         }
 
@@ -154,8 +152,8 @@ namespace VLTest2015.Controllers
                 return Json("需选中用户");
             }
 
-            var roles = _userService.GetAllRoles().Data;
-            var userRoles = _userService.GetRoleInfoByUserIds(request.UserId).Data;
+            var roles = UserService.GetAllRoles().Data;
+            var userRoles = UserService.GetRoleInfoByUserIds(request.UserId).Data;
             IEnumerable<CheckableIdNameResponse> result = roles.Select(c => new CheckableIdNameResponse()
             {
                 Id = c.Id,
@@ -175,7 +173,7 @@ namespace VLTest2015.Controllers
             }
 
             var authorities = EnumHelper.GetAllEnums<Authority>();
-            var roleAuthorities = _userService.GetRoleAuthorityIds(roleId).Data;
+            var roleAuthorities = UserService.GetRoleAuthorityIds(roleId).Data;
             var result = authorities.Select(c => new CheckableIdNameResponse() { Id = (long)c, Name = c.GetDescription(), IsChecked = roleAuthorities.ToList().Contains((long)c) });
             return Json(new { total = authorities.Count(), rows = result }, JsonRequestBehavior.AllowGet);
         }
@@ -184,7 +182,7 @@ namespace VLTest2015.Controllers
         [VLAuthentication(Authority.编辑角色权限)]
         public JsonResult EditRoleAuthority(long roleId, long[] authorityIds)
         {
-            var result = _userService.EditRoleAuthorities(roleId, authorityIds);
+            var result = UserService.EditRoleAuthorities(roleId, authorityIds);
             return Json(new { errorMsg = string.Join(",", result.Messages) }, JsonRequestBehavior.AllowGet);
         }
 
@@ -215,11 +213,11 @@ namespace VLTest2015.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = _userService.Register(model.UserName, model.Password);
+                var result = UserService.Register(model.UserName, model.Password);
                 if (result.IsSuccess)
                 {
-                    var user = _userService.PasswordSignIn(model.UserName, model.Password, false).Data;
-                    var authorityIds = _userService.GetAllUserAuthorityIds(user.Id).Data;
+                    var user = UserService.PasswordSignIn(model.UserName, model.Password, false).Data;
+                    var authorityIds = UserService.GetAllUserAuthorityIds(user.Id).Data;
 
                     #region 邮箱二次确认
                     // 有关如何启用帐户确认和密码重置的详细信息，请访问 http://go.microsoft.com/fwlink/?LinkID=320771

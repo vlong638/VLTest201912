@@ -1,18 +1,20 @@
 ﻿@{
     ViewBag.Title = "孕妇档案列表";
 }
-<div id="toolbar">
-    @*奇怪的页面样式问题...上面有一段空白"*@
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="return false;">无法显示</a>
-</div>
+    <div id="toolbar">
+        @*奇怪的页面样式问题...上面有一段空白"*@
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="return false;">无法显示</a>
+        <input type="hidden" id="CustomConfigId" />
+    </div>
 @*列表*@
 <dic id="list">
     <div style="margin-top:5px">
         <div style="display:inline;">
             <span>姓名:</span>
-            <input id="in_name" style="line-height:26px;border:1px solid #ccc" />
+            <input id="where_personname" style="line-height:26px;border:1px solid #ccc" />
             <a href="#" class="easyui-linkbutton" plain="true" onclick="doSearch()">搜索</a>
             <a href="#" class="easyui-linkbutton" plain="true" onclick="doDownloadXML()">导出</a>
+            <a href="#" class="easyui-linkbutton" plain="true" onclick="doSaveConfig()">保存页面配置</a>
         </div>
     </div>
     <div style="margin-top:5px">
@@ -23,13 +25,48 @@
 <script type="text/javascript">
     function doSearch() {
         $("#db_list").datagrid('load', {
-            name: $('#in_name').val()
+            name: $('#where_personname').val()
         });
     }
 
     function doDownloadXML() {
-        var name = $('#in_name').val()
+        var name = $('#where_personname').val()
         window.open("/Pregnant/GetConfigurablePagedListOfPregnantInfoExcel?name=" + name);
+    }
+
+    function doSaveConfig() {
+        var customConfigId = $("#CustomConfigId").val();
+        var sortName = $("#db_list").datagrid("options").sortName;
+        var isAsc = $("#db_list").datagrid("options").sortOrder == "asc";
+        console.log(configData);
+        var listName = "用户常用查询方案1";
+        for (var i = 0; i < configData.ViewConfig.Wheres.length; i++) {
+            var where = configData.ViewConfig.Wheres[i];
+            where.Value = $("#where_" + where.ComponentName).val();
+        }
+        configData.ViewConfig.OrderBy.ComponentName = sortName;
+        configData.ViewConfig.OrderBy.IsAsc = isAsc;
+        $.ajax({
+            url: "../Home/SaveListConfig",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify({
+                CustomConfigId: customConfigId,
+                ListName: listName,
+                ViewConfig: configData.ViewConfig
+            }),
+            contentType: "application/json",
+            success: function (resp) {
+                if (resp.Code == 200) {
+                    if (resp.msg != null && resp.msg != "") {
+                        ShowMessage(resp.msg);
+                    }
+                    else {
+                        alert("保存成功");
+                    }
+                }
+            }
+        });
     }
 
     var displayType = {};
@@ -40,63 +77,81 @@
     displayType.Date = 3;
     displayType.DateTime = 31;
 
+    var configData;
+
     //TODO enum的统一定义方案
     //TODO getEnumByName()
     //TODO getEnumByValue()
 
     $(function () {
+        var customConfigId = vl.getQueryString("CustomConfigId");
         $.ajax
-        ({
-            url: "../Home/GetListConfig",
-            type: "post",
-            dataType: "json",
-            data: JSON.stringify({ ListName: "O_PregnantInfo" }),
-            contentType: "application/json",
-            success: function (resp) {
-                if (resp.Code == 200) {
-                    if (resp.msg != null && resp.msg != "") {
-                        ShowMessage(resp.msg);
-                    }
-                    console.log(1);
-                    var columns = [[]]
-                    for (var i = 0; i < resp.Data.length; i++) {
-                        var column = {}
-                        var item = resp.Data[i];
-                        column.field = item.ColumnName;
-                        column.title = item.DisplayName;
-                        column.width = item.DisplayWidth;
-                        column.sortable = item.IsSortable;
-                        column.halign = 'center';
-                        column.align = 'left';
-                        columns[0].push(column);
-                    }
-
-                    $("#db_list").datagrid({
-                        url: "GetConfigurablePagedListOfPregnantInfo",
-                        pagination: true,
-                        rownumbers: true,
-                        singleSelect: true,
-                        remoteSort: true,
-                        fitColumns: false,
-                        selectOnCheck: false,
-                        checkOnSelect: false,
-                        striped: true,
-                        pageSize: 20,
-                        pageList: [10, 20, 50],
-                        columns: columns,
-                        onDblClickRow: function (rowIndex, rowData) {
-                            //console.log(1);
-                            var PregnantInfoId = rowData.id;
-                            window.open("VisitRecordList?pregnantInfoId=" + PregnantInfoId);
+            ({
+                url: "../Home/GetListConfig",
+                type: "post",
+                dataType: "json",
+                data: JSON.stringify({ ListName: "O_PregnantInfo", CustomConfigId: customConfigId }),
+                contentType: "application/json",
+                success: function (resp) {
+                    if (resp.Code == 200) {
+                        if (resp.msg != null && resp.msg != "") {
+                            ShowMessage(resp.msg);
                         }
-                    });
-                } else {
-                    if (resp.msg != null && resp.msg != "") {
-                        ShowMessage(resp.msg);
+                        console.log(1);
+                        configData = resp.Data;
+                        //common
+                        $("#CustomConfigId").val(configData.CustomConfigId);
+                        //wheres
+                        for (var i = 0; i < configData.ViewConfig.Wheres.length; i++) {
+                            var where = configData.ViewConfig.Wheres[i];
+                            $("#where_" + where.ComponentName).val(where.Value)
+                        }
+                        //properties
+                        var columns = [[]]
+                        for (var i = 0; i < configData.ViewConfig.Properties.length; i++) {
+                            var column = {}
+                            var item = configData.ViewConfig.Properties[i];
+                            column.field = item.ColumnName;
+                            column.title = item.DisplayName;
+                            column.width = item.DisplayWidth;
+                            column.sortable = item.IsSortable;
+                            column.halign = 'center';
+                            column.align = 'left';
+                            columns[0].push(column);
+                        }
+                        //orderby
+                        var sortName = configData.ViewConfig.OrderBy.ComponentName;
+                        var sortOrder = configData.ViewConfig.OrderBy.IsAsc ? "asc" : "desc";
+                        //init
+                        $("#db_list").datagrid({
+                            url: "GetConfigurablePagedListOfPregnantInfo",
+                            queryParams: { name: $('#where_personname').val() },
+                            pagination: true,
+                            sortOrder: sortOrder,
+                            sortName: sortName,
+                            rownumbers: true,
+                            singleSelect: true,
+                            remoteSort: true,
+                            fitColumns: false,
+                            selectOnCheck: false,
+                            checkOnSelect: false,
+                            striped: true,
+                            pageSize: 20,
+                            pageList: [10, 20, 50],
+                            columns: columns,
+                            onDblClickRow: function (rowIndex, rowData) {
+                                //console.log(1);
+                                var PregnantInfoId = rowData.id;
+                                window.open("VisitRecordList?pregnantInfoId=" + PregnantInfoId);
+                            }
+                        });
+                    } else {
+                        if (resp.msg != null && resp.msg != "") {
+                            ShowMessage(resp.msg);
+                        }
+                        console.log(2);
                     }
-                    console.log(2);
                 }
-            }
-        });
+            });
     });
 </script>

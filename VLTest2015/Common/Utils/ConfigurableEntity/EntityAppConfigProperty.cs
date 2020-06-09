@@ -1,6 +1,6 @@
 ﻿using System.Xml.Linq;
 
-namespace VLTest2015.Utils
+namespace VLTest2015
 {
     /// <summary>
     /// 显示类型
@@ -16,7 +16,7 @@ namespace VLTest2015.Utils
         DateTime = 31,
     }
 
-    class EntityAppConfigProperty
+    public class EntityAppConfigProperty
     {
         public static string ElementName = "Property";
 
@@ -74,12 +74,20 @@ namespace VLTest2015.Utils
         //public bool IsRequired { set; get; } 
         #endregion
 
+        public EntityAppConfigProperty()
+        {
+            ColumnName = "";
+            DisplayName = "";
+            Description = "";
+        }
         public EntityAppConfigProperty(EntityDBConfig dbConfig)
         {
             ColumnName = dbConfig.ColumnName;
             DisplayName = "";
             DisplayType = DisplayType.None;
             DataType = dbConfig.DataType;
+            DisplayWidth = 100;
+            IsSortable = false;
             IsNeedOnPage = false;
             Description = dbConfig.Description;
         }

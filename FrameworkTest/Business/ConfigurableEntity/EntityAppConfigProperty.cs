@@ -22,7 +22,7 @@ namespace FrameworkTest.ConfigurableEntity
         DateTime = 31,
     }
 
-    class EntityAppConfigProperty
+    public class EntityAppConfigProperty
     {
         public static string ElementName = "Property";
 

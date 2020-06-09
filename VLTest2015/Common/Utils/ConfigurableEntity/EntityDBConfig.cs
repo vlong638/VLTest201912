@@ -1,6 +1,6 @@
-﻿namespace VLTest2015.Utils
+﻿namespace VLTest2015
 {
-    class EntityDBConfig
+    public class EntityDBConfig
     {
         public long Id { set; get; }
         /// <summary>

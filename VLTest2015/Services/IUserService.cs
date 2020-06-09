@@ -84,5 +84,19 @@ namespace VLTest2015.Services
         /// 查询所有角色
         /// </summary>
         ServiceResult<IEnumerable<Role>> GetAllRoles();
+
+        /// <summary>
+        /// 更新自定义页面
+        /// </summary>
+        /// <param name="userMenu"></param>
+        /// <returns></returns>
+        ServiceResult<bool> UpdateUserMenu(UserMenu userMenu);
+
+        /// <summary>
+        /// 新建自定义页面
+        /// </summary>
+        /// <param name="userMenu"></param>
+        /// <returns></returns>
+        ServiceResult<long> CreateUserMenu(UserMenu userMenu);
     }
 }
