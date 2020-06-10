@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Xml.Linq;
 using VLTest2015.Common.Controllers;
+using VLTest2015.Common.Models.RequestDTO;
 using VLTest2015.Services;
 using VLTest2015.Utils;
 
@@ -93,12 +94,12 @@ namespace VLTest2015.Controllers
         {
             if (request.CustomConfigId > 0)
             {
-                var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", "CustomConfig.xml");
-                XDocument doc = XDocument.Load(path);
-                var viewElements = doc.Descendants(EntityAppConfig.NodeElementName);
-                var viewConfigs = viewElements.Select(c => new EntityAppConfig(c));
-                var viewConfig = viewConfigs.FirstOrDefault(c => c.ViewName == request.ListName);
-                viewConfig.Properties.RemoveAll(c => !c.IsNeedOnPage);
+                var serviceResult = UserService.GetUserMenuById(request.CustomConfigId);
+                if (!serviceResult.IsSuccess)
+                {
+                    return Error(serviceResult.Data, "无效的用户配置");
+                }
+                var viewConfig = serviceResult.Data.EntityAppConfig.FromJson<EntityAppConfig>();
                 var result = new GetListConfigResponse()
                 {
                     CustomConfigId = request.CustomConfigId,
@@ -108,38 +109,24 @@ namespace VLTest2015.Controllers
             }
             else
             {
-                var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", "ListPages.xml");
-                XDocument doc = XDocument.Load(path);
-                var viewElements = doc.Descendants(EntityAppConfig.NodeElementName);
-                var viewConfigs = viewElements.Select(c => new EntityAppConfig(c));
-                var viewConfig = viewConfigs.FirstOrDefault(c => c.ViewName == request.ListName);
-                viewConfig.Properties.RemoveAll(c => !c.IsNeedOnPage);
-                var result = new GetListConfigResponse()
-                {
-                    CustomConfigId = request.CustomConfigId,
-                    ViewConfig = viewConfig,
-                };
-                return Json(new APIResult<GetListConfigResponse>(result));
+                return LoadDefaultConfig(request);
             }
         }
 
-        public class GetListConfigRequest
+        private JsonResult LoadDefaultConfig(GetListConfigRequest request)
         {
-            public string ListName { set; get; }
-            public long CustomConfigId { set; get; }
-        }
-
-        public class GetListConfigResponse
-        {
-            public long CustomConfigId { set; get; }
-            public EntityAppConfig ViewConfig { set; get; }
-        }
-
-        public class SaveListConfigRequest
-        {
-            public long CustomConfigId { set; get; }
-            public string ListName { set; get; }
-            public EntityAppConfig ViewConfig { set; get; }
+            var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", "ListPages.xml");
+            XDocument doc = XDocument.Load(path);
+            var viewElements = doc.Descendants(EntityAppConfig.NodeElementName);
+            var viewConfigs = viewElements.Select(c => new EntityAppConfig(c));
+            var viewConfig = viewConfigs.FirstOrDefault(c => c.ViewName == request.ListName);
+            viewConfig.Properties.RemoveAll(c => !c.IsNeedOnPage);
+            var result = new GetListConfigResponse()
+            {
+                CustomConfigId = request.CustomConfigId,
+                ViewConfig = viewConfig,
+            };
+            return Json(new APIResult<GetListConfigResponse>(result));
         }
 
         [HttpPost]
@@ -150,7 +137,7 @@ namespace VLTest2015.Controllers
                 Id = request.CustomConfigId,
                 UserId = GetCurrentUser().UserId,
                 MenuName = request.ListName,
-                URL = "/Pregnant/GetConfigurablePagedListOfPregnantInfoExcel?CustomConfigId={0}",
+                URL = request.URL,
                 EntityAppConfig = request.ViewConfig.ToJson(),
             };
             if (request.CustomConfigId > 0)
@@ -167,6 +154,16 @@ namespace VLTest2015.Controllers
                     return Error(serviceResult.Data, serviceResult.Messages);
                 return Success(serviceResult.Data);
             }
+        }
+
+        [HttpGet]
+        public JsonResult GetListMenu()
+        {
+            var userId = GetCurrentUser().UserId;
+            var serviceResult = UserService.GetUserMenus(userId);
+            if (!serviceResult.IsSuccess)
+                return Error(serviceResult.Data, serviceResult.Messages);
+            return Success(serviceResult.Data);
         }
 
         #endregion

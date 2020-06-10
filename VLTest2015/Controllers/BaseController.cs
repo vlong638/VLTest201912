@@ -50,19 +50,19 @@ namespace VLTest2015.Controllers
         #region APIResult,便捷方法
         public JsonResult Success<T>(T data)
         {
-            return Json(new APIResult<T>(data));
+            return Json(new APIResult<T>(data), JsonRequestBehavior.AllowGet);
         }
         public JsonResult Error<T>(T data, IList<string> messages)
         {
-            return Json(new APIResult<T>(data, messages.ToArray()));
+            return Json(new APIResult<T>(data, messages.ToArray()), JsonRequestBehavior.AllowGet);
         }
         public JsonResult Error<T>(T data, params string[] messages)
         {
-            return Json(new APIResult<T>(data, messages));
+            return Json(new APIResult<T>(data, messages), JsonRequestBehavior.AllowGet);
         }
         public JsonResult Error<T>(T data, int code, params string[] messages)
         {
-            return Json(new APIResult<T>(data, code, messages));
+            return Json(new APIResult<T>(data, code, messages), JsonRequestBehavior.AllowGet);
         }
         #endregion
 

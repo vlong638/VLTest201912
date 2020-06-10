@@ -387,7 +387,7 @@
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="PregnantInfoId" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="int" Description="自动编号" />
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="NewColumn" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
 		<Wheres>
-			<Where ComponentName="" CompareOperator="None" Value="" LinkOperator="None" />
+			<Where ComponentName="personname" CompareOperator="Like" Value="刘" LinkOperator="None"/>
 		</Wheres>
 		<OrderBy ComponentName="" IsAsc="False" />
 	</View>

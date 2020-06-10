@@ -93,10 +93,23 @@ namespace VLTest2015.Services
         ServiceResult<bool> UpdateUserMenu(UserMenu userMenu);
 
         /// <summary>
+        /// 获取自定义配置
+        /// </summary>
+        /// <param name="customConfigId"></param>
+        /// <returns></returns>
+        ServiceResult<UserMenu> GetUserMenuById(long customConfigId);
+        /// <summary>
         /// 新建自定义页面
         /// </summary>
         /// <param name="userMenu"></param>
         /// <returns></returns>
         ServiceResult<long> CreateUserMenu(UserMenu userMenu);
+
+        /// <summary>
+        /// 获取自定义页面菜单
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        ServiceResult<List<UserMenu>> GetUserMenus(long userId);
     }
 }

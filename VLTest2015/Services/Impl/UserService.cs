@@ -161,5 +161,18 @@ namespace VLTest2015.Services
             var id = _userMenuRepository.Insert(userMenu);
             return Success(id);
         }
+
+        public ServiceResult<List<UserMenu>> GetUserMenus(long userId)
+        {
+            var userMenus = _userMenuRepository.GetByUserId(userId);
+            userMenus.ForEach(c => c.URL = string.Format(c.URL, c.Id));
+            return Success(userMenus);
+        }
+
+        public ServiceResult<UserMenu> GetUserMenuById(long customConfigId)
+        {
+            var userMenu = _userMenuRepository.GetById(customConfigId);
+            return Success(userMenu);
+        }
     }
 }

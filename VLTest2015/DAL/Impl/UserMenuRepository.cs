@@ -13,6 +13,12 @@ namespace VLTest2015.DAL
         {
         }
 
+        internal List<UserMenu> GetByUserId(long userId)
+        {
+            return _connection.Query<UserMenu>("select * from [A_UserMenu] where UserId = @userId;"
+                , new { userId }).ToList();
+        }
+
         //public UserMenu GetBy(string name)
         //{
         //    return _connection.Query<UserMenu>("select * from [A_UserMenu] where Name = @name;"

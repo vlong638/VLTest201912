@@ -366,12 +366,15 @@
     <Compile Include="Common\Models\DTO\PagedListOfVisitRecordModel.cs" />
     <Compile Include="Common\Models\DTO\PagedListOfLabOrderModel.cs" />
     <Compile Include="Common\Models\Entities\UserMenu.cs" />
+    <Compile Include="Common\Models\RequestDTO\SaveListConfigRequest.cs" />
+    <Compile Include="Common\Models\RequestDTO\GetListConfigRequest.cs" />
     <Compile Include="Common\Models\RequestDTO\GetPagedListOfVisitRecordRequest.cs" />
     <Compile Include="Common\Models\RequestDTO\GetPagedListOfLabOrderRequest.cs" />
     <Compile Include="Common\Models\RequestDTO\GetPagedListOfPregnantInfoRequest.cs" />
     <Compile Include="Common\Models\Pager\IQueriablePagedList.cs" />
     <Compile Include="Common\Models\Pager\VLPageRequest.cs" />
     <Compile Include="Common\Models\Pager\VLPageResult.cs" />
+    <Compile Include="Common\Models\ResponseDTO\GetListConfigResponse.cs" />
     <Compile Include="Common\Utils\ConfigurableEntity\EntityAppConfigProperty.cs" />
     <Compile Include="Common\Utils\ConfigurableEntity\EntityAppConfig.cs" />
     <Compile Include="Common\Utils\ConfigurableEntity\EntityDBConfig.cs" />

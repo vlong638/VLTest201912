@@ -31,11 +31,11 @@
                 @*@Html.ActionLink("应用程序名称", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav" id="ul_menu">
                     @*
-        <li>@Html.ActionLink("主页", "Index", "Home")</li>
-        <li>@Html.ActionLink("关于", "About", "Home")</li>
-        <li>@Html.ActionLink("联系方式", "Contact", "Home")</li>
+                        <li>@Html.ActionLink("主页", "Index", "Home")</li>
+                        <li>@Html.ActionLink("关于", "About", "Home")</li>
+                        <li>@Html.ActionLink("联系方式", "Contact", "Home")</li>
                     *@
                     <li>@Html.ActionLink("账户列表", "AccountList", "Account")</li>
                     <li>@Html.ActionLink("角色列表", "RoleList", "Account")</li>
@@ -56,5 +56,30 @@
             <p>&copy; @DateTime.Now.Year - 我的 ASP.NET 应用程序</p>
         </footer>
     </div>
+    @*脚本*@
+<script type="text/javascript">
+    $(function () {
+        $.ajax({
+            url: "../Home/GetListMenu",
+            type: "get",
+            dataType: "json",
+            //data: JSON.stringify({ ListName: "O_PregnantInfo", CustomConfigId: customConfigId }),
+            contentType: "application/json",
+            success: function (resp) {
+                console.log(333)
+                if (resp.Code == 200) {
+                    if (resp.msg != null && resp.msg != "") {
+                        ShowMessage(resp.msg);
+                    } else {
+                        for (var i = 0; i < resp.Data.length; i++) {
+                            var item = resp.Data[i];
+                            $("#ul_menu").append("<li><a href='" + item.URL + "'>" + item.MenuName +"</a></li>");
+                        }
+                    }
+                }
+            }
+        });
+    })
+</script>
 </body>
 </html>

@@ -1,11 +1,11 @@
 ﻿@{
     ViewBag.Title = "孕妇档案列表";
 }
-    <div id="toolbar">
-        @*奇怪的页面样式问题...上面有一段空白"*@
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="return false;">无法显示</a>
-        <input type="hidden" id="CustomConfigId" />
-    </div>
+<div id="toolbar">
+    @*奇怪的页面样式问题...上面有一段空白"*@
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="return false;">无法显示</a>
+    <input type="hidden" id="CustomConfigId" />
+</div>
 @*列表*@
 <dic id="list">
     <div style="margin-top:5px">
@@ -38,7 +38,6 @@
         var customConfigId = $("#CustomConfigId").val();
         var sortName = $("#db_list").datagrid("options").sortName;
         var isAsc = $("#db_list").datagrid("options").sortOrder == "asc";
-        console.log(configData);
         var listName = "用户常用查询方案1";
         for (var i = 0; i < configData.ViewConfig.Wheres.length; i++) {
             var where = configData.ViewConfig.Wheres[i];
@@ -46,6 +45,8 @@
         }
         configData.ViewConfig.OrderBy.ComponentName = sortName;
         configData.ViewConfig.OrderBy.IsAsc = isAsc;
+        var jumpURL = "/Pregnant/PregnantInfoList?CustomConfigId={0}";
+        console.log(configData);
         $.ajax({
             url: "../Home/SaveListConfig",
             type: "post",
@@ -53,7 +54,8 @@
             data: JSON.stringify({
                 CustomConfigId: customConfigId,
                 ListName: listName,
-                ViewConfig: configData.ViewConfig
+                ViewConfig: configData.ViewConfig,
+                URL: jumpURL
             }),
             contentType: "application/json",
             success: function (resp) {
