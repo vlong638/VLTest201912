@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using FrameworkTest.Business.TaskScheduler;
 using FrameworkTest.Common.DBSolution;
 using FrameworkTest.Common.HttpSolution;
 using FrameworkTest.Common.ValuesSolution;
@@ -406,7 +407,8 @@ order by def.[TableName],def.Id
                 //写成xml
                 var groupedProperties = serviceResult.Data.GroupBy(c => c.TableName).ToList();
                 var root = new XElement(EntityAppConfig.RootElementName);
-                var tableConfigs = groupedProperties.Select(ps => {
+                var tableConfigs = groupedProperties.Select(ps =>
+                {
                     var configTable = new EntityAppConfig()
                     {
                         ViewName = ps.Key,
@@ -433,10 +435,10 @@ order by def.[TableName],def.Id
             #region XML
             cmds.Add(new Command("x1,xml", () =>
             {
-                XMLHelper.TestCreate(@"D:\a.xml");
+                XMLEx.TestCreate(@"D:\a.xml");
             }));
             #endregion
-            cmds.Add(new Command("---------------------MockLogin-------------------", () => { }));
+            cmds.Add(new Command("---------------------顺德,MockLogin-------------------", () => { }));
             #region MockLogin,顺德
             cmds.Add(new Command("m1,0602,模拟用户登录-本地实验", () =>
             {
@@ -634,7 +636,7 @@ order by def.[TableName],def.Id
             }));
             cmds.Add(new Command("m5,0605,模拟用户登录-WebKit", () =>
             {
-                
+
 
 
                 //Type obj = Type.GetTypeFromProgID("ScriptControl");
@@ -645,6 +647,32 @@ order by def.[TableName],def.Id
                 //obj.InvokeMember("AddCode", BindingFlags.InvokeMethod, null, ScriptControl, new object[] { js });
                 //var result = obj.InvokeMember("Eval", BindingFlags.InvokeMethod, null, ScriptControl, new object[] { "time(a, b, 'a + b')" }).ToString();
 
+            }));
+            cmds.Add(new Command("fs1,定时任务配置", () =>
+            {
+                //保存xml
+                List<TaskConfig> taskConfigs = new List<TaskConfig>()
+                {
+                    new TaskConfig(){
+                        Id=1,
+                        IsActivated=true,
+                        Name ="基本信息同步",
+                        FreqencyType =FreqencyType.间隔,
+                        TaskType =TaskType.定时任务,
+                        Interval=  10,
+                    }
+                };
+                var root = new XElement(TaskConfig.RootElementName);
+                root.Add(taskConfigs.Select(c => c.ToXElement()));
+                root.SaveAs(@"D:\TaskConfigs.xml");
+
+
+                //读取xml
+                var path = @"D:\TaskConfigs.xml";
+                XDocument doc = XDocument.Load(path);
+                var nodes = doc.Descendants(TaskConfig.NodeElementName);
+                var configs = nodes.Select(c => new TaskConfig(c));
+                var config = new TaskConfig(nodes.First());
             }));
             #endregion
 
@@ -661,13 +689,6 @@ order by def.[TableName],def.Id
             }
             return bytes.ToArray();
         }
-    }
-
-    public class LoginModel
-    {
-        public string url { set; get; }
-        public int uid { set; get; }
-        public string pwd { set; get; }
     }
 
     #region CommandMode

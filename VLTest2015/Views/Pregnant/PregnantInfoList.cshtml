@@ -38,7 +38,7 @@
         var customConfigId = $("#CustomConfigId").val();
         var sortName = $("#db_list").datagrid("options").sortName;
         var isAsc = $("#db_list").datagrid("options").sortOrder == "asc";
-        var listName = "用户常用查询方案1";
+        var listName = "个性化页面";
         for (var i = 0; i < configData.ViewConfig.Wheres.length; i++) {
             var where = configData.ViewConfig.Wheres[i];
             where.Value = $("#where_" + where.ComponentName).val();

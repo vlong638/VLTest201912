@@ -137,6 +137,10 @@
 	<!--IsNeedOnPage="false" DisplayName="" (.+) Description="(\w+)"(.+)\r\n
 	IsNeedOnPage="true" DisplayName="$2" $1 Description="$2"$3\r\n-->
 	<View ViewName="O_PregnantInfo">
+		<Wheres>
+			<Where ComponentName="personname" CompareOperator="Like" Value="刘" LinkOperator="None"/>
+		</Wheres>
+		<OrderBy ComponentName="" IsAsc="False" />
 		<Property IsNeedOnPage="true" DisplayName="编号" ColumnName="id" DisplayType="None" DisplayWidth="100" IsSortable="true" DataType="int" Description="自动编号" />
 		<Property IsNeedOnPage="true" DisplayName="孕妇姓名" ColumnName="personname" DisplayType="None" DisplayWidth="100" IsSortable="true" DataType="varchar" Description="孕妇姓名" />
 		<Property IsNeedOnPage="true" DisplayName="性别" ColumnName="sexcode" DisplayType="None" DisplayWidth="100" IsSortable="true" DataType="char" Description="性别" />
@@ -386,10 +390,6 @@
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="ReceiveRemark" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="领用情况-备注" />
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="PregnantInfoId" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="int" Description="自动编号" />
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="NewColumn" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
-		<Wheres>
-			<Where ComponentName="personname" CompareOperator="Like" Value="刘" LinkOperator="None"/>
-		</Wheres>
-		<OrderBy ComponentName="" IsAsc="False" />
 	</View>
 	<View ViewName="O_VisitRecord">
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="id" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="int" Description="编号" />

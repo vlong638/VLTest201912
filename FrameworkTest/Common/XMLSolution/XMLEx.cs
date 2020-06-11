@@ -8,7 +8,7 @@ using System.Xml.Linq;
 
 namespace FrameworkTest.Common.XMLSolution
 {
-    public static class XMLHelper
+    public static class XMLEx
     {
         /// <summary>
         /// 创建简单的xml并保存

@@ -56,12 +56,11 @@
             this.tasktype});
             this.dgv_task.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv_task.Location = new System.Drawing.Point(0, 0);
-            this.dgv_task.Margin = new System.Windows.Forms.Padding(4);
             this.dgv_task.Name = "dgv_task";
             this.dgv_task.RowHeadersWidth = 51;
             this.dgv_task.RowTemplate.Height = 23;
             this.dgv_task.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dgv_task.Size = new System.Drawing.Size(1309, 561);
+            this.dgv_task.Size = new System.Drawing.Size(982, 449);
             this.dgv_task.TabIndex = 1;
             // 
             // id
@@ -125,18 +124,18 @@
             // lb
             // 
             this.lb.FormattingEnabled = true;
-            this.lb.ItemHeight = 15;
-            this.lb.Location = new System.Drawing.Point(553, 0);
+            this.lb.ItemHeight = 12;
+            this.lb.Location = new System.Drawing.Point(556, 0);
+            this.lb.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.lb.Name = "lb";
-            this.lb.Size = new System.Drawing.Size(756, 454);
+            this.lb.Size = new System.Drawing.Size(427, 364);
             this.lb.TabIndex = 12;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(204, 475);
-            this.button1.Margin = new System.Windows.Forms.Padding(4);
+            this.button1.Location = new System.Drawing.Point(153, 380);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(168, 59);
+            this.button1.Size = new System.Drawing.Size(126, 47);
             this.button1.TabIndex = 13;
             this.button1.Text = "更新任务";
             this.button1.UseVisualStyleBackColor = true;
@@ -144,10 +143,9 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(406, 475);
-            this.button2.Margin = new System.Windows.Forms.Padding(4);
+            this.button2.Location = new System.Drawing.Point(304, 380);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(168, 59);
+            this.button2.Size = new System.Drawing.Size(126, 47);
             this.button2.TabIndex = 14;
             this.button2.Text = "清理任务";
             this.button2.UseVisualStyleBackColor = true;
@@ -155,13 +153,14 @@
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1309, 561);
+            this.ClientSize = new System.Drawing.Size(982, 449);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.lb);
             this.Controls.Add(this.dgv_task);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);

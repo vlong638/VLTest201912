@@ -184,11 +184,14 @@ namespace FileSystemWatcher
                 entity.RecordCode = recordCode;
                 entity.StartTime = startTime;
                 entity.FetalHeartData = string.Join(",", model.data1);
+                entity.Data2 = string.Join(",", model.data2);
                 entity.UCData = string.Join(",", model.data3);
+                entity.Data4 = string.Join(",", model.data4);
+                entity.Data5 = string.Join(",", model.data5);
                 #endregion
 
-                using (var connection = FileSystemWatcher.DBHelper.GetSQLServerDbConnection(@"Data Source=192.168.50.102;Initial Catalog=fmpt;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=huzfypt;Password=huz3305@2018."))
-                //using (var connection = DBHelper.GetSQLServerDbConnection(@"Data Source=10.31.102.24,1434;Initial Catalog=fmpt;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=HELETECHUSER;Password=HELEtech123"))
+                //using (var connection = FileSystemWatcher.DBHelper.GetSQLServerDbConnection(@"Data Source=192.168.50.102;Initial Catalog=fmpt;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=huzfypt;Password=huz3305@2018."))
+                using (var connection = DBHelper.GetSQLServerDbConnection(@"Data Source=10.31.102.24,1434;Initial Catalog=fmpt;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=HELETECHUSER;Password=HELEtech123"))
                 {
                     var command = connection.CreateCommand();
                     try
@@ -205,11 +208,14 @@ namespace FileSystemWatcher
                         }
 
                         command.Parameters.Clear();
-                        command.CommandText = "insert into fm_TXJH(RecordCode,StartTime,FetalHeartData,UCData)values(@RecordCode,@StartTime,@FetalHeartData,@UCData)";
+                        command.CommandText = "insert into fm_TXJH(RecordCode,StartTime,FetalHeartData,UCData,Data2,Data4,Data5)values(@RecordCode,@StartTime,@FetalHeartData,@UCData,@Data2,@Data4,@Data5)";
                         command.Parameters.Add(new SqlParameter("@RecordCode", entity.RecordCode));
                         command.Parameters.Add(new SqlParameter("@StartTime", entity.StartTime));
                         command.Parameters.Add(new SqlParameter("@FetalHeartData", entity.FetalHeartData));
                         command.Parameters.Add(new SqlParameter("@UCData", entity.UCData));
+                        command.Parameters.Add(new SqlParameter("@Data2", entity.Data2));
+                        command.Parameters.Add(new SqlParameter("@Data4", entity.Data4));
+                        command.Parameters.Add(new SqlParameter("@Data5", entity.Data5));
                         command.ExecuteNonQuery();
                         command.Dispose();
                         connection.Close();
@@ -292,6 +298,9 @@ namespace FileSystemWatcher
         /// 宫缩数据
         /// </summary>
         public string UCData { set; get; }
+        public string Data2 { get; set; }
+        public string Data4 { get; set; }
+        public string Data5 { get; set; }
     }
     
     public class FileLogger

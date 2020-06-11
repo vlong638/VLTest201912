@@ -82,8 +82,8 @@ namespace FrameworkTest.ConfigurableEntity
 
     public class EntityAppConfigWhere
     {
-        public static string RootElementName = "Wheres";
-        public static string ElementName = "Where";
+        public const string RootElementName = "Wheres";
+        public const string ElementName = "Where";
 
         public EntityAppConfigWhere()
         {
@@ -116,7 +116,7 @@ namespace FrameworkTest.ConfigurableEntity
 
     public class EntityAppConfigOrderBy
     {
-        public static string ElementName = "OrderBy";
+        public const string ElementName = "OrderBy";
 
         public string ComponentName { set; get; }
         public bool IsAsc { set; get; }

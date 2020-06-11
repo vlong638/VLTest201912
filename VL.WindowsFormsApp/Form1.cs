@@ -199,7 +199,7 @@ namespace VL.WindowsFormsApp
                                 Messages.Add(ex.ToString());
 
                                 item.ErrorCount++;
-                                if (item.ErrorCount > 3)
+                                if (item.ErrorCount > WorkTask.MaxErrorCount)
                                 {
                                     Messages.Add($"任务项:{item.Name},故障次数达到上限限制,停止任务");
                                     WorkingTasks.Remove(item);
@@ -292,6 +292,7 @@ namespace VL.WindowsFormsApp
 
         public DateTime NextExecuteTime { set; get; }
         public int ErrorCount { get; internal set; }
+        public const int MaxErrorCount = 3;
 
         internal List<string> Validate()
         {
@@ -335,8 +336,7 @@ namespace VL.WindowsFormsApp
         internal void Work(System.Action work = null)
         {
             NextExecuteTime = GetNextExecuteTime(DateTime.Now);
-            if (work != null)
-                work();
+            work?.Invoke();
         }
     }
     public class TaskConfig
