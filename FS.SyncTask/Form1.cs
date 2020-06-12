@@ -25,7 +25,8 @@ namespace FS.SyncTask
         private void Form1_Load(object sender, EventArgs e)
         {
             Scheduler = new VLScheduler();
-            Scheduler.LogInfo += SetText;
+            Scheduler.DoLogEvent += SetText;
+            Scheduler.UpdateConfigEvent += SetDataGrid;
             Scheduler.Start();
             dgv_task.DataSource = VLScheduler.TaskConfigs;
 
@@ -41,9 +42,30 @@ namespace FS.SyncTask
             }
             else
             {
+                if (listBox1.Items.Count > 50)
+                {
+                    listBox1.Items.Clear();
+                }
                 listBox1.Items.Add(text);
             }
         }
+
+
+        delegate void SetDataGridCallBack(List<TaskConfig> configs);
+        private void SetDataGrid(List<TaskConfig> configs)
+        {
+            if (this.dgv_task.InvokeRequired)
+            {
+                SetDataGridCallBack stcb = new SetDataGridCallBack(SetDataGrid);
+                this.Invoke(stcb, new object[] { configs });
+            }
+            else
+            {
+                dgv_task.DataSource = VLScheduler.TaskConfigs;
+                dgv_task.Refresh();
+            }
+        }
+
 
         private void button4_Click(object sender, EventArgs e)
         {

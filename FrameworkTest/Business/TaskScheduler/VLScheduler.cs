@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FrameworkTest.Common.XMLSolution;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace FrameworkTest.Business.TaskScheduler
         {
             return () =>
             {
-                LogInfo?.Invoke("已启动执行进程");
+                DoLogEvent?.Invoke("已启动执行进程");
                 while (IsWorking)
                 {
                     //任务运行
@@ -33,6 +34,7 @@ namespace FrameworkTest.Business.TaskScheduler
                     {
                         Messages.Add($"--------------------------------------------------------------");
                     }
+                    bool isWorked = false;
                     for (int i = 0; i < WorkingTasks.Count; i++)
                     {
                         var item = WorkingTasks[i];
@@ -40,8 +42,9 @@ namespace FrameworkTest.Business.TaskScheduler
                         {
                             try
                             {
-                                item.Work();
+                                item.DoWork();
                                 Messages.Add($"{DateTime.Now},{item.Name}:下次执行时间:{item.NextExecuteTime}");
+                                isWorked = true;
                             }
                             catch (Exception ex)
                             {
@@ -59,26 +62,42 @@ namespace FrameworkTest.Business.TaskScheduler
                     //报告输出
                     foreach (var Message in Messages)
                     {
-                        LogInfo?.Invoke(Message);
+                        DoLogEvent?.Invoke(Message);
                     }
                     Messages.Clear();
-
+                    if (isWorked)
+                    {
+                        var root = new XElement(TaskConfig.RootElementName);
+                        TaskConfigs = WorkingTasks.Select(c => ((TaskConfig)c)).ToList();
+                        var configs = TaskConfigs.Select(c => c.ToXElement());
+                        root.Add(configs);
+                        root.SaveAs(GetPath());
+                        UpdateConfigEvent?.Invoke(TaskConfigs);
+                    }
                     System.Threading.Thread.Sleep(1000);
                 }
             };
         }
 
         public delegate void DoLog(string message);
-        public event DoLog LogInfo;
+        public event DoLog DoLogEvent;
+
+        public delegate void UpdateConfig(List<TaskConfig> configs);
+        public event UpdateConfig UpdateConfigEvent;
 
         public void Stop()
         {
             IsWorking = false;
         }
 
+        public string GetPath()
+        {
+            return Path.Combine(Directory.GetCurrentDirectory(), "Configs\\TaskConfigs.xml");
+        }
+
         internal void LoadTasks()
         {
-            var path = Path.Combine(Directory.GetCurrentDirectory(), "Configs\\TaskConfigs.xml");
+            var path = GetPath();
             XDocument doc = XDocument.Load(path);
             var nodes = doc.Descendants(TaskConfig.NodeElementName);
             var configs = nodes.Select(c => new TaskConfig(c)).ToList();
@@ -93,7 +112,7 @@ namespace FrameworkTest.Business.TaskScheduler
                 {
                     foreach (var message in messages)
                     {
-                        LogInfo(message);
+                        DoLogEvent(message);
                         return;
                     }
                 }
@@ -101,7 +120,7 @@ namespace FrameworkTest.Business.TaskScheduler
             WorkingTasks = workTasks;
             foreach (var WorkingTask in WorkingTasks)
             {
-                LogInfo($@"首次执行时间:{WorkingTask.NextExecuteTime},{WorkingTask.Name}");
+                DoLogEvent($@"首次执行时间:{WorkingTask.NextExecuteTime},{WorkingTask.Name}");
             }
         }
     }

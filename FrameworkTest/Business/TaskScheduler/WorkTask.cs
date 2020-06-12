@@ -5,7 +5,7 @@ namespace FrameworkTest.Business.TaskScheduler
 {
     public class WorkTask : TaskConfig
     {
-        public WorkTask(TaskConfig config)
+        public WorkTask(TaskConfig config, Func<string> work = null)
         {
             this.Id = config.Id;
             this.Name = config.Name;
@@ -13,9 +13,12 @@ namespace FrameworkTest.Business.TaskScheduler
             this.Interval = config.Interval;
             this.IsActivated = config.IsActivated;
             this.TaskType = config.TaskType;
+            this.LastExecuteTime = config.LastExecuteTime;
 
-            DateTime nextTime = GetNextExecuteTime(DateTime.Now);
+            DateTime nextTime = GetNextExecuteTime(config.LastExecuteTime ?? DateTime.Now);
             this.NextExecuteTime = nextTime;
+
+            this.Work = work;
         }
 
         public bool NeedWork { get { return NextExecuteTime < DateTime.Now; } }
@@ -75,10 +78,17 @@ namespace FrameworkTest.Business.TaskScheduler
             return messages;
         }
 
-        internal void Work(System.Action work = null)
+        Func<string> Work = null;
+        internal void SetWork(Func<string> work)
         {
-            NextExecuteTime = GetNextExecuteTime(DateTime.Now);
-            work?.Invoke();
+            Work = work;
+        }
+
+        internal string DoWork()
+        {
+            LastExecuteTime = NextExecuteTime;
+            NextExecuteTime =  GetNextExecuteTime(LastExecuteTime ?? DateTime.Now);
+            return Work?.Invoke();
         }
     }
 }
