@@ -10,7 +10,19 @@ namespace FrameworkTest.Business.TaskScheduler
     {
         public int Id { set; get; }
         public string Name { set; get; }
-        public FreqencyType FreqencyType { set; get; }
+        public FreqencyType FrequencyType { set; get; }
+        public DateTime? LastExecuteTime { set; get; }
+        public string LastExecuteTimeStr
+        {
+            set
+            {
+                DateTime dt;
+                DateTime.TryParse(value, out dt);
+                LastExecuteTime = dt;
+            }
+            get { return LastExecuteTime.ToString(); }
+        }
+
         /// <summary>
         /// 是否启用
         /// </summary>
@@ -37,9 +49,11 @@ namespace FrameworkTest.Business.TaskScheduler
         {
             Id = element.Attribute(nameof(Id)).Value.ToInt().Value;
             Name = element.Attribute(nameof(Name)).Value;
-            FreqencyType = element.Attribute(nameof(FreqencyType)).Value.ToEnum<FreqencyType>();
+            FrequencyType = element.Attribute(nameof(FrequencyType)).Value.ToEnum<FreqencyType>();
+            LastExecuteTime = element.Attribute(nameof(LastExecuteTime)).Value.ToDateTime();
             IsActivated = element.Attribute(nameof(IsActivated)).Value.ToBool();
             TaskType = element.Attribute(nameof(TaskType)).Value.ToEnum<TaskType>();
+            Interval = element.Attribute(nameof(Interval)).Value.ToInt().Value;
         }
 
         public XElement ToXElement()
@@ -47,9 +61,10 @@ namespace FrameworkTest.Business.TaskScheduler
             var node = new XElement(NodeElementName);
             node.SetAttributeValue(nameof(Id), Id);
             node.SetAttributeValue(nameof(Name), Name);
-            node.SetAttributeValue(nameof(FreqencyType), FreqencyType);
-            node.SetAttributeValue(nameof(IsActivated), IsActivated);
-            node.SetAttributeValue(nameof(TaskType), TaskType);
+            node.SetAttributeValue(nameof(FrequencyType), FrequencyType.ToString());
+            node.SetAttributeValue(nameof(LastExecuteTime), LastExecuteTime.ToString());
+            node.SetAttributeValue(nameof(IsActivated), IsActivated.ToString());
+            node.SetAttributeValue(nameof(TaskType), TaskType.ToString());
             node.SetAttributeValue(nameof(Interval), Interval);
             return node;
         } 

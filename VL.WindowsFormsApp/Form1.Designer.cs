@@ -29,16 +29,16 @@
         private void InitializeComponent()
         {
             this.dgv_task = new System.Windows.Forms.DataGridView();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.text = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.freq = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sendtime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.run = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.interval = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tasktype = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lb = new System.Windows.Forms.ListBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.frequenceType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lastexecutetime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IsActivated = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.interval = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tasktype = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_task)).BeginInit();
             this.SuspendLayout();
             // 
@@ -47,11 +47,11 @@
             this.dgv_task.AllowUserToOrderColumns = true;
             this.dgv_task.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_task.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.id,
-            this.text,
-            this.freq,
-            this.sendtime,
-            this.run,
+            this.Id,
+            this.name,
+            this.frequenceType,
+            this.lastexecutetime,
+            this.IsActivated,
             this.interval,
             this.tasktype});
             this.dgv_task.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -60,75 +60,17 @@
             this.dgv_task.RowHeadersWidth = 51;
             this.dgv_task.RowTemplate.Height = 23;
             this.dgv_task.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dgv_task.Size = new System.Drawing.Size(982, 449);
+            this.dgv_task.Size = new System.Drawing.Size(1313, 485);
             this.dgv_task.TabIndex = 1;
-            // 
-            // id
-            // 
-            this.id.DataPropertyName = "id";
-            this.id.HeaderText = "编号";
-            this.id.MinimumWidth = 6;
-            this.id.Name = "id";
-            this.id.Width = 40;
-            // 
-            // text
-            // 
-            this.text.DataPropertyName = "text";
-            this.text.HeaderText = "任务名称";
-            this.text.MinimumWidth = 6;
-            this.text.Name = "text";
-            this.text.Width = 140;
-            // 
-            // freq
-            // 
-            this.freq.DataPropertyName = "freq";
-            this.freq.HeaderText = "周期";
-            this.freq.MinimumWidth = 6;
-            this.freq.Name = "freq";
-            this.freq.Width = 80;
-            // 
-            // sendtime
-            // 
-            this.sendtime.DataPropertyName = "sendtime";
-            this.sendtime.HeaderText = "执行时间";
-            this.sendtime.MinimumWidth = 6;
-            this.sendtime.Name = "sendtime";
-            this.sendtime.Width = 80;
-            // 
-            // run
-            // 
-            this.run.DataPropertyName = "run";
-            this.run.HeaderText = "执行";
-            this.run.MinimumWidth = 6;
-            this.run.Name = "run";
-            this.run.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.run.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.run.Width = 40;
-            // 
-            // interval
-            // 
-            this.interval.DataPropertyName = "interval";
-            this.interval.HeaderText = "间隔";
-            this.interval.MinimumWidth = 6;
-            this.interval.Name = "interval";
-            this.interval.Width = 40;
-            // 
-            // tasktype
-            // 
-            this.tasktype.DataPropertyName = "tasktype";
-            this.tasktype.HeaderText = "任务类型";
-            this.tasktype.MinimumWidth = 6;
-            this.tasktype.Name = "tasktype";
-            this.tasktype.Width = 80;
             // 
             // lb
             // 
             this.lb.FormattingEnabled = true;
             this.lb.ItemHeight = 12;
-            this.lb.Location = new System.Drawing.Point(556, 0);
-            this.lb.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lb.Location = new System.Drawing.Point(886, 0);
+            this.lb.Margin = new System.Windows.Forms.Padding(2);
             this.lb.Name = "lb";
-            this.lb.Size = new System.Drawing.Size(427, 364);
+            this.lb.Size = new System.Drawing.Size(427, 484);
             this.lb.TabIndex = 12;
             // 
             // button1
@@ -151,16 +93,72 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // Id
+            // 
+            this.Id.HeaderText = "Id";
+            this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
+            // 
+            // name
+            // 
+            this.name.DataPropertyName = "Name";
+            this.name.HeaderText = "任务名称";
+            this.name.MinimumWidth = 6;
+            this.name.Name = "name";
+            this.name.Width = 140;
+            // 
+            // frequenceType
+            // 
+            this.frequenceType.DataPropertyName = "FrequencyType";
+            this.frequenceType.HeaderText = "周期";
+            this.frequenceType.MinimumWidth = 6;
+            this.frequenceType.Name = "frequenceType";
+            this.frequenceType.Width = 80;
+            // 
+            // lastexecutetime
+            // 
+            this.lastexecutetime.DataPropertyName = "LastExecuteTime";
+            this.lastexecutetime.HeaderText = "最后执行时间";
+            this.lastexecutetime.MinimumWidth = 6;
+            this.lastexecutetime.Name = "lastexecutetime";
+            this.lastexecutetime.Width = 80;
+            // 
+            // IsActivated
+            // 
+            this.IsActivated.DataPropertyName = "IsActivated";
+            this.IsActivated.HeaderText = "执行";
+            this.IsActivated.MinimumWidth = 6;
+            this.IsActivated.Name = "IsActivated";
+            this.IsActivated.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.IsActivated.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.IsActivated.Width = 40;
+            // 
+            // interval
+            // 
+            this.interval.DataPropertyName = "Interval";
+            this.interval.HeaderText = "间隔";
+            this.interval.MinimumWidth = 6;
+            this.interval.Name = "interval";
+            this.interval.Width = 40;
+            // 
+            // tasktype
+            // 
+            this.tasktype.DataPropertyName = "TaskType";
+            this.tasktype.HeaderText = "任务类型";
+            this.tasktype.MinimumWidth = 6;
+            this.tasktype.Name = "tasktype";
+            this.tasktype.Width = 80;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(982, 449);
+            this.ClientSize = new System.Drawing.Size(1313, 485);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.lb);
             this.Controls.Add(this.dgv_task);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -172,16 +170,16 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dgv_task;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn text;
-        private System.Windows.Forms.DataGridViewTextBoxColumn freq;
-        private System.Windows.Forms.DataGridViewTextBoxColumn sendtime;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn run;
-        private System.Windows.Forms.DataGridViewTextBoxColumn interval;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tasktype;
         private System.Windows.Forms.ListBox lb;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn frequenceType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn lastexecutetime;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn IsActivated;
+        private System.Windows.Forms.DataGridViewTextBoxColumn interval;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tasktype;
     }
 }
 

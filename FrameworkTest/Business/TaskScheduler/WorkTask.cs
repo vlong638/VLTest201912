@@ -9,7 +9,7 @@ namespace FrameworkTest.Business.TaskScheduler
         {
             this.Id = config.Id;
             this.Name = config.Name;
-            this.FreqencyType = config.FreqencyType;
+            this.FrequencyType = config.FrequencyType;
             this.Interval = config.Interval;
             this.IsActivated = config.IsActivated;
             this.TaskType = config.TaskType;
@@ -22,7 +22,7 @@ namespace FrameworkTest.Business.TaskScheduler
         private DateTime GetNextExecuteTime(DateTime pre)
         {
             var nextTime = pre;
-            switch (FreqencyType)
+            switch (FrequencyType)
             {
                 case FreqencyType.None:
                     break;
@@ -50,11 +50,11 @@ namespace FrameworkTest.Business.TaskScheduler
             {
                 messages.Add($"无效的任务名称:{Name}");
             }
-            if (FreqencyType == FreqencyType.None)
+            if (FrequencyType == FreqencyType.None)
             {
-                messages.Add($"任务名称:{Name},无效的周期:{FreqencyType.ToString()}");
+                messages.Add($"任务名称:{Name},无效的周期:{FrequencyType.ToString()}");
             }
-            switch (FreqencyType)
+            switch (FrequencyType)
             {
                 case FreqencyType.None:
                     break;
@@ -63,7 +63,7 @@ namespace FrameworkTest.Business.TaskScheduler
                 case FreqencyType.每分钟:
                     break;
                 case FreqencyType.间隔:
-                    messages.Add($"任务名称:{Name},间隔型任务,执行间隔{Interval}秒");
+                    //messages.Add($"任务名称:{Name},间隔型任务,执行间隔{Interval}秒");
                     break;
                 default:
                     break;

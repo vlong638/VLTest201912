@@ -20,21 +20,30 @@ namespace FrameworkTest.ConfigurableEntity
         {
             if (item == null)
                 return null;
-            return int.Parse(item.ToString());
+            int i;
+            if (int.TryParse(item.ToString(), out i))
+                return i;
+            return null;
         }
 
         public static long? ToLong(this object item)
         {
             if (item==null)
                 return null;
-            return long.Parse(item.ToString());
+            long l;
+            if (long.TryParse(item.ToString(), out l))
+                return l;
+            return null;
         }
 
         public static DateTime? ToDateTime(this object item)
         {
             if (item == null)
                 return null;
-            return DateTime.Parse(item.ToString());
+            DateTime dt;
+            if (DateTime.TryParse(item.ToString(), out dt))
+                return dt;
+            return null;
         }
     }
 }

@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace FrameworkTest.Business.TaskScheduler
 {
     public class VLScheduler
     {
+        public static List<TaskConfig> TaskConfigs = new List<TaskConfig>();
         public static List<WorkTask> WorkingTasks = new List<WorkTask>();
         public static List<string> Messages = new List<string>();
         public bool IsWorking { set; get; }
@@ -14,6 +17,8 @@ namespace FrameworkTest.Business.TaskScheduler
         public void Start()
         {
             IsWorking = true;
+
+            LoadTasks();
             Task.Factory.StartNew(DoWorkTask());
         }
         private System.Action DoWorkTask()
@@ -23,12 +28,6 @@ namespace FrameworkTest.Business.TaskScheduler
                 LogInfo?.Invoke("已启动执行进程");
                 while (IsWorking)
                 {
-                    //报告输出
-                    foreach (var Message in Messages)
-                    {
-                        LogInfo?.Invoke(Message);
-                    }
-                    Messages.Clear();
                     //任务运行
                     if (WorkingTasks.FirstOrDefault(c => c.NeedWork) != null)
                     {
@@ -57,8 +56,14 @@ namespace FrameworkTest.Business.TaskScheduler
                             }
                         }
                     }
+                    //报告输出
+                    foreach (var Message in Messages)
+                    {
+                        LogInfo?.Invoke(Message);
+                    }
+                    Messages.Clear();
 
-                    System.Threading.Thread.Sleep(3 * 1000);
+                    System.Threading.Thread.Sleep(1000);
                 }
             };
         }
@@ -71,9 +76,14 @@ namespace FrameworkTest.Business.TaskScheduler
             IsWorking = false;
         }
 
-        internal void SetTasks(List<TaskConfig> taskConfigs)
+        internal void LoadTasks()
         {
-            var workTasks = taskConfigs.Where(c => c.IsActivated)
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "Configs\\TaskConfigs.xml");
+            XDocument doc = XDocument.Load(path);
+            var nodes = doc.Descendants(TaskConfig.NodeElementName);
+            var configs = nodes.Select(c => new TaskConfig(c)).ToList();
+            TaskConfigs = configs;
+            var workTasks = configs.Where(c => c.IsActivated)
                 .Select(c => new WorkTask(c))
                 .ToList();
             foreach (var workTask in workTasks)

@@ -657,7 +657,7 @@ order by def.[TableName],def.Id
                         Id=1,
                         IsActivated=true,
                         Name ="基本信息同步",
-                        FreqencyType =FreqencyType.间隔,
+                        FrequencyType =FreqencyType.间隔,
                         TaskType =TaskType.定时任务,
                         Interval=  10,
                     }
