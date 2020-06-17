@@ -10,5 +10,9 @@
         {
             return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(value);
         }
+        public static T FromJsonToAnonymousType<T>(this string value,T type)
+        {
+            return Newtonsoft.Json.JsonConvert.DeserializeAnonymousType<T>(value, type);
+        }
     }
 }

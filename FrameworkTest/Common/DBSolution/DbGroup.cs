@@ -7,9 +7,9 @@ namespace FrameworkTest.Common.DBSolution
     /// </summary>
     public class DbGroup
     {
-        internal IDbConnection Connection;
-        internal IDbCommand Command;
-        internal IDbTransaction Transaction;
+        public IDbConnection Connection;
+        public IDbCommand Command;
+        public IDbTransaction Transaction;
 
         public DbGroup(IDbConnection dbConnection)
         {

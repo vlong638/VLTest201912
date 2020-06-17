@@ -34,6 +34,7 @@ namespace FrameworkTest.Business.TaskScheduler
                     break;
                 case FreqencyType.间隔:
                     nextTime = nextTime.AddSeconds(Interval);
+                    nextTime = nextTime < DateTime.Now ? DateTime.Now : nextTime;
                     break;
                 default:
                     nextTime = DateTime.MaxValue;

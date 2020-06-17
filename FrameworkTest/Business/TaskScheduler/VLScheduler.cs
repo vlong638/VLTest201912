@@ -15,11 +15,11 @@ namespace FrameworkTest.Business.TaskScheduler
         public static List<string> Messages = new List<string>();
         public bool IsWorking { set; get; }
 
-        public void Start()
+        public void Start(Dictionary<int, Func<string>> works)
         {
             IsWorking = true;
 
-            LoadTasks();
+            LoadTasks(works);
             Task.Factory.StartNew(DoWorkTask());
         }
         private System.Action DoWorkTask()
@@ -95,7 +95,7 @@ namespace FrameworkTest.Business.TaskScheduler
             return Path.Combine(Directory.GetCurrentDirectory(), "Configs\\TaskConfigs.xml");
         }
 
-        internal void LoadTasks()
+        internal void LoadTasks(Dictionary<int, Func<string>> works)
         {
             var path = GetPath();
             XDocument doc = XDocument.Load(path);
@@ -116,6 +116,12 @@ namespace FrameworkTest.Business.TaskScheduler
                         return;
                     }
                 }
+                var work = works.FirstOrDefault(c => c.Key == workTask.Id);
+                if (work.Value == null)
+                {
+                    DoLogEvent($"未对任务项{workTask.Id}设置对应的任务");
+                }
+                workTask.SetWork(work.Value);
             }
             WorkingTasks = workTasks;
             foreach (var WorkingTask in WorkingTasks)

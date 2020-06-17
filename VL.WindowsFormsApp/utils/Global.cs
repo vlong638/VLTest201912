@@ -20,11 +20,11 @@ namespace VL.WindowsFormsApp.utils
         {
             get
             {
-                return SetConfig.GetAppConfig("backgroundWork");
+                return AppConfigHelper.GetAppConfig("backgroundWork");
             }
             set
             {
-                SetConfig.SetAppConfig("backgroundWork", value);
+                AppConfigHelper.SetAppConfig("backgroundWork", value);
             }
         }
 
@@ -32,87 +32,87 @@ namespace VL.WindowsFormsApp.utils
         {
             get
             {
-                return SetConfig.GetAppConfig("syncminute");
+                return AppConfigHelper.GetAppConfig("syncminute");
             }
             set
             {
-                SetConfig.SetAppConfig("syncminute", value);
+                AppConfigHelper.SetAppConfig("syncminute", value);
             }
         }
         public static string log
         {
             get
             {
-                return SetConfig.GetAppConfig("log");
+                return AppConfigHelper.GetAppConfig("log");
             }
             set
             {
-                SetConfig.SetAppConfig("log", value);
+                AppConfigHelper.SetAppConfig("log", value);
             }
         }
         public static string files
         {
             get
             {
-                return SetConfig.GetAppConfig("files");
+                return AppConfigHelper.GetAppConfig("files");
             }
             set
             {
-                SetConfig.SetAppConfig("files", value);
+                AppConfigHelper.SetAppConfig("files", value);
             }
         }
         public static string taskfile
         {
             get
             {
-                return SetConfig.GetAppConfig("taskfile");
+                return AppConfigHelper.GetAppConfig("taskfile");
             }
             set
             {
-                SetConfig.SetAppConfig("taskfile", value);
+                AppConfigHelper.SetAppConfig("taskfile", value);
             }
         }
         public static string queuelog
         {
             get
             {
-                return SetConfig.GetAppConfig("queuelog");
+                return AppConfigHelper.GetAppConfig("queuelog");
             }
             set
             {
-                SetConfig.SetAppConfig("queuelog", value);
+                AppConfigHelper.SetAppConfig("queuelog", value);
             }
         }
         public static string dataexchangelog
         {
             get
             {
-                return SetConfig.GetAppConfig("dataexchangelog");
+                return AppConfigHelper.GetAppConfig("dataexchangelog");
             }
             set
             {
-                SetConfig.SetAppConfig("dataexchangelog", value);
+                AppConfigHelper.SetAppConfig("dataexchangelog", value);
             }
         }
         public static bool b_dataexchangelog
         {
             get
             {
-                return (SetConfig.GetAppConfig("b_dataexchangelog") + "").ToUpper() == Boolean.TrueString.ToUpper();
+                return (AppConfigHelper.GetAppConfig("b_dataexchangelog") + "").ToUpper() == Boolean.TrueString.ToUpper();
             }
         }
         public static bool DebugLog
         {
             get
             {
-                return (SetConfig.GetAppConfig("DebugLog") + "").ToUpper() == Boolean.TrueString.ToUpper();
+                return (AppConfigHelper.GetAppConfig("DebugLog") + "").ToUpper() == Boolean.TrueString.ToUpper();
             }
         }
         public static string dataexchangeversion
         {
             get
             {
-                return SetConfig.GetAppConfig("dataexchangeversion");
+                return AppConfigHelper.GetAppConfig("dataexchangeversion");
             }
         }
 
@@ -120,14 +120,14 @@ namespace VL.WindowsFormsApp.utils
         {
             get
             {
-                return SetConfig.GetAppConfig("PT_Export_HTML");
+                return AppConfigHelper.GetAppConfig("PT_Export_HTML");
             }
         }
         public static string PT_Export_FILE
         {
             get
             {
-                return SetConfig.GetAppConfig("PT_Export_FILE");
+                return AppConfigHelper.GetAppConfig("PT_Export_FILE");
             }
         }
 
@@ -135,11 +135,11 @@ namespace VL.WindowsFormsApp.utils
         {
             get
             {
-                return SetConfig.GetAppConfig("fyptapiurl");
+                return AppConfigHelper.GetAppConfig("fyptapiurl");
             }
             set
             {
-                SetConfig.SetAppConfig("fyptapiurl", value);
+                AppConfigHelper.SetAppConfig("fyptapiurl", value);
             }
         }
         /// <summary>
@@ -160,7 +160,7 @@ namespace VL.WindowsFormsApp.utils
             }
         }
     }
-    public class SetConfig
+    public class AppConfigHelper
     {
         public static void SetAppConfig(string appKey, string appValue)
         {
