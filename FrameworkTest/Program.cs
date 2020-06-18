@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Dapper.Contrib.Extensions;
 using FrameworkTest.Business.SDMockCommit;
 using FrameworkTest.Business.TaskScheduler;
 using FrameworkTest.Common.DBSolution;
@@ -720,6 +721,31 @@ yjadata:[
                     var re = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
                     bool isExist = re.data.Count != 0;
                 }
+                if (true)
+                {
+                    var result = @"
+{total:""1"",
+dsc: ""处理成功"",
+code: ""0"",
+scr: ""杭州创业软件"",
+data:[
+{
+                    D1: ""4406060121509762"",
+D2: ""A857E6799B91A706E05355FE80137DBD"",
+D3: ""???"",
+D4: ""44068119911213362X"",
+D5: """",
+D6: ""佛山市顺德区妇幼保健院"",
+D7: ""2020-06-18"",
+D8: ""A857E562ABF9A5DFE05355FE801337B1""
+}
+],
+yjadata:[
+]}";
+                    var re = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
+                    bool isExist = re.data.Count != 0;
+                }
+
             }));
             cmds.Add(new Command("m12,0616,模拟-获取ID2", () =>
             {
@@ -916,12 +942,12 @@ yjadata:[
                 };
                 foreach (var pregnantInfo in pregnantInfos)
                 {
-                    var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID=35000528&sParams=P${pregnantInfo.IDCard}$P$P";
+                    var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID=35000528&sParams=P${pregnantInfo.idcard}$P$P";
                     var postData = "";
                     var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                     var re1 = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
                     bool isExist = re1.data.Count != 0;
-                    Console.WriteLine($"{isExist},{pregnantInfo.IDCard},{pregnantInfo.Name},{pregnantInfo.PhoneNumber}");
+                    Console.WriteLine($"{isExist},{pregnantInfo.idcard},{pregnantInfo.personname},{pregnantInfo.mobilenumber}");
                 }
             }));
             cmds.Add(new Command("m15,0617,模拟-保存基本信息", () =>
@@ -1010,12 +1036,12 @@ yjadata:[
                 foreach (var pregnantInfo in pregnantInfos)
                 {
                     //查询基本信息
-                    var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID={userId}&sParams=P${pregnantInfo.IDCard}$P$P";
+                    var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID={userId}&sParams=P${pregnantInfo.idcard}$P$P";
                     var postData = "";
                     var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                     var re1 = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
                     bool isExist = re1.data.Count != 0;
-                    Console.WriteLine($"{isExist},{pregnantInfo.IDCard},{pregnantInfo.Name},{pregnantInfo.PhoneNumber}");
+                    Console.WriteLine($"{isExist},{pregnantInfo.idcard},{pregnantInfo.personname},{pregnantInfo.mobilenumber}");
                     if (isExist)
                         continue;
                     //Create 患者主索引
@@ -1023,7 +1049,7 @@ yjadata:[
                     postData = "";
                     result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                     var mainId = result.FromJsonToAnonymousType(new { id = "" }).id;
-                    Console.WriteLine($"当前孕妇:{pregnantInfo.Name},IdCard:{pregnantInfo.IDCard}");
+                    Console.WriteLine($"当前孕妇:{pregnantInfo.personname},IdCard:{pregnantInfo.idcard}");
                     Console.WriteLine($"mainId:{mainId}");
                     //Create 保健号
                     url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=CDH_GET_ID1&sUserID={userId}&sParams={orgId}";
@@ -1039,7 +1065,7 @@ yjadata:[
                         new WMH_CQBJ_JBXX_FORM_SAVEData(){
         D1 = careIdL8, //@保健号后8位
         D2 = careId, //@保健号
-        D7 = pregnantInfo.IDCard, //身份证
+        D7 = pregnantInfo.idcard, //身份证
         D58 = DateTime.Now.ToString("yyyy-MM-dd"), //创建时间
         D59 = orgId, //创建机构Id
         D60 = userName, //创建人员
@@ -1047,14 +1073,14 @@ yjadata:[
         D69 = orgName, //创建机构名称:佛山市妇幼保健院
         D70 = "", //健康码
         D71 = "", //健康码ID
-        D3 = pregnantInfo.Name, //孕妇姓名
+        D3 = pregnantInfo.personname, //孕妇姓名
         D4 = "", //孕妇国籍 对照表 2) 1)  国籍代码GB/T 2659
         D5 = "", //孕妇民族 1)  民族代码GB/T 3304
         D6 = "", //孕妇证件类型1)   证件类型CV02.01.101
         D8 = "", //生日
         D9 = "", //孕妇年龄
         D10 = "", //孕妇文化程度 1)  文化程度STD_CULTURALDEG
-        D11 = pregnantInfo.PhoneNumber, //手机号码
+        D11 = pregnantInfo.mobilenumber, //手机号码
         D12 = "", //孕妇职业 1)  职业STD_OCCUPATION
         D13 = "", //孕妇工作单位
         D14 = "", //孕妇籍贯
@@ -1897,12 +1923,12 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 {
                     var pregnantInfo = pregnantInfos[i];
                     //查询基本信息
-                    var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID={userId}&sParams=P${pregnantInfo.IDCard}$P$P";
+                    var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID={userId}&sParams=P${pregnantInfo.idcard}$P$P";
                     var postData = "";
                     var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                     var re1 = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
                     bool isExist = re1.data.Count != 0;
-                    Console.WriteLine($"{isExist},{pregnantInfo.IDCard},{pregnantInfo.Name},{pregnantInfo.PhoneNumber}");
+                    Console.WriteLine($"{isExist},{pregnantInfo.idcard},{pregnantInfo.personname},{pregnantInfo.mobilenumber}");
                     if (isExist)
                         continue;
                     currentPregnant = pregnantInfo;
@@ -1926,9 +1952,9 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 var postData = "";
                 var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                 var mainId = result.FromJsonToAnonymousType(new { id = "" }).id;
-                Console.WriteLine($"当前孕妇:{pregnantInfo.Name},IdCard:{pregnantInfo.IDCard}");
+                Console.WriteLine($"当前孕妇:{pregnantInfo.personname},IdCard:{pregnantInfo.idcard}");
                 Console.WriteLine($"mainId:{mainId}");
-                sb.AppendLine($"当前孕妇:{pregnantInfo.Name},IdCard:{pregnantInfo.IDCard},Phone:{pregnantInfo.PhoneNumber}");
+                sb.AppendLine($"当前孕妇:{pregnantInfo.personname},IdCard:{pregnantInfo.idcard},Phone:{pregnantInfo.mobilenumber}");
                 sb.AppendLine("Create 患者主索引");
                 sb.AppendLine(url);
                 sb.AppendLine($"mainId:{mainId}");
@@ -1943,7 +1969,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 sb.AppendLine($"careId:{careId}");
                 var careIdL8 = careId.Substring(8);
                 //--------查重
-                url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_CC&sUserID={userId}&sParams={mainId}$P${pregnantInfo.IDCard}&pageSize=10000&pageIndex=0";
+                url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_CC&sUserID={userId}&sParams={mainId}$P${pregnantInfo.idcard}&pageSize=10000&pageIndex=0";
                 postData = "";
                 result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                 sb.AppendLine("--------查重");
@@ -1956,7 +1982,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                         new WMH_CQBJ_JBXX_FORM_SAVEData(){
         D1 = careIdL8, //@保健号后8位
         D2= careId, //@保健号
-        D7 = pregnantInfo.IDCard,   //身份证              
+        D7 = pregnantInfo.idcard,   //身份证              
         D58 = DateTime.Now.ToString("yyyy-MM-dd"),//创建时间
         curdate1 =DateTime.Now.ToString("yyyy-MM-dd"),
         D59 = orgId,//创建机构Id
@@ -1965,14 +1991,14 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
         D69 = orgName, //创建机构名称:佛山市妇幼保健院
         D70="",//健康码
         D71="",//TODO 之前模拟的时候填了别人用过的 //健康码ID
-        D3 = pregnantInfo.Name,//孕妇姓名
+        D3 = pregnantInfo.personname,//孕妇姓名
         D4 = "", //孕妇国籍 对照表 2) 1)  国籍代码GB/T 2659
         D5 = "", //孕妇民族 1)  民族代码GB/T 3304
         D6 = "", //孕妇证件类型1)   证件类型CV02.01.101
         D8="",//生日
         D9 = "", //孕妇年龄
         D10 = "", //孕妇文化程度 1)  文化程度STD_CULTURALDEG
-        D11= pregnantInfo.PhoneNumber, //手机号码
+        D11= pregnantInfo.mobilenumber, //手机号码
         D12 = "",//孕妇职业 1)  职业STD_OCCUPATION
         D13 = "", //孕妇工作单位
         D14 = "", //孕妇籍贯
@@ -2031,7 +2057,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 var json = data.ToJson();
                 postData = "data=" + json;
                 result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
-                var file = Path.Combine(Directory.GetCurrentDirectory(), pregnantInfo.Name + ".txt");
+                var file = Path.Combine(Directory.GetCurrentDirectory(), pregnantInfo.personname + ".txt");
                 sb.AppendLine("Create 基本信息");
                 sb.AppendLine(url);
                 sb.AppendLine(json);
@@ -2056,9 +2082,9 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 var postData = "";
                 var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                 var mainId = result.FromJsonToAnonymousType(new { id = "" }).id;
-                Console.WriteLine($"当前孕妇:{pregnantInfo.Name},IdCard:{pregnantInfo.IDCard}");
+                Console.WriteLine($"当前孕妇:{pregnantInfo.personname},IdCard:{pregnantInfo.idcard}");
                 Console.WriteLine($"mainId:{mainId}");
-                sb.AppendLine($"当前孕妇:{pregnantInfo.Name},IdCard:{pregnantInfo.IDCard},Phone:{pregnantInfo.PhoneNumber}");
+                sb.AppendLine($"当前孕妇:{pregnantInfo.personname},IdCard:{pregnantInfo.idcard},Phone:{pregnantInfo.mobilenumber}");
                 sb.AppendLine("Create 患者主索引");
                 sb.AppendLine(url);
                 sb.AppendLine($"mainId:{mainId}");
@@ -2073,7 +2099,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 sb.AppendLine($"careId:{careId}");
                 var careIdL8 = careId.Substring(8);
                 //--------查重
-                url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_CC&sUserID={userId}&sParams={mainId}$P${pregnantInfo.IDCard}&pageSize=10000&pageIndex=0";
+                url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_CC&sUserID={userId}&sParams={mainId}$P${pregnantInfo.idcard}&pageSize=10000&pageIndex=0";
                 postData = "";
                 result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                 sb.AppendLine("--------查重");
@@ -2086,7 +2112,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                         new WMH_CQBJ_JBXX_FORM_SAVEData(){
         D1 = careIdL8, //@保健号后8位
         D2= careId, //@保健号
-        D7 = pregnantInfo.IDCard,   //身份证              
+        D7 = pregnantInfo.idcard,   //身份证              
         D58 = DateTime.Now.ToString("yyyy-MM-dd"),//创建时间
         curdate1 =DateTime.Now.ToString("yyyy-MM-dd"),
         D59 = orgId,//创建机构Id
@@ -2095,14 +2121,14 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
         D69 = orgName, //创建机构名称:佛山市妇幼保健院
         D70="",//健康码
         D71="",//TODO 之前模拟的时候填了别人用过的 //健康码ID
-        D3 = pregnantInfo.Name,//孕妇姓名
+        D3 = pregnantInfo.personname,//孕妇姓名
         D4 = "", //孕妇国籍 对照表 2) 1)  国籍代码GB/T 2659
         D5 = "", //孕妇民族 1)  民族代码GB/T 3304
         D6 = "", //孕妇证件类型1)   证件类型CV02.01.101
         D8="",//生日
         D9 = "", //孕妇年龄
         D10 = "", //孕妇文化程度 1)  文化程度STD_CULTURALDEG
-        D11= pregnantInfo.PhoneNumber, //手机号码
+        D11= pregnantInfo.mobilenumber, //手机号码
         D12 = "",//孕妇职业 1)  职业STD_OCCUPATION
         D13 = "", //孕妇工作单位
         D14 = "", //孕妇籍贯
@@ -2161,7 +2187,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 var json = data.ToJson();
                 postData = "data=" + HttpUtility.UrlEncode(json);
                 result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
-                var file = Path.Combine(Directory.GetCurrentDirectory(), pregnantInfo.Name + ".txt");
+                var file = Path.Combine(Directory.GetCurrentDirectory(), pregnantInfo.personname + ".txt");
                 sb.AppendLine("Create 基本信息");
                 sb.AppendLine(url);
                 sb.AppendLine(json);
@@ -2170,7 +2196,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
 
                 Console.WriteLine($"result:{file}");
             }));
-            cmds.Add(new Command("m18,0617,模拟-不保存待提交的数据", () =>
+            cmds.Add(new Command("m18,0618,模拟-不保存待提交的数据", () =>
             {
                 var container = new CookieContainer();
                 var userId = "35000528";
@@ -2186,9 +2212,9 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 var postData = "";
                 var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                 var mainId = result.FromJsonToAnonymousType(new { id = "" }).id;
-                Console.WriteLine($"当前孕妇:{pregnantInfo.Name},IdCard:{pregnantInfo.IDCard}");
+                Console.WriteLine($"当前孕妇:{pregnantInfo.personname},IdCard:{pregnantInfo.idcard}");
                 Console.WriteLine($"mainId:{mainId}");
-                sb.AppendLine($"当前孕妇:{pregnantInfo.Name},IdCard:{pregnantInfo.IDCard},Phone:{pregnantInfo.PhoneNumber}");
+                sb.AppendLine($"当前孕妇:{pregnantInfo.personname},IdCard:{pregnantInfo.idcard},Phone:{pregnantInfo.mobilenumber}");
                 sb.AppendLine("Create 患者主索引");
                 sb.AppendLine(url);
                 sb.AppendLine($"mainId:{mainId}");
@@ -2203,7 +2229,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 sb.AppendLine($"careId:{careId}");
                 var careIdL8 = careId.Substring(8);
                 //--------查重
-                url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_CC&sUserID={userId}&sParams={mainId}$P${pregnantInfo.IDCard}&pageSize=10000&pageIndex=0";
+                url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_CC&sUserID={userId}&sParams={mainId}$P${pregnantInfo.idcard}&pageSize=10000&pageIndex=0";
                 postData = "";
                 result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                 sb.AppendLine("--------查重");
@@ -2216,7 +2242,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                         new WMH_CQBJ_JBXX_FORM_SAVEData(){
         D1 = careIdL8, //@保健号后8位
         D2= careId, //@保健号
-        D7 = pregnantInfo.IDCard,   //身份证              
+        D7 = pregnantInfo.idcard,   //身份证              
         D58 = DateTime.Now.ToString("yyyy-MM-dd"),//创建时间
         curdate1 =DateTime.Now.ToString("yyyy-MM-dd"),
         D59 = orgId,//创建机构Id
@@ -2225,14 +2251,14 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
         D69 = orgName, //创建机构名称:佛山市妇幼保健院
         D70="",//健康码
         D71="",//TODO 之前模拟的时候填了别人用过的 //健康码ID
-        D3 = pregnantInfo.Name,//孕妇姓名
+        D3 = pregnantInfo.personname,//孕妇姓名
         D4 = "", //孕妇国籍 对照表 2) 1)  国籍代码GB/T 2659
         D5 = "", //孕妇民族 1)  民族代码GB/T 3304
         D6 = "", //孕妇证件类型1)   证件类型CV02.01.101
         D8="",//生日
         D9 = "", //孕妇年龄
         D10 = "", //孕妇文化程度 1)  文化程度STD_CULTURALDEG
-        D11= pregnantInfo.PhoneNumber, //手机号码
+        D11= pregnantInfo.mobilenumber, //手机号码
         D12 = "",//孕妇职业 1)  职业STD_OCCUPATION
         D13 = "", //孕妇工作单位
         D14 = "", //孕妇籍贯
@@ -2291,7 +2317,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 var json = data.ToJson();
                 postData = "data:" + HttpUtility.UrlEncode(json);
                 //result = HttpHelper.Post(url, postData, ref container, contentType: "text/text;charset=UTF-8");
-                var file = Path.Combine(Directory.GetCurrentDirectory(), pregnantInfo.Name + ".txt");
+                var file = Path.Combine(Directory.GetCurrentDirectory(), pregnantInfo.personname + ".txt");
                 sb.AppendLine("Create 基本信息");
                 sb.AppendLine(url);
                 sb.AppendLine(json);
@@ -2300,8 +2326,302 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
 
                 Console.WriteLine($"result:{file}");
             }));
+            List<PregnantInfo> tempPregnantInfos = new List<PregnantInfo>();
+            cmds.Add(new Command("m21,0618,模拟-获取待新增的孕妇", () =>
+            {
+                var conntectingStringSD = "Data Source=201.201.201.89;Initial Catalog=HL_Pregnant;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sdfy;Password=sdfy123456";
+                var context = DBHelper.GetDbContext(conntectingStringSD);
+                var serviceResult = context.DelegateTransaction((group) =>
+                {
+                    return group.Connection.Query<PregnantInfo>(@"
+select Top 10 s.id sid,pi.* from PregnantInfo pi
+left join SyncForFS s on s.SourceType = 1 and s.SourceId = pi.Id
+where s.id is null ", transaction: group.Transaction).ToList();
+                });
+                tempPregnantInfos = serviceResult.Data;
+                foreach (var pregnantInfo in serviceResult.Data)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.AppendLine(pregnantInfo.ToJson());
+                    var file = Path.Combine(GetDirectoryToOutput("ToCreate_" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + ".txt");
+                    File.WriteAllText(file, sb.ToString());
+                    Console.WriteLine($"result:{file}");
+                }
+            }));
+            cmds.Add(new Command("m22,0618,模拟-模拟新增", () =>
+            {
+                var testOne = false;
+                var conntectingStringSD = "Data Source=201.201.201.89;Initial Catalog=HL_Pregnant;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sdfy;Password=sdfy123456";
+                var context = DBHelper.GetDbContext(conntectingStringSD);
+                foreach (var pregnantInfo in tempPregnantInfos)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    #region mock commit
+                    var container = new CookieContainer();
+                    var userId = "35000528";
+                    var userName = "廖凤贤";
+                    var orgId = "45608491-9";
+                    var orgName = "佛山市妇幼保健院";
+                    var url = "";
+                    var postData = "";
+                    var result = "";
+                    if (pregnantInfo == null)
+                        return;
+                    //孕妇是否已存在
+                    url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID={userId}&sParams=P${pregnantInfo.idcard}$P$P";
+                    result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                    var re = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
+                    sb.AppendLine(result);
+                    if (re.data.Count != 0)
+                    {
+                        Console.WriteLine($"孕妇{pregnantInfo.personname}已存在");
+                        SyncForFS syncForFS = new SyncForFS()
+                        {
+                            SourceType = SourceType.PregnantInfo,
+                            SourceId = pregnantInfo.Id.ToString(),
+                            SyncTime = DateTime.Now,
+                            SyncStatus  =SyncStatus.ExistWhileCreating
+                        };
+                        var serviceResult = context.DelegateTransaction((group) =>
+                        {
+                            return group.Connection.Insert(syncForFS, transaction: group.Transaction);
+                        });
+                        continue;
+                    }
+                    else
+                    {
+                        //Create 患者主索引
+                        url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_QHJC_ID_GET&sUserID={userId}&sParams=1";
+                        postData = "";
+                        result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                        var mainId = result.FromJsonToAnonymousType(new { id = "" }).id;
+                        Console.WriteLine($"当前孕妇:{pregnantInfo.personname},IdCard:{pregnantInfo.idcard}");
+                        Console.WriteLine($"mainId:{mainId}");
+                        sb.AppendLine($"当前孕妇:{pregnantInfo.personname},IdCard:{pregnantInfo.idcard},Phone:{pregnantInfo.mobilenumber}");
+                        sb.AppendLine("Create 患者主索引");
+                        sb.AppendLine(url);
+                        sb.AppendLine($"mainId:{mainId}");
+                        //Create 保健号
+                        url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=CDH_GET_ID1&sUserID={userId}&sParams={orgId}";
+                        postData = "";
+                        result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                        var careId = result.FromJsonToAnonymousType(new { id = "" }).id;
+                        Console.WriteLine($"careId:{careId}");
+                        sb.AppendLine("Create 保健号");
+                        sb.AppendLine(url);
+                        sb.AppendLine($"careId:{careId}");
+                        var careIdL8 = careId.Substring(8);
+                        //--------查重
+                        url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_CC&sUserID={userId}&sParams={mainId}$P${pregnantInfo.idcard}&pageSize=10000&pageIndex=0";
+                        postData = "";
+                        result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                        sb.AppendLine("--------查重");
+                        sb.AppendLine(result);
+                        //Create 基本信息
+                        url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_SAVE&sUserID={userId}&sParams=null${mainId}${orgId}$%E5%BB%96%E5%87%A4%E8%B4%A4$null$null$null$%E6%99%AE%E9%80%9A%E6%8A%A4%E5%A3%AB%E4%BA%A7%E6%A3%80";
+                        var data = new List<WMH_CQBJ_JBXX_FORM_SAVEData>()
+                        {
+                            new WMH_CQBJ_JBXX_FORM_SAVEData(){
+                                D1 = careIdL8, //@保健号后8位
+                                D2= careId, //@保健号
+                                D7 = pregnantInfo.idcard,   //身份证              
+                                D58 = DateTime.Now.ToString("yyyy-MM-dd"),//创建时间
+                                curdate1 =DateTime.Now.ToString("yyyy-MM-dd"),
+                                D59 = orgId,//创建机构Id
+                                D60 = userName, //创建人员
+                                D61 = null,//病案号
+                                D69 = orgName, //创建机构名称:佛山市妇幼保健院
+                                D70="",//健康码
+                                D71="",//TODO 之前模拟的时候填了别人用过的 //健康码ID
+                                D3 = pregnantInfo.personname,//孕妇姓名
+                                D4 = "", //孕妇国籍 对照表 2) 1)  国籍代码GB/T 2659
+                                D5 = "", //孕妇民族 1)  民族代码GB/T 3304
+                                D6 = "", //孕妇证件类型1)   证件类型CV02.01.101
+                                D8="",//生日
+                                D9 = "", //孕妇年龄
+                                D10 = "", //孕妇文化程度 1)  文化程度STD_CULTURALDEG
+                                D11= pregnantInfo.mobilenumber, //手机号码
+                                D12 = "",//孕妇职业 1)  职业STD_OCCUPATION
+                                D13 = "", //孕妇工作单位
+                                D14 = "", //孕妇籍贯
+                                D15 ="44", //孕妇户籍地址 [TODO 对照表] 省2位,市2位,县/区2位,乡镇街道3位,社区/村3位
+                                D16 ="4419", //孕妇户籍地址 [TODO 对照表]
+                                D17 ="441901",//孕妇户籍地址 [TODO 对照表]
+                                D18 ="441901103", //孕妇户籍地址 [TODO 对照表]
+                                D19 = "", //孕妇户籍地址 [TODO 对照表]
+                                D20 = "", //户籍详细地址
+                                D21 = "", //孕妇现住地址 [TODO 对照表]
+                                D22 = "", //孕妇现住地址 [TODO 对照表]
+                                D23 = "", //孕妇现住地址 [TODO 对照表]
+                                D24 = "", //孕妇现住地址 [TODO 对照表]
+                                D25 = "", //孕妇现住地址 [TODO 对照表]
+                                D26 = "", //产后休养地址
+                                D27 = "", //产后休养地址 [TODO 对照表]
+                                D28 = "", //产后休养地址 [TODO 对照表]
+                                D29 = "", //产后休养地址 [TODO 对照表]
+                                D30 = "", //产后休养地址 [TODO 对照表]
+                                D31 = "", //产后休养地址 [TODO 对照表]
+                                D32 = "", //产后详细地址
+                                D33 = "", //孕妇户籍类型 1)  户籍类型STD_REGISTERT2PE
+                                D34 = "", //孕妇户籍分类 非户籍:2 ,户籍:1
+                                D35 = "", //来本地居住时间 
+                                D36 = "", //近亲结婚  [TODO 对照表]
+                                D37 = "", //孕妇结婚年龄 
+                                D38 = "", //丈夫结婚年龄 
+                                D39 = "", //丈夫姓名
+                                D40 = "", //丈夫国籍  [TODO 对照表]
+                                D41 = "", //丈夫民族  [TODO 对照表]
+                                D42 = "", //丈夫证件类型  [TODO 对照表]
+                                D43 = "", //丈夫证件号码
+                                D44 = "", //丈夫出生日期
+                                D45 = "", //丈夫登记年龄
+                                D46 = "", //丈夫职业  [TODO 对照表]
+                                D47 = "",  //丈夫工作单位
+                                D48 = "", //丈夫联系电话
+                                D49 = "", //丈夫健康状况   [TODO 对照表]
+                                D50 = "", //丈夫嗜好   [TODO 对照表]
+                                D51 = "", //丈夫现在地址   [TODO 对照表]
+                                D52 = "", //丈夫现在地址
+                                D53 = "", //丈夫现在地址
+                                D54 = "", //丈夫现在地址
+                                D55 = "", //丈夫现在地址
+                                D56 = "", //现住详细地址
+                                D57 = "",
+                                D62 = "", //婚姻状况  [TODO 对照表]
+                                D63 = "", //医疗费用支付方式  [TODO 对照表]
+                                D64 = "", //厨房排风设施 PASS
+                                D65 = "", //燃料类型 PASS
+                                D66 = "", //饮水 PASS
+                                D67 = "", //厕所  PASS
+                                D68 = "", //禽畜栏 PASS
+                            }
+                        };
+                        var json = data.ToJson();
+                        postData = "data=" + HttpUtility.UrlEncode(json);
+                        result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                        sb.AppendLine("Create 基本信息");
+                        sb.AppendLine(url);
+                        sb.AppendLine(json);
+                        sb.AppendLine(result);
+
+
+                        //孕妇是否已存在
+                        url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID={userId}&sParams=P${pregnantInfo.idcard}$P$P";
+                        result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                        re = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
+                        var syncStatus = SyncStatus.Create;
+                        var message = "";
+                        if (re.data.Count == 0)
+                        {
+                            syncStatus = SyncStatus.HasErrorWhileCreating;
+                            message = "基本数据未成功创建";
+                        }
+                        SyncForFS syncForFS = new SyncForFS()
+                        {
+                            SourceType = SourceType.PregnantInfo,
+                            SourceId = pregnantInfo.Id.ToString(),
+                            SyncTime = DateTime.Now,
+                            SyncStatus =SyncStatus.Create ,
+                        };
+                        var serviceResult = context.DelegateTransaction((group) =>
+                        {
+                            return group.Connection.Insert(syncForFS, transaction: group.Transaction);
+                        });
+                        testOne = true;
+                    }
+                    #endregion
+                    var file = Path.Combine(GetDirectoryToOutput("Create_"+DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + ".txt");
+                    File.WriteAllText(file, sb.ToString());
+                    Console.WriteLine($"result:{file}");
+                    if (testOne)
+                        break;
+                }
+            }));
+            cmds.Add(new Command("m23,0618,模拟-获取待更新的孕妇", () =>
+            {
+                var conntectingStringSD = "Data Source=201.201.201.89;Initial Catalog=HL_Pregnant;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sdfy;Password=sdfy123456";
+                var context = DBHelper.GetDbContext(conntectingStringSD);
+                var serviceResult = context.DelegateTransaction((group) =>
+                {
+                    return group.Connection.Query<PregnantInfo>(@"
+select Top 10 s.id sid,pi.* from PregnantInfo pi
+left join SyncForFS s on s.SourceType = 1 and s.SourceId = pi.Id
+where s.id is not null and s.SyncStatus = 2 ", transaction: group.Transaction).ToList();
+                });
+                tempPregnantInfos = serviceResult.Data;
+                foreach (var pregnantInfo in serviceResult.Data)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.AppendLine(pregnantInfo.ToJson());
+                    var file = Path.Combine(GetDirectoryToOutput("ToUpdate_" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + ".txt");
+                    File.WriteAllText(file, sb.ToString());
+                    Console.WriteLine($"result:{file}");
+                }
+            }));
+            cmds.Add(new Command("m24,0618,模拟-模拟更新", () =>
+            {
+                var testOne = false;
+                var conntectingStringSD = "Data Source=201.201.201.89;Initial Catalog=HL_Pregnant;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sdfy;Password=sdfy123456";
+                var context = DBHelper.GetDbContext(conntectingStringSD);
+                foreach (var pregnantInfo in tempPregnantInfos)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    #region mock commit
+                    var container = new CookieContainer();
+                    var userId = "35000528";
+                    var userName = "廖凤贤";
+                    var orgId = "45608491-9";
+                    var orgName = "佛山市妇幼保健院";
+                    var url = "";
+                    var postData = "";
+                    var result = "";
+                    if (pregnantInfo == null)
+                        return;
+                    //孕妇是否已存在
+                    url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID={userId}&sParams=P${pregnantInfo.idcard}$P$P";
+                    result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                    var re = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
+                    sb.AppendLine(result);
+                    if (re.data.Count != 0)
+                    {
+                        Console.WriteLine($"孕妇{pregnantInfo.personname}已存在");
+                        //
+
+
+                        //新增同步记录
+                        SyncForFS syncForFS = new SyncForFS()
+                        {
+                            SourceType = SourceType.PregnantInfo,
+                            SourceId = pregnantInfo.Id.ToString(),
+                            SyncTime = DateTime.Now,
+                            SyncStatus = SyncStatus.Update
+                        };
+                        var serviceResult = context.DelegateTransaction((group) =>
+                        {
+                            return group.Connection.Insert(syncForFS, transaction: group.Transaction);
+                        });
+
+                        testOne = true;
+                    }
+                    #endregion
+                    var file = Path.Combine(GetDirectoryToOutput("Update_" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + ".txt");
+                    File.WriteAllText(file, sb.ToString());
+                    Console.WriteLine($"result:{file}");
+                    if (testOne)
+                        break;
+                }
+            }));
+
             #endregion
             cmds.Start();
+        }
+
+        private static string GetDirectoryToOutput(string suffix)
+        {
+            var  path =  Path.Combine(Directory.GetCurrentDirectory(), suffix);
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+            return path;
         }
 
         static int currentIndex = -1;
@@ -2318,7 +2638,6 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             return bytes.ToArray();
         }
     }
-
 
     public class WMH_CQBJ_JBXX_FORM_SAVEData
     {
@@ -2398,16 +2717,106 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
 
     public class PregnantInfo
     {
+        public PregnantInfo()
+        {
+        }
         public PregnantInfo(string iDCard, string name, string phoneNumber)
         {
-            IDCard = iDCard;
-            Name = name;
-            PhoneNumber = phoneNumber;
+            idcard = iDCard;
+            personname = name;
+            mobilenumber = phoneNumber;
         }
 
-        public string IDCard { set; get; }
-        public string Name { set; get; }
-        public string PhoneNumber { set; get; }
+        public int Id { set; get; }
+
+        //保健号 HEALTH_CODE pregnantbookid 上传时为空，接口成功返回更新
+        public string pregnantbookid { set; get; }
+        //姓名  MOTHER_NAME personname
+        public string personname { set; get; }
+        //出生日期 BIRTH_DATE  birthday 为空的话根据合法身份证号计算
+        public DateTime birthday { set; get; }
+        //证件类型 ID_TYPE idtype
+        public string idtype { set; get; }
+        //证件号码    ID_NUM idcard
+        public string idcard { set; get; }
+        //国籍 NATIONALITY nationalitycode
+        public string nationalitycode { set; get; }
+        //民族  NATION nationcode
+        public string nationcode { set; get; }
+        //户口类型 ACCOUNT_TYPE    registrationtype
+        public string registrationtype { set; get; }
+        //职业  OCCUPATION workname/workcode
+        public string workname { set; get; }
+        public string workcode { set; get; }
+        //TODO
+        //文化程度    DEGREE1 educationcode
+        public string educationcode { set; get; }
+        //工作单位 COMPANY workplace
+        public string workplace { set; get; }
+        //户籍地址省   MOTHER_PROVINCE homeaddress
+        //户籍地址市 MOTHER_CITY homeaddress
+        //户籍地址区（县）	MOTHER_REGION homeaddress
+        //户籍地址街道（乡）	MOTHER_STREET homeaddress
+        //户籍地址村 MOTHER_VILLAGE  homeaddress
+        public string homeaddress { set; get; }
+        //TODO
+
+        //户籍地址详细地址    MOTHER_DOOR_NUM 需核对
+        //TODO
+
+
+        //现住址省 NOW_PROVINCE    liveplace
+        //现住址市    NOW_CITY liveplace
+        //现住址区（县）	NOW_REGION liveplace
+        //现住址街道（乡）	NOW_STREET liveplace
+        //现住址村 NOW_VILLAGE liveplace
+        //现住址详细地址 NOW_DOOR_NUM liveplace
+        public string liveplace { set; get; }
+        //TODO
+
+        //邮编 POSTNUM zipcode
+        public string zipcode { set; get; }
+        //联系电话    TEL mobilenumber
+        public string mobilenumber { set; get; }
+        //丈夫姓名 NFQXM   husbandname
+        public string husbandname { set; get; }
+        //丈夫国籍    NFQGJ husbandnationalitycode
+        public string husbandnationalitycode { set; get; }
+        //丈夫民族 NFQMZ   husbandnationcode
+        public string husbandnationcode { set; get; }
+        //丈夫证件类型  NFQSFZJLX husbandidtype
+        public string husbandidtype { set; get; }
+        //丈夫证件号码 NFQSFZJH    husbandidcard
+        public string husbandidcard { set; get; }
+        //丈夫出生日期  NFQCSRQ husbandbirthday 为空的话根据合法身份证号计算
+        public DateTime husbandbirthday { set; get; }
+        //丈夫文化程度  NFQWHCD husbandeducationcode
+        public string husbandeducationcode { set; get; }
+        //丈夫电话 NFQDH   husbandmobile
+        public string husbandmobile { set; get; }
+        //丈夫现住址省  NFQXSHENG husbandliveaddresscode
+        //丈夫现住址市 NFQXSHI husbandliveaddresscode
+        //丈夫现住址区县 NFQXQUXIAN husbandliveaddresscode
+        //丈夫现住址街镇 NFQXJIEZHEN husbandliveaddresscode
+        //丈夫现住址村  NFQXCUN husbandliveaddresscode
+        public string husbandliveaddresscode { set; get; }
+        //TODO
+
+        //丈夫现住址详细地址 NFQXXX  需核对
+        //public string NFQXXX { set; get; }
+        //TODO
+
+        //推送人 SEND_PERSON 需核对 若与平台用户无关则对应editorname
+        //public string NFQXXX { set; get; }
+        //TODO
+
+        //推送机构    SEND_UNIT	45608491-9	顺德妇保机构代码：45608491-9
+        //public string NFQXXX { set; get; }
+        //TODO
+
+        //推送时间 SEND_DATE   当前时间
+
+        //医院系统id  HIS_ID 需核对 顺德妇保机构代码：45608491-9
     }
 
     #region CommandMode

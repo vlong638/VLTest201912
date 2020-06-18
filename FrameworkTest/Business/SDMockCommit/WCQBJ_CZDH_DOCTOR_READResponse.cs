@@ -16,13 +16,13 @@ namespace FrameworkTest.Business.SDMockCommit
     }
     public class WCQBJ_CZDH_DOCTOR_READData
     {
-        public string D1 { set; get; }//
-        public string D2 { set; get; }//
+        public string D1 { set; get; }//CareId
+        public string D2 { set; get; }//MainId
         public string D3 { set; get; }//姓名
         public string D4 { set; get; }//身份证
         public string D5 { set; get; }
         public string D6 { set; get; }
         public string D7 { set; get; }
-        public string D8 { set; get; }
+        public string D8 { set; get; }//基档,BaseId
     }
 }
