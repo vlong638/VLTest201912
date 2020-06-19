@@ -17,7 +17,6 @@ namespace FrameworkTest.Common.ValuesSolution
         } 
         #endregion
 
-
         #region string
         public static string TrimStart(this string str, string strToTrim)
         {

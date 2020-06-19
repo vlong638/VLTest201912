@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Dapper.Contrib.Extensions;
+using FrameworkTest.Business.GJPredeliveryAsync;
 using FrameworkTest.Business.SDMockCommit;
 using FrameworkTest.Business.TaskScheduler;
 using FrameworkTest.Common.DBSolution;
@@ -19,6 +20,7 @@ using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
+using System.Web.WebSockets;
 using System.Xml.Linq;
 using VL.Consoling.SemiAutoExport;
 
@@ -461,7 +463,7 @@ order by def.[TableName],def.Id
                 XMLEx.TestCreate(@"D:\a.xml");
             }));
             #endregion
-            cmds.Add(new Command("---------------------顺德,MockLogin-------------------", () => { }));
+            cmds.Add(new Command("---------------------顺德-------------------", () => { }));
             #region MockLogin,顺德
             cmds.Add(new Command("m1,0602,模拟用户登录-本地实验", () =>
             {
@@ -2845,6 +2847,14 @@ where s.id is not null and s.SyncStatus = 2 ", transaction: group.Transaction).T
             }));
 
             #endregion
+            cmds.Add(new Command("---------------------国健-------------------", () => { }));
+            cmds.Add(new Command("gj1,产前记录解析", () =>
+            {
+                var str = File.ReadAllText(@"C:\Users\vlong\Desktop\新建文本文档.html",Encoding.GetEncoding("GBK"));
+                StringBuilder sb = new StringBuilder();
+                PreDeliveryParser.GetPreDeliveries(str, ref sb);
+
+            }));
             cmds.Start();
         }
 
