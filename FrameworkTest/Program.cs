@@ -32,6 +32,11 @@ namespace FrameworkTest
 
         static void Main(string[] args)
         {
+            //var r1054 = VLConstraints.GetNationGB_T_2659ByNationGB_T_2659_2000("4");
+            //r1054 = VLConstraints.GetNationGB_T_2659ByNationGB_T_2659_2000("5");
+            //r1054 = VLConstraints.GetNationGB_T_2659ByNationGB_T_2659_2000("238");
+
+
             //var pu = new WMH_CQBJ_JBXX_FORM_SAVEData()
             //{
             //    D1 = "", //@保健号后8位
@@ -2355,6 +2360,8 @@ where s.id is null ", transaction: group.Transaction).ToList();
                 var context = DBHelper.GetDbContext(conntectingStringSD);
                 foreach (var pregnantInfo in tempPregnantInfos)
                 {
+                    if (testOne)
+                        break;
                     StringBuilder sb = new StringBuilder();
                     #region mock commit
                     var container = new CookieContainer();
@@ -2533,8 +2540,6 @@ where s.id is null ", transaction: group.Transaction).ToList();
                     var file = Path.Combine(GetDirectoryToOutput("Create_"+DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
-                    if (testOne)
-                        break;
                 }
             }));
             cmds.Add(new Command("m23,0618,模拟-获取待更新的孕妇", () =>
@@ -2558,13 +2563,16 @@ where s.id is not null and s.SyncStatus = 2 ", transaction: group.Transaction).T
                     Console.WriteLine($"result:{file}");
                 }
             }));
-            cmds.Add(new Command("m24,0618,模拟-模拟更新", () =>
+            cmds.Add(new Command("m24,0618,模拟-模拟更新(仅记录数据)", () =>
             {
                 var testOne = false;
                 var conntectingStringSD = "Data Source=201.201.201.89;Initial Catalog=HL_Pregnant;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sdfy;Password=sdfy123456";
                 var context = DBHelper.GetDbContext(conntectingStringSD);
                 foreach (var pregnantInfo in tempPregnantInfos)
                 {
+                    if (testOne)
+                        break;
+
                     StringBuilder sb = new StringBuilder();
                     #region mock commit
                     var container = new CookieContainer();
@@ -2577,38 +2585,262 @@ where s.id is not null and s.SyncStatus = 2 ", transaction: group.Transaction).T
                     var result = "";
                     if (pregnantInfo == null)
                         return;
-                    //孕妇是否已存在
+                    //查询孕妇 概要数据(各类Id)
                     url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID={userId}&sParams=P${pregnantInfo.idcard}$P$P";
                     result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
-                    var re = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
+                    var resultBase = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
                     sb.AppendLine(result);
-                    if (re.data.Count != 0)
+                    if (resultBase.data.Count == 0)
                     {
-                        Console.WriteLine($"孕妇{pregnantInfo.personname}已存在");
-                        //
-
-
-                        //新增同步记录
-                        SyncForFS syncForFS = new SyncForFS()
+                        var message = $"待更新的孕妇{pregnantInfo.personname}缺少概要数据";
+                        Console.WriteLine(message);
+                        var syncForFSTemp = new SyncForFS()
                         {
                             SourceType = SourceType.PregnantInfo,
                             SourceId = pregnantInfo.Id.ToString(),
                             SyncTime = DateTime.Now,
-                            SyncStatus = SyncStatus.Update
+                            SyncStatus = SyncStatus.HasErrorWhileUpdating,
+                            ErrorMessage = message,
                         };
-                        var serviceResult = context.DelegateTransaction((group) =>
+                        var serviceResultTemp = context.DelegateTransaction((group) =>
                         {
-                            return group.Connection.Insert(syncForFS, transaction: group.Transaction);
+                            return group.Connection.Insert(syncForFSTemp, transaction: group.Transaction);
                         });
-
                         testOne = true;
+                        continue;
                     }
+                    //查询孕妇 基本数据
+                    var baseMain = resultBase.data.First();
+                    url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_READ&sUserID={userId}&sParams={baseMain.MainId}";
+                    result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                    var resultBaseInfo = result.FromJson<WMH_CQBJ_JBXX_FORM_READResponse>();
+                    if (resultBaseInfo.data.Count == 0)
+                    {
+                        var message = $"待更新的孕妇{pregnantInfo.personname}缺少基本数据";
+                        Console.WriteLine(message);
+                        var syncForFSTemp = new SyncForFS()
+                        {
+                            SourceType = SourceType.PregnantInfo,
+                            SourceId = pregnantInfo.Id.ToString(),
+                            SyncTime = DateTime.Now,
+                            SyncStatus = SyncStatus.HasErrorWhileUpdating,
+                            ErrorMessage = message,
+                        };
+                        var serviceResultTemp = context.DelegateTransaction((group) =>
+                        {
+                            return group.Connection.Insert(syncForFSTemp, transaction: group.Transaction);
+                        });
+                        testOne = true;
+                        continue;
+                    }
+                    #region 更新用户数据
+                    var baseInfo = resultBaseInfo.data.First();
+                    sb.AppendLine(">>>>>>>>>>>>>>baseInfo");
+                    sb.AppendLine(baseInfo.ToJson());
+                    sb.AppendLine(">>>>>>>>>>>>>>pregnantInfo");
+                    sb.AppendLine(pregnantInfo.ToJson());
+                    #endregion
+
+
+                    testOne = true;
                     #endregion
                     var file = Path.Combine(GetDirectoryToOutput("Update_" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
+                }
+            }));
+            cmds.Add(new Command("m25,0618,模拟-模拟更新", () =>
+            {
+                var testOne = false;
+                var conntectingStringSD = "Data Source=201.201.201.89;Initial Catalog=HL_Pregnant;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sdfy;Password=sdfy123456";
+                var context = DBHelper.GetDbContext(conntectingStringSD);
+                foreach (var pregnantInfo in tempPregnantInfos)
+                {
                     if (testOne)
                         break;
+
+                    StringBuilder sb = new StringBuilder();
+                    #region mock commit
+                    var container = new CookieContainer();
+                    var userId = "35000528";
+                    var userName = "廖凤贤";
+                    var orgId = "45608491-9";
+                    var orgName = "佛山市妇幼保健院";
+                    var url = "";
+                    var postData = "";
+                    var result = "";
+                    if (pregnantInfo == null)
+                        return;
+                    //查询孕妇 概要数据(各类Id)
+                    url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID={userId}&sParams=P${pregnantInfo.idcard}$P$P";
+                    result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                    var resultBase = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
+                    sb.AppendLine(result);
+                    if (resultBase.data.Count == 0)
+                    {
+                        var message = $"待更新的孕妇{pregnantInfo.personname}缺少概要数据";
+                        Console.WriteLine(message);
+                        var syncForFSTemp = new SyncForFS()
+                        {
+                            SourceType = SourceType.PregnantInfo,
+                            SourceId = pregnantInfo.Id.ToString(),
+                            SyncTime = DateTime.Now,
+                            SyncStatus = SyncStatus.HasErrorWhileUpdating,
+                            ErrorMessage = message,
+                        };
+                        var serviceResultTemp = context.DelegateTransaction((group) =>
+                        {
+                            return group.Connection.Insert(syncForFSTemp, transaction: group.Transaction);
+                        });
+                        testOne = true;
+                        continue;
+                    }
+                    //查询孕妇 基本数据
+                    var baseMain = resultBase.data.First();
+                    url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_READ&sUserID={userId}&sParams={baseMain.MainId}";
+                    result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                    var resultBaseInfo = result.FromJson<WMH_CQBJ_JBXX_FORM_READResponse>();
+                    if (resultBaseInfo.data.Count == 0)
+                    {
+                        var message = $"待更新的孕妇{pregnantInfo.personname}缺少基本数据";
+                        Console.WriteLine(message);
+                        var syncForFSTemp = new SyncForFS()
+                        {
+                            SourceType = SourceType.PregnantInfo,
+                            SourceId = pregnantInfo.Id.ToString(),
+                            SyncTime = DateTime.Now,
+                            SyncStatus = SyncStatus.HasErrorWhileUpdating,
+                            ErrorMessage = message,
+                        };
+                        var serviceResultTemp = context.DelegateTransaction((group) =>
+                        {
+                            return group.Connection.Insert(syncForFSTemp, transaction: group.Transaction);
+                        });
+                        testOne = true;
+                        continue;
+                    }
+                    #region 更新用户数据
+//>>>>>>>>>>>>>> baseInfo
+//{ "D1":"21509773","D2":"4406060121509773","D3":"吴素敏","D4":"","D5":"","D6":"","D7":"44200019930330260x","D8":"",
+//"D9":"","D10":"","D11":"16603076028","D12":"","D13":"","D14":"","D15":"44","D16":"4419","D17":"441901",
+//"D18":"441901103","D19":"","D20":"","D21":"","D22":"","D23":"","D24":"","D25":"","D26":"","D27":"","D28":"",
+//"D29":"","D30":"","D31":"","D32":"","D33":"","D34":"","D35":"","D36":"","D37":"","D38":"","D39":"","D40":"",
+//"D41":"","D42":"","D43":"","D44":"","D45":"","D46":"","D47":"","D48":"","D49":"","D50":"","D51":"","D52":"",
+//"D53":"","D54":"","D55":"","D56":"","D57":"","D58":"2020-06-18","D59":"45608491-9","D60":"廖凤贤","D61":"",
+//"D62":"","D63":"","D64":"","D65":"","D66":"","D67":"","D68":"","D69":"佛山市顺德区妇幼保健院","D70":"",
+//"D71":"","D72":"","D73":"","D74":"","D75":"A859402EC9E10237E05355FE8013C745","D76":"","D77":""}
+//>>>>>>>>>>>>>> pregnantInfo
+//{ "Id":64181,"pregnantbookid":null,"personname":"吴素敏","birthday":"1993-03-30T00:00:00","idtype":"1","idcard":"44200019930330260x",
+//"nationalitycode":"156","nationcode":"01","registrationtype":null,"workname":"自由职业","workcode":null,
+//    "educationcode":"70","workplace":null,"homeaddress":"440600000000","liveplace":"440600000000","zipcode":null,
+//    "mobilenumber":"16603076028","husbandname":"梁洪标","husbandnationalitycode":null,"husbandnationcode":null,
+//    "husbandidtype":"1","husbandidcard":"440681198907022638","husbandbirthday":"0001-01-01T00:00:00",
+//    "husbandeducationcode":null,"husbandmobile":"13450765716","husbandliveaddresscode":null}
+
+                    var baseInfo = resultBaseInfo.data.First();
+                    var data = new WMH_CQBJ_JBXX_FORM_SAVEData(baseInfo);
+                    //public string D1 { set; get; } //登录用户Id
+                    //public string D2 { set; get; } //@保健号
+                    //public string D3 { set; get; } //孕妇姓名
+                    data.D3 = pregnantInfo.personname;
+                    //public string D4 { set; get; } //孕妇国籍 对照表 2) 1)  国籍代码GB/T 2659
+                    data.D4 = VLConstraints.GetCountry_GB_T_2659ByCountry_GB_T_2659_2000(pregnantInfo.nationcode);
+                    //public string D5 { set; get; } //孕妇民族 1)  民族代码GB/T 3304
+
+                    //public string D6 { set; get; } //孕妇证件类型1)   证件类型CV02.01.101
+                    //public string D7 { set; get; } //身份证
+                    //public string D8 { set; get; } //生日
+                    //public string D9 { set; get; } //孕妇年龄
+                    //public string D10 { set; get; } //孕妇文化程度 1)  文化程度STD_CULTURALDEG
+                    //public string D11 { set; get; } //手机号码
+                    //public string D12 { set; get; } //孕妇职业 1)  职业STD_OCCUPATION
+                    //public string D13 { set; get; } //孕妇工作单位
+                    //public string D14 { set; get; } //孕妇籍贯
+                    //public string D15 { set; get; } //孕妇户籍地址 [TODO 对照表] 省2位,市2位,县/区2位,乡镇街道3位,社区/村3位
+                    //public string D16 { set; get; } //孕妇户籍地址 [TODO 对照表]
+                    //public string D17 { set; get; } //孕妇户籍地址 [TODO 对照表]
+                    //public string D18 { set; get; } //孕妇户籍地址 [TODO 对照表]
+                    //public string D19 { set; get; } //孕妇户籍地址 [TODO 对照表]
+                    //public string D20 { set; get; } //户籍详细地址
+                    //public string D21 { set; get; } //孕妇现住地址 [TODO 对照表]
+                    //public string D22 { set; get; } //孕妇现住地址 [TODO 对照表]
+                    //public string D23 { set; get; } //孕妇现住地址 [TODO 对照表]
+                    //public string D24 { set; get; } //孕妇现住地址 [TODO 对照表]
+                    //public string D25 { set; get; } //孕妇现住地址 [TODO 对照表]
+                    //public string D26 { set; get; } //产后休养地址
+                    //public string D27 { set; get; } //产后休养地址 [TODO 对照表]
+                    //public string D28 { set; get; } //产后休养地址 [TODO 对照表]
+                    //public string D29 { set; get; } //产后休养地址 [TODO 对照表]
+                    //public string D30 { set; get; } //产后休养地址 [TODO 对照表]
+                    //public string D31 { set; get; } //产后休养地址 [TODO 对照表]
+                    //public string D32 { set; get; } //产后详细地址
+                    //public string D33 { set; get; } //孕妇户籍类型 1)  户籍类型STD_REGISTERT2PE
+                    //public string D34 { set; get; } //孕妇户籍分类 非户籍:2 ,户籍:1
+                    //public string D35 { set; get; } //来本地居住时间 
+                    //public string D36 { set; get; } //近亲结婚  [TODO 对照表]
+                    //public string D37 { set; get; } //孕妇结婚年龄 
+                    //public string D38 { set; get; } //丈夫结婚年龄 
+                    //public string D39 { set; get; } //丈夫姓名
+                    //public string D40 { set; get; } //丈夫国籍  [TODO 对照表]
+                    //public string D41 { set; get; } //丈夫民族  [TODO 对照表]
+                    //public string D42 { set; get; } //丈夫证件类型  [TODO 对照表]
+                    //public string D43 { set; get; } //丈夫证件号码
+                    //public string D44 { set; get; } //丈夫出生日期
+                    //public string D45 { set; get; } //丈夫登记年龄
+                    //public string D46 { set; get; } //丈夫职业  [TODO 对照表]
+                    //public string D47 { set; get; }  //丈夫工作单位
+                    //public string D48 { set; get; } //丈夫联系电话
+                    //public string D49 { set; get; } //丈夫健康状况   [TODO 对照表]
+                    //public string D50 { set; get; } //丈夫嗜好   [TODO 对照表]
+                    //public string D51 { set; get; } //丈夫现在地址   [TODO 对照表]
+                    //public string D52 { set; get; } //丈夫现在地址
+                    //public string D53 { set; get; } //丈夫现在地址
+                    //public string D54 { set; get; } //丈夫现在地址
+                    //public string D55 { set; get; } //丈夫现在地址
+                    //public string D56 { set; get; } //现住详细地址
+                    //public string D57 { set; get; }
+                    //public string D58 { set; get; } //创建时间
+                    //public string D59 { set; get; } //创建机构
+                    //public string D60 { set; get; } //创建人员
+                    //public string D61 { set; get; } //病案号
+                    //public string D62 { set; get; } //婚姻状况  [TODO 对照表]
+                    //public string D63 { set; get; } //医疗费用支付方式  [TODO 对照表]
+                    //public string D64 { set; get; } //厨房排风设施 PASS
+                    //public string D65 { set; get; } //燃料类型 PASS
+                    //public string D66 { set; get; } //饮水 PASS
+                    //public string D67 { set; get; } //厕所  PASS
+                    //public string D68 { set; get; } //禽畜栏 PASS
+                    //public string D69 { set; get; } //创建机构名称:佛山市妇幼保健院
+                    //public string D70 { set; get; } //健康码
+                    //public string D71 { set; get; } //健康码ID 
+                    #endregion
+
+                    //更新用户数据
+                    url = $"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_SAVE&sUserID={userId}&sParams={baseMain.MainId}$45608491-9$%E5%BB%96%E5%87%A4%E8%B4%A4$null$null$null$%E6%99%AE%E9%80%9A%E6%8A%A4%E5%A3%AB%E4%BA%A7%E6%A3%80";
+                    var json = data.ToJson();
+                    postData = "data=" + HttpUtility.UrlEncode(json);
+                    result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                    Console.WriteLine("--------------Mock Commit");
+                    Console.WriteLine(result);
+
+                    //新增同步记录
+                    SyncForFS syncForFS = new SyncForFS()
+                    {
+                        SourceType = SourceType.PregnantInfo,
+                        SourceId = pregnantInfo.Id.ToString(),
+                        SyncTime = DateTime.Now,
+                        SyncStatus = SyncStatus.Update
+                    };
+                    var serviceResult = context.DelegateTransaction((group) =>
+                    {
+                        return group.Connection.Insert(syncForFS, transaction: group.Transaction);
+                    });
+
+                    testOne = true;
+                    #endregion
+                    var file = Path.Combine(GetDirectoryToOutput("Update_" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + ".txt");
+                    File.WriteAllText(file, sb.ToString());
+                    Console.WriteLine($"result:{file}");
                 }
             }));
 
@@ -2637,186 +2869,6 @@ where s.id is not null and s.SyncStatus = 2 ", transaction: group.Transaction).T
             }
             return bytes.ToArray();
         }
-    }
-
-    public class WMH_CQBJ_JBXX_FORM_SAVEData
-    {
-        public string D1 { set; get; } //登录用户Id
-        public string D2 { set; get; } //@保健号
-        public string D3 { set; get; } //孕妇姓名
-        public string D4 { set; get; } //孕妇国籍 对照表 2) 1)  国籍代码GB/T 2659
-        public string D5 { set; get; } //孕妇民族 1)  民族代码GB/T 3304
-        public string D6 { set; get; } //孕妇证件类型1)   证件类型CV02.01.101
-        public string D7 { set; get; } //身份证
-        public string D8 { set; get; } //生日
-        public string D9 { set; get; } //孕妇年龄
-        public string D10 { set; get; } //孕妇文化程度 1)  文化程度STD_CULTURALDEG
-        public string D11 { set; get; } //手机号码
-        public string D12 { set; get; } //孕妇职业 1)  职业STD_OCCUPATION
-        public string D13 { set; get; } //孕妇工作单位
-        public string D14 { set; get; } //孕妇籍贯
-        public string D15 { set; get; } //孕妇户籍地址 [TODO 对照表] 省2位,市2位,县/区2位,乡镇街道3位,社区/村3位
-        public string D16 { set; get; } //孕妇户籍地址 [TODO 对照表]
-        public string D17 { set; get; } //孕妇户籍地址 [TODO 对照表]
-        public string D18 { set; get; } //孕妇户籍地址 [TODO 对照表]
-        public string D19 { set; get; } //孕妇户籍地址 [TODO 对照表]
-        public string D20 { set; get; } //户籍详细地址
-        public string D21 { set; get; } //孕妇现住地址 [TODO 对照表]
-        public string D22 { set; get; } //孕妇现住地址 [TODO 对照表]
-        public string D23 { set; get; } //孕妇现住地址 [TODO 对照表]
-        public string D24 { set; get; } //孕妇现住地址 [TODO 对照表]
-        public string D25 { set; get; } //孕妇现住地址 [TODO 对照表]
-        public string D26 { set; get; } //产后休养地址
-        public string D27 { set; get; } //产后休养地址 [TODO 对照表]
-        public string D28 { set; get; } //产后休养地址 [TODO 对照表]
-        public string D29 { set; get; } //产后休养地址 [TODO 对照表]
-        public string D30 { set; get; } //产后休养地址 [TODO 对照表]
-        public string D31 { set; get; } //产后休养地址 [TODO 对照表]
-        public string D32 { set; get; } //产后详细地址
-        public string D33 { set; get; } //孕妇户籍类型 1)  户籍类型STD_REGISTERT2PE
-        public string D34 { set; get; } //孕妇户籍分类 非户籍:2 ,户籍:1
-        public string D35 { set; get; } //来本地居住时间 
-        public string D36 { set; get; } //近亲结婚  [TODO 对照表]
-        public string D37 { set; get; } //孕妇结婚年龄 
-        public string D38 { set; get; } //丈夫结婚年龄 
-        public string D39 { set; get; } //丈夫姓名
-        public string D40 { set; get; } //丈夫国籍  [TODO 对照表]
-        public string D41 { set; get; } //丈夫民族  [TODO 对照表]
-        public string D42 { set; get; } //丈夫证件类型  [TODO 对照表]
-        public string D43 { set; get; } //丈夫证件号码
-        public string D44 { set; get; } //丈夫出生日期
-        public string D45 { set; get; } //丈夫登记年龄
-        public string D46 { set; get; } //丈夫职业  [TODO 对照表]
-        public string D47 { set; get; }  //丈夫工作单位
-        public string D48 { set; get; } //丈夫联系电话
-        public string D49 { set; get; } //丈夫健康状况   [TODO 对照表]
-        public string D50 { set; get; } //丈夫嗜好   [TODO 对照表]
-        public string D51 { set; get; } //丈夫现在地址   [TODO 对照表]
-        public string D52 { set; get; } //丈夫现在地址
-        public string D53 { set; get; } //丈夫现在地址
-        public string D54 { set; get; } //丈夫现在地址
-        public string D55 { set; get; } //丈夫现在地址
-        public string D56 { set; get; } //现住详细地址
-        public string D57 { set; get; }
-        public string D58 { set; get; } //创建时间
-        public string D59 { set; get; } //创建机构
-        public string D60 { set; get; } //创建人员
-        public string D61 { set; get; } //病案号
-        public string D62 { set; get; } //婚姻状况  [TODO 对照表]
-        public string D63 { set; get; } //医疗费用支付方式  [TODO 对照表]
-        public string D64 { set; get; } //厨房排风设施 PASS
-        public string D65 { set; get; } //燃料类型 PASS
-        public string D66 { set; get; } //饮水 PASS
-        public string D67 { set; get; } //厕所  PASS
-        public string D68 { set; get; } //禽畜栏 PASS
-        public string D69 { set; get; } //创建机构名称:佛山市妇幼保健院
-        public string D70 { set; get; } //健康码
-        public string D71 { set; get; } //健康码ID
-        public string curdate1 { set; get; }
-    }
-
-    public class PregnantInfo
-    {
-        public PregnantInfo()
-        {
-        }
-        public PregnantInfo(string iDCard, string name, string phoneNumber)
-        {
-            idcard = iDCard;
-            personname = name;
-            mobilenumber = phoneNumber;
-        }
-
-        public int Id { set; get; }
-
-        //保健号 HEALTH_CODE pregnantbookid 上传时为空，接口成功返回更新
-        public string pregnantbookid { set; get; }
-        //姓名  MOTHER_NAME personname
-        public string personname { set; get; }
-        //出生日期 BIRTH_DATE  birthday 为空的话根据合法身份证号计算
-        public DateTime birthday { set; get; }
-        //证件类型 ID_TYPE idtype
-        public string idtype { set; get; }
-        //证件号码    ID_NUM idcard
-        public string idcard { set; get; }
-        //国籍 NATIONALITY nationalitycode
-        public string nationalitycode { set; get; }
-        //民族  NATION nationcode
-        public string nationcode { set; get; }
-        //户口类型 ACCOUNT_TYPE    registrationtype
-        public string registrationtype { set; get; }
-        //职业  OCCUPATION workname/workcode
-        public string workname { set; get; }
-        public string workcode { set; get; }
-        //TODO
-        //文化程度    DEGREE1 educationcode
-        public string educationcode { set; get; }
-        //工作单位 COMPANY workplace
-        public string workplace { set; get; }
-        //户籍地址省   MOTHER_PROVINCE homeaddress
-        //户籍地址市 MOTHER_CITY homeaddress
-        //户籍地址区（县）	MOTHER_REGION homeaddress
-        //户籍地址街道（乡）	MOTHER_STREET homeaddress
-        //户籍地址村 MOTHER_VILLAGE  homeaddress
-        public string homeaddress { set; get; }
-        //TODO
-
-        //户籍地址详细地址    MOTHER_DOOR_NUM 需核对
-        //TODO
-
-
-        //现住址省 NOW_PROVINCE    liveplace
-        //现住址市    NOW_CITY liveplace
-        //现住址区（县）	NOW_REGION liveplace
-        //现住址街道（乡）	NOW_STREET liveplace
-        //现住址村 NOW_VILLAGE liveplace
-        //现住址详细地址 NOW_DOOR_NUM liveplace
-        public string liveplace { set; get; }
-        //TODO
-
-        //邮编 POSTNUM zipcode
-        public string zipcode { set; get; }
-        //联系电话    TEL mobilenumber
-        public string mobilenumber { set; get; }
-        //丈夫姓名 NFQXM   husbandname
-        public string husbandname { set; get; }
-        //丈夫国籍    NFQGJ husbandnationalitycode
-        public string husbandnationalitycode { set; get; }
-        //丈夫民族 NFQMZ   husbandnationcode
-        public string husbandnationcode { set; get; }
-        //丈夫证件类型  NFQSFZJLX husbandidtype
-        public string husbandidtype { set; get; }
-        //丈夫证件号码 NFQSFZJH    husbandidcard
-        public string husbandidcard { set; get; }
-        //丈夫出生日期  NFQCSRQ husbandbirthday 为空的话根据合法身份证号计算
-        public DateTime husbandbirthday { set; get; }
-        //丈夫文化程度  NFQWHCD husbandeducationcode
-        public string husbandeducationcode { set; get; }
-        //丈夫电话 NFQDH   husbandmobile
-        public string husbandmobile { set; get; }
-        //丈夫现住址省  NFQXSHENG husbandliveaddresscode
-        //丈夫现住址市 NFQXSHI husbandliveaddresscode
-        //丈夫现住址区县 NFQXQUXIAN husbandliveaddresscode
-        //丈夫现住址街镇 NFQXJIEZHEN husbandliveaddresscode
-        //丈夫现住址村  NFQXCUN husbandliveaddresscode
-        public string husbandliveaddresscode { set; get; }
-        //TODO
-
-        //丈夫现住址详细地址 NFQXXX  需核对
-        //public string NFQXXX { set; get; }
-        //TODO
-
-        //推送人 SEND_PERSON 需核对 若与平台用户无关则对应editorname
-        //public string NFQXXX { set; get; }
-        //TODO
-
-        //推送机构    SEND_UNIT	45608491-9	顺德妇保机构代码：45608491-9
-        //public string NFQXXX { set; get; }
-        //TODO
-
-        //推送时间 SEND_DATE   当前时间
-
-        //医院系统id  HIS_ID 需核对 顺德妇保机构代码：45608491-9
     }
 
     #region CommandMode

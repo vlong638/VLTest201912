@@ -23,6 +23,7 @@ namespace FrameworkTest.Business.SDMockCommit
         HasErrorWhileCreating = 1,//创建时 出现异常
         Create = 2,//创建成功
         ExistWhileCreating=3,//首次创建时存在
-        Update = 4,//更新成功
+        HasErrorWhileUpdating = 40,//创建时 出现异常
+        Update = 41,//更新成功
     }
 }

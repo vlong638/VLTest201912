@@ -90,8 +90,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Business\ConfigurableEntity\EntityAppConfig.cs" />
+    <Compile Include="Business\SDMockCommit\Nation.cs" />
+    <Compile Include="Business\SDMockCommit\Country.cs" />
+    <Compile Include="Business\SDMockCommit\PregnantInfo.cs" />
     <Compile Include="Business\SDMockCommit\WMH_CQBJ_JBXX_FORM_READResponse.cs" />
     <Compile Include="Business\SDMockCommit\WCQBJ_CZDH_DOCTOR_READResponse.cs" />
+    <Compile Include="Business\SDMockCommit\WMH_CQBJ_JBXX_FORM_SAVEData.cs" />
     <Compile Include="Business\TaskScheduler\VLScheduler.cs" />
     <Compile Include="Business\TaskScheduler\TaskConfig.cs" />
     <Compile Include="Business\TaskScheduler\WorkTask.cs" />
