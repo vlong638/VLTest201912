@@ -38,6 +38,17 @@ namespace FrameworkTest
             //r1054 = VLConstraints.GetNationGB_T_2659ByNationGB_T_2659_2000("5");
             //r1054 = VLConstraints.GetNationGB_T_2659ByNationGB_T_2659_2000("238");
 
+            //var r1534 = VLConstraints.GetDegree_STD_CULTURALDEGByDegree_Hele("11");
+            //r1534 = VLConstraints.GetDegree_STD_CULTURALDEGByDegree_Hele("100");
+            //r1534 = VLConstraints.GetDegree_STD_CULTURALDEGByDegree_Hele("88");
+
+            //var s20 = "440601002003".GetSubStringOrEmpty(2);
+            //var s22 = "440601002003".GetSubStringOrEmpty(2, 2);
+            //var s120 = "440601002003".GetSubStringOrEmpty(12);
+            //var s130 = "440601002003".GetSubStringOrEmpty(13);
+            //var s85 = "440601002003".GetSubStringOrEmpty(8, 5);
+            //var s121 = "440601002003".GetSubStringOrEmpty(12, 1);
+            //var s111 = "440601002003".GetSubStringOrEmpty(11, 1);
 
             //var pu = new WMH_CQBJ_JBXX_FORM_SAVEData()
             //{
@@ -641,7 +652,7 @@ order by def.[TableName],def.Id
                     Console.WriteLine(result);
                 }
                 //线上测试 模拟登陆
-                if (true)
+                if (false)
                 {
                     var url = "http://19.130.211.1:8090/FSFY/logon/myRoles";
                     var postData = new { url = "logon/myRoles", uid = "35000528", pwd = "2d36cfe9d49ccdb6cd313c75a7f4308036092f701a068f7fa66ab1835cd03baa3cbc80191e3bf502453d0cacec215a51adcfb883aa24ecc09025b6dc68d9cca20c722dc3e766e92fb15103b434a6c5fc640bbf7937f016c63a11ecad72018a30b0800a67f21d57f6014057f49c29595e7c3f9e5d1874e109a8e9c37be46ce59b" }.ToJson();
@@ -650,7 +661,7 @@ order by def.[TableName],def.Id
                     Console.WriteLine(result);
                 }
                 //线上测试 模拟提交
-                if (false)
+                if (true)
                 {
                     var url = "http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_SAVE&sUserID=35000528&sParams=9BC060258D073697E050A8C01F0A710D$9BBF6C400D0280F0E050A8C01F0A4CC8$45608491-9$%E5%BB%96%E5%87%A4%E8%B4%A4$null$null$null$%E6%99%AE%E9%80%9A%E6%8A%A4%E5%A3%AB%E4%BA%A7%E6%A3%80";
                     var postData = $@"data=%5B%7B%22D2%22%3A%224406000000000035%22%2C%22D57%22%3A%22%22%2C%22D70%22%3A%22%22%2C%22D71%22%3A%22%22%2C%22D72%22%3A%22%22%2C%22D1%22%3A%2200000035%22%2C%22D3%22%3A%22%E6%B5%8B%E8%AF%95%22%2C%22D4%22%3A%22CN%22%2C%22D5%22%3A%2201%22%2C%22D6%22%3A%2202%22%2C%22D7%22%3A%2212345678998798%22%2C%22D8%22%3A%221990-01-01%22%2C%22curdate1%22%3A%22%22%2C%22D9%22%3A%2232%22%2C%22D10%22%3A%222%22%2C%22D11%22%3A%2213211111111%22%2C%22D12%22%3A%222%22%2C%22D69%22%3A%22%E4%BD%9B%E5%B1%B1%E5%B8%82%E5%A6%87%E5%B9%BC%E4%BF%9D%E5%81%A5%E9%99%A2%22%2C%22D13%22%3A%22%E5%8D%95%E4%BD%8D%22%2C%22D14%22%3A%22%22%2C%22D15%22%3A%2244%22%2C%22D16%22%3A%224419%22%2C%22D17%22%3A%22441901%22%2C%22D18%22%3A%22%22%2C%22D19%22%3A%22%22%2C%22D20%22%3A%22%E5%B9%BF%E4%B8%9C%E7%9C%81%E4%B8%9C%E8%8E%9E%E5%B8%82%E5%B8%82%E7%9B%B4%E8%BE%96%E4%B9%A1%E4%B8%9C%E5%B9%B3%E7%A4%BE%E5%8C%BA%E5%B1%85%E5%A7%94%E4%BC%9A%22%2C%22D21%22%3A%2244%22%2C%22D22%22%3A%224406%22%2C%22D23%22%3A%22440604%22%2C%22D24%22%3A%22440604009%22%2C%22D25%22%3A%22440604009025%22%2C%22D26%22%3A%22%E5%B9%BF%E4%B8%9C%E7%9C%81%E4%BD%9B%E5%B1%B1%E5%B8%82%E7%A6%85%E5%9F%8E%E5%8C%BA%E7%9F%B3%E6%B9%BE%E9%95%87%E8%A1%97%E9%81%93%E4%B8%9C%E5%B9%B3%E7%A4%BE%E5%8C%BA%E5%B1%85%E5%A7%94%E4%BC%9A%22%2C%22D27%22%3A%2244%22%2C%22D28%22%3A%224401%22%2C%22D29%22%3A%22440114%22%2C%22D30%22%3A%22%22%2C%22D31%22%3A%22%22%2C%22D32%22%3A%22%E5%B9%BF%E4%B8%9C%E7%9C%81%E5%B9%BF%E5%B7%9E%E5%B8%82%E8%8A%B1%E9%83%BD%E5%8C%BA%22%2C%22D33%22%3A%221%22%2C%22D34%22%3A%222%22%2C%22D35%22%3A%22%22%2C%22D36%22%3A%221%22%2C%22D37%22%3A%22%22%2C%22D38%22%3A%22%22%2C%22D62%22%3A%22%22%2C%22D63%22%3A%22%22%2C%22D64%22%3A%222%22%2C%22D65%22%3A%221%22%2C%22D66%22%3A%221%22%2C%22D67%22%3A%221%22%2C%22D68%22%3A%224%22%2C%22D39%22%3A%22%E8%AF%B7%E9%97%AE%22%2C%22D40%22%3A%22CN%22%2C%22D41%22%3A%2201%22%2C%22D42%22%3A%2204%22%2C%22D43%22%3A%221111111111%22%2C%22D44%22%3A%221990-01-01%22%2C%22D45%22%3A%2230%22%2C%22D46%22%3A%22%22%2C%22D47%22%3A%22%E5%B9%BF%E4%B8%9C%22%2C%22D48%22%3A%221322222222%22%2C%22D49%22%3A%22%22%2C%22D50%22%3A%22%22%2C%22D51%22%3A%2244%22%2C%22D52%22%3A%224406%22%2C%22D53%22%3A%22440605%22%2C%22D54%22%3A%22440605124%22%2C%22D55%22%3A%22%22%2C%22D56%22%3A%22%E5%B9%BF%E4%B8%9C%E7%9C%81%E4%BD%9B%E5%B1%B1%E5%B8%82%E5%8D%97%E6%B5%B7%E5%8C%BA%E7%8B%AE%E5%B1%B1%E9%95%87%E6%B2%99%E7%A4%BE%E5%8C%BA%E5%B1%85%E5%A7%94%E4%BC%9A%22%2C%22D58%22%3A%222020-01-10%22%2C%22D59%22%3A%22440023366%22%2C%22D60%22%3A%22%E9%83%AD%E6%99%93%E7%8E%B2%22%2C%22D61%22%3A%22%22%7D%5D";
@@ -703,7 +714,7 @@ order by def.[TableName],def.Id
             {
                 CookieContainer container = new CookieContainer();
                 //本地测试 查询用户
-                if (false)
+                if (true)
                 {
                     var patientName = "李凤莲";
                     var idcard = $"452427200208013323";
@@ -713,7 +724,7 @@ order by def.[TableName],def.Id
                     Console.WriteLine(result);
                 }
                 //返回值测试
-                if (true)
+                if (false)
                 {
                     var result = @"
 {total:""0"",
@@ -728,7 +739,7 @@ yjadata:[
                     var re = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
                     bool isExist = re.data.Count != 0;
                 }
-                if (true)
+                if (false)
                 {
                     var result = @"
 {total:""1"",
@@ -2389,7 +2400,7 @@ where s.id is null ", transaction: group.Transaction).ToList();
                             SourceType = SourceType.PregnantInfo,
                             SourceId = pregnantInfo.Id.ToString(),
                             SyncTime = DateTime.Now,
-                            SyncStatus  =SyncStatus.ExistWhileCreating
+                            SyncStatus = SyncStatus.ExistWhileCreating
                         };
                         var serviceResult = context.DelegateTransaction((group) =>
                         {
@@ -2530,7 +2541,7 @@ where s.id is null ", transaction: group.Transaction).ToList();
                             SourceType = SourceType.PregnantInfo,
                             SourceId = pregnantInfo.Id.ToString(),
                             SyncTime = DateTime.Now,
-                            SyncStatus =SyncStatus.Create ,
+                            SyncStatus = SyncStatus.Create,
                         };
                         var serviceResult = context.DelegateTransaction((group) =>
                         {
@@ -2539,7 +2550,7 @@ where s.id is null ", transaction: group.Transaction).ToList();
                         testOne = true;
                     }
                     #endregion
-                    var file = Path.Combine(GetDirectoryToOutput("Create_"+DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + ".txt");
+                    var file = Path.Combine(GetDirectoryToOutput("Create_" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 }
@@ -2658,10 +2669,11 @@ where s.id is not null and s.SyncStatus = 2 ", transaction: group.Transaction).T
                 var context = DBHelper.GetDbContext(conntectingStringSD);
                 foreach (var pregnantInfo in tempPregnantInfos)
                 {
+                    StringBuilder sb = new StringBuilder();
+                    sb.AppendLine($"当前孕妇:{pregnantInfo.personname}");
                     if (testOne)
                         break;
 
-                    StringBuilder sb = new StringBuilder();
                     #region mock commit
                     var container = new CookieContainer();
                     var userId = "35000528";
@@ -2677,6 +2689,7 @@ where s.id is not null and s.SyncStatus = 2 ", transaction: group.Transaction).T
                     url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID={userId}&sParams=P${pregnantInfo.idcard}$P$P";
                     result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                     var resultBase = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
+                    sb.AppendLine($"查询孕妇 概要数据(各类Id)");
                     sb.AppendLine(result);
                     if (resultBase.data.Count == 0)
                     {
@@ -2701,6 +2714,8 @@ where s.id is not null and s.SyncStatus = 2 ", transaction: group.Transaction).T
                     var baseMain = resultBase.data.First();
                     url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_READ&sUserID={userId}&sParams={baseMain.MainId}";
                     result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                    sb.AppendLine($"查询孕妇 基本数据");
+                    sb.AppendLine(result);
                     var resultBaseInfo = result.FromJson<WMH_CQBJ_JBXX_FORM_READResponse>();
                     if (resultBaseInfo.data.Count == 0)
                     {
@@ -2721,23 +2736,24 @@ where s.id is not null and s.SyncStatus = 2 ", transaction: group.Transaction).T
                         testOne = true;
                         continue;
                     }
+                    pregnantInfo.homeaddress = "440606000000";
                     #region 更新用户数据
-//>>>>>>>>>>>>>> baseInfo
-//{ "D1":"21509773","D2":"4406060121509773","D3":"吴素敏","D4":"","D5":"","D6":"","D7":"44200019930330260x","D8":"",
-//"D9":"","D10":"","D11":"16603076028","D12":"","D13":"","D14":"","D15":"44","D16":"4419","D17":"441901",
-//"D18":"441901103","D19":"","D20":"","D21":"","D22":"","D23":"","D24":"","D25":"","D26":"","D27":"","D28":"",
-//"D29":"","D30":"","D31":"","D32":"","D33":"","D34":"","D35":"","D36":"","D37":"","D38":"","D39":"","D40":"",
-//"D41":"","D42":"","D43":"","D44":"","D45":"","D46":"","D47":"","D48":"","D49":"","D50":"","D51":"","D52":"",
-//"D53":"","D54":"","D55":"","D56":"","D57":"","D58":"2020-06-18","D59":"45608491-9","D60":"廖凤贤","D61":"",
-//"D62":"","D63":"","D64":"","D65":"","D66":"","D67":"","D68":"","D69":"佛山市顺德区妇幼保健院","D70":"",
-//"D71":"","D72":"","D73":"","D74":"","D75":"A859402EC9E10237E05355FE8013C745","D76":"","D77":""}
-//>>>>>>>>>>>>>> pregnantInfo
-//{ "Id":64181,"pregnantbookid":null,"personname":"吴素敏","birthday":"1993-03-30T00:00:00","idtype":"1","idcard":"44200019930330260x",
-//"nationalitycode":"156","nationcode":"01","registrationtype":null,"workname":"自由职业","workcode":null,
-//    "educationcode":"70","workplace":null,"homeaddress":"440600000000","liveplace":"440600000000","zipcode":null,
-//    "mobilenumber":"16603076028","husbandname":"梁洪标","husbandnationalitycode":null,"husbandnationcode":null,
-//    "husbandidtype":"1","husbandidcard":"440681198907022638","husbandbirthday":"0001-01-01T00:00:00",
-//    "husbandeducationcode":null,"husbandmobile":"13450765716","husbandliveaddresscode":null}
+                    //>>>>>>>>>>>>>> baseInfo
+                    //{ "D1":"21509773","D2":"4406060121509773","D3":"吴素敏","D4":"","D5":"","D6":"","D7":"44200019930330260x","D8":"",
+                    //"D9":"","D10":"","D11":"16603076028","D12":"","D13":"","D14":"","D15":"44","D16":"4419","D17":"441901",
+                    //"D18":"441901103","D19":"","D20":"","D21":"","D22":"","D23":"","D24":"","D25":"","D26":"","D27":"","D28":"",
+                    //"D29":"","D30":"","D31":"","D32":"","D33":"","D34":"","D35":"","D36":"","D37":"","D38":"","D39":"","D40":"",
+                    //"D41":"","D42":"","D43":"","D44":"","D45":"","D46":"","D47":"","D48":"","D49":"","D50":"","D51":"","D52":"",
+                    //"D53":"","D54":"","D55":"","D56":"","D57":"","D58":"2020-06-18","D59":"45608491-9","D60":"廖凤贤","D61":"",
+                    //"D62":"","D63":"","D64":"","D65":"","D66":"","D67":"","D68":"","D69":"佛山市顺德区妇幼保健院","D70":"",
+                    //"D71":"","D72":"","D73":"","D74":"","D75":"A859402EC9E10237E05355FE8013C745","D76":"","D77":""}
+                    //>>>>>>>>>>>>>> pregnantInfo
+                    //{ "Id":64181,"pregnantbookid":null,"personname":"吴素敏","birthday":"1993-03-30T00:00:00","idtype":"1","idcard":"44200019930330260x",
+                    //"nationalitycode":"156","nationcode":"01","registrationtype":null,"workname":"自由职业","workcode":null,
+                    //    "educationcode":"70","workplace":null,"homeaddress":"440600000000","liveplace":"440600000000","zipcode":null,
+                    //    "mobilenumber":"16603076028","husbandname":"梁洪标","husbandnationalitycode":null,"husbandnationcode":null,
+                    //    "husbandidtype":"1","husbandidcard":"440681198907022638","husbandbirthday":"0001-01-01T00:00:00",
+                    //    "husbandeducationcode":null,"husbandmobile":"13450765716","husbandliveaddresscode":null}
 
                     var baseInfo = resultBaseInfo.data.First();
                     var data = new WMH_CQBJ_JBXX_FORM_SAVEData(baseInfo);
@@ -2746,24 +2762,42 @@ where s.id is not null and s.SyncStatus = 2 ", transaction: group.Transaction).T
                     //public string D3 { set; get; } //孕妇姓名
                     data.D3 = pregnantInfo.personname;
                     //public string D4 { set; get; } //孕妇国籍 对照表 2) 1)  国籍代码GB/T 2659
-                    data.D4 = VLConstraints.GetCountry_GB_T_2659ByCountry_GB_T_2659_2000(pregnantInfo.nationcode);
+                    data.D4 = VLConstraints.GetCountry_GB_T_2659ByCountry_GB_T_2659_2000(pregnantInfo.nationalitycode);
                     //public string D5 { set; get; } //孕妇民族 1)  民族代码GB/T 3304
-
+                    data.D5 = pregnantInfo.nationcode;
                     //public string D6 { set; get; } //孕妇证件类型1)   证件类型CV02.01.101
+                    data.D6 = VLConstraints.GetCardType_CV02_01_101ByCardType_Hele(pregnantInfo.idtype);
                     //public string D7 { set; get; } //身份证
+                    data.D7 = pregnantInfo.idcard;
                     //public string D8 { set; get; } //生日
+                    data.D8 = pregnantInfo.birthday.ToString("yyyy-MM-dd");
                     //public string D9 { set; get; } //孕妇年龄
+                    data.D9 = pregnantInfo.createage;
                     //public string D10 { set; get; } //孕妇文化程度 1)  文化程度STD_CULTURALDEG
+                    data.D10 = VLConstraints.GetDegree_STD_CULTURALDEGByDegree_Hele(pregnantInfo.educationcode);
                     //public string D11 { set; get; } //手机号码
+                    data.D11 = pregnantInfo.mobilenumber;
                     //public string D12 { set; get; } //孕妇职业 1)  职业STD_OCCUPATION
+                    //data.D12 = VLConstraints.GetOccupation_STD_OCCUPATIONByOccupation_Hele(pregnantInfo.workcode);
+                    //workcode没有录入数据
+                    //非必填,经确认不传
                     //public string D13 { set; get; } //孕妇工作单位
+                    data.D13 = pregnantInfo.workplace;
                     //public string D14 { set; get; } //孕妇籍贯
+                    //无籍贯
                     //public string D15 { set; get; } //孕妇户籍地址 [TODO 对照表] 省2位,市2位,县/区2位,乡镇街道3位,社区/村3位
+                    data.D15 = pregnantInfo.homeaddress.Substring(0,2);
                     //public string D16 { set; get; } //孕妇户籍地址 [TODO 对照表]
+                    data.D16 = pregnantInfo.homeaddress.Substring(2,2);
                     //public string D17 { set; get; } //孕妇户籍地址 [TODO 对照表]
+                    data.D17 = pregnantInfo.homeaddress.Substring(4,2);
                     //public string D18 { set; get; } //孕妇户籍地址 [TODO 对照表]
+                    data.D18 = pregnantInfo.homeaddress.Substring(6,3);
                     //public string D19 { set; get; } //孕妇户籍地址 [TODO 对照表]
+                    data.D19 = pregnantInfo.homeaddress.Substring(9,3);
                     //public string D20 { set; get; } //户籍详细地址
+                    data.D20 = pregnantInfo.homeaddress_text;
+
                     //public string D21 { set; get; } //孕妇现住地址 [TODO 对照表]
                     //public string D22 { set; get; } //孕妇现住地址 [TODO 对照表]
                     //public string D23 { set; get; } //孕妇现住地址 [TODO 对照表]
@@ -2818,12 +2852,20 @@ where s.id is not null and s.SyncStatus = 2 ", transaction: group.Transaction).T
                     #endregion
 
                     //更新用户数据
-                    url = $"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_SAVE&sUserID={userId}&sParams={baseMain.MainId}$45608491-9$%E5%BB%96%E5%87%A4%E8%B4%A4$null$null$null$%E6%99%AE%E9%80%9A%E6%8A%A4%E5%A3%AB%E4%BA%A7%E6%A3%80";
-                    var json = data.ToJson();
+                    sb.AppendLine("--------------Mock Commit Start");
+
+                    //var url = "http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_SAVE&sUserID=35000528&sParams=9BC060258D073697E050A8C01F0A710D$9BBF6C400D0280F0E050A8C01F0A4CC8$45608491-9$%E5%BB%96%E5%87%A4%E8%B4%A4$null$null$null$%E6%99%AE%E9%80%9A%E6%8A%A4%E5%A3%AB%E4%BA%A7%E6%A3%80";
+                    //var postData = $@"data=%5B%7B%22D2%22%3A%224406000000000035%22%2C%22D57%22%3A%22%22%2C%22D70%22%3A%22%22%2C%22D71%22%3A%22%22%2C%22D72%22%3A%22%22%2C%22D1%22%3A%2200000035%22%2C%22D3%22%3A%22%E6%B5%8B%E8%AF%95%22%2C%22D4%22%3A%22CN%22%2C%22D5%22%3A%2201%22%2C%22D6%22%3A%2202%22%2C%22D7%22%3A%2212345678998798%22%2C%22D8%22%3A%221990-01-01%22%2C%22curdate1%22%3A%22%22%2C%22D9%22%3A%2232%22%2C%22D10%22%3A%222%22%2C%22D11%22%3A%2213211111111%22%2C%22D12%22%3A%222%22%2C%22D69%22%3A%22%E4%BD%9B%E5%B1%B1%E5%B8%82%E5%A6%87%E5%B9%BC%E4%BF%9D%E5%81%A5%E9%99%A2%22%2C%22D13%22%3A%22%E5%8D%95%E4%BD%8D%22%2C%22D14%22%3A%22%22%2C%22D15%22%3A%2244%22%2C%22D16%22%3A%224419%22%2C%22D17%22%3A%22441901%22%2C%22D18%22%3A%22%22%2C%22D19%22%3A%22%22%2C%22D20%22%3A%22%E5%B9%BF%E4%B8%9C%E7%9C%81%E4%B8%9C%E8%8E%9E%E5%B8%82%E5%B8%82%E7%9B%B4%E8%BE%96%E4%B9%A1%E4%B8%9C%E5%B9%B3%E7%A4%BE%E5%8C%BA%E5%B1%85%E5%A7%94%E4%BC%9A%22%2C%22D21%22%3A%2244%22%2C%22D22%22%3A%224406%22%2C%22D23%22%3A%22440604%22%2C%22D24%22%3A%22440604009%22%2C%22D25%22%3A%22440604009025%22%2C%22D26%22%3A%22%E5%B9%BF%E4%B8%9C%E7%9C%81%E4%BD%9B%E5%B1%B1%E5%B8%82%E7%A6%85%E5%9F%8E%E5%8C%BA%E7%9F%B3%E6%B9%BE%E9%95%87%E8%A1%97%E9%81%93%E4%B8%9C%E5%B9%B3%E7%A4%BE%E5%8C%BA%E5%B1%85%E5%A7%94%E4%BC%9A%22%2C%22D27%22%3A%2244%22%2C%22D28%22%3A%224401%22%2C%22D29%22%3A%22440114%22%2C%22D30%22%3A%22%22%2C%22D31%22%3A%22%22%2C%22D32%22%3A%22%E5%B9%BF%E4%B8%9C%E7%9C%81%E5%B9%BF%E5%B7%9E%E5%B8%82%E8%8A%B1%E9%83%BD%E5%8C%BA%22%2C%22D33%22%3A%221%22%2C%22D34%22%3A%222%22%2C%22D35%22%3A%22%22%2C%22D36%22%3A%221%22%2C%22D37%22%3A%22%22%2C%22D38%22%3A%22%22%2C%22D62%22%3A%22%22%2C%22D63%22%3A%22%22%2C%22D64%22%3A%222%22%2C%22D65%22%3A%221%22%2C%22D66%22%3A%221%22%2C%22D67%22%3A%221%22%2C%22D68%22%3A%224%22%2C%22D39%22%3A%22%E8%AF%B7%E9%97%AE%22%2C%22D40%22%3A%22CN%22%2C%22D41%22%3A%2201%22%2C%22D42%22%3A%2204%22%2C%22D43%22%3A%221111111111%22%2C%22D44%22%3A%221990-01-01%22%2C%22D45%22%3A%2230%22%2C%22D46%22%3A%22%22%2C%22D47%22%3A%22%E5%B9%BF%E4%B8%9C%22%2C%22D48%22%3A%221322222222%22%2C%22D49%22%3A%22%22%2C%22D50%22%3A%22%22%2C%22D51%22%3A%2244%22%2C%22D52%22%3A%224406%22%2C%22D53%22%3A%22440605%22%2C%22D54%22%3A%22440605124%22%2C%22D55%22%3A%22%22%2C%22D56%22%3A%22%E5%B9%BF%E4%B8%9C%E7%9C%81%E4%BD%9B%E5%B1%B1%E5%B8%82%E5%8D%97%E6%B5%B7%E5%8C%BA%E7%8B%AE%E5%B1%B1%E9%95%87%E6%B2%99%E7%A4%BE%E5%8C%BA%E5%B1%85%E5%A7%94%E4%BC%9A%22%2C%22D58%22%3A%222020-01-10%22%2C%22D59%22%3A%22440023366%22%2C%22D60%22%3A%22%E9%83%AD%E6%99%93%E7%8E%B2%22%2C%22D61%22%3A%22%22%7D%5D";
+                    //var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+
+                    url = $"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_SAVE&sUserID={userId}&sParams={baseInfo.MainIdForChange}${baseMain.MainId}${orgId}$%E5%BB%96%E5%87%A4%E8%B4%A4$null$null$null$%E6%99%AE%E9%80%9A%E6%8A%A4%E5%A3%AB%E4%BA%A7%E6%A3%80";
+                    var json = new List<WMH_CQBJ_JBXX_FORM_SAVEData>() {data}.ToJson();
                     postData = "data=" + HttpUtility.UrlEncode(json);
                     result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
-                    Console.WriteLine("--------------Mock Commit");
-                    Console.WriteLine(result);
+                    sb.AppendLine("--------------Mock Commit End");
+                    sb.AppendLine(url);
+                    sb.AppendLine(postData);
+                    sb.AppendLine(result);
 
                     //新增同步记录
                     SyncForFS syncForFS = new SyncForFS()
@@ -2848,13 +2890,15 @@ where s.id is not null and s.SyncStatus = 2 ", transaction: group.Transaction).T
 
             #endregion
             cmds.Add(new Command("---------------------国健-------------------", () => { }));
+            #region 国健
             cmds.Add(new Command("gj1,产前记录解析", () =>
             {
-                var str = File.ReadAllText(@"C:\Users\vlong\Desktop\新建文本文档.html",Encoding.GetEncoding("GBK"));
+                var str = File.ReadAllText(@"C:\Users\vlong\Desktop\新建文本文档.html", Encoding.GetEncoding("GBK"));
                 StringBuilder sb = new StringBuilder();
                 PreDeliveryParser.GetPreDeliveries(str, ref sb);
 
             }));
+            #endregion
             cmds.Start();
         }
 

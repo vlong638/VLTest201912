@@ -37,7 +37,23 @@ namespace FrameworkTest.Common.ValuesSolution
         public static string Trim(this string str, string strToTrim)
         {
             return str.TrimStart(strToTrim).TrimEnd(strToTrim);
-        } 
+        }
+
+        public static string GetSubStringOrEmpty(this string str, int start, int length = 0)
+        {
+            if (start > str.Length)
+                return "";
+
+            if (length == 0)
+            {
+                return str.Substring(start);
+            }
+            else
+            {
+                length = (start + length) > str.Length ? str.Length - start : length;
+                return str.Substring(start, length);
+            }
+        }
         #endregion
     }
 }

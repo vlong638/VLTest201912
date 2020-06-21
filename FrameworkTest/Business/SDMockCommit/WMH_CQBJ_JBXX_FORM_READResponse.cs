@@ -93,5 +93,7 @@ namespace FrameworkTest.Business.SDMockCommit
         public string D75 { set; get; }
         public string D76 { set; get; }
         public string D77 { set; get; }
+
+        public string MainIdForChange { get { return D75; } }
     }
 }

@@ -7,6 +7,7 @@ namespace FrameworkTest.Business.SDMockCommit
     [Table("[PregnantInfo]")]
     public class PregnantInfo
     {
+
         public PregnantInfo()
         {
         }
@@ -25,6 +26,8 @@ namespace FrameworkTest.Business.SDMockCommit
         public string personname { set; get; }
         //出生日期 BIRTH_DATE  birthday 为空的话根据合法身份证号计算
         public DateTime birthday { set; get; }
+        //建册年龄
+        public string createage;
         //证件类型 ID_TYPE idtype
         public string idtype { set; get; }
         //证件号码    ID_NUM idcard
@@ -49,11 +52,9 @@ namespace FrameworkTest.Business.SDMockCommit
         //户籍地址街道（乡）	MOTHER_STREET homeaddress
         //户籍地址村 MOTHER_VILLAGE  homeaddress
         public string homeaddress { set; get; }
-        //TODO
-
         //户籍地址详细地址    MOTHER_DOOR_NUM 需核对
-        //TODO
-
+        public string homeaddress_text { set; get; }
+        
 
         //现住址省 NOW_PROVINCE    liveplace
         //现住址市    NOW_CITY liveplace
