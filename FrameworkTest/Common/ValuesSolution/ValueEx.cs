@@ -41,9 +41,10 @@ namespace FrameworkTest.Common.ValuesSolution
 
         public static string GetSubStringOrEmpty(this string str, int start, int length = 0)
         {
+            if (string.IsNullOrEmpty(str))
+                return str;
             if (start > str.Length)
                 return "";
-
             if (length == 0)
             {
                 return str.Substring(start);

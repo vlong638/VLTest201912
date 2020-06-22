@@ -28,6 +28,11 @@ namespace FrameworkTest.Business.SDMockCommit
         public DateTime birthday { set; get; }
         //建册年龄
         public string createage;
+        //产后休养地址
+        public string restregioncode;
+        public string restregiontext;
+        //丈夫建册年龄
+        public string husbandage;
         //证件类型 ID_TYPE idtype
         public string idtype { set; get; }
         //证件号码    ID_NUM idcard
@@ -54,8 +59,6 @@ namespace FrameworkTest.Business.SDMockCommit
         public string homeaddress { set; get; }
         //户籍地址详细地址    MOTHER_DOOR_NUM 需核对
         public string homeaddress_text { set; get; }
-        
-
         //现住址省 NOW_PROVINCE    liveplace
         //现住址市    NOW_CITY liveplace
         //现住址区（县）	NOW_REGION liveplace
@@ -63,6 +66,8 @@ namespace FrameworkTest.Business.SDMockCommit
         //现住址村 NOW_VILLAGE liveplace
         //现住址详细地址 NOW_DOOR_NUM liveplace
         public string liveplace { set; get; }
+        public string liveplace_text;
+
         //TODO
 
         //邮编 POSTNUM zipcode
@@ -91,7 +96,12 @@ namespace FrameworkTest.Business.SDMockCommit
         //丈夫现住址街镇 NFQXJIEZHEN husbandliveaddresscode
         //丈夫现住址村  NFQXCUN husbandliveaddresscode
         public string husbandliveaddresscode { set; get; }
-        //TODO
+        public string husbandliveaddresstext;
+
+        //是否是农籍
+        public string isagrregister;
+        //婚姻状况
+        public string maritalstatuscode;
 
         //丈夫现住址详细地址 NFQXXX  需核对
         //public string NFQXXX { set; get; }
