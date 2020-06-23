@@ -2467,8 +2467,8 @@ where s.id is not null and s.SyncStatus = 2 ", transaction: group.Transaction).T
                     //    "husbandidtype":"1","husbandidcard":"440681198907022638","husbandbirthday":"0001-01-01T00:00:00",
                     //    "husbandeducationcode":null,"husbandmobile":"13450765716","husbandliveaddresscode":null}
 
-                    var baseInfo = resultBaseInfo.data.First();
-                    var data = new WMH_CQBJ_JBXX_FORM_SAVEData(baseInfo);
+                    var jbxx = resultBaseInfo.data.First();
+                    var data = new WMH_CQBJ_JBXX_FORM_SAVEData(jbxx);
                     //public string D1 { set; get; } //登录用户Id
                     //public string D2 { set; get; } //@保健号
                     //public string D3 { set; get; } //孕妇姓名
@@ -2611,19 +2611,17 @@ where s.id is not null and s.SyncStatus = 2 ", transaction: group.Transaction).T
                     if (testOne)
                         break;
 
+                    //031058密码123
+
                     #region mock commit
                     var container = new CookieContainer();
-                    var userId = "35000528";
-                    var userName = "廖凤贤";
-                    var orgId = "45608491-9";
-                    var orgName = "佛山市妇幼保健院";
                     var url = "";
                     var postData = "";
                     var result = "";
                     if (pregnantInfo == null)
                         return;
-                    //查询孕妇 概要数据(各类Id)
-                    url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID={userId}&sParams=P${pregnantInfo.idcard}$P$P";
+                    //查询孕妇 概要数据(各类Id) 基础8
+                    url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID={baseInfo.UserId}&sParams=P${pregnantInfo.idcard}$P$P";
                     result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                     var resultBase = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
                     sb.AppendLine($"查询孕妇 概要数据(各类Id)");
@@ -2647,9 +2645,9 @@ where s.id is not null and s.SyncStatus = 2 ", transaction: group.Transaction).T
                         testOne = true;
                         continue;
                     }
-                    //查询孕妇 基本数据
+                    //查询孕妇 基础77
                     var baseMain = resultBase.data.First();
-                    url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_READ&sUserID={userId}&sParams={baseMain.MainId}";
+                    url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_READ&sUserID={baseInfo.UserId}&sParams={baseMain.MainId}";
                     result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                     sb.AppendLine($"查询孕妇 基本数据");
                     sb.AppendLine(result);
@@ -2674,8 +2672,8 @@ where s.id is not null and s.SyncStatus = 2 ", transaction: group.Transaction).T
                         continue;
                     }
                     #region 更新用户数据
-                    var baseInfo = resultBaseInfo.data.First();
-                    var data = new WMH_CQBJ_JBXX_FORM_SAVEData(baseInfo);
+                    var jbxx = resultBaseInfo.data.First();
+                    var data = new WMH_CQBJ_JBXX_FORM_SAVEData(jbxx);
                     UpdateData(pregnantInfo, data);
                     #endregion
 
@@ -2686,7 +2684,7 @@ where s.id is not null and s.SyncStatus = 2 ", transaction: group.Transaction).T
                     //var postData = $@"data=%5B%7B%22D2%22%3A%224406000000000035%22%2C%22D57%22%3A%22%22%2C%22D70%22%3A%22%22%2C%22D71%22%3A%22%22%2C%22D72%22%3A%22%22%2C%22D1%22%3A%2200000035%22%2C%22D3%22%3A%22%E6%B5%8B%E8%AF%95%22%2C%22D4%22%3A%22CN%22%2C%22D5%22%3A%2201%22%2C%22D6%22%3A%2202%22%2C%22D7%22%3A%2212345678998798%22%2C%22D8%22%3A%221990-01-01%22%2C%22curdate1%22%3A%22%22%2C%22D9%22%3A%2232%22%2C%22D10%22%3A%222%22%2C%22D11%22%3A%2213211111111%22%2C%22D12%22%3A%222%22%2C%22D69%22%3A%22%E4%BD%9B%E5%B1%B1%E5%B8%82%E5%A6%87%E5%B9%BC%E4%BF%9D%E5%81%A5%E9%99%A2%22%2C%22D13%22%3A%22%E5%8D%95%E4%BD%8D%22%2C%22D14%22%3A%22%22%2C%22D15%22%3A%2244%22%2C%22D16%22%3A%224419%22%2C%22D17%22%3A%22441901%22%2C%22D18%22%3A%22%22%2C%22D19%22%3A%22%22%2C%22D20%22%3A%22%E5%B9%BF%E4%B8%9C%E7%9C%81%E4%B8%9C%E8%8E%9E%E5%B8%82%E5%B8%82%E7%9B%B4%E8%BE%96%E4%B9%A1%E4%B8%9C%E5%B9%B3%E7%A4%BE%E5%8C%BA%E5%B1%85%E5%A7%94%E4%BC%9A%22%2C%22D21%22%3A%2244%22%2C%22D22%22%3A%224406%22%2C%22D23%22%3A%22440604%22%2C%22D24%22%3A%22440604009%22%2C%22D25%22%3A%22440604009025%22%2C%22D26%22%3A%22%E5%B9%BF%E4%B8%9C%E7%9C%81%E4%BD%9B%E5%B1%B1%E5%B8%82%E7%A6%85%E5%9F%8E%E5%8C%BA%E7%9F%B3%E6%B9%BE%E9%95%87%E8%A1%97%E9%81%93%E4%B8%9C%E5%B9%B3%E7%A4%BE%E5%8C%BA%E5%B1%85%E5%A7%94%E4%BC%9A%22%2C%22D27%22%3A%2244%22%2C%22D28%22%3A%224401%22%2C%22D29%22%3A%22440114%22%2C%22D30%22%3A%22%22%2C%22D31%22%3A%22%22%2C%22D32%22%3A%22%E5%B9%BF%E4%B8%9C%E7%9C%81%E5%B9%BF%E5%B7%9E%E5%B8%82%E8%8A%B1%E9%83%BD%E5%8C%BA%22%2C%22D33%22%3A%221%22%2C%22D34%22%3A%222%22%2C%22D35%22%3A%22%22%2C%22D36%22%3A%221%22%2C%22D37%22%3A%22%22%2C%22D38%22%3A%22%22%2C%22D62%22%3A%22%22%2C%22D63%22%3A%22%22%2C%22D64%22%3A%222%22%2C%22D65%22%3A%221%22%2C%22D66%22%3A%221%22%2C%22D67%22%3A%221%22%2C%22D68%22%3A%224%22%2C%22D39%22%3A%22%E8%AF%B7%E9%97%AE%22%2C%22D40%22%3A%22CN%22%2C%22D41%22%3A%2201%22%2C%22D42%22%3A%2204%22%2C%22D43%22%3A%221111111111%22%2C%22D44%22%3A%221990-01-01%22%2C%22D45%22%3A%2230%22%2C%22D46%22%3A%22%22%2C%22D47%22%3A%22%E5%B9%BF%E4%B8%9C%22%2C%22D48%22%3A%221322222222%22%2C%22D49%22%3A%22%22%2C%22D50%22%3A%22%22%2C%22D51%22%3A%2244%22%2C%22D52%22%3A%224406%22%2C%22D53%22%3A%22440605%22%2C%22D54%22%3A%22440605124%22%2C%22D55%22%3A%22%22%2C%22D56%22%3A%22%E5%B9%BF%E4%B8%9C%E7%9C%81%E4%BD%9B%E5%B1%B1%E5%B8%82%E5%8D%97%E6%B5%B7%E5%8C%BA%E7%8B%AE%E5%B1%B1%E9%95%87%E6%B2%99%E7%A4%BE%E5%8C%BA%E5%B1%85%E5%A7%94%E4%BC%9A%22%2C%22D58%22%3A%222020-01-10%22%2C%22D59%22%3A%22440023366%22%2C%22D60%22%3A%22%E9%83%AD%E6%99%93%E7%8E%B2%22%2C%22D61%22%3A%22%22%7D%5D";
                     //var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
 
-                    url = $"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_SAVE&sUserID={userId}&sParams={baseInfo.MainIdForChange}${baseMain.MainId}${orgId}$%E5%BB%96%E5%87%A4%E8%B4%A4$null$null$null$%E6%99%AE%E9%80%9A%E6%8A%A4%E5%A3%AB%E4%BA%A7%E6%A3%80";
+                    url = $"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_SAVE&sUserID={baseInfo.UserId}&sParams={jbxx.MainIdForChange}${baseMain.MainId}${baseInfo.OrgId}$%E5%BB%96%E5%87%A4%E8%B4%A4$null$null$null$%E6%99%AE%E9%80%9A%E6%8A%A4%E5%A3%AB%E4%BA%A7%E6%A3%80";
                     var json = new List<WMH_CQBJ_JBXX_FORM_SAVEData>() {data}.ToJson();
                     postData = "data=" + HttpUtility.UrlEncode(json);
                     result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
@@ -2745,6 +2743,20 @@ where s.id is not null and s.SyncStatus = 2 ", transaction: group.Transaction).T
             cmds.Start();
         }
 
+        //BaseInfo baseInfo = new BaseInfo()
+        //{
+        //    UserId = "35000528",
+        //    UserName = "廖凤贤",
+        //    OrgId = "45608491-9",
+        //    OrgName = "佛山市妇幼保健院",
+        //};
+        static BaseInfo baseInfo = new BaseInfo()
+        {
+            UserId = "35021069",
+            UserName = "赵卓姝",
+            OrgId = "45608491-9",
+            OrgName = "佛山市妇幼保健院",
+        };
         private static void MockCommitCreatePregnantInfo(List<PregnantInfo> tempPregnantInfos)
         {
             var testOne = false;
@@ -2757,10 +2769,10 @@ where s.id is not null and s.SyncStatus = 2 ", transaction: group.Transaction).T
                 StringBuilder sb = new StringBuilder();
                 #region mock commit
                 var container = new CookieContainer();
-                var userId = "35000528";
-                var userName = "廖凤贤";
-                var orgId = "45608491-9";
-                var orgName = "佛山市妇幼保健院";
+                var userId = baseInfo.UserId;
+                var userName = baseInfo.UserName;
+                var orgId = baseInfo.OrgId;
+                var orgName = baseInfo.OrgName;
                 var url = "";
                 var postData = "";
                 var result = "";
@@ -2952,10 +2964,19 @@ where s.id is not null and s.SyncStatus = 2 ", transaction: group.Transaction).T
             var context = DBHelper.GetDbContext(conntectingStringSD);
             var serviceResult = context.DelegateTransaction((group) =>
             {
+//                return group.Connection.Query<PregnantInfo>(@"
+//select Top 100 s.id sid,pi.* from PregnantInfo pi
+//left join SyncForFS s on s.SourceType = 1 and s.SourceId = pi.Id
+//where s.id is null ", transaction: group.Transaction).ToList();
+
+//0623 同步上线测试 以9点以后的数据测试
                 return group.Connection.Query<PregnantInfo>(@"
-select Top 100 s.id sid,pi.* from PregnantInfo pi
+select Top 100 s.id sid,
+pi.createtime,
+pi.* from PregnantInfo pi
 left join SyncForFS s on s.SourceType = 1 and s.SourceId = pi.Id
-where s.id is null ", transaction: group.Transaction).ToList();
+where s.id is null and pi.createtime>'2020-06-23 09:00:00'
+order by pi.createtime ", transaction: group.Transaction).ToList();
             });
             tempPregnantInfos = serviceResult.Data;
             foreach (var pregnantInfo in serviceResult.Data)

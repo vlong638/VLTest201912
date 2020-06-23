@@ -98,6 +98,7 @@
     <Compile Include="Business\SDMockCommit\Dics\Occupation.cs" />
     <Compile Include="Business\SDMockCommit\Dics\Nation.cs" />
     <Compile Include="Business\SDMockCommit\Dics\Country.cs" />
+    <Compile Include="Business\SDMockCommit\BaseInfo.cs" />
     <Compile Include="Business\SDMockCommit\PregnantInfo.cs" />
     <Compile Include="Business\SDMockCommit\WMH_CQBJ_JBXX_FORM_READResponse.cs" />
     <Compile Include="Business\SDMockCommit\WCQBJ_CZDH_DOCTOR_READResponse.cs" />

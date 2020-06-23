@@ -19,11 +19,11 @@ namespace FrameworkTest.Business.SDMockCommit
         /// <summary>
         /// CareId
         /// </summary>
-        public string D1 { set; get; }
+        public string D1 { set; get; }//CareId
         /// <summary>
         /// MainId
         /// </summary>
-        public string D2 { set; get; }
+        public string D2 { set; get; }//MainId
         public string D3 { set; get; }//姓名
         public string D4 { set; get; }//身份证
         public string D5 { set; get; }
