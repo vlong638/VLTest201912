@@ -16,7 +16,22 @@ namespace FrameworkTest.Business.SDMockCommit
     }
     public enum SourceType
     {
+        /// <summary>
+        /// 孕妇档案
+        /// </summary>
         PregnantInfo = 1,
+        /// <summary>
+        /// 问询病史
+        /// </summary>
+        Enquiry = 2,
+        /// <summary>
+        /// 体格检查
+        /// </summary>
+        PhysicalExamination = 3,
+        /// <summary>
+        /// 专科检查
+        /// </summary>
+        ProfessionalExamination =4,
     }
     public enum SyncStatus
     {

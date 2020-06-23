@@ -112,6 +112,7 @@
     <Compile Include="Common\DBSolution\DBHelper.cs" />
     <Compile Include="Common\DBSolution\ServiceResult.cs" />
     <Compile Include="Business\SDMockCommit\SyncForFS.cs" />
+    <Compile Include="Business\SDMockCommit\SDBLL.cs" />
     <Content Include="Business\ConfigurableEntity\Output\ListPages.xml" />
     <Content Include="Business\ConfigurableEntity\Output\tables.xml" />
     <Content Include="Business\ConfigurableEntity\sql.txt" />
@@ -120,6 +121,7 @@
     <Compile Include="Business\ConfigurableEntity\SampleEntity.cs" />
     <Compile Include="Business\Kettle\O_LabResult.cs" />
     <Compile Include="Common\EnumSolution\EnumHelper.cs" />
+    <Compile Include="Common\FileSolution\FileHelper.cs" />
     <Compile Include="Common\HttpSolution\HttpHelper.cs" />
     <Compile Include="Common\RSASolution\RSASample.cs" />
     <Compile Include="Common\RSASolution\RSAHelper.cs" />
