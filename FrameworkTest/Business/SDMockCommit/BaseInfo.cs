@@ -10,5 +10,6 @@ namespace FrameworkTest.Business.SDMockCommit
         public string UserName  { set; get; }
         public string OrgId  { set; get; }
         public string OrgName  { set; get; }
+        public object EncodeUserName { get; internal set; }
     }
 }
