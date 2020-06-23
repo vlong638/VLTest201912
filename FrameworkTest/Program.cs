@@ -2586,7 +2586,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 var isTestOne = true;
                 SDBLL.MockCommitUpdatePregnantInfo(isTestOne);
             }));
-            cmds.Add(new Command("m31,0622,模拟-自动同步新增孕妇档案", () =>
+            cmds.Add(new Command("m31,0622,自动同步-新增孕妇档案", () =>
             {
                 while (true)
                 {
@@ -2596,7 +2596,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     System.Threading.Thread.Sleep(1000 * 10);
                 }
             }));
-            cmds.Add(new Command("m32,0623,模拟-自动同步更新孕妇档案", () =>
+            cmds.Add(new Command("m32,0623,自动同步-更新孕妇档案", () =>
             {
                 while (true)
                 {
