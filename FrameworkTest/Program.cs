@@ -2646,7 +2646,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     {
                         var syncForFS = new SyncOrder()
                         {
-                            SourceType = SourceType.Enquiry,
+                            SourceType = SourceType.HistoryEnquiry,
                             SourceId = pregnantInfo.Id.ToString(),
                             SyncStatus = SyncStatus.Created
                         };
@@ -2672,7 +2672,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                             var pregnanthistorys = pregnantInfo.pregnanthistory?.FromJson<List<pregnanthistory>>();
                             var enquiryPregnanthResponse = SDBLL.GetEnquiryPregnanths(userInfo, base8, ref sb);
                             //新增
-                            var toAddHistories = pregnanthistorys.Where(c => enquiryPregnanthResponse.data.FirstOrDefault(d => d.IssueDate == c.pregnantage) == null);
+                            var toAddHistories = pregnanthistorys.Where(c => enquiryPregnanthResponse.data.FirstOrDefault(d => d.IssueDate == c.pregnantage) == null).OrderBy(c => c.pregnantage);
                             foreach (var toAddHistory in toAddHistories)
                             {
                                 var toAdd = new WMH_CQBJ_CQJC_PRE_SAVE();
@@ -2741,7 +2741,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     StringBuilder sb = new StringBuilder();
                     var serviceResult = context.DelegateTransaction((Func<DbGroup, bool>)((group) =>
                     {
-                        var syncForFS = SDBLL.GetSyncOrderBySource(group, SourceType.Enquiry, pregnantInfo.Id.ToString()).First();
+                        var syncForFS = SDBLL.GetSyncOrderBySource(group, SourceType.HistoryEnquiry, pregnantInfo.Id.ToString()).First();
                         try
                         {
                             syncForFS.SyncTime = DateTime.Now;
@@ -2824,6 +2824,45 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     Console.WriteLine($"result:{file}");
                 }
             }));
+            cmds.Add(new Command("m401,0628,模拟-获取待新增的`体格检查`", () =>
+            {
+                var userInfo = SDBLL.UserInfo;
+                SDBLL.TempPregnantInfos = SDBLL.GetPregnantInfosToCreateEnquiries();
+                foreach (var pregnantInfo in SDBLL.TempPregnantInfos)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.AppendLine(pregnantInfo.ToJson());
+                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-问询病史" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
+                    File.WriteAllText(file, sb.ToString());
+                    Console.WriteLine($"result:{file}");
+                }
+            }));
+            cmds.Add(new Command("m402,0628,模拟-获取待更新的`体格检查`", () =>
+            {
+                var userInfo = SDBLL.UserInfo;
+                SDBLL.TempPregnantInfos = SDBLL.GetPregnantInfosToUpdateEnquiries();
+                foreach (var pregnantInfo in SDBLL.TempPregnantInfos)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.AppendLine(pregnantInfo.ToJson());
+                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Update-问询病史" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
+                    File.WriteAllText(file, sb.ToString());
+                    Console.WriteLine($"result:{file}");
+                }
+            }));
+            cmds.Add(new Command("m303,0623,模拟-获取李丽", () =>
+            {
+                var userInfo = SDBLL.UserInfo;
+                SDBLL.TempPregnantInfos = SDBLL.GetPregnantInfosForTest();
+                foreach (var pregnantInfo in SDBLL.TempPregnantInfos)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.AppendLine(pregnantInfo.ToJson());
+                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-问询病史" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
+                    File.WriteAllText(file, sb.ToString());
+                    Console.WriteLine($"result:{file}");
+                }
+            }));
             cmds.Add(new Command("m91,0622,自动同步-新增孕妇档案", () =>
             {
                 while (true)
@@ -2864,7 +2903,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                         {
                             var syncForFS = new SyncOrder()
                             {
-                                SourceType = SourceType.Enquiry,
+                                SourceType = SourceType.HistoryEnquiry,
                                 SourceId = pregnantInfo.Id.ToString(),
                                 SyncStatus = SyncStatus.Created
                             };
@@ -2972,7 +3011,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                         StringBuilder sb = new StringBuilder();
                         var serviceResult = context.DelegateTransaction((Func<DbGroup, bool>)((group) =>
                         {
-                            var syncForFS = SDBLL.GetSyncOrder((DbGroup)context.DbGroup, (SourceType)SourceType.Enquiry, (string)pregnantInfo.Id.ToString());
+                            var syncForFS = SDBLL.GetSyncOrder((DbGroup)context.DbGroup, (SourceType)SourceType.HistoryEnquiry, (string)pregnantInfo.Id.ToString());
                             try
                             {
                                 syncForFS.SyncTime = DateTime.Now;

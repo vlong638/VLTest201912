@@ -23,7 +23,7 @@ namespace FrameworkTest.Business.SDMockCommit
         /// <summary>
         /// 问询病史
         /// </summary>
-        Enquiry = 2,
+        HistoryEnquiry = 2,
         /// <summary>
         /// 体格检查
         /// </summary>
