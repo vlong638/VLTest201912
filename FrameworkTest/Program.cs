@@ -2741,12 +2741,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     StringBuilder sb = new StringBuilder();
                     var serviceResult = context.DelegateTransaction((Func<DbGroup, bool>)((group) =>
                     {
-                        var syncForFS = new SyncOrder()
-                        {
-                            SourceType = SourceType.Enquiry,
-                            SourceId = pregnantInfo.Id.ToString(),
-                            SyncStatus = SyncStatus.Updated
-                        };
+                        var syncForFS = SDBLL.GetSyncOrderBySource(group, SourceType.Enquiry, pregnantInfo.Id.ToString()).First();
                         try
                         {
                             syncForFS.SyncTime = DateTime.Now;
@@ -2816,7 +2811,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                             syncForFS.SyncStatus = SyncStatus.Error;
                             syncForFS.ErrorMessage = ex.ToString();
                         }
-                        syncForFS.Id = SDBLL.SaveSyncOrder(context.DbGroup, syncForFS);
+                        SDBLL.SaveSyncOrder(context.DbGroup, syncForFS);
                         sb.AppendLine((string)syncForFS.ToJson());
                         return (bool)(syncForFS.SyncStatus != SyncStatus.Error);
                     }));
