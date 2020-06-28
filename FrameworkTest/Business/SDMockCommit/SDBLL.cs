@@ -73,7 +73,7 @@ namespace FrameworkTest.Business.SDMockCommit
                         SourceType = SourceType.PregnantInfo,
                         SourceId = pregnantInfo.Id.ToString(),
                         SyncTime = DateTime.Now,
-                        SyncStatus = SyncStatus.ErrorInUpdatingPregnantInfo,
+                        SyncStatus = SyncStatus.Error,
                         ErrorMessage = message,
                     };
                     var serviceResultTemp = context.DelegateTransaction((group) =>
@@ -99,7 +99,7 @@ namespace FrameworkTest.Business.SDMockCommit
                         SourceType = SourceType.PregnantInfo,
                         SourceId = pregnantInfo.Id.ToString(),
                         SyncTime = DateTime.Now,
-                        SyncStatus = SyncStatus.ErrorInUpdatingPregnantInfo,
+                        SyncStatus = SyncStatus.Error,
                         ErrorMessage = message,
                     };
                     var serviceResultTemp = context.DelegateTransaction((group) =>
@@ -137,7 +137,7 @@ namespace FrameworkTest.Business.SDMockCommit
                     SourceType = SourceType.PregnantInfo,
                     SourceId = pregnantInfo.Id.ToString(),
                     SyncTime = DateTime.Now,
-                    SyncStatus = SyncStatus.UpdatedPregnantInfo
+                    SyncStatus = SyncStatus.Test
                 };
                 var serviceResult = context.DelegateTransaction((group) =>
                 {
@@ -249,7 +249,7 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
                         SourceType = SourceType.PregnantInfo,
                         SourceId = pregnantInfo.Id.ToString(),
                         SyncTime = DateTime.Now,
-                        SyncStatus = SyncStatus.ErrorInUpdatingPregnantInfo,
+                        SyncStatus = SyncStatus.Error,
                         ErrorMessage = message,
                     };
                     var serviceResultTemp = context.DelegateTransaction((group) =>
@@ -275,7 +275,7 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
                         SourceType = SourceType.PregnantInfo,
                         SourceId = pregnantInfo.Id.ToString(),
                         SyncTime = DateTime.Now,
-                        SyncStatus = SyncStatus.ErrorInUpdatingPregnantInfo,
+                        SyncStatus = SyncStatus.Error,
                         ErrorMessage = message,
                     };
                     var serviceResultTemp = context.DelegateTransaction((group) =>
@@ -306,9 +306,9 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
                 sb.AppendLine(postData);
                 sb.AppendLine("--------------result");
                 sb.AppendLine(result);
-                var serviceResult = context.DelegateTransaction((group) =>
+                var serviceResult = context.DelegateTransaction((Func<DbGroup, bool>)((group) =>
                 {
-                    var syncForFS = group.Connection.Query<SyncOrder>("select * from SyncForFS where SourceType = @SourceType and SourceId = @SourceId", new { SourceType = SourceType.PregnantInfo, SourceId = pregnantInfo.Id.ToString() }, transaction: group.Transaction).First();
+                    var syncForFS = GetSyncOrderBySource(group, SourceType.PregnantInfo, pregnantInfo.Id.ToString()).First();
                     if (result.Contains("处理成功"))
                     {
                         syncForFS.SyncTime = DateTime.Now;
@@ -316,11 +316,11 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
                     else
                     {
                         syncForFS.SyncTime = DateTime.Now;
-                        syncForFS.SyncStatus = SyncStatus.ErrorInUpdatingPregnantInfo;
+                        syncForFS.SyncStatus = SyncStatus.Error;
                         syncForFS.ErrorMessage = result;
                     }
                     return group.Connection.Update(syncForFS, transaction: group.Transaction);
-                });
+                }));
 
                 isExecuteOne = true;
                 #endregion
@@ -328,6 +328,11 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
                 File.WriteAllText(file, sb.ToString());
                 Console.WriteLine($"result:{file}");
             }
+        }
+
+        public static IEnumerable<SyncOrder> GetSyncOrderBySource(DbGroup group, SourceType sourceType, string sourceId)
+        {
+            return group.Connection.Query<SyncOrder>("select * from SyncForFS where SourceType = @SourceType and SourceId = @SourceId", new { SourceType = sourceType, SourceId = sourceId }, transaction: group.Transaction);
         }
 
         public static WCQBJ_CZDH_DOCTOR_READResponse GetBase8(UserInfo baseInfo, string idcard)
@@ -410,7 +415,7 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
                         SourceType = SourceType.PregnantInfo,
                         SourceId = pregnantInfo.Id.ToString(),
                         SyncTime = DateTime.Now,
-                        SyncStatus = SyncStatus.RepeatPregnantInfo
+                        SyncStatus = SyncStatus.Error
                     };
                     var serviceResult = context.DelegateTransaction((group) =>
                     {
