@@ -244,17 +244,13 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
                 {
                     var message = $"待更新的孕妇{pregnantInfo.personname}缺少概要数据";
                     Console.WriteLine(message);
-                    var syncForFSTemp = new SyncOrder()
-                    {
-                        SourceType = SourceType.PregnantInfo,
-                        SourceId = pregnantInfo.Id.ToString(),
-                        SyncTime = DateTime.Now,
-                        SyncStatus = SyncStatus.Error,
-                        ErrorMessage = message,
-                    };
                     var serviceResultTemp = context.DelegateTransaction((group) =>
                     {
-                        return group.Connection.Insert(syncForFSTemp, transaction: group.Transaction);
+                        var syncForFS = GetSyncOrderBySource(group, SourceType.PregnantInfo, pregnantInfo.Id.ToString()).First();
+                        syncForFS.SyncTime = DateTime.Now;
+                        syncForFS.SyncStatus = SyncStatus.Error;
+                        syncForFS.ErrorMessage = message;
+                        return group.Connection.Update(syncForFS, transaction: group.Transaction);
                     });
                     isExecuteOne = true;
                     continue;
@@ -270,17 +266,13 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
                 {
                     var message = $"待更新的孕妇{pregnantInfo.personname}缺少基本数据";
                     Console.WriteLine(message);
-                    var syncForFSTemp = new SyncOrder()
-                    {
-                        SourceType = SourceType.PregnantInfo,
-                        SourceId = pregnantInfo.Id.ToString(),
-                        SyncTime = DateTime.Now,
-                        SyncStatus = SyncStatus.Error,
-                        ErrorMessage = message,
-                    };
                     var serviceResultTemp = context.DelegateTransaction((group) =>
                     {
-                        return group.Connection.Insert(syncForFSTemp, transaction: group.Transaction);
+                        var syncForFS = GetSyncOrderBySource(group, SourceType.PregnantInfo, pregnantInfo.Id.ToString()).First();
+                        syncForFS.SyncTime = DateTime.Now;
+                        syncForFS.SyncStatus = SyncStatus.Error;
+                        syncForFS.ErrorMessage = message;
+                        return group.Connection.Update(syncForFS, transaction: group.Transaction);
                     });
                     isExecuteOne = true;
                     continue;
