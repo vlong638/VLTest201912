@@ -36,6 +36,15 @@ namespace FrameworkTest
 
         static void Main(string[] args)
         {
+            //子项解析测试
+            //var pregnanthistorysTest = @"[{""index"":""0"",""pregstatus"":""人流"",""babysex"":""0"",""babyweight"":"""",""pregnantage"":""2017年6月""},{""index"":""2"",""pregstatus"":""顺产-足月-健,足月产-亡,巨大胎,顺产-早产-健,早产-亡"",""babysex"":"""",""babyweight"":"""",""pregnantage"":""""}]"
+            //    .FromJson<List<pregnanthistory>>();
+            //foreach (var pregnanthistory in pregnanthistorysTest)
+            //{
+            //    var statuss = pregnanthistory.Pregstatuss;
+            //}
+
+            //枚举转义测试
             //var r1054 = VLConstraints.GetNationGB_T_2659ByNationGB_T_2659_2000("4");
             //r1054 = VLConstraints.GetNationGB_T_2659ByNationGB_T_2659_2000("5");
             //r1054 = VLConstraints.GetNationGB_T_2659ByNationGB_T_2659_2000("238");
@@ -44,6 +53,7 @@ namespace FrameworkTest
             //r1534 = VLConstraints.GetDegree_STD_CULTURALDEGByDegree_Hele("100");
             //r1534 = VLConstraints.GetDegree_STD_CULTURALDEGByDegree_Hele("88");
 
+            //字符串便捷截取方案测试
             //var s20 = "440601002003".GetSubStringOrEmpty(2);
             //var s22 = "440601002003".GetSubStringOrEmpty(2, 2);
             //var s120 = "440601002003".GetSubStringOrEmpty(12);
@@ -2392,12 +2402,12 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     {
                         var message = $"待更新的孕妇{pregnantInfo.personname}缺少概要数据";
                         Console.WriteLine(message);
-                        var syncForFSTemp = new SyncForFS()
+                        var syncForFSTemp = new SyncOrder()
                         {
                             SourceType = SourceType.PregnantInfo,
                             SourceId = pregnantInfo.Id.ToString(),
                             SyncTime = DateTime.Now,
-                            SyncStatus = SyncStatus.HasErrorWhileUpdating,
+                            SyncStatus = SyncStatus.ErrorInUpdatingPregnantInfo,
                             ErrorMessage = message,
                         };
                         var serviceResultTemp = context.DelegateTransaction((group) =>
@@ -2416,12 +2426,12 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     {
                         var message = $"待更新的孕妇{pregnantInfo.personname}缺少基本数据";
                         Console.WriteLine(message);
-                        var syncForFSTemp = new SyncForFS()
+                        var syncForFSTemp = new SyncOrder()
                         {
                             SourceType = SourceType.PregnantInfo,
                             SourceId = pregnantInfo.Id.ToString(),
                             SyncTime = DateTime.Now,
-                            SyncStatus = SyncStatus.HasErrorWhileUpdating,
+                            SyncStatus = SyncStatus.ErrorInUpdatingPregnantInfo,
                             ErrorMessage = message,
                         };
                         var serviceResultTemp = context.DelegateTransaction((group) =>
@@ -2464,7 +2474,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     //public string D7 { set; get; } //身份证
                     data.D7 = pregnantInfo.idcard;
                     //public string D8 { set; get; } //生日
-                    data.D8 = pregnantInfo.birthday.ToString("yyyy-MM-dd");
+                    data.D8 = pregnantInfo.birthday?.ToString("yyyy-MM-dd");
                     //public string D9 { set; get; } //孕妇年龄
                     data.D9 = pregnantInfo.createage;
                     //public string D10 { set; get; } //孕妇文化程度 1)  文化程度STD_CULTURALDEG
@@ -2533,7 +2543,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     //public string D43 { set; get; } //丈夫证件号码
                     data.D43 = pregnantInfo.husbandidcard;
                     //public string D44 { set; get; } //丈夫出生日期
-                    data.D44 = pregnantInfo.husbandbirthday.ToString("yyyy-MM-dd");
+                    data.D44 = pregnantInfo.husbandbirthday?.ToString("yyyy-MM-dd");
                     //public string D45 { set; get; } //丈夫登记年龄
                     data.D45 = pregnantInfo.husbandage;
                     //public string D46 { set; get; } //丈夫职业  [TODO 对照表] PASS(未有在用)
@@ -2586,7 +2596,216 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 var isTestOne = true;
                 SDBLL.MockCommitUpdatePregnantInfo(isTestOne);
             }));
-            cmds.Add(new Command("m31,0622,自动同步-新增孕妇档案", () =>
+            cmds.Add(new Command("m301,0623,模拟-获取待新增的`问询病史`", () =>
+            {
+                var userInfo = SDBLL.UserInfo;
+                SDBLL.TempPregnantInfos = SDBLL.GetPregnantInfosToCreateEnquiries();
+                foreach (var pregnantInfo in SDBLL.TempPregnantInfos)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.AppendLine(pregnantInfo.ToJson());
+                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-问询病史" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
+                    File.WriteAllText(file, sb.ToString());
+                    Console.WriteLine($"result:{file}");
+                }
+            }));
+            cmds.Add(new Command("m302,0623,模拟-获取待更新的`问询病史`", () =>
+            {
+                var userInfo = SDBLL.UserInfo;
+                SDBLL.TempPregnantInfos = SDBLL.GetPregnantInfosToUpdateEnquiries();
+                foreach (var pregnantInfo in SDBLL.TempPregnantInfos)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.AppendLine(pregnantInfo.ToJson());
+                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Update-问询病史" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
+                    File.WriteAllText(file, sb.ToString());
+                    Console.WriteLine($"result:{file}");
+                }
+            }));
+            cmds.Add(new Command("m303,0623,模拟-获取李丽", () =>
+            {
+                var userInfo = SDBLL.UserInfo;
+                SDBLL.TempPregnantInfos = SDBLL.GetPregnantInfosForTest();
+                foreach (var pregnantInfo in SDBLL.TempPregnantInfos)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.AppendLine(pregnantInfo.ToJson());
+                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-问询病史" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
+                    File.WriteAllText(file, sb.ToString());
+                    Console.WriteLine($"result:{file}");
+                }
+            }));
+            cmds.Add(new Command("m31,0623,模拟-更新`问询病史`", () =>
+            {
+                var userInfo = SDBLL.UserInfo;
+                var context = DBHelper.GetDbContext(SDBLL.ConntectingStringSD);
+                foreach (var pregnantInfo in SDBLL.TempPregnantInfos)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    var serviceResult = context.DelegateTransaction((Func<DbGroup, bool>)((group) =>
+                    {
+                        var syncForFS = new SyncOrder()
+                        {
+                            SourceType = SourceType.Enquiry,
+                            SourceId = pregnantInfo.Id.ToString(),
+                            SyncStatus = SyncStatus.Created
+                        };
+                        try
+                        {
+                            syncForFS.SyncTime = DateTime.Now;
+                            var base8 = SDBLL.GetBase8(userInfo, pregnantInfo.idcard);
+                            if (!base8.IsAvailable)
+                            {
+                                syncForFS.SyncStatus = SyncStatus.Error;
+                                syncForFS.ErrorMessage = "No Base8 Data";
+                                SDBLL.SaveSyncOrder(context.DbGroup, syncForFS);
+                                return (bool)true;
+                            }
+                            var enquiryResponse = SDBLL.GetEnquiry(userInfo, base8, ref sb);
+                            var enquiryData = enquiryResponse.data.FirstOrDefault();
+                            var result = SDBLL.PostUpdateEnquiryToFS(pregnantInfo, enquiryData, userInfo, base8, ref sb);
+                            if (!result.Contains((string)"处理成功"))
+                            {
+                                throw new NotImplementedException(result);
+                            }
+                            //[{ "index":"0","pregstatus":"人流","babysex":"0","babyweight":"","pregnantage":"2017年6月"},{ "index":"2","pregstatus":"顺产-足月-健,足月产-亡,巨大胎,顺产-早产-健,早产-亡","babysex":"","babyweight":"","pregnantage":""}]
+                            var pregnanthistorys = pregnantInfo.pregnanthistory?.FromJson<List<pregnanthistory>>();
+                            var enquiryPregnanthResponse = SDBLL.GetEnquiryPregnanths(userInfo, base8, ref sb);
+                            //新增
+                            var toAddHistories = pregnanthistorys.Where(c => enquiryPregnanthResponse.data.FirstOrDefault(d => d.IssueDate == c.pregnantage) == null);
+                            foreach (var toAddHistory in toAddHistories)
+                            {
+                                var toAdd = new WMH_CQBJ_CQJC_PRE_SAVE();
+                                toAdd.UpdateEnquiry(pregnantInfo, toAddHistory);
+                                toAdd._state = "added";
+                                if (toAdd.Validate(ref sb))
+                                {
+                                    result = SDBLL.PostAddEnquiryPregnanth(toAdd, userInfo, base8, ref sb);
+                                }
+                                if (!result.Contains((string)"处理成功"))
+                                {
+                                    throw new NotImplementedException(result);
+                                }
+                            }
+                            foreach (var enquiryPregnanth in enquiryPregnanthResponse.data)
+                            {
+                                var toChange = new WMH_CQBJ_CQJC_PRE_SAVE(enquiryPregnanth);
+                                var pregnanthistory = pregnanthistorys.FirstOrDefault(c => c.pregnantage == enquiryPregnanth.IssueDate);
+                                if (pregnanthistory == null)
+                                {
+                                    //删除
+                                    result = SDBLL.DeleteEnquiryPregnanth(toChange, userInfo, base8, ref sb);
+                                    if (!result.Contains((string)"处理成功"))
+                                    {
+                                        throw new NotImplementedException(result);
+                                    }
+                                    continue;
+                                }
+                                //更改
+                                toChange.UpdateEnquiry(pregnantInfo, pregnanthistory);
+                                toChange._state = "modified";
+                                if (toChange.Validate(ref sb))
+                                {
+                                    result = SDBLL.UpdateEnquiryPregnanth(toChange, userInfo, base8, ref sb);
+                                }
+                                if (!result.Contains((string)"处理成功"))
+                                {
+                                    throw new NotImplementedException(result);
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            syncForFS.SyncStatus = SyncStatus.Error;
+                            syncForFS.ErrorMessage = ex.ToString();
+                        }
+                        syncForFS.Id = SDBLL.SaveSyncOrder(context.DbGroup, syncForFS);
+                        sb.AppendLine((string)syncForFS.ToJson());
+                        return (bool)(syncForFS.SyncStatus != SyncStatus.Error);
+                    }));
+                    if (!serviceResult.IsSuccess)
+                    {
+                        sb.Append(serviceResult.Messages);
+                    }
+                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Update-问询病史" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
+                    File.WriteAllText(file, sb.ToString());
+                    Console.WriteLine($"result:{file}");
+                }
+            }));
+            cmds.Add(new Command("m32,0623,模拟-更新`问询病史`", () =>
+            {
+                var userInfo = SDBLL.UserInfo;
+                var pregnantInfos = SDBLL.GetPregnantInfosForTest();
+                foreach (var pregnantInfo in pregnantInfos)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.AppendLine(pregnantInfo.ToJson());
+                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\ToUpdate_问询病史" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
+                    File.WriteAllText(file, sb.ToString());
+                    Console.WriteLine($"result:{file}");
+                }
+                var context = DBHelper.GetDbContext(SDBLL.ConntectingStringSD);
+                foreach (var pregnantInfo in pregnantInfos)
+                {
+                    SyncOrder syncForFS = SDBLL.GetSyncOrder(context.DbGroup, SourceType.Enquiry, pregnantInfo.Id.ToString());
+                    if (syncForFS==null)
+                    {
+                        syncForFS = new SyncOrder()
+                        {
+                            SourceType = SourceType.Enquiry,
+                            SourceId = pregnantInfo.Id.ToString(),
+                            SyncStatus = SyncStatus.Created
+                        };
+                    }
+                    syncForFS.SyncTime = DateTime.Now;
+                    StringBuilder sb = new StringBuilder();
+                    var base8 = SDBLL.GetBase8(userInfo, pregnantInfo.idcard);
+                    if (!base8.IsAvailable)
+                    {
+                        syncForFS.SyncStatus = SyncStatus.Error;
+                        syncForFS.ErrorMessage = "No Base8 Data";
+                        SDBLL.SaveSyncOrder(context.DbGroup, syncForFS);
+                        continue;
+                    }
+                    var enquiryResponse = SDBLL.GetEnquiry(userInfo, base8, ref sb);
+                    var enquiryData = enquiryResponse.data.FirstOrDefault();
+                    SDBLL.PostUpdateEnquiryToFS(pregnantInfo, enquiryData, userInfo, base8, ref sb);
+                    SDBLL.SaveSyncOrder(context.DbGroup, syncForFS);
+                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Update_问询病史" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
+                    File.WriteAllText(file, sb.ToString());
+                    Console.WriteLine($"result:{file}");
+                }
+            }));
+            cmds.Add(new Command("m33,0623,模拟-获取待新增的`问询病史-生育史`", () =>
+            {
+                var userInfo = SDBLL.UserInfo;
+                var enquiries = SDBLL.GetPregnantInfosToCreateEnquiries();
+                var context = DBHelper.GetDbContext(SDBLL.ConntectingStringSD);
+                foreach (var enquiry in enquiries)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    var base8 = SDBLL.GetBase8(userInfo, enquiry.idcard);
+                    if (!base8.IsAvailable)
+                    {
+                        SyncOrder syncForFS = new SyncOrder()
+                        {
+                            SourceId = enquiry.Id.ToString(),
+                            SourceType = SourceType.Enquiry,
+                            SyncStatus = SyncStatus.Error,
+                            ErrorMessage = "No Base8 Data"
+                        };
+                        SDBLL.SaveSyncOrder(context.DbGroup, syncForFS);
+                        continue;
+                    }
+                    var enquiryResponse = SDBLL.GetEnquiry(userInfo, base8, ref sb);
+                    SDBLL.PostCreateEnquiryToFS(enquiry, enquiryResponse.data.FirstOrDefault(), userInfo, base8, ref sb);
+
+                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Create_问询病史" + DateTime.Now.ToString("yyyy_MM_dd")), enquiry.personname + "_" + enquiry.idcard + ".txt");
+                    File.WriteAllText(file, sb.ToString());
+                    Console.WriteLine($"result:{file}");
+                }
+            }));
+            cmds.Add(new Command("m91,0622,自动同步-新增孕妇档案", () =>
             {
                 while (true)
                 {
@@ -2596,7 +2815,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     System.Threading.Thread.Sleep(1000 * 10);
                 }
             }));
-            cmds.Add(new Command("m32,0623,自动同步-更新孕妇档案", () =>
+            cmds.Add(new Command("m92,0623,自动同步-更新孕妇档案", () =>
             {
                 while (true)
                 {
@@ -2606,6 +2825,136 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     System.Threading.Thread.Sleep(1000 * 10);
                 }
             }));
+            cmds.Add(new Command("m93,0623,自动同步-新增问询病史", () =>
+            {
+                while (true)
+                {
+                    var userInfo = SDBLL.UserInfo;
+                    var tempPregnantInfos = SDBLL.GetPregnantInfosToCreateEnquiries();
+                    foreach (var pregnantInfo in tempPregnantInfos)
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        sb.AppendLine(pregnantInfo.ToJson());
+                        var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\ToCreate_问询病史" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
+                        File.WriteAllText(file, sb.ToString());
+                        Console.WriteLine($"result:{file}");
+                    }
+                    var context = DBHelper.GetDbContext(SDBLL.ConntectingStringSD);
+                    foreach (var pregnantInfo in tempPregnantInfos)
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        var serviceResult = context.DelegateTransaction((Func<DbGroup, bool>)((group) =>
+                        {
+                            var syncForFS = new SyncOrder()
+                            {
+                                SourceType = SourceType.Enquiry,
+                                SourceId = pregnantInfo.Id.ToString(),
+                                SyncStatus = SyncStatus.Created
+                            };
+                            try
+                            {
+                                syncForFS.SyncTime = DateTime.Now;
+                                var base8 = SDBLL.GetBase8((UserInfo)userInfo, (string)pregnantInfo.idcard);
+                                if (!base8.IsAvailable)
+                                {
+                                    syncForFS.SyncStatus = SyncStatus.Error;
+                                    syncForFS.ErrorMessage = "No Base8 Data";
+                                    SDBLL.SaveSyncOrder((DbGroup)context.DbGroup, (SyncOrder)syncForFS);
+                                    return (bool)true;
+                                }
+                                var enquiryResponse = SDBLL.GetEnquiry((UserInfo)userInfo, (WCQBJ_CZDH_DOCTOR_READResponse)base8, ref sb);
+                                var enquiryData = enquiryResponse.data.FirstOrDefault();
+                                //同步-问询病史
+                                var result = SDBLL.PostUpdateEnquiryToFS((PregnantInfo)pregnantInfo, (MQDA_READ_NEWData)enquiryData, (UserInfo)userInfo, (WCQBJ_CZDH_DOCTOR_READResponse)base8, ref sb);
+                                if (!result.Contains((string)"处理成功"))
+                                {
+                                    throw new NotImplementedException(result);
+                                }
+                                //同步-问询病史-生育史
+
+                            }
+                            catch (Exception ex)
+                            {
+                                syncForFS.SyncStatus = SyncStatus.Error;
+                                syncForFS.ErrorMessage = ex.ToString();
+                            }
+                            syncForFS.Id = SDBLL.SaveSyncOrder((DbGroup)context.DbGroup, (SyncOrder)syncForFS);
+                            sb.AppendLine((string)syncForFS.ToJson());
+                            return (bool)(syncForFS.SyncStatus != SyncStatus.Error);
+                        }));
+                        if (!serviceResult.IsSuccess)
+                        {
+                            sb.Append(serviceResult.Messages);
+                        }
+                        var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Create_问询病史" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
+                        File.WriteAllText(file, sb.ToString());
+                        Console.WriteLine($"result:{file}");
+                    }
+                    System.Threading.Thread.Sleep(1000 * 10);
+                }
+            }));
+            cmds.Add(new Command("m94,0623,自动同步-更新问询病史", () =>
+            {
+                while (true)
+                {
+                    var userInfo = SDBLL.UserInfo;
+                    var tempPregnantInfos = SDBLL.GetPregnantInfosToUpdateEnquiries();
+                    foreach (var pregnantInfo in tempPregnantInfos)
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        sb.AppendLine(pregnantInfo.ToJson());
+                        var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\ToUpdate_问询病史" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
+                        File.WriteAllText(file, sb.ToString());
+                        Console.WriteLine($"result:{file}");
+                    }
+                    var context = DBHelper.GetDbContext(SDBLL.ConntectingStringSD);
+                    foreach (var pregnantInfo in tempPregnantInfos)
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        var serviceResult = context.DelegateTransaction((group) =>
+                        {
+                            var syncForFS = SDBLL.GetSyncOrder(context.DbGroup, SourceType.Enquiry, pregnantInfo.Id.ToString());
+                            try
+                            {
+                                syncForFS.SyncTime = DateTime.Now;
+                                var base8 = SDBLL.GetBase8(userInfo, pregnantInfo.idcard);
+                                if (!base8.IsAvailable)
+                                {
+                                    syncForFS.SyncStatus = SyncStatus.Error;
+                                    syncForFS.ErrorMessage = "No Base8 Data";
+                                    SDBLL.SaveSyncOrder(context.DbGroup, syncForFS);
+                                    return true;
+                                }
+                                var enquiryResponse = SDBLL.GetEnquiry(userInfo, base8, ref sb);
+                                var enquiryData = enquiryResponse.data.FirstOrDefault();
+                                var result = SDBLL.PostUpdateEnquiryToFS(pregnantInfo, enquiryData, userInfo, base8, ref sb);
+                                if (!result.Contains("处理成功"))
+                                {
+                                    syncForFS.SyncStatus = SyncStatus.Error;
+                                    syncForFS.ErrorMessage = result;
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                syncForFS.SyncStatus = SyncStatus.Error;
+                                syncForFS.ErrorMessage = ex.ToString();
+                            }
+                            syncForFS.Id = SDBLL.SaveSyncOrder(context.DbGroup, syncForFS);
+                            sb.AppendLine(syncForFS.ToJson());
+                            return syncForFS.SyncStatus != SyncStatus.Error;
+                        });
+                        if (!serviceResult.IsSuccess)
+                        {
+                            sb.Append(serviceResult.Messages);
+                        }
+                        var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Update_问询病史" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
+                        File.WriteAllText(file, sb.ToString());
+                        Console.WriteLine($"result:{file}");
+                    }
+                    System.Threading.Thread.Sleep(1000 * 10);
+                }
+            }));
+
 
             #endregion
             cmds.Add(new Command("---------------------国健-------------------", () => { }));
@@ -2618,6 +2967,65 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             }));
             #endregion
             cmds.Start();
+        }
+
+        private static void NewMethod(PregnantInfo pregnantInfo, WMH_CQBJ_CQJC_PRE_READ_Data enquiryPregnanth, pregnanthistory pregnanthistory)
+        {
+            //public string D1 { set; get; } //生育史Id  KO
+            enquiryPregnanth.D2 = pregnantInfo.gravidity ?? "";//public string D2 { set; get; } //孕次
+                                                               //public string D3 { set; get; } //年  KO
+                                                               //public string D4 { set; get; } //月  KO
+            enquiryPregnanth.D5 = pregnanthistory.Pregstatuss.Contains("自然流产") ? "1" : ""; //public string D5 { set; get; } //流产-自然  KO
+            enquiryPregnanth.D6 = pregnanthistory.Pregstatuss.Contains("人流") ? "1" : "";//public string D6 { set; get; } //流产-人工  KO
+            enquiryPregnanth.D7 = pregnanthistory.Pregstatuss.Contains("引产") ? "1" : "";//public string D7 { set; get; } //流产-引产  KO
+                                                                                        //public string D8 { set; get; } //葡萄胎  KO
+            enquiryPregnanth.D9 = pregnanthistory.Pregstatuss.Contains("宫外孕") ? "1" : "";//public string D9 { set; get; } //宫外孕  KO
+            enquiryPregnanth.D10 = pregnanthistory.Pregstatuss.Contains("死胎") ? "1" : "";//public string D10 { set; get; } //死胎  KO
+            enquiryPregnanth.D11 = pregnanthistory.Pregstatuss.Contains("死产") ? "1" : "";//public string D11 { set; get; } //死产   KO
+            enquiryPregnanth.D12 = (pregnanthistory.Pregstatuss.Contains("早产-健") || pregnanthistory.Pregstatuss.Contains("早产-亡")) ? "1" : "";//public string D12 { set; get; } //早产   KO
+                                                                                                                                             //public string D13 { set; get; } //阴道分娩  KO
+            enquiryPregnanth.D14 = pregnanthistory.Pregstatuss.Contains("剖宫产") ? "1" : "";//public string D14 { set; get; } //剖宫产  KO
+            enquiryPregnanth.D15 = (pregnanthistory.Pregstatuss.Contains("足月产-健") || pregnanthistory.Pregstatuss.Contains("足月产-亡")) ? "1" : "";//public string D15 { set; get; } //足月产  KO
+                                                                                                                                               //public string D16 { set; get; } //性别 KO 可以配对
+
+            //public string D17 { set; get; } //出生体重/g KO 
+            //public string D18 { set; get; } //存活 KO "√"
+            //public string D19 { set; get; } //死亡年龄 KO
+            //public string D20 { set; get; } //死亡原因 KO
+            //public string D21 { set; get; } //出生缺陷 KO
+            //public string D22 { set; get; } //母婴并发症 KO
+            //public string D23 { set; get; } //指征 KO
+            //public string D24 { set; get; } //分娩地点 KO
+            //public string D25 { set; get; } //备注 KO
+
+
+            //<Option value="1" text="足月产-健"/>
+            //<Option value="23" text="巨大胎"/>
+            //<Option value="2" text="足月产-亡"/>
+            //<Option value="3" text="早产-健"/>
+            //<Option value="4" text="早产-亡"/>
+            //<Option value="5" text="畸形-健"/>
+            //<Option value="6" text="畸形-亡"/>
+            //<Option value="7" text="双胎"/>
+            //<Option value="8" text="死胎"/>
+            //<Option value="9" text="死产"/>
+            //<Option value="10" text="胎位异常"/>
+            //<Option value="11" text="妊高症"/>
+            //<Option value="12" text="前置胎盘"/>
+            //<Option value="13" text="胎盘早剥"/>
+            //<Option value="14" text="阴道手术"/>
+            //<Option value="15" text="剖宫产"/>
+            //<Option value="16" text="人流"/>
+            //<Option value="17" text="自然流产"/>
+            //<Option value="18" text="引产"/>
+            //<Option value="19" text="药流"/>
+            //<Option value="20" text="胎停"/>
+            //<Option value="21" text="宫外孕"/>
+
+            //<Option value="1" text="男" selected="0"/>
+            //<Option value="2" text="女" selected="0"/>
+            //<Option value="9" text="未说明的性别" selected="0"/>
+            //<Option value="0" text="未知的性别" selected="0"/> 
         }
 
         static byte[] FromHex(string hex)

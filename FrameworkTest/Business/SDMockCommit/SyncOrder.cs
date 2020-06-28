@@ -5,7 +5,7 @@ using System;
 namespace FrameworkTest.Business.SDMockCommit
 {
     [Table("[SyncForFS]")]
-    public class SyncForFS
+    public class SyncOrder
     {
         public long Id { set; get; }
         public SourceType SourceType { set; get; }
@@ -35,10 +35,11 @@ namespace FrameworkTest.Business.SDMockCommit
     }
     public enum SyncStatus
     {
-        HasErrorWhileCreating = 1,//创建时 出现异常
-        Create = 2,//创建成功
-        ExistWhileCreating=3,//首次创建时存在
-        HasErrorWhileUpdating = 40,//创建时 出现异常
-        Update = 41,//更新成功
+        Error = 1,//创建时 出现异常
+        Created = 2,//创建成功
+        RepeatPregnantInfo =3,//首次创建时存在
+        ErrorInUpdatingPregnantInfo = 40,//创建时 出现异常
+        UpdatedPregnantInfo = 41,//更新成功 仅作测试使用
+        ErrorInCreatingEnquiry = 51,
     }
 }

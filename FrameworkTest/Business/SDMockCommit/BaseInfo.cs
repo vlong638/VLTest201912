@@ -3,7 +3,7 @@ using System;
 
 namespace FrameworkTest.Business.SDMockCommit
 {
-    public class BaseInfo
+    public class UserInfo
     {
         public string UserId  { set; get; }
         public string UserName  { set; get; }

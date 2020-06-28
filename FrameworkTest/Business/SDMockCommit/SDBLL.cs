@@ -17,6 +17,9 @@ namespace FrameworkTest.Business.SDMockCommit
 {
     public class SDBLL
     {
+        public static string ConntectingStringSD = "Data Source=201.201.201.89;Initial Catalog=HL_Pregnant;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sdfy;Password=sdfy123456";
+        public static DbContext GetDBContext { get { return DBHelper.GetDbContext(SDBLL.ConntectingStringSD); } }
+
 
         //BaseInfo baseInfo = new BaseInfo()
         //{
@@ -25,7 +28,7 @@ namespace FrameworkTest.Business.SDMockCommit
         //    OrgId = "45608491-9",
         //    OrgName = "佛山市妇幼保健院",
         //};
-        public static BaseInfo BaseInfo = new BaseInfo()
+        public static UserInfo UserInfo = new UserInfo()
         {
             UserId = "35021069",
             UserName = "赵卓姝",
@@ -34,7 +37,6 @@ namespace FrameworkTest.Business.SDMockCommit
             EncodeUserName = HttpUtility.UrlEncode("赵卓姝"),
         };
         public static List<PregnantInfo> TempPregnantInfos = new List<PregnantInfo>();
-
 
 
         public static void MockCommitUpdatePregnantInfo(bool isTestOne)
@@ -57,7 +59,7 @@ namespace FrameworkTest.Business.SDMockCommit
                 if (pregnantInfo == null)
                     return;
                 //查询孕妇 概要数据(各类Id) 基础8
-                url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID={BaseInfo.UserId}&sParams=P${pregnantInfo.idcard}$P$P";
+                url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID={UserInfo.UserId}&sParams=P${pregnantInfo.idcard}$P$P";
                 result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                 var resultBase = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
                 sb.AppendLine($"查询孕妇 概要数据(各类Id)");
@@ -66,12 +68,12 @@ namespace FrameworkTest.Business.SDMockCommit
                 {
                     var message = $"待更新的孕妇{pregnantInfo.personname}缺少概要数据";
                     Console.WriteLine(message);
-                    var syncForFSTemp = new SyncForFS()
+                    var syncForFSTemp = new SyncOrder()
                     {
                         SourceType = SourceType.PregnantInfo,
                         SourceId = pregnantInfo.Id.ToString(),
                         SyncTime = DateTime.Now,
-                        SyncStatus = SyncStatus.HasErrorWhileUpdating,
+                        SyncStatus = SyncStatus.ErrorInUpdatingPregnantInfo,
                         ErrorMessage = message,
                     };
                     var serviceResultTemp = context.DelegateTransaction((group) =>
@@ -83,7 +85,7 @@ namespace FrameworkTest.Business.SDMockCommit
                 }
                 //查询孕妇 基础77
                 var baseMain = resultBase.data.First();
-                url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_READ&sUserID={BaseInfo.UserId}&sParams={baseMain.MainId}";
+                url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_READ&sUserID={UserInfo.UserId}&sParams={baseMain.MainId}";
                 result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                 sb.AppendLine($"查询孕妇 基本数据");
                 sb.AppendLine(result);
@@ -92,12 +94,12 @@ namespace FrameworkTest.Business.SDMockCommit
                 {
                     var message = $"待更新的孕妇{pregnantInfo.personname}缺少基本数据";
                     Console.WriteLine(message);
-                    var syncForFSTemp = new SyncForFS()
+                    var syncForFSTemp = new SyncOrder()
                     {
                         SourceType = SourceType.PregnantInfo,
                         SourceId = pregnantInfo.Id.ToString(),
                         SyncTime = DateTime.Now,
-                        SyncStatus = SyncStatus.HasErrorWhileUpdating,
+                        SyncStatus = SyncStatus.ErrorInUpdatingPregnantInfo,
                         ErrorMessage = message,
                     };
                     var serviceResultTemp = context.DelegateTransaction((group) =>
@@ -115,7 +117,7 @@ namespace FrameworkTest.Business.SDMockCommit
 
                 //更新用户数据
                 sb.AppendLine("--------------Mock Commit Start");
-                url = $"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_SAVE&sUserID={BaseInfo.UserId}&sParams={jbxx.MainIdForChange}${baseMain.MainId}${BaseInfo.OrgId}${BaseInfo.EncodeUserName}$null$null$null$%E6%99%AE%E9%80%9A%E6%8A%A4%E5%A3%AB%E4%BA%A7%E6%A3%80";
+                url = $"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_SAVE&sUserID={UserInfo.UserId}&sParams={jbxx.MainIdForChange}${baseMain.MainId}${UserInfo.OrgId}${UserInfo.EncodeUserName}$null$null$null$%E6%99%AE%E9%80%9A%E6%8A%A4%E5%A3%AB%E4%BA%A7%E6%A3%80";
                 var json = new List<WMH_CQBJ_JBXX_FORM_SAVEData>() { data }.ToJson();
                 postData = "data=" + HttpUtility.UrlEncode(json);
                 result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
@@ -130,12 +132,12 @@ namespace FrameworkTest.Business.SDMockCommit
                 sb.AppendLine(result);
 
                 //新增同步记录
-                SyncForFS syncForFS = new SyncForFS()
+                SyncOrder syncForFS = new SyncOrder()
                 {
                     SourceType = SourceType.PregnantInfo,
                     SourceId = pregnantInfo.Id.ToString(),
                     SyncTime = DateTime.Now,
-                    SyncStatus = SyncStatus.Update
+                    SyncStatus = SyncStatus.UpdatedPregnantInfo
                 };
                 var serviceResult = context.DelegateTransaction((group) =>
                 {
@@ -197,6 +199,7 @@ select Top 10 s.id sid
 ,pi.* from PregnantInfo pi
 left join SyncForFS s on s.SourceType = 1 and s.SourceId = pi.Id
 where s.id is not null and s.SyncStatus in (2,3)
+
 and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
 ", transaction: group.Transaction).ToList();
             });
@@ -232,7 +235,7 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
                 if (pregnantInfo == null)
                     return;
                 //查询孕妇 概要数据(各类Id) 基础8
-                url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID={BaseInfo.UserId}&sParams=P${pregnantInfo.idcard}$P$P";
+                url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID={UserInfo.UserId}&sParams=P${pregnantInfo.idcard}$P$P";
                 result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                 var resultBase = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
                 sb.AppendLine($"查询孕妇 概要数据(各类Id)");
@@ -241,12 +244,12 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
                 {
                     var message = $"待更新的孕妇{pregnantInfo.personname}缺少概要数据";
                     Console.WriteLine(message);
-                    var syncForFSTemp = new SyncForFS()
+                    var syncForFSTemp = new SyncOrder()
                     {
                         SourceType = SourceType.PregnantInfo,
                         SourceId = pregnantInfo.Id.ToString(),
                         SyncTime = DateTime.Now,
-                        SyncStatus = SyncStatus.HasErrorWhileUpdating,
+                        SyncStatus = SyncStatus.ErrorInUpdatingPregnantInfo,
                         ErrorMessage = message,
                     };
                     var serviceResultTemp = context.DelegateTransaction((group) =>
@@ -258,7 +261,7 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
                 }
                 //查询孕妇 基础77
                 var baseMain = resultBase.data.First();
-                url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_READ&sUserID={BaseInfo.UserId}&sParams={baseMain.MainId}";
+                url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_READ&sUserID={UserInfo.UserId}&sParams={baseMain.MainId}";
                 result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                 sb.AppendLine($"查询孕妇 基本数据");
                 sb.AppendLine(result);
@@ -267,12 +270,12 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
                 {
                     var message = $"待更新的孕妇{pregnantInfo.personname}缺少基本数据";
                     Console.WriteLine(message);
-                    var syncForFSTemp = new SyncForFS()
+                    var syncForFSTemp = new SyncOrder()
                     {
                         SourceType = SourceType.PregnantInfo,
                         SourceId = pregnantInfo.Id.ToString(),
                         SyncTime = DateTime.Now,
-                        SyncStatus = SyncStatus.HasErrorWhileUpdating,
+                        SyncStatus = SyncStatus.ErrorInUpdatingPregnantInfo,
                         ErrorMessage = message,
                     };
                     var serviceResultTemp = context.DelegateTransaction((group) =>
@@ -290,7 +293,7 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
 
                 //更新用户数据
                 sb.AppendLine("--------------Mock Commit Start");
-                url = $"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_SAVE&sUserID={BaseInfo.UserId}&sParams={jbxx.MainIdForChange}${baseMain.MainId}${BaseInfo.OrgId}${BaseInfo.EncodeUserName}$null$null$null$%E6%99%AE%E9%80%9A%E6%8A%A4%E5%A3%AB%E4%BA%A7%E6%A3%80";
+                url = $"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_SAVE&sUserID={UserInfo.UserId}&sParams={jbxx.MainIdForChange}${baseMain.MainId}${UserInfo.OrgId}${UserInfo.EncodeUserName}$null$null$null$%E6%99%AE%E9%80%9A%E6%8A%A4%E5%A3%AB%E4%BA%A7%E6%A3%80";
                 var json = new List<WMH_CQBJ_JBXX_FORM_SAVEData>() { data }.ToJson();
                 postData = "data=" + HttpUtility.UrlEncode(json);
                 result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
@@ -305,7 +308,7 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
                 sb.AppendLine(result);
                 var serviceResult = context.DelegateTransaction((group) =>
                 {
-                    var syncForFS = group.Connection.Query<SyncForFS>("select * from SyncForFS where SourceType = @SourceType and SourceId = @SourceId", new { SourceType = SourceType.PregnantInfo, SourceId = pregnantInfo.Id.ToString() }, transaction: group.Transaction).First();
+                    var syncForFS = group.Connection.Query<SyncOrder>("select * from SyncForFS where SourceType = @SourceType and SourceId = @SourceId", new { SourceType = SourceType.PregnantInfo, SourceId = pregnantInfo.Id.ToString() }, transaction: group.Transaction).First();
                     if (result.Contains("处理成功"))
                     {
                         syncForFS.SyncTime = DateTime.Now;
@@ -313,7 +316,7 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
                     else
                     {
                         syncForFS.SyncTime = DateTime.Now;
-                        syncForFS.SyncStatus = SyncStatus.HasErrorWhileUpdating;
+                        syncForFS.SyncStatus = SyncStatus.ErrorInUpdatingPregnantInfo;
                         syncForFS.ErrorMessage = result;
                     }
                     return group.Connection.Update(syncForFS, transaction: group.Transaction);
@@ -327,23 +330,68 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
             }
         }
 
+        public static WCQBJ_CZDH_DOCTOR_READResponse GetBase8(UserInfo baseInfo, string idcard)
+        {
+            var container = new CookieContainer();
+            var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID={baseInfo.UserId}&sParams=P${idcard}$P$P";
+            var postData = "";
+            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var re = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
+            return re;
+        }
+
+
+        /// <summary>
+        /// 查询-问询病史
+        /// </summary>
+        /// <param name="tempPregnantInfos"></param>
+        public static MQDA_READ_NEWResponse GetEnquiry(UserInfo baseInfo, WCQBJ_CZDH_DOCTOR_READResponse base8, ref StringBuilder logger)
+        {
+            var container = new CookieContainer();
+            var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/MQDA_READ_NEW&sUserID={baseInfo.UserId}&sParams={base8.MainId}${baseInfo.OrgId}";
+            var postData = "";
+            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var re = result.FromJson<MQDA_READ_NEWResponse>();
+            logger.AppendLine($"查询-问询病史");
+            logger.AppendLine(url);
+            logger.AppendLine(result);
+            return re;
+        }
+
+        /// <summary>
+        /// 查询-问询病史-生育史
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <param name="base8"></param>
+        /// <param name="logger"></param>
+        /// <returns></returns>
+        internal static WMH_CQBJ_CQJC_PRE_READ GetEnquiryPregnanths(UserInfo userInfo, WCQBJ_CZDH_DOCTOR_READResponse base8, ref StringBuilder logger)
+        {
+            var container = new CookieContainer();
+            var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_CQJC_PRE_READ&sUserID={userInfo.UserId}&sParams={base8.MainId}";
+            var postData = "pageIndex=0&pageSize=1000&sortField=&sortOrder=";
+            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var re = result.FromJson<WMH_CQBJ_CQJC_PRE_READ>();
+            logger.AppendLine($"查询-问询病史-生育史");
+            logger.AppendLine(url);
+            logger.AppendLine(result);
+            return re;
+        }
+
         public static void MockCommitCreatePregnantInfo(List<PregnantInfo> tempPregnantInfos)
         {
-            var testOne = false;
             var conntectingStringSD = "Data Source=201.201.201.89;Initial Catalog=HL_Pregnant;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sdfy;Password=sdfy123456";
             var context = DBHelper.GetDbContext(conntectingStringSD);
             foreach (var pregnantInfo in tempPregnantInfos)
             {
-                if (testOne)
-                    break;
                 StringBuilder sb = new StringBuilder();
                 #region mock commit
                 var container = new CookieContainer();
-                var userId = BaseInfo.UserId;
-                var userName = BaseInfo.UserName;
-                var encodeUserName = BaseInfo.EncodeUserName;
-                var orgId = BaseInfo.OrgId;
-                var orgName = BaseInfo.OrgName;
+                var userId = UserInfo.UserId;
+                var userName = UserInfo.UserName;
+                var encodeUserName = UserInfo.EncodeUserName;
+                var orgId = UserInfo.OrgId;
+                var orgName = UserInfo.OrgName;
                 var url = "";
                 var postData = "";
                 var result = "";
@@ -357,12 +405,12 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
                 if (re.data.Count != 0)
                 {
                     Console.WriteLine($"孕妇{pregnantInfo.personname}已存在");
-                    SyncForFS syncForFS = new SyncForFS()
+                    SyncOrder syncForFS = new SyncOrder()
                     {
                         SourceType = SourceType.PregnantInfo,
                         SourceId = pregnantInfo.Id.ToString(),
                         SyncTime = DateTime.Now,
-                        SyncStatus = SyncStatus.ExistWhileCreating
+                        SyncStatus = SyncStatus.RepeatPregnantInfo
                     };
                     var serviceResult = context.DelegateTransaction((group) =>
                     {
@@ -496,14 +544,14 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
                     url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID={userId}&sParams=P${pregnantInfo.idcard}$P$P";
                     result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                     re = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
-                    var syncStatus = SyncStatus.Create;
+                    var syncStatus = SyncStatus.Created;
                     var message = "";
                     if (re.data.Count == 0)
                     {
-                        syncStatus = SyncStatus.HasErrorWhileCreating;
+                        syncStatus = SyncStatus.Error;
                         message = "基本数据未成功创建";
                     }
-                    SyncForFS syncForFS = new SyncForFS()
+                    SyncOrder syncForFS = new SyncOrder()
                     {
                         SourceType = SourceType.PregnantInfo,
                         SourceId = pregnantInfo.Id.ToString(),
@@ -519,7 +567,6 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
                     {
                         return group.Connection.Insert(syncForFS, transaction: group.Transaction);
                     });
-                    testOne = true;
                 }
                 #endregion
                 var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Create_" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
@@ -577,7 +624,7 @@ order by pi.createtime ", transaction: group.Transaction).ToList();
             //public string D7 { set; get; } //身份证
             data.D7 = pregnantInfo.idcard;
             //public string D8 { set; get; } //生日
-            data.D8 = pregnantInfo.birthday.ToString("yyyy-MM-dd");
+            data.D8 = pregnantInfo.birthday?.ToString("yyyy-MM-dd");
             //public string D9 { set; get; } //孕妇年龄
             data.D9 = pregnantInfo.createage;
             //public string D10 { set; get; } //孕妇文化程度 1)  文化程度STD_CULTURALDEG
@@ -646,7 +693,7 @@ order by pi.createtime ", transaction: group.Transaction).ToList();
             //public string D43 { set; get; } //丈夫证件号码
             data.D43 = pregnantInfo.husbandidcard;
             //public string D44 { set; get; } //丈夫出生日期
-            data.D44 = pregnantInfo.husbandbirthday.ToString("yyyy-MM-dd");
+            data.D44 = pregnantInfo.husbandbirthday?.ToString("yyyy-MM-dd");
             //public string D45 { set; get; } //丈夫登记年龄
             data.D45 = pregnantInfo.husbandage;
             //public string D46 { set; get; } //丈夫职业  [TODO 对照表] PASS(未有在用)
@@ -684,6 +731,209 @@ order by pi.createtime ", transaction: group.Transaction).ToList();
             //public string D69 { set; get; } //创建机构名称:佛山市妇幼保健院
             //public string D70 { set; get; } //健康码
             //public string D71 { set; get; } //健康码ID 
+        }
+        
+
+
+        internal static List<PregnantInfo> GetPregnantInfosToCreateEnquiries()
+        {
+            var context = DBHelper.GetDbContext(ConntectingStringSD);
+            var serviceResult = context.DelegateTransaction((group) =>
+            {
+                return group.Connection.Query<PregnantInfo>(@"
+select Top 1 sp.id spid,se.id seid,pi.* from PregnantInfo pi
+left join SyncForFS sp on sp.SourceType = 1 and sp.SourceId = pi.Id
+left join SyncForFS se on se.SourceType = 2 and se.SourceId = pi.Id
+where sp.id is not null and sp.SyncStatus = 2 
+and se.id is null
+", transaction: group.Transaction).ToList();
+            });
+            return serviceResult.Data;
+        }
+        internal static List<PregnantInfo> GetPregnantInfosToUpdateEnquiries()
+        {
+            var context = DBHelper.GetDbContext(ConntectingStringSD);
+            var serviceResult = context.DelegateTransaction((group) =>
+            {
+                return group.Connection.Query<PregnantInfo>(@"
+                select Top 1 se.id seid,se.SyncTime
+                ,pi.* from PregnantInfo pi
+                left join SyncForFS se on se.SourceType = 2 and se.SourceId = pi.Id
+                where se.id is not null 
+				and se.SyncStatus = 2 
+				and pi.updatetime > DATEADD( SECOND,10 ,se.SyncTime)
+                ", transaction: group.Transaction).ToList();
+            });
+            return serviceResult.Data;
+        }
+
+        internal static List<PregnantInfo> GetPregnantInfosForTest()
+        {
+            var context = DBHelper.GetDbContext(ConntectingStringSD);
+            var serviceResult = context.DelegateTransaction((group) =>
+            {
+                return group.Connection.Query<PregnantInfo>(@"
+                select Top 2 pi.* from PregnantInfo pi
+                where pi.idcard ='142328199610271518'
+                ", transaction: group.Transaction).ToList();
+            });
+            return serviceResult.Data;
+        }
+
+        public static SyncOrder GetSyncOrder(DbGroup group, SourceType sourceType, string sourceId)
+        {
+           return SDDAL.GetSyncForFS(group, sourceType, sourceId);
+        }
+
+        public static long SaveSyncOrder(DbGroup group, SyncOrder syncForFS)
+        {
+            if (syncForFS.Id > 0)
+            {
+                SDDAL.UpdateSyncForFS(group, syncForFS);
+                return syncForFS.Id;
+            }
+            else
+            {
+                return SDDAL.InsertSyncForFS(group, syncForFS);
+            }
+        }
+
+        public static void PostCreateEnquiryToFS(PregnantInfo enquiry, MQDA_READ_NEWData mQDA_READ_NEWData, UserInfo userInfo, WCQBJ_CZDH_DOCTOR_READResponse base8,ref StringBuilder logger)
+        {
+            var url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/MQDA_XWBS_SAVE&sUserID={userInfo.UserId}&sParams={base8.MainId}${userInfo.OrgId}";
+            var datas = new List<WMH_CQBJ_JBXX_FORM_SAVEData>();
+            var data = new WMH_CQBJ_JBXX_FORM_SAVEData()
+            {
+            };
+
+            datas.Add(data);
+            var json = datas.ToJson();
+            var container = new CookieContainer();
+            var postData = "data=" + HttpUtility.UrlEncode(json);
+            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            logger.AppendLine("Create 问询病史");
+            logger.AppendLine(url);
+            logger.AppendLine(json);
+            logger.AppendLine(result);
+        }
+
+        public static string PostUpdateEnquiryToFS(PregnantInfo pregnantInfo, MQDA_READ_NEWData enquiryData, UserInfo userInfo, WCQBJ_CZDH_DOCTOR_READResponse base8, ref StringBuilder logger)
+        {
+            var url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/MQDA_XWBS_SAVE&sUserID={userInfo.UserId}&sParams={base8.MainId}${userInfo.OrgId}";
+            var datas = new List<Data_MQDA_XWBS_SAVE>();
+            #region datas
+            var data = new Data_MQDA_XWBS_SAVE(enquiryData);
+            data.D1 = pregnantInfo.lastmenstrualperiod?.ToString(DateFormat) ?? ""; //末次月经
+            data.D2 = pregnantInfo.dateofprenatal?.ToString(DateFormat) ?? "";
+            data.D3 = VLConstraints.GetPregnancyMannerByPregnancyManner_Hele(pregnantInfo.tpregnancymanner);
+            data.D4 = pregnantInfo.implanttime?.ToString(DateFormat) ?? "";  //"D4":"2020-06-02", //受精或移植日期 //植入时间
+            //data.D5   //"D5":"尿妊娠试验,B超检查",//妊娠确认方法
+            //data.D6   //"D6":"4",//B超确认孕周
+            //data.D7   //"D7":"有",//早孕反应
+            //data.D8   //"D8":"5",//开始孕周
+            //data.D9   //"D9":"6",//胎动开始孕周
+            //data.D10  //"D10":"头痛（开始孕周    ）,//自觉症状
+            data.D11 = pregnantInfo.pasthistory ?? "";
+            //data.D12  //"D12":"无",//
+            data.D13 = pregnantInfo.operationhistory ?? ""; //"D13":"剖宫产术,腹腔镜子宫肌瘤剔除术",//手术史
+            //data.D14 = pregnantInfo.D14; //"D14":"未发现",//
+            data.D15 = pregnantInfo.allergichistory ?? ""; //"D15":"青霉素,喹诺酮类",//过敏史
+            data.D16 = pregnantInfo.bloodtransfution ?? ""; //"D16":"有",//输血史
+            //data.D17 = pregnantInfo.D17; //"D17":"",//
+            //data.D18 = pregnantInfo.familyhistory; //"D18":"地中海贫血,G6PD缺乏症",//本人家族史
+            //data.D19 = pregnantInfo.D19; //"D19":"2",//亲缘关系
+            //data.D20 = pregnantInfo.D20; //"D20":"地中海贫血,G6PD缺乏症",//配偶家族史
+            //data.D21 = pregnantInfo.D21; //"D21":"2",//亲缘关系
+            //data.D22 = pregnantInfo.D22; //"D22":"",//
+            data.D23 = pregnantInfo.menarcheage ?? ""; //"D23":"11",//月经初潮年龄
+            data.D24 = pregnantInfo.menstrualperiodmin + "-" + pregnantInfo.menstrualperiodmax; //"D24":"22",//月经持续时间
+            data.D25 = pregnantInfo.cyclemin + "-" + pregnantInfo.cyclemax; //"D25":"33",//间歇时间
+            data.D26 = pregnantInfo.menstrualblood.GetDescription() ?? ""; //"D26":"中",//经量
+            data.D27 = VLConstraints.GetDysmenorrheaByDysmenorrhea_Hele(pregnantInfo.dysmenorrhea); //"D27":"有",//痛经
+            //data.D28 = pregnantInfo.D28; //"D28":"",//
+            //data.D29 = pregnantInfo.D29; //"D29":""，//
+            //data.D30 = pregnantInfo.D30; //"D30":"风疹病毒,流感病毒",//病毒感染
+            //data.D31 = pregnantInfo.D31; //"D31":"无",//发热
+            data.D32 = pregnantInfo.poisontouchhis ?? ""; //"D32":"有害化学物质,有害生物物质",//接触有害物质
+            //data.D33 = pregnantInfo.D33; //"D33":"2",//饮酒      //  饮酒
+            //data.D34 = pregnantInfo.D34; //"D34":"2",//两/天、
+            //data.D35 = pregnantInfo.D35; //"D35":"无",//服用药物  // 预防接种
+            //data.D36 = pregnantInfo.D36; //"D36":"无",//服用药物
+            //data.D37 = pregnantInfo.D37; //"D37":"33",//
+            //data.D38 = pregnantInfo.D38; //"D38":"22",//
+            //data.D39 = pregnantInfo.D39; //"D39":"",//
+            //data.D40 = pregnantInfo.D40; //"D40":"",//
+            //data.D41 = pregnantInfo.D41; //"D41":"2020-06-03",//早期B超时间
+            //data.D42 = pregnantInfo.D42; //"D42":"1",//胎数
+            //data.D43 = pregnantInfo.D43; //"D43":"2",//吸毒
+            //data.D44 = pregnantInfo.D44; //"D44":"2",//
+            data.D45 = pregnantInfo.eggretrievaltime?.ToString(DateFormat) ?? ""; //"D45":"2020-06-01",//取卵日期
+            data.D46 = "1"; //"D46":"1",//本孕首次产检地点
+            //data.D47 = pregnantInfo.D47;  //"D47":"外伤史",//外伤史
+            data.D48 = pregnantInfo.heredityfamilyhistory ?? ""; //"D48":"遗传病史",//遗传病史
+            //data.D49 = pregnantInfo.D49; //"D49":"2,3",//残疾情况
+            datas.Add(data); 
+            #endregion
+            var json = datas.ToJson();
+            var container = new CookieContainer();
+            var postData = "data=" + HttpUtility.UrlEncode(json);
+            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            logger.AppendLine("Update 问询病史");
+            logger.AppendLine(url);
+            logger.AppendLine(json);
+            logger.AppendLine(result);
+            return result;
+        }
+        
+        internal static string PostAddEnquiryPregnanth(WMH_CQBJ_CQJC_PRE_SAVE toAdd, UserInfo userInfo, WCQBJ_CZDH_DOCTOR_READResponse base8, ref StringBuilder logger)
+        {
+            var url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_CQJC_PRE_SAVE&sUserID={userInfo.UserId}&sParams={base8.MainId}${userInfo.OrgId}";
+            var datas = new List<WMH_CQBJ_CQJC_PRE_SAVE>();
+            datas.Add(toAdd);
+            var json = datas.ToJson();
+            var container = new CookieContainer();
+            var postData = "data=" + HttpUtility.UrlEncode(json);
+            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            logger.AppendLine("Create 问询病史-生育史");
+            logger.AppendLine(url);
+            logger.AppendLine(json);
+            logger.AppendLine(result);
+            return result;
+        }
+
+        static string DateFormat = "yyyy-MM-dd";
+
+        internal static string DeleteEnquiryPregnanth(WMH_CQBJ_CQJC_PRE_SAVE toChange, UserInfo userInfo, WCQBJ_CZDH_DOCTOR_READResponse base8, ref StringBuilder logger)
+        {
+        
+            var url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_CQJC_SYS_DELETE&sUserID={userInfo.UserId}&sParams=1$1";
+            var datas = new List<WMH_CQBJ_CQJC_PRE_SAVE>();
+            datas.Add(toChange);
+            var json = datas.ToJson();
+            var container = new CookieContainer();
+            var postData = "data=" + HttpUtility.UrlEncode(json);
+            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            logger.AppendLine("Update 问询病史-生育史");
+            logger.AppendLine(url);
+            logger.AppendLine(json);
+            logger.AppendLine(result);
+            return result;
+        }
+
+        internal static string UpdateEnquiryPregnanth(WMH_CQBJ_CQJC_PRE_SAVE toChange, UserInfo userInfo, WCQBJ_CZDH_DOCTOR_READResponse base8, ref StringBuilder logger)
+        {
+            var url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_CQJC_PRE_SAVE&sUserID={userInfo.UserId}&sParams={base8.MainId}${userInfo.OrgId}";
+            var datas = new List<WMH_CQBJ_CQJC_PRE_SAVE>();
+            datas.Add(toChange);
+            var json = datas.ToJson();
+            var container = new CookieContainer();
+            var postData = "data=" + HttpUtility.UrlEncode(json);
+            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            logger.AppendLine("Update 问询病史-生育史");
+            logger.AppendLine(url);
+            logger.AppendLine(json);
+            logger.AppendLine(result);
+            return result;
         }
     }
 }

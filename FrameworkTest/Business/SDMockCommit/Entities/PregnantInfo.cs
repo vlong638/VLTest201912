@@ -1,5 +1,7 @@
 ﻿using Dapper.Contrib.Extensions;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace FrameworkTest.Business.SDMockCommit
 {
@@ -25,7 +27,7 @@ namespace FrameworkTest.Business.SDMockCommit
         //姓名  MOTHER_NAME personname
         public string personname { set; get; }
         //出生日期 BIRTH_DATE  birthday 为空的话根据合法身份证号计算
-        public DateTime birthday { set; get; }
+        public DateTime? birthday { set; get; }
         //建册年龄
         public string createage;
         //产后休养地址
@@ -85,7 +87,7 @@ namespace FrameworkTest.Business.SDMockCommit
         //丈夫证件号码 NFQSFZJH    husbandidcard
         public string husbandidcard { set; get; }
         //丈夫出生日期  NFQCSRQ husbandbirthday 为空的话根据合法身份证号计算
-        public DateTime husbandbirthday { set; get; }
+        public DateTime? husbandbirthday { set; get; }
         //丈夫文化程度  NFQWHCD husbandeducationcode
         public string husbandeducationcode { set; get; }
         //丈夫电话 NFQDH   husbandmobile
@@ -103,6 +105,95 @@ namespace FrameworkTest.Business.SDMockCommit
         //婚姻状况
         public string maritalstatuscode;
 
+        /// <summary>
+        /// 手术史
+        /// </summary>
+        internal string operationhistory;
+        /// <summary>
+        /// 末次月经时间
+        /// </summary>
+        internal DateTime? lastmenstrualperiod;
+        /// <summary>
+        /// 预产期
+        /// </summary>
+        internal DateTime? dateofprenatal;
+        /// <summary>
+        /// 本次怀孕方式
+        /// </summary>
+        internal string tpregnancymanner;
+        /// <summary>
+        /// 既往病史
+        /// </summary>
+        internal string pasthistory;
+        /// <summary>
+        /// 过敏史
+        /// </summary>
+        internal string allergichistory;
+        /// <summary>
+        /// 输血史
+        /// </summary>
+        internal string bloodtransfution;
+        /// <summary>
+        /// 家族史
+        /// </summary>
+        internal string familyhistory;
+        /// <summary>
+        /// 初潮年龄
+        /// </summary>
+        internal string menarcheage;
+        /// <summary>
+        /// 经期下限
+        /// </summary>
+        internal string menstrualperiodmin;
+        /// <summary>
+        /// 经期上限
+        /// </summary>
+        internal string menstrualperiodmax;
+        /// <summary>
+        /// 周期下限
+        /// </summary>
+        internal string cyclemin;
+        /// <summary>
+        /// 周期上限
+        /// </summary>
+        internal string cyclemax;
+        /// <summary>
+        /// 月经量
+        /// </summary>
+        internal menstrualblood menstrualblood;
+        /// <summary>
+        /// 痛经
+        /// </summary>
+        internal string dysmenorrhea;
+        /// <summary>
+        /// 毒物接触史
+        /// </summary>
+        internal string poisontouchhis;
+        /// <summary>
+        /// 植入时间
+        /// </summary>
+        internal DateTime? implanttime;
+        /// <summary>
+        /// 取卵时间
+        /// </summary>
+        internal DateTime? eggretrievaltime;
+        /// <summary>
+        /// 遗传家族史
+        /// </summary>
+        internal string heredityfamilyhistory;
+        /// <summary>
+        /// 生育史
+        /// </summary>
+        internal string pregnanthistory;
+        /// <summary>
+        /// 孕次
+        /// </summary>
+        internal string gravidity;
+        /// <summary>
+        /// 阴道分娩
+        /// </summary>
+        internal string vaginaldeliverynum;
+
         //丈夫现住址详细地址 NFQXXX  需核对
         //public string NFQXXX { set; get; }
         //TODO
@@ -118,5 +209,45 @@ namespace FrameworkTest.Business.SDMockCommit
         //推送时间 SEND_DATE   当前时间
 
         //医院系统id  HIS_ID 需核对 顺德妇保机构代码：45608491-9
+    }
+
+    public enum menstrualblood
+    {
+        [Description("")]
+        None = 0,
+        [Description("多")]
+        plenty = 1,
+        [Description("中")]
+        medium =2,
+        [Description("少")]
+        few =3,
+    }
+
+    //[{ "index":"0", "pregstatus":"人流", "babysex":"0", "babyweight":"", "pregnantage":"2017年6月" },{ "index":"2","pregstatus":"","babysex":"","babyweight":"","pregnantage":""}]
+    public class pregnanthistory
+    {
+        public string index { set; get; }
+        public string pregstatus { set; get; }
+        public string babysex { set; get; }
+        public string babyweight { set; get; }
+        public string pregnantage { set; get; }
+
+
+        public List<string> Pregstatuss
+        {
+            get
+            {
+                if (pregstatuss == null)
+                {
+                    pregstatuss = new List<string>();
+                    if (!string.IsNullOrEmpty(pregstatus))
+                    {
+                        pregstatuss.AddRange(pregstatus.Split(','));
+                    }
+                }
+                return pregstatuss;
+            }
+        }
+        private List<string> pregstatuss;
     }
 }

@@ -7,7 +7,7 @@ namespace FrameworkTest.Common.HttpSolution
 {
     public class HttpHelper
     {
-        public static string Post(string url, string postData, ref CookieContainer container, string contentType = "application/x-www-form-urlencoded; charset=UTF-8")
+        public static string Post(string url, string postData, ref CookieContainer container, string contentType = "application/x-www-form-urlencoded; charset=UTF-8",Action<HttpWebRequest> configRequest = null)
         {
             var result = "";
             HttpWebRequest request = null;
@@ -31,6 +31,7 @@ namespace FrameworkTest.Common.HttpSolution
                         requestStm.Write(bytepostData, 0, bytepostData.Length);
                     }
                 }
+                configRequest?.Invoke(request);
                 //响应
                 response = (HttpWebResponse)request.GetResponse();
                 container.Add(response.Cookies);

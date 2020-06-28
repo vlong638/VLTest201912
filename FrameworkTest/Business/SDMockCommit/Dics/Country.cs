@@ -516,10 +516,5 @@ namespace FrameworkTest.Business.SDMockCommit
             var value = Country_GB_T_2659_2000[key];
             return Country_GB_T_2659.FirstOrDefault(c => c.Value == value).Key ?? "";
         }
-
-        internal static string GetRegisterType_STD_REGISTERT2PE_By_RegisterType_HELE(object isagrregister)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

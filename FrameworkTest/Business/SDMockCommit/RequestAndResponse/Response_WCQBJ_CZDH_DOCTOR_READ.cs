@@ -13,6 +13,12 @@ namespace FrameworkTest.Business.SDMockCommit
         public string code { set; get; }
         public string scr { set; get; }
         public List<WCQBJ_CZDH_DOCTOR_READData> data { set; get; }
+
+        public string CareId { get { return data.First().D1; } }
+        public string MainId { get { return data.First().D2; } }
+        public string IdCard { get { return data.First().D4; } }
+        public string BaseId { get { return data.First().D8; } }
+        public bool IsAvailable { get { return data.Count != 0; } }
     }
     public class WCQBJ_CZDH_DOCTOR_READData
     {

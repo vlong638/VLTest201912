@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace FrameworkTest.Business.SDMockCommit
 {
-
+    /// <summary>
+    /// 1.基本情况
+    /// </summary>
     public class WMH_CQBJ_JBXX_FORM_SAVEData
     {
         public WMH_CQBJ_JBXX_FORM_SAVEData()
