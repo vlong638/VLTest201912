@@ -104,7 +104,10 @@ namespace FrameworkTest.Business.SDMockCommit
         public string isagrregister;
         //婚姻状况
         public string maritalstatuscode;
-
+        /// <summary>
+        /// 妇科手术史
+        /// </summary>
+        internal string gynecologyops;
         /// <summary>
         /// 手术史
         /// </summary>

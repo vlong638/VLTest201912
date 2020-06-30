@@ -13,7 +13,7 @@ namespace FrameworkTest.Business.SDMockCommit
     {
         public Data_MQDA_XWBS_SAVE(MQDA_READ_NEWData data)
         {
-            if (data!=null)
+            if (data != null)
             {
                 this.D1 = data.D1;
                 this.D2 = data.D2;
@@ -72,7 +72,7 @@ namespace FrameworkTest.Business.SDMockCommit
                 this.D2 = "";
                 this.D3 = "";
                 this.D4 = "";
-                this.D5 = "";
+                this.D5 = "尿妊娠试验";
                 this.D6 = "";
                 this.D7 = "";
                 this.D8 = "";
