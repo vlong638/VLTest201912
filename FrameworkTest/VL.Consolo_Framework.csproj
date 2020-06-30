@@ -102,7 +102,9 @@
     <Compile Include="Business\SDMockCommit\Dics\Nation.cs" />
     <Compile Include="Business\SDMockCommit\Dics\Country.cs" />
     <Compile Include="Business\SDMockCommit\BaseInfo.cs" />
+    <Compile Include="Business\SDMockCommit\Entities\PhysicalExaminationData.cs" />
     <Compile Include="Business\SDMockCommit\Entities\PregnantInfo.cs" />
+    <Compile Include="Business\SDMockCommit\RequestAndResponse\WMH_CQBJ_CQJC_TGJC_LIST.cs" />
     <Compile Include="Business\SDMockCommit\RequestAndResponse\WMH_CQBJ_CQJC_PRE_SAVE.cs" />
     <Compile Include="Business\SDMockCommit\RequestAndResponse\WMH_CQBJ_CQJC_PRE_READ.cs" />
     <Compile Include="Business\SDMockCommit\RequestAndResponse\Response_MQDA_READ_NEW.cs" />
@@ -119,7 +121,7 @@
     <Compile Include="Common\DBSolution\DbGroup.cs" />
     <Compile Include="Common\DBSolution\DBHelper.cs" />
     <Compile Include="Common\DBSolution\ServiceResult.cs" />
-    <Compile Include="Business\SDMockCommit\SyncOrder.cs" />
+    <Compile Include="Business\SDMockCommit\Entities\SyncOrder.cs" />
     <Compile Include="Business\SDMockCommit\SDBLL.cs" />
     <Content Include="Business\ConfigurableEntity\Output\ListPages.xml" />
     <Content Include="Business\ConfigurableEntity\Output\tables.xml" />

@@ -2362,6 +2362,14 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             cmds.Add(new Command("m21,0618,模拟-获取待新增的孕妇", () =>
             {
                 SDBLL.TempPregnantInfos = SDBLL.GetPregnantInfoForCreate();
+                foreach (var pregnantInfo in SDBLL.TempPregnantInfos)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.AppendLine(pregnantInfo.ToJson());
+                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\ToCreate_" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
+                    File.WriteAllText(file, sb.ToString());
+                    Console.WriteLine($"result:{file}");
+                }
             }));
             cmds.Add(new Command("m22,0618,模拟-模拟新增", () =>
             {
@@ -2596,6 +2604,44 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 var isTestOne = true;
                 SDBLL.MockCommitUpdatePregnantInfo(isTestOne);
             }));
+            cmds.Add(new Command("m26,0618,模拟-筛选待新增的孕妇", () =>
+            {
+                SDBLL.TempPregnantInfos = SDBLL.GetPregnantInfoForCreateBefore0630();
+                var context = DBHelper.GetDbContext(SDBLL.ConntectingStringSD);
+                foreach (var pregnantInfo in SDBLL.TempPregnantInfos)
+                {
+                    Console.WriteLine($"当前孕妇{pregnantInfo.personname}");
+                    var userInfo = SDBLL.UserInfo;
+                    var container = new CookieContainer();
+                    var userId = userInfo.UserId;
+                    var userName = userInfo.UserName;
+                    var encodeUserName = userInfo.EncodeUserName;
+                    var orgId = userInfo.OrgId;
+                    var orgName = userInfo.OrgName;
+                    var url = "";
+                    var postData = "";
+                    var result = "";
+                    if (pregnantInfo == null)
+                        return;
+                    //孕妇是否已存在
+                    url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID={userId}&sParams=P${pregnantInfo.idcard}$P$P";
+                    result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                    var re = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
+                    if (re.data.Count != 0)
+                    {
+                        Console.WriteLine($"孕妇{pregnantInfo.personname}已存在");
+                        continue;
+                    }
+                    else
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        sb.AppendLine(pregnantInfo.ToJson());
+                        var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\ToCreate_" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
+                        File.WriteAllText(file, sb.ToString());
+                        Console.WriteLine($"result:{file}");
+                    }
+                }
+            }));
             cmds.Add(new Command("m301,0623,模拟-获取待新增的`问询病史`", () =>
             {
                 var userInfo = SDBLL.UserInfo;
@@ -2630,7 +2676,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(pregnantInfo.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-问询病史" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Test-问询病史" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 }
@@ -2648,12 +2694,12 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                         {
                             SourceType = SourceType.HistoryEnquiry,
                             SourceId = pregnantInfo.Id.ToString(),
-                            SyncStatus = SyncStatus.Created
+                            SyncStatus = SyncStatus.Success
                         };
                         try
                         {
                             syncForFS.SyncTime = DateTime.Now;
-                            var base8 = SDBLL.GetBase8(userInfo, pregnantInfo.idcard);
+                            var base8 = SDBLL.GetBase8(userInfo, pregnantInfo.idcard, ref sb);
                             if (!base8.IsAvailable)
                             {
                                 syncForFS.SyncStatus = SyncStatus.Error;
@@ -2745,7 +2791,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                         try
                         {
                             syncForFS.SyncTime = DateTime.Now;
-                            var base8 = SDBLL.GetBase8(userInfo, pregnantInfo.idcard);
+                            var base8 = SDBLL.GetBase8(userInfo, pregnantInfo.idcard, ref sb);
                             if (!base8.IsAvailable)
                             {
                                 syncForFS.SyncStatus = SyncStatus.Error;
@@ -2824,15 +2870,16 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     Console.WriteLine($"result:{file}");
                 }
             }));
+            List<PhysicalExaminationData> examinations = new List<PhysicalExaminationData>();
             cmds.Add(new Command("m401,0628,模拟-获取待新增的`体格检查`", () =>
             {
                 var userInfo = SDBLL.UserInfo;
-                SDBLL.TempPregnantInfos = SDBLL.GetPregnantInfosToCreateEnquiries();
-                foreach (var pregnantInfo in SDBLL.TempPregnantInfos)
+                examinations = SDBLL.GetPhysicalExaminationDatasForCreatePhysicalExaminations();
+                foreach (var examination in examinations)
                 {
                     StringBuilder sb = new StringBuilder();
-                    sb.AppendLine(pregnantInfo.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-问询病史" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
+                    sb.AppendLine(examination.ToJson());
+                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-体格检查" + DateTime.Now.ToString("yyyy_MM_dd")), examination.pi_personname + "_" + examination.idcard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 }
@@ -2840,17 +2887,17 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             cmds.Add(new Command("m402,0628,模拟-获取待更新的`体格检查`", () =>
             {
                 var userInfo = SDBLL.UserInfo;
-                SDBLL.TempPregnantInfos = SDBLL.GetPregnantInfosToUpdateEnquiries();
+                examinations = SDBLL.GetPhysicalExaminationDatasForUpdatePhysicalExaminations();
                 foreach (var pregnantInfo in SDBLL.TempPregnantInfos)
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(pregnantInfo.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Update-问询病史" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Update-体格检查" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 }
             }));
-            cmds.Add(new Command("m303,0623,模拟-获取李丽", () =>
+            cmds.Add(new Command("m403,0628,模拟-获取李丽", () =>
             {
                 var userInfo = SDBLL.UserInfo;
                 SDBLL.TempPregnantInfos = SDBLL.GetPregnantInfosForTest();
@@ -2858,22 +2905,164 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(pregnantInfo.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-问询病史" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Test-体格检查" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 }
             }));
-            cmds.Add(new Command("m91,0622,自动同步-新增孕妇档案", () =>
+            cmds.Add(new Command("m41,0628,模拟-新增`体格检查`", () =>
+            {
+                var userInfo = SDBLL.UserInfo;
+                var context = DBHelper.GetDbContext(SDBLL.ConntectingStringSD);
+                foreach (var examination in examinations)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    var serviceResult = context.DelegateTransaction((Func<DbGroup, bool>)((group) =>
+                    {
+                        var syncForFS = new SyncOrder()
+                        {
+                            SourceType = SourceType.PhysicalExamination,
+                            SourceId = examination.Id.ToString(),
+                            SyncStatus = SyncStatus.Success
+                        };
+                        try
+                        {
+                            syncForFS.SyncTime = DateTime.Now;
+                            //获取Base8信息
+                            var base8 = SDBLL.GetBase8(userInfo, examination.idcard, ref sb);
+                            if (!base8.IsAvailable)
+                            {
+                                syncForFS.SyncStatus = SyncStatus.Error;
+                                syncForFS.ErrorMessage = "No Base8 Data";
+                                SDBLL.SaveSyncOrder(context.DbGroup, syncForFS);
+                                return (bool)true;
+                            }
+                            //获取体格检查
+                            var physicalExamination = SDBLL.GetPhysicalExamination(userInfo, base8, DateTime.Now, ref sb);
+                            if (physicalExamination != null)
+                            {
+                                syncForFS.SyncStatus = SyncStatus.Existed;
+                                SDBLL.SaveSyncOrder(context.DbGroup, syncForFS);
+                                return (bool)true;
+                            }
+                            //新建体格检查
+                            var datas = new List<WMH_CQBJ_CQJC_TGJC_NEW_SAVE_Data>();
+                            var data = new WMH_CQBJ_CQJC_TGJC_NEW_SAVE_Data();
+                            UpdateExamination(examination, data);
+                            datas.Add(data);
+                            var result = SDBLL.CreatePhysicalExamination(datas, userInfo, base8, ref sb);
+                            if (!result.Contains("处理成功"))
+                            {
+                                syncForFS.SyncStatus = SyncStatus.Error;
+                                SDBLL.SaveSyncOrder(context.DbGroup, syncForFS);
+                                return (bool)true;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            syncForFS.SyncStatus = SyncStatus.Error;
+                            syncForFS.ErrorMessage = ex.ToString();
+                            sb.Append(ex.ToString());
+                        }
+                        syncForFS.Id = SDBLL.SaveSyncOrder(context.DbGroup, syncForFS);
+                        sb.AppendLine((string)syncForFS.ToJson());
+                        return (bool)(syncForFS.SyncStatus != SyncStatus.Error);
+                    }));
+                    if (!serviceResult.IsSuccess)
+                    {
+                        sb.Append(serviceResult.Messages);
+                    }
+                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Create-体格检查" + DateTime.Now.ToString("yyyy_MM_dd")), examination.pi_personname + "_" + examination.idcard + ".txt");
+                    File.WriteAllText(file, sb.ToString());
+                    Console.WriteLine($"result:{file}");
+                }
+            }));
+            cmds.Add(new Command("m42,0628,模拟-更新`体格检查`", () =>
+            {
+                var userInfo = SDBLL.UserInfo;
+                var context = DBHelper.GetDbContext(SDBLL.ConntectingStringSD);
+                foreach (var examination in examinations)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    var serviceResult = context.DelegateTransaction((Func<DbGroup, bool>)((group) =>
+                    {
+                        var syncForFS = new SyncOrder()
+                        {
+                            SourceType = SourceType.PhysicalExamination,
+                            SourceId = examination.Id.ToString(),
+                            SyncStatus = SyncStatus.Success
+                        };
+                        try
+                        {
+                            syncForFS.SyncTime = DateTime.Now;
+                            //获取Base8信息
+                            var base8 = SDBLL.GetBase8(userInfo, examination.idcard, ref sb);
+                            if (!base8.IsAvailable)
+                            {
+                                syncForFS.SyncStatus = SyncStatus.Error;
+                                syncForFS.ErrorMessage = "No Base8 Data";
+                                SDBLL.SaveSyncOrder(context.DbGroup, syncForFS);
+                                return (bool)true;
+                            }
+                            //获取体格检查
+                            var physicalExamination = SDBLL.GetPhysicalExamination(userInfo, base8, DateTime.Now, ref sb);
+                            if (physicalExamination == null || physicalExamination.data == null || physicalExamination.data.Count == 0)
+                            {
+                                syncForFS.SyncStatus = SyncStatus.NotExisted;
+                                SDBLL.SaveSyncOrder(context.DbGroup, syncForFS);
+                                return (bool)true;
+                            }
+                            //更新体格检查
+                            var datas = new List<WMH_CQBJ_CQJC_TGJC_NEW_SAVE_Data>();
+                            var data = new WMH_CQBJ_CQJC_TGJC_NEW_SAVE_Data(physicalExamination.data.First());
+                            UpdateExamination(examination, data);
+                            datas.Add(data);
+                            var result = SDBLL.CreatePhysicalExamination(datas, userInfo, base8, ref sb);
+                            if (!result.Contains("处理成功"))
+                            {
+                                syncForFS.SyncStatus = SyncStatus.Error;
+                                SDBLL.SaveSyncOrder(context.DbGroup, syncForFS);
+                                return (bool)true;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            syncForFS.SyncStatus = SyncStatus.Error;
+                            syncForFS.ErrorMessage = ex.ToString();
+                            sb.Append(ex.ToString());
+                        }
+                        syncForFS.Id = SDBLL.SaveSyncOrder(context.DbGroup, syncForFS);
+                        sb.AppendLine((string)syncForFS.ToJson());
+                        return (bool)(syncForFS.SyncStatus != SyncStatus.Error);
+                    }));
+                    if (!serviceResult.IsSuccess)
+                    {
+                        sb.Append(serviceResult.Messages);
+                    }
+                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Create-体格检查" + DateTime.Now.ToString("yyyy_MM_dd")), examination.pi_personname + "_" + examination.idcard + ".txt");
+                    File.WriteAllText(file, sb.ToString());
+                    Console.WriteLine($"result:{file}");
+                }
+            }));
+            cmds.Add(new Command("m91,0622,自动同步-新增`孕妇档案`", () =>
             {
                 while (true)
                 {
-                    SDBLL.TempPregnantInfos = SDBLL.GetPregnantInfoForCreate();
-                    SDBLL.MockCommitCreatePregnantInfo(SDBLL.TempPregnantInfos);
+                    var tempPregnantInfos = SDBLL.GetPregnantInfoForCreate();
+                    foreach (var pregnantInfo in tempPregnantInfos)
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        sb.AppendLine(pregnantInfo.ToJson());
+                        var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\ToCreate_" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
+                        File.WriteAllText(file, sb.ToString());
+                        Console.WriteLine($"result:{file}");
+                    }
+                    SDBLL.MockCommitCreatePregnantInfo(tempPregnantInfos);
 
                     System.Threading.Thread.Sleep(1000 * 10);
                 }
             }));
-            cmds.Add(new Command("m92,0623,自动同步-更新孕妇档案", () =>
+            cmds.Add(new Command("m92,0623,自动同步-更新`孕妇档案`", () =>
             {
                 while (true)
                 {
@@ -2883,7 +3072,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     System.Threading.Thread.Sleep(1000 * 10);
                 }
             }));
-            cmds.Add(new Command("m93,0623,自动同步-新增问询病史", () =>
+            cmds.Add(new Command("m93,0628,自动同步-新增`问询病史`", () =>
             {
                 while (true)
                 {
@@ -2905,12 +3094,12 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                             {
                                 SourceType = SourceType.HistoryEnquiry,
                                 SourceId = pregnantInfo.Id.ToString(),
-                                SyncStatus = SyncStatus.Created
+                                SyncStatus = SyncStatus.Success
                             };
                             try
                             {
                                 syncForFS.SyncTime = DateTime.Now;
-                                var base8 = SDBLL.GetBase8(userInfo, pregnantInfo.idcard);
+                                var base8 = SDBLL.GetBase8(userInfo, pregnantInfo.idcard, ref sb);
                                 if (!base8.IsAvailable)
                                 {
                                     syncForFS.SyncStatus = SyncStatus.Error;
@@ -2991,7 +3180,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     System.Threading.Thread.Sleep(1000 * 10);
                 }
             }));
-            cmds.Add(new Command("m94,0623,自动同步-更新问询病史", () =>
+            cmds.Add(new Command("m94,0629,自动同步-更新`问询病史`", () =>
             {
                 while (true)
                 {
@@ -3015,7 +3204,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                             try
                             {
                                 syncForFS.SyncTime = DateTime.Now;
-                                var base8 = SDBLL.GetBase8((UserInfo)userInfo, (string)pregnantInfo.idcard);
+                                var base8 = SDBLL.GetBase8((UserInfo)userInfo, (string)pregnantInfo.idcard, ref sb);
                                 if (!base8.IsAvailable)
                                 {
                                     syncForFS.SyncStatus = SyncStatus.Error;
@@ -3052,6 +3241,95 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     System.Threading.Thread.Sleep(1000 * 10);
                 }
             }));
+            cmds.Add(new Command("m95,0630,自动同步-新增`体格检查`", () =>
+            {
+                while (true)
+                {
+                    var userInfo = SDBLL.UserInfo;
+                    examinations = SDBLL.GetPhysicalExaminationDatasForCreatePhysicalExaminations();
+                    foreach (var examination in examinations)
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        sb.AppendLine(examination.ToJson());
+                        var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-体格检查" + DateTime.Now.ToString("yyyy_MM_dd")), examination.pi_personname + "_" + examination.idcard + ".txt");
+                        File.WriteAllText(file, sb.ToString());
+                        Console.WriteLine($"result:{file}");
+                    }
+                    var context = DBHelper.GetDbContext(SDBLL.ConntectingStringSD);
+                    foreach (var examination in examinations)
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        var serviceResult = context.DelegateTransaction((Func<DbGroup, bool>)((group) =>
+                        {
+                            var syncForFS = new SyncOrder()
+                            {
+                                SourceType = SourceType.PhysicalExamination,
+                                SourceId = examination.Id.ToString(),
+                                SyncStatus = SyncStatus.Success
+                            };
+                            try
+                            {
+                                syncForFS.SyncTime = DateTime.Now;
+                                //获取Base8信息
+                                var base8 = SDBLL.GetBase8(userInfo, examination.idcard, ref sb);
+                                if (!base8.IsAvailable)
+                                {
+                                    syncForFS.SyncStatus = SyncStatus.Error;
+                                    syncForFS.ErrorMessage = "No Base8 Data";
+                                    SDBLL.SaveSyncOrder(context.DbGroup, syncForFS);
+                                    return (bool)true;
+                                }
+                                //获取体格检查
+                                var physicalExamination = SDBLL.GetPhysicalExamination(userInfo, base8, DateTime.Now, ref sb);
+                                if (physicalExamination != null)
+                                {
+                                    syncForFS.SyncStatus = SyncStatus.Existed;
+                                    SDBLL.SaveSyncOrder(context.DbGroup, syncForFS);
+                                    return (bool)true;
+                                }
+                                //新建体格检查
+                                var datas = new List<WMH_CQBJ_CQJC_TGJC_NEW_SAVE_Data>();
+                                var data = new WMH_CQBJ_CQJC_TGJC_NEW_SAVE_Data();
+                                UpdateExamination(examination, data);
+                                datas.Add(data);
+                                var result = SDBLL.CreatePhysicalExamination(datas, userInfo, base8, ref sb);
+                                if (!result.Contains("处理成功"))
+                                {
+                                    syncForFS.SyncStatus = SyncStatus.Error;
+                                    SDBLL.SaveSyncOrder(context.DbGroup, syncForFS);
+                                    return (bool)true;
+                                }
+                                //获取体格检查
+                                physicalExamination = SDBLL.GetPhysicalExamination(userInfo, base8, DateTime.Now, ref sb);
+                                if (physicalExamination==null)
+                                {
+                                    syncForFS.SyncStatus = SyncStatus.Error;
+                                    syncForFS.ErrorMessage = "未能成功新建体格检查";
+                                    SDBLL.SaveSyncOrder(context.DbGroup, syncForFS);
+                                    return (bool)true;
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                syncForFS.SyncStatus = SyncStatus.Error;
+                                syncForFS.ErrorMessage = ex.ToString();
+                                sb.Append(ex.ToString());
+                            }
+                            syncForFS.Id = SDBLL.SaveSyncOrder(context.DbGroup, syncForFS);
+                            sb.AppendLine((string)syncForFS.ToJson());
+                            return (bool)(syncForFS.SyncStatus != SyncStatus.Error);
+                        }));
+                        if (!serviceResult.IsSuccess)
+                        {
+                            sb.Append(serviceResult.Messages);
+                        }
+                        var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Create-体格检查" + DateTime.Now.ToString("yyyy_MM_dd")), examination.pi_personname + "_" + examination.idcard + ".txt");
+                        File.WriteAllText(file, sb.ToString());
+                        Console.WriteLine($"result:{file}");
+                    }
+                    System.Threading.Thread.Sleep(1000 * 10);
+                }
+            }));
 
 
             #endregion
@@ -3065,6 +3343,30 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             }));
             #endregion
             cmds.Start();
+        }
+
+        private static WMH_CQBJ_CQJC_TGJC_NEW_SAVE_Data UpdateExamination(PhysicalExaminationData examination, WMH_CQBJ_CQJC_TGJC_NEW_SAVE_Data data)
+        {
+            //--孕前体重 D50 PregnantInfo.weight
+            data.D50 = examination.pi_weight ?? "";
+            //-- 身高 D5   PregnantInfo.height
+            data.D5 = examination.pi_height ?? "";
+            //-- 孕前BMI指数 D43 PregnantInfo.bmi
+            data.D43 = examination.pi_bmi ?? "";
+            //--体温 D44 temperature
+            data.D44 = examination.temperature ?? "";
+            //--脉搏 D6 heartrate
+            data.D6 = examination.heartrate ?? "";
+            //--呼吸 D8 未找到
+            //--体重 D4 weight
+            data.D4 = examination.weight ?? "";
+            //-- 是否初检 D47
+            data.D47 = examination.firstvisitdate == examination.lastestvisitdate ? "1" : "2";
+            //dbp 舒张压 低值
+            data.D3 = examination.dbp;
+            //sbp 收缩压 高值
+            data.D2 = examination.sbp;
+            return data;
         }
 
         private static void NewMethod(PregnantInfo pregnantInfo, WMH_CQBJ_CQJC_PRE_READ_Data enquiryPregnanth, pregnanthistory pregnanthistory)

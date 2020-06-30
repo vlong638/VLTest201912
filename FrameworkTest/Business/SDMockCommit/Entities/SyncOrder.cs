@@ -36,8 +36,9 @@ namespace FrameworkTest.Business.SDMockCommit
     public enum SyncStatus
     {
         Error = 1,//创建时 出现异常
-        Created = 2,//创建成功
-        Updated = 3,//创建成功
+        Existed = 11,//已存在
+        NotExisted = 12,//未存在
+        Success = 2,//处理成功
         Test = 99,//更新成功 仅作测试使用
     }
 }

@@ -193,6 +193,18 @@ namespace FrameworkTest.Business.SDMockCommit
         /// 阴道分娩
         /// </summary>
         internal string vaginaldeliverynum;
+        /// <summary>
+        /// 体重
+        /// </summary>
+        internal string weight;
+        /// <summary>
+        /// 身高
+        /// </summary>
+        internal string height;
+        /// <summary>
+        /// BMI
+        /// </summary>
+        internal string bmi;
 
         //丈夫现住址详细地址 NFQXXX  需核对
         //public string NFQXXX { set; get; }

@@ -199,7 +199,6 @@ select Top 10 s.id sid
 ,pi.* from PregnantInfo pi
 left join SyncForFS s on s.SourceType = 1 and s.SourceId = pi.Id
 where s.id is not null and s.SyncStatus in (2,3)
-
 and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
 ", transaction: group.Transaction).ToList();
             });
@@ -327,13 +326,16 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
             return group.Connection.Query<SyncOrder>("select * from SyncForFS where SourceType = @SourceType and SourceId = @SourceId", new { SourceType = sourceType, SourceId = sourceId }, transaction: group.Transaction);
         }
 
-        public static WCQBJ_CZDH_DOCTOR_READResponse GetBase8(UserInfo baseInfo, string idcard)
+        public static WCQBJ_CZDH_DOCTOR_READResponse GetBase8(UserInfo baseInfo, string idcard, ref StringBuilder logger)
         {
             var container = new CookieContainer();
             var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID={baseInfo.UserId}&sParams=P${idcard}$P$P";
             var postData = "";
             var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             var re = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
+            logger.AppendLine($"查询-Base8");
+            logger.AppendLine(url);
+            logger.AppendLine(result);
             return re;
         }
 
@@ -541,7 +543,7 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
                     url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID={userId}&sParams=P${pregnantInfo.idcard}$P$P";
                     result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                     re = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
-                    var syncStatus = SyncStatus.Created;
+                    var syncStatus = SyncStatus.Success;
                     var message = "";
                     if (re.data.Count == 0)
                     {
@@ -572,6 +574,31 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
             }
         }
 
+        public static List<PregnantInfo> GetPregnantInfoForCreateBefore0630()
+        {
+            List<PregnantInfo> tempPregnantInfos;
+            var conntectingStringSD = "Data Source=201.201.201.89;Initial Catalog=HL_Pregnant;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sdfy;Password=sdfy123456";
+            var context = DBHelper.GetDbContext(conntectingStringSD);
+            var serviceResult = context.DelegateTransaction((group) =>
+            {
+                //                return group.Connection.Query<PregnantInfo>(@"
+                //select Top 100 s.id sid,pi.* from PregnantInfo pi
+                //left join SyncForFS s on s.SourceType = 1 and s.SourceId = pi.Id
+                //where s.id is null ", transaction: group.Transaction).ToList();
+
+                //0623 同步上线测试 以9点以后的数据测试
+                return group.Connection.Query<PregnantInfo>(@"
+select Top 100 s.id sid,
+pi.createtime,
+pi.* from PregnantInfo pi
+left join SyncForFS s on s.SourceType = 1 and s.SourceId = pi.Id
+where s.id is null and pi.createtime<'2020-06-30 09:00:00'
+order by pi.createtime ", transaction: group.Transaction).ToList();
+            });
+            tempPregnantInfos = serviceResult.Data;
+            return tempPregnantInfos;
+        }
+
         public static List<PregnantInfo> GetPregnantInfoForCreate()
         {
             List<PregnantInfo> tempPregnantInfos;
@@ -590,19 +617,10 @@ select Top 100 s.id sid,
 pi.createtime,
 pi.* from PregnantInfo pi
 left join SyncForFS s on s.SourceType = 1 and s.SourceId = pi.Id
-where s.id is null and pi.createtime>'2020-06-23 09:00:00'
+where s.id is null and pi.createtime>'2020-06-30 09:00:00'
 order by pi.createtime ", transaction: group.Transaction).ToList();
             });
             tempPregnantInfos = serviceResult.Data;
-            foreach (var pregnantInfo in serviceResult.Data)
-            {
-                StringBuilder sb = new StringBuilder();
-                sb.AppendLine(pregnantInfo.ToJson());
-                var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\ToCreate_" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
-                File.WriteAllText(file, sb.ToString());
-                Console.WriteLine($"result:{file}");
-            }
-
             return tempPregnantInfos;
         }
 
@@ -611,11 +629,11 @@ order by pi.createtime ", transaction: group.Transaction).ToList();
             //public string D1 { set; get; } //登录用户Id
             //public string D2 { set; get; } //@保健号
             //public string D3 { set; get; } //孕妇姓名
-            data.D3 = pregnantInfo.personname;
+            data.D3 = pregnantInfo.personname ?? "";
             //public string D4 { set; get; } //孕妇国籍 对照表 2) 1)  国籍代码GB/T 2659
-            data.D4 = VLConstraints.GetCountry_GB_T_2659ByCountry_GB_T_2659_2000(pregnantInfo.nationalitycode);
+            data.D4 = VLConstraints.GetCountry_GB_T_2659ByCountry_GB_T_2659_2000(pregnantInfo.nationalitycode) ?? "";
             //public string D5 { set; get; } //孕妇民族 1)  民族代码GB/T 3304
-            data.D5 = pregnantInfo.nationcode;
+            data.D5 = pregnantInfo.nationcode ?? "";
             //public string D6 { set; get; } //孕妇证件类型1)   证件类型CV02.01.101
             data.D6 = VLConstraints.GetCardType_CV02_01_101ByCardType_Hele(pregnantInfo.idtype);
             //public string D7 { set; get; } //身份证
@@ -623,55 +641,55 @@ order by pi.createtime ", transaction: group.Transaction).ToList();
             //public string D8 { set; get; } //生日
             data.D8 = pregnantInfo.birthday?.ToString("yyyy-MM-dd");
             //public string D9 { set; get; } //孕妇年龄
-            data.D9 = pregnantInfo.createage;
+            data.D9 = pregnantInfo.createage ?? "";
             //public string D10 { set; get; } //孕妇文化程度 1)  文化程度STD_CULTURALDEG
-            data.D10 = VLConstraints.GetDegree_STD_CULTURALDEGByDegree_Hele(pregnantInfo.educationcode);
+            data.D10 = VLConstraints.GetDegree_STD_CULTURALDEGByDegree_Hele(pregnantInfo.educationcode) ?? "";
             //public string D11 { set; get; } //手机号码
-            data.D11 = pregnantInfo.mobilenumber;
+            data.D11 = pregnantInfo.mobilenumber ?? "";
             //public string D12 { set; get; } //孕妇职业 1)  职业STD_OCCUPATION PASS(未有在用)
             //data.D12 = VLConstraints.GetOccupation_STD_OCCUPATIONByOccupation_Hele(pregnantInfo.workcode);
             //public string D13 { set; get; } //孕妇工作单位
-            data.D13 = pregnantInfo.workplace;
+            data.D13 = pregnantInfo.workplace ?? "";
             //public string D14 { set; get; } //孕妇籍贯 PASS
             //public string D15 { set; get; } //孕妇户籍地址 省2位,市2位,县/区2位,乡镇街道3位,社区/村3位
-            data.D15 = pregnantInfo.homeaddress.GetSubStringOrEmpty(0, 2);
+            data.D15 = pregnantInfo.homeaddress.GetSubStringOrEmpty(0, 2) ?? "";
             //public string D16 { set; get; } //孕妇户籍地址
-            data.D16 = pregnantInfo.homeaddress.GetSubStringOrEmpty(0, 4);
+            data.D16 = pregnantInfo.homeaddress.GetSubStringOrEmpty(0, 4) ?? "";
             //public string D17 { set; get; } //孕妇户籍地址
-            data.D17 = pregnantInfo.homeaddress.GetSubStringOrEmpty(0, 6);
+            data.D17 = pregnantInfo.homeaddress.GetSubStringOrEmpty(0, 6) ?? "";
             //public string D18 { set; get; } //孕妇户籍地址
-            data.D18 = pregnantInfo.homeaddress.GetSubStringOrEmpty(0, 9);
+            data.D18 = pregnantInfo.homeaddress.GetSubStringOrEmpty(0, 9) ?? "";
             //public string D19 { set; get; } //孕妇户籍地址
-            data.D19 = pregnantInfo.homeaddress;
+            data.D19 = pregnantInfo.homeaddress ?? "";
             //public string D20 { set; get; } //户籍详细地址
-            data.D20 = pregnantInfo.homeaddress_text;
+            data.D20 = pregnantInfo.homeaddress_text ?? "";
             //public string D21 { set; get; } //孕妇现住地址
-            data.D21 = pregnantInfo.liveplace.GetSubStringOrEmpty(0, 2);
+            data.D21 = pregnantInfo.liveplace.GetSubStringOrEmpty(0, 2) ?? "";
             //public string D22 { set; get; } //孕妇现住地址
-            data.D22 = pregnantInfo.liveplace.GetSubStringOrEmpty(0, 4);
+            data.D22 = pregnantInfo.liveplace.GetSubStringOrEmpty(0, 4) ?? "";
             //public string D23 { set; get; } //孕妇现住地址
-            data.D23 = pregnantInfo.liveplace.GetSubStringOrEmpty(0, 6);
+            data.D23 = pregnantInfo.liveplace.GetSubStringOrEmpty(0, 6) ?? "";
             //public string D24 { set; get; } //孕妇现住地址
-            data.D24 = pregnantInfo.liveplace.GetSubStringOrEmpty(0, 9);
+            data.D24 = pregnantInfo.liveplace.GetSubStringOrEmpty(0, 9) ?? "";
             //public string D25 { set; get; } //孕妇现住地址
-            data.D25 = pregnantInfo.liveplace;
+            data.D25 = pregnantInfo.liveplace ?? "";
             //public string D26 { set; get; } //孕妇现住地址-详细
-            data.D26 = pregnantInfo.liveplace_text;
+            data.D26 = pregnantInfo.liveplace_text ?? "";
             //public string D27 { set; get; } //产后休养地址
-            data.D27 = pregnantInfo.restregioncode.GetSubStringOrEmpty(0, 2);
+            data.D27 = pregnantInfo.restregioncode.GetSubStringOrEmpty(0, 2) ?? "";
             //public string D28 { set; get; } //产后休养地址
-            data.D28 = pregnantInfo.restregioncode.GetSubStringOrEmpty(0, 4);
+            data.D28 = pregnantInfo.restregioncode.GetSubStringOrEmpty(0, 4) ?? "";
             //public string D29 { set; get; } //产后休养地址
-            data.D29 = pregnantInfo.restregioncode.GetSubStringOrEmpty(0, 6);
+            data.D29 = pregnantInfo.restregioncode.GetSubStringOrEmpty(0, 6) ?? "";
             //public string D30 { set; get; } //产后休养地址
-            data.D30 = pregnantInfo.restregioncode.GetSubStringOrEmpty(0, 9);
+            data.D30 = pregnantInfo.restregioncode.GetSubStringOrEmpty(0, 9) ?? "";
             //public string D31 { set; get; } //产后休养地址
-            data.D31 = pregnantInfo.restregioncode;
+            data.D31 = pregnantInfo.restregioncode ?? "";
             //public string D32 { set; get; } //产后详细地址
-            data.D32 = pregnantInfo.restregiontext;
+            data.D32 = pregnantInfo.restregiontext ?? "";
 
             //public string D33 { set; get; } //孕妇户籍类型 1)  户籍类型STD_REGISTERT2PE
-            data.D33 = VLConstraints.GetRegisterType_STD_REGISTERT2PE_By_RegisterType_HELE(pregnantInfo.isagrregister);
+            data.D33 = VLConstraints.GetRegisterType_STD_REGISTERT2PE_By_RegisterType_HELE(pregnantInfo.isagrregister) ?? "";
             //public string D34 { set; get; } //孕妇户籍分类 非户籍:2 ,户籍:1   PASS
             //public string D35 { set; get; } //来本地居住时间  PASS
             //public string D36 { set; get; } //近亲结婚        PASS
@@ -680,45 +698,45 @@ order by pi.createtime ", transaction: group.Transaction).ToList();
 
 
             //public string D39 { set; get; } //丈夫姓名
-            data.D39 = pregnantInfo.husbandname;
+            data.D39 = pregnantInfo.husbandname ?? "";
             //public string D40 { set; get; } //丈夫国籍 PASS(无数据)
             //data.D40 = VLConstraints.GetCountry_GB_T_2659ByCountry_GB_T_2659_2000(pregnantInfo.husbandnationalitycode);
             //public string D41 { set; get; } //丈夫民族 PASS(无数据)
             //data.D41 = pregnantInfo.husbandnationcode;
             //public string D42 { set; get; } //丈夫证件类型
-            data.D42 = VLConstraints.GetCardType_CV02_01_101ByCardType_Hele(pregnantInfo.husbandidtype);
+            data.D42 = VLConstraints.GetCardType_CV02_01_101ByCardType_Hele(pregnantInfo.husbandidtype) ?? "";
             //public string D43 { set; get; } //丈夫证件号码
-            data.D43 = pregnantInfo.husbandidcard;
+            data.D43 = pregnantInfo.husbandidcard ?? "";
             //public string D44 { set; get; } //丈夫出生日期
-            data.D44 = pregnantInfo.husbandbirthday?.ToString("yyyy-MM-dd");
+            data.D44 = pregnantInfo.husbandbirthday?.ToString("yyyy-MM-dd") ?? "";
             //public string D45 { set; get; } //丈夫登记年龄
-            data.D45 = pregnantInfo.husbandage;
+            data.D45 = pregnantInfo.husbandage ?? "";
             //public string D46 { set; get; } //丈夫职业  [TODO 对照表] PASS(未有在用)
             //data.D12 = VLConstraints.GetOccupation_STD_OCCUPATIONByOccupation_Hele(pregnantInfo.husbandworkcode);
             //public string D47 { set; get; }  //丈夫工作单位 PASS(未有在用)
             //public string D48 { set; get; } //丈夫联系电话
-            data.D48 = pregnantInfo.husbandmobile;
+            data.D48 = pregnantInfo.husbandmobile ?? "";
             //public string D49 { set; get; } //丈夫健康状况   PASS
             //public string D50 { set; get; } //丈夫嗜好       PASS
             //public string D51 { set; get; } //丈夫现在地址 由于我方系统录入的是丈夫的户籍地址,经确认采用孕妇的现住地址
-            data.D51 = pregnantInfo.liveplace.GetSubStringOrEmpty(0, 2);
+            data.D51 = pregnantInfo.liveplace.GetSubStringOrEmpty(0, 2) ?? "";
             //public string D52 { set; get; } //丈夫现在地址
-            data.D52 = pregnantInfo.liveplace.GetSubStringOrEmpty(2, 2);
+            data.D52 = pregnantInfo.liveplace.GetSubStringOrEmpty(2, 2) ?? "";
             //public string D53 { set; get; } //丈夫现在地址
-            data.D53 = pregnantInfo.liveplace.GetSubStringOrEmpty(4, 2);
+            data.D53 = pregnantInfo.liveplace.GetSubStringOrEmpty(4, 2) ?? "";
             //public string D54 { set; get; } //丈夫现在地址
-            data.D54 = pregnantInfo.liveplace.GetSubStringOrEmpty(6, 3);
+            data.D54 = pregnantInfo.liveplace.GetSubStringOrEmpty(6, 3) ?? "";
             //public string D55 { set; get; } //丈夫现在地址
-            data.D55 = pregnantInfo.liveplace.GetSubStringOrEmpty(9, 3);
+            data.D55 = pregnantInfo.liveplace.GetSubStringOrEmpty(9, 3) ?? "";
             //public string D56 { set; get; } //现住详细地址
-            data.D56 = pregnantInfo.liveplace_text;
+            data.D56 = pregnantInfo.liveplace_text ?? "";
             //public string D57 { set; get; }
             //public string D58 { set; get; } //创建时间
             //public string D59 { set; get; } //创建机构
             //public string D60 { set; get; } //创建人员
             //public string D61 { set; get; } //病案号
             //public string D62 { set; get; } //婚姻状况
-            data.D62 = VLConstraints.GetMaritalStatus_STD_MARRIAGEByMaritalStatus_HELE(pregnantInfo.maritalstatuscode);
+            data.D62 = VLConstraints.GetMaritalStatus_STD_MARRIAGEByMaritalStatus_HELE(pregnantInfo.maritalstatuscode) ?? "";
             //public string D63 { set; get; } //医疗费用支付方式 PASS
             //public string D64 { set; get; } //厨房排风设施 PASS
             //public string D65 { set; get; } //燃料类型 PASS
@@ -729,7 +747,7 @@ order by pi.createtime ", transaction: group.Transaction).ToList();
             //public string D70 { set; get; } //健康码
             //public string D71 { set; get; } //健康码ID 
         }
-        
+
 
 
         internal static List<PregnantInfo> GetPregnantInfosToCreateEnquiries()
@@ -779,7 +797,7 @@ and se.id is null
 
         public static SyncOrder GetSyncOrder(DbGroup group, SourceType sourceType, string sourceId)
         {
-           return SDDAL.GetSyncForFS(group, sourceType, sourceId);
+            return SDDAL.GetSyncForFS(group, sourceType, sourceId);
         }
 
         public static long SaveSyncOrder(DbGroup group, SyncOrder syncForFS)
@@ -795,7 +813,7 @@ and se.id is null
             }
         }
 
-        public static void PostCreateEnquiryToFS(PregnantInfo enquiry, MQDA_READ_NEWData mQDA_READ_NEWData, UserInfo userInfo, WCQBJ_CZDH_DOCTOR_READResponse base8,ref StringBuilder logger)
+        public static void PostCreateEnquiryToFS(PregnantInfo enquiry, MQDA_READ_NEWData mQDA_READ_NEWData, UserInfo userInfo, WCQBJ_CZDH_DOCTOR_READResponse base8, ref StringBuilder logger)
         {
             var url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/MQDA_XWBS_SAVE&sUserID={userInfo.UserId}&sParams={base8.MainId}${userInfo.OrgId}";
             var datas = new List<WMH_CQBJ_JBXX_FORM_SAVEData>();
@@ -869,7 +887,7 @@ and se.id is null
             //data.D47 = pregnantInfo.D47;  //"D47":"外伤史",//外伤史
             data.D48 = pregnantInfo.heredityfamilyhistory ?? ""; //"D48":"遗传病史",//遗传病史
             //data.D49 = pregnantInfo.D49; //"D49":"2,3",//残疾情况
-            datas.Add(data); 
+            datas.Add(data);
             #endregion
             var json = datas.ToJson();
             var container = new CookieContainer();
@@ -881,7 +899,7 @@ and se.id is null
             logger.AppendLine(result);
             return result;
         }
-        
+
         internal static string PostAddEnquiryPregnanth(WMH_CQBJ_CQJC_PRE_SAVE toAdd, UserInfo userInfo, WCQBJ_CZDH_DOCTOR_READResponse base8, ref StringBuilder logger)
         {
             var url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_CQJC_PRE_SAVE&sUserID={userInfo.UserId}&sParams={base8.MainId}${userInfo.OrgId}";
@@ -902,7 +920,7 @@ and se.id is null
 
         internal static string DeleteEnquiryPregnanth(WMH_CQBJ_CQJC_PRE_SAVE toChange, UserInfo userInfo, WCQBJ_CZDH_DOCTOR_READResponse base8, ref StringBuilder logger)
         {
-        
+
             var url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_CQJC_SYS_DELETE&sUserID={userInfo.UserId}&sParams=1$1";
             var datas = new List<WMH_CQBJ_CQJC_PRE_SAVE>();
             datas.Add(toChange);
@@ -930,6 +948,162 @@ and se.id is null
             logger.AppendLine(url);
             logger.AppendLine(json);
             logger.AppendLine(result);
+            return result;
+        }
+
+        internal static WMH_CQBJ_CQJC_TGJC_NEW_READ GetPhysicalExamination(UserInfo userInfo, WCQBJ_CZDH_DOCTOR_READResponse base8,DateTime issueDate, ref StringBuilder logger)
+        {
+            var container = new CookieContainer();
+
+            ////获取体格检查列表
+            //var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_CQJC_TGJC_LIST&sUserID={userInfo.UserId}&sParams={base8.MainId}";
+            //var postData = "pageIndex=0&pageSize=1000&sortField=&sortOrder=";
+            //var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            //logger.AppendLine($"查询-获取体格检查列表");
+            //logger.AppendLine(url);
+            //logger.AppendLine(result);
+            //var re1 = result.FromJson<WMH_CQBJ_CQJC_TGJC_LIST>();
+            //if (re1.total == "0")
+            //    return null;
+            //var list1 = re1.data.First();
+            //var dateStr = list1.D2;
+
+            var dateStr = issueDate.ToString("yyyy-MM-dd");
+
+            //TODO 注意这里目前找的是列表记录的 但可能不是最新 目前尚未找到其找最新的方案
+            //获取体格检查Id
+            var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_TODAY_CQJC_ID_READ&sUserID={userInfo.UserId}&sParams={base8.MainId}${dateStr}";
+            var postData = "";
+            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            logger.AppendLine($"查询-获取体格检查Id");
+            logger.AppendLine(url);
+            logger.AppendLine(result);
+            var re2 = result.FromJson<WMH_TODAY_CQJC_ID_READ>();
+            if (string.IsNullOrEmpty(re2.d1))
+                return null;
+
+            //查询体格检查详情
+            url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_CQJC_TGJC_NEW_READ&sUserID={userInfo.UserId}&sParams={base8.MainId}${re2.d1}";
+            postData = "";
+            result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            logger.AppendLine($"查询-查询体格检查详情");
+            logger.AppendLine(url);
+            logger.AppendLine(result);
+            var re3 = result.FromJson<WMH_CQBJ_CQJC_TGJC_NEW_READ>();
+            if (re3.data.Count == 0)
+                return null;
+            return re3.data.First();
+        }
+
+        internal static List<PhysicalExaminationData> GetPhysicalExaminationDatasForCreatePhysicalExaminations()
+        {
+            var context = DBHelper.GetDbContext(ConntectingStringSD);
+            var serviceResult = context.DelegateTransaction((group) =>
+            {
+                return group.Connection.Query<PhysicalExaminationData>($@"
+select 
+T1.*
+,pi_data.personname pi_personname
+,pi_data.weight pi_weight
+,pi_data.height pi_height
+,pi_data.bmi pi_bmi
+,vr_data.Id
+,vr_data.weight
+,vr_data.temperature
+,vr_data.heartrate
+from 
+(
+		SELECT 
+		vr.idcard
+		,max(vr.visitdate) lastestvisitdate
+		,min(vr.visitdate) firstvisitdate		
+		FROM (
+				SELECT top 1
+				pi.idcard
+				FROM PregnantInfo pi 
+				LEFT JOIN MHC_VisitRecord vr on pi.idcard = vr.idcard 
+				left join SyncForFS sp on sp.SourceType = 1 and sp.SourceId = pi.Id
+				left join SyncForFS se on se.SourceType = 3 and se.SourceId = vr.Id			
+				where sp.id is not null and sp.SyncStatus in (2,11) 
+				and se.id is null 
+				and vr.visitdate = convert(nvarchar,getdate(),23)
+		)  as toCreate 
+		LEFT JOIN MHC_VisitRecord vr on toCreate.idcard = vr.idcard 
+		GROUP BY vr.idcard
+) as T1
+left join PregnantInfo pi_data on pi_data.idcard = T1.idcard
+left join MHC_VisitRecord vr_data on vr_data.idcard = T1.idcard and vr_data.visitdate = T1.lastestvisitdate
+", transaction: group.Transaction).ToList();
+            });
+            return serviceResult.Data;
+        }
+
+        internal static List<PhysicalExaminationData> GetPhysicalExaminationDatasForUpdatePhysicalExaminations()
+        {
+            var context = DBHelper.GetDbContext(ConntectingStringSD);
+            var serviceResult = context.DelegateTransaction((group) =>
+            {
+                return group.Connection.Query<PhysicalExaminationData>($@"
+select 
+T1.*
+,pi_data.personname pi_personname
+,pi_data.weight pi_weight
+,pi_data.height pi_height
+,pi_data.bmi pi_bmi
+,vr_data.Id
+,vr_data.weight
+,vr_data.temperature
+,vr_data.heartrate
+from 
+(
+		SELECT 
+		vr.idcard
+		,max(vr.visitdate) lastestvisitdate
+		,min(vr.visitdate) firstvisitdate		
+		FROM (
+				SELECT top 10
+				pi.idcard
+				FROM PregnantInfo pi 
+				LEFT JOIN MHC_VisitRecord vr on pi.idcard = vr.idcard 
+				left join SyncForFS se on se.SourceType = 3 and se.SourceId = vr.Id			
+				where se.id is not null and se.SyncStatus in (2,11)
+				and vr.updatetime > DATEADD( SECOND,10 ,se.SyncTime)
+				and vr.visitdate = convert(nvarchar,getdate(),23)
+		)  as toCreate 
+		LEFT JOIN MHC_VisitRecord vr on toCreate.idcard = vr.idcard 
+		GROUP BY vr.id,vr.idcard
+) as T1
+left join PregnantInfo pi_data on pi_data.idcard = T1.idcard
+left join MHC_VisitRecord vr_data on vr_data.idcard = T1.idcard and vr_data.visitdate = T1.lastestvisitdate
+                ", transaction: group.Transaction).ToList();
+            });
+            return serviceResult.Data;
+        }
+
+        internal static string CreatePhysicalExamination(List<WMH_CQBJ_CQJC_TGJC_NEW_SAVE_Data> datas, UserInfo userInfo, WCQBJ_CZDH_DOCTOR_READResponse base8, ref StringBuilder logger)
+        {
+            //Create 体格检查索引ID
+            var container = new CookieContainer();
+            var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_QHJC_ID_GET&sUserID={userInfo.UserId}&sParams=1";
+            var postData = "";
+            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var newId = result.FromJsonToAnonymousType(new { id = "" }).id;
+            if (string.IsNullOrEmpty(newId))
+                throw new NotImplementedException("无效的ID");
+
+            //创建提个检查
+            url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_CQJC_TGJC_NEW_SAVE&sUserID={userInfo.UserId}&sParams={userInfo.OrgId}${base8.MainId}$null${newId}";
+            var json = datas.ToJson();
+            postData = "data=" + HttpUtility.UrlEncode(json);
+            result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            logger.AppendLine("Create 体格检查");
+            logger.AppendLine(url);
+            logger.AppendLine(json);
+            logger.AppendLine(result);
+
+
+
+
             return result;
         }
     }
