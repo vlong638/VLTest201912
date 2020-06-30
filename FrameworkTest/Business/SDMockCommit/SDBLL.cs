@@ -951,26 +951,10 @@ and se.id is null
             return result;
         }
 
-        internal static WMH_CQBJ_CQJC_TGJC_NEW_READ GetPhysicalExamination(UserInfo userInfo, WCQBJ_CZDH_DOCTOR_READResponse base8,DateTime issueDate, ref StringBuilder logger)
+        internal static string GetPhysicalExaminationId(UserInfo userInfo, WCQBJ_CZDH_DOCTOR_READResponse base8, DateTime issueDate, ref StringBuilder logger)
         {
             var container = new CookieContainer();
-
-            ////获取体格检查列表
-            //var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_CQJC_TGJC_LIST&sUserID={userInfo.UserId}&sParams={base8.MainId}";
-            //var postData = "pageIndex=0&pageSize=1000&sortField=&sortOrder=";
-            //var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
-            //logger.AppendLine($"查询-获取体格检查列表");
-            //logger.AppendLine(url);
-            //logger.AppendLine(result);
-            //var re1 = result.FromJson<WMH_CQBJ_CQJC_TGJC_LIST>();
-            //if (re1.total == "0")
-            //    return null;
-            //var list1 = re1.data.First();
-            //var dateStr = list1.D2;
-
             var dateStr = issueDate.ToString("yyyy-MM-dd");
-
-            //TODO 注意这里目前找的是列表记录的 但可能不是最新 目前尚未找到其找最新的方案
             //获取体格检查Id
             var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_TODAY_CQJC_ID_READ&sUserID={userInfo.UserId}&sParams={base8.MainId}${dateStr}";
             var postData = "";
@@ -981,18 +965,23 @@ and se.id is null
             var re2 = result.FromJson<WMH_TODAY_CQJC_ID_READ>();
             if (string.IsNullOrEmpty(re2.d1))
                 return null;
+            return re2.d1;
+        }
 
+        internal static WMH_CQBJ_CQJC_TGJC_NEW_READ_Data GetPhysicalExamination(string tgjcId, UserInfo userInfo, WCQBJ_CZDH_DOCTOR_READResponse base8, DateTime issueDate, ref StringBuilder logger)
+        {
+            var container = new CookieContainer();
             //查询体格检查详情
-            url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_CQJC_TGJC_NEW_READ&sUserID={userInfo.UserId}&sParams={base8.MainId}${re2.d1}";
-            postData = "";
-            result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_CQJC_TGJC_NEW_READ&sUserID={userInfo.UserId}&sParams={base8.MainId}${tgjcId}";
+            var postData = "";
+            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             logger.AppendLine($"查询-查询体格检查详情");
             logger.AppendLine(url);
             logger.AppendLine(result);
             var re3 = result.FromJson<WMH_CQBJ_CQJC_TGJC_NEW_READ>();
             if (re3.data.Count == 0)
                 return null;
-            return re3.data.First();
+            return re3.data.FirstOrDefault();
         }
 
         internal static List<PhysicalExaminationData> GetPhysicalExaminationDatasForCreatePhysicalExaminations()
@@ -1011,6 +1000,8 @@ T1.*
 ,vr_data.weight
 ,vr_data.temperature
 ,vr_data.heartrate
+,vr_data.dbp
+,vr_data.sbp
 from 
 (
 		SELECT 
@@ -1054,6 +1045,8 @@ T1.*
 ,vr_data.weight
 ,vr_data.temperature
 ,vr_data.heartrate
+,vr_data.dbp
+,vr_data.sbp
 from 
 (
 		SELECT 
@@ -1100,10 +1093,22 @@ left join MHC_VisitRecord vr_data on vr_data.idcard = T1.idcard and vr_data.visi
             logger.AppendLine(url);
             logger.AppendLine(json);
             logger.AppendLine(result);
+            return result;
+        }
 
-
-
-
+        internal static string UpdatePhysicalExamination(string physicalExaminationId, List<WMH_CQBJ_CQJC_TGJC_NEW_SAVE_Data> datas, UserInfo userInfo, WCQBJ_CZDH_DOCTOR_READResponse base8, ref StringBuilder logger)
+        {
+            //Create 体格检查索引ID
+            var container = new CookieContainer();
+            //创建提个检查
+            var url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_CQJC_TGJC_NEW_SAVE&sUserID={userInfo.UserId}&sParams={userInfo.OrgId}${base8.MainId}$null${physicalExaminationId}";
+            var json = datas.ToJson();
+            var postData = "data=" + HttpUtility.UrlEncode(json);
+            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            logger.AppendLine("Update 体格检查");
+            logger.AppendLine(url);
+            logger.AppendLine(json);
+            logger.AppendLine(result);
             return result;
         }
     }
