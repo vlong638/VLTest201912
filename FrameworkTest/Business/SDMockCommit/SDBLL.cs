@@ -696,7 +696,6 @@ order by pi.createtime ", transaction: group.Transaction).ToList();
             //public string D37 { set; get; } //孕妇结婚年龄    PASS
             //public string D38 { set; get; } //丈夫结婚年龄    PASS
 
-
             //public string D39 { set; get; } //丈夫姓名
             data.D39 = pregnantInfo.husbandname ?? "";
             //public string D40 { set; get; } //丈夫国籍 PASS(无数据)
@@ -721,13 +720,13 @@ order by pi.createtime ", transaction: group.Transaction).ToList();
             //public string D51 { set; get; } //丈夫现在地址 由于我方系统录入的是丈夫的户籍地址,经确认采用孕妇的现住地址
             data.D51 = pregnantInfo.liveplace.GetSubStringOrEmpty(0, 2) ?? "";
             //public string D52 { set; get; } //丈夫现在地址
-            data.D52 = pregnantInfo.liveplace.GetSubStringOrEmpty(2, 2) ?? "";
+            data.D52 = pregnantInfo.liveplace.GetSubStringOrEmpty(0, 4) ?? "";
             //public string D53 { set; get; } //丈夫现在地址
-            data.D53 = pregnantInfo.liveplace.GetSubStringOrEmpty(4, 2) ?? "";
+            data.D53 = pregnantInfo.liveplace.GetSubStringOrEmpty(0, 6) ?? "";
             //public string D54 { set; get; } //丈夫现在地址
-            data.D54 = pregnantInfo.liveplace.GetSubStringOrEmpty(6, 3) ?? "";
+            data.D54 = pregnantInfo.liveplace.GetSubStringOrEmpty(0, 9) ?? "";
             //public string D55 { set; get; } //丈夫现在地址
-            data.D55 = pregnantInfo.liveplace.GetSubStringOrEmpty(9, 3) ?? "";
+            data.D55 = pregnantInfo.liveplace ?? "";
             //public string D56 { set; get; } //现住详细地址
             data.D56 = pregnantInfo.liveplace_text ?? "";
             //public string D57 { set; get; }
