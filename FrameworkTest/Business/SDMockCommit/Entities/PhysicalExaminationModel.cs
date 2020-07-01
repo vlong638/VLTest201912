@@ -5,7 +5,7 @@ using System.ComponentModel;
 
 namespace FrameworkTest.Business.SDMockCommit
 {
-    public class PhysicalExaminationData
+    public class PhysicalExaminationModel
     {
         /// <summary>
         /// 舒张压

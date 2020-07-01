@@ -19,8 +19,7 @@ namespace FrameworkTest.Business.SDMockCommit
     {
         public static string ConntectingStringSD = "Data Source=201.201.201.89;Initial Catalog=HL_Pregnant;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sdfy;Password=sdfy123456";
         public static DbContext GetDBContext { get { return DBHelper.GetDbContext(SDBLL.ConntectingStringSD); } }
-
-
+        public static List<PregnantInfo> TempPregnantInfos = new List<PregnantInfo>();
         //BaseInfo baseInfo = new BaseInfo()
         //{
         //    UserId = "35000528",
@@ -36,8 +35,13 @@ namespace FrameworkTest.Business.SDMockCommit
             OrgName = "佛山市妇幼保健院",
             EncodeUserName = HttpUtility.UrlEncode("赵卓姝"),
         };
-        public static List<PregnantInfo> TempPregnantInfos = new List<PregnantInfo>();
 
+        private DbContext DBContext;
+
+        public SDBLL(DbContext context)
+        {
+            this.DBContext = context;
+        }
 
         public static void MockCommitUpdatePregnantInfo(bool isTestOne)
         {
@@ -575,9 +579,6 @@ order by pi.createtime ", transaction: group.Transaction).ToList();
             return tempPregnantInfos;
         }
 
-
-
-
         internal static List<PregnantInfo> GetPregnantInfosToCreateEnquiries()
         {
             var context = DBHelper.GetDbContext(ConntectingStringSD);
@@ -763,12 +764,12 @@ and se.id is null
             return re3.data.FirstOrDefault();
         }
 
-        internal static List<PhysicalExaminationData> GetPhysicalExaminationDatasForCreatePhysicalExaminations()
+        internal static List<PhysicalExaminationModel> GetPhysicalExaminationDatasForCreatePhysicalExaminations()
         {
             var context = DBHelper.GetDbContext(ConntectingStringSD);
             var serviceResult = context.DelegateTransaction((group) =>
             {
-                return group.Connection.Query<PhysicalExaminationData>($@"
+                return group.Connection.Query<PhysicalExaminationModel>($@"
 select 
 T1.*
 ,pi_data.personname pi_personname
@@ -808,12 +809,12 @@ left join MHC_VisitRecord vr_data on vr_data.idcard = T1.idcard and vr_data.visi
             return serviceResult.Data;
         }
 
-        internal static List<PhysicalExaminationData> GetPhysicalExaminationDatasForUpdatePhysicalExaminations()
+        internal static List<PhysicalExaminationModel> GetPhysicalExaminationDatasForUpdatePhysicalExaminations()
         {
             var context = DBHelper.GetDbContext(ConntectingStringSD);
             var serviceResult = context.DelegateTransaction((group) =>
             {
-                return group.Connection.Query<PhysicalExaminationData>($@"
+                return group.Connection.Query<PhysicalExaminationModel>($@"
 select 
 T1.*
 ,pi_data.personname pi_personname
@@ -889,6 +890,51 @@ left join MHC_VisitRecord vr_data on vr_data.idcard = T1.idcard and vr_data.visi
             logger.AppendLine(json);
             logger.AppendLine(result);
             return result;
+        }
+
+        internal static List<PhysicalExaminationModel> GetSourceDataForCreateProfessionalExaminations()
+        {
+            var context = DBHelper.GetDbContext(ConntectingStringSD);
+            var serviceResult = context.DelegateTransaction((group) =>
+            {
+                return group.Connection.Query<PhysicalExaminationModel>($@"
+select 
+T1.*
+,pi_data.personname pi_personname
+,pi_data.weight pi_weight
+,pi_data.height pi_height
+,pi_data.bmi pi_bmi
+,vr_data.Id
+,vr_data.weight
+,vr_data.temperature
+,vr_data.heartrate
+,vr_data.dbp
+,vr_data.sbp
+from 
+(
+		SELECT 
+		vr.idcard
+		,max(vr.visitdate) lastestvisitdate
+		,min(vr.visitdate) firstvisitdate		
+		FROM (
+				SELECT top 1
+				pi.idcard
+				FROM PregnantInfo pi 
+				LEFT JOIN MHC_VisitRecord vr on pi.idcard = vr.idcard 
+				left join SyncForFS sp on sp.SourceType = 1 and sp.SourceId = pi.Id
+				left join SyncForFS se on se.SourceType = 3 and se.SourceId = vr.Id			
+				where sp.id is not null and sp.SyncStatus in (2,11) 
+				and se.id is null 
+				and vr.visitdate = convert(nvarchar,getdate(),23)
+		)  as toCreate 
+		LEFT JOIN MHC_VisitRecord vr on toCreate.idcard = vr.idcard 
+		GROUP BY vr.idcard
+) as T1
+left join PregnantInfo pi_data on pi_data.idcard = T1.idcard
+left join MHC_VisitRecord vr_data on vr_data.idcard = T1.idcard and vr_data.visitdate = T1.lastestvisitdate
+", transaction: group.Transaction).ToList();
+            });
+            return serviceResult.Data;
         }
     }
 }
