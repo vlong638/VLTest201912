@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FrameworkTest.Common.ValuesSolution;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -171,5 +172,78 @@ namespace FrameworkTest.Business.SDMockCommit
         public string D48 { set; get; } //"D48":"遗传病史",//遗传病史
         public string D49 { set; get; } //"D49":"2,3",//残疾情况
         public string pagesize { set; get; } //"1000"
+
+        static string DateFormat = "yyyy-MM-dd";
+        public void Update(PregnantInfo pregnantInfo)
+        {
+            this.D1 = pregnantInfo.lastmenstrualperiod?.ToString(DateFormat) ?? ""; //末次月经
+            this.D2 = pregnantInfo.dateofprenatal?.ToString(DateFormat) ?? "";
+            this.D3 = VLConstraints.GetPregnancyMannerByPregnancyManner_Hele(pregnantInfo.tpregnancymanner);
+            this.D4 = pregnantInfo.implanttime?.ToString(DateFormat) ?? "";  //"D4":"2020-06-02", //受精或移植日期 //植入时间
+            //this.D5   //"D5":"尿妊娠试验,B超检查",//妊娠确认方法
+            //this.D6   //"D6":"4",//B超确认孕周
+            //this.D7   //"D7":"有",//早孕反应
+            //this.D8   //"D8":"5",//开始孕周
+            //this.D9   //"D9":"6",//胎动开始孕周
+            //this.D10  //"D10":"头痛（开始孕周    ）,//自觉症状
+            this.D11 = pregnantInfo.pasthistory ?? "";
+            //this.D12  //"D12":"无",//
+            this.D13 = pregnantInfo.gynecologyops ?? ""; //"D13":"剖宫产术,腹腔镜子宫肌瘤剔除术",//手术史
+            //this.D14 = pregnantInfo.D14; //"D14":"未发现",//
+            this.D15 = pregnantInfo.allergichistory ?? ""; //"D15":"青霉素,喹诺酮类",//过敏史
+            this.D16 = pregnantInfo.bloodtransfution ?? ""; //"D16":"有",//输血史
+            //this.D17 = pregnantInfo.D17; //"D17":"",//
+            //this.D18 = pregnantInfo.familyhistory; //"D18":"地中海贫血,G6PD缺乏症",//本人家族史
+            //this.D19 = pregnantInfo.D19; //"D19":"2",//亲缘关系
+            //this.D20 = pregnantInfo.D20; //"D20":"地中海贫血,G6PD缺乏症",//配偶家族史
+            //this.D21 = pregnantInfo.D21; //"D21":"2",//亲缘关系
+            //this.D22 = pregnantInfo.D22; //"D22":"",//
+            this.D23 = pregnantInfo.menarcheage ?? ""; //"D23":"11",//月经初潮年龄
+            this.D24 = pregnantInfo.menstrualperiodmin + "-" + pregnantInfo.menstrualperiodmax; //"D24":"22",//月经持续时间
+            this.D25 = pregnantInfo.cyclemin + "-" + pregnantInfo.cyclemax; //"D25":"33",//间歇时间
+            this.D26 = pregnantInfo.menstrualblood.GetDescription() ?? ""; //"D26":"中",//经量
+            this.D27 = VLConstraints.GetDysmenorrheaByDysmenorrhea_Hele(pregnantInfo.dysmenorrhea); //"D27":"有",//痛经
+            //this.D28 = pregnantInfo.D28; //"D28":"",//
+            //this.D29 = pregnantInfo.D29; //"D29":""，//
+            //this.D30 = pregnantInfo.D30; //"D30":"风疹病毒,流感病毒",//病毒感染
+            //this.D31 = pregnantInfo.D31; //"D31":"无",//发热
+            this.D32 = pregnantInfo.poisontouchhis ?? ""; //"D32":"有害化学物质,有害生物物质",//接触有害物质
+            //this.D33 = pregnantInfo.D33; //"D33":"2",//饮酒      //  饮酒
+            //this.D34 = pregnantInfo.D34; //"D34":"2",//两/天、
+            //this.D35 = pregnantInfo.D35; //"D35":"无",//服用药物  // 预防接种
+            //this.D36 = pregnantInfo.D36; //"D36":"无",//服用药物
+            //this.D37 = pregnantInfo.D37; //"D37":"33",//
+            //this.D38 = pregnantInfo.D38; //"D38":"22",//
+            //this.D39 = pregnantInfo.D39; //"D39":"",//
+            //this.D40 = pregnantInfo.D40; //"D40":"",//
+            //this.D41 = pregnantInfo.D41; //"D41":"2020-06-03",//早期B超时间
+            //var pregnanthistorys = pregnantInfo.pregnanthistory?.FromJson<List<pregnanthistory>>();
+            //if (pregnanthistorys == null || pregnanthistorys.Count == 0)
+            //{
+            //    this.D42 = "1"; //"D42":"1",//胎数
+            //}
+            //else
+            //{
+            //    switch (pregnanthistorys.Count())
+            //    {
+            //        case 1:
+            //            this.D42 = "1"; //"D42":"1",//胎数
+            //            break;
+            //        case 2:
+            //            this.D42 = "2"; //"D42":"1",//胎数
+            //            break;
+            //        default:
+            //            this.D42 = "3"; //"D42":"1",//胎数
+            //            break;
+            //    }
+            //}
+            //this.D43 = pregnantInfo.D43; //"D43":"2",//吸毒
+            //this.D44 = pregnantInfo.D44; //"D44":"2",//
+            this.D45 = pregnantInfo.eggretrievaltime?.ToString(DateFormat) ?? ""; //"D45":"2020-06-01",//取卵日期
+            this.D46 = "1"; //"D46":"1",//本孕首次产检地点
+            //this.D47 = pregnantInfo.D47;  //"D47":"外伤史",//外伤史
+            this.D48 = pregnantInfo.heredityfamilyhistory ?? ""; //"D48":"遗传病史",//遗传病史
+            //this.D49 = pregnantInfo.D49; //"D49":"2,3",//残疾情况
+        }
     }
 }

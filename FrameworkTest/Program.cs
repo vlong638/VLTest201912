@@ -3090,7 +3090,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                         Console.WriteLine($"result:{file}");
                         //业务处理
                         var context = DBHelper.GetDbContext(SDBLL.ConntectingStringSD);
-                        var serviceResult = context.DelegateTransaction((Func<DbGroup, bool>)((group) =>
+                        var serviceResult = context.DelegateTransaction((group) =>
                         {
                             var syncForFS = new SyncOrder()
                             {
@@ -3116,11 +3116,11 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                                 {
                                     throw new NotImplementedException(result);
                                 }
-                            //[{ "index":"0","pregstatus":"人流","babysex":"0","babyweight":"","pregnantage":"2017年6月"},{ "index":"2","pregstatus":"顺产-足月-健,足月产-亡,巨大胎,顺产-早产-健,早产-亡","babysex":"","babyweight":"","pregnantage":""}]
-                            var pregnanthistorys = pregnantInfo.pregnanthistory?.FromJson<List<pregnanthistory>>();
-                            var enquiryPregnanthResponse = SDBLL.GetEnquiryPregnanths(userInfo, base8, ref sb);
-                            //新增
-                            var toAddHistories = pregnanthistorys.Where(c => enquiryPregnanthResponse.data.FirstOrDefault(d => d.IssueDate == c.pregnantage) == null);
+                                //[{ "index":"0","pregstatus":"人流","babysex":"0","babyweight":"","pregnantage":"2017年6月"},{ "index":"2","pregstatus":"顺产-足月-健,足月产-亡,巨大胎,顺产-早产-健,早产-亡","babysex":"","babyweight":"","pregnantage":""}]
+                                var pregnanthistorys = pregnantInfo.pregnanthistory?.FromJson<List<pregnanthistory>>();
+                                var enquiryPregnanthResponse = SDBLL.GetEnquiryPregnanths(userInfo, base8, ref sb);
+                                //新增处理
+                                var toAddHistories = pregnanthistorys.Where(c => enquiryPregnanthResponse.data.FirstOrDefault(d => d.IssueDate == c.pregnantage) == null);
                                 foreach (var toAddHistory in toAddHistories)
                                 {
                                     var toAdd = new WMH_CQBJ_CQJC_PRE_SAVE();
@@ -3141,16 +3141,16 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                                     var pregnanthistory = pregnanthistorys.FirstOrDefault(c => c.pregnantage == enquiryPregnanth.IssueDate);
                                     if (pregnanthistory == null)
                                     {
-                                    //删除
-                                    result = SDBLL.DeleteEnquiryPregnanth(toChange, userInfo, base8, ref sb);
+                                        //删除
+                                        result = SDBLL.DeleteEnquiryPregnanth(toChange, userInfo, base8, ref sb);
                                         if (!result.Contains((string)"处理成功"))
                                         {
                                             throw new NotImplementedException(result);
                                         }
                                         continue;
                                     }
-                                //更改
-                                toChange.UpdateEnquiry(pregnantInfo, pregnanthistory);
+                                    //更改
+                                    toChange.UpdateEnquiry(pregnantInfo, pregnanthistory);
                                     toChange._state = "modified";
                                     if (toChange.Validate(ref sb))
                                     {
@@ -3170,7 +3170,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                             syncForFS.Id = SDBLL.SaveSyncOrder(context.DbGroup, syncForFS);
                             sb.AppendLine((string)syncForFS.ToJson());
                             return (bool)(syncForFS.SyncStatus != SyncStatus.Error);
-                        }));
+                        });
                         if (!serviceResult.IsSuccess)
                         {
                             sb.Append(serviceResult.Messages);
