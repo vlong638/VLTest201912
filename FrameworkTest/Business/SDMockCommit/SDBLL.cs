@@ -214,7 +214,7 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
 
             return tempPregnantInfos;
         }
-        public static void MockCommitUpdatePregnantInfo2(bool isTestOne)
+        public static void MockCommitUpdatePregnantInfo2()
         {
             var isExecuteOne = false;
             var conntectingStringSD = "Data Source=201.201.201.89;Initial Catalog=HL_Pregnant;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sdfy;Password=sdfy123456";
@@ -223,8 +223,6 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
             {
                 StringBuilder sb = new StringBuilder();
                 sb.AppendLine($"当前孕妇:{pregnantInfo.personname}");
-                if (isTestOne && isExecuteOne)
-                    break;
 
                 #region mock commit
                 var container = new CookieContainer();
@@ -297,7 +295,7 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
                 sb.AppendLine(postData);
                 sb.AppendLine("--------------result");
                 sb.AppendLine(result);
-                var serviceResult = context.DelegateTransaction((Func<DbGroup, bool>)((group) =>
+                var serviceResult = context.DelegateTransaction((group) =>
                 {
                     var syncForFS = GetSyncOrderBySource(group, SourceType.PregnantInfo, pregnantInfo.Id.ToString()).First();
                     if (result.Contains("处理成功"))
@@ -311,7 +309,7 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
                         syncForFS.ErrorMessage = result;
                     }
                     return group.Connection.Update(syncForFS, transaction: group.Transaction);
-                }));
+                });
 
                 isExecuteOne = true;
                 #endregion

@@ -36,6 +36,7 @@ namespace FrameworkTest
 
         static void Main(string[] args)
         {
+            #region 简单测试
             //子项解析测试
             //var pregnanthistorysTest = @"[{""index"":""0"",""pregstatus"":""人流"",""babysex"":""0"",""babyweight"":"""",""pregnantage"":""2017年6月""},{""index"":""2"",""pregstatus"":""顺产-足月-健,足月产-亡,巨大胎,顺产-早产-健,早产-亡"",""babysex"":"""",""babyweight"":"""",""pregnantage"":""""}]"
             //    .FromJson<List<pregnanthistory>>();
@@ -74,7 +75,8 @@ namespace FrameworkTest
 
             //var r1 = "{ id:\"A83E21BEE34915FDE05355FE80133FE6\"}";
             //var r3 = new { id = "" };
-            //var r2 = r1.FromJsonToAnonymousType(r3);
+            //var r2 = r1.FromJsonToAnonymousType(r3); 
+            #endregion
 
             ///命令对象有助于代码的版本控制,集体非方法的形式堆在一起不利于
             CommandCollection cmds = new CommandCollection();
@@ -520,7 +522,6 @@ order by def.[TableName],def.Id
                     url = "http://localhost/Research/Pregnant/VisitRecordList?pregnantInfoId=67116";
                     postData = "";
                     result = HttpHelper.Get(url, postData, ref container);
-
 
                     //Request URL: http://localhost/Research/Pregnant/GetPagedListOfVisitRecord
                     //Request Method: POST
@@ -3069,7 +3070,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 while (true)
                 {
                     SDBLL.TempPregnantInfos = SDBLL.GetPregnantInfosToUpdate2();
-                    SDBLL.MockCommitUpdatePregnantInfo2(false);
+                    SDBLL.MockCommitUpdatePregnantInfo2();
 
                     System.Threading.Thread.Sleep(1000 * 10);
                 }
