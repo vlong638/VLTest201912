@@ -429,27 +429,60 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
                         result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                         var mainId = result.FromJsonToAnonymousType(new { id = "" }).id;
                         Console.WriteLine($"当前孕妇:{pregnantInfo.personname},IdCard:{pregnantInfo.idcard}");
-                        Console.WriteLine($"mainId:{mainId}");
+                        //Console.WriteLine($"mainId:{mainId}");
                         sb.AppendLine($"当前孕妇:{pregnantInfo.personname},IdCard:{pregnantInfo.idcard},Phone:{pregnantInfo.mobilenumber}");
                         sb.AppendLine("Create 患者主索引");
                         sb.AppendLine(url);
                         sb.AppendLine($"mainId:{mainId}");
-                        //Create 保健号
-                        url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=CDH_GET_ID1&sUserID={userId}&sParams={orgId}";
-                        postData = "";
-                        result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
-                        var careId = result.FromJsonToAnonymousType(new { id = "" }).id;
-                        Console.WriteLine($"careId:{careId}");
-                        sb.AppendLine("Create 保健号");
-                        sb.AppendLine(url);
-                        sb.AppendLine($"careId:{careId}");
-                        var careIdL8 = careId.Substring(8);
-                        //--------查重
-                        url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_CC&sUserID={userId}&sParams={mainId}$P${pregnantInfo.idcard}&pageSize=10000&pageIndex=0";
-                        postData = "";
-                        result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
-                        sb.AppendLine("--------查重");
-                        sb.AppendLine(result);
+                        int errorCount = 0;
+                        int maxErrorCount = 3;
+                        string careId = "";
+                        string careIdL8 = "";
+                        while (errorCount < maxErrorCount)
+                        {
+                            //Create 保健号
+                            url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=CDH_GET_ID1&sUserID={userId}&sParams={orgId}";
+                            postData = "";
+                            result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                            careId = result.FromJsonToAnonymousType(new { id = "" }).id;
+                            //Console.WriteLine($"careId:{careId}");
+                            sb.AppendLine("Create 保健号");
+                            sb.AppendLine(url);
+                            sb.AppendLine($"careId:{careId}");
+                            careIdL8 = careId.Substring(8);
+                            //--------查重
+                            url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_CC&sUserID={userId}&sParams={mainId}$P${careId}${pregnantInfo.idcard}&pageSize=10000&pageIndex=0";
+                            postData = "";
+                            result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                            var repeatData = result.FromJson<WMH_CQBJ_JBXX_FORM_CC>();
+                            if (repeatData.data.Count != 0 && repeatData.data.FirstOrDefault(c => c.PersonName != pregnantInfo.personname) != null)
+                            {
+                                sb.AppendLine($"--------查重时,出现重复,第{errorCount}次尝试");
+                                sb.AppendLine(result);
+                                errorCount++;
+                                continue;
+                            }
+                            break;
+                        }
+                        if (errorCount == maxErrorCount)
+                        {
+                            Console.WriteLine($"孕妇{pregnantInfo.personname}查重时异常");
+                            context.DelegateTransaction((group) =>
+                            {
+                                return group.Connection.Insert(new SyncOrder()
+                                {
+                                    SourceType = SourceType.PregnantInfo,
+                                    SourceId = pregnantInfo.Id.ToString(),
+                                    SyncTime = DateTime.Now,
+                                    SyncStatus = SyncStatus.Repeated,
+                                }, transaction: group.Transaction);
+                            });
+                            continue;
+                        }
+                        else
+                        {
+                            sb.AppendLine($"--------查重通过");
+                        }
                         //Create 基本信息
                         url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_SAVE&sUserID={userId}&sParams=null${mainId}${orgId}${encodeUserName}$null$null$null$%E6%99%AE%E9%80%9A%E6%8A%A4%E5%A3%AB%E4%BA%A7%E6%A3%80";
                         var datas = new List<WMH_CQBJ_JBXX_FORM_SAVEData>();
@@ -572,7 +605,7 @@ select Top 1 s.id sid,
 pi.createtime,
 pi.* from PregnantInfo pi
 left join SyncForFS s on s.SourceType = 1 and s.SourceId = pi.Id
-where s.id is null and pi.createtime>'2020-06-30 09:00:00'
+where s.id is null and pi.createtime>'2020-06-29 09:00:00'
 order by pi.createtime ", transaction: group.Transaction).ToList();
             });
             tempPregnantInfos = serviceResult.Data;

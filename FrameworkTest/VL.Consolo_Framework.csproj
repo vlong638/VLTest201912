@@ -105,6 +105,7 @@
     <Compile Include="Business\SDMockCommit\Entities\ProfessionalExaminationModel.cs" />
     <Compile Include="Business\SDMockCommit\Entities\PhysicalExaminationModel.cs" />
     <Compile Include="Business\SDMockCommit\Entities\PregnantInfo.cs" />
+    <Compile Include="Business\SDMockCommit\RequestAndResponse\WMH_CQBJ_JBXX_FORM_CC.cs" />
     <Compile Include="Business\SDMockCommit\RequestAndResponse\WMH_CQBJ_CQJC_TGJC_LIST.cs" />
     <Compile Include="Business\SDMockCommit\RequestAndResponse\WMH_CQBJ_CQJC_PRE_SAVE.cs" />
     <Compile Include="Business\SDMockCommit\RequestAndResponse\WMH_CQBJ_CQJC_PRE_READ.cs" />

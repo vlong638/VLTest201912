@@ -56,7 +56,7 @@ namespace FrameworkTest.Business.SDMockCommit
         {
             while (true)
             {
-                var sourceDatas = GetSourceDatas(context,userInfo);
+                var sourceDatas = GetSourceDatas(context, userInfo);
                 foreach (var sourceData in sourceDatas)
                 {
                     DoLogSource?.Invoke(sourceData);
@@ -75,7 +75,7 @@ namespace FrameworkTest.Business.SDMockCommit
                 if (IsExist(userInfo, sourceData, logger, ref errorMessage))
                 {
                     logger.AppendLine("待新建数据已存在");
-                    context.SDService.SaveSyncOrder(context.Hele_DBContext.DbGroup, new SyncOrder()
+                    context.SDService.SaveSyncOrder(new SyncOrder()
                     {
                         SourceId = sourceData.SourceId,
                         SourceType = sourceData.SourceType,
@@ -87,7 +87,7 @@ namespace FrameworkTest.Business.SDMockCommit
                 if (DoCommit(userInfo, sourceData, logger, ref errorMessage))
                 {
                     logger.AppendLine("新建数据成功");
-                    context.SDService.SaveSyncOrder(context.Hele_DBContext.DbGroup, new SyncOrder()
+                    context.SDService.SaveSyncOrder(new SyncOrder()
                     {
                         SourceId = sourceData.SourceId,
                         SourceType = sourceData.SourceType,
@@ -98,7 +98,7 @@ namespace FrameworkTest.Business.SDMockCommit
                 else
                 {
                     logger.AppendLine("新建数据失败");
-                    context.SDService.SaveSyncOrder(context.Hele_DBContext.DbGroup, new SyncOrder()
+                    context.SDService.SaveSyncOrder(new SyncOrder()
                     {
                         SourceId = sourceData.SourceId,
                         SourceType = sourceData.SourceType,
@@ -111,7 +111,7 @@ namespace FrameworkTest.Business.SDMockCommit
             catch (Exception ex)
             {
                 logger.AppendLine("出现异常:" + ex.ToString());
-                context.SDService.SaveSyncOrder(context.Hele_DBContext.DbGroup, new SyncOrder()
+                context.SDService.SaveSyncOrder(new SyncOrder()
                 {
                     SourceId = sourceData.SourceId,
                     SourceType = sourceData.SourceType,

@@ -38,6 +38,7 @@ namespace FrameworkTest.Business.SDMockCommit
         Error = 1,//创建时 出现异常
         Existed = 11,//已存在
         NotExisted = 12,//未存在
+        Repeated = 13,//查重出错
         Success = 2,//处理成功
         Test = 99,//更新成功 仅作测试使用
     }
