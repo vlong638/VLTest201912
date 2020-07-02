@@ -1,32 +1,33 @@
-﻿using Dapper.Contrib.Extensions;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-
-namespace FrameworkTest.Business.SDMockCommit
+﻿namespace FrameworkTest.Business.SDMockCommit
 {
     public class ProfessionalExaminationModel
     {
-        ///// <summary>
-        ///// 舒张压
-        ///// </summary>
-        //internal string dbp { set; get; }
-        ///// <summary>
-        ///// 收缩压
-        ///// </summary>
-        //internal string sbp { set; get; }
+        public string id { set; get; }
 
-        //public string pi_personname { set; get; }
-        //public string pi_weight { set; get; }
-        //public string pi_height { set; get; }
-        //public string pi_bmi { set; get; }
+        #region PregnantInfo
+        public string personname { set; get; }//姓名
+        public string idcard { set; get; }
+        public string lastmenstrualperiod { set; get; }//末次月经
+        public string dateofprenatal { set; get; }//预产期 
+        #endregion
 
-        //public string Id { set; get; }
-        //public string idcard { set; get; }
-        //public string firstvisitdate { set; get; }
-        //public string lastestvisitdate { set; get; }
-        //public string weight { set; get; }
-        //public string temperature { set; get; }
-        //public string heartrate { set; get; }
+        //,vr.uterus--子宫 1=异常 0=正常
+        public string uterus { set; get; }
+        //,vr.palacemouth --宫口 详见枚举
+        public string palacemouth { set; get; }
+        //, vr.suggestion --处理意见
+        public string suggestion { set; get; }
+        //,vr.generalcomment --其他评估
+        public string generalcomment { set; get; }
+        //,vr.followupappointment --下次随访
+        public string followupappointment { set; get; }
+        //--预约目的
+        //,vr.brokenwater --破水
+        public string brokenwater { set; get; }
+        //,vr.multifetal --多胎
+        //--胎数
+        //--胎方位
+        //--胎先露
+        public string multifetal { set; get; }
     }
 }

@@ -91,6 +91,8 @@
   <ItemGroup>
     <Compile Include="Business\ConfigurableEntity\EntityAppConfig.cs" />
     <Compile Include="Business\GJPredeliveryAsync\PreDelivery.cs" />
+    <Compile Include="Business\SDMockCommit\Dics\PalaceMouth.cs" />
+    <Compile Include="Business\SDMockCommit\Dics\Uterus.cs" />
     <Compile Include="Business\SDMockCommit\Dics\Dysmenorrhea.cs" />
     <Compile Include="Business\SDMockCommit\Dics\PregnancyManner.cs" />
     <Compile Include="Business\SDMockCommit\Dics\MaritalStatus.cs" />
@@ -105,12 +107,15 @@
     <Compile Include="Business\SDMockCommit\Entities\ProfessionalExaminationModel.cs" />
     <Compile Include="Business\SDMockCommit\Entities\PhysicalExaminationModel.cs" />
     <Compile Include="Business\SDMockCommit\Entities\PregnantInfo.cs" />
+    <Compile Include="Business\SDMockCommit\RequestAndResponse\WMH_CQBJ_CQJC_READ.cs" />
+    <Compile Include="Business\SDMockCommit\RequestAndResponse\WMH_CQBJ_CQJC_SAVE.cs" />
     <Compile Include="Business\SDMockCommit\RequestAndResponse\WMH_CQBJ_JBXX_FORM_CC.cs" />
     <Compile Include="Business\SDMockCommit\RequestAndResponse\WMH_CQBJ_CQJC_TGJC_LIST.cs" />
     <Compile Include="Business\SDMockCommit\RequestAndResponse\WMH_CQBJ_CQJC_PRE_SAVE.cs" />
     <Compile Include="Business\SDMockCommit\RequestAndResponse\WMH_CQBJ_CQJC_PRE_READ.cs" />
     <Compile Include="Business\SDMockCommit\RequestAndResponse\Response_MQDA_READ_NEW.cs" />
     <Compile Include="Business\SDMockCommit\RequestAndResponse\Data_MQDA_XWBS_SAVE.cs" />
+    <Compile Include="Business\SDMockCommit\FSService.cs" />
     <Compile Include="Business\SDMockCommit\SDService.cs" />
     <Compile Include="Business\SDMockCommit\ServiceContext.cs" />
     <Compile Include="Business\SDMockCommit\SDDAL.cs" />
@@ -118,7 +123,7 @@
     <Compile Include="Business\SDMockCommit\RequestAndResponse\Response_WCQBJ_CZDH_DOCTOR_READ.cs" />
     <Compile Include="Business\SDMockCommit\RequestAndResponse\Data_WMH_CQBJ_JBXX_FORM_SAVE.cs" />
     <Compile Include="Business\SDMockCommit\SyncTaskBO_ProfessionalExamination.cs" />
-    <Compile Include="Business\SDMockCommit\SyncTaskBO.cs" />
+    <Compile Include="Business\SDMockCommit\SyncTask.cs" />
     <Compile Include="Business\TaskScheduler\VLScheduler.cs" />
     <Compile Include="Business\TaskScheduler\TaskConfig.cs" />
     <Compile Include="Business\TaskScheduler\WorkTask.cs" />

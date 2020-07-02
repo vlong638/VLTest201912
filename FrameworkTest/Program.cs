@@ -20,6 +20,7 @@ using System.Net;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.WebSockets;
@@ -3047,36 +3048,35 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     Console.WriteLine($"result:{file}");
                 }
             }));
-            var syncTask_PhysicalExaminationModel = new SyncTask_PhysicalExaminationModel();
-            var sourceDatas = new List<SourceData_PhysicalExaminationModel>();
+            var serviceContext = new ServiceContext();
+            var syncTask_PhysicalExaminationModel = new SyncTask_Create_ProfessionalExaminationModel(serviceContext);
+            var sourceDatas = new List<SourceData_ProfessionalExaminationModel>();
             cmds.Add(new Command("m501,0701,模拟-获取待新增的`专科检查`", () =>
             {
-                var serviceContext = new ServiceContext();
                 var userInfo = SDBLL.UserInfo;
-                sourceDatas = syncTask_PhysicalExaminationModel.GetSourceDatas(serviceContext, userInfo);
+                sourceDatas = syncTask_PhysicalExaminationModel.GetSourceDatas(userInfo);
                 foreach (var sourceData in sourceDatas)
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(sourceData.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-专科检查" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.pi_personname + "_" + sourceData.idcard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-专科检查" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 }
             }));
             cmds.Add(new Command("m51,0701,模拟-新增`专科检查`", () =>
             {
-                var serviceContext = new ServiceContext();
                 syncTask_PhysicalExaminationModel.DoLogSource = (sourceData) =>
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(sourceData.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-专科检查" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.pi_personname + "_" + sourceData.idcard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-专科检查" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
                 syncTask_PhysicalExaminationModel.DoLogCreate = (sourceData, sb) =>
                 {
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Create-体格检查" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.pi_personname + "_" + sourceData.idcard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Create-体格检查" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
@@ -3458,23 +3458,105 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             }));
             cmds.Add(new Command("m97,0630,自动同步-新增`专科检查`", () =>
             {
-                var serviceContext = new ServiceContext();
                 syncTask_PhysicalExaminationModel.DoLogSource = (sourceData) =>
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(sourceData.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-专科检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.pi_personname + "_" + sourceData.idcard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-专科检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
                 syncTask_PhysicalExaminationModel.DoLogCreate = (sourceData, sb) =>
                 {
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Create-体格检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.pi_personname + "_" + sourceData.idcard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Create-体格检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
                 //自动执行
-                syncTask_PhysicalExaminationModel.Start_AutoCommit(serviceContext, SDBLL.UserInfo);
+                syncTask_PhysicalExaminationModel.Start_Auto_DoWork(serviceContext, SDBLL.UserInfo);
+            }));
+            cmds.Add(new Command("m101,0702,行政区", () =>
+            {
+                List<string> errorData = new List<string>();
+                List<cnarea> datas = new List<cnarea>();
+                List<cnarea> errorDatas = new List<cnarea>();
+                try
+                {
+                    using (var fileStream = File.OpenRead(@"C:\Users\vlong\Desktop\cnarea20191031.sql"))
+                    {
+                        using (StreamReader sr = new StreamReader(fileStream))
+                        {
+                            string line;
+                            while ((line = sr.ReadLine()) != null)
+                            {
+                                if (line.StartsWith("("))
+                                {
+                                    //(1,0,0,110000000000,000000,'','北京市','北京','北京','BeiJing',116.407526,39.904030),
+                                    //var values = line.Trim().TrimStart("(").TrimEnd("),").Split(',');
+                                    //if (values.Length == 12)
+
+                                    var text = line.Trim().TrimStart("(").TrimEnd("),");
+                                    var intP = @"(\w+)";
+                                    var varcharP = @"'([\w\,\、\（\）\〇\(\)\?\·氹\s\\\'\.\’]*)'";
+                                    //var varcharP = @"'.*'";
+                                    var decimalP = @"([\w\.]+)";
+                                    var pattern = $@"{intP},{intP},{intP},{intP},{intP},{varcharP},{varcharP},{varcharP},{varcharP},{varcharP},{decimalP},{decimalP}";
+                                    var regex = new Regex(pattern);
+                                    var match = regex.Match(text);
+                                    if (match.Groups.Count==13)
+                                    {
+                                        datas.Add(new cnarea()
+                                        {
+                                            id = match.Groups[1].ToString(),
+                                            level = match.Groups[2].ToString(),
+                                            parent_code = match.Groups[3].ToString(),
+                                            area_code = match.Groups[4].ToString(),
+                                            zip_code = match.Groups[5].ToString(),
+                                            city_code = match.Groups[6].ToString(),
+                                            name = match.Groups[7].ToString(),
+                                            short_name = match.Groups[8].ToString(),
+                                            merger_name = match.Groups[9].ToString(),
+                                            pinyin = match.Groups[10].ToString(),
+                                            lng = match.Groups[11].ToString(),
+                                            lat = match.Groups[12].ToString(),
+                                        });
+                                        //break;
+                                    }
+                                    else
+                                    {
+                                        errorData.Add(line);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("数据库连接失败," + ex.ToString());
+                }
+
+                var connectingString = HeleInnerMSSQL;
+                using (var connection = new SqlConnection(connectingString))
+                {
+                    connection.Open();
+                    foreach (var data in datas)
+                    {
+                        try
+                        {
+                            var id = connection.Execute("insert  into cnarea(id,level,parent_code,area_code,zip_code,city_code,name,short_name,merger_name,pinyin,lng,lat) values(@id,@level,@parent_code,@area_code,@zip_code,@city_code,@name,@short_name,@merger_name,@pinyin,@lng,@lat)", data);
+                        }
+                        catch (Exception ex)
+                        {
+                            data.message = ex.ToString();
+                            errorDatas.Add(data);
+                        }
+                    }
+                    connection.Close();
+                }
+
+                var errors = string.Join("\r\n", errorDatas.Select(c => c.ToJson()));
+                File.WriteAllText(@"D:\errorData.txt", errors);
             }));
             #endregion
             cmds.Add(new Command("---------------------国健-------------------", () => { }));
@@ -3582,6 +3664,24 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             }
             return bytes.ToArray();
         }
+    }
+
+    [Table("cnarea")]
+    class cnarea
+    {
+        public string id { set; get; }
+        public string level { set; get; }
+        public string parent_code { set; get; }
+        public string area_code { set; get; }
+        public string zip_code { set; get; }
+        public string city_code { set; get; }
+        public string name { set; get; }
+        public string short_name { set; get; }
+        public string merger_name { set; get; }
+        public string pinyin { set; get; }
+        public string lng { set; get; }
+        public string lat { set; get; }
+        public string message { set; get; }
     }
 
     #region CommandMode

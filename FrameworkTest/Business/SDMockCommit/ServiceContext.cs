@@ -28,5 +28,12 @@ namespace FrameworkTest.Business.SDMockCommit
                 return new SDService(context);
             }
         }
+        public FSService FSService
+        {
+            get
+            {
+                return new FSService();
+            }
+        }
     }
 }

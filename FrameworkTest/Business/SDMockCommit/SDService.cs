@@ -44,6 +44,24 @@ namespace FrameworkTest.Business.SDMockCommit
             this.DBContext = context;
         }
 
+
+        internal static string GetPhysicalExaminationId(UserInfo userInfo, WCQBJ_CZDH_DOCTOR_READResponse base8, DateTime issueDate, ref StringBuilder logger)
+        {
+            var container = new CookieContainer();
+            var dateStr = issueDate.ToString("yyyy-MM-dd");
+            //获取体格检查Id
+            var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_TODAY_CQJC_ID_READ&sUserID={userInfo.UserId}&sParams={base8.MainId}${dateStr}";
+            var postData = "";
+            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            logger.AppendLine($"查询-获取体格检查Id");
+            logger.AppendLine(url);
+            logger.AppendLine(result);
+            var re2 = result.FromJson<WMH_TODAY_CQJC_ID_READ>();
+            if (string.IsNullOrEmpty(re2.d1))
+                return null;
+            return re2.d1;
+        }
+
         #region SyncOrder
         public SyncOrder GetSyncOrder(SourceType sourceType, string sourceId)
         {
@@ -66,12 +84,28 @@ namespace FrameworkTest.Business.SDMockCommit
 
         #region PhysicalExamination
 
-        internal List<SourceData_PhysicalExaminationModel> GetPhysicalExaminationsToCreate()
+        internal List<PhysicalExaminationModel> GetPhysicalExaminationsToCreate()
         {
             return SDDAL.GetPhysicalExaminationsToCreate(DBContext.DbGroup);
         }
 
         #endregion
+
+        #region ProfessionalExamination
+
+        internal List<ProfessionalExaminationModel> GetProfessionalExaminationsToCreate()
+        {
+            return SDDAL.GetProfessionalExaminationsToCreate(DBContext.DbGroup);
+        }
+
+        internal IEnumerable<ProfessionalExaminationModel> GetProfessionalExaminationsToUpdate()
+        {
+            return SDDAL.GetProfessionalExaminationsToUpdate(DBContext.DbGroup);
+        }
+
+        #endregion
+
+
 
     }
 }
