@@ -82,6 +82,19 @@ namespace FrameworkTest.Business.SDMockCommit
         }
         #endregion
 
+        #region PregnantInfo
+
+        /// <summary>
+        /// 0703 开放边界
+        /// </summary>
+        /// <returns></returns>
+        public List<PregnantInfo> GetPregnantInfoForCreateOrUpdate()
+        {
+            return SDDAL.GetPregnantInfoForCreateOrUpdate(DBContext.DbGroup);
+        }
+
+        #endregion
+
         #region PhysicalExamination
 
         internal List<PhysicalExaminationModel> GetPhysicalExaminationsToCreate()
@@ -93,12 +106,12 @@ namespace FrameworkTest.Business.SDMockCommit
 
         #region ProfessionalExamination
 
-        internal List<ProfessionalExaminationModel> GetProfessionalExaminationsToCreate()
+        public List<ProfessionalExaminationModel> GetProfessionalExaminationsToCreate()
         {
             return SDDAL.GetProfessionalExaminationsToCreate(DBContext.DbGroup);
         }
 
-        internal IEnumerable<ProfessionalExaminationModel> GetProfessionalExaminationsToUpdate()
+        public IEnumerable<ProfessionalExaminationModel> GetProfessionalExaminationsToUpdate()
         {
             return SDDAL.GetProfessionalExaminationsToUpdate(DBContext.DbGroup);
         }

@@ -130,7 +130,7 @@ namespace FrameworkTest.Business.SDMockCommit
             this.D57 = data.D57;
         }
 
-        internal void Update(SourceData_ProfessionalExaminationModel sourceData)
+        internal void Update(ProfessionalExaminationModel_SourceData sourceData)
         {
             //对比数据
             //142328199610271518	李丽	2019-12-18	2020-10-08	0	12	NULL	NULL	2020-07-30	2	

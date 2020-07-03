@@ -93,5 +93,19 @@ and vr.updatetime > DATEADD( SECOND,10 ,se.SyncTime)
 ", transaction: dbGroup.Transaction).ToList();
         }
 
+        internal static List<PregnantInfo> GetPregnantInfoForCreateOrUpdate(DbGroup dbGroup)
+        {
+            return dbGroup.Connection.Query<PregnantInfo>($@"
+select Top 1 
+s.id sid,
+pi.createtime, pi.updatetime,
+pi.*
+from PregnantInfo pi
+left join SyncForFS s on s.SourceType = 1 and s.SourceId = pi.Id
+where s.id is null 
+and pi.createtime < convert(nvarchar, getdate(),23) 
+and pi.updatetime> convert(nvarchar, getdate(),23)
+", transaction: dbGroup.Transaction).ToList();
+        }
     }
 }

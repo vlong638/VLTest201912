@@ -1,40 +1,18 @@
-﻿using FrameworkTest.Common.DBSolution;
-using FrameworkTest.Common.HttpSolution;
+﻿using FrameworkTest.Common.HttpSolution;
 using FrameworkTest.Common.ValuesSolution;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
-using System.Web.UI.WebControls;
 
 namespace FrameworkTest.Business.SDMockCommit
 {
-    //public class SourcePregnant : SourceData<PregnantInfo>
-    //{
-    //    public override string SourceId => Data.Id.ToString();
-
-    //    public override SourceType SourceType => SourceType.PregnantInfo; 
-    //}
-
-    //public SyncTask_Pregnant
-
-
-
     public interface SourceData
     {
         string IdCard { get; }
         string SourceId { get; }
         SourceType SourceType { get; }
     }
-
-    //public abstract class SourceData<T>: SourceData
-    //{
-    //    public T Data { set; get; }
-    //    public abstract string SourceId {  get; }
-    //    public abstract SourceType SourceType { get; }
-    //}
 
     public abstract class SyncTask<T1> where T1 : SourceData
     {
@@ -45,17 +23,16 @@ namespace FrameworkTest.Business.SDMockCommit
 
         public ServiceContext Context { set; get; }
 
-        public Action<T1> DoLogSource { set; get; }
-        public Action<T1, StringBuilder> DoLogCreate { set; get; }
+        public Action<T1> DoLogOnGetSource { set; get; }
+        public Action<T1, StringBuilder> DoLogOnWork { set; get; }
         /// <summary>
         /// 获取待新建的来源数据
         /// </summary>
         /// <returns></returns>
         public abstract List<T1> GetSourceDatas(UserInfo userInfo);
 
-        public abstract SyncOrder DoCommit(WCQBJ_CZDH_DOCTOR_READResponse base8, UserInfo userInfo, SourceData_ProfessionalExaminationModel sourceData, StringBuilder logger);
-
         public abstract void DoWork(ServiceContext context, UserInfo userInfo, T1 sourceData);
+
         public virtual void Start_Auto_DoWork(ServiceContext context, UserInfo userInfo, int interval = 1000 * 10)
         {
             while (true)
@@ -63,7 +40,7 @@ namespace FrameworkTest.Business.SDMockCommit
                 var sourceDatas = GetSourceDatas(userInfo);
                 foreach (var sourceData in sourceDatas)
                 {
-                    DoLogSource?.Invoke(sourceData);
+                    DoLogOnGetSource?.Invoke(sourceData);
                     DoWork(context, userInfo, sourceData);
                 }
                 System.Threading.Thread.Sleep(interval);
