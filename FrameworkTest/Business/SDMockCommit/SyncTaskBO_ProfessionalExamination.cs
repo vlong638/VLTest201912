@@ -150,13 +150,7 @@ namespace FrameworkTest.Business.SDMockCommit
 
         public override SyncOrder DoCommit(WCQBJ_CZDH_DOCTOR_READResponse base8, UserInfo userInfo, SourceData_ProfessionalExaminationModel sourceData, StringBuilder logger)
         {
-            var syncOrder = new SyncOrder()
-            {
-                SourceId = sourceData.SourceId,
-                SourceType = SourceType.ProfessionalExamination,
-                SyncTime = DateTime.Now,
-                SyncStatus = SyncStatus.Success,
-            };
+            var syncOrder = new SyncOrder();
 
             //获取体格检查Id
             var physicalExaminationId = Context.FSService.GetPhysicalExaminationId(userInfo, base8, DateTime.Now, ref logger);
@@ -171,7 +165,7 @@ namespace FrameworkTest.Business.SDMockCommit
             var professionalExaminationOld = Context.FSService.GetProfessionalExamination(physicalExaminationId, userInfo, base8, ref logger);
             if (professionalExaminationOld == null)
             {
-                syncOrder.SyncStatus = SyncStatus.Error;
+                syncOrder.SyncStatus = SyncStatus.NotExisted;
                 syncOrder.ErrorMessage = "未获取到专科检查数据";
                 return syncOrder;
             }
@@ -195,35 +189,31 @@ namespace FrameworkTest.Business.SDMockCommit
         public override void DoWork(ServiceContext context, UserInfo userInfo, SourceData_ProfessionalExaminationModel sourceData)
         {
             StringBuilder logger = new StringBuilder();
+            var syncOrder = Context.SDService.GetSyncOrder(SourceType.ProfessionalExamination, sourceData.SourceId);
+            syncOrder.SyncTime = DateTime.Now;
             try
             {
+
                 var base8 = GetBase8(userInfo, sourceData.IdCard, logger);
                 if (!base8.IsAvailable)
                 {
-                    context.SDService.SaveSyncOrder(new SyncOrder()
-                    {
-                        SourceId = sourceData.SourceId,
-                        SourceType = sourceData.SourceType,
-                        SyncTime = DateTime.Now,
-                        SyncStatus = SyncStatus.Error,
-                        ErrorMessage = "No Base8 Data",
-                    });
+                    syncOrder.SyncStatus = SyncStatus.Error;
+                    syncOrder.ErrorMessage = "No Base8 Data";
+                    context.SDService.SaveSyncOrder(syncOrder);
                     return;
                 }
                 var syncResult = DoCommit(base8, userInfo, sourceData, logger);
-                context.SDService.SaveSyncOrder(syncResult);
+                syncOrder.SyncStatus = syncResult.SyncStatus;
+                syncOrder.ErrorMessage = syncResult.ErrorMessage;
+                context.SDService.SaveSyncOrder(syncOrder);
             }
             catch (Exception ex)
             {
                 logger.AppendLine("出现异常:" + ex.ToString());
-                context.SDService.SaveSyncOrder(new SyncOrder()
-                {
-                    SourceId = sourceData.SourceId,
-                    SourceType = sourceData.SourceType,
-                    SyncTime = DateTime.Now,
-                    SyncStatus = SyncStatus.Error,
-                    ErrorMessage = ex.ToString(),
-                });
+
+                syncOrder.SyncStatus = SyncStatus.Error;
+                syncOrder.ErrorMessage = ex.ToString();
+                context.SDService.SaveSyncOrder(syncOrder);
             }
             DoLogCreate?.Invoke(sourceData, logger);
         }

@@ -108,14 +108,14 @@ namespace FrameworkTest.Business.SDMockCommit
             this.D35 = data.D35;
             this.D36 = data.D36;
             this.D37 = data.D37;
-            this.D38 = data.D38;
+            this.D38 = data.D38?.ToDateTime()?.ToString("yyyy-MM-dd") ?? "";
             this.D39 = data.D39;
             //this.D40 = data.D40;
             this.D41 = data.D41;
             this.D42 = data.D42;
             this.D43 = data.D43;
             this.D44 = data.D44;
-            //this.D45 = data.D45;
+            this.D45 = "";
             this.D46 = data.D46;
             this.D47 = data.D47;
             this.D48 = data.D48;
@@ -132,6 +132,7 @@ namespace FrameworkTest.Business.SDMockCommit
 
         internal void Update(SourceData_ProfessionalExaminationModel sourceData)
         {
+            //对比数据
             //142328199610271518	李丽	2019-12-18	2020-10-08	0	12	NULL	NULL	2020-07-30	2	
             //[{"index":"0","heartrate":"66","position":"01","presentposition":"1","fetalmove":"1"},{"index":"2","heartrate":"88","position":"02","presentposition":"2","fetalmove":"2"}]	2020-07-02	1393	NULL
 
@@ -147,8 +148,8 @@ namespace FrameworkTest.Business.SDMockCommit
             this.D53 = VLConstraints.Get_PalaceMouth_By_PalaceMouth_HELE(sourceData.SourceData.palacemouth);
             //D26,处理 = 处理意见
             this.D26 = sourceData.SourceData.suggestion ?? "";
-            //D29,健康评估 = 其它评估
-            this.D29 = sourceData.SourceData.generalcomment ?? "";
+            ////D29,健康评估 = 其它评估 无需处理
+            //this.D29 = sourceData.SourceData.generalcomment ?? "";
             //D39,下次预约时间 = 下次随访
             this.D39 = sourceData.SourceData.followupappointment?.ToDateTime()?.ToString("yyyy-MM-dd") ?? "";
             //-- //D44,预约目的
@@ -157,25 +158,40 @@ namespace FrameworkTest.Business.SDMockCommit
             this.D54 = sourceData.SourceData.brokenwater ?? "";
 
             //[{"index":"0","heartrate":"66","position":"01","presentposition":"1","fetalmove":"1"},{"index":"2","heartrate":"88","position":"02","presentposition":"2","fetalmove":"2"}
+            //sourceData.SourceData.feltalentities
             //胎数 D56  1 = 单胎 2 = 双胎 3 = 三胎以上
+            this.D56 = VLConstraints.Get_FetalAmountByAmount(sourceData.SourceData.feltalentities.Count());
+            //胎先露 D14
+            //头先露,臀先露,肩先露
+            if (sourceData.SourceData.feltalentities.Count() > 0)
+                this.D14 = VLConstraints.Get_PresentPosition_By_PresentPosition_Hele(sourceData.SourceData.feltalentities.First().presentposition);
             //胎心
             //1胎 D13
             //2胎 D48
             //3胎 D52
-
             //胎方位
             //1胎 D12
             //2胎 D46
             //3胎 D51
-            //脐右下方
-            //脐左下方
-            //脐左上方
-            //脐右上方
-            //脐正中线上方
-            //脐正中线下方
-
-            //胎先露 D14
-            //头先露,臀先露,肩先露
+            for (int i = 0; i < sourceData.SourceData.feltalentities.Count(); i++)
+            {
+                var feltalentity = sourceData.SourceData.feltalentities[i];
+                if (i==0)
+                {
+                    this.D13 = feltalentity.heartrate;
+                    //this.D12 = VLConstraints.Get_FetalPosition_By_FetalPosition_Hele(feltalentity.position);
+                }
+                else if (i==1)
+                {
+                    this.D48 = feltalentity.heartrate;
+                    //this.D46 = VLConstraints.Get_FetalPosition_By_FetalPosition_Hele(feltalentity.position);
+                }
+                else if (i == 2)
+                {
+                    this.D52 = feltalentity.heartrate;
+                    //this.D51 = VLConstraints.Get_FetalPosition_By_FetalPosition_Hele(feltalentity.position);
+                }
+            }
         }
 
         public string D1 { get; set; }//"2020-07-01"

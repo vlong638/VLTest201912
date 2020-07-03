@@ -1,4 +1,7 @@
-﻿namespace FrameworkTest.Business.SDMockCommit
+﻿using FrameworkTest.Common.ValuesSolution;
+using System.Collections.Generic;
+
+namespace FrameworkTest.Business.SDMockCommit
 {
     public class ProfessionalExaminationModel
     {
@@ -29,5 +32,16 @@
         //--胎方位
         //--胎先露
         public string multifetal { set; get; }
+
+        public List<feltalentity> feltalentities { get { return multifetal?.FromJson<List<feltalentity>>() ?? new List<feltalentity>(); } }
+    }
+
+    public class feltalentity
+    {
+        public string index { set; get; }
+        public string heartrate { set; get; }
+        public string position { set; get; }
+        public string presentposition { set; get; }
+        public string fetalmove { set; get; }
     }
 }

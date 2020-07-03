@@ -435,7 +435,7 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
                         sb.AppendLine(url);
                         sb.AppendLine($"mainId:{mainId}");
                         int errorCount = 0;
-                        int maxErrorCount = 3;
+                        int maxErrorCount = 5;
                         string careId = "";
                         string careIdL8 = "";
                         while (errorCount < maxErrorCount)

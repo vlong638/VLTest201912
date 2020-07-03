@@ -91,7 +91,10 @@
   <ItemGroup>
     <Compile Include="Business\ConfigurableEntity\EntityAppConfig.cs" />
     <Compile Include="Business\GJPredeliveryAsync\PreDelivery.cs" />
+    <Compile Include="Business\SDMockCommit\Dics\FetalPosition.cs" />
+    <Compile Include="Business\SDMockCommit\Dics\PresentPosition.cs" />
     <Compile Include="Business\SDMockCommit\Dics\PalaceMouth.cs" />
+    <Compile Include="Business\SDMockCommit\Dics\FetalAmount.cs" />
     <Compile Include="Business\SDMockCommit\Dics\Uterus.cs" />
     <Compile Include="Business\SDMockCommit\Dics\Dysmenorrhea.cs" />
     <Compile Include="Business\SDMockCommit\Dics\PregnancyManner.cs" />
