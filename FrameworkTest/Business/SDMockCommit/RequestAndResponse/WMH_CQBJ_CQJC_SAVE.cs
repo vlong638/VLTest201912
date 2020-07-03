@@ -156,7 +156,6 @@ namespace FrameworkTest.Business.SDMockCommit
             //1 = 是  2 = 无  Hele: 1=破 2=无
             this.D54 = sourceData.SourceData.brokenwater ?? "";
 
-
             //[{"index":"0","heartrate":"66","position":"01","presentposition":"1","fetalmove":"1"},{"index":"2","heartrate":"88","position":"02","presentposition":"2","fetalmove":"2"}
             //胎数 D56  1 = 单胎 2 = 双胎 3 = 三胎以上
             //胎心
@@ -174,7 +173,6 @@ namespace FrameworkTest.Business.SDMockCommit
             //脐右上方
             //脐正中线上方
             //脐正中线下方
-
 
             //胎先露 D14
             //头先露,臀先露,肩先露

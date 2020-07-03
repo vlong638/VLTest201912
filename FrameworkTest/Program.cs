@@ -3558,6 +3558,31 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 var errors = string.Join("\r\n", errorDatas.Select(c => c.ToJson()));
                 File.WriteAllText(@"D:\errorData.txt", errors);
             }));
+            cmds.Add(new Command("m102,0703,DES", () =>
+            {
+                //public key
+                //"exponent":"010001"
+                //"modulus":"00af8dfa5a14e97e58cac7238a5d4ca89478cedcfd196ea643735d64c74df659cd259c8bd60ec046c4d3f6dec3965dc0351f117f8a0ae62ad61c3a41d38c6a93215025c658587f4aa7ceaa9ed08c2ced8873254c417a77403aff9a0abb3bc1d2ff42f856e1a4d447ed0a1626e1099f304b6602e69cdca1a376ae6bf0dad13844cf"
+                //密码
+                //123
+                //加密结果
+                //2d36cfe9d49ccdb6cd313c75a7f4308036092f701a068f7fa66ab1835cd03baa3cbc80191e3bf502453d0cacec215a51adcfb883aa24ecc09025b6dc68d9cca20c722dc3e766e92fb15103b434a6c5fc640bbf7937f016c63a11ecad72018a30b0800a67f21d57f6014057f49c29595e7c3f9e5d1874e109a8e9c37be46ce59b
+
+                var str = File.ReadAllText(@"C:\Users\vlong\Documents\WeChat Files\xialiu638\FileStorage\File\2020-07\加密前.txt");
+                var sKey = "ABC123AB";
+
+                DESCryptoServiceProvider des = new DESCryptoServiceProvider();
+                byte[] inputByteArray = Encoding.UTF8.GetBytes(str);
+                des.Mode = CipherMode.ECB;
+                des.Key = ASCIIEncoding.ASCII.GetBytes(sKey);// 密匙
+                //des.IV = ASCIIEncoding.ASCII.GetBytes(sKey);// 初始化向量
+                MemoryStream ms = new MemoryStream();
+                CryptoStream cs = new CryptoStream(ms, des.CreateEncryptor(), CryptoStreamMode.Write);
+                cs.Write(inputByteArray, 0, inputByteArray.Length);
+                cs.FlushFinalBlock();
+                var retA = ms.ToArray();
+                var retB = Convert.ToBase64String(retA);
+            }));
             #endregion
             cmds.Add(new Command("---------------------国健-------------------", () => { }));
             #region 国健
