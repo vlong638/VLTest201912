@@ -434,10 +434,10 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
                         sb.AppendLine("Create 患者主索引");
                         sb.AppendLine(url);
                         sb.AppendLine($"mainId:{mainId}");
-                        int errorCount = 0;
-                        int maxErrorCount = 5;
                         string careId = "";
                         string careIdL8 = "";
+                        int errorCount = 0;
+                        int maxErrorCount = 5;
                         while (errorCount < maxErrorCount)
                         {
                             //Create 保健号
@@ -625,7 +625,7 @@ order by pi.createtime ", transaction: group.Transaction).ToList();
 select Top 1 sp.id spid,se.id seid,pi.* from PregnantInfo pi
 left join SyncForFS sp on sp.SourceType = 1 and sp.SourceId = pi.Id
 left join SyncForFS se on se.SourceType = 2 and se.SourceId = pi.Id
-where sp.id is not null and sp.SyncStatus = 2 
+where sp.id is not null and sp.SyncStatus in (2,11) 
 and se.id is null
 ", transaction: group.Transaction).ToList();
             });

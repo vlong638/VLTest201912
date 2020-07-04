@@ -68,6 +68,7 @@ namespace FrameworkTest.Business.SDMockCommit
 
         public void UpdateEnquiry(PregnantInfo pregnantInfo, pregnanthistory pregnanthistory)
         {
+            //[{"index":"0","pregstatus":"剖宫产,剖宫产-足月","babysex":"2","babyweight":"2900","pregnantage":"2012-11"},{"index":"2","pregstatus":"人流","babysex":"9","babyweight":"","pregnantage":"2014-05"},{"index":"3","pregstatus":"人流","babysex":"9","babyweight":"","pregnantage":"2018-10"}]
             var issueDataStr = pregnanthistory.pregnantage;
             var issueDataValue = issueDataStr.Split('-');
             //public string D1 { set; get; } //生育史Id  KO

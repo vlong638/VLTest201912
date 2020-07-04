@@ -2688,6 +2688,10 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             }));
             cmds.Add(new Command("m31,0623,模拟-新增`问询病史`", () =>
             {
+                //
+                var pregnanthistorys2 = @"[{ ""index"":""0"",""pregstatus"":""人流"",""babysex"":""0"",""babyweight"":"""",""pregnantage"":""2017年6月""},{ ""index"":""2"",""pregstatus"":""顺产-足月-健,足月产-亡,巨大胎,顺产-早产-健,早产-亡"",""babysex"":"""",""babyweight"":"""",""pregnantage"":""""}]".FromJson<List<pregnanthistory>>();
+
+
                 var userInfo = SDBLL.UserInfo;
                 var context = DBHelper.GetDbContext(SDBLL.ConntectingStringSD);
                 foreach (var pregnantInfo in SDBLL.TempPregnantInfos)
@@ -3199,10 +3203,11 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                                 {
                                     throw new NotImplementedException(result);
                                 }
-                                //[{ "index":"0","pregstatus":"人流","babysex":"0","babyweight":"","pregnantage":"2017年6月"},{ "index":"2","pregstatus":"顺产-足月-健,足月产-亡,巨大胎,顺产-早产-健,早产-亡","babysex":"","babyweight":"","pregnantage":""}]
+                                //新增处理
                                 var pregnanthistorys = pregnantInfo.pregnanthistory?.FromJson<List<pregnanthistory>>();
                                 var enquiryPregnanthResponse = SDBLL.GetEnquiryPregnanths(userInfo, base8, ref sb);
-                                //新增处理
+                                sb.Append("---------------------pregnantInfo.pregnanthistory");
+                                sb.Append(pregnantInfo.pregnanthistory);
                                 var toAddHistories = pregnanthistorys.Where(c => enquiryPregnanthResponse.data.FirstOrDefault(d => d.IssueDate == c.pregnantage) == null);
                                 foreach (var toAddHistory in toAddHistories)
                                 {
@@ -3304,6 +3309,52 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                                 {
                                     syncForFS.SyncStatus = SyncStatus.Error;
                                     syncForFS.ErrorMessage = result;
+                                }
+                                //新增处理
+                                var pregnanthistorys = pregnantInfo.pregnanthistory?.FromJson<List<pregnanthistory>>();
+                                var enquiryPregnanthResponse = SDBLL.GetEnquiryPregnanths(userInfo, base8, ref sb);
+                                sb.Append("---------------------pregnantInfo.pregnanthistory");
+                                sb.Append(pregnantInfo.pregnanthistory);
+                                var toAddHistories = pregnanthistorys.Where(c => enquiryPregnanthResponse.data.FirstOrDefault(d => d.IssueDate == c.pregnantage) == null);
+                                foreach (var toAddHistory in toAddHistories)
+                                {
+                                    var toAdd = new WMH_CQBJ_CQJC_PRE_SAVE();
+                                    toAdd.UpdateEnquiry(pregnantInfo, toAddHistory);
+                                    toAdd._state = "added";
+                                    if (toAdd.Validate(ref sb))
+                                    {
+                                        result = SDBLL.PostAddEnquiryPregnanth(toAdd, userInfo, base8, ref sb);
+                                    }
+                                    if (!result.Contains((string)"处理成功"))
+                                    {
+                                        throw new NotImplementedException(result);
+                                    }
+                                }
+                                foreach (var enquiryPregnanth in enquiryPregnanthResponse.data)
+                                {
+                                    var toChange = new WMH_CQBJ_CQJC_PRE_SAVE(enquiryPregnanth);
+                                    var pregnanthistory = pregnanthistorys.FirstOrDefault(c => c.pregnantage == enquiryPregnanth.IssueDate);
+                                    if (pregnanthistory == null)
+                                    {
+                                        //删除
+                                        result = SDBLL.DeleteEnquiryPregnanth(toChange, userInfo, base8, ref sb);
+                                        if (!result.Contains((string)"处理成功"))
+                                        {
+                                            throw new NotImplementedException(result);
+                                        }
+                                        continue;
+                                    }
+                                    //更改
+                                    toChange.UpdateEnquiry(pregnantInfo, pregnanthistory);
+                                    toChange._state = "modified";
+                                    if (toChange.Validate(ref sb))
+                                    {
+                                        result = SDBLL.UpdateEnquiryPregnanth(toChange, userInfo, base8, ref sb);
+                                    }
+                                    if (!result.Contains((string)"处理成功"))
+                                    {
+                                        throw new NotImplementedException(result);
+                                    }
                                 }
                             }
                             catch (Exception ex)

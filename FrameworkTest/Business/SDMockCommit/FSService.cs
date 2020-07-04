@@ -1,22 +1,63 @@
-﻿using Dapper;
-using Dapper.Contrib.Extensions;
-using FrameworkTest.Common.DBSolution;
-using FrameworkTest.Common.FileSolution;
-using FrameworkTest.Common.HttpSolution;
+﻿using FrameworkTest.Common.HttpSolution;
 using FrameworkTest.Common.ValuesSolution;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace FrameworkTest.Business.SDMockCommit
 {
     public class FSService
     {
+        #region 孕妇档案
+
+        /// <summary>
+        /// 获取 患者主索引
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <param name="base8"></param>
+        /// <param name="issueDate"></param>
+        /// <param name="logger"></param>
+        /// <returns></returns>
+        public string GetMainId(UserInfo userInfo, ref StringBuilder logger)
+        {
+            var container = new CookieContainer();
+            var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_QHJC_ID_GET&sUserID={userInfo.UserId}&sParams=1";
+            var postData = "";
+            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var mainId = result.FromJsonToAnonymousType(new { id = "" }).id;
+            logger.AppendLine($"查询-患者主索引");
+            logger.AppendLine(url);
+            logger.AppendLine(result);
+            return mainId;
+        }
+
+        /// <summary>
+        /// 获取 保健号
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <param name="base8"></param>
+        /// <param name="issueDate"></param>
+        /// <param name="logger"></param>
+        /// <returns></returns>
+        public string GetCareId(UserInfo userInfo, ref StringBuilder logger)
+        {
+            var container = new CookieContainer();
+            var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=CDH_GET_ID1&sUserID={userInfo.UserId}&sParams={userInfo.OrgId}";
+            var postData = "";
+            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var careId = result.FromJsonToAnonymousType(new { id = "" }).id;
+            logger.AppendLine($"查询-保健号");
+            logger.AppendLine(url);
+            logger.AppendLine(result);
+            return careId;
+        }
+
+        #endregion
+
+        #region 体格检查
         /// <summary>
         /// 获取体格检查Id
         /// </summary>
@@ -40,7 +81,9 @@ namespace FrameworkTest.Business.SDMockCommit
                 return null;
             return re2.d1;
         }
+        #endregion
 
+        #region 专科检查
         /// <summary>
         /// 获取专科检查数据
         /// </summary>
@@ -49,7 +92,7 @@ namespace FrameworkTest.Business.SDMockCommit
         /// <param name="base8"></param>
         /// <param name="logger"></param>
         /// <returns></returns>
-        internal WMH_CQBJ_CQJC_READ_Data GetProfessionalExamination(string physicalExaminationId, UserInfo userInfo, WCQBJ_CZDH_DOCTOR_READResponse base8,  ref StringBuilder logger)
+        internal WMH_CQBJ_CQJC_READ_Data GetProfessionalExamination(string physicalExaminationId, UserInfo userInfo, WCQBJ_CZDH_DOCTOR_READResponse base8, ref StringBuilder logger)
         {
             var container = new CookieContainer();
             var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_CQJC_READ&sUserID={userInfo.UserId}&sParams={physicalExaminationId}${base8.MainId}";
@@ -59,7 +102,7 @@ namespace FrameworkTest.Business.SDMockCommit
             logger.AppendLine(url);
             logger.AppendLine(result);
             var re2 = result.FromJson<WMH_CQBJ_CQJC_READ>();
-            if (re2==null || re2.data==null || re2.data.Count==0)
+            if (re2 == null || re2.data == null || re2.data.Count == 0)
                 return null;
             return re2.data.First();
         }
@@ -86,6 +129,7 @@ namespace FrameworkTest.Business.SDMockCommit
             logger.AppendLine(postData);
             logger.AppendLine(result);
             return result;
-        }
+        } 
+        #endregion
     }
 }
