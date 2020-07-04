@@ -95,8 +95,10 @@ and vr.updatetime > DATEADD( SECOND,10 ,se.SyncTime)
 
         internal static List<PregnantInfo> GetPregnantInfoForCreateOrUpdate(DbGroup dbGroup)
         {
+            //指定日期之后 非今天 当年会与常规新建和更新重复
             return dbGroup.Connection.Query<PregnantInfo>($@"
-select Top 1 
+select
+Top 1
 s.id sid,
 pi.createtime, pi.updatetime,
 pi.*
@@ -104,8 +106,21 @@ from PregnantInfo pi
 left join SyncForFS s on s.SourceType = 1 and s.SourceId = pi.Id
 where s.id is null 
 and pi.createtime < convert(nvarchar, getdate(),23) 
-and pi.updatetime> convert(nvarchar, getdate(),23)
+and pi.updatetime> '2020-07-01'
 ", transaction: dbGroup.Transaction).ToList();
+
+//当天
+//            return dbGroup.Connection.Query<PregnantInfo>($@"
+//select Top 1 
+//s.id sid,
+//pi.createtime, pi.updatetime,
+//pi.*
+//from PregnantInfo pi
+//left join SyncForFS s on s.SourceType = 1 and s.SourceId = pi.Id
+//where s.id is null 
+//and pi.createtime < convert(nvarchar, getdate(),23) 
+//and pi.updatetime> convert(nvarchar, getdate(),23)
+//", transaction: dbGroup.Transaction).ToList();
         }
     }
 }

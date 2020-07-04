@@ -11,7 +11,7 @@ namespace FrameworkTest.Business.SDMockCommit
 {
     public class FSService
     {
-        #region 孕妇档案
+        #region Common
 
         /// <summary>
         /// 获取 患者主索引
@@ -55,6 +55,82 @@ namespace FrameworkTest.Business.SDMockCommit
             return careId;
         }
 
+        internal WCQBJ_CZDH_DOCTOR_READData GetBase8(UserInfo userInfo, string idCard, ref StringBuilder logger)
+        {
+            var container = new CookieContainer();
+            var postData = "";
+            var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID={userInfo.UserId}&sParams=P${idCard}$P$P";
+            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var resultBase = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
+            logger.AppendLine($"查询 孕妇档案概要数据");
+            logger.AppendLine(result);
+            logger.AppendLine(resultBase.ToJson());
+            if (resultBase == null || resultBase.data == null || resultBase.data.Count == 0)
+                return null;
+            return resultBase.data.First();
+        }
+
+        #endregion
+
+        #region 孕妇档案
+
+        internal WMH_CQBJ_JBXX_FORM_READData GetBase77(UserInfo userInfo, string mainId, ref StringBuilder logger)
+        {
+            var container = new CookieContainer();
+            var postData = "";
+            var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_READ&sUserID={userInfo.UserId}&sParams={mainId}";
+            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var resultBase = result.FromJson<WMH_CQBJ_JBXX_FORM_READResponse>();
+            logger.AppendLine($"查询 孕妇档案77项数据");
+            logger.AppendLine(result);
+            logger.AppendLine(resultBase.ToJson());
+            if (resultBase == null || resultBase.data == null || resultBase.data.Count == 0)
+                return null;
+            return resultBase.data.First();
+        }
+
+        internal WCQBJ_CZDH_DOCTOR_READData GetPregnantInfo(UserInfo userInfo, string idCard, ref StringBuilder logger)
+        {
+            var container = new CookieContainer();
+            var postData = "";
+            var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID={userInfo.UserId}&sParams=P${idCard}$P$P";
+            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var re = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
+            logger.AppendLine($"查询-获取孕妇档案");
+            logger.AppendLine(url);
+            logger.AppendLine(result);
+            logger.AppendLine(re?.ToJson());
+            return re?.data?.FirstOrDefault();
+        }
+
+        internal bool CreatePregnantInfo(UserInfo userInfo, string mainId, List<WMH_CQBJ_JBXX_FORM_SAVEData> datas, ref StringBuilder logger)
+        {
+            var container = new CookieContainer();
+            var url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_SAVE&sUserID={userInfo.UserId}&sParams=null${mainId}${userInfo.OrgId}${userInfo.EncodeUserName}$null$null$null$%E6%99%AE%E9%80%9A%E6%8A%A4%E5%A3%AB%E4%BA%A7%E6%A3%80";
+            var json = datas.ToJson();
+            var postData = "data=" + HttpUtility.UrlEncode(json);
+            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            logger.AppendLine("Create 基本信息");
+            logger.AppendLine(url);
+            logger.AppendLine(json);
+            logger.AppendLine(result);
+            return result.Contains("处理成功");
+        }
+
+        internal bool UpdatePregnantInfo(UserInfo userInfo, string mainId, string mainIdForChange, List<WMH_CQBJ_JBXX_FORM_SAVEData> datas, ref StringBuilder logger)
+        {
+            var container = new CookieContainer();
+            var url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_SAVE&sUserID={userInfo.UserId}&sParams={mainIdForChange}${mainId}${userInfo.OrgId}${userInfo.EncodeUserName}$null$null$null$%E6%99%AE%E9%80%9A%E6%8A%A4%E5%A3%AB%E4%BA%A7%E6%A3%80";
+            var json = datas.ToJson();
+            var postData = "data=" + HttpUtility.UrlEncode(json);
+            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            logger.AppendLine("Create 基本信息");
+            logger.AppendLine(url);
+            logger.AppendLine(json);
+            logger.AppendLine(result);
+            return result.Contains("处理成功");
+        }
+
         #endregion
 
         #region 体格检查
@@ -80,6 +156,22 @@ namespace FrameworkTest.Business.SDMockCommit
             if (string.IsNullOrEmpty(re2.d1))
                 return null;
             return re2.d1;
+        }
+
+        internal bool IsExist(UserInfo userInfo, string mainId, string careId, PregnantInfo_SourceData sourceData, ref StringBuilder logger)
+        {
+            var container = new CookieContainer();
+            var url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_CC&sUserID={userInfo.UserId}&sParams={mainId}$P${careId}${sourceData.IdCard}&pageSize=10000&pageIndex=0";
+            var postData = "";
+            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var repeatData = result.FromJson<WMH_CQBJ_JBXX_FORM_CC>();
+            if (repeatData.data.Count != 0 && repeatData.data.FirstOrDefault(c => c.PersonName != sourceData.PersonName) != null)
+            {
+                logger.AppendLine($"--------查重时,出现重复");
+                logger.AppendLine(result);
+                return true;
+            }
+            return false;
         }
         #endregion
 

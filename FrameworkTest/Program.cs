@@ -3602,7 +3602,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 //自动执行
                 syncTask_Update_PhysicalExaminationModel.Start_Auto_DoWork(serviceContext, SDBLL.UserInfo);
             }));
-            cmds.Add(new Command("m99,0703,自动同步-扩展更新`孕妇档案`", () =>
+            cmds.Add(new Command("m99,0703,自动同步-扩展范围`孕妇档案`", () =>
             {
                 var syncTask = new PregnantInfo_SyncTask_CreateOrUpdate(serviceContext);
                 syncTask.DoLogOnGetSource = (sourceData) =>

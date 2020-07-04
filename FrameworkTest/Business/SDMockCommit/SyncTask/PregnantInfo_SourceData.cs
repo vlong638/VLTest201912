@@ -11,16 +11,16 @@ namespace FrameworkTest.Business.SDMockCommit
 {
     public class PregnantInfo_SourceData : SourceData
     {
-        public PregnantInfo SourceData;
+        public PregnantInfo Data;
 
         public PregnantInfo_SourceData(PregnantInfo pe)
         {
-            this.SourceData = pe;
+            this.Data = pe;
         }
 
-        public string IdCard => SourceData.idcard;
-        public string PersonName => SourceData.personname;
-        public string SourceId => SourceData.Id.ToString();
+        public string IdCard => Data.idcard;
+        public string PersonName => Data.personname;
+        public string SourceId => Data.Id.ToString();
         public SourceType SourceType => SourceType.PregnantInfo;
     }
 }
