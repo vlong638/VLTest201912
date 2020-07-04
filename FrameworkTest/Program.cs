@@ -3205,6 +3205,14 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                                 }
                                 //新增处理
                                 var pregnanthistorys = pregnantInfo.pregnanthistory?.FromJson<List<pregnanthistory>>();
+                                if (pregnantInfo.gravidity == "1")
+                                {
+                                    pregnanthistorys.Add(new pregnanthistory()
+                                    {
+                                        index = "1",
+                                        pregnantage ="本孕- ",
+                                    });
+                                }
                                 var enquiryPregnanthResponse = SDBLL.GetEnquiryPregnanths(userInfo, base8, ref sb);
                                 sb.Append("---------------------pregnantInfo.pregnanthistory");
                                 sb.Append(pregnantInfo.pregnanthistory);
@@ -3312,6 +3320,14 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                                 }
                                 //新增处理
                                 var pregnanthistorys = pregnantInfo.pregnanthistory?.FromJson<List<pregnanthistory>>();
+                                if (pregnantInfo.gravidity == "1")
+                                {
+                                    pregnanthistorys.Add(new pregnanthistory()
+                                    {
+                                        index = "1",
+                                        pregnantage = "本孕- ",
+                                    });
+                                }
                                 var enquiryPregnanthResponse = SDBLL.GetEnquiryPregnanths(userInfo, base8, ref sb);
                                 sb.Append("---------------------pregnantInfo.pregnanthistory");
                                 sb.Append(pregnantInfo.pregnanthistory);
