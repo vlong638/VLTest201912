@@ -3210,7 +3210,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                                     pregnanthistorys.Add(new pregnanthistory()
                                     {
                                         index = "1",
-                                        pregnantage ="本孕- ",
+                                        pregnantage = $"本孕{DateTime.Now.Year}- ",
                                     });
                                 }
                                 var enquiryPregnanthResponse = SDBLL.GetEnquiryPregnanths(userInfo, base8, ref sb);
@@ -3325,7 +3325,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                                     pregnanthistorys.Add(new pregnanthistory()
                                     {
                                         index = "1",
-                                        pregnantage = "本孕- ",
+                                        pregnantage = $"本孕{DateTime.Now.Year}- ",
                                     });
                                 }
                                 var enquiryPregnanthResponse = SDBLL.GetEnquiryPregnanths(userInfo, base8, ref sb);
