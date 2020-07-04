@@ -46,7 +46,7 @@ namespace FrameworkTest.Business.SDMockCommit
             if (key == "3")
                 return "胚胎移植";
             var value = CardType_Hele[key];
-            return PregnancyManner.FirstOrDefault(c => c.Value == value).Key ?? "";
+            return PregnancyManner.FirstOrDefault(c => c.Value == value).Value ?? "";
         }
     }
 }
