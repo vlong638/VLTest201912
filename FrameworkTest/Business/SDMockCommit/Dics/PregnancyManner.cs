@@ -39,13 +39,13 @@ namespace FrameworkTest.Business.SDMockCommit
         {
             if (string.IsNullOrEmpty(key))
                 return "";
-            if (!CardType_Hele.ContainsKey(key))
+            if (!PregnancyManner_Hele.ContainsKey(key))
                 return "";
             if (key == "2")
                 return "宫腔内人工受精";
             if (key == "3")
                 return "胚胎移植";
-            var value = CardType_Hele[key];
+            var value = PregnancyManner_Hele[key];
             return PregnancyManner.FirstOrDefault(c => c.Value == value).Value ?? "";
         }
     }

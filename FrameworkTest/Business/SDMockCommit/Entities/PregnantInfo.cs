@@ -107,107 +107,107 @@ namespace FrameworkTest.Business.SDMockCommit
         /// <summary>
         /// 妇科手术史
         /// </summary>
-        internal string gynecologyops;
+        public string gynecologyops;
         /// <summary>
         /// 手术史
         /// </summary>
-        internal string operationhistory;
+        public string operationhistory;
         /// <summary>
         /// 末次月经时间
         /// </summary>
-        internal DateTime? lastmenstrualperiod;
+        public DateTime? lastmenstrualperiod;
         /// <summary>
         /// 预产期
         /// </summary>
-        internal DateTime? dateofprenatal;
+        public DateTime? dateofprenatal;
         /// <summary>
         /// 本次怀孕方式
         /// </summary>
-        internal string tpregnancymanner;
+        public string tpregnancymanner;
         /// <summary>
         /// 既往病史
         /// </summary>
-        internal string pasthistory;
+        public string pasthistory;
         /// <summary>
         /// 过敏史
         /// </summary>
-        internal string allergichistory;
+        public string allergichistory;
         /// <summary>
         /// 输血史
         /// </summary>
-        internal string bloodtransfution;
+        public string bloodtransfution;
         /// <summary>
         /// 家族史
         /// </summary>
-        internal string familyhistory;
+        public string familyhistory;
         /// <summary>
         /// 初潮年龄
         /// </summary>
-        internal string menarcheage;
+        public string menarcheage;
         /// <summary>
         /// 经期下限
         /// </summary>
-        internal string menstrualperiodmin;
+        public string menstrualperiodmin;
         /// <summary>
         /// 经期上限
         /// </summary>
-        internal string menstrualperiodmax;
+        public string menstrualperiodmax;
         /// <summary>
         /// 周期下限
         /// </summary>
-        internal string cyclemin;
+        public string cyclemin;
         /// <summary>
         /// 周期上限
         /// </summary>
-        internal string cyclemax;
+        public string cyclemax;
         /// <summary>
         /// 月经量
         /// </summary>
-        internal menstrualblood menstrualblood;
+        public menstrualblood menstrualblood;
         /// <summary>
         /// 痛经
         /// </summary>
-        internal string dysmenorrhea;
+        public string dysmenorrhea;
         /// <summary>
         /// 毒物接触史
         /// </summary>
-        internal string poisontouchhis;
+        public string poisontouchhis;
         /// <summary>
         /// 植入时间
         /// </summary>
-        internal DateTime? implanttime;
+        public DateTime? implanttime;
         /// <summary>
         /// 取卵时间
         /// </summary>
-        internal DateTime? eggretrievaltime;
+        public DateTime? eggretrievaltime;
         /// <summary>
         /// 遗传家族史
         /// </summary>
-        internal string heredityfamilyhistory;
+        public string heredityfamilyhistory;
         /// <summary>
         /// 生育史
         /// </summary>
-        internal string pregnanthistory;
+        public string pregnanthistory;
         /// <summary>
         /// 孕次
         /// </summary>
-        internal string gravidity;
+        public string gravidity;
         /// <summary>
         /// 阴道分娩
         /// </summary>
-        internal string vaginaldeliverynum;
+        public string vaginaldeliverynum;
         /// <summary>
         /// 体重
         /// </summary>
-        internal string weight;
+        public string weight;
         /// <summary>
         /// 身高
         /// </summary>
-        internal string height;
+        public string height;
         /// <summary>
         /// BMI
         /// </summary>
-        internal string bmi;
+        public string bmi;
 
         //丈夫现住址详细地址 NFQXXX  需核对
         //public string NFQXXX { set; get; }
