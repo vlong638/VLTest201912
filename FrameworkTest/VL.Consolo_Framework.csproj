@@ -107,6 +107,7 @@
     <Compile Include="Business\SDMockCommit\Dics\Nation.cs" />
     <Compile Include="Business\SDMockCommit\Dics\Country.cs" />
     <Compile Include="Business\SDMockCommit\BaseInfo.cs" />
+    <Compile Include="Business\SDMockCommit\Entities\cnarea.cs" />
     <Compile Include="Business\SDMockCommit\Entities\ProfessionalExaminationModel.cs" />
     <Compile Include="Business\SDMockCommit\Entities\PhysicalExaminationModel.cs" />
     <Compile Include="Business\SDMockCommit\Entities\PregnantInfo.cs" />
@@ -148,7 +149,6 @@
     <Compile Include="Business\ConfigurableEntity\EntityDBConfig.cs" />
     <Compile Include="Business\ConfigurableEntity\SampleEntity.cs" />
     <Compile Include="Business\Kettle\O_LabResult.cs" />
-    <Compile Include="Common\EnumSolution\EnumHelper.cs" />
     <Compile Include="Common\FileSolution\FileHelper.cs" />
     <Compile Include="Common\HttpSolution\HttpHelper.cs" />
     <Compile Include="Common\RSASolution\RSASample.cs" />

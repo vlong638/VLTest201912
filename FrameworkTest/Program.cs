@@ -37,7 +37,36 @@ namespace FrameworkTest
 
         static void Main(string[] args)
         {
+
             #region 简单测试
+
+            //try
+            //{
+            //    var sourceTypes = typeof(SourceType).GetAllEnums();
+            //    foreach (SourceType sourceType in sourceTypes)
+            //    {
+            //        switch (sourceType)
+            //        {
+            //            case SourceType.PregnantInfo:
+            //                break;
+            //            case SourceType.HistoryEnquiry:
+            //                break;
+            //            case SourceType.PhysicalExamination:
+            //                break;
+            //            case SourceType.ProfessionalExamination:
+            //                break;
+            //            default:
+            //                break;
+            //        }
+            //    }
+            //    var nonType = typeof(Int32).GetAllEnums();
+
+            //}
+            //catch (Exception ex)
+            //{
+            //    var eee = ex.ToString();
+            //}
+
             //var sss = @"[{""index"":""0"",""heartrate"":""66"",""position"":""01"",""presentposition"":""1"",""fetalmove"":""1""},{""index"":""2"",""heartrate"":""88"",""position"":""02"",""presentposition"":""2"",""fetalmove"":""2""}]";
             //var fetaldatas = sss.FromJson<List<fetaldata>>();
 
@@ -3767,65 +3796,6 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             return data;
         }
 
-        private static void NewMethod(PregnantInfo pregnantInfo, WMH_CQBJ_CQJC_PRE_READ_Data enquiryPregnanth, pregnanthistory pregnanthistory)
-        {
-            //public string D1 { set; get; } //生育史Id  KO
-            enquiryPregnanth.D2 = pregnantInfo.gravidity ?? "";//public string D2 { set; get; } //孕次
-                                                               //public string D3 { set; get; } //年  KO
-                                                               //public string D4 { set; get; } //月  KO
-            enquiryPregnanth.D5 = pregnanthistory.Pregstatuss.Contains("自然流产") ? "1" : ""; //public string D5 { set; get; } //流产-自然  KO
-            enquiryPregnanth.D6 = pregnanthistory.Pregstatuss.Contains("人流") ? "1" : "";//public string D6 { set; get; } //流产-人工  KO
-            enquiryPregnanth.D7 = pregnanthistory.Pregstatuss.Contains("引产") ? "1" : "";//public string D7 { set; get; } //流产-引产  KO
-                                                                                        //public string D8 { set; get; } //葡萄胎  KO
-            enquiryPregnanth.D9 = pregnanthistory.Pregstatuss.Contains("宫外孕") ? "1" : "";//public string D9 { set; get; } //宫外孕  KO
-            enquiryPregnanth.D10 = pregnanthistory.Pregstatuss.Contains("死胎") ? "1" : "";//public string D10 { set; get; } //死胎  KO
-            enquiryPregnanth.D11 = pregnanthistory.Pregstatuss.Contains("死产") ? "1" : "";//public string D11 { set; get; } //死产   KO
-            enquiryPregnanth.D12 = (pregnanthistory.Pregstatuss.Contains("早产-健") || pregnanthistory.Pregstatuss.Contains("早产-亡")) ? "1" : "";//public string D12 { set; get; } //早产   KO
-                                                                                                                                             //public string D13 { set; get; } //阴道分娩  KO
-            enquiryPregnanth.D14 = pregnanthistory.Pregstatuss.Contains("剖宫产") ? "1" : "";//public string D14 { set; get; } //剖宫产  KO
-            enquiryPregnanth.D15 = (pregnanthistory.Pregstatuss.Contains("足月产-健") || pregnanthistory.Pregstatuss.Contains("足月产-亡")) ? "1" : "";//public string D15 { set; get; } //足月产  KO
-                                                                                                                                               //public string D16 { set; get; } //性别 KO 可以配对
-
-            //public string D17 { set; get; } //出生体重/g KO 
-            //public string D18 { set; get; } //存活 KO "√"
-            //public string D19 { set; get; } //死亡年龄 KO
-            //public string D20 { set; get; } //死亡原因 KO
-            //public string D21 { set; get; } //出生缺陷 KO
-            //public string D22 { set; get; } //母婴并发症 KO
-            //public string D23 { set; get; } //指征 KO
-            //public string D24 { set; get; } //分娩地点 KO
-            //public string D25 { set; get; } //备注 KO
-
-
-            //<Option value="1" text="足月产-健"/>
-            //<Option value="23" text="巨大胎"/>
-            //<Option value="2" text="足月产-亡"/>
-            //<Option value="3" text="早产-健"/>
-            //<Option value="4" text="早产-亡"/>
-            //<Option value="5" text="畸形-健"/>
-            //<Option value="6" text="畸形-亡"/>
-            //<Option value="7" text="双胎"/>
-            //<Option value="8" text="死胎"/>
-            //<Option value="9" text="死产"/>
-            //<Option value="10" text="胎位异常"/>
-            //<Option value="11" text="妊高症"/>
-            //<Option value="12" text="前置胎盘"/>
-            //<Option value="13" text="胎盘早剥"/>
-            //<Option value="14" text="阴道手术"/>
-            //<Option value="15" text="剖宫产"/>
-            //<Option value="16" text="人流"/>
-            //<Option value="17" text="自然流产"/>
-            //<Option value="18" text="引产"/>
-            //<Option value="19" text="药流"/>
-            //<Option value="20" text="胎停"/>
-            //<Option value="21" text="宫外孕"/>
-
-            //<Option value="1" text="男" selected="0"/>
-            //<Option value="2" text="女" selected="0"/>
-            //<Option value="9" text="未说明的性别" selected="0"/>
-            //<Option value="0" text="未知的性别" selected="0"/> 
-        }
-
         static byte[] FromHex(string hex)
         {
             if (string.IsNullOrEmpty(hex) || hex.Length % 2 != 0) throw new ArgumentException("not a hexidecimal string");
@@ -3836,24 +3806,6 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             }
             return bytes.ToArray();
         }
-    }
-
-    [Table("cnarea")]
-    class cnarea
-    {
-        public string id { set; get; }
-        public string level { set; get; }
-        public string parent_code { set; get; }
-        public string area_code { set; get; }
-        public string zip_code { set; get; }
-        public string city_code { set; get; }
-        public string name { set; get; }
-        public string short_name { set; get; }
-        public string merger_name { set; get; }
-        public string pinyin { set; get; }
-        public string lng { set; get; }
-        public string lat { set; get; }
-        public string message { set; get; }
     }
 
     #region CommandMode

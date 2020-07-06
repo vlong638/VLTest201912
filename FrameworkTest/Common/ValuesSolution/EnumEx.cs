@@ -7,6 +7,15 @@ namespace FrameworkTest.Common.ValuesSolution
 {
     public static class EnumEx
     {
+        public static IEnumerable<object> GetAllEnums(this Type type)
+        {
+            if (type.BaseType != typeof(Enum))
+                return null;
+
+            var enums = Enum.GetNames(type).Select(c => Enum.Parse(type, c));
+            return enums;
+        }
+
         public static string GetDescription(this Enum @this)
         {
             var name = @this.ToString();
