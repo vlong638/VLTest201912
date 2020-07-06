@@ -8,6 +8,7 @@ namespace FrameworkTest.Business.SDMockCommit
 {
     //(\w+)\s+([\w\(\)]+)
     //{"$1" ,"$2"},
+    //<Option value = "(\w+)" text="([\w\(\\、\（\）]+)"/>
     public partial class VLConstraints
     {
         //运行时常量 readonly static (引用型),编译时常量 const (值类型)

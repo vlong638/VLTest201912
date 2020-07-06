@@ -91,7 +91,11 @@
   <ItemGroup>
     <Compile Include="Business\ConfigurableEntity\EntityAppConfig.cs" />
     <Compile Include="Business\GJPredeliveryAsync\PreDelivery.cs" />
+    <Compile Include="Business\SDMockCommit\Dics\0.Sample.cs" />
+    <Compile Include="Business\SDMockCommit\Dics\EdemaStatus.cs" />
+    <Compile Include="Business\SDMockCommit\Dics\Link.cs" />
     <Compile Include="Business\SDMockCommit\Dics\FetalPosition.cs" />
+    <Compile Include="Business\SDMockCommit\Dics\GestationalWeeks.cs" />
     <Compile Include="Business\SDMockCommit\Dics\PresentPosition.cs" />
     <Compile Include="Business\SDMockCommit\Dics\PalaceMouth.cs" />
     <Compile Include="Business\SDMockCommit\Dics\FetalAmount.cs" />
@@ -113,7 +117,7 @@
     <Compile Include="Business\SDMockCommit\Entities\PregnantInfo.cs" />
     <Compile Include="Business\SDMockCommit\RequestAndResponse\WMH_CQBJ_CQJC_READ.cs" />
     <Compile Include="Business\SDMockCommit\RequestAndResponse\WMH_CQBJ_CQJC_SAVE.cs" />
-    <Compile Include="Business\SDMockCommit\RequestAndResponse\WMH_CQBJ_JBXX_FORM_CC.cs" />
+    <Compile Include="Business\SDMockCommit\RequestAndResponse\WMH_CQBJ_JBXX_FORM_CC%28Base17%29.cs" />
     <Compile Include="Business\SDMockCommit\RequestAndResponse\WMH_CQBJ_CQJC_TGJC_LIST.cs" />
     <Compile Include="Business\SDMockCommit\RequestAndResponse\WMH_CQBJ_CQJC_PRE_SAVE.cs" />
     <Compile Include="Business\SDMockCommit\RequestAndResponse\WMH_CQBJ_CQJC_PRE_READ.cs" />

@@ -130,33 +130,69 @@ namespace FrameworkTest.Business.SDMockCommit
             this.D57 = data.D57;
         }
 
-        internal void Update(ProfessionalExaminationModel_SourceData sourceData)
+        internal void Update(UserInfo userInfo, ProfessionalExaminationModel_SourceData sourceData)
         {
             //对比数据
             //142328199610271518	李丽	2019-12-18	2020-10-08	0	12	NULL	NULL	2020-07-30	2	
             //[{"index":"0","heartrate":"66","position":"01","presentposition":"1","fetalmove":"1"},{"index":"2","heartrate":"88","position":"02","presentposition":"2","fetalmove":"2"}]	2020-07-02	1393	NULL
 
-            this.D1 = DateTime.Now.ToString("yyyy-MM-dd");
-            //D3 矫正末次月经 = 孕妇档案.末次月经
-            this.D3 = sourceData.SourceData.lastmenstrualperiod?.ToDateTime()?.ToString("yyyy-MM-dd") ?? "";
-            //D4 矫正预产期 = 孕妇档案.预产期
-            this.D4 = sourceData.SourceData.dateofprenatal?.ToDateTime()?.ToString("yyyy-MM-dd") ?? "";
-            //D43 子宫压痛 = 子宫
-            //有,无
-            this.D43 = VLConstraints.Get_Uterus_By_Uterus_HELE(sourceData.SourceData.uterus);
-            //D53 宫口开大 = 宫口
-            this.D53 = VLConstraints.Get_PalaceMouth_By_PalaceMouth_HELE(sourceData.SourceData.palacemouth);
+
+            //D5.主诉        chiefcomplaint
+            this.D5 = sourceData.SourceData.chiefcomplaint;
+            //D6.现病史      presenthistory
+            this.D6 = sourceData.SourceData.presenthistory;
+            //D10.宫高       heightfundusuterus
+            //FS: 耻骨联合上 横指
+            //HL: 文本框,直接传
+            this.D10 = sourceData.SourceData.heightfundusuterus;
+            //D11.腹围        abdomencircumference
+            this.D11 = sourceData.SourceData.abdomencircumference;
+            //D15.衔接        xianjie
+            //FS: 文本=>已衔接,未衔接
+            //HL: 未衔接,衔接,半衔接
+            this.D11 = VLConstraints.GetLinkByLink_HELE(sourceData.SourceData.xianjie);
+            //D16.浮肿        edemastatus
+            //FS: 1.无,2.+,3.++,4.+++
+            //HL: -,+,++,+++,++++
+            this.D16 = VLConstraints.GetEdemaStatus_By_EdemaStatus_Hele(sourceData.SourceData.edemastatus);
+
+            //高危因素
+            //高危等级  highrisklevel
+            //FS: 
+            //HL: A,
+            //高危因素  highriskreason
+
+            //D25.诊断    
+            //          diagnosisinfo,主诊断说明
+            //          maindiagnosis,主诊断
+            //          secondarydiagnosis,次诊断
+            //HL: 高危妊娠监督	妊娠合并中度贫血,健康查体,妊娠期阴道炎,缺铁性贫血,妊娠期糖尿病
+            this.D25 = $"{sourceData.SourceData.diagnosisinfo},{sourceData.SourceData.maindiagnosis ?? ""},{sourceData.SourceData.secondarydiagnosis ?? ""}";
+
+            //D36.检查医生
+            this.D36 = userInfo.UserName;
+            //D37.机构Id
+            this.D37 = userInfo.OrgId;
+
+            this.D1 = DateTime.Now.ToString("yyyy-MM-dd");//检查日期
+            this.D2 = VLConstraints.GetGestationalWeeksByPrenatalDate(sourceData.SourceData.dateofprenatal?.ToDateTime(), DateTime.Now);//D2.孕周   
+            this.D3 = sourceData.SourceData.lastmenstrualperiod?.ToDateTime()?.ToString("yyyy-MM-dd") ?? "";//D3 矫正末次月经 = 孕妇档案.末次月经
+            this.D4 = sourceData.SourceData.dateofprenatal?.ToDateTime()?.ToString("yyyy-MM-dd") ?? "";//D4 矫正预产期 = 孕妇档案.预产期
             //D26,处理 = 处理意见
             this.D26 = sourceData.SourceData.suggestion ?? "";
             ////D29,健康评估 = 其它评估 无需处理
             //this.D29 = sourceData.SourceData.generalcomment ?? "";
             //D39,下次预约时间 = 下次随访
             this.D39 = sourceData.SourceData.followupappointment?.ToDateTime()?.ToString("yyyy-MM-dd") ?? "";
+            //D43 子宫压痛 = 子宫
+            //有,无
+            this.D43 = VLConstraints.Get_Uterus_By_Uterus_HELE(sourceData.SourceData.uterus);
+            //D53 宫口开大 = 宫口
+            this.D53 = VLConstraints.Get_PalaceMouth_By_PalaceMouth_HELE(sourceData.SourceData.palacemouth);
             //-- //D44,预约目的
             //D54 胎膜破裂 = 破水
             //1 = 是  2 = 无  Hele: 1=破 2=无
             this.D54 = sourceData.SourceData.brokenwater ?? "";
-
             //[{"index":"0","heartrate":"66","position":"01","presentposition":"1","fetalmove":"1"},{"index":"2","heartrate":"88","position":"02","presentposition":"2","fetalmove":"2"}
             //sourceData.SourceData.feltalentities
             //胎数 D56  1 = 单胎 2 = 双胎 3 = 三胎以上

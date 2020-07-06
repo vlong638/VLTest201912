@@ -108,6 +108,7 @@ namespace FrameworkTest.Business.SDMockCommit
 
         public List<ProfessionalExaminationModel> GetProfessionalExaminationsToCreate()
         {
+            //return SDDAL.GetProfessionalExaminationsToCreateByIdCard(DBContext.DbGroup, "142328199610271518");
             return SDDAL.GetProfessionalExaminationsToCreate(DBContext.DbGroup);
         }
 

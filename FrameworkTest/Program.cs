@@ -37,6 +37,8 @@ namespace FrameworkTest
 
         static void Main(string[] args)
         {
+            VLConstraints.GetGestationalWeeksByPrenatalDate(new DateTime(2020, 10, 8), DateTime.Now);
+
 
             #region 简单测试
 

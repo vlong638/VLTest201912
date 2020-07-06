@@ -5,6 +5,43 @@ namespace FrameworkTest.Business.SDMockCommit
 {
     public class ProfessionalExaminationModel
     {
+        /// <summary>
+        /// 主诉
+        /// </summary>
+        public string chiefcomplaint;
+        /// <summary>
+        /// 现病史
+        /// </summary>
+        public string presenthistory;
+        /// <summary>
+        /// 宫高
+        /// </summary>
+        public string heightfundusuterus;
+        /// <summary>
+        /// 腹围
+        /// </summary>
+        public string abdomencircumference;
+        /// <summary>
+        /// 衔接
+        /// </summary>
+        public string xianjie;
+        /// <summary>
+        /// 浮肿
+        /// </summary>
+        public string edemastatus;
+        /// <summary>
+        /// 主诊断说明
+        /// </summary>
+        public string diagnosisinfo;
+        /// <summary>
+        /// 主诊断
+        /// </summary>
+        public string maindiagnosis;
+        /// <summary>
+        /// 次诊断
+        /// </summary>
+        public string secondarydiagnosis;
+
         public string id { set; get; }
 
         #region PregnantInfo

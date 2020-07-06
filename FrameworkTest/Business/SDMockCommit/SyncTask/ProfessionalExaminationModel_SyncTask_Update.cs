@@ -64,7 +64,7 @@ namespace FrameworkTest.Business.SDMockCommit
                 }
                 //更新数据
                 var professionalExaminationNew = new WMH_CQBJ_CQJC_SAVE(professionalExaminationOld);
-                professionalExaminationNew.Update(sourceData);
+                professionalExaminationNew.Update(userInfo, sourceData);
                 //提交专科检查
                 var result = Context.FSService.UpdateProfessionalExamination(physicalExaminationId, professionalExaminationNew, userInfo, base8, ref logger);
                 if (!result.Contains("处理成功"))

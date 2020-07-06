@@ -48,5 +48,10 @@ namespace FrameworkTest.Business.SDMockCommit
             var value = PregnancyManner_Hele[key];
             return PregnancyManner.FirstOrDefault(c => c.Value == value).Value ?? "";
         }
+
+        internal static string GetLinkByLink_HELE(object xianjie)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
