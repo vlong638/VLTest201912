@@ -150,7 +150,7 @@ namespace FrameworkTest.Business.SDMockCommit
             //D15.衔接        xianjie
             //FS: 文本=>已衔接,未衔接
             //HL: 未衔接,衔接,半衔接
-            this.D11 = VLConstraints.GetLinkByLink_HELE(sourceData.SourceData.xianjie);
+            this.D15 = VLConstraints.GetLinkByLink_HELE(sourceData.SourceData.xianjie);
             //D16.浮肿        edemastatus
             //FS: 1.无,2.+,3.++,4.+++
             //HL: -,+,++,+++,++++
