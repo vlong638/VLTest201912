@@ -85,7 +85,10 @@ namespace FrameworkTest.Business.SDMockCommit
                 syncOrder.ErrorMessage = ex.ToString();
                 context.SDService.SaveSyncOrder(syncOrder);
             }
-            DoLogOnWork?.Invoke(sourceData, logger);
+            finally
+            {
+                DoLogOnWork?.Invoke(sourceData, logger);
+            }
         }
     }
 }
