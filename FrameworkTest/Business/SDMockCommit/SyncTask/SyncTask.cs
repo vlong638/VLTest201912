@@ -46,18 +46,5 @@ namespace FrameworkTest.Business.SDMockCommit
                 System.Threading.Thread.Sleep(interval);
             }
         }
-
-        public WCQBJ_CZDH_DOCTOR_READResponse GetBase8(UserInfo userInfo, string idCard, StringBuilder logger)
-        {
-            var container = new CookieContainer();
-            var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID={userInfo.UserId}&sParams=P${idCard}$P$P";
-            var postData = "";
-            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
-            var re = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
-            logger.AppendLine($"查询-Base8");
-            logger.AppendLine(url);
-            logger.AppendLine(result);
-            return re;
-        }
     }
 }

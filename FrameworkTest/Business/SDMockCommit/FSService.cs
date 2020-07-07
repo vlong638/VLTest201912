@@ -142,7 +142,7 @@ namespace FrameworkTest.Business.SDMockCommit
         /// <param name="issueDate"></param>
         /// <param name="logger"></param>
         /// <returns></returns>
-        public string GetPhysicalExaminationId(UserInfo userInfo, WCQBJ_CZDH_DOCTOR_READResponse base8, DateTime issueDate, ref StringBuilder logger)
+        public string GetPhysicalExaminationId(UserInfo userInfo, WCQBJ_CZDH_DOCTOR_READData base8, DateTime issueDate, ref StringBuilder logger)
         {
             var container = new CookieContainer();
             var dateStr = issueDate.ToString("yyyy-MM-dd");
@@ -184,7 +184,7 @@ namespace FrameworkTest.Business.SDMockCommit
         /// <param name="base8"></param>
         /// <param name="logger"></param>
         /// <returns></returns>
-        internal WMH_CQBJ_CQJC_READ_Data GetProfessionalExamination(string physicalExaminationId, UserInfo userInfo, WCQBJ_CZDH_DOCTOR_READResponse base8, ref StringBuilder logger)
+        internal WMH_CQBJ_CQJC_READ_Data GetProfessionalExamination(string physicalExaminationId, UserInfo userInfo, WCQBJ_CZDH_DOCTOR_READData base8, ref StringBuilder logger)
         {
             var container = new CookieContainer();
             var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_CQJC_READ&sUserID={userInfo.UserId}&sParams={physicalExaminationId}${base8.MainId}";
@@ -208,7 +208,7 @@ namespace FrameworkTest.Business.SDMockCommit
         /// <param name="base8"></param>
         /// <param name="logger"></param>
         /// <returns></returns>
-        internal string UpdateProfessionalExamination(string physicalExaminationId, WMH_CQBJ_CQJC_SAVE professionalExaminationNew, UserInfo userInfo, WCQBJ_CZDH_DOCTOR_READResponse base8, ref StringBuilder logger)
+        internal string UpdateProfessionalExamination(string physicalExaminationId, WMH_CQBJ_CQJC_SAVE professionalExaminationNew, UserInfo userInfo, WCQBJ_CZDH_DOCTOR_READData base8, ref StringBuilder logger)
         {
             var container = new CookieContainer();
             var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_CQJC_SAVE&sUserID={userInfo.UserId}&sParams={base8.MainId}${userInfo.OrgId}${physicalExaminationId}$1$P$%E6%99%AE%E9%80%9A%E4%BA%A7%E6%A3%80%E5%8C%BB%E7%94%9F";

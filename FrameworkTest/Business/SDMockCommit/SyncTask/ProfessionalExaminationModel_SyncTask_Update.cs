@@ -36,11 +36,11 @@ namespace FrameworkTest.Business.SDMockCommit
             try
             {
                 //获取八项基础信息
-                var base8 = GetBase8(userInfo, sourceData.IdCard, logger);
-                if (!base8.IsAvailable)
+                var base8 = Context.FSService.GetBase8(userInfo, sourceData.IdCard, ref logger);
+                if (base8 == null)
                 {
                     syncOrder.SyncStatus = SyncStatus.Error;
-                    syncOrder.ErrorMessage = "No Base8 Data";
+                    syncOrder.ErrorMessage = "未获取到 Base8";
                     context.SDService.SaveSyncOrder(syncOrder);
                     return;
                 }
