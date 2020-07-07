@@ -208,7 +208,7 @@ namespace FrameworkTest.Business.SDMockCommit
         /// <param name="base8"></param>
         /// <param name="logger"></param>
         /// <returns></returns>
-        internal string UpdateProfessionalExamination(string physicalExaminationId, WMH_CQBJ_CQJC_SAVE professionalExaminationNew, UserInfo userInfo, WCQBJ_CZDH_DOCTOR_READData base8, ref StringBuilder logger)
+        internal bool UpdateProfessionalExamination(string physicalExaminationId, WMH_CQBJ_CQJC_SAVE professionalExaminationNew, UserInfo userInfo, WCQBJ_CZDH_DOCTOR_READData base8, ref StringBuilder logger)
         {
             var container = new CookieContainer();
             var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_CQJC_SAVE&sUserID={userInfo.UserId}&sParams={base8.MainId}${userInfo.OrgId}${physicalExaminationId}$1$P$%E6%99%AE%E9%80%9A%E4%BA%A7%E6%A3%80%E5%8C%BB%E7%94%9F";
@@ -220,7 +220,7 @@ namespace FrameworkTest.Business.SDMockCommit
             logger.AppendLine(url);
             logger.AppendLine(postData);
             logger.AppendLine(result);
-            return result;
+            return result.Contains("处理成功");
         } 
         #endregion
     }

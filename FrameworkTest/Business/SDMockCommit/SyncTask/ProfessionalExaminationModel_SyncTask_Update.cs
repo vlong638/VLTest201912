@@ -66,11 +66,11 @@ namespace FrameworkTest.Business.SDMockCommit
                 var professionalExaminationNew = new WMH_CQBJ_CQJC_SAVE(professionalExaminationOld);
                 professionalExaminationNew.Update(userInfo, sourceData);
                 //提交专科检查
-                var result = Context.FSService.UpdateProfessionalExamination(physicalExaminationId, professionalExaminationNew, userInfo, base8, ref logger);
-                if (!result.Contains("处理成功"))
+                var isSuccess = Context.FSService.UpdateProfessionalExamination(physicalExaminationId, professionalExaminationNew, userInfo, base8, ref logger);
+                if (!isSuccess)
                 {
                     syncOrder.SyncStatus = SyncStatus.Error;
-                    syncOrder.ErrorMessage = result;
+                    syncOrder.ErrorMessage = "保存专科检查时,未返回成功";
                     context.SDService.SaveSyncOrder(syncOrder);
                     return;
                 }
