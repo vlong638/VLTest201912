@@ -14,11 +14,11 @@ namespace FrameworkTest.Business.SDMockCommit
         public string scr { set; get; }
         public List<WCQBJ_CZDH_DOCTOR_READData> data { set; get; }
 
-        public string CareId { get { return data.First().D1; } }
-        public string MainId { get { return data.First().D2; } }
-        public string IdCard { get { return data.First().D4; } }
-        public string BaseId { get { return data.First().D8; } }
-        public bool IsAvailable { get { return data.Count != 0; } }
+        internal string CareId { get { return data.First().D1; } }
+        internal string MainId { get { return data.First().D2; } }
+        internal string IdCard { get { return data.First().D4; } }
+        internal string BaseId { get { return data.First().D8; } }
+        internal bool IsAvailable { get { return data.Count != 0; } }
     }
     public class WCQBJ_CZDH_DOCTOR_READData
     {
@@ -40,8 +40,8 @@ namespace FrameworkTest.Business.SDMockCommit
         /// </summary>
         public string D8 { set; get; }//基档,BaseId
 
-        public string CareId { get { return D1; } }
-        public string MainId { get { return D2; } }
-        public string BaseId { get { return D8; } }
+        internal string CareId { get { return D1; } }
+        internal string MainId { get { return D2; } }
+        internal string BaseId { get { return D8; } }
     }
 }

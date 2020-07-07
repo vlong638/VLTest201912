@@ -3166,31 +3166,43 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             }));
             cmds.Add(new Command("m91,0622,自动同步-新增`孕妇档案`", () =>
             {
-                while (true)
+                var syncTask = new PregnantInfo_SyncTask_Create(new ServiceContext());
+                syncTask.DoLogOnGetSource = (sourceData) =>
                 {
-                    var tempPregnantInfos = SDBLL.GetPregnantInfoForCreate();
-                    foreach (var pregnantInfo in tempPregnantInfos)
-                    {
-                        StringBuilder sb = new StringBuilder();
-                        sb.AppendLine(pregnantInfo.ToJson());
-                        var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\ToCreate_" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
-                        File.WriteAllText(file, sb.ToString());
-                        Console.WriteLine($"result:{file}");
-                    }
-                    SDBLL.MockCommitCreatePregnantInfo(tempPregnantInfos);
-
-                    System.Threading.Thread.Sleep(1000 * 10);
-                }
+                    StringBuilder sb = new StringBuilder();
+                    sb.AppendLine(sourceData.ToJson());
+                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
+                    File.WriteAllText(file, sb.ToString());
+                    Console.WriteLine($"result:{file}");
+                };
+                syncTask.DoLogOnWork = (sourceData, sb) =>
+                {
+                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Create-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
+                    File.WriteAllText(file, sb.ToString());
+                    Console.WriteLine($"result:{file}");
+                };
+                //自动执行
+                syncTask.Start_Auto_DoWork(serviceContext, SDBLL.UserInfo);
             }));
             cmds.Add(new Command("m92,0623,自动同步-更新`孕妇档案`", () =>
             {
-                while (true)
+                var syncTask = new PregnantInfo_SyncTask_Update(new ServiceContext());
+                syncTask.DoLogOnGetSource = (sourceData) =>
                 {
-                    SDBLL.TempPregnantInfos = SDBLL.GetPregnantInfosToUpdate2();
-                    SDBLL.MockCommitUpdatePregnantInfo2();
-
-                    System.Threading.Thread.Sleep(1000 * 10);
-                }
+                    StringBuilder sb = new StringBuilder();
+                    sb.AppendLine(sourceData.ToJson());
+                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Update-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
+                    File.WriteAllText(file, sb.ToString());
+                    Console.WriteLine($"result:{file}");
+                };
+                syncTask.DoLogOnWork = (sourceData, sb) =>
+                {
+                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Update-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
+                    File.WriteAllText(file, sb.ToString());
+                    Console.WriteLine($"result:{file}");
+                };
+                //自动执行
+                syncTask.Start_Auto_DoWork(serviceContext, SDBLL.UserInfo);
             }));
             cmds.Add(new Command("m93,0628,自动同步-新增`问询病史`", () =>
             {

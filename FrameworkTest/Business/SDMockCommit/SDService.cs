@@ -20,6 +20,7 @@ namespace FrameworkTest.Business.SDMockCommit
         public static string ConntectingStringSD = "Data Source=201.201.201.89;Initial Catalog=HL_Pregnant;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sdfy;Password=sdfy123456";
         public static DbContext GetDBContext { get { return DBHelper.GetDbContext(SDBLL.ConntectingStringSD); } }
 
+
         public static List<PregnantInfo> TempPregnantInfos = new List<PregnantInfo>();
         //BaseInfo baseInfo = new BaseInfo()
         //{
@@ -84,6 +85,16 @@ namespace FrameworkTest.Business.SDMockCommit
 
         #region PregnantInfo
 
+        public IEnumerable<PregnantInfo> GetPregnantInfoForUpdate()
+        {
+            return SDDAL.GetPregnantInfoForUpdate(DBContext.DbGroup);
+        }
+
+        public IEnumerable<PregnantInfo> GetPregnantInfoForCreate()
+        {
+            return SDDAL.GetPregnantInfoForCreate(DBContext.DbGroup);
+        }
+
         /// <summary>
         /// 0703 开放边界
         /// </summary>
@@ -96,11 +107,6 @@ namespace FrameworkTest.Business.SDMockCommit
         #endregion
 
         #region PhysicalExamination
-
-        internal List<PhysicalExaminationModel> GetPhysicalExaminationsToCreate()
-        {
-            return SDDAL.GetPhysicalExaminationsToCreate(DBContext.DbGroup);
-        }
 
         #endregion
 

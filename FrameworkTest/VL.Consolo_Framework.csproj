@@ -131,6 +131,8 @@
     <Compile Include="Business\SDMockCommit\RequestAndResponse\Response_WCQBJ_CZDH_DOCTOR_READ.cs" />
     <Compile Include="Business\SDMockCommit\RequestAndResponse\Data_WMH_CQBJ_JBXX_FORM_SAVE.cs" />
     <Compile Include="Business\SDMockCommit\SyncTask\PregnantInfo_SourceData.cs" />
+    <Compile Include="Business\SDMockCommit\SyncTask\PregnantInfo_SyncTask_Create.cs" />
+    <Compile Include="Business\SDMockCommit\SyncTask\PregnantInfo_SyncTask_Update.cs" />
     <Compile Include="Business\SDMockCommit\SyncTask\ProfessionalExaminationModel_SourceData.cs" />
     <Compile Include="Business\SDMockCommit\SyncTask\PregnantInfo_SyncTask_CreateOrUpdate.cs" />
     <Compile Include="Business\SDMockCommit\SyncTask\ProfessionalExaminationModel_SyncTask_Create.cs" />
