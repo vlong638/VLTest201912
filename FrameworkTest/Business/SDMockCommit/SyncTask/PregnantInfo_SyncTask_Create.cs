@@ -113,6 +113,7 @@ namespace FrameworkTest.Business.SDMockCommit
                         }
                         break;
                     }
+                    //查重处理
                     if (errorCount == maxErrorCount)
                     {
                         Console.WriteLine($"孕妇{sourceData.PersonName}查重时异常");

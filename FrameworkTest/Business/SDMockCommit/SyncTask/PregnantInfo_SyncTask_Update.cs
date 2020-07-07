@@ -47,7 +47,7 @@ namespace FrameworkTest.Business.SDMockCommit
                         context.SDService.SaveSyncOrder(syncOrder);
                         return;
                     }
-
+                    //获取用户信息
                     var base77 = Context.FSService.GetBase77(userInfo, base8.MainId, ref logger);
                     if (base77 == null)
                     {
@@ -56,7 +56,6 @@ namespace FrameworkTest.Business.SDMockCommit
                         context.SDService.SaveSyncOrder(syncOrder);
                         return;
                     }
-
                     //更新用户数据
                     var data = new WMH_CQBJ_JBXX_FORM_SAVEData(base77);
                     data.UpdateData(sourceData.Data);
