@@ -59,7 +59,22 @@ namespace FrameworkTest.Business.SDMockCommit
         /// <returns></returns>
         public static string Get_FetalPosition_By_FetalPosition_Hele(string key)
         {
-            return "";
+            if (string.IsNullOrEmpty(key))
+                return "";
+            if (!EdemaStatus_Hele.ContainsKey(key))
+                return "";
+            switch (key)
+            {
+                case "02": return "脐右下方";
+                case "01": return "脐左下方";
+                case "13": return "脐左上方";
+                case "14": return "脐右上方";
+                case "20": return "脐正中线上方";
+                case "19": return "脐正中线下方";
+                default:
+                    return "";
+            }
         }
     }
 }
+   
