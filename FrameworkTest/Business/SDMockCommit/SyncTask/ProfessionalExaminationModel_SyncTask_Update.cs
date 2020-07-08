@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using FrameworkTest.Common.DBSolution;
+using FrameworkTest.Common.ValuesSolution;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,15 +29,15 @@ namespace FrameworkTest.Business.SDMockCommit
             return syncOrder;
         }
 
-        public override void DoWork(ServiceContext context, UserInfo userInfo, ProfessionalExaminationModel_SourceData sourceData)
+        public override void DoWork(ServiceContext context, UserInfo userInfo, ProfessionalExaminationModel_SourceData sourceDataModel)
         {
             StringBuilder logger = new StringBuilder();
-            var syncOrder = Context.SDService.GetSyncOrder(SourceType.ProfessionalExamination, sourceData.SourceId);
+            var syncOrder = Context.SDService.GetSyncOrder(SourceType.ProfessionalExamination, sourceDataModel.SourceId);
             syncOrder.SyncTime = DateTime.Now;
             try
             {
                 //获取八项基础信息
-                var base8 = Context.FSService.GetBase8(userInfo, sourceData.IdCard, ref logger);
+                var base8 = Context.FSService.GetBase8(userInfo, sourceDataModel.IdCard, ref logger);
                 if (base8 == null)
                 {
                     syncOrder.SyncStatus = SyncStatus.Error;
@@ -53,6 +54,61 @@ namespace FrameworkTest.Business.SDMockCommit
                     context.SDService.SaveSyncOrder(syncOrder);
                     return;
                 }
+
+                #region 高危处理
+
+                ////获取高危数据Id
+                //var newHighRiskId = Context.FSService.GetUniqueId(userInfo, ref logger);
+                //if (newHighRiskId == null)
+                //{
+                //    syncOrder.SyncStatus = SyncStatus.Error;
+                //    syncOrder.ErrorMessage = "未获取到高危Id";
+                //    context.SDService.SaveSyncOrder(syncOrder);
+                //    return;
+                //}
+
+                //获取高危数据全量
+                var allHighRisksResponse = Context.FSService.GetAllHighRisks(physicalExaminationId, userInfo, base8, ref logger);
+                if (allHighRisksResponse == null || allHighRisksResponse.Count == 0)
+                {
+                    syncOrder.SyncStatus = SyncStatus.Error;
+                    syncOrder.ErrorMessage = "未获取到高危数据全量列表";
+                    context.SDService.SaveSyncOrder(syncOrder);
+                    return;
+                }
+
+                ////获取高危数据变量
+                //var currentHighRisks = Context.FSService.GetCurrentHighRisks(physicalExaminationId, userInfo, base8, ref logger);
+                //if (currentHighRisks == null)
+                //{
+                //    syncOrder.SyncStatus = SyncStatus.Error;
+                //    syncOrder.ErrorMessage = "未获取到高危数据变量";
+                //    context.SDService.SaveSyncOrder(syncOrder);
+                //    return;
+                //}
+
+                //更新高危数据
+                var heleHighRisks = sourceDataModel.SourceData.highriskdic?.FromJson<List<HighRiskEntity>>()??new List<HighRiskEntity>();
+                var highRisksToSave = new WMH_WCQBJ_GWYCF_SCORE_SAVERequest();
+                //logger.AppendLine(">>>currentHighRisks");
+                //logger.AppendLine(currentHighRisks.ToJson());
+                logger.AppendLine(">>>heleHighRisks");
+                logger.AppendLine(heleHighRisks.ToJson());
+                highRisksToSave.Update(base8.MainId, allHighRisksResponse, heleHighRisks, ref logger);
+                //logger.AppendLine(">>>heleHighRisks");
+                //logger.AppendLine(heleHighRisks.ToJson());
+                //更新高危数据
+                var isSuccess = Context.FSService.SaveCurrentHignRisks(physicalExaminationId, highRisksToSave, userInfo, base8, ref logger);
+                if (!isSuccess)
+                {
+                    syncOrder.SyncStatus = SyncStatus.Error;
+                    syncOrder.ErrorMessage = "更新高危数据时出错";
+                    context.SDService.SaveSyncOrder(syncOrder);
+                    return;
+                }
+
+                #endregion
+
                 //获取专科检查
                 var professionalExaminationOld = Context.FSService.GetProfessionalExamination(physicalExaminationId, userInfo, base8, ref logger);
                 if (professionalExaminationOld == null)
@@ -64,9 +120,9 @@ namespace FrameworkTest.Business.SDMockCommit
                 }
                 //更新数据
                 var professionalExaminationToUpdate = new WMH_CQBJ_CQJC_SAVE(professionalExaminationOld);
-                professionalExaminationToUpdate.Update(userInfo, sourceData, null);
+                professionalExaminationToUpdate.Update(userInfo, sourceDataModel, highRisksToSave);
                 //提交专科检查
-                var isSuccess = Context.FSService.UpdateProfessionalExamination(physicalExaminationId, professionalExaminationToUpdate, userInfo, base8, ref logger);
+                isSuccess = Context.FSService.UpdateProfessionalExamination(physicalExaminationId, professionalExaminationToUpdate, userInfo, base8, ref logger);
                 if (!isSuccess)
                 {
                     syncOrder.SyncStatus = SyncStatus.Error;
@@ -87,7 +143,11 @@ namespace FrameworkTest.Business.SDMockCommit
             }
             finally
             {
-                DoLogOnWork?.Invoke(sourceData, logger);
+                logger.AppendLine(">>>syncOrder.ErrorMessage");
+                logger.AppendLine(syncOrder.ErrorMessage);
+                logger.AppendLine(">>>syncOrder.ToJson()");
+                logger.AppendLine(syncOrder.ToJson());
+                DoLogOnWork?.Invoke(sourceDataModel, logger);
             }
         }
     }

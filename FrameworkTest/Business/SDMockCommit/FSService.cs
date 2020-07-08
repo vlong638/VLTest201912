@@ -187,14 +187,12 @@ namespace FrameworkTest.Business.SDMockCommit
             var url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/WMH_GWYCF_GW_LIST_SAVE&sUserID={userInfo.UserId}&sParams={base8.MainId}${userInfo.OrgId}${physicalExaminationId}";
             var json = datas.ToJson();
             var postData = "data=" + HttpUtility.UrlEncode(json);
-            //var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             logger.AppendLine(">>>SaveCurrentHignRisks 保存高危信息");
             logger.AppendLine(url);
             logger.AppendLine(json);
-            //logger.AppendLine(result);
-            //return result.Contains("处理成功");
-
-            return true;
+            logger.AppendLine(result);
+            return result.Contains("处理成功");
         }
 
         internal bool UpdatePregnantInfo(UserInfo userInfo, string mainId, string mainIdForChange, List<WMH_CQBJ_JBXX_FORM_SAVEData> datas, ref StringBuilder logger)

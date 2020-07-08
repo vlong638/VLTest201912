@@ -10,22 +10,23 @@ namespace FrameworkTest.Business.SDMockCommit
 {
     public class WMH_WCQBJ_GWYCF_SCORE_SAVERequest : List<WMH_WCQBJ_GWYCF_SCORE_SAVE>
     {
-        internal void Update(string mainId, List<WMH_GWYCF_GW_LIST1_Data> allHighRisks, List<WMH_GWYCF_LIST_Data> currentHighRisks, List<HighRiskEntity> heleHighRisks, ref StringBuilder logger)
+        internal void Update(string mainId, List<WMH_GWYCF_GW_LIST1_Data> allHighRisks, List<HighRiskEntity> heleHighRisks, ref StringBuilder logger)
         {
+            var currentHighRisks = allHighRisks.Where(c => c.D8 == "1").ToList();
             var toAdds = heleHighRisks.Where(c => currentHighRisks.FirstOrDefault(d => VLConstraints.GetHighRisks_By_HighRisks_Hele(c.R).Contains(d.Id)) == null);
             var toDeletes = currentHighRisks.Where(c => heleHighRisks.FirstOrDefault(d => VLConstraints.GetHighRisks_By_HighRisks_Hele(d.R).Contains(c.Id)) == null);
-            //logger.AppendLine(">>>toAdds");
-            //logger.AppendLine(toAdds.ToJson());
-            //logger.AppendLine(">>>toDeletes");
-            //logger.AppendLine(toDeletes.ToJson());
+            logger.AppendLine(">>>toAdds");
+            logger.AppendLine(toAdds.ToJson());
+            logger.AppendLine(">>>toDeletes");
+            logger.AppendLine(toDeletes.ToJson());
             foreach (var toAdd in toAdds)
             {
                 var toAddsFromAll = allHighRisks.Where(c => VLConstraints.GetHighRisks_By_HighRisks_Hele(toAdd.R).Contains(c.Id));
-                //logger.AppendLine(">>>toAddsFromAll");
-                //logger.AppendLine(toAddsFromAll.ToJson());
+                logger.AppendLine(">>>toAddsFromAll");
+                logger.AppendLine(toAddsFromAll.ToJson());
                 this.AddRange(toAddsFromAll.Select(c => new WMH_WCQBJ_GWYCF_SCORE_SAVE(c) { D8 = "1" }));
             }
-            this.AddRange(toDeletes.Select(c => new WMH_WCQBJ_GWYCF_SCORE_SAVE(mainId, c) { D8 = "0" }));
+            this.AddRange(toDeletes.Select(c => new WMH_WCQBJ_GWYCF_SCORE_SAVE(c) { D8 = "0" }));
 
             //维护当前高危以更新专科检查
             AddCurrentHighRisks(allHighRisks.Where(c => heleHighRisks.FirstOrDefault(d => VLConstraints.GetHighRisks_By_HighRisks_Hele(d.R).Contains(c.Id)) != null));

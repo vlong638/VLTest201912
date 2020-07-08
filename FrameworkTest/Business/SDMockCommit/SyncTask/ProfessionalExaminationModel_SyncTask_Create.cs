@@ -58,16 +58,6 @@ namespace FrameworkTest.Business.SDMockCommit
 
                 #region 高危处理
 
-                ////获取高危数据Id
-                //var newHighRiskId = Context.FSService.GetUniqueId(userInfo, ref logger);
-                //if (newHighRiskId == null)
-                //{
-                //    syncOrder.SyncStatus = SyncStatus.Error;
-                //    syncOrder.ErrorMessage = "未获取到高危Id";
-                //    context.SDService.SaveSyncOrder(syncOrder);
-                //    return;
-                //}
-
                 //获取高危数据全量
                 var allHighRisksResponse = Context.FSService.GetAllHighRisks(physicalExaminationId, userInfo, base8, ref logger);
                 if (allHighRisksResponse == null || allHighRisksResponse.Count == 0)
@@ -89,21 +79,13 @@ namespace FrameworkTest.Business.SDMockCommit
                 }
 
                 //更新高危数据
-                var heleHighRisks = sourceDataModel.SourceData.highriskdic.FromJson<List<HighRiskEntity>>();
+                var heleHighRisks = sourceDataModel.SourceData.highriskdic?.FromJson<List<HighRiskEntity>>() ?? new List<HighRiskEntity>();
                 var highRisksToSave = new WMH_WCQBJ_GWYCF_SCORE_SAVERequest();
-                logger.AppendLine(">>>currentHighRisks");
-                logger.AppendLine(currentHighRisks.ToJson());
+                //logger.AppendLine(">>>currentHighRisks");
+                //logger.AppendLine(currentHighRisks.ToJson());
                 logger.AppendLine(">>>heleHighRisks");
                 logger.AppendLine(heleHighRisks.ToJson());
-                highRisksToSave.Update(base8.MainId, allHighRisksResponse, currentHighRisks, heleHighRisks, ref logger);
-                //[{"D1":"2020-07-07","D2":"28+6","D3":"早产","D4":"","D5":"2020-07-07","D6":"28+6","D7":"","D8":"","D9":"","D10":"","D11":"2020-07-07","D12":"","D13":"","D14":"","D15":"A9D11542F2F395F7E05355FE8013B8D1","D16":"黄色(一般风险）","D17":"10"}
-                //,{"D1":"2020-07-06","D2":"28+5","D3":"年龄：&gt;35岁","D4":"","D5":"2020-07-06","D6":"28+5","D7":"","D8":"","D9":"","D10":"转高危妊娠门诊、高龄考虑早期产前诊断，警惕血压升高，I级胎儿监护","D11":"2020-07-06","D12":"","D13":"","D14":"","D15":"A9C3F59C29303413E05355FE8013DBA7","D16":"黄色(一般风险）","D17":"2"}
-                //,{"D1":"2020-07-06","D2":"28+5","D3":"1.2 BMI&lt;18.5","D4":"","D5":"2020-07-06","D6":"28+5","D7":"","D8":"","D9":"","D10":"转高危妊娠门诊","D11":"2020-07-06","D12":"","D13":"","D14":"","D15":"A9C39EDBAAE1A9DEE05355FE80134D6B","D16":"黄色(一般风险）","D17":"4"}
-                //,{"D1":"2020-07-06","D2":"28+5","D3":"1.2 BMI≥28","D4":"","D5":"2020-07-06","D6":"28+5","D7":"","D8":"","D9":"","D10":"","D11":"2020-07-06","D12":"","D13":"","D14":"","D15":"A9C3716413A85DBFE05355FE801341D7","D16":"橙色(较高风险)","D17":"6"}
-                //,{"D1":"2020-07-07","D2":"28+6","D3":"年龄≥40岁","D4":"","D5":"2020-07-07","D6":"28+6","D7":"","D8":"","D9":"","D10":"","D11":"2020-07-07","D12":"","D13":"","D14":"","D15":"A9D6CC3DEC124D6DE05355FE801386D1","D16":"橙色(较高风险)","D17":"3"}
-                //,{"D1":"2020-07-07","D2":"28+6","D3":"3.2梅毒","D4":"","D5":"2020-07-07","D6":"28+6","D7":"","D8":"","D9":"","D10":"转传染病科治疗","D11":"2020-07-07","D12":"","D13":"","D14":"","D15":"A9D351867E7D49C2E05355FE8013657A","D16":"紫色(孕妇患有传染性疾病）","D17":"133"}
-                //,{"D1":"2020-07-07","D2":"28+6","D3":"1.2 BMI&gt;25","D4":"","D5":"2020-07-07","D6":"28+6","D7":"","D8":"","D9":"","D10":"","D11":"2020-07-07","D12":"","D13":"","D14":"","D15":"A9D6E1D73B786729E05355FE8013CDF6","D16":"黄色(一般风险）","D17":"5"}
-                //]
+                highRisksToSave.Update(base8.MainId, allHighRisksResponse, heleHighRisks, ref logger);
                 //logger.AppendLine(">>>heleHighRisks");
                 //logger.AppendLine(heleHighRisks.ToJson());
                 //更新高危数据
@@ -120,13 +102,6 @@ namespace FrameworkTest.Business.SDMockCommit
 
                 //获取专科检查
                 var professionalExaminationOld = Context.FSService.GetProfessionalExamination(physicalExaminationId, userInfo, base8, ref logger);
-                //if (professionalExaminationOld != null)
-                //{
-                //    syncOrder.SyncStatus = SyncStatus.Existed;
-                //    syncOrder.ErrorMessage = "已存在专科检查数据";
-                //    context.SDService.SaveSyncOrder(syncOrder);
-                //    return;
-                //}
 
                 //更新数据
                 WMH_CQBJ_CQJC_SAVE professionalExamination = null;
@@ -181,7 +156,10 @@ namespace FrameworkTest.Business.SDMockCommit
 
             finally
             {
+                logger.AppendLine(">>>syncOrder.ErrorMessage");
                 logger.AppendLine(syncOrder.ErrorMessage);
+                logger.AppendLine(">>>syncOrder.ToJson()");
+                logger.AppendLine(syncOrder.ToJson());
                 DoLogOnWork?.Invoke(sourceDataModel, logger);
             }
 

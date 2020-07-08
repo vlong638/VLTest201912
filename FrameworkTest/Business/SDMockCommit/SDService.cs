@@ -71,9 +71,6 @@ namespace FrameworkTest.Business.SDMockCommit
 
         public long SaveSyncOrder(SyncOrder syncForFS)
         {
-            return 1;
-
-
             if (syncForFS.Id > 0)
             {
                 SDDAL.UpdateSyncForFS(DBContext.DbGroup, syncForFS);
