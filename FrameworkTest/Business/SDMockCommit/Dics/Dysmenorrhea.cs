@@ -11,6 +11,8 @@ namespace FrameworkTest.Business.SDMockCommit
     //<Option value = "(\w+)" text="([\w\(\\、]+)"/>
     //存在中英文标点符号问题,作替换
     //存在名称不对称问题 后续处理需做应对 忽略无法匹配的
+    //<Option value="(\w+)" text="(.+)" rule=.+\r\n
+    //{"$1",@"$2"},\r\n
     public partial class VLConstraints
     {
         public readonly static Dictionary<string, string> Dysmenorrhea = new Dictionary<string, string>()

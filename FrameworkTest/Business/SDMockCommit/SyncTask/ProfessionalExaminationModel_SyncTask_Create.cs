@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using FrameworkTest.Common.DBSolution;
+using FrameworkTest.Common.ValuesSolution;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,25 +16,28 @@ namespace FrameworkTest.Business.SDMockCommit
         {
         }
 
+
         public override List<ProfessionalExaminationModel_SourceData> GetSourceDatas(UserInfo userInfo)
         {
             return Context.SDService.GetProfessionalExaminationsToCreate().Select(c => new ProfessionalExaminationModel_SourceData(c)).ToList();
         }
 
-        public override void DoWork(ServiceContext context, UserInfo userInfo, ProfessionalExaminationModel_SourceData sourceData)
+
+        public override void DoWork(ServiceContext context, UserInfo userInfo, ProfessionalExaminationModel_SourceData sourceDataModel)
         {
             StringBuilder logger = new StringBuilder();
             var syncOrder = new SyncOrder()
             {
-                SourceId = sourceData.SourceId,
-                SourceType = sourceData.SourceType,
+                SourceId = sourceDataModel.SourceId,
+                SourceType = sourceDataModel.SourceType,
                 SyncTime = DateTime.Now,
                 SyncStatus = SyncStatus.Success,
-            };
+            }
+;
             try
             {
                 //获取八项基础信息
-                var base8 = Context.FSService.GetBase8(userInfo, sourceData.IdCard, ref logger);
+                var base8 = Context.FSService.GetBase8(userInfo, sourceDataModel.IdCard, ref logger);
                 if (base8 == null)
                 {
                     syncOrder.SyncStatus = SyncStatus.Error;
@@ -41,6 +45,7 @@ namespace FrameworkTest.Business.SDMockCommit
                     context.SDService.SaveSyncOrder(syncOrder);
                     return;
                 }
+
                 //获取体格检查Id
                 var physicalExaminationId = Context.FSService.GetPhysicalExaminationId(userInfo, base8, DateTime.Now, ref logger);
                 if (string.IsNullOrEmpty(physicalExaminationId))
@@ -50,20 +55,95 @@ namespace FrameworkTest.Business.SDMockCommit
                     context.SDService.SaveSyncOrder(syncOrder);
                     return;
                 }
-                //获取专科检查
-                var professionalExaminationOld = Context.FSService.GetProfessionalExamination(physicalExaminationId, userInfo, base8, ref logger);
-                if (professionalExaminationOld != null)
+
+                #region 高危处理
+
+                ////获取高危数据Id
+                //var newHighRiskId = Context.FSService.GetUniqueId(userInfo, ref logger);
+                //if (newHighRiskId == null)
+                //{
+                //    syncOrder.SyncStatus = SyncStatus.Error;
+                //    syncOrder.ErrorMessage = "未获取到高危Id";
+                //    context.SDService.SaveSyncOrder(syncOrder);
+                //    return;
+                //}
+
+                //获取高危数据全量
+                var allHighRisksResponse = Context.FSService.GetAllHighRisks(physicalExaminationId, userInfo, base8, ref logger);
+                if (allHighRisksResponse == null || allHighRisksResponse.Count == 0)
                 {
-                    syncOrder.SyncStatus = SyncStatus.Existed;
-                    syncOrder.ErrorMessage = "已存在专科检查数据";
+                    syncOrder.SyncStatus = SyncStatus.Error;
+                    syncOrder.ErrorMessage = "未获取到高危数据全量列表";
                     context.SDService.SaveSyncOrder(syncOrder);
                     return;
                 }
+
+                //获取高危数据变量
+                var currentHighRisks = Context.FSService.GetCurrentHighRisks(physicalExaminationId, userInfo, base8, ref logger);
+                if (currentHighRisks == null)
+                {
+                    syncOrder.SyncStatus = SyncStatus.Error;
+                    syncOrder.ErrorMessage = "未获取到高危数据变量";
+                    context.SDService.SaveSyncOrder(syncOrder);
+                    return;
+                }
+
+                //更新高危数据
+                var heleHighRisks = sourceDataModel.SourceData.highriskdic.FromJson<List<HighRiskEntity>>();
+                var highRisksToSave = new WMH_WCQBJ_GWYCF_SCORE_SAVERequest();
+                logger.AppendLine(">>>currentHighRisks");
+                logger.AppendLine(currentHighRisks.ToJson());
+                logger.AppendLine(">>>heleHighRisks");
+                logger.AppendLine(heleHighRisks.ToJson());
+                highRisksToSave.Update(base8.MainId, allHighRisksResponse, currentHighRisks, heleHighRisks, ref logger);
+                //[{"D1":"2020-07-07","D2":"28+6","D3":"早产","D4":"","D5":"2020-07-07","D6":"28+6","D7":"","D8":"","D9":"","D10":"","D11":"2020-07-07","D12":"","D13":"","D14":"","D15":"A9D11542F2F395F7E05355FE8013B8D1","D16":"黄色(一般风险）","D17":"10"}
+                //,{"D1":"2020-07-06","D2":"28+5","D3":"年龄：&gt;35岁","D4":"","D5":"2020-07-06","D6":"28+5","D7":"","D8":"","D9":"","D10":"转高危妊娠门诊、高龄考虑早期产前诊断，警惕血压升高，I级胎儿监护","D11":"2020-07-06","D12":"","D13":"","D14":"","D15":"A9C3F59C29303413E05355FE8013DBA7","D16":"黄色(一般风险）","D17":"2"}
+                //,{"D1":"2020-07-06","D2":"28+5","D3":"1.2 BMI&lt;18.5","D4":"","D5":"2020-07-06","D6":"28+5","D7":"","D8":"","D9":"","D10":"转高危妊娠门诊","D11":"2020-07-06","D12":"","D13":"","D14":"","D15":"A9C39EDBAAE1A9DEE05355FE80134D6B","D16":"黄色(一般风险）","D17":"4"}
+                //,{"D1":"2020-07-06","D2":"28+5","D3":"1.2 BMI≥28","D4":"","D5":"2020-07-06","D6":"28+5","D7":"","D8":"","D9":"","D10":"","D11":"2020-07-06","D12":"","D13":"","D14":"","D15":"A9C3716413A85DBFE05355FE801341D7","D16":"橙色(较高风险)","D17":"6"}
+                //,{"D1":"2020-07-07","D2":"28+6","D3":"年龄≥40岁","D4":"","D5":"2020-07-07","D6":"28+6","D7":"","D8":"","D9":"","D10":"","D11":"2020-07-07","D12":"","D13":"","D14":"","D15":"A9D6CC3DEC124D6DE05355FE801386D1","D16":"橙色(较高风险)","D17":"3"}
+                //,{"D1":"2020-07-07","D2":"28+6","D3":"3.2梅毒","D4":"","D5":"2020-07-07","D6":"28+6","D7":"","D8":"","D9":"","D10":"转传染病科治疗","D11":"2020-07-07","D12":"","D13":"","D14":"","D15":"A9D351867E7D49C2E05355FE8013657A","D16":"紫色(孕妇患有传染性疾病）","D17":"133"}
+                //,{"D1":"2020-07-07","D2":"28+6","D3":"1.2 BMI&gt;25","D4":"","D5":"2020-07-07","D6":"28+6","D7":"","D8":"","D9":"","D10":"","D11":"2020-07-07","D12":"","D13":"","D14":"","D15":"A9D6E1D73B786729E05355FE8013CDF6","D16":"黄色(一般风险）","D17":"5"}
+                //]
+                //logger.AppendLine(">>>heleHighRisks");
+                //logger.AppendLine(heleHighRisks.ToJson());
+                //更新高危数据
+                var isSuccess = Context.FSService.SaveCurrentHignRisks(physicalExaminationId, highRisksToSave, userInfo, base8, ref logger);
+                if (!isSuccess)
+                {
+                    syncOrder.SyncStatus = SyncStatus.Error;
+                    syncOrder.ErrorMessage = "更新高危数据时出错";
+                    context.SDService.SaveSyncOrder(syncOrder);
+                    return;
+                }
+
+                #endregion
+
+                //获取专科检查
+                var professionalExaminationOld = Context.FSService.GetProfessionalExamination(physicalExaminationId, userInfo, base8, ref logger);
+                //if (professionalExaminationOld != null)
+                //{
+                //    syncOrder.SyncStatus = SyncStatus.Existed;
+                //    syncOrder.ErrorMessage = "已存在专科检查数据";
+                //    context.SDService.SaveSyncOrder(syncOrder);
+                //    return;
+                //}
+
                 //更新数据
-                var professionalExaminationToCreate = new WMH_CQBJ_CQJC_SAVE();
-                professionalExaminationToCreate.Update(userInfo, sourceData);
+                WMH_CQBJ_CQJC_SAVE professionalExamination = null;
+                if (professionalExaminationOld == null)
+                {
+                    professionalExamination = new WMH_CQBJ_CQJC_SAVE(professionalExaminationOld);
+                    professionalExamination.Update(userInfo, sourceDataModel, highRisksToSave);
+                }
+
+                else
+                {
+                    professionalExamination = new WMH_CQBJ_CQJC_SAVE();
+                    professionalExamination.Update(userInfo, sourceDataModel, highRisksToSave);
+                }
+
                 //提交专科检查
-                var isSuccess = Context.FSService.UpdateProfessionalExamination(physicalExaminationId, professionalExaminationToCreate, userInfo, base8, ref logger);
+                isSuccess = Context.FSService.UpdateProfessionalExamination(physicalExaminationId, professionalExamination, userInfo, base8, ref logger);
                 if (!isSuccess)
                 {
                     syncOrder.SyncStatus = SyncStatus.Error;
@@ -71,6 +151,7 @@ namespace FrameworkTest.Business.SDMockCommit
                     context.SDService.SaveSyncOrder(syncOrder);
                     return;
                 }
+
                 //获取专科检查
                 var professionalExaminationCreated = Context.FSService.GetProfessionalExamination(physicalExaminationId, userInfo, base8, ref logger);
                 if (professionalExaminationCreated == null)
@@ -80,9 +161,15 @@ namespace FrameworkTest.Business.SDMockCommit
                     context.SDService.SaveSyncOrder(syncOrder);
                     return;
                 }
+                if (highRisksToSave.CurrentHighRisks.Count!=0)
+                {
+                    logger.AppendLine(">>highRisksToSave.CurrentHighRisks");
+                    logger.AppendLine(string.Join(",", highRisksToSave.CurrentHighRisks.Select(c => c.D5)));
+                }
 
                 context.SDService.SaveSyncOrder(syncOrder);
             }
+
             catch (Exception ex)
             {
                 logger.AppendLine("出现异常:" + ex.ToString());
@@ -91,10 +178,15 @@ namespace FrameworkTest.Business.SDMockCommit
                 syncOrder.ErrorMessage = ex.ToString();
                 context.SDService.SaveSyncOrder(syncOrder);
             }
+
             finally
             {
-                DoLogOnWork?.Invoke(sourceData, logger);
+                logger.AppendLine(syncOrder.ErrorMessage);
+                DoLogOnWork?.Invoke(sourceDataModel, logger);
             }
+
         }
+
     }
+
 }

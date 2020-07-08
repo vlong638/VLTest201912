@@ -130,7 +130,7 @@ namespace FrameworkTest.Business.SDMockCommit
             this.D57 = data.D57;
         }
 
-        internal void Update(UserInfo userInfo, ProfessionalExaminationModel_SourceData sourceData)
+        internal void Update(UserInfo userInfo, ProfessionalExaminationModel_SourceData sourceData, WMH_WCQBJ_GWYCF_SCORE_SAVERequest highRisksToSave)
         {
             //对比数据
             //142328199610271518	李丽	2019-12-18	2020-10-08	0	12	NULL	NULL	2020-07-30	2	
@@ -161,6 +161,8 @@ namespace FrameworkTest.Business.SDMockCommit
             //FS: 
             //HL: A,
             //高危因素  highriskreason
+            this.D21 = highRisksToSave.GetCurrentHighRiskNames();
+            this.D20 = this.D21 == "" ? "2" : "1";
 
             //D25.诊断    
             //          diagnosisinfo,主诊断说明
@@ -215,17 +217,17 @@ namespace FrameworkTest.Business.SDMockCommit
                 if (i==0)
                 {
                     this.D13 = feltalentity.heartrate;
-                    //this.D12 = VLConstraints.Get_FetalPosition_By_FetalPosition_Hele(feltalentity.position);
+                    this.D12 = VLConstraints.Get_FetalPosition_By_FetalPosition_Hele(feltalentity.position);
                 }
                 else if (i==1)
                 {
                     this.D48 = feltalentity.heartrate;
-                    //this.D46 = VLConstraints.Get_FetalPosition_By_FetalPosition_Hele(feltalentity.position);
+                    this.D46 = VLConstraints.Get_FetalPosition_By_FetalPosition_Hele(feltalentity.position);
                 }
                 else if (i == 2)
                 {
                     this.D52 = feltalentity.heartrate;
-                    //this.D51 = VLConstraints.Get_FetalPosition_By_FetalPosition_Hele(feltalentity.position);
+                    this.D51 = VLConstraints.Get_FetalPosition_By_FetalPosition_Hele(feltalentity.position);
                 }
             }
         }

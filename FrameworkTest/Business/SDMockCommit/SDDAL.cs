@@ -46,12 +46,15 @@ vr.id
 ,pi.idcard,pi.personname,pi.lastmenstrualperiod,pi.dateofprenatal 
 ,vr.uterus,vr.palacemouth,vr.suggestion,vr.generalcomment,vr.followupappointment,vr.brokenwater,vr.multifetal
 ,vr.chiefcomplaint,vr.presenthistory,vr.heightfundusuterus,vr.abdomencircumference,vr.xianjie,vr.edemastatus
-,vr.diagnosisinfo,vr.maindiagnosis,vr.secondarydiagnosis
+,vr.diagnosisinfo,vr.maindiagnosis,vr.secondarydiagnosis,vr.highriskdic
 FROM PregnantInfo pi 
 LEFT JOIN MHC_VisitRecord vr on pi.idcard = vr.idcard 
 left join SyncForFS sp on sp.SourceType = 3 and sp.SourceId = vr.Id
 left join SyncForFS se on se.SourceType = 4 and se.SourceId = vr.Id			
-where vr.idcard = @idcard
+where sp.id is not null and sp.SyncStatus in (2,11) 
+and se.id is null 
+and vr.visitdate = convert(nvarchar,getdate(),23)	
+and vr.idcard = @idcard
 ", new { idcard }, transaction: dbGroup.Transaction).ToList();
         }
 
@@ -63,7 +66,7 @@ vr.id
 ,pi.idcard,pi.personname,pi.lastmenstrualperiod,pi.dateofprenatal 
 ,vr.uterus,vr.palacemouth,vr.suggestion,vr.generalcomment,vr.followupappointment,vr.brokenwater,vr.multifetal
 ,vr.chiefcomplaint,vr.presenthistory,vr.heightfundusuterus,vr.abdomencircumference,vr.xianjie,vr.edemastatus
-,vr.diagnosisinfo,vr.maindiagnosis,vr.secondarydiagnosis
+,vr.diagnosisinfo,vr.maindiagnosis,vr.secondarydiagnosis,vr.highriskdic
 FROM PregnantInfo pi 
 LEFT JOIN MHC_VisitRecord vr on pi.idcard = vr.idcard 
 left join SyncForFS sp on sp.SourceType = 3 and sp.SourceId = vr.Id
@@ -82,7 +85,7 @@ vr.id
 ,pi.idcard,pi.personname,pi.lastmenstrualperiod,pi.dateofprenatal 
 ,vr.uterus,vr.palacemouth,vr.suggestion,vr.generalcomment,vr.followupappointment,vr.brokenwater,vr.multifetal
 ,vr.chiefcomplaint,vr.presenthistory,vr.heightfundusuterus,vr.abdomencircumference,vr.xianjie,vr.edemastatus
-,vr.diagnosisinfo,vr.maindiagnosis,vr.secondarydiagnosis
+,vr.diagnosisinfo,vr.maindiagnosis,vr.secondarydiagnosis,vr.highriskdic
 FROM PregnantInfo pi 
 LEFT JOIN MHC_VisitRecord vr on pi.idcard = vr.idcard 
 left join SyncForFS se on se.SourceType = 4 and se.SourceId = vr.Id			

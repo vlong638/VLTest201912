@@ -92,6 +92,7 @@
     <Compile Include="Business\ConfigurableEntity\EntityAppConfig.cs" />
     <Compile Include="Business\GJPredeliveryAsync\PreDelivery.cs" />
     <Compile Include="Business\SDMockCommit\Dics\0.Sample.cs" />
+    <Compile Include="Business\SDMockCommit\Dics\HighRisks.cs" />
     <Compile Include="Business\SDMockCommit\Dics\EdemaStatus.cs" />
     <Compile Include="Business\SDMockCommit\Dics\Link.cs" />
     <Compile Include="Business\SDMockCommit\Dics\FetalPosition.cs" />
@@ -117,6 +118,9 @@
     <Compile Include="Business\SDMockCommit\Entities\PregnantInfo.cs" />
     <Compile Include="Business\SDMockCommit\RequestAndResponse\WMH_CQBJ_CQJC_READ.cs" />
     <Compile Include="Business\SDMockCommit\RequestAndResponse\WMH_CQBJ_CQJC_SAVE.cs" />
+    <Compile Include="Business\SDMockCommit\RequestAndResponse\WMH_WCQBJ_GWYCF_SCORE_SAVE.cs" />
+    <Compile Include="Business\SDMockCommit\RequestAndResponse\WMH_GWYCF_LIST.cs" />
+    <Compile Include="Business\SDMockCommit\RequestAndResponse\WMH_GWYCF_GW_LIST1.cs" />
     <Compile Include="Business\SDMockCommit\RequestAndResponse\WMH_CQBJ_JBXX_FORM_CC%28Base17%29.cs" />
     <Compile Include="Business\SDMockCommit\RequestAndResponse\WMH_CQBJ_CQJC_TGJC_LIST.cs" />
     <Compile Include="Business\SDMockCommit\RequestAndResponse\WMH_CQBJ_CQJC_PRE_SAVE.cs" />
@@ -128,7 +132,7 @@
     <Compile Include="Business\SDMockCommit\ServiceContext.cs" />
     <Compile Include="Business\SDMockCommit\SDDAL.cs" />
     <Compile Include="Business\SDMockCommit\RequestAndResponse\Response_WMH_CQBJ_JBXX_FORM_READ.cs" />
-    <Compile Include="Business\SDMockCommit\RequestAndResponse\Response_WCQBJ_CZDH_DOCTOR_READ.cs" />
+    <Compile Include="Business\SDMockCommit\RequestAndResponse\Response_WCQBJ_CZDH_DOCTOR_READ%28Base8%29.cs" />
     <Compile Include="Business\SDMockCommit\RequestAndResponse\Data_WMH_CQBJ_JBXX_FORM_SAVE.cs" />
     <Compile Include="Business\SDMockCommit\SyncTask\PregnantInfo_SourceData.cs" />
     <Compile Include="Business\SDMockCommit\SyncTask\PregnantInfo_SyncTask_Create.cs" />

@@ -42,6 +42,12 @@ namespace FrameworkTest.Business.SDMockCommit
         /// </summary>
         public string secondarydiagnosis;
 
+        /// <summary>
+        /// 高危
+        /// 样例: [{"l":"B","r":"b170101","t":"三胎及以上妊娠"},{"l":"A","r":"a170101","t":"双胎妊娠"},{"l":"A","r":"a160102","t":"瘢痕子宫"}]
+        /// </summary>
+        public string highriskdic;
+
         public string id { set; get; }
 
         #region PregnantInfo
@@ -70,15 +76,32 @@ namespace FrameworkTest.Business.SDMockCommit
         //--胎先露
         public string multifetal { set; get; }
 
-        public List<feltalentity> feltalentities { get { return multifetal?.FromJson<List<feltalentity>>() ?? new List<feltalentity>(); } }
+        public List<FeltalEntity> feltalentities { get { return multifetal?.FromJson<List<FeltalEntity>>() ?? new List<FeltalEntity>(); } }
     }
 
-    public class feltalentity
+    public class FeltalEntity
     {
         public string index { set; get; }
         public string heartrate { set; get; }
         public string position { set; get; }
         public string presentposition { set; get; }
         public string fetalmove { set; get; }
+    }
+
+    //[{ "l":"B","r":"b170101","t":"三胎及以上妊娠"},{ "l":"A","r":"a170101","t":"双胎妊娠"},{ "l":"A","r":"a160102","t":"瘢痕子宫"}]
+    public class HighRiskEntity
+    {
+        /// <summary>
+        /// 高危等级
+        /// </summary>
+        public string L { set; get; }
+        /// <summary>
+        /// 高危编号
+        /// </summary>
+        public string R { set; get; }
+        /// <summary>
+        /// 高危文本
+        /// </summary>
+        public string T { set; get; }
     }
 }

@@ -37,10 +37,16 @@ namespace FrameworkTest
 
         static void Main(string[] args)
         {
-            VLConstraints.GetGestationalWeeksByPrenatalDate(new DateTime(2020, 10, 8), DateTime.Now);
-
-
             #region 简单测试
+
+            //VLConstraints.GetGestationalWeeksByPrenatalDate(new DateTime(2020, 10, 8), DateTime.Now);
+
+            ////整理佛山高危`
+            //var sourceFile = @"C:\Users\vlong\Desktop\实体.txt";
+            //var dicDatas = File.ReadAllText(sourceFile).FromJson<WMH_GWYCF_GW_LIST1>();
+            //var targetFile = @"C:\Users\vlong\Desktop\实体2.txt";
+            //var sstr = string.Join("\r\n", dicDatas.data.Select(c => c.D9 + "\t" + c.D5 + "\t" + c.D6));
+            //File.WriteAllText(targetFile, sstr);
 
             //try
             //{

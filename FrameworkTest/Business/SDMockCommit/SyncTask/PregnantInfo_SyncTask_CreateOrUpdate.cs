@@ -74,7 +74,7 @@ namespace FrameworkTest.Business.SDMockCommit
                 {
                     syncOrder.ErrorMessage = "新建";
                     //获取 患者主索引
-                    string mainId = Context.FSService.GetMainId(userInfo, ref logger);
+                    string mainId = Context.FSService.GetUniqueId(userInfo, ref logger);
                     if (string.IsNullOrEmpty(mainId))
                     {
                         syncOrder.SyncStatus = SyncStatus.Error;
