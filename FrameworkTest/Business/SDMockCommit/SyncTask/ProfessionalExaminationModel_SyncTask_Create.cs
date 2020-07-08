@@ -89,36 +89,37 @@ namespace FrameworkTest.Business.SDMockCommit
                 //logger.AppendLine(">>>heleHighRisks");
                 //logger.AppendLine(heleHighRisks.ToJson());
                 //更新高危数据
-                var isSuccess = Context.FSService.SaveCurrentHignRisks(physicalExaminationId, highRisksToSave, userInfo, base8, ref logger);
-                if (!isSuccess)
+                if (highRisksToSave.Count > 0)
                 {
-                    syncOrder.SyncStatus = SyncStatus.Error;
-                    syncOrder.ErrorMessage = "更新高危数据时出错";
-                    context.SDService.SaveSyncOrder(syncOrder);
-                    return;
+                    var isSuccess2 = Context.FSService.SaveCurrentHignRisks(physicalExaminationId, highRisksToSave, userInfo, base8, ref logger);
+                    if (!isSuccess2)
+                    {
+                        syncOrder.SyncStatus = SyncStatus.Error;
+                        syncOrder.ErrorMessage = "更新高危数据时出错";
+                        context.SDService.SaveSyncOrder(syncOrder);
+                        return;
+                    }
                 }
 
                 #endregion
 
                 //获取专科检查
                 var professionalExaminationOld = Context.FSService.GetProfessionalExamination(physicalExaminationId, userInfo, base8, ref logger);
-
                 //更新数据
                 WMH_CQBJ_CQJC_SAVE professionalExamination = null;
                 if (professionalExaminationOld == null)
+                {
+                    professionalExamination = new WMH_CQBJ_CQJC_SAVE();
+                    professionalExamination.Update(userInfo, sourceDataModel, highRisksToSave);
+                }
+                else
                 {
                     professionalExamination = new WMH_CQBJ_CQJC_SAVE(professionalExaminationOld);
                     professionalExamination.Update(userInfo, sourceDataModel, highRisksToSave);
                 }
 
-                else
-                {
-                    professionalExamination = new WMH_CQBJ_CQJC_SAVE();
-                    professionalExamination.Update(userInfo, sourceDataModel, highRisksToSave);
-                }
-
                 //提交专科检查
-                isSuccess = Context.FSService.UpdateProfessionalExamination(physicalExaminationId, professionalExamination, userInfo, base8, ref logger);
+                var isSuccess = Context.FSService.UpdateProfessionalExamination(physicalExaminationId, professionalExamination, userInfo, base8, ref logger);
                 if (!isSuccess)
                 {
                     syncOrder.SyncStatus = SyncStatus.Error;
@@ -136,7 +137,7 @@ namespace FrameworkTest.Business.SDMockCommit
                     context.SDService.SaveSyncOrder(syncOrder);
                     return;
                 }
-                if (highRisksToSave.CurrentHighRisks.Count!=0)
+                if (highRisksToSave.CurrentHighRisks.Count != 0)
                 {
                     logger.AppendLine(">>highRisksToSave.CurrentHighRisks");
                     logger.AppendLine(string.Join(",", highRisksToSave.CurrentHighRisks.Select(c => c.D5)));
