@@ -114,12 +114,13 @@ namespace FrameworkTest.Business.SDMockCommit
 
         public List<ProfessionalExaminationModel> GetProfessionalExaminationsToCreate()
         {
-            return SDDAL.GetProfessionalExaminationsToCreateByIdCard(DBContext.DbGroup, "142328199610271518");
-            //return SDDAL.GetProfessionalExaminationsToCreate(DBContext.DbGroup);
+            //return SDDAL.GetProfessionalExaminationsToCreateByIdCard(DBContext.DbGroup, "142328199610271518");
+            return SDDAL.GetProfessionalExaminationsToCreate(DBContext.DbGroup);
         }
 
         public IEnumerable<ProfessionalExaminationModel> GetProfessionalExaminationsToUpdate()
         {
+            //return SDDAL.GetProfessionalExaminationsToUpdateByIdCard(DBContext.DbGroup, "142328199610271518");
             return SDDAL.GetProfessionalExaminationsToUpdate(DBContext.DbGroup);
         }
 

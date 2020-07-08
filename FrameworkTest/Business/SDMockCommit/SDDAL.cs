@@ -77,6 +77,25 @@ and vr.visitdate = convert(nvarchar,getdate(),23)
 ", transaction: dbGroup.Transaction).ToList();
         }
 
+        internal static List<ProfessionalExaminationModel> GetProfessionalExaminationsToUpdateByIdCard(DbGroup dbGroup, string idcard)
+        {
+            return dbGroup.Connection.Query<ProfessionalExaminationModel>($@"
+SELECT top 1
+vr.id
+,pi.idcard,pi.personname,pi.lastmenstrualperiod,pi.dateofprenatal 
+,vr.uterus,vr.palacemouth,vr.suggestion,vr.generalcomment,vr.followupappointment,vr.brokenwater,vr.multifetal
+,vr.chiefcomplaint,vr.presenthistory,vr.heightfundusuterus,vr.abdomencircumference,vr.xianjie,vr.edemastatus
+,vr.diagnosisinfo,vr.maindiagnosis,vr.secondarydiagnosis,vr.highriskdic
+FROM PregnantInfo pi 
+LEFT JOIN MHC_VisitRecord vr on pi.idcard = vr.idcard 
+left join SyncForFS se on se.SourceType = 4 and se.SourceId = vr.Id			
+where vr.visitdate = convert(nvarchar,getdate(),23)
+and se.id is not null and se.SyncStatus in (2,11) 
+and vr.updatetime > DATEADD( SECOND,10 ,se.SyncTime)
+and vr.idcard = @idcard
+", new { idcard }, transaction: dbGroup.Transaction).ToList();
+        }
+
         internal static List<ProfessionalExaminationModel> GetProfessionalExaminationsToUpdate(DbGroup dbGroup)
         {
             return dbGroup.Connection.Query<ProfessionalExaminationModel>($@"
