@@ -30,9 +30,7 @@ namespace FrameworkTest.Business.SDMockCommit
         };
 
         /// <summary>
-        /// return "" when not contains key
-        /// return matchedKey when matched
-        /// return "" when not matched
+        /// 痛经
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>

@@ -3819,6 +3819,22 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             data.D3 = examination.dbp;
             //sbp 收缩压 高值
             data.D2 = examination.sbp;
+
+            //以下都为文本
+            //未见异常
+            //异常：
+            //未做
+            //fs外阴 D35    hl外阴 tmpl_vulva
+            data.D35 = VLConstraints.Get_Common_AbnormalCheck(examination.vulva);
+            //fs阴道 D36    hl阴道 tmpl_vagina
+            data.D36 = VLConstraints.Get_Common_AbnormalCheck(examination.vagina);
+            //fs宫颈 D37    hl宫颈 tmpl_cervix
+            data.D37 = VLConstraints.Get_Common_AbnormalCheck(examination.cervix);
+            //fs宫体 D38    hl子宫 tmpl_uterus
+            data.D38 = VLConstraints.Get_Common_AbnormalCheck(examination.uterus); 
+            //fs附件 D39    hl附件1 tmpl_appendages
+            data.D39 = VLConstraints.Get_Common_AbnormalCheck(examination.appendages); 
+
             return data;
         }
 

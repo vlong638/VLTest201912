@@ -74,9 +74,7 @@ namespace FrameworkTest.Business.SDMockCommit
         //注意特殊值有
         //{"91" ,"未分类"},
         /// <summary>
-        /// return "" when not contains key
-        /// return matchedKey when matched
-        /// return "" when not matched
+        /// 文化程度
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>

@@ -819,6 +819,11 @@ T1.*
 ,vr_data.heartrate
 ,vr_data.dbp
 ,vr_data.sbp
+,vr_data.vulva
+,vr_data.vagina
+,vr_data.cervix
+,vr_data.uterus
+,vr_data.appendages
 from 
 (
 		SELECT 
@@ -864,6 +869,11 @@ T1.*
 ,vr_data.heartrate
 ,vr_data.dbp
 ,vr_data.sbp
+,vr_data.vulva
+,vr_data.vagina
+,vr_data.cervix
+,vr_data.uterus
+,vr_data.appendages
 from 
 (
 		SELECT 

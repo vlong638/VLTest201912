@@ -89,6 +89,7 @@ namespace FrameworkTest.Business.SDMockCommit
             this.D16 = VLConstraints.Get_BabySex_By_BabySex_HELE(pregnanthistory.babysex);//public string D16 { set; get; } //性别 KO 可以配对
             this.D17 = pregnanthistory.babyweight;  //public string D17 { set; get; } //出生体重/g KO 可以配对
             this.D18 = pregnanthistory.Pregstatuss.FirstOrDefault(c => c.Contains("顺产")) != null ? "√" : ""; //public string D18 { set; get; } //存活 KO "√"
+
             //public string D19 { set; get; } //死亡年龄 KO
             //public string D20 { set; get; } //死亡原因 KO
             //public string D21 { set; get; } //出生缺陷 KO
