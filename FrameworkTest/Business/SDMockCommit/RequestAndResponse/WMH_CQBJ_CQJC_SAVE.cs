@@ -137,6 +137,17 @@ namespace FrameworkTest.Business.SDMockCommit
             //[{"index":"0","heartrate":"66","position":"01","presentposition":"1","fetalmove":"1"},{"index":"2","heartrate":"88","position":"02","presentposition":"2","fetalmove":"2"}]	2020-07-02	1393	NULL
 
 
+            //D42.宫缩,uterinecontraction
+            this.D42 = VLConstraints.Get_UterineContraction_By_UterineContraction_Hele(sourceData.SourceData.uterinecontraction);
+
+            //D55.羊水,amnioticfluidcharacter
+            this.D55 = VLConstraints.Get_AmnioticFluidCharacter_By_AmnioticFluidCharacter_Hele(sourceData.SourceData.amnioticfluidcharacter);
+
+            //D17.胎动,fetalmoves
+            if (sourceData.SourceData.feltalentities.Count() > 0)
+                this.D17 = VLConstraints.Get_FetalMove_By_FetalMove_Hele(sourceData.SourceData.feltalentities.First().fetalmove);
+
+
             //D5.主诉        chiefcomplaint
             this.D5 = sourceData.SourceData.chiefcomplaint;
             //D6.现病史      presenthistory

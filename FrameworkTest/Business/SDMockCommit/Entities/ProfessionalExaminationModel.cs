@@ -48,6 +48,19 @@ namespace FrameworkTest.Business.SDMockCommit
         /// </summary>
         public string highriskdic;
 
+        /// <summary>
+        /// 宫缩
+        /// </summary>
+        public string uterinecontraction;
+        /// <summary>
+        /// 羊水
+        /// </summary>
+        public string amnioticfluidcharacter;
+        /// <summary>
+        /// 胎动
+        /// </summary>
+        public string fetalmoves;
+
         public string id { set; get; }
 
         #region PregnantInfo
