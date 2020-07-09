@@ -142,10 +142,10 @@ namespace FrameworkTest.Business.SDMockCommit
             this.D15 = "";
             this.D16 = "无肿大";
             this.D17 = "";
-            this.D18 = "异常";
+            this.D18 = "正常";
             this.D19 = "";
             this.D20 = "未见异常";
-            this.D21 = "硬";
+            this.D21 = "软";
             this.D22 = "居中";
             this.D23 = "无";
             this.D24 = "未见异常";

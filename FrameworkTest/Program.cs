@@ -37,6 +37,14 @@ namespace FrameworkTest
 
         static void Main(string[] args)
         {
+
+
+            ////[{ "index":"0","pregstatus":"人流","babysex":"0","babyweight":"","pregnantage":"2017年6月"},{ "index":"2","pregstatus":"顺产-足月-健,足月产-亡,巨大胎,顺产-早产-健,早产-亡","babysex":"","babyweight":"","pregnantage":"2020年6月"}]
+            //var pregnanthistorystt = @"[{ ""index"":""0"",""pregstatus"":""人流"",""babysex"":""0"",""babyweight"":"""",""pregnantage"":""2017年6月""},{ ""index"":""0"",""pregstatus"":""人流"",""babysex"":""0"",""babyweight"":"""",""pregnantage"":""2018年6月""},{ ""index"":""2"",""pregstatus"":""顺产-足月-健,足月产-亡,巨大胎,顺产-早产-健,早产-亡"",""babysex"":"""",""babyweight"":"""",""pregnantage"":""""}]".FromJson<List<pregnanthistory>>();
+            ////var pregnanthistorys = pregnantInfo.pregnanthistory?.FromJson<List<pregnanthistory>>();
+            ////孕次排序
+            //var pregnanthistorystt2 = pregnanthistorystt.OrderBy(c => c.pregnantage).ToList();
+
             #region 简单测试
 
             //VLConstraints.GetGestationalWeeksByPrenatalDate(new DateTime(2020, 10, 8), DateTime.Now);

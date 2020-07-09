@@ -842,7 +842,7 @@ from
 				and vr.visitdate = convert(nvarchar,getdate(),23)
 		)  as toCreate 
 		LEFT JOIN MHC_VisitRecord vr on toCreate.idcard = vr.idcard  and vr.id = toCreate.sourceId
-		GROUP BY vr.idcard
+		GROUP BY vr.id,vr.idcard
 ) as T1
 left join PregnantInfo pi_data on pi_data.idcard = T1.idcard
 left join MHC_VisitRecord vr_data on vr_data.idcard = T1.idcard and vr_data.visitdate = T1.lastestvisitdate
