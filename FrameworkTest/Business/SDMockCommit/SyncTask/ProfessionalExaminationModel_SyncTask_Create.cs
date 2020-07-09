@@ -161,9 +161,6 @@ namespace FrameworkTest.Business.SDMockCommit
                 logger.AppendLine(syncOrder.ToJson());
                 DoLogOnWork?.Invoke(sourceDataModel, logger);
             }
-
         }
-
     }
-
 }

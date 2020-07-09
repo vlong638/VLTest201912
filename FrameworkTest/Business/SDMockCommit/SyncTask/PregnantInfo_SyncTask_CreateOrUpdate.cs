@@ -41,7 +41,7 @@ namespace FrameworkTest.Business.SDMockCommit
                 {
                     syncOrder.ErrorMessage = "更新";
                     var base8 = Context.FSService.GetBase8(userInfo, sourceData.IdCard, ref logger);
-                    if (base8==null)
+                    if (base8 == null)
                     {
                         syncOrder.SyncStatus = SyncStatus.Error;
                         syncOrder.ErrorMessage = "未获取到 Base8";
@@ -159,8 +159,14 @@ namespace FrameworkTest.Business.SDMockCommit
                 syncOrder.ErrorMessage = ex.ToString();
                 context.SDService.SaveSyncOrder(syncOrder);
             }
-
-            DoLogOnWork?.Invoke(sourceData, logger);
+            finally
+            {
+                logger.AppendLine(">>>syncOrder.ErrorMessage");
+                logger.AppendLine(syncOrder.ErrorMessage);
+                logger.AppendLine(">>>syncOrder.ToJson()");
+                logger.AppendLine(syncOrder.ToJson());
+                DoLogOnWork?.Invoke(sourceData, logger);
+            }
         }
     }
 }

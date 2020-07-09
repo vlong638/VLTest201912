@@ -166,6 +166,10 @@ namespace FrameworkTest.Business.SDMockCommit
             }
             finally
             {
+                logger.AppendLine(">>>syncOrder.ErrorMessage");
+                logger.AppendLine(syncOrder.ErrorMessage);
+                logger.AppendLine(">>>syncOrder.ToJson()");
+                logger.AppendLine(syncOrder.ToJson());
                 DoLogOnWork?.Invoke(sourceData, logger);
             }
         }
