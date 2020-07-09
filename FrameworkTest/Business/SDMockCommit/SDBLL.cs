@@ -827,12 +827,12 @@ T1.*
 from 
 (
 		SELECT 
-		vr.idcard
+		vr.id,vr.idcard
 		,max(vr.visitdate) lastestvisitdate
 		,min(vr.visitdate) firstvisitdate		
 		FROM (
 				SELECT top 1
-				pi.idcard
+				pi.idcard,vr.id sourceId
 				FROM PregnantInfo pi 
 				LEFT JOIN MHC_VisitRecord vr on pi.idcard = vr.idcard 
 				left join SyncForFS sp on sp.SourceType = 1 and sp.SourceId = pi.Id
@@ -841,11 +841,12 @@ from
 				and se.id is null 
 				and vr.visitdate = convert(nvarchar,getdate(),23)
 		)  as toCreate 
-		LEFT JOIN MHC_VisitRecord vr on toCreate.idcard = vr.idcard 
+		LEFT JOIN MHC_VisitRecord vr on toCreate.idcard = vr.idcard  and vr.id = toCreate.sourceId
 		GROUP BY vr.idcard
 ) as T1
 left join PregnantInfo pi_data on pi_data.idcard = T1.idcard
 left join MHC_VisitRecord vr_data on vr_data.idcard = T1.idcard and vr_data.visitdate = T1.lastestvisitdate
+and vr_data.id = T1.Id
 ", transaction: group.Transaction).ToList();
             });
             return serviceResult.Data;
@@ -877,12 +878,12 @@ T1.*
 from 
 (
 		SELECT 
-		vr.idcard
+		vr.id,vr.idcard
 		,max(vr.visitdate) lastestvisitdate
 		,min(vr.visitdate) firstvisitdate		
 		FROM (
-				SELECT top 10
-				pi.idcard
+				SELECT top 1
+				pi.idcard,vr.id sourceId
 				FROM PregnantInfo pi 
 				LEFT JOIN MHC_VisitRecord vr on pi.idcard = vr.idcard 
 				left join SyncForFS se on se.SourceType = 3 and se.SourceId = vr.Id			
@@ -890,11 +891,12 @@ from
 				and vr.updatetime > DATEADD( SECOND,10 ,se.SyncTime)
 				and vr.visitdate = convert(nvarchar,getdate(),23)
 		)  as toCreate 
-		LEFT JOIN MHC_VisitRecord vr on toCreate.idcard = vr.idcard 
+		LEFT JOIN MHC_VisitRecord vr on toCreate.idcard = vr.idcard  and vr.id = toCreate.sourceId
 		GROUP BY vr.id,vr.idcard
 ) as T1
 left join PregnantInfo pi_data on pi_data.idcard = T1.idcard
 left join MHC_VisitRecord vr_data on vr_data.idcard = T1.idcard and vr_data.visitdate = T1.lastestvisitdate
+and vr_data.id = T1.Id
                 ", transaction: group.Transaction).ToList();
             });
             return serviceResult.Data;
