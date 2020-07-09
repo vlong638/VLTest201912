@@ -25,13 +25,14 @@ namespace FrameworkTest.Business.SDMockCommit
 
         public override void DoWork(ServiceContext context, UserInfo userInfo, PregnantInfo_SourceData sourceData)
         {
-            var syncOrder = new SyncOrder()
+            var syncOrder = Context.SDService.GetSyncOrder(sourceData.SourceType, sourceData.SourceId) ?? new SyncOrder()
             {
                 SourceId = sourceData.SourceId,
                 SourceType = sourceData.SourceType,
                 SyncTime = DateTime.Now,
                 SyncStatus = SyncStatus.Success,
             };
+            syncOrder.SyncTime = DateTime.Now;
             StringBuilder logger = new StringBuilder();
             try
             {
@@ -145,6 +146,7 @@ namespace FrameworkTest.Business.SDMockCommit
                         syncOrder.ErrorMessage = "基本数据未成功创建";
                         context.SDService.SaveSyncOrder(syncOrder);
                     }
+                    syncOrder.ErrorMessage = $"{{ mainId:'{mainId}',careId:'{careId}'}}";
                 }
                 //保存同步记录
                 context.SDService.SaveSyncOrder(syncOrder);

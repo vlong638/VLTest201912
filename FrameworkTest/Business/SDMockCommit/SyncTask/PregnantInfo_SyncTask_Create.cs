@@ -151,6 +151,7 @@ namespace FrameworkTest.Business.SDMockCommit
                         syncOrder.ErrorMessage = "基本数据未成功创建";
                         context.SDService.SaveSyncOrder(syncOrder);
                     }
+                    syncOrder.ErrorMessage = $"{{ mainId:'{mainId}',careId:'{careId}'}}";
                 }
                 //保存同步记录
                 context.SDService.SaveSyncOrder(syncOrder);

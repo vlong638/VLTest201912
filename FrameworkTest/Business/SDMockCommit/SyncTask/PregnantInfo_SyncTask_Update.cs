@@ -25,13 +25,8 @@ namespace FrameworkTest.Business.SDMockCommit
 
         public override void DoWork(ServiceContext context, UserInfo userInfo, PregnantInfo_SourceData sourceData)
         {
-            var syncOrder = new SyncOrder()
-            {
-                SourceId = sourceData.SourceId,
-                SourceType = sourceData.SourceType,
-                SyncTime = DateTime.Now,
-                SyncStatus = SyncStatus.Success,
-            };
+            var syncOrder = Context.SDService.GetSyncOrder(sourceData.SourceType, sourceData.SourceId);
+            syncOrder.SyncTime = DateTime.Now;
             StringBuilder logger = new StringBuilder();
             try
             {

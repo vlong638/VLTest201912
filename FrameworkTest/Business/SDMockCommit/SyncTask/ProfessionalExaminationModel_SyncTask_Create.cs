@@ -86,8 +86,6 @@ namespace FrameworkTest.Business.SDMockCommit
                 logger.AppendLine(">>>heleHighRisks");
                 logger.AppendLine(heleHighRisks.ToJson());
                 highRisksToSave.Update(base8.MainId, allHighRisksResponse, heleHighRisks, ref logger);
-                //logger.AppendLine(">>>heleHighRisks");
-                //logger.AppendLine(heleHighRisks.ToJson());
                 //更新高危数据
                 if (highRisksToSave.Count > 0)
                 {
