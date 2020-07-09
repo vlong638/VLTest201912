@@ -91,6 +91,7 @@
   <ItemGroup>
     <Compile Include="Business\ConfigurableEntity\EntityAppConfig.cs" />
     <Compile Include="Business\GJPredeliveryAsync\PreDelivery.cs" />
+    <Compile Include="Business\SDMockCommit\Dics\VaginalDeliveryType.cs" />
     <Compile Include="Business\SDMockCommit\Dics\0.Sample.cs" />
     <Compile Include="Business\SDMockCommit\Dics\HighRisks.cs" />
     <Compile Include="Business\SDMockCommit\Dics\EdemaStatus.cs" />

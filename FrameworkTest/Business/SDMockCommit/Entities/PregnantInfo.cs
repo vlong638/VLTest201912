@@ -263,6 +263,9 @@ namespace FrameworkTest.Business.SDMockCommit
                 return pregstatuss;
             }
         }
+
+        public int? PregnantageIndex { get; set; }
+
         private List<string> pregstatuss;
     }
 }

@@ -2762,6 +2762,12 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                             }
                             //[{ "index":"0","pregstatus":"人流","babysex":"0","babyweight":"","pregnantage":"2017年6月"},{ "index":"2","pregstatus":"顺产-足月-健,足月产-亡,巨大胎,顺产-早产-健,早产-亡","babysex":"","babyweight":"","pregnantage":""}]
                             var pregnanthistorys = pregnantInfo.pregnanthistory?.FromJson<List<pregnanthistory>>();
+                            //孕次排序
+                            pregnanthistorys = pregnanthistorys.OrderBy(c => c.pregnantage).ToList();
+                            foreach (var pregnanthistory in pregnanthistorys)
+                            {
+                                pregnanthistory.PregnantageIndex = pregnanthistorys.IndexOf(pregnanthistory) + 1;
+                            }
                             var enquiryPregnanthResponse = SDBLL.GetEnquiryPregnanths(userInfo, base8, ref sb);
                             //新增
                             var toAddHistories = pregnanthistorys.Where(c => enquiryPregnanthResponse.data.FirstOrDefault(d => d.IssueDate == c.pregnantage) == null).OrderBy(c => c.pregnantage);

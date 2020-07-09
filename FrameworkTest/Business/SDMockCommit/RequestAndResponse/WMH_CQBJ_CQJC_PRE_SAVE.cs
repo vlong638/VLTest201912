@@ -72,23 +72,23 @@ namespace FrameworkTest.Business.SDMockCommit
             var issueDataStr = pregnanthistory.pregnantage;
             var issueDataValue = issueDataStr.Split('-');
             //public string D1 { set; get; } //生育史Id  KO
-            this.D2 = pregnantInfo.gravidity ?? "";//public string D2 { set; get; } //孕次
+            this.D2 = pregnanthistory.PregnantageIndex?.ToString() ?? "";//public string D2 { set; get; } //孕次
             this.D3 = issueDataValue.Length == 2 ? issueDataValue[0] : "";//public string D3 { set; get; } //年  KO
             this.D4 = issueDataValue.Length == 2 ? issueDataValue[1] : "";//public string D4 { set; get; } //月  KO
-            this.D5 = pregnanthistory.Pregstatuss.Contains("自然流产") ? "1" : ""; //public string D5 { set; get; } //流产-自然  KO
-            this.D6 = pregnanthistory.Pregstatuss.Contains("人流") ? "1" : "";//public string D6 { set; get; } //流产-人工  KO
-            this.D7 = pregnanthistory.Pregstatuss.Contains("引产") ? "1" : "";//public string D7 { set; get; } //流产-引产  KO
-            //public string D8 { set; get; } //葡萄胎  KO
-            this.D9 = pregnanthistory.Pregstatuss.Contains("宫外孕") ? "1" : "";//public string D9 { set; get; } //宫外孕  KO
-            this.D10 = pregnanthistory.Pregstatuss.Contains("死胎") ? "1" : "";//public string D10 { set; get; } //死胎  KO
-            this.D11 = pregnanthistory.Pregstatuss.Contains("死产") ? "1" : "";//public string D11 { set; get; } //死产   KO
-            this.D12 = (pregnanthistory.Pregstatuss.Contains("早产-健") || pregnanthistory.Pregstatuss.Contains("早产-亡")) ? "1" : "";//public string D12 { set; get; } //早产   KO
-            this.D13 = pregnantInfo.vaginaldeliverynum;//public string D13 { set; get; } //阴道分娩  KO 可以配对
-            this.D14 = pregnanthistory.Pregstatuss.Contains("剖宫产") ? "1" : "";//public string D14 { set; get; } //剖宫产  KO
-            this.D15 = (pregnanthistory.Pregstatuss.Contains("足月产-健") || pregnanthistory.Pregstatuss.Contains("足月产-亡")) ? "1" : "";//public string D15 { set; get; } //足月产  KO
+            this.D5 = pregnanthistory.Pregstatuss.FirstOrDefault(c => c.Contains("自然流产")) != null ? "1" : ""; //public string D5 { set; get; } //流产-自然  KO
+            this.D6 = pregnanthistory.Pregstatuss.FirstOrDefault(c => c.Contains("人流")) != null ? "1" : "";//public string D6 { set; get; } //流产-人工  KO
+            this.D7 = pregnanthistory.Pregstatuss.FirstOrDefault(c => c.Contains("引产")) != null ? "1" : "";//public string D7 { set; get; } //流产-引产  KO            
+            this.D8 = pregnanthistory.Pregstatuss.FirstOrDefault(c => c.Contains("葡萄胎")) != null ? "1" : "";//public string D8 { set; get; } //葡萄胎  KO
+            this.D9 = pregnanthistory.Pregstatuss.FirstOrDefault(c => c.Contains("宫外孕")) != null ? "1" : "";//public string D9 { set; get; } //宫外孕  KO
+            this.D10 = pregnanthistory.Pregstatuss.FirstOrDefault(c => c.Contains("死胎")) != null ? "1" : "";//public string D10 { set; get; } //死胎  KO
+            this.D11 = pregnanthistory.Pregstatuss.FirstOrDefault(c => c.Contains("死产")) != null ? "1" : "";//public string D11 { set; get; } //死产   KO
+            this.D12 = pregnanthistory.Pregstatuss.FirstOrDefault(c => c.Contains("早产")) != null ? "1" : "";//public string D12 { set; get; } //早产   KO
+            this.D13 = VLConstraints.GetVaginalDeliveryType(pregnanthistory.Pregstatuss);//public string D13 { set; get; } //阴道分娩  KO 可以配对
+            this.D14 = pregnanthistory.Pregstatuss.FirstOrDefault(c => c.Contains("剖宫")) != null ? "1" : "";//public string D14 { set; get; } //剖宫产  KO
+            this.D15 = pregnanthistory.Pregstatuss.FirstOrDefault(c => c.Contains("足月")) != null ? "1" : "";//public string D15 { set; get; } //足月产  KO
             this.D16 = VLConstraints.Get_BabySex_By_BabySex_HELE(pregnanthistory.babysex);//public string D16 { set; get; } //性别 KO 可以配对
             this.D17 = pregnanthistory.babyweight;  //public string D17 { set; get; } //出生体重/g KO 可以配对
-            //public string D18 { set; get; } //存活 KO "√"
+            this.D18 = pregnanthistory.Pregstatuss.FirstOrDefault(c => c.Contains("顺产")) != null ? "√" : ""; //public string D18 { set; get; } //存活 KO "√"
             //public string D19 { set; get; } //死亡年龄 KO
             //public string D20 { set; get; } //死亡原因 KO
             //public string D21 { set; get; } //出生缺陷 KO
