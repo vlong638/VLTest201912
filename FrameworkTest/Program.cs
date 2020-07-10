@@ -37,6 +37,9 @@ namespace FrameworkTest
 
         static void Main(string[] args)
         {
+            //string ssda = null;
+            //bool bb = (ssda ?? "").Contains("1");
+
             //decimal ddd = 1.1M;
             //int? isd = ddd.ToInt();
 
@@ -3269,6 +3272,13 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                                 }
                                 //新增处理
                                 var pregnanthistorys = pregnantInfo.pregnanthistory?.FromJson<List<pregnanthistory>>();
+                                //孕次排序
+                                pregnanthistorys = pregnanthistorys.OrderBy(c => c.pregnantage).ToList();
+                                foreach (var pregnanthistory in pregnanthistorys)
+                                {
+                                    pregnanthistory.PregnantageIndex = pregnanthistorys.IndexOf(pregnanthistory) + 1;
+                                }
+                                //本孕
                                 if (pregnantInfo.gravidity == "1")
                                 {
                                     pregnanthistorys.Add(new pregnanthistory()
@@ -3276,6 +3286,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                                         index = "1",
                                         pregnantage = $"本孕{DateTime.Now.Year}- ",
                                     });
+                                    sb.Append("add 本孕");
                                 }
                                 var enquiryPregnanthResponse = SDBLL.GetEnquiryPregnanths(userInfo, base8, ref sb);
                                 sb.Append("---------------------pregnantInfo.pregnanthistory");
@@ -3384,6 +3395,13 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                                 }
                                 //新增处理
                                 var pregnanthistorys = pregnantInfo.pregnanthistory?.FromJson<List<pregnanthistory>>();
+                                //孕次排序
+                                pregnanthistorys = pregnanthistorys.OrderBy(c => c.pregnantage).ToList();
+                                foreach (var pregnanthistory in pregnanthistorys)
+                                {
+                                    pregnanthistory.PregnantageIndex = pregnanthistorys.IndexOf(pregnanthistory) + 1;
+                                }
+                                //本孕
                                 if (pregnantInfo.gravidity == "1")
                                 {
                                     pregnanthistorys.Add(new pregnanthistory()
@@ -3391,6 +3409,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                                         index = "1",
                                         pregnantage = $"本孕{DateTime.Now.Year}- ",
                                     });
+                                    sb.Append("add 本孕");
                                 }
                                 var enquiryPregnanthResponse = SDBLL.GetEnquiryPregnanths(userInfo, base8, ref sb);
                                 sb.Append("---------------------pregnantInfo.pregnanthistory");

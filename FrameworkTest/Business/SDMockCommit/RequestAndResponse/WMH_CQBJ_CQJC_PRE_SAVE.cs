@@ -166,11 +166,11 @@ namespace FrameworkTest.Business.SDMockCommit
                 sb.AppendLine("无效的{年}数据");
                 return false;
             }
-            if (string.IsNullOrEmpty(D4))
-            {
-                sb.AppendLine("无效的{月}数据");
-                return false;
-            }
+            //if (string.IsNullOrEmpty(D4))
+            //{
+            //    sb.AppendLine("无效的{月}数据");
+            //    return false;
+            //}
             return true;
         }
     }

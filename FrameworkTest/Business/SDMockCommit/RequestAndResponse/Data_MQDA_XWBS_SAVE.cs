@@ -207,9 +207,15 @@ namespace FrameworkTest.Business.SDMockCommit
             //this.D29 = pregnantInfo.D29; //"D29":""，//
             //this.D30 = pregnantInfo.D30; //"D30":"风疹病毒,流感病毒",//病毒感染
             //this.D31 = pregnantInfo.D31; //"D31":"无",//发热
-            this.D32 = pregnantInfo.poisontouchhis ?? ""; //"D32":"有害化学物质,有害生物物质",//接触有害物质
-            //this.D33 = pregnantInfo.D33; //"D33":"2",//饮酒      //  饮酒
-            //this.D34 = pregnantInfo.D34; //"D34":"2",//两/天、
+
+            this.D32 = (((pregnantInfo.personnalhistory ?? "").Contains("放射线")) ? "放射线" : "无"); //this.D32 //接触有害物质 无,放射线
+
+            this.D33 = (((pregnantInfo.personnalhistory ?? "").Contains("吸烟")) ? "2" : "1"); //吸烟 1=无 2=有
+            //this.D37 //
+
+            this.D34 = (((pregnantInfo.personnalhistory ?? "").Contains("饮酒")) ? "2" : "1"); //this.D34 //饮酒 1=无 2=有
+            //this.D38 //
+
             //this.D35 = pregnantInfo.D35; //"D35":"无",//服用药物  // 预防接种
             //this.D36 = pregnantInfo.D36; //"D36":"无",//服用药物
             //this.D37 = pregnantInfo.D37; //"D37":"33",//

@@ -209,6 +209,11 @@ namespace FrameworkTest.Business.SDMockCommit
         /// </summary>
         public string bmi;
 
+        /// <summary>
+        /// 个人史
+        /// </summary>
+        public string personnalhistory;
+
         //丈夫现住址详细地址 NFQXXX  需核对
         //public string NFQXXX { set; get; }
         //TODO
