@@ -155,9 +155,9 @@ namespace FrameworkTest.Business.SDMockCommit
             //D10.宫高       heightfundusuterus
             //FS: 耻骨联合上 横指
             //HL: 文本框,直接传
-            this.D10 = sourceData.SourceData.heightfundusuterus;
+            this.D10 = string.IsNullOrEmpty(sourceData.SourceData.heightfundusuterus)? "未查" : sourceData.SourceData.heightfundusuterus;
             //D11.腹围        abdomencircumference
-            this.D11 = sourceData.SourceData.abdomencircumference;
+            this.D11 = string.IsNullOrEmpty(sourceData.SourceData.abdomencircumference) ? "未查" : sourceData.SourceData.abdomencircumference;
             //D15.衔接        xianjie
             //FS: 文本=>已衔接,未衔接
             //HL: 未衔接,衔接,半衔接
@@ -225,19 +225,19 @@ namespace FrameworkTest.Business.SDMockCommit
             for (int i = 0; i < sourceData.SourceData.feltalentities.Count(); i++)
             {
                 var feltalentity = sourceData.SourceData.feltalentities[i];
-                if (i==0)
+                if (i == 0)
                 {
-                    this.D13 = feltalentity.heartrate;
+                    this.D13 = string.IsNullOrEmpty(feltalentity.heartrate) ? "未查" : feltalentity.heartrate;
                     this.D12 = VLConstraints.Get_FetalPosition_By_FetalPosition_Hele(feltalentity.position);
                 }
-                else if (i==1)
+                else if (i == 1)
                 {
-                    this.D48 = feltalentity.heartrate;
+                    this.D48 = string.IsNullOrEmpty(feltalentity.heartrate) ? "未查" : feltalentity.heartrate;
                     this.D46 = VLConstraints.Get_FetalPosition_By_FetalPosition_Hele(feltalentity.position);
                 }
                 else if (i == 2)
                 {
-                    this.D52 = feltalentity.heartrate;
+                    this.D52 = string.IsNullOrEmpty(feltalentity.heartrate) ? "未查" : feltalentity.heartrate;
                     this.D51 = VLConstraints.Get_FetalPosition_By_FetalPosition_Hele(feltalentity.position);
                 }
             }
