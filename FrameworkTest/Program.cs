@@ -3281,12 +3281,31 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                                 //本孕
                                 if (pregnantInfo.gravidity == "1")
                                 {
-                                    pregnanthistorys.Add(new pregnanthistory()
+                                    if (pregnanthistorys.Count==0)
                                     {
-                                        index = "1",
-                                        pregnantage = $"本孕{DateTime.Now.Year}- ",
-                                    });
-                                    sb.Append("add 本孕");
+                                        pregnanthistorys.Add(new pregnanthistory()
+                                        {
+                                            index = "1",
+                                            pregnantage = $"本孕{DateTime.Now.Year}- ",
+                                        });
+                                        sb.Append("add 本孕");
+                                    }
+                                    else if (pregnanthistorys.Count == 1)
+                                    {
+                                        if (string.IsNullOrEmpty(pregnanthistorys[0].index))
+                                        {
+                                            pregnanthistorys[0].index = "1";
+                                        }
+                                        if (string.IsNullOrEmpty(pregnanthistorys[0].pregnantage))
+                                        {
+                                            pregnanthistorys[0].pregnantage = $"本孕{DateTime.Now.Year}- ";
+                                        }
+                                        sb.Append("孕次1一记录分支");
+                                    }
+                                    else
+                                    {
+                                        sb.Append("孕次1多记录分支");
+                                    }
                                 }
                                 var enquiryPregnanthResponse = SDBLL.GetEnquiryPregnanths(userInfo, base8, ref sb);
                                 sb.Append("---------------------pregnantInfo.pregnanthistory");
@@ -3404,12 +3423,31 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                                 //本孕
                                 if (pregnantInfo.gravidity == "1")
                                 {
-                                    pregnanthistorys.Add(new pregnanthistory()
+                                    if (pregnanthistorys.Count == 0)
                                     {
-                                        index = "1",
-                                        pregnantage = $"本孕{DateTime.Now.Year}- ",
-                                    });
-                                    sb.Append("add 本孕");
+                                        pregnanthistorys.Add(new pregnanthistory()
+                                        {
+                                            index = "1",
+                                            pregnantage = $"本孕{DateTime.Now.Year}- ",
+                                        });
+                                        sb.Append("add 本孕");
+                                    }
+                                    else if (pregnanthistorys.Count == 1)
+                                    {
+                                        if (string.IsNullOrEmpty(pregnanthistorys[0].index))
+                                        {
+                                            pregnanthistorys[0].index = "1";
+                                        }
+                                        if (string.IsNullOrEmpty(pregnanthistorys[0].pregnantage))
+                                        {
+                                            pregnanthistorys[0].pregnantage = $"本孕{DateTime.Now.Year}- ";
+                                        }
+                                        sb.Append("孕次1一记录分支");
+                                    }
+                                    else
+                                    {
+                                        sb.Append("孕次1多记录分支");
+                                    }
                                 }
                                 var enquiryPregnanthResponse = SDBLL.GetEnquiryPregnanths(userInfo, base8, ref sb);
                                 sb.Append("---------------------pregnantInfo.pregnanthistory");
