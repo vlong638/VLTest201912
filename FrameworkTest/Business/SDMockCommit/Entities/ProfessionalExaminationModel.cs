@@ -6,6 +6,14 @@ namespace FrameworkTest.Business.SDMockCommit
     public class ProfessionalExaminationModel
     {
         /// <summary>
+        /// 舒张压
+        /// </summary>
+        public string dbp { set; get; }
+        /// <summary>
+        /// 收缩压
+        /// </summary>
+        public string sbp { set; get; }
+        /// <summary>
         /// 主诉
         /// </summary>
         public string chiefcomplaint;
@@ -69,6 +77,10 @@ namespace FrameworkTest.Business.SDMockCommit
         public string lastmenstrualperiod { set; get; }//末次月经
         public string dateofprenatal { set; get; }//预产期 
         public string BMI { set; get; }//BMI指数
+        /// <summary>
+        /// 体重
+        /// </summary>
+        public string weight { set; get; }
         #endregion
 
         //,vr.uterus--子宫 1=异常 0=正常

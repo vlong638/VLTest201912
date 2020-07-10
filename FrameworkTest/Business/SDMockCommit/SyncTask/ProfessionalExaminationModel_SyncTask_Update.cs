@@ -93,9 +93,10 @@ namespace FrameworkTest.Business.SDMockCommit
                 var highRisksToSave = new WMH_WCQBJ_GWYCF_SCORE_SAVERequest();
                 //logger.AppendLine(">>>currentHighRisks");
                 //logger.AppendLine(currentHighRisks.ToJson());
-                logger.AppendLine(">>>heleHighRisks");
-                logger.AppendLine(heleHighRisks.ToJson());
-                highRisksToSave.Update(base8.MainId, allHighRisksResponse, heleHighRisks, sourceDataModel.SourceData.BMI.ToInt(), ref logger);
+                //logger.AppendLine(">>>heleHighRisks");
+                //logger.AppendLine(heleHighRisks.ToJson());
+                //logger.AppendLine($">>>bmi:{sourceDataModel.SourceData.BMI}");
+                highRisksToSave.Update(allHighRisksResponse, heleHighRisks, sourceDataModel.SourceData.BMI?.ToDecimal(), ref logger);
                 //更新高危数据
                 if (highRisksToSave.Count > 0)
                 {

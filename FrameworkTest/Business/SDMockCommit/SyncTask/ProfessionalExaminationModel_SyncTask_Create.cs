@@ -68,15 +68,15 @@ namespace FrameworkTest.Business.SDMockCommit
                     context.SDService.SaveSyncOrder(syncOrder);
                     return;
                 }
-                //获取高危数据变量
-                var currentHighRisks = Context.FSService.GetCurrentHighRisks(physicalExaminationId, userInfo, base8, ref logger);
-                if (currentHighRisks == null)
-                {
-                    syncOrder.SyncStatus = SyncStatus.Error;
-                    syncOrder.ErrorMessage = "未获取到高危数据变量";
-                    context.SDService.SaveSyncOrder(syncOrder);
-                    return;
-                }
+                ////获取高危数据变量
+                //var currentHighRisks = Context.FSService.GetCurrentHighRisks(physicalExaminationId, userInfo, base8, ref logger);
+                //if (currentHighRisks == null)
+                //{
+                //    syncOrder.SyncStatus = SyncStatus.Error;
+                //    syncOrder.ErrorMessage = "未获取到高危数据变量";
+                //    context.SDService.SaveSyncOrder(syncOrder);
+                //    return;
+                //}
                 //更新高危数据
                 var heleHighRisks = sourceDataModel.SourceData.highriskdic?.FromJson<List<HighRiskEntity>>() ?? new List<HighRiskEntity>();
                 var highRisksToSave = new WMH_WCQBJ_GWYCF_SCORE_SAVERequest();
@@ -84,7 +84,8 @@ namespace FrameworkTest.Business.SDMockCommit
                 //logger.AppendLine(currentHighRisks.ToJson());
                 logger.AppendLine(">>>heleHighRisks");
                 logger.AppendLine(heleHighRisks.ToJson());
-                highRisksToSave.Update(base8.MainId, allHighRisksResponse, heleHighRisks, sourceDataModel.SourceData.BMI.ToInt(), ref logger);
+                logger.AppendLine($">>>bmi:{sourceDataModel.SourceData.BMI}");
+                highRisksToSave.Update(allHighRisksResponse, heleHighRisks, sourceDataModel.SourceData.BMI?.ToDecimal(), ref logger);
                 //更新高危数据
                 if (highRisksToSave.Count > 0)
                 {

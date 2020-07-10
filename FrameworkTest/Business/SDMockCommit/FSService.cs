@@ -296,7 +296,7 @@ namespace FrameworkTest.Business.SDMockCommit
             var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             logger.AppendLine($">>>提交-专科检查数据");
             logger.AppendLine(url);
-            logger.AppendLine(postData);
+            logger.AppendLine(json);
             logger.AppendLine(result);
             return result.Contains("处理成功");
         } 

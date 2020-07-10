@@ -1,4 +1,5 @@
-﻿using FrameworkTest.ConfigurableEntity;
+﻿using FrameworkTest.Common.ValuesSolution;
+using FrameworkTest.ConfigurableEntity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -130,42 +131,44 @@ namespace FrameworkTest.Business.SDMockCommit
             this.D57 = data.D57;
         }
 
-        internal void Update(UserInfo userInfo, ProfessionalExaminationModel_SourceData sourceData, WMH_WCQBJ_GWYCF_SCORE_SAVERequest highRisksToSave)
+        internal void Update(UserInfo userInfo, ProfessionalExaminationModel_SourceData sourceDataModel, WMH_WCQBJ_GWYCF_SCORE_SAVERequest highRisksToSave)
         {
             //对比数据
             //142328199610271518	李丽	2019-12-18	2020-10-08	0	12	NULL	NULL	2020-07-30	2	
             //[{"index":"0","heartrate":"66","position":"01","presentposition":"1","fetalmove":"1"},{"index":"2","heartrate":"88","position":"02","presentposition":"2","fetalmove":"2"}]	2020-07-02	1393	NULL
-
+            //收缩压 D8
+            this.D8 = sourceDataModel.SourceData.sbp ?? "";
+            //舒张压 D9
+            this.D9 = sourceDataModel.SourceData.dbp ?? "";
+            //体重 D7
+            this.D7 = sourceDataModel.SourceData.weight ?? "";
 
             //D42.宫缩,uterinecontraction
-            this.D42 = VLConstraints.Get_UterineContraction_By_UterineContraction_Hele(sourceData.SourceData.uterinecontraction);
-
+            this.D42 = VLConstraints.Get_UterineContraction_By_UterineContraction_Hele(sourceDataModel.SourceData.uterinecontraction);
             //D55.羊水,amnioticfluidcharacter
-            this.D55 = VLConstraints.Get_AmnioticFluidCharacter_By_AmnioticFluidCharacter_Hele(sourceData.SourceData.amnioticfluidcharacter);
-
+            this.D55 = VLConstraints.Get_AmnioticFluidCharacter_By_AmnioticFluidCharacter_Hele(sourceDataModel.SourceData.amnioticfluidcharacter);
             //D17.胎动,fetalmoves
-            if (sourceData.SourceData.feltalentities.Count() > 0)
-                this.D17 = VLConstraints.Get_FetalMove_By_FetalMove_Hele(sourceData.SourceData.feltalentities.First().fetalmove);
-
+            if (sourceDataModel.SourceData.feltalentities.Count() > 0)
+                this.D17 = VLConstraints.Get_FetalMove_By_FetalMove_Hele(sourceDataModel.SourceData.feltalentities.First().fetalmove);
 
             //D5.主诉        chiefcomplaint
-            this.D5 = sourceData.SourceData.chiefcomplaint;
+            this.D5 = sourceDataModel.SourceData.chiefcomplaint;
             //D6.现病史      presenthistory
-            this.D6 = sourceData.SourceData.presenthistory;
+            this.D6 = sourceDataModel.SourceData.presenthistory;
             //D10.宫高       heightfundusuterus
             //FS: 耻骨联合上 横指
             //HL: 文本框,直接传
-            this.D10 = string.IsNullOrEmpty(sourceData.SourceData.heightfundusuterus)? "未查" : sourceData.SourceData.heightfundusuterus;
+            this.D10 = string.IsNullOrEmpty(sourceDataModel.SourceData.heightfundusuterus)? "未查" : sourceDataModel.SourceData.heightfundusuterus;
             //D11.腹围        abdomencircumference
-            this.D11 = string.IsNullOrEmpty(sourceData.SourceData.abdomencircumference) ? "未查" : sourceData.SourceData.abdomencircumference;
+            this.D11 = string.IsNullOrEmpty(sourceDataModel.SourceData.abdomencircumference) ? "未查" : sourceDataModel.SourceData.abdomencircumference;
             //D15.衔接        xianjie
             //FS: 文本=>已衔接,未衔接
             //HL: 未衔接,衔接,半衔接
-            this.D15 = VLConstraints.GetLinkByLink_HELE(sourceData.SourceData.xianjie);
+            this.D15 = VLConstraints.GetLinkByLink_HELE(sourceDataModel.SourceData.xianjie);
             //D16.浮肿        edemastatus
             //FS: 1.无,2.+,3.++,4.+++
             //HL: -,+,++,+++,++++
-            this.D16 = VLConstraints.GetEdemaStatus_By_EdemaStatus_Hele(sourceData.SourceData.edemastatus);
+            this.D16 = VLConstraints.GetEdemaStatus_By_EdemaStatus_Hele(sourceDataModel.SourceData.edemastatus);
 
             //高危因素
             //高危等级  highrisklevel
@@ -180,7 +183,7 @@ namespace FrameworkTest.Business.SDMockCommit
             //          maindiagnosis,主诊断
             //          secondarydiagnosis,次诊断
             //HL: 高危妊娠监督	妊娠合并中度贫血,健康查体,妊娠期阴道炎,缺铁性贫血,妊娠期糖尿病
-            this.D25 = $"{sourceData.SourceData.diagnosisinfo},{sourceData.SourceData.maindiagnosis ?? ""},{sourceData.SourceData.secondarydiagnosis ?? ""}";
+            this.D25 = $"{sourceDataModel.SourceData.diagnosisinfo},{sourceDataModel.SourceData.maindiagnosis ?? ""},{sourceDataModel.SourceData.secondarydiagnosis ?? ""}";
 
             //D36.检查医生
             this.D36 = userInfo.UserName;
@@ -188,32 +191,32 @@ namespace FrameworkTest.Business.SDMockCommit
             this.D37 = userInfo.OrgId;
 
             this.D1 = DateTime.Now.ToString("yyyy-MM-dd");//检查日期
-            this.D2 = VLConstraints.GetGestationalWeeksByPrenatalDate(sourceData.SourceData.dateofprenatal?.ToDateTime(), DateTime.Now);//D2.孕周   
-            this.D3 = sourceData.SourceData.lastmenstrualperiod?.ToDateTime()?.ToString("yyyy-MM-dd") ?? "";//D3 矫正末次月经 = 孕妇档案.末次月经
-            this.D4 = sourceData.SourceData.dateofprenatal?.ToDateTime()?.ToString("yyyy-MM-dd") ?? "";//D4 矫正预产期 = 孕妇档案.预产期
+            this.D2 = VLConstraints.GetGestationalWeeksByPrenatalDate(sourceDataModel.SourceData.dateofprenatal?.ToDateTime(), DateTime.Now);//D2.孕周   
+            this.D3 = sourceDataModel.SourceData.lastmenstrualperiod?.ToDateTime()?.ToString("yyyy-MM-dd") ?? "";//D3 矫正末次月经 = 孕妇档案.末次月经
+            this.D4 = sourceDataModel.SourceData.dateofprenatal?.ToDateTime()?.ToString("yyyy-MM-dd") ?? "";//D4 矫正预产期 = 孕妇档案.预产期
             //D26,处理 = 处理意见
-            this.D26 = sourceData.SourceData.suggestion ?? "";
+            this.D26 = sourceDataModel.SourceData.suggestion ?? "";
             ////D29,健康评估 = 其它评估 无需处理
             //this.D29 = sourceData.SourceData.generalcomment ?? "";
             //D39,下次预约时间 = 下次随访
-            this.D39 = sourceData.SourceData.followupappointment?.ToDateTime()?.ToString("yyyy-MM-dd") ?? "";
+            this.D39 = sourceDataModel.SourceData.followupappointment?.ToDateTime()?.ToString("yyyy-MM-dd") ?? "";
             //D43 子宫压痛 = 子宫
             //有,无
-            this.D43 = VLConstraints.Get_Uterus_By_Uterus_HELE(sourceData.SourceData.uterus);
+            this.D43 = VLConstraints.Get_Uterus_By_Uterus_HELE(sourceDataModel.SourceData.uterus);
             //D53 宫口开大 = 宫口
-            this.D53 = VLConstraints.Get_PalaceMouth_By_PalaceMouth_HELE(sourceData.SourceData.palacemouth);
+            this.D53 = VLConstraints.Get_PalaceMouth_By_PalaceMouth_HELE(sourceDataModel.SourceData.palacemouth);
             //-- //D44,预约目的
             //D54 胎膜破裂 = 破水
             //1 = 是  2 = 无  Hele: 1=破 2=无
-            this.D54 = sourceData.SourceData.brokenwater ?? "";
+            this.D54 = sourceDataModel.SourceData.brokenwater ?? "";
             //[{"index":"0","heartrate":"66","position":"01","presentposition":"1","fetalmove":"1"},{"index":"2","heartrate":"88","position":"02","presentposition":"2","fetalmove":"2"}
             //sourceData.SourceData.feltalentities
             //胎数 D56  1 = 单胎 2 = 双胎 3 = 三胎以上
-            this.D56 = VLConstraints.Get_FetalAmountByAmount(sourceData.SourceData.feltalentities.Count());
+            this.D56 = VLConstraints.Get_FetalAmountByAmount(sourceDataModel.SourceData.feltalentities.Count());
             //胎先露 D14
             //头先露,臀先露,肩先露
-            if (sourceData.SourceData.feltalentities.Count() > 0)
-                this.D14 = VLConstraints.Get_PresentPosition_By_PresentPosition_Hele(sourceData.SourceData.feltalentities.First().presentposition);
+            if (sourceDataModel.SourceData.feltalentities.Count() > 0)
+                this.D14 = VLConstraints.Get_PresentPosition_By_PresentPosition_Hele(sourceDataModel.SourceData.feltalentities.First().presentposition);
             //胎心
             //1胎 D13
             //2胎 D48
@@ -222,9 +225,9 @@ namespace FrameworkTest.Business.SDMockCommit
             //1胎 D12
             //2胎 D46
             //3胎 D51
-            for (int i = 0; i < sourceData.SourceData.feltalentities.Count(); i++)
+            for (int i = 0; i < sourceDataModel.SourceData.feltalentities.Count(); i++)
             {
-                var feltalentity = sourceData.SourceData.feltalentities[i];
+                var feltalentity = sourceDataModel.SourceData.feltalentities[i];
                 if (i == 0)
                 {
                     this.D13 = string.IsNullOrEmpty(feltalentity.heartrate) ? "未查" : feltalentity.heartrate;

@@ -10,11 +10,14 @@ namespace FrameworkTest.Business.SDMockCommit
 {
     public class WMH_WCQBJ_GWYCF_SCORE_SAVERequest : List<WMH_WCQBJ_GWYCF_SCORE_SAVE>
     {
-        internal void Update(string mainId, List<WMH_GWYCF_GW_LIST1_Data> allHighRisks, List<HighRiskEntity> heleHighRisks, int? bmi, ref StringBuilder logger)
+        internal void Update(List<WMH_GWYCF_GW_LIST1_Data> allHighRisks, List<HighRiskEntity> heleHighRisks, decimal? bmi, ref StringBuilder logger)
         {
             var currentHighRisks = allHighRisks.Where(c => c.D8 == "1").ToList();
+            logger.AppendLine($@"currentHighRisks;");
+            logger.AppendLine(currentHighRisks.ToJson());
+
             #region BMI相关特殊处理
-            var BMIs = new List<string>() { "a60103", "a6010301", "b60103" };
+            var BMIs = new List<string>() { "a160105", "b160105" };
             for (int i = heleHighRisks.Count() - 1; i >= 0; i--)
             {
                 var highRisk = heleHighRisks[i];
@@ -23,44 +26,58 @@ namespace FrameworkTest.Business.SDMockCommit
                     heleHighRisks.Remove(highRisk);
                 }
             }
+            logger.AppendLine($">>>bmi2:{bmi}");
             if (bmi.HasValue)
             {
                 if (bmi >= 28)
                 {
-                    AddCurrentHighRisks(allHighRisks.Where(c => c.Id == "8"));
-
+                    heleHighRisks.Add(new HighRiskEntity() { R = "6" });
                 }
                 else if (bmi > 25)
                 {
-                    AddCurrentHighRisks(allHighRisks.Where(c => c.Id == "5"));
-
+                    heleHighRisks.Add(new HighRiskEntity() { R = "5" });
                 }
-                else if (bmi <18)
+                else if (bmi < 18.5M)
                 {
-                    AddCurrentHighRisks(allHighRisks.Where(c => c.Id == "3"));
+                    heleHighRisks.Add(new HighRiskEntity() { R = "4" });
+                }
+            }
+            #endregion
+
+            //维护待提交数据
+            var toAdds = heleHighRisks.Where(hele => currentHighRisks.FirstOrDefault(cur => VLConstraints.GetHighRisks_By_HighRisks_Hele(hele.R).Contains(cur.Id)) == null);
+            var toDeletes = currentHighRisks.Where(cur => heleHighRisks.FirstOrDefault(hele => VLConstraints.GetHighRisks_By_HighRisks_Hele(hele.R).Contains(cur.Id)) == null);
+            foreach (var toAdd in toAdds)
+            {
+                var toAddsFromAll = allHighRisks.Where(c => VLConstraints.GetHighRisks_By_HighRisks_Hele(toAdd.R).Contains(c.Id));
+                foreach (var toAddFromAll in toAddsFromAll)
+                {
+                    if (this.FirstOrDefault(c => c.Id == toAddFromAll.Id) == null)
+                    {
+                        this.Add(new WMH_WCQBJ_GWYCF_SCORE_SAVE(toAddFromAll) { D8 = "1" });
+                    }
+                }
+            }
+            foreach (var toDelete in toDeletes)
+            {
+                if (this.FirstOrDefault(c => c.Id == toDelete.Id) == null)
+                {
+                    this.Add(new WMH_WCQBJ_GWYCF_SCORE_SAVE(toDelete) { D8 = "0" });
                 }
             }
 
-            #endregion
+            //维护当前高危以更新专科检查
+            AddCurrentHighRisks(allHighRisks.Where(c => this.FirstOrDefault(d => d.Id == c.Id && d.D8 == "1") != null));//新增
+            AddCurrentHighRisks(allHighRisks.Where(c => c.D8 == "1" && this.FirstOrDefault(d => d.Id == c.Id && d.D8 == "0") == null));//未删除的
+            CurrentHighRisks.OrderBy(c => c.Id);
 
-            var toAdds = heleHighRisks.Where(c => currentHighRisks.FirstOrDefault(d => VLConstraints.GetHighRisks_By_HighRisks_Hele(c.R).Contains(d.Id)) == null);
-            var toDeletes = currentHighRisks.Where(c => heleHighRisks.FirstOrDefault(d => VLConstraints.GetHighRisks_By_HighRisks_Hele(d.R).Contains(c.Id)) == null);
             logger.AppendLine(">>>toAdds");
             logger.AppendLine(toAdds.ToJson());
             logger.AppendLine(">>>toDeletes");
             logger.AppendLine(toDeletes.ToJson());
-            foreach (var toAdd in toAdds)
-            {
-                var toAddsFromAll = allHighRisks.Where(c => VLConstraints.GetHighRisks_By_HighRisks_Hele(toAdd.R).Contains(c.Id));
-                logger.AppendLine(">>>toAddsFromAll");
-                logger.AppendLine(toAddsFromAll.ToJson());
-                this.AddRange(toAddsFromAll.Select(c => new WMH_WCQBJ_GWYCF_SCORE_SAVE(c) { D8 = "1" }));
-            }
-            this.AddRange(toDeletes.Select(c => new WMH_WCQBJ_GWYCF_SCORE_SAVE(c) { D8 = "0" }));
+            logger.AppendLine(">>>Current");
+            logger.AppendLine(CurrentHighRisks.ToJson());
 
-            //维护当前高危以更新专科检查
-            AddCurrentHighRisks(allHighRisks.Where(c => heleHighRisks.FirstOrDefault(d => VLConstraints.GetHighRisks_By_HighRisks_Hele(d.R).Contains(c.Id)) != null));
-            CurrentHighRisks.OrderBy(c => c.Id);
         }
 
         private void AddCurrentHighRisks(IEnumerable<WMH_GWYCF_GW_LIST1_Data> highRisks)
@@ -225,5 +242,7 @@ namespace FrameworkTest.Business.SDMockCommit
         public string D15 { set; get; }//D15 :""
         public string _id { set; get; }//_id :13
         public string _uid { set; get; }//_id :13
+
+        internal string Id { get { return D9; } }
     }
 }

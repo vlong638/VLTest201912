@@ -285,6 +285,11 @@ namespace FrameworkTest.Business.SDMockCommit
             new HighRisksMapper() { HLId ="z160105",FSId= "136"},
             new HighRisksMapper() { HLId ="z160106",FSId= "137"},
             new HighRisksMapper() { HLId ="a160101",FSId= "1"},
+
+            //修正用匹配扩展
+            new HighRisksMapper() { HLId ="4",FSId= "4"},//<18.5
+            new HighRisksMapper() { HLId ="6",FSId= "6"},//>=28
+            new HighRisksMapper() { HLId ="5",FSId= "5"},//>>25
         };
 
         //注意特殊值有

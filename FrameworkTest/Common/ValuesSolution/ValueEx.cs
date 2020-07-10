@@ -56,5 +56,49 @@ namespace FrameworkTest.Common.ValuesSolution
             }
         }
         #endregion
+
+        public static int? ToInt(this object item)
+        {
+            if (item == null)
+                return null;
+            if (item.GetType().Name=="Decimal")
+            {
+                return (int)(decimal)item;
+            }
+            int i;
+            if (int.TryParse(item.ToString(), out i))
+                return i;
+            return null;
+        }
+
+        public static long? ToLong(this object item)
+        {
+            if (item == null)
+                return null;
+            long l;
+            if (long.TryParse(item.ToString(), out l))
+                return l;
+            return null;
+        }
+
+        public static decimal? ToDecimal(this object item)
+        {
+            if (item == null)
+                return null;
+            decimal d;
+            if (decimal.TryParse(item.ToString(), out d))
+                return d;
+            return null;
+        }
+
+        public static DateTime? ToDateTime(this object item)
+        {
+            if (item == null)
+                return null;
+            DateTime dt;
+            if (DateTime.TryParse(item.ToString(), out dt))
+                return dt;
+            return null;
+        }
     }
 }
