@@ -10,9 +10,39 @@ namespace FrameworkTest.Business.SDMockCommit
 {
     public class WMH_WCQBJ_GWYCF_SCORE_SAVERequest : List<WMH_WCQBJ_GWYCF_SCORE_SAVE>
     {
-        internal void Update(string mainId, List<WMH_GWYCF_GW_LIST1_Data> allHighRisks, List<HighRiskEntity> heleHighRisks, ref StringBuilder logger)
+        internal void Update(string mainId, List<WMH_GWYCF_GW_LIST1_Data> allHighRisks, List<HighRiskEntity> heleHighRisks, int? bmi, ref StringBuilder logger)
         {
             var currentHighRisks = allHighRisks.Where(c => c.D8 == "1").ToList();
+            #region BMI相关特殊处理
+            var BMIs = new List<string>() { "a60103", "a6010301", "b60103" };
+            for (int i = heleHighRisks.Count() - 1; i >= 0; i--)
+            {
+                var highRisk = heleHighRisks[i];
+                if (BMIs.Contains(highRisk.R))
+                {
+                    heleHighRisks.Remove(highRisk);
+                }
+            }
+            if (bmi.HasValue)
+            {
+                if (bmi >= 28)
+                {
+                    AddCurrentHighRisks(allHighRisks.Where(c => c.Id == "8"));
+
+                }
+                else if (bmi > 25)
+                {
+                    AddCurrentHighRisks(allHighRisks.Where(c => c.Id == "5"));
+
+                }
+                else if (bmi <18)
+                {
+                    AddCurrentHighRisks(allHighRisks.Where(c => c.Id == "3"));
+                }
+            }
+
+            #endregion
+
             var toAdds = heleHighRisks.Where(c => currentHighRisks.FirstOrDefault(d => VLConstraints.GetHighRisks_By_HighRisks_Hele(c.R).Contains(d.Id)) == null);
             var toDeletes = currentHighRisks.Where(c => heleHighRisks.FirstOrDefault(d => VLConstraints.GetHighRisks_By_HighRisks_Hele(d.R).Contains(c.Id)) == null);
             logger.AppendLine(">>>toAdds");

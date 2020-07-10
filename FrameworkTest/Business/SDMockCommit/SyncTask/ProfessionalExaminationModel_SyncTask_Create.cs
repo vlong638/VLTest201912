@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using FrameworkTest.Common.DBSolution;
 using FrameworkTest.Common.ValuesSolution;
+using FrameworkTest.ConfigurableEntity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -67,7 +68,6 @@ namespace FrameworkTest.Business.SDMockCommit
                     context.SDService.SaveSyncOrder(syncOrder);
                     return;
                 }
-
                 //获取高危数据变量
                 var currentHighRisks = Context.FSService.GetCurrentHighRisks(physicalExaminationId, userInfo, base8, ref logger);
                 if (currentHighRisks == null)
@@ -77,7 +77,6 @@ namespace FrameworkTest.Business.SDMockCommit
                     context.SDService.SaveSyncOrder(syncOrder);
                     return;
                 }
-
                 //更新高危数据
                 var heleHighRisks = sourceDataModel.SourceData.highriskdic?.FromJson<List<HighRiskEntity>>() ?? new List<HighRiskEntity>();
                 var highRisksToSave = new WMH_WCQBJ_GWYCF_SCORE_SAVERequest();
@@ -85,7 +84,7 @@ namespace FrameworkTest.Business.SDMockCommit
                 //logger.AppendLine(currentHighRisks.ToJson());
                 logger.AppendLine(">>>heleHighRisks");
                 logger.AppendLine(heleHighRisks.ToJson());
-                highRisksToSave.Update(base8.MainId, allHighRisksResponse, heleHighRisks, ref logger);
+                highRisksToSave.Update(base8.MainId, allHighRisksResponse, heleHighRisks, sourceDataModel.SourceData.BMI.ToInt(), ref logger);
                 //更新高危数据
                 if (highRisksToSave.Count > 0)
                 {

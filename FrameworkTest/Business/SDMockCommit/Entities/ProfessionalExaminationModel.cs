@@ -68,6 +68,7 @@ namespace FrameworkTest.Business.SDMockCommit
         public string idcard { set; get; }
         public string lastmenstrualperiod { set; get; }//末次月经
         public string dateofprenatal { set; get; }//预产期 
+        public string BMI { set; get; }//BMI指数
         #endregion
 
         //,vr.uterus--子宫 1=异常 0=正常

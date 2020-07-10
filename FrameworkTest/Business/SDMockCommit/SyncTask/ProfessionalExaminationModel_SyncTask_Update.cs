@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using FrameworkTest.Common.DBSolution;
 using FrameworkTest.Common.ValuesSolution;
+using FrameworkTest.ConfigurableEntity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -94,7 +95,7 @@ namespace FrameworkTest.Business.SDMockCommit
                 //logger.AppendLine(currentHighRisks.ToJson());
                 logger.AppendLine(">>>heleHighRisks");
                 logger.AppendLine(heleHighRisks.ToJson());
-                highRisksToSave.Update(base8.MainId, allHighRisksResponse, heleHighRisks, ref logger);
+                highRisksToSave.Update(base8.MainId, allHighRisksResponse, heleHighRisks, sourceDataModel.SourceData.BMI.ToInt(), ref logger);
                 //更新高危数据
                 if (highRisksToSave.Count > 0)
                 {

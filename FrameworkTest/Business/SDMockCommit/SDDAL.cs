@@ -43,7 +43,7 @@ namespace FrameworkTest.Business.SDMockCommit
             return dbGroup.Connection.Query<ProfessionalExaminationModel>($@"
 SELECT top 1
 vr.id,vr.uterinecontraction,vr.amnioticfluidcharacter
-,pi.idcard,pi.personname,pi.lastmenstrualperiod,pi.dateofprenatal 
+,pi.bmi,pi.idcard,pi.personname,pi.lastmenstrualperiod,pi.dateofprenatal 
 ,vr.uterus,vr.palacemouth,vr.suggestion,vr.generalcomment,vr.followupappointment,vr.brokenwater,vr.multifetal
 ,vr.chiefcomplaint,vr.presenthistory,vr.heightfundusuterus,vr.abdomencircumference,vr.xianjie,vr.edemastatus
 ,vr.diagnosisinfo,vr.maindiagnosis,vr.secondarydiagnosis,vr.highriskdic
@@ -63,7 +63,7 @@ and vr.idcard = @idcard
             return dbGroup.Connection.Query<ProfessionalExaminationModel>($@"
 SELECT top 1
 vr.id,vr.uterinecontraction,vr.amnioticfluidcharacter
-,pi.idcard,pi.personname,pi.lastmenstrualperiod,pi.dateofprenatal 
+,pi.bmi,pi.idcard,pi.personname,pi.lastmenstrualperiod,pi.dateofprenatal 
 ,vr.uterus,vr.palacemouth,vr.suggestion,vr.generalcomment,vr.followupappointment,vr.brokenwater,vr.multifetal
 ,vr.chiefcomplaint,vr.presenthistory,vr.heightfundusuterus,vr.abdomencircumference,vr.xianjie,vr.edemastatus
 ,vr.diagnosisinfo,vr.maindiagnosis,vr.secondarydiagnosis,vr.highriskdic
@@ -82,7 +82,7 @@ and vr.visitdate = convert(nvarchar,getdate(),23)
             return dbGroup.Connection.Query<ProfessionalExaminationModel>($@"
 SELECT top 1
 vr.id,vr.uterinecontraction,vr.amnioticfluidcharacter
-,pi.idcard,pi.personname,pi.lastmenstrualperiod,pi.dateofprenatal 
+,pi.bmi,pi.idcard,pi.personname,pi.lastmenstrualperiod,pi.dateofprenatal 
 ,vr.uterus,vr.palacemouth,vr.suggestion,vr.generalcomment,vr.followupappointment,vr.brokenwater,vr.multifetal
 ,vr.chiefcomplaint,vr.presenthistory,vr.heightfundusuterus,vr.abdomencircumference,vr.xianjie,vr.edemastatus
 ,vr.diagnosisinfo,vr.maindiagnosis,vr.secondarydiagnosis,vr.highriskdic
@@ -101,7 +101,7 @@ and vr.idcard = @idcard
             return dbGroup.Connection.Query<ProfessionalExaminationModel>($@"
 SELECT top 1
 vr.id,vr.uterinecontraction,vr.amnioticfluidcharacter
-,pi.idcard,pi.personname,pi.lastmenstrualperiod,pi.dateofprenatal 
+,pi.bmi,pi.idcard,pi.personname,pi.lastmenstrualperiod,pi.dateofprenatal 
 ,vr.uterus,vr.palacemouth,vr.suggestion,vr.generalcomment,vr.followupappointment,vr.brokenwater,vr.multifetal
 ,vr.chiefcomplaint,vr.presenthistory,vr.heightfundusuterus,vr.abdomencircumference,vr.xianjie,vr.edemastatus
 ,vr.diagnosisinfo,vr.maindiagnosis,vr.secondarydiagnosis,vr.highriskdic
