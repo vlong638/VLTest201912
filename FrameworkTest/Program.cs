@@ -3307,6 +3307,10 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                                         sb.Append("孕次1多记录分支");
                                     }
                                 }
+                                else
+                                {
+
+                                }
                                 var enquiryPregnanthResponse = SDBLL.GetEnquiryPregnanths(userInfo, base8, ref sb);
                                 sb.Append("---------------------pregnantInfo.pregnanthistory");
                                 sb.Append(pregnantInfo.pregnanthistory);
