@@ -150,13 +150,45 @@ and pi.updatetime> '2020-07-01'
         internal static IEnumerable<PregnantInfo> GetPregnantInfoForCreate(DbGroup dbGroup)
         {
             return dbGroup.Connection.Query<PregnantInfo>($@"
-select Top 1 s.id sid,
-pi.createtime,
-pi.* from PregnantInfo pi
+select Top 1
+s.id sid,
+pi.createtime, pi.updatetime,
+pi.*
+from PregnantInfo pi
 left join SyncForFS s on s.SourceType = 1 and s.SourceId = pi.Id
-where s.id is null and pi.createtime>'2020-06-29 09:00:00'
-order by pi.createtime
+where s.id is null 
+and pi.createtime>= convert(nvarchar, getdate(),23) 
+union
+(
+    select
+    Top 1
+    s.id sid,
+    pi.createtime, pi.updatetime,
+    pi.*
+    from PregnantInfo pi
+    left join SyncForFS s on s.SourceType = 1 and s.SourceId = pi.Id
+    where s.id is null 
+    and pi.createtime < convert(nvarchar, getdate(),23) 
+    and pi.updatetime >= convert(nvarchar, getdate(),23)
+)
+union
+(
+
+	select 
+	Top 1
+	se.id sid,
+	pi.createtime, pi.updatetime,
+	pi.*
+	FROM PregnantInfo pi 
+	LEFT JOIN MHC_VisitRecord vr on pi.idcard = vr.idcard 
+	left join SyncForFS se on se.SourceType = 4 and se.SourceId = vr.Id			
+	where vr.visitdate >='2020-07-13' and se.id is null --66
+	and pi.createtime < convert(nvarchar, getdate(),23) 
+	and pi.updatetime < convert(nvarchar, getdate(),23)
+)
 ", transaction: dbGroup.Transaction).ToList();
+            //TODO 需要扩展编辑过初诊 但没有档案同步记录的数据 走11状态码
+
         }
 
         internal static IEnumerable<PregnantInfo> GetPregnantInfoForUpdate(DbGroup dbGroup)
@@ -167,9 +199,11 @@ select Top 1 s.id sid
 ,pi.createtime,pi.updatetime
 ,pi.* from PregnantInfo pi
 left join SyncForFS s on s.SourceType = 1 and s.SourceId = pi.Id
-where s.id is not null and s.SyncStatus in (2,11)
+where s.id is not null and s.SyncStatus = 2
 and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
 ", transaction: dbGroup.Transaction).ToList();
+
+            //in (2, 11)
         } 
         #endregion
 

@@ -625,11 +625,14 @@ order by pi.createtime ", transaction: group.Transaction).ToList();
 select Top 1 sp.id spid,se.id seid,pi.* from PregnantInfo pi
 left join SyncForFS sp on sp.SourceType = 1 and sp.SourceId = pi.Id
 left join SyncForFS se on se.SourceType = 2 and se.SourceId = pi.Id
-where sp.id is not null and sp.SyncStatus in (2,11) 
+where sp.id is not null and sp.SyncStatus = 2
 and se.id is null
 ", transaction: group.Transaction).ToList();
             });
             return serviceResult.Data;
+
+//where sp.id is not null and sp.SyncStatus in (2, 11)
+//and se.id is null
         }
         internal static List<PregnantInfo> GetPregnantInfosToUpdateEnquiries()
         {
