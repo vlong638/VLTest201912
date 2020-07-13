@@ -77,6 +77,7 @@ namespace FrameworkTest.Business.SDMockCommit
         public string lastmenstrualperiod { set; get; }//末次月经
         public string dateofprenatal { set; get; }//预产期 
         public string BMI { set; get; }//BMI指数
+        public string createage { set; get; }//建册年龄
         /// <summary>
         /// 体重
         /// </summary>

@@ -287,9 +287,14 @@ namespace FrameworkTest.Business.SDMockCommit
             new HighRisksMapper() { HLId ="a160101",FSId= "1"},
 
             //修正用匹配扩展
+            //BMI
             new HighRisksMapper() { HLId ="4",FSId= "4"},//<18.5
             new HighRisksMapper() { HLId ="6",FSId= "6"},//>=28
             new HighRisksMapper() { HLId ="5",FSId= "5"},//>>25
+            //age
+            new HighRisksMapper() { HLId ="1",FSId= "1"},// <= 18岁
+            new HighRisksMapper() { HLId ="2",FSId= "2"},// >  35岁
+            new HighRisksMapper() { HLId ="3",FSId= "3"},// >= 40岁
         };
 
         //注意特殊值有

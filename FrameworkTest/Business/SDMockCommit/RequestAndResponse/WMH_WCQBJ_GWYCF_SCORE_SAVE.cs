@@ -10,14 +10,22 @@ namespace FrameworkTest.Business.SDMockCommit
 {
     public class WMH_WCQBJ_GWYCF_SCORE_SAVERequest : List<WMH_WCQBJ_GWYCF_SCORE_SAVE>
     {
-        internal void Update(List<WMH_GWYCF_GW_LIST1_Data> allHighRisks, List<HighRiskEntity> heleHighRisks, decimal? bmi, ref StringBuilder logger)
+        internal void Update(List<WMH_GWYCF_GW_LIST1_Data> allHighRisks, List<HighRiskEntity> heleHighRisks, decimal? bmi,int? createage, ref StringBuilder logger)
         {
             var currentHighRisks = allHighRisks.Where(c => c.D8 == "1").ToList();
             logger.AppendLine($@"currentHighRisks;");
             logger.AppendLine(currentHighRisks.ToJson());
 
             #region BMI相关特殊处理
-            var BMIs = new List<string>() { "a160105", "b160105" };
+
+            //1	年龄：≤18岁	 a160101 	    年龄≥35岁或≤18岁 
+            //2	年龄：&gt;35岁	 a160101 	    年龄≥35岁或≤18岁 
+            //3	年龄≥40岁	 b160101 	    年龄≥40岁 
+
+            var BMIs = new List<string>() { 
+                "a160105", "b160105" //BMI
+                ,"a160101","b160101" //年龄
+            };
             for (int i = heleHighRisks.Count() - 1; i >= 0; i--)
             {
                 var highRisk = heleHighRisks[i];
@@ -26,7 +34,7 @@ namespace FrameworkTest.Business.SDMockCommit
                     heleHighRisks.Remove(highRisk);
                 }
             }
-            logger.AppendLine($">>>bmi2:{bmi}");
+            logger.AppendLine($">>>bmi:{bmi}");
             if (bmi.HasValue)
             {
                 if (bmi >= 28)
@@ -40,6 +48,22 @@ namespace FrameworkTest.Business.SDMockCommit
                 else if (bmi < 18.5M)
                 {
                     heleHighRisks.Add(new HighRiskEntity() { R = "4" });
+                }
+            }
+            logger.AppendLine($">>>createage:{createage}");
+            if (createage.HasValue)
+            { 
+                if (createage <= 18)
+                {
+                    heleHighRisks.Add(new HighRiskEntity() { R = "1" });
+                }
+                else if (createage >= 40)
+                {
+                    heleHighRisks.Add(new HighRiskEntity() { R = "3" });
+                }
+                else if (createage > 35)
+                {
+                    heleHighRisks.Add(new HighRiskEntity() { R = "2" });
                 }
             }
             #endregion
