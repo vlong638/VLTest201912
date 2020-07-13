@@ -158,9 +158,9 @@ namespace FrameworkTest.Business.SDMockCommit
             //D10.宫高       heightfundusuterus
             //FS: 耻骨联合上 横指
             //HL: 文本框,直接传
-            this.D10 = string.IsNullOrEmpty(sourceDataModel.SourceData.heightfundusuterus)? "未查" : sourceDataModel.SourceData.heightfundusuterus;
+            this.D10 = string.IsNullOrEmpty(sourceDataModel.SourceData.heightfundusuterus)? "" : sourceDataModel.SourceData.heightfundusuterus;
             //D11.腹围        abdomencircumference
-            this.D11 = string.IsNullOrEmpty(sourceDataModel.SourceData.abdomencircumference) ? "未查" : sourceDataModel.SourceData.abdomencircumference;
+            this.D11 = string.IsNullOrEmpty(sourceDataModel.SourceData.abdomencircumference) ? "" : sourceDataModel.SourceData.abdomencircumference;
             //D15.衔接        xianjie
             //FS: 文本=>已衔接,未衔接
             //HL: 未衔接,衔接,半衔接
@@ -230,17 +230,17 @@ namespace FrameworkTest.Business.SDMockCommit
                 var feltalentity = sourceDataModel.SourceData.feltalentities[i];
                 if (i == 0)
                 {
-                    this.D13 = string.IsNullOrEmpty(feltalentity.heartrate) ? "未查" : feltalentity.heartrate;
+                    this.D13 = string.IsNullOrEmpty(feltalentity.heartrate) ? "" : feltalentity.heartrate;
                     this.D12 = VLConstraints.Get_FetalPosition_By_FetalPosition_Hele(feltalentity.position);
                 }
                 else if (i == 1)
                 {
-                    this.D48 = string.IsNullOrEmpty(feltalentity.heartrate) ? "未查" : feltalentity.heartrate;
+                    this.D48 = string.IsNullOrEmpty(feltalentity.heartrate) ? "" : feltalentity.heartrate;
                     this.D46 = VLConstraints.Get_FetalPosition_By_FetalPosition_Hele(feltalentity.position);
                 }
                 else if (i == 2)
                 {
-                    this.D52 = string.IsNullOrEmpty(feltalentity.heartrate) ? "未查" : feltalentity.heartrate;
+                    this.D52 = string.IsNullOrEmpty(feltalentity.heartrate) ? "" : feltalentity.heartrate;
                     this.D51 = VLConstraints.Get_FetalPosition_By_FetalPosition_Hele(feltalentity.position);
                 }
             }
