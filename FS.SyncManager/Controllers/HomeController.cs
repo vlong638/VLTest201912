@@ -1,8 +1,12 @@
-﻿using System;
+﻿using FrameworkTest.Common.ControllerSolution;
+using FrameworkTest.ConfigurableEntity;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml.Linq;
 
 namespace FS.SyncManager.Controllers
 {
@@ -27,31 +31,68 @@ namespace FS.SyncManager.Controllers
             return View();
         }
 
+        #region XMLConfig
+
+        public class GetListConfigRequest
+        {
+            public string ListName { set; get; }
+            public long CustomConfigId { set; get; }
+        }
+
+        public class GetListConfigResponse
+        {
+            public long CustomConfigId { set; get; }
+            public EntityAppConfig ViewConfig { set; get; }
+        }
+
         /// <summary>
-        /// 获取同步记录
+        /// 列表配置
         /// </summary>
-        /// <param name="page"></param>
-        /// <param name="rows"></param>
-        /// <param name="name"></param>
+        /// <param name="type"></param>
+        /// <param name="isForceChange"></param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult GetPageListOfSyncOrder(GetPageListOfSyncOrderRequest request)
+        [AllowAnonymous]
+        public JsonResult GetListConfig(GetListConfigRequest request)
         {
-            //var syncOrders =new List<> 
-
-            //return Json(new { total = serviceResult.Data.Count, rows = serviceResult.Data.List.ToList() });
-
-            return new JsonResult();
+            if (request.CustomConfigId > 0)
+            {
+                //var serviceResult = UserService.GetUserMenuById(request.CustomConfigId);
+                //if (!serviceResult.IsSuccess)
+                //{
+                //    return Error(serviceResult.Data, "无效的用户配置");
+                //}
+                //var viewConfig = serviceResult.Data.EntityAppConfig.FromJson<EntityAppConfig>();
+                //var result = new GetListConfigResponse()
+                //{
+                //    CustomConfigId = request.CustomConfigId,
+                //    ViewConfig = viewConfig,
+                //};
+                //return Json(new APIResult<GetListConfigResponse>(result));
+                return null;
+            }
+            else
+            {
+                return LoadDefaultConfig(request);
+            }
         }
 
-        public class GetPageListOfSyncOrderRequest
+        private JsonResult LoadDefaultConfig(GetListConfigRequest request)
         {
-            public int page { set; get; }
-            public int rows { set; get; }
-            public string Name { set; get; }
-            public string StartTime { set; get; }
-            public string EndTime { set; get; }
-            public string SyncType { set; get; }
+            var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", "ListPages.xml");
+            XDocument doc = XDocument.Load(path);
+            var viewElements = doc.Descendants(EntityAppConfig.NodeElementName);
+            var viewConfigs = viewElements.Select(c => new EntityAppConfig(c));
+            var viewConfig = viewConfigs.FirstOrDefault(c => c.ViewName == request.ListName);
+            viewConfig.Properties.RemoveAll(c => !c.IsNeedOnPage);
+            var result = new GetListConfigResponse()
+            {
+                CustomConfigId = request.CustomConfigId,
+                ViewConfig = viewConfig,
+            };
+            return Json(new APIResult<GetListConfigResponse>(result));
         }
+
+        #endregion
     }
 }
