@@ -68,18 +68,18 @@ namespace FrameworkTest
 
             //try
             //{
-            //    var sourceTypes = typeof(SourceType).GetAllEnums();
-            //    foreach (SourceType sourceType in sourceTypes)
+            //    var TargetTypes = typeof(TargetType).GetAllEnums();
+            //    foreach (TargetType TargetType in TargetTypes)
             //    {
-            //        switch (sourceType)
+            //        switch (TargetType)
             //        {
-            //            case SourceType.PregnantInfo:
+            //            case TargetType.PregnantInfo:
             //                break;
-            //            case SourceType.HistoryEnquiry:
+            //            case TargetType.HistoryEnquiry:
             //                break;
-            //            case SourceType.PhysicalExamination:
+            //            case TargetType.PhysicalExamination:
             //                break;
-            //            case SourceType.ProfessionalExamination:
+            //            case TargetType.ProfessionalExamination:
             //                break;
             //            default:
             //                break;
@@ -2472,7 +2472,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                         Console.WriteLine(message);
                         var syncForFSTemp = new SyncOrder()
                         {
-                            SourceType = SourceType.PregnantInfo,
+                            TargetType = TargetType.PregnantInfo,
                             SourceId = pregnantInfo.Id.ToString(),
                             SyncTime = DateTime.Now,
                             SyncStatus = SyncStatus.Error,
@@ -2496,7 +2496,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                         Console.WriteLine(message);
                         var syncForFSTemp = new SyncOrder()
                         {
-                            SourceType = SourceType.PregnantInfo,
+                            TargetType = TargetType.PregnantInfo,
                             SourceId = pregnantInfo.Id.ToString(),
                             SyncTime = DateTime.Now,
                             SyncStatus = SyncStatus.Error,
@@ -2756,7 +2756,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     {
                         var syncForFS = new SyncOrder()
                         {
-                            SourceType = SourceType.HistoryEnquiry,
+                            TargetType = TargetType.HistoryEnquiry,
                             SourceId = pregnantInfo.Id.ToString(),
                             SyncStatus = SyncStatus.Success
                         };
@@ -2857,7 +2857,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     StringBuilder sb = new StringBuilder();
                     var serviceResult = context.DelegateTransaction((Func<DbGroup, bool>)((group) =>
                     {
-                        var syncForFS = SDBLL.GetSyncOrderBySource(group, SourceType.HistoryEnquiry, pregnantInfo.Id.ToString()).First();
+                        var syncForFS = SDBLL.GetSyncOrderBySource(group, TargetType.HistoryEnquiry, pregnantInfo.Id.ToString()).First();
                         try
                         {
                             syncForFS.SyncTime = DateTime.Now;
@@ -2991,7 +2991,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     {
                         var syncForFS = new SyncOrder()
                         {
-                            SourceType = SourceType.PhysicalExamination,
+                            TargetType = TargetType.PhysicalExamination,
                             SourceId = examination.Id.ToString(),
                             SyncStatus = SyncStatus.Success
                         };
@@ -3056,7 +3056,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     StringBuilder sb = new StringBuilder();
                     var serviceResult = context.DelegateTransaction((Func<DbGroup, bool>)((group) =>
                     {
-                        var syncForFS = SDBLL.GetSyncOrder((DbGroup)context.DbGroup, (SourceType)SourceType.PhysicalExamination, examination.Id.ToString());
+                        var syncForFS = SDBLL.GetSyncOrder((DbGroup)context.DbGroup, (TargetType)TargetType.PhysicalExamination, examination.Id.ToString());
                         try
                         {
                             syncForFS.SyncTime = DateTime.Now;
@@ -3254,7 +3254,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                         {
                             var syncForFS = new SyncOrder()
                             {
-                                SourceType = SourceType.HistoryEnquiry,
+                                TargetType = TargetType.HistoryEnquiry,
                                 SourceId = pregnantInfo.Id.ToString(),
                                 SyncStatus = SyncStatus.Success
                             };
@@ -3407,7 +3407,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                         StringBuilder sb = new StringBuilder();
                         var serviceResult = context.DelegateTransaction((Func<DbGroup, bool>)((group) =>
                         {
-                            var syncForFS = SDBLL.GetSyncOrder((DbGroup)context.DbGroup, (SourceType)SourceType.HistoryEnquiry, (string)pregnantInfo.Id.ToString());
+                            var syncForFS = SDBLL.GetSyncOrder((DbGroup)context.DbGroup, (TargetType)TargetType.HistoryEnquiry, (string)pregnantInfo.Id.ToString());
                             try
                             {
                                 syncForFS.SyncTime = DateTime.Now;
@@ -3559,7 +3559,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                         {
                             var syncForFS = new SyncOrder()
                             {
-                                SourceType = SourceType.PhysicalExamination,
+                                TargetType = TargetType.PhysicalExamination,
                                 SourceId = examination.Id.ToString(),
                                 SyncStatus = SyncStatus.Success
                             };
@@ -3646,7 +3646,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                         StringBuilder sb = new StringBuilder();
                         var serviceResult = context.DelegateTransaction((Func<DbGroup, bool>)((group) =>
                         {
-                            var syncForFS = SDBLL.GetSyncOrder((DbGroup)context.DbGroup, (SourceType)SourceType.PhysicalExamination, examination.Id.ToString());
+                            var syncForFS = SDBLL.GetSyncOrder((DbGroup)context.DbGroup, (TargetType)TargetType.PhysicalExamination, examination.Id.ToString());
                             try
                             {
                                 syncForFS.SyncTime = DateTime.Now;

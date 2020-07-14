@@ -28,9 +28,9 @@ namespace FrameworkTest.Business.SDMockCommit
             return group.Connection.Update(syncForFS, transaction: group.Transaction);
         }
 
-        internal static SyncOrder GetSyncForFS(DbGroup group, SourceType sourceType, string sourceId)
+        internal static SyncOrder GetSyncForFS(DbGroup group, TargetType TargetType, string sourceId)
         {
-            return group.Connection.Query<SyncOrder>("select * from SyncForFS where sourceType = @sourceType and sourceId = @sourceId", new { sourceType, sourceId }, transaction: group.Transaction).FirstOrDefault();
+            return group.Connection.Query<SyncOrder>("select * from SyncForFS where TargetType = @TargetType and sourceId = @sourceId", new { TargetType, sourceId }, transaction: group.Transaction).FirstOrDefault();
         } 
         #endregion
 
@@ -49,8 +49,8 @@ vr.id,vr.uterinecontraction,vr.amnioticfluidcharacter
 ,vr.diagnosisinfo,vr.maindiagnosis,vr.secondarydiagnosis,vr.highriskdic
 FROM PregnantInfo pi 
 LEFT JOIN MHC_VisitRecord vr on pi.idcard = vr.idcard 
-left join SyncForFS sp on sp.SourceType = 3 and sp.SourceId = vr.Id
-left join SyncForFS se on se.SourceType = 4 and se.SourceId = vr.Id			
+left join SyncForFS sp on sp.TargetType = 3 and sp.SourceId = vr.Id
+left join SyncForFS se on se.TargetType = 4 and se.SourceId = vr.Id			
 where sp.id is not null and sp.SyncStatus in (2,11) 
 and se.id is null 
 and vr.visitdate = convert(nvarchar,getdate(),23)	
@@ -69,8 +69,8 @@ vr.id,vr.uterinecontraction,vr.amnioticfluidcharacter
 ,vr.diagnosisinfo,vr.maindiagnosis,vr.secondarydiagnosis,vr.highriskdic
 FROM PregnantInfo pi 
 LEFT JOIN MHC_VisitRecord vr on pi.idcard = vr.idcard 
-left join SyncForFS sp on sp.SourceType = 3 and sp.SourceId = vr.Id
-left join SyncForFS se on se.SourceType = 4 and se.SourceId = vr.Id			
+left join SyncForFS sp on sp.TargetType = 3 and sp.SourceId = vr.Id
+left join SyncForFS se on se.TargetType = 4 and se.SourceId = vr.Id			
 where sp.id is not null and sp.SyncStatus in (2,11) 
 and se.id is null 
 and vr.visitdate = convert(nvarchar,getdate(),23)
@@ -88,7 +88,7 @@ vr.id,vr.uterinecontraction,vr.amnioticfluidcharacter
 ,vr.diagnosisinfo,vr.maindiagnosis,vr.secondarydiagnosis,vr.highriskdic
 FROM PregnantInfo pi 
 LEFT JOIN MHC_VisitRecord vr on pi.idcard = vr.idcard 
-left join SyncForFS se on se.SourceType = 4 and se.SourceId = vr.Id			
+left join SyncForFS se on se.TargetType = 4 and se.SourceId = vr.Id			
 where vr.visitdate = convert(nvarchar,getdate(),23)
 and se.id is not null and se.SyncStatus in (2,11) 
 and vr.updatetime > DATEADD( SECOND,10 ,se.SyncTime)
@@ -107,7 +107,7 @@ vr.id,vr.uterinecontraction,vr.amnioticfluidcharacter
 ,vr.diagnosisinfo,vr.maindiagnosis,vr.secondarydiagnosis,vr.highriskdic
 FROM PregnantInfo pi 
 LEFT JOIN MHC_VisitRecord vr on pi.idcard = vr.idcard 
-left join SyncForFS se on se.SourceType = 4 and se.SourceId = vr.Id			
+left join SyncForFS se on se.TargetType = 4 and se.SourceId = vr.Id			
 where vr.visitdate = convert(nvarchar,getdate(),23)
 and se.id is not null and se.SyncStatus in (2,11) 
 and vr.updatetime > DATEADD( SECOND,10 ,se.SyncTime)
@@ -127,7 +127,7 @@ s.id sid,
 pi.createtime, pi.updatetime,
 pi.*
 from PregnantInfo pi
-left join SyncForFS s on s.SourceType = 1 and s.SourceId = pi.Id
+left join SyncForFS s on s.TargetType = 1 and s.SourceId = pi.Id
 where s.id is null 
 and pi.createtime < convert(nvarchar, getdate(),23) 
 and pi.updatetime> '2020-07-01'
@@ -140,7 +140,7 @@ and pi.updatetime> '2020-07-01'
             //pi.createtime, pi.updatetime,
             //pi.*
             //from PregnantInfo pi
-            //left join SyncForFS s on s.SourceType = 1 and s.SourceId = pi.Id
+            //left join SyncForFS s on s.TargetType = 1 and s.SourceId = pi.Id
             //where s.id is null 
             //and pi.createtime < convert(nvarchar, getdate(),23) 
             //and pi.updatetime> convert(nvarchar, getdate(),23)
@@ -155,7 +155,7 @@ s.id sid,
 pi.createtime, pi.updatetime,
 pi.*
 from PregnantInfo pi
-left join SyncForFS s on s.SourceType = 1 and s.SourceId = pi.Id
+left join SyncForFS s on s.TargetType = 1 and s.SourceId = pi.Id
 where s.id is null 
 and pi.createtime>= convert(nvarchar, getdate(),23) 
 union
@@ -166,7 +166,7 @@ union
     pi.createtime, pi.updatetime,
     pi.*
     from PregnantInfo pi
-    left join SyncForFS s on s.SourceType = 1 and s.SourceId = pi.Id
+    left join SyncForFS s on s.TargetType = 1 and s.SourceId = pi.Id
     where s.id is null 
     and pi.createtime < convert(nvarchar, getdate(),23) 
     and pi.updatetime >= convert(nvarchar, getdate(),23)
@@ -181,8 +181,9 @@ union
 	pi.*
 	FROM PregnantInfo pi 
 	LEFT JOIN MHC_VisitRecord vr on pi.idcard = vr.idcard 
-	left join SyncForFS se on se.SourceType = 4 and se.SourceId = vr.Id			
-	where vr.visitdate >='2020-07-13' and se.id is null --66
+	left join SyncForFS se on se.TargetType = 4 and se.SourceId = vr.Id			
+	left join SyncForFS sp on sp.TargetType = 1 and sp.SourceId = pi.Id			
+	where vr.visitdate >='2020-07-13' and se.id is null and sp.id is null
 	and pi.createtime < convert(nvarchar, getdate(),23) 
 	and pi.updatetime < convert(nvarchar, getdate(),23)
 )
@@ -198,7 +199,7 @@ select Top 1 s.id sid
 ,s.SyncTime
 ,pi.createtime,pi.updatetime
 ,pi.* from PregnantInfo pi
-left join SyncForFS s on s.SourceType = 1 and s.SourceId = pi.Id
+left join SyncForFS s on s.TargetType = 1 and s.SourceId = pi.Id
 where s.id is not null and s.SyncStatus = 2
 and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
 ", transaction: dbGroup.Transaction).ToList();

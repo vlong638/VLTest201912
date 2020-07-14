@@ -11,7 +11,7 @@ namespace FrameworkTest.Business.SDMockCommit
     {
         string IdCard { get; }
         string SourceId { get; }
-        SourceType SourceType { get; }
+        TargetType TargetType { get; }
     }
 
     public abstract class SyncTask<T1> where T1 : SourceData

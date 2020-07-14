@@ -64,9 +64,9 @@ namespace FrameworkTest.Business.SDMockCommit
         }
 
         #region SyncOrder
-        public SyncOrder GetSyncOrder(SourceType sourceType, string sourceId)
+        public SyncOrder GetSyncOrder(TargetType TargetType, string sourceId)
         {
-            return SDDAL.GetSyncForFS(DBContext.DbGroup, sourceType, sourceId);
+            return SDDAL.GetSyncForFS(DBContext.DbGroup, TargetType, sourceId);
         }
 
         public long SaveSyncOrder(SyncOrder syncForFS)

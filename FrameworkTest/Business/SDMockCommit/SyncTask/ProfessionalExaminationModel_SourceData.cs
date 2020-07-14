@@ -22,6 +22,6 @@ namespace FrameworkTest.Business.SDMockCommit
         public string IdCard => SourceData.idcard;
         public string PersonName => SourceData.personname;
         public string SourceId => SourceData.id.ToString();
-        public SourceType SourceType => SourceType.ProfessionalExamination;
+        public TargetType TargetType => TargetType.ProfessionalExamination;
     }
 }

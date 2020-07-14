@@ -8,14 +8,40 @@ namespace FrameworkTest.Business.SDMockCommit
     public class SyncOrder
     {
         public long Id { set; get; }
-        public SourceType SourceType { set; get; }
+        public SourceType SourceType { get {
+                switch (TargetType)
+                {
+                    case TargetType.PregnantInfo:
+                    case TargetType.HistoryEnquiry:
+                        return SourceType.PregnantInfo;
+                    case TargetType.PhysicalExamination:
+                    case TargetType.ProfessionalExamination:
+                        return SourceType.MHC_VisitRecord;
+                    default:
+                        return SourceType.None;
+                }
+            } }
         public string SourceId { set; get; }
+        public TargetType TargetType { set; get; }
         public DateTime SyncTime { set; get; }
         public SyncStatus SyncStatus { set; get; }
         public string ErrorMessage { set; get; }
     }
     public enum SourceType
     {
+        None,
+        /// <summary>
+        /// 孕妇档案
+        /// </summary>
+        PregnantInfo = 1,
+        /// <summary>
+        /// 检查
+        /// </summary>
+        MHC_VisitRecord = 2,
+    }
+    public enum TargetType
+    {
+        None,
         /// <summary>
         /// 孕妇档案
         /// </summary>

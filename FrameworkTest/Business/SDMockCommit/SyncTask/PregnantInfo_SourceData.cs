@@ -21,6 +21,6 @@ namespace FrameworkTest.Business.SDMockCommit
         public string IdCard => Data.idcard;
         public string PersonName => Data.personname;
         public string SourceId => Data.Id.ToString();
-        public SourceType SourceType => SourceType.PregnantInfo;
+        public TargetType TargetType => TargetType.PregnantInfo;
     }
 }

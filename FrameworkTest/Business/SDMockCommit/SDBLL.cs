@@ -74,7 +74,7 @@ namespace FrameworkTest.Business.SDMockCommit
                     Console.WriteLine(message);
                     var syncForFSTemp = new SyncOrder()
                     {
-                        SourceType = SourceType.PregnantInfo,
+                        TargetType = TargetType.PregnantInfo,
                         SourceId = pregnantInfo.Id.ToString(),
                         SyncTime = DateTime.Now,
                         SyncStatus = SyncStatus.Error,
@@ -100,7 +100,7 @@ namespace FrameworkTest.Business.SDMockCommit
                     Console.WriteLine(message);
                     var syncForFSTemp = new SyncOrder()
                     {
-                        SourceType = SourceType.PregnantInfo,
+                        TargetType = TargetType.PregnantInfo,
                         SourceId = pregnantInfo.Id.ToString(),
                         SyncTime = DateTime.Now,
                         SyncStatus = SyncStatus.Error,
@@ -138,7 +138,7 @@ namespace FrameworkTest.Business.SDMockCommit
                 //新增同步记录
                 SyncOrder syncForFS = new SyncOrder()
                 {
-                    SourceType = SourceType.PregnantInfo,
+                    TargetType = TargetType.PregnantInfo,
                     SourceId = pregnantInfo.Id.ToString(),
                     SyncTime = DateTime.Now,
                     SyncStatus = SyncStatus.Test
@@ -166,7 +166,7 @@ namespace FrameworkTest.Business.SDMockCommit
             {
                 return group.Connection.Query<PregnantInfo>(@"
 select Top 10 s.id sid,pi.* from PregnantInfo pi
-left join SyncForFS s on s.SourceType = 1 and s.SourceId = pi.Id
+left join SyncForFS s on s.TargetType = 1 and s.SourceId = pi.Id
 where s.id is not null and s.SyncStatus = 2 ", transaction: group.Transaction).ToList();
             });
             tempPregnantInfos = serviceResult.Data;
@@ -201,7 +201,7 @@ select Top 1 s.id sid
 ,s.SyncTime
 ,pi.createtime,pi.updatetime
 ,pi.* from PregnantInfo pi
-left join SyncForFS s on s.SourceType = 1 and s.SourceId = pi.Id
+left join SyncForFS s on s.TargetType = 1 and s.SourceId = pi.Id
 where s.id is not null and s.SyncStatus in (2,11)
 and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
 ", transaction: group.Transaction).ToList();
@@ -247,7 +247,7 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
                     Console.WriteLine(message);
                     var serviceResultTemp = context.DelegateTransaction((group) =>
                     {
-                        var syncForFS = GetSyncOrderBySource(group, SourceType.PregnantInfo, pregnantInfo.Id.ToString()).First();
+                        var syncForFS = GetSyncOrderBySource(group, TargetType.PregnantInfo, pregnantInfo.Id.ToString()).First();
                         syncForFS.SyncTime = DateTime.Now;
                         syncForFS.SyncStatus = SyncStatus.Error;
                         syncForFS.ErrorMessage = message;
@@ -269,7 +269,7 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
                     Console.WriteLine(message);
                     var serviceResultTemp = context.DelegateTransaction((group) =>
                     {
-                        var syncForFS = GetSyncOrderBySource(group, SourceType.PregnantInfo, pregnantInfo.Id.ToString()).First();
+                        var syncForFS = GetSyncOrderBySource(group, TargetType.PregnantInfo, pregnantInfo.Id.ToString()).First();
                         syncForFS.SyncTime = DateTime.Now;
                         syncForFS.SyncStatus = SyncStatus.Error;
                         syncForFS.ErrorMessage = message;
@@ -301,7 +301,7 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
                 sb.AppendLine(result);
                 var serviceResult = context.DelegateTransaction((group) =>
                 {
-                    var syncForFS = GetSyncOrderBySource(group, SourceType.PregnantInfo, pregnantInfo.Id.ToString()).First();
+                    var syncForFS = GetSyncOrderBySource(group, TargetType.PregnantInfo, pregnantInfo.Id.ToString()).First();
                     if (result.Contains("处理成功"))
                     {
                         syncForFS.SyncTime = DateTime.Now;
@@ -323,9 +323,9 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
             }
         }
 
-        public static IEnumerable<SyncOrder> GetSyncOrderBySource(DbGroup group, SourceType sourceType, string sourceId)
+        public static IEnumerable<SyncOrder> GetSyncOrderBySource(DbGroup group, TargetType TargetType, string sourceId)
         {
-            return group.Connection.Query<SyncOrder>("select * from SyncForFS where SourceType = @SourceType and SourceId = @SourceId", new { SourceType = sourceType, SourceId = sourceId }, transaction: group.Transaction);
+            return group.Connection.Query<SyncOrder>("select * from SyncForFS where TargetType = @TargetType and SourceId = @SourceId", new { TargetType = TargetType, SourceId = sourceId }, transaction: group.Transaction);
         }
 
         public static WCQBJ_CZDH_DOCTOR_READResponse GetBase8(UserInfo baseInfo, string idcard, ref StringBuilder logger)
@@ -410,7 +410,7 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
                         Console.WriteLine($"孕妇{pregnantInfo.personname}已存在");
                         SyncOrder syncForFS = new SyncOrder()
                         {
-                            SourceType = SourceType.PregnantInfo,
+                            TargetType = TargetType.PregnantInfo,
                             SourceId = pregnantInfo.Id.ToString(),
                             SyncTime = DateTime.Now,
                             SyncStatus = SyncStatus.Existed
@@ -471,7 +471,7 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
                             {
                                 return group.Connection.Insert(new SyncOrder()
                                 {
-                                    SourceType = SourceType.PregnantInfo,
+                                    TargetType = TargetType.PregnantInfo,
                                     SourceId = pregnantInfo.Id.ToString(),
                                     SyncTime = DateTime.Now,
                                     SyncStatus = SyncStatus.Repeated,
@@ -527,7 +527,7 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
                         }
                         SyncOrder syncForFS = new SyncOrder()
                         {
-                            SourceType = SourceType.PregnantInfo,
+                            TargetType = TargetType.PregnantInfo,
                             SourceId = pregnantInfo.Id.ToString(),
                             SyncTime = DateTime.Now,
                             SyncStatus = syncStatus,
@@ -547,7 +547,7 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
                 {
                     SyncOrder syncForFS = new SyncOrder()
                     {
-                        SourceType = SourceType.PregnantInfo,
+                        TargetType = TargetType.PregnantInfo,
                         SourceId = pregnantInfo.Id.ToString(),
                         SyncTime = DateTime.Now,
                         SyncStatus = SyncStatus.Error,
@@ -571,7 +571,7 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
             {
                 //                return group.Connection.Query<PregnantInfo>(@"
                 //select Top 100 s.id sid,pi.* from PregnantInfo pi
-                //left join SyncForFS s on s.SourceType = 1 and s.SourceId = pi.Id
+                //left join SyncForFS s on s.TargetType = 1 and s.SourceId = pi.Id
                 //where s.id is null ", transaction: group.Transaction).ToList();
 
                 //0623 同步上线测试 以9点以后的数据测试
@@ -579,7 +579,7 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
 select Top 100 s.id sid,
 pi.createtime,
 pi.* from PregnantInfo pi
-left join SyncForFS s on s.SourceType = 1 and s.SourceId = pi.Id
+left join SyncForFS s on s.TargetType = 1 and s.SourceId = pi.Id
 where s.id is null and pi.createtime<'2020-06-30 09:00:00'
 order by pi.createtime ", transaction: group.Transaction).ToList();
             });
@@ -596,7 +596,7 @@ order by pi.createtime ", transaction: group.Transaction).ToList();
             {
                 //                return group.Connection.Query<PregnantInfo>(@"
                 //select Top 100 s.id sid,pi.* from PregnantInfo pi
-                //left join SyncForFS s on s.SourceType = 1 and s.SourceId = pi.Id
+                //left join SyncForFS s on s.TargetType = 1 and s.SourceId = pi.Id
                 //where s.id is null ", transaction: group.Transaction).ToList();
 
                 //0623 同步上线测试 以9点以后的数据测试
@@ -604,7 +604,7 @@ order by pi.createtime ", transaction: group.Transaction).ToList();
 select Top 1 s.id sid,
 pi.createtime,
 pi.* from PregnantInfo pi
-left join SyncForFS s on s.SourceType = 1 and s.SourceId = pi.Id
+left join SyncForFS s on s.TargetType = 1 and s.SourceId = pi.Id
 where s.id is null and pi.createtime>'2020-06-29 09:00:00'
 order by pi.createtime ", transaction: group.Transaction).ToList();
             });
@@ -623,8 +623,8 @@ order by pi.createtime ", transaction: group.Transaction).ToList();
             {
                 return group.Connection.Query<PregnantInfo>(@"
 select Top 1 sp.id spid,se.id seid,pi.* from PregnantInfo pi
-left join SyncForFS sp on sp.SourceType = 1 and sp.SourceId = pi.Id
-left join SyncForFS se on se.SourceType = 2 and se.SourceId = pi.Id
+left join SyncForFS sp on sp.TargetType = 1 and sp.SourceId = pi.Id
+left join SyncForFS se on se.TargetType = 2 and se.SourceId = pi.Id
 where sp.id is not null and sp.SyncStatus = 2
 and se.id is null
 ", transaction: group.Transaction).ToList();
@@ -642,7 +642,7 @@ and se.id is null
                 return group.Connection.Query<PregnantInfo>(@"
                 select Top 1 se.id seid,se.SyncTime
                 ,pi.* from PregnantInfo pi
-                left join SyncForFS se on se.SourceType = 2 and se.SourceId = pi.Id
+                left join SyncForFS se on se.TargetType = 2 and se.SourceId = pi.Id
                 where se.id is not null 
 				and se.SyncStatus = 2 
 				and pi.updatetime > DATEADD( SECOND,10 ,se.SyncTime)
@@ -664,9 +664,9 @@ and se.id is null
             return serviceResult.Data;
         }
 
-        public static SyncOrder GetSyncOrder(DbGroup group, SourceType sourceType, string sourceId)
+        public static SyncOrder GetSyncOrder(DbGroup group, TargetType TargetType, string sourceId)
         {
-            return SDDAL.GetSyncForFS(group, sourceType, sourceId);
+            return SDDAL.GetSyncForFS(group, TargetType, sourceId);
         }
 
         public static long SaveSyncOrder(DbGroup group, SyncOrder syncForFS)
@@ -838,8 +838,8 @@ from
 				pi.idcard,vr.id sourceId
 				FROM PregnantInfo pi 
 				LEFT JOIN MHC_VisitRecord vr on pi.idcard = vr.idcard 
-				left join SyncForFS sp on sp.SourceType = 1 and sp.SourceId = pi.Id
-				left join SyncForFS se on se.SourceType = 3 and se.SourceId = vr.Id			
+				left join SyncForFS sp on sp.TargetType = 1 and sp.SourceId = pi.Id
+				left join SyncForFS se on se.TargetType = 3 and se.SourceId = vr.Id			
 				where sp.id is not null and sp.SyncStatus in (2,11) 
 				and se.id is null 
 				and vr.visitdate = convert(nvarchar,getdate(),23)
@@ -889,7 +889,7 @@ from
 				pi.idcard,vr.id sourceId
 				FROM PregnantInfo pi 
 				LEFT JOIN MHC_VisitRecord vr on pi.idcard = vr.idcard 
-				left join SyncForFS se on se.SourceType = 3 and se.SourceId = vr.Id			
+				left join SyncForFS se on se.TargetType = 3 and se.SourceId = vr.Id			
 				where se.id is not null and se.SyncStatus in (2,11)
 				and vr.updatetime > DATEADD( SECOND,10 ,se.SyncTime)
 				and vr.visitdate = convert(nvarchar,getdate(),23)
@@ -973,8 +973,8 @@ from
 				pi.idcard
 				FROM PregnantInfo pi 
 				LEFT JOIN MHC_VisitRecord vr on pi.idcard = vr.idcard 
-				left join SyncForFS sp on sp.SourceType = 1 and sp.SourceId = pi.Id
-				left join SyncForFS se on se.SourceType = 3 and se.SourceId = vr.Id			
+				left join SyncForFS sp on sp.TargetType = 1 and sp.SourceId = pi.Id
+				left join SyncForFS se on se.TargetType = 3 and se.SourceId = vr.Id			
 				where sp.id is not null and sp.SyncStatus in (2,11) 
 				and se.id is null 
 				and vr.visitdate = convert(nvarchar,getdate(),23)
@@ -1020,7 +1020,7 @@ left join MHC_VisitRecord vr_data on vr_data.idcard = T1.idcard and vr_data.visi
                         Console.WriteLine($"孕妇{pregnantInfo.personname}已存在");
                         SyncOrder syncForFS = new SyncOrder()
                         {
-                            SourceType = SourceType.PregnantInfo,
+                            TargetType = TargetType.PregnantInfo,
                             SourceId = pregnantInfo.Id.ToString(),
                             SyncTime = DateTime.Now,
                             SyncStatus = SyncStatus.Existed
@@ -1081,7 +1081,7 @@ left join MHC_VisitRecord vr_data on vr_data.idcard = T1.idcard and vr_data.visi
                             {
                                 return group.Connection.Insert(new SyncOrder()
                                 {
-                                    SourceType = SourceType.PregnantInfo,
+                                    TargetType = TargetType.PregnantInfo,
                                     SourceId = pregnantInfo.Id.ToString(),
                                     SyncTime = DateTime.Now,
                                     SyncStatus = SyncStatus.Repeated,
@@ -1137,7 +1137,7 @@ left join MHC_VisitRecord vr_data on vr_data.idcard = T1.idcard and vr_data.visi
                         }
                         SyncOrder syncForFS = new SyncOrder()
                         {
-                            SourceType = SourceType.PregnantInfo,
+                            TargetType = TargetType.PregnantInfo,
                             SourceId = pregnantInfo.Id.ToString(),
                             SyncTime = DateTime.Now,
                             SyncStatus = syncStatus,
@@ -1157,7 +1157,7 @@ left join MHC_VisitRecord vr_data on vr_data.idcard = T1.idcard and vr_data.visi
                 {
                     SyncOrder syncForFS = new SyncOrder()
                     {
-                        SourceType = SourceType.PregnantInfo,
+                        TargetType = TargetType.PregnantInfo,
                         SourceId = pregnantInfo.Id.ToString(),
                         SyncTime = DateTime.Now,
                         SyncStatus = SyncStatus.Error,

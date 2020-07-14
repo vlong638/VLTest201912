@@ -28,7 +28,7 @@ namespace FrameworkTest.Business.SDMockCommit
             var syncOrder = new SyncOrder()
             {
                 SourceId = sourceData.SourceId,
-                SourceType = sourceData.SourceType,
+                TargetType = sourceData.TargetType,
                 SyncTime = DateTime.Now,
                 SyncStatus = SyncStatus.Success,
             };

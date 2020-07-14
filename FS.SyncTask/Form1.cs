@@ -57,7 +57,7 @@ namespace FS.SyncTask
                                 var message = result?.Substring(0,result.Length>500? 500:result.Length);
                                 var syncForFS=new SyncForFS()
                                 {
-                                    SourceType =SourceType.PregnantInfo,
+                                    TargetType =TargetType.PregnantInfo,
                                     SourceId = pregnantInfo.Id.ToString(),
                                     SyncTime=DateTime.Now,
                                     ErrorMessage = message,
@@ -154,7 +154,7 @@ namespace FS.SyncTask
 
             return group.Connection.Query<PregnantInfo>(@"
 select Top 1 s.id sid,pi.* from PregnantInfo pi
-left join SyncForFS s on s.SourceType = 1 and s.SourceId = pi.Id
+left join SyncForFS s on s.TargetType = 1 and s.SourceId = pi.Id
 where s.id is null ", transaction: group.Transaction).ToList();
 
         }
