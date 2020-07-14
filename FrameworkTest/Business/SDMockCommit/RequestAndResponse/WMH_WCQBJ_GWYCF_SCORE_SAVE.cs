@@ -10,7 +10,15 @@ namespace FrameworkTest.Business.SDMockCommit
 {
     public class WMH_WCQBJ_GWYCF_SCORE_SAVERequest : List<WMH_WCQBJ_GWYCF_SCORE_SAVE>
     {
-        internal void Update(List<WMH_GWYCF_GW_LIST1_Data> allHighRisks, List<HighRiskEntity> heleHighRisks, decimal? bmi,int? createage, ref StringBuilder logger)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="allHighRisks"></param>
+        /// <param name="heleHighRisks"></param>
+        /// <param name="bmi"></param>
+        /// <param name="realDeliveryAge">实际生产年龄</param>
+        /// <param name="logger"></param>
+        internal void Update(List<WMH_GWYCF_GW_LIST1_Data> allHighRisks, List<HighRiskEntity> heleHighRisks, decimal? bmi,int? realDeliveryAge, ref StringBuilder logger)
         {
             var currentHighRisks = allHighRisks.Where(c => c.D8 == "1").ToList();
             logger.AppendLine($@"currentHighRisks;");
@@ -50,18 +58,18 @@ namespace FrameworkTest.Business.SDMockCommit
                     heleHighRisks.Add(new HighRiskEntity() { R = "4" });
                 }
             }
-            logger.AppendLine($">>>createage:{createage}");
-            if (createage.HasValue)
+            logger.AppendLine($">>>createage:{realDeliveryAge}");
+            if (realDeliveryAge.HasValue)
             { 
-                if (createage <= 18)
+                if (realDeliveryAge <= 18)
                 {
                     heleHighRisks.Add(new HighRiskEntity() { R = "1" });
                 }
-                else if (createage >= 40)
+                else if (realDeliveryAge >= 40)
                 {
                     heleHighRisks.Add(new HighRiskEntity() { R = "3" });
                 }
-                else if (createage > 35)
+                else if (realDeliveryAge > 35)
                 {
                     heleHighRisks.Add(new HighRiskEntity() { R = "2" });
                 }

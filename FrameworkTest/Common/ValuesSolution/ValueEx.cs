@@ -91,6 +91,8 @@ namespace FrameworkTest.Common.ValuesSolution
             return null;
         }
 
+        #region DateTime
+
         public static DateTime? ToDateTime(this object item)
         {
             if (item == null)
@@ -100,5 +102,15 @@ namespace FrameworkTest.Common.ValuesSolution
                 return dt;
             return null;
         }
+
+        public static bool IsValidDateTime(this DateTime? time)
+        {
+            if (time == null
+                || time == DateTime.MinValue)
+                return false;
+            return true;
+        }
+
+        #endregion
     }
 }

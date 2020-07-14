@@ -296,7 +296,7 @@ namespace FrameworkTest.Business.SDMockCommit
             new HighRisksMapper() { HLId ="2",FSId= "2"},// >  35岁
             new HighRisksMapper() { HLId ="3",FSId= "3"},// >= 40岁
         };
-
+        
         //注意特殊值有
         //{"11" ,"博士"},
         //{"12" ,"硕士"},

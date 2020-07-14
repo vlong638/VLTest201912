@@ -13,7 +13,7 @@ namespace FrameworkTest.Business.SDMockCommit
         /// </summary>
         /// <param name="prenatalDate"></param>
         /// <returns></returns>
-        public static string GetGestationalWeeksByPrenatalDate(DateTime? prenatalDate, DateTime toCheck)
+        public static string GetGestationalWeeksByPrenatalDate(System.DateTime? prenatalDate, System.DateTime toCheck)
         {
             if (!prenatalDate.HasValue)
                 return "-";

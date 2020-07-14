@@ -37,6 +37,12 @@ namespace FrameworkTest
 
         static void Main(string[] args)
         {
+            //VLConstraints.DateTime.GetYearsBy(new DateTime(2019, 7, 13), new DateTime(2020, 7, 14));
+            //VLConstraints.DateTime.GetYearsBy(new DateTime(2019, 7, 14), new DateTime(2020, 7, 14));
+            //VLConstraints.DateTime.GetYearsBy(new DateTime(2019, 8, 13), new DateTime(2020, 7, 14));
+            //VLConstraints.DateTime.GetYearsBy(new DateTime(2019, 5, 13), new DateTime(2020, 7, 14));
+
+
             //string ssda = null;
             //bool bb = (ssda ?? "").Contains("1");
 

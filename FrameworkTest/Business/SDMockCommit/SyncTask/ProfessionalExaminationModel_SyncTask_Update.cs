@@ -96,7 +96,8 @@ namespace FrameworkTest.Business.SDMockCommit
                 //logger.AppendLine(">>>heleHighRisks");
                 //logger.AppendLine(heleHighRisks.ToJson());
                 //logger.AppendLine($">>>bmi:{sourceDataModel.SourceData.BMI}");
-                highRisksToSave.Update(allHighRisksResponse, heleHighRisks, sourceDataModel.SourceData.BMI?.ToDecimal(), sourceDataModel.SourceData.createage?.ToInt(), ref logger);
+                var age = VLConstraints.DateTime.GetYearsBy(sourceDataModel.SourceData.birthday, sourceDataModel.SourceData.dateofprenatal.ToDateTime());
+                highRisksToSave.Update(allHighRisksResponse, heleHighRisks, sourceDataModel.SourceData.BMI?.ToDecimal(), age, ref logger);
                 //更新高危数据
                 if (highRisksToSave.Count > 0)
                 {

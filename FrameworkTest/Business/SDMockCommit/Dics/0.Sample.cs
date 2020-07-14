@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FrameworkTest.Common.ValuesSolution;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -51,5 +52,25 @@ namespace FrameworkTest.Business.SDMockCommit
         //        return "4";
         //    return key;
         //}
+
+        public static class DateTime {
+            /// <summary>
+            /// 获得生产年龄
+            /// </summary>
+            /// <param name="birthday">生日</param>
+            /// <param name="gestationalDate">预产期</param>
+            /// <returns></returns>
+            public static int? GetYearsBy(System.DateTime? birthday, System.DateTime? gestationalDate) {
+                if (!birthday.IsValidDateTime()|| !gestationalDate.IsValidDateTime())
+                    return null;
+
+                int years = gestationalDate.Value.Year - birthday.Value.Year;
+                if (gestationalDate.Value.Month > birthday.Value.Month || (gestationalDate.Value.Month == birthday.Value.Month && gestationalDate.Value.Day > birthday.Value.Day))
+                {
+                    years -= 1;
+                }
+                return years;
+            }
+        }
     }
 }
