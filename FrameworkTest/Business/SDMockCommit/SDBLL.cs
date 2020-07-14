@@ -892,7 +892,16 @@ from
 				left join SyncForFS se on se.TargetType = 3 and se.SourceId = vr.Id			
 				where se.id is not null and se.SyncStatus in (2,11)
 				and vr.updatetime > DATEADD( SECOND,10 ,se.SyncTime)
-				and vr.visitdate = convert(nvarchar,getdate(),23)
+				and vr.visitdate = convert(nvarchar,getdate(),23)				
+                -- 追加13周前同步一次规则
+				and (
+					DATEADD(DAY,-189,pi.dateofprenatal) < vr.visitdate
+					or 
+					(DATEADD(DAY,-189,pi.dateofprenatal) > vr.visitdate and not EXISTS (
+						select 1 from SyncForFS s13 left join MHC_VisitRecord v13 on s13.TargetType = 3 and s13.SourceId = v13.id
+						where v13.idcard = pi.idcard
+					))
+				)
 		)  as toCreate 
 		LEFT JOIN MHC_VisitRecord vr on toCreate.idcard = vr.idcard  and vr.id = toCreate.sourceId
 		GROUP BY vr.id,vr.idcard
