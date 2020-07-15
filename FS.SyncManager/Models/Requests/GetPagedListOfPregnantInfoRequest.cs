@@ -70,8 +70,8 @@ from {PregnantInfo.TableName}
                 Orders.Add("Id", false);
             }
             return $@"
-select s1.SyncTime,s1.SyncStatus,s1.ErrorMessage
-,s2.SyncTime,s2.SyncStatus,s2.ErrorMessage
+select s1.SyncTime as LastSyncTimeToPregnantInfo,s1.SyncStatus as SyncStatusToPregnantInfo,s1.ErrorMessage as SyncMessageToPregnantInfo
+,s2.SyncTime as LastSyncTimeToVisitRecord,s2.SyncStatus as SyncStatusToVisitRecord,s2.ErrorMessage as SyncMessageToVisitRecord
 ,TSource.* from
 (
     select {string.Join(",", FieldNames)}

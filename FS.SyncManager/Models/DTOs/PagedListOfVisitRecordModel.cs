@@ -30,14 +30,14 @@ namespace FS.SyncManager.Models
         /// 最近一次 同步至 3.体格检查 的时间
         /// </summary>
         public DateTime? LastSyncTimeToPhysicalExamination { set; get; }
-        public bool SyncStatusToPhysicalExamination { set; get; }
+        public bool? SyncStatusToPhysicalExamination { set; get; }
         public string SyncMessageToPhysicalExamination { set; get; }
 
         /// <summary>
         /// 最近一次 同步至 4.专科检查 的时间
         /// </summary>
         public DateTime? LastSyncTimeToProfessionalExamination { set; get; }
-        public bool SyncStatusToProfessionalExamination { set; get; }
+        public bool? SyncStatusToProfessionalExamination { set; get; }
         public string SyncMessageToProfessionalExamination { set; get; }
     }
 }

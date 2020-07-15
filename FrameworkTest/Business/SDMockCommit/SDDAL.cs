@@ -49,9 +49,9 @@ vr.id,vr.uterinecontraction,vr.amnioticfluidcharacter
 ,vr.diagnosisinfo,vr.maindiagnosis,vr.secondarydiagnosis,vr.highriskdic
 FROM PregnantInfo pi 
 LEFT JOIN MHC_VisitRecord vr on pi.idcard = vr.idcard 
-left join SyncForFS sp on sp.TargetType = 3 and sp.SourceId = vr.Id
+left join SyncForFS s3 on s3.TargetType = 3 and s3.SourceId = vr.Id
 left join SyncForFS se on se.TargetType = 4 and se.SourceId = vr.Id			
-where sp.id is not null and sp.SyncStatus in (2,11) 
+where s3.id is not null and s3.SyncStatus in (2,11) 
 and se.id is null 
 and vr.visitdate = convert(nvarchar,getdate(),23)	
 and vr.idcard = @idcard
@@ -69,10 +69,10 @@ vr.id,vr.uterinecontraction,vr.amnioticfluidcharacter
 ,vr.diagnosisinfo,vr.maindiagnosis,vr.secondarydiagnosis,vr.highriskdic
 FROM PregnantInfo pi 
 LEFT JOIN MHC_VisitRecord vr on pi.idcard = vr.idcard 
-left join SyncForFS sp on sp.TargetType = 3 and sp.SourceId = vr.Id
-left join SyncForFS se on se.TargetType = 4 and se.SourceId = vr.Id			
-where sp.id is not null and sp.SyncStatus in (2,11) 
-and se.id is null 
+left join SyncForFS s3 on s3.TargetType = 3 and s3.SourceId = vr.Id
+left join SyncForFS s4 on s4.TargetType = 4 and s4.SourceId = vr.Id			
+where s3.id is not null and s3.SyncStatus in (2,11) 
+and s4.id is null 
 and vr.visitdate = convert(nvarchar,getdate(),23)
 ", transaction: dbGroup.Transaction).ToList();
         }
@@ -88,9 +88,9 @@ vr.id,vr.uterinecontraction,vr.amnioticfluidcharacter
 ,vr.diagnosisinfo,vr.maindiagnosis,vr.secondarydiagnosis,vr.highriskdic
 FROM PregnantInfo pi 
 LEFT JOIN MHC_VisitRecord vr on pi.idcard = vr.idcard 
-left join SyncForFS se on se.TargetType = 4 and se.SourceId = vr.Id			
+left join SyncForFS s4 on s4.TargetType = 4 and s4.SourceId = vr.Id			
 where vr.visitdate = convert(nvarchar,getdate(),23)
-and se.id is not null and se.SyncStatus in (2,11) 
+and s4.id is not null and s4.SyncStatus in (2,11) 
 and vr.updatetime > DATEADD( SECOND,10 ,se.SyncTime)
 and vr.idcard = @idcard
 ", new { idcard }, transaction: dbGroup.Transaction).ToList();
@@ -107,9 +107,9 @@ vr.id,vr.uterinecontraction,vr.amnioticfluidcharacter
 ,vr.diagnosisinfo,vr.maindiagnosis,vr.secondarydiagnosis,vr.highriskdic
 FROM PregnantInfo pi 
 LEFT JOIN MHC_VisitRecord vr on pi.idcard = vr.idcard 
-left join SyncForFS se on se.TargetType = 4 and se.SourceId = vr.Id			
+left join SyncForFS s4 on s4.TargetType = 4 and s4.SourceId = vr.Id			
 where vr.visitdate = convert(nvarchar,getdate(),23)
-and se.id is not null and se.SyncStatus in (2,11) 
+and s4.id is not null and s4.SyncStatus in (2,11) 
 and vr.updatetime > DATEADD( SECOND,10 ,se.SyncTime)
 ", transaction: dbGroup.Transaction).ToList();
         } 
@@ -181,9 +181,9 @@ union
 	pi.*
 	FROM PregnantInfo pi 
 	LEFT JOIN MHC_VisitRecord vr on pi.idcard = vr.idcard 
-	left join SyncForFS se on se.TargetType = 4 and se.SourceId = vr.Id			
-	left join SyncForFS sp on sp.TargetType = 1 and sp.SourceId = pi.Id			
-	where vr.visitdate >='2020-07-13' and se.id is null and sp.id is null
+	left join SyncForFS s4 on s4.TargetType = 4 and s4.SourceId = vr.Id			
+	left join SyncForFS s1 on s1.TargetType = 1 and s1.SourceId = pi.Id			
+	where vr.visitdate >='2020-07-13' and s4.id is null and s1.id is null
 	and pi.createtime < convert(nvarchar, getdate(),23) 
 	and pi.updatetime < convert(nvarchar, getdate(),23)
 )
