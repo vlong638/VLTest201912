@@ -1,5 +1,6 @@
 ﻿using FrameworkTest.Common.ControllerSolution;
 using FrameworkTest.Common.DBSolution;
+using FrameworkTest.Common.PagerSolution;
 using FS.SyncManager.Models;
 using FS.SyncManager.Service;
 using System;
@@ -21,6 +22,9 @@ namespace FS.SyncManager.Controllers
         [HttpPost]
         public JsonResult GetPagedListOfPregnantInfo(GetPagedListOfPregnantInfoRequest request)
         {
+            var viewConfig = HomeController.LoadDefaultConfig("Sync_PregnantInfo");
+            request.UpdateFieldNames(viewConfig);
+
             var serviceResult = new ServiceContext().SyncService.GetPagedListOfPregnantInfo(request);
             if (!serviceResult.IsSuccess)
                 return Error(serviceResult.Data, serviceResult.Messages);
@@ -37,6 +41,9 @@ namespace FS.SyncManager.Controllers
         [HttpPost]
         public JsonResult GetPagedListOfVisitRecord(GetPagedListOfVisitRecordRequest request)
         {
+            var viewConfig = HomeController.LoadDefaultConfig("Sync_VisitRecord");
+            request.UpdateFieldNames(viewConfig);
+
             var serviceResult = new ServiceContext().SyncService.GetPagedListOfVisitRecord(request);
             if (!serviceResult.IsSuccess)
                 return Error(serviceResult.Data, serviceResult.Messages);

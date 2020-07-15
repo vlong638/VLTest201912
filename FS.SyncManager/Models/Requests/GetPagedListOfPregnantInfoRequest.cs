@@ -1,4 +1,6 @@
 ﻿using FrameworkTest.Common.PagerSolution;
+using FrameworkTest.ConfigurableEntity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -21,10 +23,12 @@ namespace FS.SyncManager.Models
         public string PersonName { set; get; }
         public override int PageIndex { get { return page; } }
         public override int PageSize { get { return rows; } }
-        public List<string> FieldNames { get; set; } = new List<string>() { "*" };
+
         public override Dictionary<string, bool> Orders { get { return sort == null ? new Dictionary<string, bool>() : (new Dictionary<string, bool>() { { sort, (order == "asc") } }); } }
 
         #region IQueriablePagedList
+
+        public List<string> FieldNames { get; set; } = new List<string>() { "*" };
 
         Dictionary<string, object> args = new Dictionary<string, object>();
         List<string> wheres = new List<string>();
@@ -72,7 +76,7 @@ from {PregnantInfo.TableName}
 {GetOrderCondition()}
 {GetLimitCondition()}
 ";
-        } 
+        }
 
         #endregion
     }

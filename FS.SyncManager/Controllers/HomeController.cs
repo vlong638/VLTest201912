@@ -73,24 +73,25 @@ namespace FS.SyncManager.Controllers
             }
             else
             {
-                return LoadDefaultConfig(request);
+                var viewConfig = LoadDefaultConfig(request.ListName);
+                viewConfig.Properties.RemoveAll(c => !c.IsNeedOnPage);
+                var result = new GetListConfigResponse()
+                {
+                    CustomConfigId = request.CustomConfigId,
+                    ViewConfig = viewConfig,
+                };
+                return Json(new APIResult<GetListConfigResponse>(result));
             }
         }
 
-        private JsonResult LoadDefaultConfig(GetListConfigRequest request)
+        public static EntityAppConfig LoadDefaultConfig(string listName)
         {
             var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", "ListPages.xml");
             XDocument doc = XDocument.Load(path);
             var viewElements = doc.Descendants(EntityAppConfig.NodeElementName);
             var viewConfigs = viewElements.Select(c => new EntityAppConfig(c));
-            var viewConfig = viewConfigs.FirstOrDefault(c => c.ViewName == request.ListName);
-            viewConfig.Properties.RemoveAll(c => !c.IsNeedOnPage);
-            var result = new GetListConfigResponse()
-            {
-                CustomConfigId = request.CustomConfigId,
-                ViewConfig = viewConfig,
-            };
-            return Json(new APIResult<GetListConfigResponse>(result));
+            var viewConfig = viewConfigs.FirstOrDefault(c => c.ViewName == listName);
+            return viewConfig;
         }
 
         #endregion
