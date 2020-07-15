@@ -22,5 +22,19 @@ namespace FS.SyncManager.Models
         public DateTime? lastmenstrualperiod { set; get; } //末次月经
         public DateTime? dateofprenatal { set; get; } //预产期
         public int? filestatus { set; get; } //档案状态:(结案标识)
+
+        /// <summary>
+        /// 最近一次 同步至 1.基本档案 的时间
+        /// </summary>
+        public DateTime? LastSyncTimeToPregnantInfo { set; get; }
+        public bool? SyncStatusToPregnantInfo { set; get; }
+        public string SyncMessageToPregnantInfo { set; get; }
+
+        /// <summary>
+        /// 最近一次 同步至 2.问询病史 的时间
+        /// </summary>
+        public DateTime? LastSyncTimeToVisitRecord { set; get; }
+        public bool? SyncStatusToVisitRecord { set; get; }
+        public string SyncMessageToVisitRecord { set; get; }
     }
 }

@@ -16,9 +16,15 @@
 		<!--Order By-->
 		<OrderBy ComponentName="Id" IsAsc="False" />
 		<!--Selects-->
-		<Property IsNeedOnPage="true" DisplayName="编号" ColumnName="id" DisplayType="None" DisplayWidth="100" IsSortable="true" DataType="int" Description="自动编号" />
-		<Property IsNeedOnPage="true" DisplayName="孕妇姓名" ColumnName="personname" DisplayType="None" DisplayWidth="100" IsSortable="true" DataType="varchar" Description="孕妇姓名" />
-		<Property IsNeedOnPage="true" DisplayName="身份证号" ColumnName="idcard" DisplayType="None" DisplayWidth="200" IsSortable="False" DataType="varchar" Description="孕妇证件号" />
+		<Property IsNeedOnPage="true" IsNeedOnDatabase="true" DisplayName="编号" ColumnName="id" DisplayType="None" DisplayWidth="100" IsSortable="true" DataType="int" Description="自动编号" />
+		<Property IsNeedOnPage="true" IsNeedOnDatabase="true" DisplayName="孕妇姓名" ColumnName="personname" DisplayType="None" DisplayWidth="100" IsSortable="true" DataType="varchar" Description="孕妇姓名" />
+		<Property IsNeedOnPage="true" IsNeedOnDatabase="true" DisplayName="身份证号" ColumnName="idcard" DisplayType="None" DisplayWidth="200" IsSortable="False" DataType="varchar" Description="孕妇证件号" />
+		<Property IsNeedOnPage="true" DisplayName="最近同步时间(基本档案)" ColumnName="LastSyncTimeToPregnantInfo" DisplayType="None" DisplayWidth="200" IsSortable="true" DataType="char" Description="" />
+		<Property IsNeedOnPage="true" DisplayName="同步状态" ColumnName="SyncStatusToPregnantInfo" DisplayType="None" DisplayWidth="100" IsSortable="true" DataType="char" Description="" />
+		<Property IsNeedOnPage="true" DisplayName="同步消息" ColumnName="SyncMessageToPregnantInfo" DisplayType="None" DisplayWidth="100" IsSortable="true" DataType="char" Description="" />
+		<Property IsNeedOnPage="true" DisplayName="最近同步时间(问询病史)" ColumnName="LastSyncTimeToVisitRecord" DisplayType="None" DisplayWidth="200" IsSortable="true" DataType="char" Description="" />
+		<Property IsNeedOnPage="true" DisplayName="同步状态" ColumnName="SyncStatusToVisitRecord" DisplayType="None" DisplayWidth="100" IsSortable="true" DataType="char" Description="" />
+		<Property IsNeedOnPage="true" DisplayName="同步消息" ColumnName="SyncMessageToVisitRecord" DisplayType="None" DisplayWidth="100" IsSortable="true" DataType="char" Description="" />
 		<Property IsNeedOnPage="false" DisplayName="性别" ColumnName="sexcode" DisplayType="None" DisplayWidth="100" IsSortable="true" DataType="char" Description="性别" />
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="photo" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="证件照编号" />
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="cardno" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="就诊卡号" />

@@ -70,11 +70,18 @@ from {PregnantInfo.TableName}
                 Orders.Add("Id", false);
             }
             return $@"
-select {string.Join(",", FieldNames)}
-from {PregnantInfo.TableName}
-{GetWhereCondition()}
-{GetOrderCondition()}
-{GetLimitCondition()}
+select s1.SyncTime,s1.SyncStatus,s1.ErrorMessage
+,s2.SyncTime,s2.SyncStatus,s2.ErrorMessage
+,TSource.* from
+(
+    select {string.Join(",", FieldNames)}
+    from {PregnantInfo.TableName}
+    {GetWhereCondition()}
+    {GetOrderCondition()}
+    {GetLimitCondition()}
+) as TSource
+left join SyncForFS s1 on TSource.Id =s1.SourceId and s1.TargetType = 1
+left join SyncForFS s2 on TSource.Id =s2.SourceId and s2.TargetType = 2
 ";
         }
 

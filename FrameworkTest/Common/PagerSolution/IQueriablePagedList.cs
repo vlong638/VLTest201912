@@ -20,7 +20,7 @@ namespace FrameworkTest.Common.PagerSolution
     {
         public static void UpdateFieldNames(this IQueriablePagedList request, EntityAppConfig viewConfig)
         {
-            viewConfig.Properties.RemoveAll(c => !c.IsNeedOnPage);
+            viewConfig.Properties.RemoveAll(c => !c.IsNeedOnDatabase);
             request.FieldNames = viewConfig.Properties.Select(c => c.ColumnName).ToList();
         }
     }

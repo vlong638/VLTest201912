@@ -59,6 +59,10 @@ namespace FrameworkTest.ConfigurableEntity
         /// 是否在详情页显示
         /// </summary>
         public bool IsNeedOnPage { set; get; }
+        /// <summary>
+        /// 是否从数据库读取
+        /// </summary>
+        public bool IsNeedOnDatabase { set; get; }
         #endregion
 
         #region 数据格式及校验
@@ -89,6 +93,7 @@ namespace FrameworkTest.ConfigurableEntity
             DisplayWidth = 100;
             IsSortable = false;
             IsNeedOnPage = false;
+            IsNeedOnDatabase = false;
             Description = dbConfig.Description;
         }
         public EntityAppConfigProperty(XElement element)
@@ -100,6 +105,7 @@ namespace FrameworkTest.ConfigurableEntity
             IsSortable = element.Attribute(nameof(IsSortable))?.Value.ToBool() ?? false;
             DataType = element.Attribute(nameof(DataType))?.Value;
             IsNeedOnPage = element.Attribute(nameof(IsNeedOnPage))?.Value.ToBool() ?? false;
+            IsNeedOnDatabase = element.Attribute(nameof(IsNeedOnDatabase))?.Value.ToBool() ?? false;
             Description = element.Attribute(nameof(Description))?.Value;
         }
 
@@ -107,6 +113,7 @@ namespace FrameworkTest.ConfigurableEntity
         {
             var property = new XElement(ElementName);
             property.SetAttributeValue(nameof(IsNeedOnPage), IsNeedOnPage);
+            property.SetAttributeValue(nameof(IsNeedOnDatabase), IsNeedOnDatabase);
             property.SetAttributeValue(nameof(DisplayName), DisplayName);
             property.SetAttributeValue(nameof(ColumnName), ColumnName);
             property.SetAttributeValue(nameof(DisplayType), DisplayType.ToString());

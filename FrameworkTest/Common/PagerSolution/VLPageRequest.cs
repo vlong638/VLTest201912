@@ -26,7 +26,7 @@ namespace FrameworkTest.Common.PagerSolution
 
         public string GetLimitCondition()
         {
-            return $"offset {Skip} rows fetch next {Limit} rows only;";
+            return $"offset {Skip} rows fetch next {Limit} rows only";
         }
         #endregion
 
