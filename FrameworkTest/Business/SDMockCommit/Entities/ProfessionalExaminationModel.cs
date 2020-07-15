@@ -69,6 +69,10 @@ namespace FrameworkTest.Business.SDMockCommit
         /// 胎动
         /// </summary>
         public string fetalmoves;
+        /// <summary>
+        /// 体重
+        /// </summary>
+        public string weight { set; get; }
 
         public string id { set; get; }
 
@@ -80,10 +84,6 @@ namespace FrameworkTest.Business.SDMockCommit
         public string BMI { set; get; }//BMI指数
         internal DateTime? birthday;//生日
         public string createage { set; get; }//建册年龄
-        /// <summary>
-        /// 体重
-        /// </summary>
-        public string weight { set; get; }
         #endregion
 
         //,vr.uterus--子宫 1=异常 0=正常

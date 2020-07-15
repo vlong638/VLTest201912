@@ -3211,7 +3211,6 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
-                //自动执行
                 syncTask.Start_Auto_DoWork(serviceContext, SDBLL.UserInfo);
             }));
             cmds.Add(new Command("m92,0623,自动同步-更新`孕妇档案`", () =>
@@ -3231,7 +3230,6 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
-                //自动执行
                 syncTask.Start_Auto_DoWork(serviceContext, SDBLL.UserInfo);
             }));
             cmds.Add(new Command("m93,0628,自动同步-新增`问询病史`", () =>
@@ -3710,7 +3708,8 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             }));
             cmds.Add(new Command("m97,0630,自动同步-新增`专科检查`", () =>
             {
-                syncTask_Create_PhysicalExaminationModel.DoLogOnGetSource = (sourceData) =>
+                var syncTask = new ProfessionalExaminationModel_SyncTask_Create(new ServiceContext());
+                syncTask.DoLogOnGetSource = (sourceData) =>
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(sourceData.ToJson());
@@ -3718,18 +3717,18 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
-                syncTask_Create_PhysicalExaminationModel.DoLogOnWork = (sourceData, sb) =>
+                syncTask.DoLogOnWork = (sourceData, sb) =>
                 {
                     var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Create-专科检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
-                //自动执行
-                syncTask_Create_PhysicalExaminationModel.Start_Auto_DoWork(serviceContext, SDBLL.UserInfo);
+                syncTask.Start_Auto_DoWork(serviceContext, SDBLL.UserInfo);
             }));
             cmds.Add(new Command("m98,0703,自动同步-更新`专科检查`", () =>
             {
-                syncTask_Update_PhysicalExaminationModel.DoLogOnGetSource = (sourceData) =>
+                var syncTask = new ProfessionalExaminationModel_SyncTask_Update(new ServiceContext());
+                syncTask.DoLogOnGetSource = (sourceData) =>
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(sourceData.ToJson());
@@ -3737,14 +3736,13 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
-                syncTask_Update_PhysicalExaminationModel.DoLogOnWork = (sourceData, sb) =>
+                syncTask.DoLogOnWork = (sourceData, sb) =>
                 {
                     var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Update-专科检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
-                //自动执行
-                syncTask_Update_PhysicalExaminationModel.Start_Auto_DoWork(serviceContext, SDBLL.UserInfo);
+                syncTask.Start_Auto_DoWork(serviceContext, SDBLL.UserInfo);
             }));
             cmds.Add(new Command("m99,0703,自动同步-扩展范围`孕妇档案`", () =>
             {
