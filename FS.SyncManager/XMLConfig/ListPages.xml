@@ -1,21 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Views>
+	<!--
+	支持函数
+	$GetDate()
+	-->
+
+
 	<!--IsNeedOnPage="false" DisplayName="" (.+) Description="(\w+)"(.+)\r\n
 	IsNeedOnPage="true" DisplayName="$2" $1 Description="$2"$3\r\n-->
 	<View ViewName="Sync_PregnantInfo">
-		<!--筛选-->
+		<!--Wheres-->
 		<Wheres>
-			<Where ComponentName="personname" CompareOperator="Like" Value="默认值" LinkOperator="None"/>
+			<Where ComponentName="personname" CompareOperator="Like" Value="张" LinkOperator="None"/>
 		</Wheres>
-		<!--排序-->
+		<!--Order By-->
 		<OrderBy ComponentName="Id" IsAsc="False" />
-		
+		<!--Selects-->
 		<Property IsNeedOnPage="true" DisplayName="编号" ColumnName="id" DisplayType="None" DisplayWidth="100" IsSortable="true" DataType="int" Description="自动编号" />
 		<Property IsNeedOnPage="true" DisplayName="孕妇姓名" ColumnName="personname" DisplayType="None" DisplayWidth="100" IsSortable="true" DataType="varchar" Description="孕妇姓名" />
 		<Property IsNeedOnPage="true" DisplayName="性别" ColumnName="sexcode" DisplayType="None" DisplayWidth="100" IsSortable="true" DataType="char" Description="性别" />
+		<Property IsNeedOnPage="true" DisplayName="身份证号" ColumnName="idcard" DisplayType="None" DisplayWidth="200" IsSortable="False" DataType="varchar" Description="孕妇证件号" />
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="photo" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="证件照编号" />
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="cardno" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="就诊卡号" />
-		<Property IsNeedOnPage="true" DisplayName="身份证号" ColumnName="idcard" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="孕妇证件号" />
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="registeredpermanent" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="户籍标志" />
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="bloodtypecode" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="char" Description="血型" />
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="homeplace" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="出生地" />
@@ -261,9 +267,18 @@
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="NewColumn" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
 	</View>
 	<View ViewName="Sync_VisitRecord">
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="id" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="int" Description="编号" />
+		<!--Wheres-->
+		<Wheres>
+			<Where ComponentName="visitdate" CompareOperator="Like" Value="2018-05-18" LinkOperator="None"/>
+			<!--<Where ComponentName="visitdate" CompareOperator="Like" Value="$GetDate()" LinkOperator="None"/>-->
+		</Wheres>
+		<!--Order By-->
+		<OrderBy ComponentName="Id" IsAsc="False" />
+		<!--Selects-->
+		<Property IsNeedOnPage="true" DisplayName="编号" ColumnName="id" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="int" Description="编号" />
+		<Property IsNeedOnPage="true" DisplayName="身份证" ColumnName="idcard" DisplayType="None" DisplayWidth="200" IsSortable="False" DataType="varchar" Description="身份证" />
+		<Property IsNeedOnPage="true" DisplayName="检查日期" ColumnName="visitdate" DisplayType="None" DisplayWidth="200" IsSortable="False" DataType="date" Description="检查时间" />
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="checkid" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="int" Description="弃用" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="idcard" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="身份证" />
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="visitid" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="char" Description="产检ID" />
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="checkweek" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="检查孕周" />
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="selffeelsymptom" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="自觉症状描述" />
@@ -298,7 +313,6 @@
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="highrisklevel" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="高危评级" />
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="category" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="分类" />
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="suggestion" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="处理建议" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="visitdate" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="date" Description="检查时间" />
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="doctorid" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="检查医生姓名工号" />
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="hospitalcode" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="检查机构" />
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="cancellationreason" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="终止管理原因" />

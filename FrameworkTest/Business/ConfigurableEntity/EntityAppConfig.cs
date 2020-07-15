@@ -95,6 +95,12 @@ namespace FrameworkTest.ConfigurableEntity
             ComponentName = element.Attribute(nameof(ComponentName))?.Value;
             CompareOperator = element.Attribute(nameof(CompareOperator))?.Value.ToEnum<CompareOperator>() ?? CompareOperator.None;
             Value = element.Attribute(nameof(Value))?.Value;
+            #region 函数支持
+            if (Value == "$GetDate()")
+            {
+                Value = DateTime.Now.ToString("yyyy-MM-dd");
+            } 
+            #endregion
             LinkOperator = element.Attribute(nameof(LinkOperator))?.Value.ToEnum<LinkOperator>() ?? LinkOperator.None;
         }
 

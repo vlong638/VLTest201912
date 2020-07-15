@@ -123,7 +123,11 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Models\DTOs\PagedListOfVisitRecordModel.cs" />
+    <Compile Include="Models\DTOs\PagedListOfPregnantInfoModel.cs" />
     <Compile Include="Models\Entities\PregnantInfo.cs" />
+    <Compile Include="Models\Entities\VisitRecord.cs" />
+    <Compile Include="Models\Requests\GetPagedListOfVisitRecordRequest.cs" />
     <Compile Include="Models\Requests\GetPagedListOfPregnantInfoRequest.cs" />
     <Compile Include="Controllers\SyncController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -131,7 +135,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service\SyncService.cs" />
+    <Compile Include="Repositories\VisitRecordRepository.cs" />
+    <Compile Include="Repositories\PregnantInfoRepository.cs" />
+    <Compile Include="Service\ServiceContext.cs" />
+    <Compile Include="Service\Impls\SyncService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -540,6 +547,7 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Sync\PregnantInfoList.cshtml" />
+    <Content Include="Views\Sync\VisitRecordList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

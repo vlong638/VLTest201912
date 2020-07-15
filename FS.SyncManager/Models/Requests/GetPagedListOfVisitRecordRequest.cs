@@ -1,11 +1,9 @@
 ﻿using FrameworkTest.Common.PagerSolution;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace FS.SyncManager.Models
 {
-
-    public class GetPagedListOfPregnantInfoRequest : VLPageRequest, IQueriablePagedList
+    public class GetPagedListOfVisitRecordRequest : VLPageRequest, IQueriablePagedList
     {
         #region OrientInput
         public int page { get; set; }
@@ -14,11 +12,11 @@ namespace FS.SyncManager.Models
         public string order { get; set; }
         #endregion
 
-        public GetPagedListOfPregnantInfoRequest()
+        public GetPagedListOfVisitRecordRequest()
         { 
         }
 
-        public string PersonName { set; get; }
+        public string VisitDate { set; get; }
         public override int PageIndex { get { return page; } }
         public override int PageSize { get { return rows; } }
         public List<string> FieldNames { get; set; } = new List<string>() { "*" };
@@ -34,9 +32,9 @@ namespace FS.SyncManager.Models
             if (args.Count > 0)
                 return args;
 
-            if (!string.IsNullOrEmpty(PersonName))
+            if (!string.IsNullOrEmpty(VisitDate))
             {
-                args.Add(nameof(PersonName), $"%{PersonName}%");
+                args.Add(nameof(VisitDate), $"{VisitDate}");
             }
             return args;
         }
@@ -44,9 +42,9 @@ namespace FS.SyncManager.Models
         {
             if (wheres.Count == 0)
             {
-                if (!string.IsNullOrEmpty(PersonName))
+                if (!string.IsNullOrEmpty(VisitDate))
                 {
-                    wheres.Add($"{nameof(PersonName)} Like @PersonName");
+                    wheres.Add($"{nameof(VisitDate)} = @VisitDate");
                 }
             }
             return wheres.Count == 0 ? "" : "where " + string.Join(" and", wheres);
@@ -55,7 +53,7 @@ namespace FS.SyncManager.Models
         {
             return $@"
 select count(*)
-from {PregnantInfo.TableName}
+from {VisitRecord.TableName}
 {GetWhereCondition()}
 ";
         }
@@ -67,7 +65,7 @@ from {PregnantInfo.TableName}
             }
             return $@"
 select {string.Join(",", FieldNames)}
-from {PregnantInfo.TableName}
+from {VisitRecord.TableName}
 {GetWhereCondition()}
 {GetOrderCondition()}
 {GetLimitCondition()}
