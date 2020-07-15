@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using VLTest2015.Services;
-using System;
 using VLTest2015.Common.Models.RequestDTO;
+using VLTest2015.Services;
 
 namespace VLTest2015.DAL
 {

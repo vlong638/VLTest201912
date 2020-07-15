@@ -17,16 +17,11 @@ namespace FS.SyncManager.Controllers
             return View();
         }
 
+
         [HttpPost]
-        public JsonResult GetPagedListOfPregnantInfo(int page, int rows, string name)
+        public JsonResult GetPagedListOfPregnantInfo(GetPagedListOfPregnantInfoRequest request)
         {
-            var pars = new GetPagedListOfPregnantInfoRequest()
-            {
-                PersonName = name,
-                PageIndex = page,
-                PageSize = rows,
-            };
-            var serviceResult = new ServiceContext().SyncService.GetPagedListOfPregnantInfo(pars);
+            var serviceResult = new ServiceContext().SyncService.GetPagedListOfPregnantInfo(request);
             if (!serviceResult.IsSuccess)
                 return Error(serviceResult.Data, serviceResult.Messages);
             return Json(new { total = serviceResult.Data.Count, rows = serviceResult.Data.List.ToList() });

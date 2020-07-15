@@ -1,4 +1,6 @@
-﻿using FrameworkTest.Common.DBSolution;
+﻿using Dapper;
+using FrameworkTest.Common.DALSolution;
+using FrameworkTest.Common.DBSolution;
 using FrameworkTest.Common.PagerSolution;
 using FrameworkTest.Common.ServiceSolution;
 using System;
@@ -10,7 +12,7 @@ namespace FS.SyncManager.Service
 {
     public class ServiceContext
     {
-        public string ConntectingStringSD = "Data Source=201.201.201.89;Initial Catalog=HL_Pregnant;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sdfy;Password=sdfy123456";
+        public string ConntectingStringSD = "Data Source=192.168.50.102,1433;Initial Catalog=HL_Pregnant;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=ESBUSER;Password=ESBPWD";
         public DbContext Hele_DBContext { get { return DBHelper.GetDbContext(ConntectingStringSD); } }
 
         public SyncService SyncService
@@ -23,32 +25,74 @@ namespace FS.SyncManager.Service
         }
     }
 
+    public class PregnantInfoRepository : RepositoryBase<PregnantInfo>
+    {
+        public PregnantInfoRepository(DbContext context) : base(context)
+        {
+        }
+
+        /// <summary>
+        /// 获取孕妇档案分页列表
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        internal IEnumerable<PagedListOfPregnantInfoModel> GetPregnantInfoPagedList(GetPagedListOfPregnantInfoRequest request)
+        {
+            var sql = request.ToListSQL();
+            var pars = request.GetParams();
+            return _context.DbGroup.Connection.Query<PagedListOfPregnantInfoModel>(sql, pars, transaction: _transaction).ToList();
+        }
+        /// <summary>
+        /// 获取孕妇档案分页计数
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        internal int GetPregnantInfoPagedListCount(GetPagedListOfPregnantInfoRequest request)
+        {
+            var sql = request.ToCountSQL();
+            var pars = request.GetParams();
+            return _context.DbGroup.Connection.ExecuteScalar<int>(sql, pars, transaction: _transaction);
+        }
+    }
+
     public class SyncService : BaseService
     {
-        private DbContext DBContext;
+        DbContext DbContext;
+        PregnantInfoRepository PregnantInfoRepository;
 
         public SyncService(DbContext context)
         {
-            this.DBContext = context;
+            DbContext = context;
+            PregnantInfoRepository = new PregnantInfoRepository(DbContext);
         }
 
-        internal ServiceResult<VLPageResult<PagedListOfPregnantInfoModel>> GetPagedListOfPregnantInfo(GetPagedListOfPregnantInfoRequest pars)
+        internal ServiceResult<VLPageResult<PagedListOfPregnantInfoModel>> GetPagedListOfPregnantInfo(GetPagedListOfPregnantInfoRequest request)
         {
-            return new ServiceResult<VLPageResult<PagedListOfPregnantInfoModel>>(
-                new VLPageResult<PagedListOfPregnantInfoModel>()
-                {
-                    List = new List<PagedListOfPregnantInfoModel> {
-                        new PagedListOfPregnantInfoModel() {
-                            id=1,
-                            personname="张三",
-                        },
-                        new PagedListOfPregnantInfoModel() {
-                            id=2,
-                            personname="李四",
-                        },
-                   }
-                }
-            );
+            var result = DbContext.DbGroup.DelegateTransaction(() =>
+            {
+                var list = PregnantInfoRepository.GetPregnantInfoPagedList(request);
+                var count = PregnantInfoRepository.GetPregnantInfoPagedListCount(request);
+                return new VLPageResult<PagedListOfPregnantInfoModel>() { List = list, Count = count, CurrentIndex = request.PageIndex };
+            });
+            return result;
+
+
+
+            //return new ServiceResult<VLPageResult<PagedListOfPregnantInfoModel>>(
+            //    new VLPageResult<PagedListOfPregnantInfoModel>()
+            //    {
+            //        List = new List<PagedListOfPregnantInfoModel> {
+            //            new PagedListOfPregnantInfoModel() {
+            //                id=1,
+            //                personname="张三",
+            //            },
+            //            new PagedListOfPregnantInfoModel() {
+            //                id=2,
+            //                personname="李四",
+            //            },
+            //       }
+            //    }
+            //);
         }
     }
 

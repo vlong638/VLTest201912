@@ -6,7 +6,7 @@ namespace FrameworkTest.Common.DBSolution
 {
     public class DbContext
     {
-        internal DbGroup DbGroup { set; get; }
+        public DbGroup DbGroup { set; get; }
 
         public DbContext(IDbConnection connection)
         {
