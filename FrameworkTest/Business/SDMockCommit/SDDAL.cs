@@ -91,7 +91,7 @@ LEFT JOIN MHC_VisitRecord vr on pi.idcard = vr.idcard
 left join SyncForFS s4 on s4.TargetType = 4 and s4.SourceId = vr.Id			
 where vr.visitdate = convert(nvarchar,getdate(),23)
 and s4.id is not null and s4.SyncStatus in (2,11) 
-and vr.updatetime > DATEADD( SECOND,10 ,se.SyncTime)
+and vr.updatetime > DATEADD( SECOND,10 ,s4.SyncTime)
 and vr.idcard = @idcard
 ", new { idcard }, transaction: dbGroup.Transaction).ToList();
         }
@@ -110,7 +110,7 @@ LEFT JOIN MHC_VisitRecord vr on pi.idcard = vr.idcard
 left join SyncForFS s4 on s4.TargetType = 4 and s4.SourceId = vr.Id			
 where vr.visitdate = convert(nvarchar,getdate(),23)
 and s4.id is not null and s4.SyncStatus in (2,11) 
-and vr.updatetime > DATEADD( SECOND,10 ,se.SyncTime)
+and vr.updatetime > DATEADD( SECOND,10 ,s4.SyncTime)
 ", transaction: dbGroup.Transaction).ToList();
         } 
 //and vr.idcard = '142328199610271518'
@@ -176,7 +176,7 @@ union
 
 	select 
 	Top 1
-	se.id sid,
+	s4.id sid,
 	pi.createtime, pi.updatetime,
 	pi.*
 	FROM PregnantInfo pi 

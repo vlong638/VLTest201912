@@ -352,10 +352,10 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
             var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/MQDA_READ_NEW&sUserID={baseInfo.UserId}&sParams={base8.MainId}${baseInfo.OrgId}";
             var postData = "";
             var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
-            var re = result.FromJson<MQDA_READ_NEWResponse>();
             logger.AppendLine($"查询-问询病史");
             logger.AppendLine(url);
             logger.AppendLine(result);
+            var re = result.FromJson<MQDA_READ_NEWResponse>();
             return re;
         }
 

@@ -96,10 +96,10 @@ namespace FrameworkTest.Business.SDMockCommit
             var postData = "";
             var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID={userInfo.UserId}&sParams=P${idCard}$P$P";
             var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
-            var re = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
             logger.AppendLine($">>>查询-获取孕妇档案");
             logger.AppendLine(url);
             logger.AppendLine(result);
+            var re = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
             logger.AppendLine(re?.ToJson());
             return re?.data?.FirstOrDefault();
         }
@@ -271,6 +271,88 @@ namespace FrameworkTest.Business.SDMockCommit
             logger.AppendLine($">>>查询-获取体格检查数据");
             logger.AppendLine(url);
             logger.AppendLine(result);
+
+//            var result = @"
+//{
+//sj:"".33"",
+//xl:""/"",
+//dsc:""处理成功"",
+//code:""0"",
+//scr:""杭州创业软件"",
+//data1:[
+//{
+//	zd:""孕3产1,孕11+2周,单活胎,疤痕子宫,""
+	
+//}
+//,{
+//	zd:""""
+	
+//}
+//,{
+//	zd:""""
+	
+//}
+//],
+//data:[
+//{
+//D1:""2020-07-15"",
+//D2:"""",
+//D3:"""",
+//D4:"""",
+//D5:"""",
+//D6:"""",
+//D7:"""",
+//D8:"""",
+//D9:"""",
+//D10:""耻骨联合上 横指"",
+//D11:""\"",
+//D12:"""",
+//D13:""168"",
+//D14:"""",
+//D15:"""",
+//D16:""1"",
+//D17:""无"",
+//D18:"""",
+//D19:"""",
+//D20:""1"",
+//D21:""1.6瘢痕子官"",
+//D22:""2"",
+//D23:""2"",
+//D24:"""",
+//D25:"""",
+//D26:""因NT增厚，建议产前诊断"",
+//D27:""个人卫生,心理咨询,营养咨询,避免致畸因素和疾病对胚胎的不良影响"",
+//D28:""1"",
+//D29:"""",
+//D30:""1"",
+//D31:""1"",
+//D32:"""",
+//D33:"""",
+//D34:"""",
+//D35:"""",
+//D36:""张军莲"",
+//D37:""45608805-5"",
+//D38:""2020-07-15 00:00:00.0"",
+//D39:""2020-08-10"",
+//D41:""2"",
+//D42:"""",
+//D43:""无"",
+//D44:"""",
+//D46:"""",
+//D47:"""",
+//D48:"""",
+//D49:"""",
+//D50:"""",
+//D51:"""",
+//D52:"""",
+//D53:"""",
+//D54:""无"",
+//D55:""无"",
+//D56:""1"",
+//D57:""""
+//}
+//]}
+//";
             var re2 = result.FromJson<WMH_CQBJ_CQJC_READ>();
             if (re2 == null || re2.data == null || re2.data.Count == 0)
                 return null;
