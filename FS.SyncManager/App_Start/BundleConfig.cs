@@ -16,9 +16,14 @@ namespace FS.SyncManager
                         "~/Scripts/jquery-{version}.js"));
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
+
             bundles.Add(new ScriptBundle("~/bundles/easyui").Include(
                         "~/Scripts/jquery.easyui-{version}.js"
-                        , "~/Scripts/jquery.easyui-{version}.js"));
+                        , "~/Scripts/jquery.easyui-{version}.js"
+                        , "~/Content/easyui/color.css"
+                        , "~/Content/easyui/demo.css"
+                        , "~/Content/easyui/easyui.css"
+                        , "~/Content/easyui/icon.css"));
 
             //@* easyUI *@
             //<link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/default/easyui.css">
