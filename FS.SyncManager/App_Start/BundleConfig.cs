@@ -9,7 +9,9 @@ namespace FS.SyncManager
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/vl").Include(
-                        "~/bin/Common/Scripts/Common.js"));
+                        "~/bin/Common/Scripts/Common.js"
+                        , "~/bin/Common/Scripts/Common_EasyUI.js"
+                        ));
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(

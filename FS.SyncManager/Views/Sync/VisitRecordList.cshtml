@@ -43,47 +43,18 @@
                         }
                         console.log(1);
                         configData = resp.Data;
-                        //common
-                        $("#CustomConfigId").val(configData.CustomConfigId);
-                        //wheres
-                        for (var i = 0; i < configData.ViewConfig.Wheres.length; i++) {
-                            var where = configData.ViewConfig.Wheres[i];
-                            $("#where_" + where.ComponentName).val(where.Value)
-                        }
-                        //properties
-                        var columns = [[]]
-                        for (var i = 0; i < configData.ViewConfig.Properties.length; i++) {
-                            var column = {}
-                            var item = configData.ViewConfig.Properties[i];
-                            column.field = item.ColumnName;
-                            column.title = item.DisplayName;
-                            column.width = item.DisplayWidth;
-                            column.sortable = item.IsSortable;
-                            column.halign = 'center';
-                            column.align = 'left';
-                            console.log("Date");
-                            //数据格式化
-                            if (item.DisplayType == 3) {
-                                column.formatter = function (value) {
-                                    var dateMat = new Date(value);
-                                    var year = dateMat.getFullYear();
-                                    var month = dateMat.getMonth() + 1;
-                                    var day = dateMat.getDate();
-                                    return year + "-" + month + "-" + day;
-                                }
-                            }
-                            columns[0].push(column);
-                        }
-                        //orderby
-                        var sortName = configData.ViewConfig.OrderBy.ComponentName;
-                        var sortOrder = configData.ViewConfig.OrderBy.IsAsc ? "asc" : "desc";
+
+                        vl_easyui.config(configData.CustomConfigId);
+                        vl_easyui.wheres(configData.ViewConfig);
+                        var columns = vl_easyui.properties(configData.ViewConfig);
+
                         //init
                         $("#db_list").datagrid({
                             url: "GetPagedListOfVisitRecord",
                             queryParams: { VisitDate: $('#where_visitdate').val() },
                             pagination: true,
-                            sortOrder: sortOrder,
-                            sortName: sortName,
+                            sortOrder: configData.ViewConfig.OrderBy.IsAsc ? "asc" : "desc",
+                            sortName: configData.ViewConfig.OrderBy.ComponentName,
                             rownumbers: true,
                             singleSelect: true,
                             remoteSort: true,

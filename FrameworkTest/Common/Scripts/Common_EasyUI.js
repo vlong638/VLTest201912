@@ -1,31 +1,41 @@
 ﻿vl_easyui = {
-    //下拉项处理,data需为[{value,text},{value,text}]
-    select: function select(type, resultType, controlId) {
-        $.ajax({
-            url: '/Append/GetDropDowns?type=' + type + '&resultType=' + resultType,
-            type: 'get',
-            dataType: 'json',
-            success: function (data) {
-                for (var i = 0; i < data.length; i++) {
-                    $(controlId).append("<option value='" + data[i].value + "'>" + data[i].text + "</option>");
+    config: function config(configResponse) {
+        $("#CustomConfigId").val(configResponse.CustomConfigId);
+    },
+    wheres: function wheres(viewConfig) {
+        for (var i = 0; i < viewConfig.Wheres.length; i++) {
+            var where = viewConfig.Wheres[i];
+            $("#where_" + where.ComponentName).val(where.Value)
+        }
+    },
+    properties: function properties(viewConfig) {
+        var columns = [[]]
+        for (var i = 0; i < viewConfig.Properties.length; i++) {
+            var column = {}
+            var item = viewConfig.Properties[i];
+            column.field = item.ColumnName;
+            column.title = item.DisplayName;
+            column.width = item.DisplayWidth;
+            column.sortable = item.IsSortable;
+            column.halign = 'center';
+            column.align = 'left';
+            //数据格式化
+            //Date
+            if (item.DisplayType == 3) {
+                column.formatter = function (value) {
+                    var dateMat = new Date(value);
+                    if (dateMat == "Invalid Date") {
+                        return "";
+                    }
+                    var year = dateMat.getFullYear();
+                    var month = dateMat.getMonth() + 1;
+                    var day = dateMat.getDate();
+                    return year + "-" + month + "-" + day;
                 }
             }
-        });
-    },
-    //下拉项处理,data需为[text,text]
-    multiSelect: function multiSelect(type, resultType, controlId, isEdit) {
-        $.ajax({
-            url: '/Append/GetDropDowns?type=' + type + '&resultType=' + resultType,
-            type: 'get',
-            dataType: 'json',
-            success: function (data) {
-                $(controlId).multiSelect({
-                    type: "multi",
-                    isEdit: isEdit,
-                    allCheck: true,
-                    opts: data
-                });
-            }
-        });
+
+            columns[0].push(column);
+        }
+        return columns;
     }
 }

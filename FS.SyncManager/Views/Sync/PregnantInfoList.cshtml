@@ -43,36 +43,18 @@
                         }
                         console.log(1);
                         configData = resp.Data;
-                        //common
-                        $("#CustomConfigId").val(configData.CustomConfigId);
-                        //wheres
-                        for (var i = 0; i < configData.ViewConfig.Wheres.length; i++) {
-                            var where = configData.ViewConfig.Wheres[i];
-                            $("#where_" + where.ComponentName).val(where.Value)
-                        }
-                        //properties
-                        var columns = [[]]
-                        for (var i = 0; i < configData.ViewConfig.Properties.length; i++) {
-                            var column = {}
-                            var item = configData.ViewConfig.Properties[i];
-                            column.field = item.ColumnName;
-                            column.title = item.DisplayName;
-                            column.width = item.DisplayWidth;
-                            column.sortable = item.IsSortable;
-                            column.halign = 'center';
-                            column.align = 'left';
-                            columns[0].push(column);
-                        }
-                        //orderby
-                        var sortName = configData.ViewConfig.OrderBy.ComponentName;
-                        var sortOrder = configData.ViewConfig.OrderBy.IsAsc ? "asc" : "desc";
+
+                        vl_easyui.config(configData.CustomConfigId);
+                        vl_easyui.wheres(configData.ViewConfig);
+                        var columns = vl_easyui.properties(configData.ViewConfig);
+
                         //init
                         $("#db_list").datagrid({
                             url: "GetPagedListOfPregnantInfo",
                             queryParams: { PersonName: $('#where_personname').val() },
                             pagination: true,
-                            sortOrder: sortOrder,
-                            sortName: sortName,
+                            sortOrder: configData.ViewConfig.OrderBy.IsAsc ? "asc" : "desc",
+                            sortName: configData.ViewConfig.OrderBy.ComponentName,
                             rownumbers: true,
                             singleSelect: true,
                             remoteSort: true,
