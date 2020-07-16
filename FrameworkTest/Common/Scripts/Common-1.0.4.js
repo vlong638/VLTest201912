@@ -1,19 +1,36 @@
 ﻿vl = {
     //转换成：2016-07-11
-    getDate: function getDate(date) {
-        var d = eval('new ' + date.substr(1, date.length - 2));
-        var ar_date = [d.getFullYear(), d.getMonth() + 1, d.getDate()];
-        for (var i = 0; i < ar_date.length; i++) ar_date[i] = dFormat(ar_date[i]);
-        return ar_date.join('-');
+    getDate: function getDate(value) {
+        if (value == null) {
+            return "";
+        }
+        var date = new Date(value);
+        if (date == "Invalid Date") {
+            return "";
+        }
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
+        return year + "-" + month + "-" + day;
     },
     //转换成：2016-07-11 15:00:28
-    getDateTime: function getDateTime(date) {
-        var d = eval('new ' + date.substr(1, date.length - 2));
-        var ar_date = [d.getFullYear(), d.getMonth() + 1, d.getDate()];
-        var ar_time = [d.getHours(), d.getMinutes(), d.getSeconds()];
-        for (var i = 0; i < ar_date.length; i++) ar_date[i] = dFormat(ar_date[i]);
-        for (var i = 0; i < ar_time.length; i++) ar_time[i] = dFormat(ar_time[i]);
-        return ar_date.join('-') + ' ' + ar_time.join(':');
+    getDateTime: function getDateTime(value) {
+        if (value == null) {
+            return "";
+        }
+        var date = new Date(value);
+        if (date == "Invalid Date") {
+            return "";
+        }
+        var y = date.getFullYear();
+        var m = date.getMonth() + 1;
+        var d = date.getDate();
+        var h = date.getHours();
+        var m1 = date.getMinutes();
+        var s = date.getSeconds();
+        m = m < 10 ? ("0" + m) : m;
+        d = d < 10 ? ("0" + d) : d;
+        return y + "-" + m + "-" + d + " " + h + ":" + m1 + ":" + s;
     },
     /**
     *  返回url的参数值
