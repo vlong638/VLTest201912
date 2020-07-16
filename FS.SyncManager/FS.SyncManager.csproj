@@ -125,10 +125,14 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Class1.cs" />
+    <Compile Include="Models\DTOs\PagedListOfSyncOrderModel.cs" />
     <Compile Include="Models\DTOs\PagedListOfVisitRecordModel.cs" />
     <Compile Include="Models\DTOs\PagedListOfPregnantInfoModel.cs" />
     <Compile Include="Models\Entities\PregnantInfo.cs" />
+    <Compile Include="Models\Entities\SyncOrder.cs" />
     <Compile Include="Models\Entities\VisitRecord.cs" />
+    <Compile Include="Models\Requests\GetPageListOfSyncOrderRequest.cs" />
     <Compile Include="Models\Requests\GetPagedListOfVisitRecordRequest.cs" />
     <Compile Include="Models\Requests\GetPagedListOfPregnantInfoRequest.cs" />
     <Compile Include="Controllers\SyncController.cs" />
@@ -550,6 +554,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Sync\PregnantInfoList.cshtml" />
     <Content Include="Views\Sync\VisitRecordList.cshtml" />
+    <Content Include="Views\Sync\SyncOrderList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

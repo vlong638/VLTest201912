@@ -14,6 +14,7 @@ namespace FS.SyncManager.Models
         //<Property.+ DisplayName="(\w+)" ColumnName="(\w+)" .+ />
         //=>
         //public string $2 {set;get;}//$1
+        public string personname { set; get; } 
         public long idcard { set; get; } //身份证		
         public string visitdate { set; get; }//检查日期
 

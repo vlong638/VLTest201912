@@ -3,6 +3,7 @@ using FrameworkTest.Common.PagerSolution;
 using FrameworkTest.Common.ServiceSolution;
 using FS.SyncManager.Models;
 using FS.SyncManager.Repositories;
+using System;
 
 namespace FS.SyncManager.Service
 {
@@ -40,7 +41,21 @@ namespace FS.SyncManager.Service
                 return new VLPageResult<PagedListOfVisitRecordModel>() { List = list, Count = count, CurrentIndex = request.PageIndex };
             });
             return result;
-        } 
+        }
+        #endregion
+
+        #region SyncOrder
+        SyncOrderRepository SyncOrderRepository { get { return new SyncOrderRepository(DbContext); } }
+        internal ServiceResult<VLPageResult<PagedListOfSyncOrderModel>> GetPagedListOfSyncOrder(GetPagedListOfSyncOrderRequest request)
+        {
+            var result = DbContext.DbGroup.DelegateTransaction(() =>
+            {
+                var list = SyncOrderRepository.GetSyncOrderPagedList(request);
+                var count = SyncOrderRepository.GetSyncOrderPagedListCount(request);
+                return new VLPageResult<PagedListOfSyncOrderModel>() { List = list, Count = count, CurrentIndex = request.PageIndex };
+            });
+            return result;
+        }
         #endregion
     }
 }

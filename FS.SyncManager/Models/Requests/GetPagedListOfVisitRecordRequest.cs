@@ -66,7 +66,9 @@ from {VisitRecord.TableName}
                 Orders.Add("Id", false);
             }
             return $@"
-select s3.SyncTime as LastSyncTimeToPhysicalExamination,s3.SyncStatus as SyncStatusToPhysicalExamination,s3.ErrorMessage as SyncMessageToPhysicalExamination
+select 
+pi.PersonName
+,s3.SyncTime as LastSyncTimeToPhysicalExamination,s3.SyncStatus as SyncStatusToPhysicalExamination,s3.ErrorMessage as SyncMessageToPhysicalExamination
 ,s4.SyncTime as LastSyncTimeToProfessionalExamination,s4.SyncStatus as SyncStatusToProfessionalExamination,s4.ErrorMessage as SyncMessageToProfessionalExamination
 ,TSource.* from
 (
@@ -78,6 +80,7 @@ select s3.SyncTime as LastSyncTimeToPhysicalExamination,s3.SyncStatus as SyncSta
 ) as TSource
 left join SyncForFS s3 on TSource.Id =s3.SourceId and s3.TargetType = 3
 left join SyncForFS s4 on TSource.Id =s4.SourceId and s4.TargetType = 4
+left join PregnantInfo pi on TSource.IdCard = pi.IdCard
 ";
         } 
 

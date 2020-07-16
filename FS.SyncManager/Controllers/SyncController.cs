@@ -14,6 +14,7 @@ namespace FS.SyncManager.Controllers
     public class SyncController : BaseController
     {
         #region PregnantInfo
+
         [HttpGet]
         public ActionResult PregnantInfoList()
         {
@@ -30,9 +31,11 @@ namespace FS.SyncManager.Controllers
                 return Error(serviceResult.Data, serviceResult.Messages);
             return Json(new { total = serviceResult.Data.Count, rows = serviceResult.Data.List.ToList() });
         }
+
         #endregion
 
         #region VisitRecord
+
         [HttpGet]
         public ActionResult VisitRecordList()
         {
@@ -49,9 +52,27 @@ namespace FS.SyncManager.Controllers
                 return Error(serviceResult.Data, serviceResult.Messages);
             return Json(new { total = serviceResult.Data.Count, rows = serviceResult.Data.List.ToList() });
         }
+
         #endregion
 
         #region SyncOrder
+
+        ///// <summary>
+        ///// 删除同步记录
+        ///// </summary>
+        //[HttpPost]
+        //public void DeleteSyncOrder(GetPageListOfSyncOrderRequest request)
+        //{
+        //    //var syncOrders =new List<> 
+        //    //return Json(new { total = serviceResult.Data.Count, rows = serviceResult.Data.List.ToList() });
+        //    //return new JsonResult();
+        //}
+
+        [HttpGet]
+        public ActionResult SyncOrderList()
+        {
+            return View();
+        }
         /// <summary>
         /// 获取同步记录
         /// </summary>
@@ -60,24 +81,19 @@ namespace FS.SyncManager.Controllers
         /// <param name="name"></param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult GetPageListOfSyncOrder(GetPageListOfSyncOrderRequest request)
+        public JsonResult GetPageListOfSyncOrder(GetPagedListOfSyncOrderRequest request)
         {
-            //var syncOrders =new List<> 
+            var viewConfig = HomeController.LoadDefaultConfig("Sync_SyncOrder");
+            request.UpdateFieldNames(viewConfig);
 
-            //return Json(new { total = serviceResult.Data.Count, rows = serviceResult.Data.List.ToList() });
-
-            return new JsonResult();
+            var serviceResult = new ServiceContext().SyncService.GetPagedListOfSyncOrder(request);
+            if (!serviceResult.IsSuccess)
+                return Error(serviceResult.Data, serviceResult.Messages);
+            return Json(new { total = serviceResult.Data.Count, rows = serviceResult.Data.List.ToList() });
         }
 
-        public class GetPageListOfSyncOrderRequest
-        {
-            public int page { set; get; }
-            public int rows { set; get; }
-            public string Name { set; get; }
-            public string StartTime { set; get; }
-            public string EndTime { set; get; }
-            public string SyncType { set; get; }
-        } 
         #endregion
     }
 }
+
+

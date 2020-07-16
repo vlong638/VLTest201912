@@ -180,9 +180,6 @@ namespace FrameworkTest.Business.SDMockCommit
         /// <returns></returns>
         internal bool SaveCurrentHignRisks(string physicalExaminationId, WMH_WCQBJ_GWYCF_SCORE_SAVERequest datas, UserInfo userInfo, WCQBJ_CZDH_DOCTOR_READData base8, ref StringBuilder logger)
         {
-            //logger.AppendLine(">>>SaveCurrentHignRisks");
-            //logger.AppendLine(highRisksToSave.ToJson());
-
             var container = new CookieContainer();
             var url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/WMH_GWYCF_GW_LIST_SAVE&sUserID={userInfo.UserId}&sParams={base8.MainId}${userInfo.OrgId}${physicalExaminationId}";
             var json = datas.ToJson();
@@ -293,7 +290,6 @@ namespace FrameworkTest.Business.SDMockCommit
             var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_CQJC_SAVE&sUserID={userInfo.UserId}&sParams={base8.MainId}${userInfo.OrgId}${physicalExaminationId}$1$P$%E6%99%AE%E9%80%9A%E4%BA%A7%E6%A3%80%E5%8C%BB%E7%94%9F";
             var json = new List<WMH_CQBJ_CQJC_SAVE>() { professionalExaminationNew }.ToJson();
             var postData = "data=" + HttpUtility.UrlEncode(json);
-            //var postData = "data=" + json;
             var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             logger.AppendLine($">>>提交-专科检查数据");
             logger.AppendLine(url);

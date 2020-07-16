@@ -61,6 +61,17 @@
                             column.sortable = item.IsSortable;
                             column.halign = 'center';
                             column.align = 'left';
+                            console.log("Date");
+                            //数据格式化
+                            if (item.DisplayType == 3) {
+                                column.formatter = function (value) {
+                                    var dateMat = new Date(value);
+                                    var year = dateMat.getFullYear();
+                                    var month = dateMat.getMonth() + 1;
+                                    var day = dateMat.getDate();
+                                    return year + "-" + month + "-" + day;
+                                }
+                            }
                             columns[0].push(column);
                         }
                         //orderby
@@ -83,7 +94,12 @@
                             pageSize: 20,
                             pageList: [10, 20, 50],
                             columns: columns,
-                            onDblClickRow: null,
+                            onDblClickRow: function (rowIndex, rowData) {
+                                //console.log(1);
+                                //var PregnantInfoId = rowData.id;
+                                //window.open("VisitRecordList?pregnantInfoId=" + PregnantInfoId);
+                                console.log(rowData);
+                            }
                         });
                     } else {
                         if (resp.msg != null && resp.msg != "") {

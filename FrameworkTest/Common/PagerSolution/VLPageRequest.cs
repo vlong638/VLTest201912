@@ -34,7 +34,19 @@ namespace FrameworkTest.Common.PagerSolution
         /// <summary>
         /// 排序 true：asc,false:desc
         /// </summary>
-        public virtual Dictionary<string, bool> Orders { get; set; } = new Dictionary<string, bool>();
+        public virtual Dictionary<string, bool> Orders
+        {
+            get
+            {
+                if (_Orders==null)
+                {
+                    _Orders = new Dictionary<string, bool>();
+                }
+                return _Orders;
+            }
+            set { _Orders = value; }
+        }
+        protected Dictionary<string, bool> _Orders { get; set; }
 
         public string GetOrderCondition()
         {

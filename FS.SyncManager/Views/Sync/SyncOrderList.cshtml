@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "孕妇档案列表";
+    ViewBag.Title = "同步记录列表";
 }
 <div id="toolbar">
     @*奇怪的页面样式问题...上面有一段空白"*@
@@ -34,7 +34,7 @@
                 url: "../Home/GetListConfig",
                 type: "post",
                 dataType: "json",
-                data: JSON.stringify({ ListName: "Sync_PregnantInfo", CustomConfigId: customConfigId }),
+                data: JSON.stringify({ ListName: "Sync_SyncOrder", CustomConfigId: customConfigId }),
                 contentType: "application/json",
                 success: function (resp) {
                     if (resp.Code == 200) {
@@ -68,7 +68,7 @@
                         var sortOrder = configData.ViewConfig.OrderBy.IsAsc ? "asc" : "desc";
                         //init
                         $("#db_list").datagrid({
-                            url: "GetPagedListOfPregnantInfo",
+                            url: "GetPageListOfSyncOrder",
                             queryParams: { PersonName: $('#where_personname').val() },
                             pagination: true,
                             sortOrder: sortOrder,
@@ -84,9 +84,6 @@
                             pageList: [10, 20, 50],
                             columns: columns,
                             onDblClickRow: function (rowIndex, rowData) {
-                                //console.log(1);
-                                //var PregnantInfoId = rowData.id;
-                                //window.open("VisitRecordList?pregnantInfoId=" + PregnantInfoId);
                                 console.log(rowData);
                             }
                         });

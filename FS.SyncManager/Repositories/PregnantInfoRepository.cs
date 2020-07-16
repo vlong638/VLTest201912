@@ -38,4 +38,35 @@ namespace FS.SyncManager.Repositories
             return _context.DbGroup.Connection.ExecuteScalar<int>(sql, pars, transaction: _transaction);
         }
     }
+
+
+    public class SyncOrderRepository : RepositoryBase<SyncOrder>
+    {
+        public SyncOrderRepository(DbContext context) : base(context)
+        {
+        }
+
+        /// <summary>
+        /// 获取孕妇档案分页列表
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>88888
+        internal IEnumerable<PagedListOfSyncOrderModel> GetSyncOrderPagedList(GetPagedListOfSyncOrderRequest request)
+        {
+            var sql = request.ToListSQL();
+            var pars = request.GetParams();
+            return _context.DbGroup.Connection.Query<PagedListOfSyncOrderModel>(sql, pars, transaction: _transaction).ToList();
+        }
+        /// <summary>
+        /// 获取孕妇档案分页计数
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        internal int GetSyncOrderPagedListCount(GetPagedListOfSyncOrderRequest request)
+        {
+            var sql = request.ToCountSQL();
+            var pars = request.GetParams();
+            return _context.DbGroup.Connection.ExecuteScalar<int>(sql, pars, transaction: _transaction);
+        }
+    }
 }
