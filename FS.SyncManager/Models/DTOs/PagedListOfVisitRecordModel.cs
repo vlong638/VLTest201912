@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FrameworkTest.Business.SDMockCommit;
+using System;
 
 namespace FS.SyncManager.Models
 {
@@ -15,10 +16,10 @@ namespace FS.SyncManager.Models
         //=>
         //public string $2 {set;get;}//$1
         public string personname { set; get; } 
-        public long idcard { set; get; } //身份证		
+        public string idcard { set; get; } //身份证		
         public string visitdate { set; get; }//检查日期
-
-
+        public DateTime? createtime { set; get; }
+        public DateTime? updatetime { set; get; }
         public int? DBP { set; get; } //舒张压(mmhg)
         public int? SBP { set; get; } //收缩压(mmhg)
         public decimal? Weight { set; get; } //体重(kg)
@@ -31,14 +32,14 @@ namespace FS.SyncManager.Models
         /// 最近一次 同步至 3.体格检查 的时间
         /// </summary>
         public DateTime? LastSyncTimeToPhysicalExamination { set; get; }
-        public bool? SyncStatusToPhysicalExamination { set; get; }
+        public SyncStatus SyncStatusToPhysicalExamination { set; get; }
         public string SyncMessageToPhysicalExamination { set; get; }
 
         /// <summary>
         /// 最近一次 同步至 4.专科检查 的时间
         /// </summary>
         public DateTime? LastSyncTimeToProfessionalExamination { set; get; }
-        public bool? SyncStatusToProfessionalExamination { set; get; }
+        public SyncStatus SyncStatusToProfessionalExamination { set; get; }
         public string SyncMessageToProfessionalExamination { set; get; }
     }
 }

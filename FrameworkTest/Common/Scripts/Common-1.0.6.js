@@ -6,12 +6,17 @@
         }
         var date = new Date(value);
         if (date == "Invalid Date") {
-            return "";
+            date = new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10));
+            if (date == "Invalid Date") {
+                return "";
+            }
         }
-        var year = date.getFullYear();
-        var month = date.getMonth() + 1;
-        var day = date.getDate();
-        return year + "-" + month + "-" + day;
+        var y = date.getFullYear();
+        var m = date.getMonth() + 1;
+        var d = date.getDate();
+        m = m < 10 ? ("0" + m) : m;
+        d = d < 10 ? ("0" + d) : d;
+        return y + "-" + m + "-" + d;
     },
     //转换成：2016-07-11 15:00:28
     getDateTime: function getDateTime(value) {
@@ -20,7 +25,10 @@
         }
         var date = new Date(value);
         if (date == "Invalid Date") {
-            return "";
+            date = new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10));
+            if (date == "Invalid Date") {
+                return "";
+            }
         }
         var y = date.getFullYear();
         var m = date.getMonth() + 1;
@@ -30,6 +38,9 @@
         var s = date.getSeconds();
         m = m < 10 ? ("0" + m) : m;
         d = d < 10 ? ("0" + d) : d;
+        h = h < 10 ? ("0" + h) : h;
+        m1 = m1 < 10 ? ("0" + m1) : m1;
+        s = s < 10 ? ("0" + s) : s;
         return y + "-" + m + "-" + d + " " + h + ":" + m1 + ":" + s;
     },
     /**

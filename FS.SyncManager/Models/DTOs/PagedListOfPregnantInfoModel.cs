@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FrameworkTest.Business.SDMockCommit;
+using System;
 
 namespace FS.SyncManager.Models
 {
@@ -10,7 +11,8 @@ namespace FS.SyncManager.Models
         public string patientid { set; get; }
         public string idcard { set; get; } //身份证号
 
-
+        public DateTime? createtime { set; get; } 
+        public DateTime? updatetime { set; get; }
         public string personname { set; get; } //孕妇姓名
         public int? sexcode { set; get; } //性别
         public string contactphone { set; get; } //联系人电话
@@ -27,14 +29,14 @@ namespace FS.SyncManager.Models
         /// 最近一次 同步至 1.基本档案 的时间
         /// </summary>
         public DateTime? LastSyncTimeToPregnantInfo { set; get; }
-        public bool? SyncStatusToPregnantInfo { set; get; }
+        public SyncStatus SyncStatusToPregnantInfo { set; get; }
         public string SyncMessageToPregnantInfo { set; get; }
 
         /// <summary>
         /// 最近一次 同步至 2.问询病史 的时间
         /// </summary>
         public DateTime? LastSyncTimeToVisitRecord { set; get; }
-        public bool? SyncStatusToVisitRecord { set; get; }
+        public SyncStatus SyncStatusToVisitRecord { set; get; }
         public string SyncMessageToVisitRecord { set; get; }
     }
 }

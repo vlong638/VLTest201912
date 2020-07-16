@@ -8,7 +8,10 @@ namespace FrameworkTest.Business.SDMockCommit
     public class SyncOrder
     {
         public long Id { set; get; }
-        public SourceType SourceType { get {
+        public SourceType SourceType
+        {
+            get
+            {
                 switch (TargetType)
                 {
                     case TargetType.PregnantInfo:
@@ -20,7 +23,8 @@ namespace FrameworkTest.Business.SDMockCommit
                     default:
                         return SourceType.None;
                 }
-            } }
+            }
+        }
         public string SourceId { set; get; }
         public TargetType TargetType { set; get; }
         public DateTime SyncTime { set; get; }
@@ -29,7 +33,7 @@ namespace FrameworkTest.Business.SDMockCommit
     }
     public enum SourceType
     {
-        None,
+        None = 0,
         /// <summary>
         /// 孕妇档案
         /// </summary>
@@ -41,7 +45,7 @@ namespace FrameworkTest.Business.SDMockCommit
     }
     public enum TargetType
     {
-        None,
+        None = 0,
         /// <summary>
         /// 孕妇档案
         /// </summary>
@@ -57,10 +61,11 @@ namespace FrameworkTest.Business.SDMockCommit
         /// <summary>
         /// 专科检查
         /// </summary>
-        ProfessionalExamination =4,
+        ProfessionalExamination = 4,
     }
     public enum SyncStatus
     {
+        None = 0,
         Error = 1,//创建时 出现异常
         Existed = 11,//已存在
         NotExisted = 12,//未存在
