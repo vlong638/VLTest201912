@@ -6,7 +6,9 @@
     <div style="margin-top:5px">
         <div style="display:inline;">
             <span>姓名:</span>
-            <input id="where_personname" style="line-height:26px;border:1px solid #ccc" />
+            <input id="where_PersonName" style="line-height:26px;border:1px solid #ccc" />
+            <span>同步状态</span>
+            <select class="easyui-combobox" id="where_SyncStatus" style="width:200px;"></select>
             <a href="#" class="easyui-linkbutton" plain="true" onclick="doSearch()">搜索</a>
         </div>
     </div>
@@ -17,12 +19,16 @@
 @*脚本*@
 <script type="text/javascript">
     function doSearch() {
-        $("#db_list").datagrid('load', {
-            PersonName: $('#where_personname').val()
-        });
+        var param = {
+            PersonName: $('#where_PersonName').val(),
+            SyncStatus: $('#where_SyncStatus').combobox('getValues'),
+        };
+        console.log(param);
+        $("#db_list").datagrid('load', param);
     }
 
     $(function () {
+        vl.select("SyncStatus", false, "#where_SyncStatus");
         var customConfigId = vl.getQueryString("CustomConfigId");
         $.ajax
             ({
@@ -46,7 +52,10 @@
                         //init
                         $("#db_list").datagrid({
                             url: "GetPageListOfSyncOrder",
-                            queryParams: { PersonName: $('#where_personname').val() },
+                            queryParams: {
+                                PersonName: $('#where_PersonName').val(),
+                                SyncStatus: $('#where_SyncStatus').combobox('getValues'),
+                            },
                             pagination: true,
                             sortOrder: configData.ViewConfig.OrderBy.IsAsc ? "asc" : "desc",
                             sortName: configData.ViewConfig.OrderBy.ComponentName,

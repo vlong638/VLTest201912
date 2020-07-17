@@ -43,16 +43,6 @@ namespace VLTest2015.Controllers
         [AllowAnonymous]
         public JsonResult GetDropDowns(string type, bool isForceChange)
         {
-            //List<DropDownItem> names = new List<DropDownItem>()
-            //{
-            //    new DropDownItem("张三","张三"),
-            //    new DropDownItem("李四","李四"),
-            //    new DropDownItem("王五","王五"),
-            //};
-            //var file = (Path.Combine(AppContext.BaseDirectory, "JsonConfigs", "PersonNames.json"));
-            //System.IO.File.WriteAllText(file, Newtonsoft.Json.JsonConvert.SerializeObject(names));
-
-
             var file = (Path.Combine(AppContext.BaseDirectory, "JsonConfigs", type + ".json"));
             if (!System.IO.File.Exists(file))
             {

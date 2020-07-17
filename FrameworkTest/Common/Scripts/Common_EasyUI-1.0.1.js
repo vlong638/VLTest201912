@@ -19,6 +19,7 @@
             column.sortable = item.IsSortable;
             column.halign = 'center';
             column.align = 'left';
+
             ////数据格式化
             ////Date
             //if (item.DisplayType == 3) {

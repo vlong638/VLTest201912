@@ -468,11 +468,11 @@
 	<Property IsNeedOnPage="true" IsNeedOnDatabase="true" DisplayName="编号" ColumnName="Id" DisplayType="None" DisplayWidth="60" IsSortable="true" DataType="bigint" Description="0" />
 	<Property IsNeedOnPage="true" DisplayName="姓名" ColumnName="PersonName" DisplayType="None" DisplayWidth="60" IsSortable="true" DataType="char" Description="" />
 	<Property IsNeedOnPage="true" DisplayName="身份证" ColumnName="Idcard" DisplayType="None" DisplayWidth="180" IsSortable="false" DataType="char" Description="" />
-	<Property IsNeedOnPage="true" IsNeedOnDatabase="true" DisplayName="来源类型" ColumnName="SourceType" DisplayType="None" DisplayWidth="80" IsSortable="False" DataType="smallint" Description="来源类型" />
+	<Property IsNeedOnPage="true" IsNeedOnDatabase="true" DisplayName="来源类型" ColumnName="SourceType" DisplayType="Enum" EnumType="SourceType" DisplayWidth="80" IsSortable="False" DataType="smallint" Description="来源类型" />
 	<Property IsNeedOnPage="true" IsNeedOnDatabase="true" DisplayName="来源Id" ColumnName="SourceId" DisplayType="None" DisplayWidth="80" IsSortable="False" DataType="varchar" Description="来源Id" />
 	<Property IsNeedOnPage="true" IsNeedOnDatabase="true" DisplayName="同步时间" ColumnName="SyncTime" DisplayType="DateTime" DisplayWidth="180" IsSortable="true" DataType="datetime" Description="同步时间" />
 	<Property IsNeedOnPage="true" IsNeedOnDatabase="true" DisplayName="错误信息" ColumnName="ErrorMessage" DisplayType="None" DisplayWidth="80" IsSortable="False" DataType="varchar" Description="错误信息" />
-	<Property IsNeedOnPage="true" IsNeedOnDatabase="true" DisplayName="同步状态" ColumnName="SyncStatus" DisplayType="None" DisplayWidth="80" IsSortable="true" DataType="smallint" Description="同步状态" />
-	<Property IsNeedOnPage="true" IsNeedOnDatabase="true" DisplayName="目标类型" ColumnName="TargetType" DisplayType="None" DisplayWidth="80" IsSortable="False" DataType="smallint" Description="目标类型" />
+	<Property IsNeedOnPage="true" IsNeedOnDatabase="true" DisplayName="同步状态" ColumnName="SyncStatus" DisplayType="Enum" EnumType="SyncStatus" DisplayWidth="80" IsSortable="true" DataType="smallint" Description="同步状态" />
+	<Property IsNeedOnPage="true" IsNeedOnDatabase="true" DisplayName="目标类型" ColumnName="TargetType" DisplayType="Enum" EnumType="TargetType" DisplayWidth="80" IsSortable="False" DataType="smallint" Description="目标类型" />
 	</View>
 </Views>

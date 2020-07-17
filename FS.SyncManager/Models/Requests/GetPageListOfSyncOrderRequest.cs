@@ -18,7 +18,6 @@ namespace FS.SyncManager.Models
         { 
         }
 
-        public string PersonName { set; get; }
         public override int PageIndex { get { return page; } }
         public override int PageSize { get { return rows; } }
         public List<string> FieldNames { get; set; } = new List<string>() { "*" };
@@ -44,6 +43,9 @@ namespace FS.SyncManager.Models
         Dictionary<string, object> args = new Dictionary<string, object>();
         List<string> wheres = new List<string>();
 
+        public string PersonName { set; get; }
+        public string SyncStatus { set; get; }
+
         public Dictionary<string, object> GetParams()
         {
             if (args.Count > 0)
@@ -52,6 +54,10 @@ namespace FS.SyncManager.Models
             if (!string.IsNullOrEmpty(PersonName))
             {
                 args.Add(nameof(PersonName), $"%{PersonName}%");
+            }
+            if (!string.IsNullOrEmpty(SyncStatus))
+            {
+                args.Add(nameof(SyncStatus), SyncStatus);
             }
             return args;
         }
@@ -62,6 +68,17 @@ namespace FS.SyncManager.Models
                 if (!string.IsNullOrEmpty(PersonName))
                 {
                     wheres.Add($"pi.{nameof(PersonName)} Like @PersonName");
+                }
+                if (!string.IsNullOrEmpty(SyncStatus))
+                {
+                    if (SyncStatus=="99")
+                    {
+                        wheres.Add($"sall.{nameof(SyncStatus)} not in (2,11)");
+                    }
+                    else
+                    {
+                        wheres.Add($"sall.{nameof(SyncStatus)} = @SyncStatus");
+                    }
                 }
             }
             return wheres.Count == 0 ? "" : "and " + string.Join(" and", wheres);

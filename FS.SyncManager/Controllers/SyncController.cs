@@ -29,7 +29,6 @@ namespace FS.SyncManager.Controllers
             var serviceResult = new ServiceContext().SyncService.GetPagedListOfPregnantInfo(request);
             if (!serviceResult.IsSuccess)
                 return Error(serviceResult.Data, serviceResult.Messages);
-
             viewConfig.UpdateValues(serviceResult.Data.List);
             return Json(new { total = serviceResult.Data.Count, rows = serviceResult.Data.List.ToList() });
         }
@@ -52,6 +51,7 @@ namespace FS.SyncManager.Controllers
             var serviceResult = new ServiceContext().SyncService.GetPagedListOfVisitRecord(request);
             if (!serviceResult.IsSuccess)
                 return Error(serviceResult.Data, serviceResult.Messages);
+            viewConfig.UpdateValues(serviceResult.Data.List);
             return Json(new { total = serviceResult.Data.Count, rows = serviceResult.Data.List.ToList() });
         }
 
@@ -91,6 +91,7 @@ namespace FS.SyncManager.Controllers
             var serviceResult = new ServiceContext().SyncService.GetPagedListOfSyncOrder(request);
             if (!serviceResult.IsSuccess)
                 return Error(serviceResult.Data, serviceResult.Messages);
+            viewConfig.UpdateValues(serviceResult.Data.List);
             return Json(new { total = serviceResult.Data.Count, rows = serviceResult.Data.List.ToList() });
         }
 

@@ -62,22 +62,26 @@
         return theRequest[name];
     },
     //下拉项处理,data需为[{value,text},{value,text}]
-    select: function select(type, resultType, controlId) {
+    select: function select(type, isForceChange, controlId) {
         $.ajax({
-            url: '/Append/GetDropDowns?type=' + type + '&resultType=' + resultType,
+            url: '/Home/GetDropDowns?type=' + type + '&isForceChange=' + isForceChange,
             type: 'get',
             dataType: 'json',
             success: function (data) {
-                for (var i = 0; i < data.length; i++) {
-                    $(controlId).append("<option value='" + data[i].value + "'>" + data[i].text + "</option>");
-                }
+                $(controlId).combobox({
+                    valueField: 'value',
+                    textField: 'text',
+                    multiple: false,
+                    required: false,
+                    data: data
+                });
             }
         });
     },
     //下拉项处理,data需为[text,text]
     multiSelect: function multiSelect(type, resultType, controlId, isEdit) {
         $.ajax({
-            url: '/Append/GetDropDowns?type=' + type + '&resultType=' + resultType,
+            url: '/Home/GetDropDowns?type=' + type + '&isForceChange=' + resultType,
             type: 'get',
             dataType: 'json',
             success: function (data) {

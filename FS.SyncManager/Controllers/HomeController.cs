@@ -31,6 +31,44 @@ namespace FS.SyncManager.Controllers
             return View();
         }
 
+        #region JsonConfig
+        static Dictionary<string, string> JsonConfigs = new Dictionary<string, string>();
+        /// <summary>
+        /// 获取下拉项        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="isForceChange"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [AllowAnonymous]
+        public JsonResult GetDropDowns(string type, bool isForceChange)
+        {
+            var file = (Path.Combine(AppContext.BaseDirectory, "JsonConfigs", type + ".json"));
+            if (!System.IO.File.Exists(file))
+            {
+                List<DropDownItem> values = new List<DropDownItem>()
+                {
+                    new DropDownItem("请联系管理员配置","请联系管理员配置"),
+                };
+                System.IO.File.WriteAllText(file, Newtonsoft.Json.JsonConvert.SerializeObject(values));
+                return Json(values, JsonRequestBehavior.AllowGet);
+            }
+            var data = System.IO.File.ReadAllText(file);
+            var entity = Newtonsoft.Json.JsonConvert.DeserializeObject<List<DropDownItem>>(data);
+            return Json(entity, JsonRequestBehavior.AllowGet);
+        }
+        public class DropDownItem
+        {
+            public DropDownItem(string text, string value)
+            {
+                this.text = text;
+                this.value = value;
+            }
+
+            public string text { set; get; }
+            public string value { set; get; }
+        }
+        #endregion
+
         #region XMLConfig
 
         public class GetListConfigRequest

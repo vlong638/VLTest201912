@@ -221,7 +221,7 @@
     <Compile Include="Business\SemiAutoExport\FileConfigField.cs" />
     <Compile Include="Business\SemiAutoExport\FileConfigSource.cs" />
     <Compile Include="Business\SemiAutoExport\IAllService.cs" />
-    <Content Include="Common\Scripts\Common-1.0.6.js">
+    <Content Include="Common\Scripts\Common-1.0.9.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Common\Scripts\Common_EasyUI-1.0.1.js">
