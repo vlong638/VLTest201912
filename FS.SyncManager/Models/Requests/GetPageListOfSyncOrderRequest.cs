@@ -107,12 +107,12 @@ from
     select *
     from  
     (
-        select pi.personname,pi.idcard,{string.Join(",", FieldNames.Select(c => "sall." + c))} 
+        select pi.PersonName,pi.Idcard,{string.Join(",", FieldNames.Select(c => "sall." + c))} 
         from SyncForFS sall
         left join PregnantInfo pi on sall.SourceType = 1 and sall.SourceId = pi.id
         where sall.SourceType = 1 {GetWhereCondition()}
         Union
-        select pi.personname,pi.idcard,{string.Join(",", FieldNames.Select(c => "sall." + c))} 
+        select pi.PersonName,pi.Idcard,{string.Join(",", FieldNames.Select(c => "sall." + c))} 
         from SyncForFS sall
         left join MHC_VisitRecord vr on sall.SourceType = 2 and sall.SourceId = vr.id
         left join PregnantInfo pi on vr.Idcard= pi.Idcard

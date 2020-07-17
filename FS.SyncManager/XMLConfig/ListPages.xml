@@ -288,7 +288,7 @@
 	<OrderBy ComponentName="id" IsAsc="False" />
 	<!--Selects-->
 	<Property IsNeedOnPage="true" IsNeedOnDatabase="true" DisplayName="编号" ColumnName="id" DisplayType="None" DisplayWidth="60" IsSortable="true" DataType="int" Description="编号" />
-	<Property IsNeedOnPage="true" DisplayName="姓名" ColumnName="personname" DisplayType="None" DisplayWidth="60" IsSortable="true" DataType="char" Description="" />
+	<Property IsNeedOnPage="true" DisplayName="姓名" ColumnName="PersonName" DisplayType="None" DisplayWidth="60" IsSortable="true" DataType="char" Description="" />
 	<Property IsNeedOnPage="true" IsNeedOnDatabase="true" DisplayName="身份证" ColumnName="idcard" DisplayType="None" DisplayWidth="180" IsSortable="False" DataType="varchar" Description="身份证" />
 	<Property IsNeedOnPage="true" IsNeedOnDatabase="true" DisplayName="检查日期" ColumnName="visitdate" DisplayType="Date" DisplayWidth="100" IsSortable="true" DataType="date" Description="检查时间" />
 	<Property IsNeedOnPage="true" DisplayName="最近同步时间(体格检查)" ColumnName="LastSyncTimeToPhysicalExamination" DisplayType="DateTime" DisplayWidth="180" IsSortable="False" DataType="char" Description="" />
