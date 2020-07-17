@@ -155,6 +155,10 @@
     <Content Include="Content\easyui\demo.css" />
     <Content Include="Content\easyui\easyui.css" />
     <Content Include="Content\easyui\icon.css" />
+    <Content Include="Content\easyui\icons\edit_add.png" />
+    <Content Include="Content\easyui\images\datagrid_icons.png" />
+    <Content Include="Content\easyui\images\loading.gif" />
+    <Content Include="Content\easyui\images\pagination_icons.png" />
     <Content Include="Content\themes\black\accordion.css" />
     <Content Include="Content\themes\black\calendar.css" />
     <Content Include="Content\themes\black\combo.css" />
