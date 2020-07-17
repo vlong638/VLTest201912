@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 
 namespace FrameworkTest.Common.ValuesSolution
@@ -41,10 +42,21 @@ namespace FrameworkTest.Common.ValuesSolution
         {
             if (value == null)
                 return null;
-
-            var name = value.ToString();
+            int i;
+            string name;
+            if (int.TryParse(value.ToString(),out i))
+            {
+                name = t.GetEnumName(i);
+            }
+            else
+            {
+                name = value.ToString();
+            }
             var field = t.GetField(name);
-            if (field == null) return name;
+            if (field == null)
+            { 
+                return null;
+            }
             var att = Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute), false);
             return att == null ? field.Name : ((DescriptionAttribute)att).Description;
         }
