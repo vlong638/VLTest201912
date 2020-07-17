@@ -15,52 +15,14 @@ using System.Web;
 
 namespace FrameworkTest.Business.SDMockCommit
 {
-    public class SDService
+    public class PregnantService
     {
-        public static string ConntectingStringSD = "Data Source=201.201.201.89;Initial Catalog=HL_Pregnant;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sdfy;Password=sdfy123456";
-        public static DbContext GetDBContext { get { return DBHelper.GetDbContext(SDBLL.ConntectingStringSD); } }
-
-
-        public static List<PregnantInfo> TempPregnantInfos = new List<PregnantInfo>();
-        //BaseInfo baseInfo = new BaseInfo()
-        //{
-        //    UserId = "35000528",
-        //    UserName = "廖凤贤",
-        //    OrgId = "45608491-9",
-        //    OrgName = "佛山市妇幼保健院",
-        //};
-        public static UserInfo UserInfo = new UserInfo()
-        {
-            UserId = "35021069",
-            UserName = "赵卓姝",
-            OrgId = "45608491-9",
-            OrgName = "佛山市妇幼保健院",
-            EncodeUserName = HttpUtility.UrlEncode("赵卓姝"),
-        };
-
+        public static string ConntectingString = "Data Source=201.201.201.89;Initial Catalog=HL_Pregnant;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sdfy;Password=sdfy123456";
         private DbContext DBContext;
 
-        public SDService(DbContext context)
+        public PregnantService(DbContext context)
         {
             this.DBContext = context;
-        }
-
-
-        internal static string GetPhysicalExaminationId(UserInfo userInfo, WCQBJ_CZDH_DOCTOR_READResponse base8, DateTime issueDate, ref StringBuilder logger)
-        {
-            var container = new CookieContainer();
-            var dateStr = issueDate.ToString("yyyy-MM-dd");
-            //获取体格检查Id
-            var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_TODAY_CQJC_ID_READ&sUserID={userInfo.UserId}&sParams={base8.MainId}${dateStr}";
-            var postData = "";
-            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
-            logger.AppendLine($"查询-获取体格检查Id");
-            logger.AppendLine(url);
-            logger.AppendLine(result);
-            var re2 = result.FromJson<WMH_TODAY_CQJC_ID_READ>();
-            if (string.IsNullOrEmpty(re2.d1))
-                return null;
-            return re2.d1;
         }
 
         #region SyncOrder
@@ -125,8 +87,6 @@ namespace FrameworkTest.Business.SDMockCommit
         }
 
         #endregion
-
-
 
     }
 }

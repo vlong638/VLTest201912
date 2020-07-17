@@ -17,17 +17,29 @@ namespace FrameworkTest.Business.SDMockCommit
 {
     public class ServiceContext
     {
-        public string ConntectingStringSD = "Data Source=201.201.201.89;Initial Catalog=HL_Pregnant;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sdfy;Password=sdfy123456";
-        public DbContext Hele_DBContext { get { return DBHelper.GetDbContext(SDService.ConntectingStringSD); } }
+        public string ConnectingString_Pregnant = "Data Source=201.201.201.89;Initial Catalog=HL_Pregnant;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sdfy;Password=sdfy123456";
 
-        public SDService SDService
+        public DbContext DBContext_Pregnant { get { return DBHelper.GetDbContext(PregnantService.ConntectingString); } }
+        public DbContext DBContext_ESB { get { return DBHelper.GetDbContext(ESBService.ConntectingString); } }
+
+        public PregnantService PregnantService
         {
             get
             {
-                var context = Hele_DBContext;
-                return new SDService(context);
+                var context = DBContext_Pregnant;
+                return new PregnantService(context);
             }
         }
+
+        public ESBService ESBService
+        {
+            get
+            {
+                var context = DBContext_ESB;
+                return new ESBService(context);
+            }
+        }
+
         public FSService FSService
         {
             get

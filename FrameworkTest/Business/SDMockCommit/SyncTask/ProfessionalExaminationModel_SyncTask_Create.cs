@@ -20,7 +20,7 @@ namespace FrameworkTest.Business.SDMockCommit
 
         public override List<ProfessionalExaminationModel_SourceData> GetSourceDatas(UserInfo userInfo)
         {
-            return Context.SDService.GetProfessionalExaminationsToCreate().Select(c => new ProfessionalExaminationModel_SourceData(c)).ToList();
+            return Context.PregnantService.GetProfessionalExaminationsToCreate().Select(c => new ProfessionalExaminationModel_SourceData(c)).ToList();
         }
 
 
@@ -43,7 +43,7 @@ namespace FrameworkTest.Business.SDMockCommit
                 {
                     syncOrder.SyncStatus = SyncStatus.Error;
                     syncOrder.ErrorMessage = "未获取到 Base8";
-                    context.SDService.SaveSyncOrder(syncOrder);
+                    context.PregnantService.SaveSyncOrder(syncOrder);
                     return;
                 }
 
@@ -53,7 +53,7 @@ namespace FrameworkTest.Business.SDMockCommit
                 {
                     syncOrder.SyncStatus = SyncStatus.Error;
                     syncOrder.ErrorMessage = "未获取到体格检查Id";
-                    context.SDService.SaveSyncOrder(syncOrder);
+                    context.PregnantService.SaveSyncOrder(syncOrder);
                     return;
                 }
 
@@ -65,7 +65,7 @@ namespace FrameworkTest.Business.SDMockCommit
                 {
                     syncOrder.SyncStatus = SyncStatus.Error;
                     syncOrder.ErrorMessage = "未获取到高危数据全量列表";
-                    context.SDService.SaveSyncOrder(syncOrder);
+                    context.PregnantService.SaveSyncOrder(syncOrder);
                     return;
                 }
                 ////获取高危数据变量
@@ -95,7 +95,7 @@ namespace FrameworkTest.Business.SDMockCommit
                     {
                         syncOrder.SyncStatus = SyncStatus.Error;
                         syncOrder.ErrorMessage = "更新高危数据时出错";
-                        context.SDService.SaveSyncOrder(syncOrder);
+                        context.PregnantService.SaveSyncOrder(syncOrder);
                         return;
                     }
                 }
@@ -123,7 +123,7 @@ namespace FrameworkTest.Business.SDMockCommit
                 {
                     syncOrder.SyncStatus = SyncStatus.Error;
                     syncOrder.ErrorMessage = "保存专科检查时,未返回成功";
-                    context.SDService.SaveSyncOrder(syncOrder);
+                    context.PregnantService.SaveSyncOrder(syncOrder);
                     return;
                 }
 
@@ -133,7 +133,7 @@ namespace FrameworkTest.Business.SDMockCommit
                 {
                     syncOrder.SyncStatus = SyncStatus.Error;
                     syncOrder.ErrorMessage = "未成功创建数据";
-                    context.SDService.SaveSyncOrder(syncOrder);
+                    context.PregnantService.SaveSyncOrder(syncOrder);
                     return;
                 }
                 if (highRisksToSave.CurrentHighRisks.Count != 0)
@@ -142,7 +142,7 @@ namespace FrameworkTest.Business.SDMockCommit
                     logger.AppendLine(string.Join(",", highRisksToSave.CurrentHighRisks.Select(c => c.D5)));
                 }
 
-                context.SDService.SaveSyncOrder(syncOrder);
+                context.PregnantService.SaveSyncOrder(syncOrder);
             }
 
             catch (Exception ex)
@@ -151,7 +151,7 @@ namespace FrameworkTest.Business.SDMockCommit
 
                 syncOrder.SyncStatus = SyncStatus.Error;
                 syncOrder.ErrorMessage = ex.ToString();
-                context.SDService.SaveSyncOrder(syncOrder);
+                context.PregnantService.SaveSyncOrder(syncOrder);
             }
 
             finally

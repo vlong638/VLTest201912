@@ -20,12 +20,12 @@ namespace FrameworkTest.Business.SDMockCommit
 
         public override List<PregnantInfo_SourceData> GetSourceDatas(UserInfo userInfo)
         {
-            return Context.SDService.GetPregnantInfoForUpdate().Select(c => new PregnantInfo_SourceData(c)).ToList();
+            return Context.PregnantService.GetPregnantInfoForUpdate().Select(c => new PregnantInfo_SourceData(c)).ToList();
         }
 
         public override void DoWork(ServiceContext context, UserInfo userInfo, PregnantInfo_SourceData sourceData)
         {
-            var syncOrder = Context.SDService.GetSyncOrder(sourceData.TargetType, sourceData.SourceId);
+            var syncOrder = Context.PregnantService.GetSyncOrder(sourceData.TargetType, sourceData.SourceId);
             syncOrder.SyncTime = DateTime.Now;
             StringBuilder logger = new StringBuilder();
             try
@@ -39,7 +39,7 @@ namespace FrameworkTest.Business.SDMockCommit
                     {
                         syncOrder.SyncStatus = SyncStatus.Error;
                         syncOrder.ErrorMessage = "未获取到 Base8";
-                        context.SDService.SaveSyncOrder(syncOrder);
+                        context.PregnantService.SaveSyncOrder(syncOrder);
                         return;
                     }
                     //获取用户信息
@@ -48,7 +48,7 @@ namespace FrameworkTest.Business.SDMockCommit
                     {
                         syncOrder.SyncStatus = SyncStatus.Error;
                         syncOrder.ErrorMessage = "未获取到 Base77";
-                        context.SDService.SaveSyncOrder(syncOrder);
+                        context.PregnantService.SaveSyncOrder(syncOrder);
                         return;
                     }
                     //更新用户数据
@@ -60,7 +60,7 @@ namespace FrameworkTest.Business.SDMockCommit
                     {
                         syncOrder.SyncStatus = SyncStatus.Error;
                         syncOrder.ErrorMessage = "更新未返回成功标识";
-                        context.SDService.SaveSyncOrder(syncOrder);
+                        context.PregnantService.SaveSyncOrder(syncOrder);
                         return;
                     }
                 }
@@ -68,7 +68,7 @@ namespace FrameworkTest.Business.SDMockCommit
                 {
                     syncOrder.SyncStatus = SyncStatus.NotExisted;
                     syncOrder.ErrorMessage = "待更新用户数据不存在";
-                    context.SDService.SaveSyncOrder(syncOrder);
+                    context.PregnantService.SaveSyncOrder(syncOrder);
                     return;
 
 
@@ -147,7 +147,7 @@ namespace FrameworkTest.Business.SDMockCommit
                     //}
                 }
                 //保存同步记录
-                context.SDService.SaveSyncOrder(syncOrder);
+                context.PregnantService.SaveSyncOrder(syncOrder);
             }
             catch (Exception ex)
             {
@@ -155,7 +155,7 @@ namespace FrameworkTest.Business.SDMockCommit
 
                 syncOrder.SyncStatus = SyncStatus.Error;
                 syncOrder.ErrorMessage = ex.ToString();
-                context.SDService.SaveSyncOrder(syncOrder);
+                context.PregnantService.SaveSyncOrder(syncOrder);
             }
             finally
             {

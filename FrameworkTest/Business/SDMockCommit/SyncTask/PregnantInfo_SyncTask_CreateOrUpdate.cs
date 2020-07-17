@@ -20,12 +20,12 @@ namespace FrameworkTest.Business.SDMockCommit
 
         public override List<PregnantInfo_SourceData> GetSourceDatas(UserInfo userInfo)
         {
-            return Context.SDService.GetPregnantInfoForCreateOrUpdate().Select(c => new PregnantInfo_SourceData(c)).ToList();
+            return Context.PregnantService.GetPregnantInfoForCreateOrUpdate().Select(c => new PregnantInfo_SourceData(c)).ToList();
         }
 
         public override void DoWork(ServiceContext context, UserInfo userInfo, PregnantInfo_SourceData sourceData)
         {
-            var syncOrder = Context.SDService.GetSyncOrder(sourceData.TargetType, sourceData.SourceId) ?? new SyncOrder()
+            var syncOrder = Context.PregnantService.GetSyncOrder(sourceData.TargetType, sourceData.SourceId) ?? new SyncOrder()
             {
                 SourceId = sourceData.SourceId,
                 TargetType = sourceData.TargetType,
@@ -45,7 +45,7 @@ namespace FrameworkTest.Business.SDMockCommit
                     {
                         syncOrder.SyncStatus = SyncStatus.Error;
                         syncOrder.ErrorMessage = "未获取到 Base8";
-                        context.SDService.SaveSyncOrder(syncOrder);
+                        context.PregnantService.SaveSyncOrder(syncOrder);
                         return;
                     }
 
@@ -54,7 +54,7 @@ namespace FrameworkTest.Business.SDMockCommit
                     {
                         syncOrder.SyncStatus = SyncStatus.Error;
                         syncOrder.ErrorMessage = "未获取到 Base77";
-                        context.SDService.SaveSyncOrder(syncOrder);
+                        context.PregnantService.SaveSyncOrder(syncOrder);
                         return;
                     }
 
@@ -67,7 +67,7 @@ namespace FrameworkTest.Business.SDMockCommit
                     {
                         syncOrder.SyncStatus = SyncStatus.Error;
                         syncOrder.ErrorMessage = "更新未返回成功标识";
-                        context.SDService.SaveSyncOrder(syncOrder);
+                        context.PregnantService.SaveSyncOrder(syncOrder);
                         return;
                     }
                 }
@@ -80,7 +80,7 @@ namespace FrameworkTest.Business.SDMockCommit
                     {
                         syncOrder.SyncStatus = SyncStatus.Error;
                         syncOrder.ErrorMessage = "未获取到 患者主索引";
-                        context.SDService.SaveSyncOrder(syncOrder);
+                        context.PregnantService.SaveSyncOrder(syncOrder);
                         return;
                     }
                     //获取 CareId
@@ -96,7 +96,7 @@ namespace FrameworkTest.Business.SDMockCommit
                         {
                             syncOrder.SyncStatus = SyncStatus.Error;
                             syncOrder.ErrorMessage = "未获取到 保健号";
-                            context.SDService.SaveSyncOrder(syncOrder);
+                            context.PregnantService.SaveSyncOrder(syncOrder);
                             return;
                         }
                         //保健号查重
@@ -113,7 +113,7 @@ namespace FrameworkTest.Business.SDMockCommit
                     {
                         Console.WriteLine($"孕妇{sourceData.PersonName}查重时异常");
                         syncOrder.SyncStatus = SyncStatus.Repeated;
-                        context.SDService.SaveSyncOrder(syncOrder);
+                        context.PregnantService.SaveSyncOrder(syncOrder);
                         return;
                     }
                     else
@@ -144,12 +144,12 @@ namespace FrameworkTest.Business.SDMockCommit
                     {
                         syncOrder.SyncStatus = SyncStatus.Error;
                         syncOrder.ErrorMessage = "基本数据未成功创建";
-                        context.SDService.SaveSyncOrder(syncOrder);
+                        context.PregnantService.SaveSyncOrder(syncOrder);
                     }
                     syncOrder.ErrorMessage = $"{{ mainId:'{mainId}',careId:'{careId}'}}";
                 }
                 //保存同步记录
-                context.SDService.SaveSyncOrder(syncOrder);
+                context.PregnantService.SaveSyncOrder(syncOrder);
             }
             catch (Exception ex)
             {
@@ -157,7 +157,7 @@ namespace FrameworkTest.Business.SDMockCommit
 
                 syncOrder.SyncStatus = SyncStatus.Error;
                 syncOrder.ErrorMessage = ex.ToString();
-                context.SDService.SaveSyncOrder(syncOrder);
+                context.PregnantService.SaveSyncOrder(syncOrder);
             }
             finally
             {

@@ -142,6 +142,7 @@
     <Compile Include="Business\SDMockCommit\Entities\ProfessionalExaminationModel.cs" />
     <Compile Include="Business\SDMockCommit\Entities\PhysicalExaminationModel.cs" />
     <Compile Include="Business\SDMockCommit\Entities\PregnantInfo.cs" />
+    <Compile Include="Business\SDMockCommit\Services\ESBService.cs" />
     <Compile Include="Business\SDMockCommit\RequestAndResponse\WMH_CQBJ_CQJC_READ.cs" />
     <Compile Include="Business\SDMockCommit\RequestAndResponse\WMH_CQBJ_CQJC_SAVE.cs" />
     <Compile Include="Business\SDMockCommit\RequestAndResponse\WMH_WCQBJ_GWYCF_SCORE_SAVE.cs" />
@@ -153,8 +154,8 @@
     <Compile Include="Business\SDMockCommit\RequestAndResponse\WMH_CQBJ_CQJC_PRE_READ.cs" />
     <Compile Include="Business\SDMockCommit\RequestAndResponse\Response_MQDA_READ_NEW.cs" />
     <Compile Include="Business\SDMockCommit\RequestAndResponse\Data_MQDA_XWBS_SAVE.cs" />
-    <Compile Include="Business\SDMockCommit\FSService.cs" />
-    <Compile Include="Business\SDMockCommit\SDService.cs" />
+    <Compile Include="Business\SDMockCommit\Services\FSService.cs" />
+    <Compile Include="Business\SDMockCommit\Services\PregnantService.cs" />
     <Compile Include="Business\SDMockCommit\ServiceContext.cs" />
     <Compile Include="Business\SDMockCommit\SDDAL.cs" />
     <Compile Include="Business\SDMockCommit\RequestAndResponse\Response_WMH_CQBJ_JBXX_FORM_READ.cs" />
