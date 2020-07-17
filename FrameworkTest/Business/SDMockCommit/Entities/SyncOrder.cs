@@ -70,6 +70,7 @@ namespace FrameworkTest.Business.SDMockCommit
         Existed = 11,//已存在
         NotExisted = 12,//未存在
         Repeated = 13,//查重出错
+        Conflict = 14,//冲突,对方存在不同预产期的数据
         Success = 2,//处理成功
         Test = 99,//更新成功 仅作测试使用
     }
