@@ -29,7 +29,6 @@ namespace FS.SyncManager
 
             bundles.Add(new StyleBundle("~/Content/easyui").Include(
                          "~/Content/easyui/color.css"
-                        , "~/Content/easyui/demo.css"
                         , "~/Content/easyui/easyui.css"
                         , "~/Content/easyui/icon.css"));
             #endregion
