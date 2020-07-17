@@ -24,7 +24,7 @@ namespace FS.SyncManager.Service
         {
             var result = DbContext.DbGroup.DelegateTransaction(() =>
             {
-                var list = PregnantInfoRepository.GetPregnantInfoPagedList(request).ToList();
+                var list = PregnantInfoRepository.GetPregnantInfoPagedList(request);
                 var count = PregnantInfoRepository.GetPregnantInfoPagedListCount(request);
                 return new VLPageResult<Dictionary<string, object>>() { List = list, Count = count, CurrentIndex = request.PageIndex };
             });
@@ -34,13 +34,13 @@ namespace FS.SyncManager.Service
 
         #region VisitRecord
         VisitRecordRepository VisitRecordRepository { get { return new VisitRecordRepository(DbContext); } }
-        internal ServiceResult<VLPageResult<PagedListOfVisitRecordModel>> GetPagedListOfVisitRecord(GetPagedListOfVisitRecordRequest request)
+        internal ServiceResult<VLPageResult<Dictionary<string, object>>> GetPagedListOfVisitRecord(GetPagedListOfVisitRecordRequest request)
         {
             var result = DbContext.DbGroup.DelegateTransaction(() =>
             {
                 var list = VisitRecordRepository.GetVisitRecordPagedList(request);
                 var count = VisitRecordRepository.GetVisitRecordPagedListCount(request);
-                return new VLPageResult<PagedListOfVisitRecordModel>() { List = list, Count = count, CurrentIndex = request.PageIndex };
+                return new VLPageResult<Dictionary<string, object>>() { List = list, Count = count, CurrentIndex = request.PageIndex };
             });
             return result;
         }
@@ -48,13 +48,13 @@ namespace FS.SyncManager.Service
 
         #region SyncOrder
         SyncOrderRepository SyncOrderRepository { get { return new SyncOrderRepository(DbContext); } }
-        internal ServiceResult<VLPageResult<PagedListOfSyncOrderModel>> GetPagedListOfSyncOrder(GetPagedListOfSyncOrderRequest request)
+        internal ServiceResult<VLPageResult<Dictionary<string, object>>> GetPagedListOfSyncOrder(GetPagedListOfSyncOrderRequest request)
         {
             var result = DbContext.DbGroup.DelegateTransaction(() =>
             {
                 var list = SyncOrderRepository.GetSyncOrderPagedList(request);
                 var count = SyncOrderRepository.GetSyncOrderPagedListCount(request);
-                return new VLPageResult<PagedListOfSyncOrderModel>() { List = list, Count = count, CurrentIndex = request.PageIndex };
+                return new VLPageResult<Dictionary<string, object>>() { List = list, Count = count, CurrentIndex = request.PageIndex };
             });
             return result;
         }

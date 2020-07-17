@@ -9,9 +9,9 @@ using System.Linq;
 
 namespace FS.SyncManager.Repositories
 {
-    public class VisitRecordRepository : RepositoryBase<VisitRecord>
+    public class SyncOrderRepository : RepositoryBase<SyncOrder>
     {
-        public VisitRecordRepository(DbContext context) : base(context)
+        public SyncOrderRepository(DbContext context) : base(context)
         {
         }
 
@@ -20,7 +20,7 @@ namespace FS.SyncManager.Repositories
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        internal List<Dictionary<string, object>> GetVisitRecordPagedList(GetPagedListOfVisitRecordRequest request)
+        internal List<Dictionary<string, object>> GetSyncOrderPagedList(GetPagedListOfSyncOrderRequest request)
         {
             var sql = request.ToListSQL();
             var pars = request.GetParams();
@@ -34,7 +34,7 @@ namespace FS.SyncManager.Repositories
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        internal int GetVisitRecordPagedListCount(GetPagedListOfVisitRecordRequest request)
+        internal int GetSyncOrderPagedListCount(GetPagedListOfSyncOrderRequest request)
         {
             var sql = request.ToCountSQL();
             var pars = request.GetParams();
