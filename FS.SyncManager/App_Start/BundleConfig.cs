@@ -8,6 +8,9 @@ namespace FS.SyncManager
         // 有关捆绑的详细信息，请访问 https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            //Bundle的压缩机制可能导致js损坏...
+            BundleTable.EnableOptimizations = false;
+
             bundles.Add(new ScriptBundle("~/bundles/vl").Include(
                         "~/bin/Common/Scripts/Common-{version}.js"
                         , "~/bin/Common/Scripts/Common_EasyUI-{version}.js"
@@ -28,7 +31,7 @@ namespace FS.SyncManager
                          "~/Content/easyui/color.css"
                         , "~/Content/easyui/demo.css"
                         , "~/Content/easyui/easyui.css"
-                        , "~/Content/easyui/icon.css")); 
+                        , "~/Content/easyui/icon.css"));
             #endregion
 
             //@* easyUI *@
@@ -49,7 +52,7 @@ namespace FS.SyncManager
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css")); 
+                      "~/Content/site.css"));
 
             #endregion
         }
