@@ -36,5 +36,17 @@ namespace FrameworkTest.Common.ValuesSolution
             Enum.TryParse<T>(value, out t);
             return t;
         }
+
+        public static string ToEnumDescription(this object value, Type t)
+        {
+            if (value == null)
+                return null;
+
+            var name = value.ToString();
+            var field = t.GetField(name);
+            if (field == null) return name;
+            var att = Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute), false);
+            return att == null ? field.Name : ((DescriptionAttribute)att).Description;
+        }
     }
 }

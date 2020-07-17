@@ -1,9 +1,11 @@
 ﻿using FrameworkTest.Common.DBSolution;
 using FrameworkTest.Common.PagerSolution;
 using FrameworkTest.Common.ServiceSolution;
+using FrameworkTest.Common.ValuesSolution;
 using FS.SyncManager.Models;
 using FS.SyncManager.Repositories;
 using System;
+using System.Collections.Generic;
 
 namespace FS.SyncManager.Service
 {
@@ -18,13 +20,13 @@ namespace FS.SyncManager.Service
 
         #region PregnantInfo
         PregnantInfoRepository PregnantInfoRepository { get { return new PregnantInfoRepository(DbContext); } }
-        internal ServiceResult<VLPageResult<PagedListOfPregnantInfoModel>> GetPagedListOfPregnantInfo(GetPagedListOfPregnantInfoRequest request)
+        internal ServiceResult<VLPageResult<Dictionary<string,object>>> GetPagedListOfPregnantInfo(GetPagedListOfPregnantInfoRequest request)
         {
             var result = DbContext.DbGroup.DelegateTransaction(() =>
             {
-                var list = PregnantInfoRepository.GetPregnantInfoPagedList(request);
+                var list = PregnantInfoRepository.GetPregnantInfoPagedList(request).ToList();
                 var count = PregnantInfoRepository.GetPregnantInfoPagedListCount(request);
-                return new VLPageResult<PagedListOfPregnantInfoModel>() { List = list, Count = count, CurrentIndex = request.PageIndex };
+                return new VLPageResult<Dictionary<string, object>>() { List = list, Count = count, CurrentIndex = request.PageIndex };
             });
             return result;
         }

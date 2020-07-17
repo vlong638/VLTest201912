@@ -1,4 +1,5 @@
-﻿using FrameworkTest.Common.ValuesSolution;
+﻿using FrameworkTest.Common.PagerSolution;
+using FrameworkTest.Common.ValuesSolution;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,58 @@ namespace FrameworkTest.ConfigurableEntity
             Properties = element.Descendants(EntityAppConfigProperty.ElementName).Select(c => new EntityAppConfigProperty(c)).ToList();
             Wheres = element.Descendants(EntityAppConfigWhere.ElementName).Select(c => new EntityAppConfigWhere(c)).ToList();
             OrderBy = element.Descendants(EntityAppConfigOrderBy.ElementName).Select(c => new EntityAppConfigOrderBy(c)).FirstOrDefault() ?? new EntityAppConfigOrderBy();
+        }
+
+        public void UpdateValues(IEnumerable<Dictionary<string, object>> list)
+        {
+            var validProperties = Properties.Where(c => c.IsNeedOnPage);
+            foreach (var property in validProperties)
+            {
+                switch (property.DisplayType)
+                {
+                    case DisplayType.None:
+                        break;
+                    case DisplayType.Hidden:
+                        break;
+                    case DisplayType.TextString:
+                        break;
+                    case DisplayType.TextInt:
+                        break;
+                    case DisplayType.TextDecimal:
+                        break;
+                    case DisplayType.Date:
+                        foreach (var item in list)
+                        {
+                            var value = item[property.ColumnName];
+                            var dt = value.ToDateTime();
+                            item[property.ColumnName] = dt?.ToString("yyyy-MM-dd");
+                        }
+                        break;
+                    case DisplayType.DateTime:
+                        foreach (var item in list)
+                        {
+                            var value = item[property.ColumnName];
+                            var dt = value.ToDateTime();
+                            item[property.ColumnName] = dt?.ToString("yyyy-MM-dd HH:mm:ss");
+                        }
+                        break;
+                    case DisplayType.Enum:
+                        System.Reflection.Assembly assembly = System.Reflection.Assembly.Load("FrameworkTest");
+                        var type = assembly.ExportedTypes.FirstOrDefault(c => c.Name == property.EnumType);
+                        if (type!=null)
+                        {
+                            foreach (var item in list)
+                            {
+                                var value = item[property.ColumnName];
+                                var description = value.ToEnumDescription(type);
+                                item[property.ColumnName] = description;
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
 
         public XElement ToXElement()

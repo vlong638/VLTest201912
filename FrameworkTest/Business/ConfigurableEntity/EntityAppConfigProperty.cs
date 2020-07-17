@@ -20,6 +20,7 @@ namespace FrameworkTest.ConfigurableEntity
         TextDecimal = 22,
         Date = 3,
         DateTime = 31,
+        Enum = 4,
     }
 
     public class EntityAppConfigProperty
@@ -44,6 +45,10 @@ namespace FrameworkTest.ConfigurableEntity
         /// 显示方案
         /// </summary>
         public DisplayType DisplayType { set; get; }
+        /// <summary>
+        /// 枚举类型
+        /// </summary>
+        public string EnumType { set; get; }
         /// <summary>
         /// 显示宽度
         /// </summary>
@@ -89,6 +94,7 @@ namespace FrameworkTest.ConfigurableEntity
             ColumnName = dbConfig.ColumnName;
             DisplayName = "";
             DisplayType = DisplayType.None;
+            EnumType = "";
             DataType = dbConfig.DataType;
             DisplayWidth = 100;
             IsSortable = false;
@@ -101,6 +107,7 @@ namespace FrameworkTest.ConfigurableEntity
             ColumnName = element.Attribute(nameof(ColumnName))?.Value;
             DisplayName = element.Attribute(nameof(DisplayName))?.Value;
             DisplayType = element.Attribute(nameof(DisplayType))?.Value.ToEnum<DisplayType>() ?? DisplayType.None;
+            EnumType = element.Attribute(nameof(EnumType))?.Value;
             DisplayWidth = element.Attribute(nameof(DisplayWidth))?.Value.ToInt() ?? 100;
             IsSortable = element.Attribute(nameof(IsSortable))?.Value.ToBool() ?? false;
             DataType = element.Attribute(nameof(DataType))?.Value;
@@ -115,6 +122,7 @@ namespace FrameworkTest.ConfigurableEntity
             property.SetAttributeValue(nameof(IsNeedOnPage), IsNeedOnPage);
             property.SetAttributeValue(nameof(IsNeedOnDatabase), IsNeedOnDatabase);
             property.SetAttributeValue(nameof(DisplayName), DisplayName);
+            property.SetAttributeValue(nameof(EnumType), EnumType);
             property.SetAttributeValue(nameof(ColumnName), ColumnName);
             property.SetAttributeValue(nameof(DisplayType), DisplayType.ToString());
             property.SetAttributeValue(nameof(DisplayWidth), DisplayWidth.ToString());

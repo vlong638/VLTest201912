@@ -4,6 +4,7 @@ using FrameworkTest.Common.DBSolution;
 using FS.SyncManager.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 
@@ -20,11 +21,14 @@ namespace FS.SyncManager.Repositories
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>88888
-        internal IEnumerable<PagedListOfPregnantInfoModel> GetPregnantInfoPagedList(GetPagedListOfPregnantInfoRequest request)
+        internal DataTable GetPregnantInfoPagedList(GetPagedListOfPregnantInfoRequest request)
         {
             var sql = request.ToListSQL();
             var pars = request.GetParams();
-            return _context.DbGroup.Connection.Query<PagedListOfPregnantInfoModel>(sql, pars, transaction: _transaction).ToList();
+            var table = new DataTable();
+            var reader = _context.DbGroup.Connection.ExecuteReader(sql, pars, transaction: _transaction);
+            table.Load(reader);
+            return table;
         }
         /// <summary>
         /// 获取孕妇档案分页计数

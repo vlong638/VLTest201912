@@ -1,6 +1,7 @@
 ﻿
 using Dapper.Contrib.Extensions;
 using System;
+using System.ComponentModel;
 
 namespace FrameworkTest.Business.SDMockCommit
 {
@@ -33,44 +34,59 @@ namespace FrameworkTest.Business.SDMockCommit
     }
     public enum SourceType
     {
+        [Description("")]
         None = 0,
         /// <summary>
         /// 孕妇档案
         /// </summary>
+        [Description("孕妇档案")]
         PregnantInfo = 1,
         /// <summary>
         /// 检查
         /// </summary>
+        [Description("孕妇产前检查")]
         MHC_VisitRecord = 2,
     }
     public enum TargetType
     {
+        [Description("")]
         None = 0,
         /// <summary>
         /// 孕妇档案
         /// </summary>
+        [Description("孕妇档案")]
         PregnantInfo = 1,
         /// <summary>
         /// 问询病史
         /// </summary>
+        [Description("问询病史")]
         HistoryEnquiry = 2,
         /// <summary>
         /// 体格检查
         /// </summary>
+        [Description("体格检查")]
         PhysicalExamination = 3,
         /// <summary>
         /// 专科检查
         /// </summary>
+        [Description("专科检查")]
         ProfessionalExamination = 4,
     }
     public enum SyncStatus
     {
+        [Description("")]
         None = 0,
+        [Description("错误")]
         Error = 1,//创建时 出现异常
+        [Description("重复")]
         Existed = 11,//已存在
+        [Description("不存在")]
         NotExisted = 12,//未存在
+        [Description("未获得有效Id")]
         Repeated = 13,//查重出错
+        [Description("数据冲突")]
         Conflict = 14,//冲突,对方存在不同预产期的数据
+        [Description("成功")]
         Success = 2,//处理成功
         Test = 99,//更新成功 仅作测试使用
     }
