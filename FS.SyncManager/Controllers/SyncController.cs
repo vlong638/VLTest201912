@@ -15,11 +15,20 @@ namespace FS.SyncManager.Controllers
     {
         #region PregnantInfo
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult PregnantInfoList()
         {
             return View();
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost]
         public JsonResult GetPagedListOfPregnantInfo(GetPagedListOfPregnantInfoRequest request)
         {
@@ -37,11 +46,20 @@ namespace FS.SyncManager.Controllers
 
         #region VisitRecord
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult VisitRecordList()
         {
             return View();
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost]
         public JsonResult GetPagedListOfVisitRecord(GetPagedListOfVisitRecordRequest request)
         {
@@ -73,7 +91,10 @@ namespace FS.SyncManager.Controllers
                 return Error(serviceResult.Data, serviceResult.Messages);
             return Success(serviceResult.Data);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult SyncOrderList()
         {

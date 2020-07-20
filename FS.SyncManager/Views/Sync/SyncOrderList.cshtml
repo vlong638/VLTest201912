@@ -27,6 +27,28 @@
         $("#db_list").datagrid('load', param);
     }
 
+    function deleteLog(id) {
+        if (id <= 0) {
+            jAlert("id异常,无效的记录id");
+        }
+
+        vl.confirm(vlConstraints.Sync_DeleteSync, function () { vl.alert('OK') }, function () { vl.alert('Cancel') });
+
+        //$.ajax({
+        //    url: '/Sync/DeleteSyncOrder',
+        //    type: 'post',
+        //    dataType: 'json',
+        //    data: {
+        //        syncOrderId: id
+        //    },
+        //    success: function (resp) {
+        //        if (resp.msg) {
+        //            alert(resp.msg);
+        //        }
+        //    }
+        //});
+    }
+
     $(function () {
         vl.select("SyncStatus", false, "#where_SyncStatus");
         var customConfigId = vl.getQueryString("CustomConfigId");
@@ -42,15 +64,42 @@
                         if (resp.msg != null && resp.msg != "") {
                             ShowMessage(resp.msg);
                         }
-                        console.log(1);
                         configData = resp.Data;
-
+                        console.log(1);
                         vl_easyui.config(configData.CustomConfigId);
                         vl_easyui.wheres(configData.ViewConfig);
                         var columns = vl_easyui.properties(configData.ViewConfig);
-                        for (var i = 0; i < columns.len(); i++) {
-                            var column = columns[i];
-                        }
+                        var operateColumn = {
+                            field: 'none', title: '操作', width: 200, halign: 'center', align: 'left'
+                            , formatter: function (value, row, index) {
+                                var id = row.Id;
+                                var str = '<a href="#" class="easyui-linkbutton" plain="true" onclick="deleteLog(' + id + ')">清理同步记录</a>';
+                                return str;
+                            }
+                        };
+                        columns[0].push(operateColumn);
+
+                        //for (var i = 0; i < columns.length; i++) {
+                        //    var column = columns[i];
+                        //    column.formatter = function (value, row, index) {
+                        //        var linglih = row.binglih;
+                        //        var chanfuId = row.id;
+                        //        var userName = $("#UserName").val();
+                        //        //console.log(userName);
+                        //        var str = /*'<a href="www.baidu.com"> jump </a>'*/
+                        //            '&nbsp;&nbsp;<a target="_blank" href="DisplayForWaitDelivery?binglih=' + linglih + '" name="viewInfo" class="easyui-linkbutton">产前记录</a>'
+                        //            + '&nbsp;&nbsp;<a target="_blank" href="DisplayForDelivery?binglih=' + linglih + '&index=1" name="viewInfo" class="easyui-linkbutton">分娩记录</a>'
+                        //            + '&nbsp;&nbsp;<a target="_blank" href="DisplayForBabyRecord?binglih=' + linglih + '&index=1" name="viewInfo" class="easyui-linkbutton">新生儿记录</a>'
+                        //            + '&nbsp;&nbsp;<a target="_blank" href="DisplayForPostnatalRecord?binglih=' + linglih + '" name="viewInfo" class="easyui-linkbutton">产后记录</a>'
+                        //            + '&nbsp;&nbsp;<a target="_blank" href="DisplayForProductChart?binglih=' + linglih + '" name="viewInfo" class="easyui-linkbutton">产程图</a>'
+                        //            + '&nbsp;&nbsp;<a target="_blank" href="DisplayForTXJH?chanfuId=' + chanfuId + '" name="viewInfo" class="easyui-linkbutton">胎心监护</a>'
+                        //        if (userName == "系统") {
+                        //            + '&nbsp;&nbsp;<a href="#" name="deleteItem" class="easyui-linkbutton"  onclick="deletePregnant(' + chanfuId + ')">删除孕妇</a>'
+                        //        }
+                        //        ;
+                        //        return str;
+                        //    };
+                        //}
                         //init
                         $("#db_list").datagrid({
                             url: "GetPageListOfSyncOrder",

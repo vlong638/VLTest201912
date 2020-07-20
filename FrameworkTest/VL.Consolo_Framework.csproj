@@ -221,10 +221,13 @@
     <Compile Include="Business\SemiAutoExport\FileConfigField.cs" />
     <Compile Include="Business\SemiAutoExport\FileConfigSource.cs" />
     <Compile Include="Business\SemiAutoExport\IAllService.cs" />
-    <Content Include="Common\Scripts\Common-1.0.9.js">
+    <Content Include="Common\Scripts\Common-Constraints-1.0.0.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Common\Scripts\Common_EasyUI-1.0.1.js">
+    <Content Include="Common\Scripts\Common-1.0.11.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Common\Scripts\Common-EasyUI-1.0.1.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

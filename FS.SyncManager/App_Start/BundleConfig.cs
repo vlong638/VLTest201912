@@ -13,7 +13,8 @@ namespace FS.SyncManager
 
             bundles.Add(new ScriptBundle("~/bundles/vl").Include(
                         "~/bin/Common/Scripts/Common-{version}.js"
-                        , "~/bin/Common/Scripts/Common_EasyUI-{version}.js"
+                        , "~/bin/Common/Scripts/Common-EasyUI-{version}.js"
+                        , "~/bin/Common/Scripts/Common-Constraints-{version}.js"
                         ));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(

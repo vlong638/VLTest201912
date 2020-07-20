@@ -1,4 +1,19 @@
 ﻿vl = {
+    alert: function (message) {
+        window.alert(message);
+    },
+    confirm: function (message, ok, cancel) {
+        var result = window.confirm(message);
+        if (result) {
+            if (ok) {
+                ok();
+            }
+        } else {
+            if (cancel) {
+                cancel();
+            }
+        }
+    },
     //转换成：2016-07-11
     getDate: function getDate(value) {
         if (value == null) {
@@ -94,8 +109,4 @@
             }
         });
     }
-}
-
-function dFormat(i) {
-    return i < 10 ? "0" + i.toString() : i;
 }
