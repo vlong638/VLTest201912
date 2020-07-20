@@ -311,66 +311,66 @@
   margin-left: -1px;
 }
 .tabs-scroller-left {
-  background: #3d3d3d url('images/tabs_icons.png') no-repeat 1px center;
+  background: #E0ECFF url('images/tabs_icons.png') no-repeat 1px center;
 }
 .tabs-scroller-right {
-  background: #3d3d3d url('images/tabs_icons.png') no-repeat -15px center;
+  background: #E0ECFF url('images/tabs_icons.png') no-repeat -15px center;
 }
 .tabs li a.tabs-close {
   background: url('images/tabs_icons.png') no-repeat -34px center;
 }
 .tabs li a.tabs-inner:hover {
-  background: #777;
-  color: #fff;
+  background: #eaf2ff;
+  color: #000000;
   filter: none;
 }
 .tabs li.tabs-selected a.tabs-inner {
-  background-color: #666;
-  color: #fff;
-  background: -webkit-linear-gradient(top,#454545 0,#666 100%);
-  background: -moz-linear-gradient(top,#454545 0,#666 100%);
-  background: -o-linear-gradient(top,#454545 0,#666 100%);
-  background: linear-gradient(to bottom,#454545 0,#666 100%);
+  background-color: #ffffff;
+  color: #0E2D5F;
+  background: -webkit-linear-gradient(top,#EFF5FF 0,#ffffff 100%);
+  background: -moz-linear-gradient(top,#EFF5FF 0,#ffffff 100%);
+  background: -o-linear-gradient(top,#EFF5FF 0,#ffffff 100%);
+  background: linear-gradient(to bottom,#EFF5FF 0,#ffffff 100%);
   background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#454545,endColorstr=#666,GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#EFF5FF,endColorstr=#ffffff,GradientType=0);
 }
 .tabs-header-bottom .tabs li.tabs-selected a.tabs-inner {
-  background: -webkit-linear-gradient(top,#666 0,#454545 100%);
-  background: -moz-linear-gradient(top,#666 0,#454545 100%);
-  background: -o-linear-gradient(top,#666 0,#454545 100%);
-  background: linear-gradient(to bottom,#666 0,#454545 100%);
+  background: -webkit-linear-gradient(top,#ffffff 0,#EFF5FF 100%);
+  background: -moz-linear-gradient(top,#ffffff 0,#EFF5FF 100%);
+  background: -o-linear-gradient(top,#ffffff 0,#EFF5FF 100%);
+  background: linear-gradient(to bottom,#ffffff 0,#EFF5FF 100%);
   background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#666,endColorstr=#454545,GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff,endColorstr=#EFF5FF,GradientType=0);
 }
 .tabs-header-left .tabs li.tabs-selected a.tabs-inner {
-  background: -webkit-linear-gradient(left,#454545 0,#666 100%);
-  background: -moz-linear-gradient(left,#454545 0,#666 100%);
-  background: -o-linear-gradient(left,#454545 0,#666 100%);
-  background: linear-gradient(to right,#454545 0,#666 100%);
+  background: -webkit-linear-gradient(left,#EFF5FF 0,#ffffff 100%);
+  background: -moz-linear-gradient(left,#EFF5FF 0,#ffffff 100%);
+  background: -o-linear-gradient(left,#EFF5FF 0,#ffffff 100%);
+  background: linear-gradient(to right,#EFF5FF 0,#ffffff 100%);
   background-repeat: repeat-y;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#454545,endColorstr=#666,GradientType=1);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#EFF5FF,endColorstr=#ffffff,GradientType=1);
 }
 .tabs-header-right .tabs li.tabs-selected a.tabs-inner {
-  background: -webkit-linear-gradient(left,#666 0,#454545 100%);
-  background: -moz-linear-gradient(left,#666 0,#454545 100%);
-  background: -o-linear-gradient(left,#666 0,#454545 100%);
-  background: linear-gradient(to right,#666 0,#454545 100%);
+  background: -webkit-linear-gradient(left,#ffffff 0,#EFF5FF 100%);
+  background: -moz-linear-gradient(left,#ffffff 0,#EFF5FF 100%);
+  background: -o-linear-gradient(left,#ffffff 0,#EFF5FF 100%);
+  background: linear-gradient(to right,#ffffff 0,#EFF5FF 100%);
   background-repeat: repeat-y;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#666,endColorstr=#454545,GradientType=1);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff,endColorstr=#EFF5FF,GradientType=1);
 }
 .tabs li a.tabs-inner {
-  color: #fff;
-  background-color: #3d3d3d;
-  background: -webkit-linear-gradient(top,#454545 0,#383838 100%);
-  background: -moz-linear-gradient(top,#454545 0,#383838 100%);
-  background: -o-linear-gradient(top,#454545 0,#383838 100%);
-  background: linear-gradient(to bottom,#454545 0,#383838 100%);
+  color: #0E2D5F;
+  background-color: #E0ECFF;
+  background: -webkit-linear-gradient(top,#EFF5FF 0,#E0ECFF 100%);
+  background: -moz-linear-gradient(top,#EFF5FF 0,#E0ECFF 100%);
+  background: -o-linear-gradient(top,#EFF5FF 0,#E0ECFF 100%);
+  background: linear-gradient(to bottom,#EFF5FF 0,#E0ECFF 100%);
   background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#454545,endColorstr=#383838,GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#EFF5FF,endColorstr=#E0ECFF,GradientType=0);
 }
 .tabs-header,
 .tabs-tool {
-  background-color: #3d3d3d;
+  background-color: #E0ECFF;
 }
 .tabs-header-plain {
   background: transparent;
@@ -386,28 +386,28 @@
 .tabs-header-bottom .tabs li.tabs-selected a.tabs-inner,
 .tabs-header-left .tabs li.tabs-selected a.tabs-inner,
 .tabs-header-right .tabs li.tabs-selected a.tabs-inner {
-  border-color: #000;
+  border-color: #95B8E7;
 }
 .tabs-p-tool a:hover,
 .tabs li a:hover.tabs-close,
 .tabs-scroller-over {
-  background-color: #777;
+  background-color: #eaf2ff;
 }
 .tabs li.tabs-selected a.tabs-inner {
-  border-bottom: 1px solid #666;
+  border-bottom: 1px solid #ffffff;
 }
 .tabs-header-bottom .tabs li.tabs-selected a.tabs-inner {
-  border-top: 1px solid #666;
+  border-top: 1px solid #ffffff;
 }
 .tabs-header-left .tabs li.tabs-selected a.tabs-inner {
-  border-right: 1px solid #666;
+  border-right: 1px solid #ffffff;
 }
 .tabs-header-right .tabs li.tabs-selected a.tabs-inner {
-  border-left: 1px solid #666;
+  border-left: 1px solid #ffffff;
 }
 .tabs-header .tabs-pill li.tabs-selected a.tabs-inner {
-  background: #0052A3;
-  color: #fff;
+  background: #ffe48d;
+  color: #000000;
   filter: none;
-  border-color: #000;
+  border-color: #95B8E7;
 }

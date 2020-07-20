@@ -12,17 +12,17 @@
   font-weight: bold;
 }
 .propertygrid .datagrid-view1 .datagrid-body td {
-  border-color: #222;
+  border-color: #dddddd;
 }
 .propertygrid .datagrid-view1 .datagrid-group {
-  border-color: #3d3d3d;
+  border-color: #E0ECFF;
 }
 .propertygrid .datagrid-view2 .datagrid-group {
-  border-color: #222;
+  border-color: #dddddd;
 }
 .propertygrid .datagrid-group,
 .propertygrid .datagrid-view1 .datagrid-body,
 .propertygrid .datagrid-view1 .datagrid-row-over,
 .propertygrid .datagrid-view1 .datagrid-row-selected {
-  background: #3d3d3d;
+  background: #E0ECFF;
 }

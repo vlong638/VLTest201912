@@ -73,31 +73,31 @@
   margin: -12px 0 0 -6px;
 }
 .tooltip {
-  background-color: #666;
-  border-color: #000;
-  color: #fff;
+  background-color: #ffffff;
+  border-color: #95B8E7;
+  color: #000000;
 }
 .tooltip-right .tooltip-arrow-outer {
-  border-right-color: #000;
+  border-right-color: #95B8E7;
 }
 .tooltip-right .tooltip-arrow {
-  border-right-color: #666;
+  border-right-color: #ffffff;
 }
 .tooltip-left .tooltip-arrow-outer {
-  border-left-color: #000;
+  border-left-color: #95B8E7;
 }
 .tooltip-left .tooltip-arrow {
-  border-left-color: #666;
+  border-left-color: #ffffff;
 }
 .tooltip-top .tooltip-arrow-outer {
-  border-top-color: #000;
+  border-top-color: #95B8E7;
 }
 .tooltip-top .tooltip-arrow {
-  border-top-color: #666;
+  border-top-color: #ffffff;
 }
 .tooltip-bottom .tooltip-arrow-outer {
-  border-bottom-color: #000;
+  border-bottom-color: #95B8E7;
 }
 .tooltip-bottom .tooltip-arrow {
-  border-bottom-color: #666;
+  border-bottom-color: #ffffff;
 }

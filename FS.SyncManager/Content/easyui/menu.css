@@ -78,42 +78,42 @@
   -moz-border-radius: 5px 5px 5px 5px;
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
-  background: #777;
-  -moz-box-shadow: 2px 2px 3px #787878;
-  -webkit-box-shadow: 2px 2px 3px #787878;
-  box-shadow: 2px 2px 3px #787878;
+  background: #ccc;
+  -moz-box-shadow: 2px 2px 3px #cccccc;
+  -webkit-box-shadow: 2px 2px 3px #cccccc;
+  box-shadow: 2px 2px 3px #cccccc;
   filter: progid:DXImageTransform.Microsoft.Blur(pixelRadius=2,MakeShadow=false,ShadowOpacity=0.2);
 }
 .menu-rightarrow {
   background: url('images/menu_arrows.png') no-repeat -32px center;
 }
 .menu-line {
-  border-left: 1px solid #444;
-  border-right: 1px solid #777;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #fff;
 }
 .menu-sep {
-  border-top: 1px solid #444;
-  border-bottom: 1px solid #777;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #fff;
 }
 .menu {
-  background-color: #666;
-  border-color: #444;
-  color: #fff;
+  background-color: #fafafa;
+  border-color: #ddd;
+  color: #444;
 }
 .menu-content {
-  background: #666;
+  background: #ffffff;
 }
 .menu-item {
   border-color: transparent;
-  _border-color: #666;
+  _border-color: #fafafa;
 }
 .menu-active {
-  border-color: #555;
-  color: #fff;
-  background: #777;
+  border-color: #b7d2ff;
+  color: #000000;
+  background: #eaf2ff;
 }
 .menu-active-disabled {
   border-color: transparent;
   background: transparent;
-  color: #fff;
+  color: #444;
 }

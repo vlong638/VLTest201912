@@ -52,8 +52,8 @@
 .datagrid-btn-separator {
   float: left;
   height: 24px;
-  border-left: 1px solid #444;
-  border-right: 1px solid #777;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #fff;
   margin: 2px 1px;
 }
 .datagrid .datagrid-pager {
@@ -181,7 +181,7 @@
 .datagrid-view .datagrid-editable-input {
   margin: 0;
   padding: 2px 4px;
-  border: 1px solid #000;
+  border: 1px solid #95B8E7;
   font-size: 12px;
   outline-style: none;
   -moz-border-radius: 0 0 0 0;
@@ -213,63 +213,63 @@
   background: url('images/datagrid_icons.png') no-repeat -32px center;
 }
 .datagrid-mask-msg {
-  background: #666 url('images/loading.gif') no-repeat scroll 5px center;
+  background: #ffffff url('images/loading.gif') no-repeat scroll 5px center;
 }
 .datagrid-header,
 .datagrid-td-rownumber {
-  background-color: #444;
-  background: -webkit-linear-gradient(top,#4c4c4c 0,#3f3f3f 100%);
-  background: -moz-linear-gradient(top,#4c4c4c 0,#3f3f3f 100%);
-  background: -o-linear-gradient(top,#4c4c4c 0,#3f3f3f 100%);
-  background: linear-gradient(to bottom,#4c4c4c 0,#3f3f3f 100%);
+  background-color: #efefef;
+  background: -webkit-linear-gradient(top,#F9F9F9 0,#efefef 100%);
+  background: -moz-linear-gradient(top,#F9F9F9 0,#efefef 100%);
+  background: -o-linear-gradient(top,#F9F9F9 0,#efefef 100%);
+  background: linear-gradient(to bottom,#F9F9F9 0,#efefef 100%);
   background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#4c4c4c,endColorstr=#3f3f3f,GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#F9F9F9,endColorstr=#efefef,GradientType=0);
 }
 .datagrid-cell-rownumber {
-  color: #fff;
+  color: #000000;
 }
 .datagrid-resize-proxy {
-  background: #cccccc;
+  background: #aac5e7;
 }
 .datagrid-mask {
-  background: #000;
+  background: #ccc;
 }
 .datagrid-mask-msg {
-  border-color: #000;
+  border-color: #95B8E7;
 }
 .datagrid-toolbar,
 .datagrid-pager {
-  background: #555;
+  background: #F4F4F4;
 }
 .datagrid-header,
 .datagrid-toolbar,
 .datagrid-pager,
 .datagrid-footer-inner {
-  border-color: #222;
+  border-color: #dddddd;
 }
 .datagrid-header td,
 .datagrid-body td,
 .datagrid-footer td {
-  border-color: #222;
+  border-color: #ccc;
 }
 .datagrid-htable,
 .datagrid-btable,
 .datagrid-ftable {
-  color: #fff;
+  color: #000000;
   border-collapse: separate;
 }
 .datagrid-row-alt {
-  background: #555;
+  background: #fafafa;
 }
 .datagrid-row-over,
 .datagrid-header td.datagrid-header-over {
-  background: #777;
-  color: #fff;
+  background: #eaf2ff;
+  color: #000000;
   cursor: default;
 }
 .datagrid-row-selected {
-  background: #0052A3;
-  color: #fff;
+  background: #ffe48d;
+  color: #000000;
 }
 .datagrid-row-editing .textbox,
 .datagrid-row-editing .textbox-text {

@@ -132,7 +132,7 @@
   border: 1px dotted red;
 }
 .tree-editor {
-  border: 1px solid #000;
+  border: 1px solid #95B8E7;
   font-size: 12px;
   line-height: 16px;
   padding: 0 4px;
@@ -144,17 +144,17 @@
   top: 0;
 }
 .tree-node-proxy {
-  background-color: #666;
-  color: #fff;
-  border-color: #000;
+  background-color: #ffffff;
+  color: #000000;
+  border-color: #95B8E7;
 }
 .tree-node-hover {
-  background: #777;
-  color: #fff;
+  background: #eaf2ff;
+  color: #000000;
 }
 .tree-node-selected {
-  background: #0052A3;
-  color: #fff;
+  background: #ffe48d;
+  color: #000000;
 }
 .tree-node-hidden {
   display: none;

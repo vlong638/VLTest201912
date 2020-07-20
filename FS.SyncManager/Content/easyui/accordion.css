@@ -26,16 +26,16 @@
   background: url('images/accordion_arrows.png') no-repeat -16px 0;
 }
 .accordion {
-  background: #666;
-  border-color: #000;
+  background: #ffffff;
+  border-color: #95B8E7;
 }
 .accordion .accordion-header {
-  background: #3d3d3d;
+  background: #E0ECFF;
   filter: none;
 }
 .accordion .accordion-header-selected {
-  background: #0052A3;
+  background: #ffe48d;
 }
 .accordion .accordion-header-selected .panel-title {
-  color: #fff;
+  color: #000000;
 }

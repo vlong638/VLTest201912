@@ -19,16 +19,16 @@
   background: url('images/combo_arrow.png') no-repeat center center;
 }
 .combo-panel {
-  background-color: #666;
+  background-color: #ffffff;
 }
 .combo-arrow {
-  background-color: #3d3d3d;
+  background-color: #E0ECFF;
 }
 .combo-arrow-hover {
-  background-color: #777;
+  background-color: #eaf2ff;
 }
 .combo-arrow:hover {
-  background-color: #777;
+  background-color: #eaf2ff;
 }
 .combo .textbox-icon-disabled:hover {
   cursor: default;
