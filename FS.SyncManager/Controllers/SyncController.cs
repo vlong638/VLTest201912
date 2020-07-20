@@ -83,7 +83,7 @@ namespace FS.SyncManager.Controllers
         [HttpPost]
         public JsonResult DeleteSyncOrder(long syncOrderId)
         {
-            if (syncOrderId<=0)
+            if (syncOrderId <= 0)
                 return Error(false, "无效的Id");
 
             var serviceResult = new ServiceContext().SyncService.DeleteSyncOrderById(syncOrderId);
@@ -91,6 +91,22 @@ namespace FS.SyncManager.Controllers
                 return Error(serviceResult.Data, serviceResult.Messages);
             return Success(serviceResult.Data,$"清理日志{(serviceResult.Data ? "成功,请稍后查看同步结果" : "失败")}");
         }
+
+        /// <summary>
+        /// 删除同步记录
+        /// </summary>
+        [HttpPost]
+        public JsonResult DeleteSyncOrders(List<long> syncOrderIds)
+        {
+            if (syncOrderIds.Count == 0)
+                return Error(false, "无效的Id");
+
+            var serviceResult = new ServiceContext().SyncService.DeleteSyncOrderByIds(syncOrderIds);
+            if (!serviceResult.IsSuccess)
+                return Error(serviceResult.Data, serviceResult.Messages);
+            return Success(serviceResult.Data, $"清理日志{(serviceResult.Data ? "成功,请稍后查看同步结果" : "失败")}");
+        }
+
         /// <summary>
         /// 
         /// </summary>

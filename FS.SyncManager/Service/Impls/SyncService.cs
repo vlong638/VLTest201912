@@ -69,6 +69,19 @@ namespace FS.SyncManager.Service
             return result;
         }
 
+        internal ServiceResult<bool> DeleteSyncOrderByIds(List<long> syncOrderIds)
+        {
+            var result = DbContext.DbGroup.DelegateTransaction(() =>
+            {
+                foreach (var syncOrderId in syncOrderIds)
+                {
+                     SyncOrderRepository.DeleteById(syncOrderId);
+                }
+                return true;
+            });
+            return result;
+        }
+
         #endregion
     }
 }
