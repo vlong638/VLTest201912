@@ -17,6 +17,7 @@
             column.title = item.DisplayName;
             column.width = item.DisplayWidth;
             column.sortable = item.IsSortable;
+            column.checkbox = item.IsCheckable;
             column.halign = 'center';
             column.align = 'left';
 

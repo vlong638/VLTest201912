@@ -469,7 +469,7 @@
 	<!--Order By-->
 	<OrderBy ComponentName="Id" IsAsc="False" />
 	<!--Selects-->
-	<Property IsNeedOnPage="true" IsNeedOnDatabase="true" DisplayName="编号" ColumnName="Id" DisplayType="None" DisplayWidth="60" IsSortable="true" DataType="bigint" Description="0" />
+	<Property IsNeedOnPage="true" IsNeedOnDatabase="true" DisplayName="编号" ColumnName="Id" DisplayType="None" DisplayWidth="60" IsSortable="true" IsCheckable="true" DataType="bigint" Description="0" />
 	<Property IsNeedOnPage="true" DisplayName="姓名" ColumnName="PersonName" DisplayType="None" DisplayWidth="60" IsSortable="true" DataType="char" Description="" />
 	<Property IsNeedOnPage="true" DisplayName="身份证" ColumnName="Idcard" DisplayType="None" DisplayWidth="180" IsSortable="false" DataType="char" Description="" />
 	<Property IsNeedOnPage="true" IsNeedOnDatabase="true" DisplayName="来源类型" ColumnName="SourceType" DisplayType="Enum" EnumType="SourceType" DisplayWidth="80" IsSortable="False" DataType="smallint" Description="来源类型" />

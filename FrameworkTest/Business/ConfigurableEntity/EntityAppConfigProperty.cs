@@ -57,6 +57,10 @@ namespace FrameworkTest.ConfigurableEntity
         /// 可排序的
         /// </summary>
         public bool IsSortable { set; get; }
+        /// <summary>
+        /// 可选中的
+        /// </summary>
+        public bool IsCheckable { set; get; }
         #endregion
 
         #region 数据配置
@@ -98,6 +102,7 @@ namespace FrameworkTest.ConfigurableEntity
             DataType = dbConfig.DataType;
             DisplayWidth = 100;
             IsSortable = false;
+            IsCheckable = false;
             IsNeedOnPage = false;
             IsNeedOnDatabase = false;
             Description = dbConfig.Description;
@@ -110,6 +115,7 @@ namespace FrameworkTest.ConfigurableEntity
             EnumType = element.Attribute(nameof(EnumType))?.Value;
             DisplayWidth = element.Attribute(nameof(DisplayWidth))?.Value.ToInt() ?? 100;
             IsSortable = element.Attribute(nameof(IsSortable))?.Value.ToBool() ?? false;
+            IsCheckable = element.Attribute(nameof(IsCheckable))?.Value.ToBool() ?? false;
             DataType = element.Attribute(nameof(DataType))?.Value;
             IsNeedOnPage = element.Attribute(nameof(IsNeedOnPage))?.Value.ToBool() ?? false;
             IsNeedOnDatabase = element.Attribute(nameof(IsNeedOnDatabase))?.Value.ToBool() ?? false;
@@ -127,6 +133,7 @@ namespace FrameworkTest.ConfigurableEntity
             property.SetAttributeValue(nameof(DisplayType), DisplayType.ToString());
             property.SetAttributeValue(nameof(DisplayWidth), DisplayWidth.ToString());
             property.SetAttributeValue(nameof(IsSortable), IsSortable.ToString());
+            property.SetAttributeValue(nameof(IsCheckable), IsCheckable.ToString());
             property.SetAttributeValue(nameof(DataType), DataType);
             property.SetAttributeValue(nameof(Description), Description);
             return property;
