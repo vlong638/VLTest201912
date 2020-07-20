@@ -22,6 +22,29 @@
         });
     }
 
+    function deleteLog(id) {
+        if (id <= 0) {
+            jAlert("id异常,无效的记录id");
+        }
+
+        vl.confirm(vlConstraints.Sync_DeleteSync
+            , function () {
+                $.ajax({
+                    url: '/Sync/DeleteSyncOrder',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        syncOrderId: id
+                    },
+                    success: function (resp) {
+                        if (resp.Message) {
+                            vl.alert(resp.Message);
+                        }
+                    }
+                });
+            });
+    }
+
     $(function () {
         var customConfigId = vl.getQueryString("CustomConfigId");
         $.ajax
@@ -42,6 +65,15 @@
                         vl_easyui.config(configData.CustomConfigId);
                         vl_easyui.wheres(configData.ViewConfig);
                         var columns = vl_easyui.properties(configData.ViewConfig);
+                        //扩展操作按钮
+                        var operateColumn = {
+                            field: 'none', title: '操作', width: 200, halign: 'center', align: 'left'
+                            , formatter: function (value, row, index) {
+                                var id = row.Id;
+                                var str = '<a href="#" class="easyui-linkbutton" plain="true" onclick="deleteLog(' + id + ')">清理同步记录</a>';
+                                return str;
+                            }
+                        };
 
                         //init
                         $("#db_list").datagrid({

@@ -89,7 +89,7 @@ namespace FS.SyncManager.Controllers
             var serviceResult = new ServiceContext().SyncService.DeleteSyncOrderById(syncOrderId);
             if (!serviceResult.IsSuccess)
                 return Error(serviceResult.Data, serviceResult.Messages);
-            return Success(serviceResult.Data);
+            return Success(serviceResult.Data,$"清理日志{(serviceResult.Data ? "成功,请稍后查看同步结果" : "失败")}");
         }
         /// <summary>
         /// 

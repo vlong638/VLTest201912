@@ -44,6 +44,10 @@ namespace FrameworkTest.Common.ControllerSolution
         {
             return Json(new APIResult<T>(data), JsonRequestBehavior.AllowGet);
         }
+        public JsonResult Success<T>(T data, params string[] messages)
+        {
+            return Json(new APIResult<T>(data, messages), JsonRequestBehavior.AllowGet);
+        }
         public JsonResult Error<T>(T data, IList<string> messages)
         {
             return Json(new APIResult<T>(data, messages.ToArray()), JsonRequestBehavior.AllowGet);
