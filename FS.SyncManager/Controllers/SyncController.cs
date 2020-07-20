@@ -59,16 +59,20 @@ namespace FS.SyncManager.Controllers
 
         #region SyncOrder
 
-        ///// <summary>
-        ///// 删除同步记录
-        ///// </summary>
-        //[HttpPost]
-        //public void DeleteSyncOrder(GetPageListOfSyncOrderRequest request)
-        //{
-        //    //var syncOrders =new List<> 
-        //    //return Json(new { total = serviceResult.Data.Count, rows = serviceResult.Data.List.ToList() });
-        //    //return new JsonResult();
-        //}
+        /// <summary>
+        /// 删除同步记录
+        /// </summary>
+        [HttpPost]
+        public JsonResult DeleteSyncOrder(long syncOrderId)
+        {
+            if (syncOrderId<=0)
+                return Error(false, "无效的Id");
+
+            var serviceResult = new ServiceContext().SyncService.DeleteSyncOrderById(syncOrderId);
+            if (!serviceResult.IsSuccess)
+                return Error(serviceResult.Data, serviceResult.Messages);
+            return Success(serviceResult.Data);
+        }
 
         [HttpGet]
         public ActionResult SyncOrderList()

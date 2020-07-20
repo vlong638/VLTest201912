@@ -48,6 +48,7 @@ namespace FS.SyncManager.Service
 
         #region SyncOrder
         SyncOrderRepository SyncOrderRepository { get { return new SyncOrderRepository(DbContext); } }
+
         internal ServiceResult<VLPageResult<Dictionary<string, object>>> GetPagedListOfSyncOrder(GetPagedListOfSyncOrderRequest request)
         {
             var result = DbContext.DbGroup.DelegateTransaction(() =>
@@ -58,6 +59,16 @@ namespace FS.SyncManager.Service
             });
             return result;
         }
+
+        internal ServiceResult<bool> DeleteSyncOrderById(long syncOrderId)
+        {
+            var result = DbContext.DbGroup.DelegateTransaction(() =>
+            {
+                return SyncOrderRepository.DeleteById(syncOrderId);
+            });
+            return result;
+        }
+
         #endregion
     }
 }

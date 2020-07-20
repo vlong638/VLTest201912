@@ -48,7 +48,9 @@
                         vl_easyui.config(configData.CustomConfigId);
                         vl_easyui.wheres(configData.ViewConfig);
                         var columns = vl_easyui.properties(configData.ViewConfig);
-
+                        for (var i = 0; i < columns.len(); i++) {
+                            var column = columns[i];
+                        }
                         //init
                         $("#db_list").datagrid({
                             url: "GetPageListOfSyncOrder",
