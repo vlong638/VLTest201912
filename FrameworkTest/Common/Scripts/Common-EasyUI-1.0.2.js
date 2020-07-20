@@ -20,7 +20,11 @@
             column.halign = 'center';
             column.align = 'left';
 
-            ////数据格式化
+            //数据格式化
+            //Hidden
+            if (item.DisplayType == 1) {
+                column.hidden = true;
+            }
             ////Date
             //if (item.DisplayType == 3) {
             //    column.formatter = function (value) {

@@ -33,7 +33,7 @@
         }
 
         vl.confirm(vlConstraints.Sync_DeleteSync
-            , function () { 
+            , function () {
                 $.ajax({
                     url: '/Sync/DeleteSyncOrder',
                     type: 'post',
@@ -75,8 +75,11 @@
                         var operateColumn = {
                             field: 'none', title: '操作', width: 200, halign: 'center', align: 'left'
                             , formatter: function (value, row, index) {
+                                var str = '';
                                 var id = row.Id;
-                                var str = '<a href="#" class="easyui-linkbutton" plain="true" onclick="deleteLog(' + id + ')">清理同步记录</a>';
+                                if (id && id > 0) {
+                                    str += '<a href="#" class="easyui-linkbutton" plain="true" onclick="deleteLog(' + id + ')">清理同步记录</a>';
+                                }
                                 return str;
                             }
                         };

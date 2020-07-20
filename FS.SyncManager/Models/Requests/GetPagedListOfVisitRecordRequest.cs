@@ -68,8 +68,8 @@ from {VisitRecord.TableName}
             return $@"
 select 
 pi.PersonName
-,s3.SyncTime as LastSyncTimeToPhysicalExamination,s3.SyncStatus as SyncStatusToPhysicalExamination,s3.ErrorMessage as SyncMessageToPhysicalExamination
-,s4.SyncTime as LastSyncTimeToProfessionalExamination,s4.SyncStatus as SyncStatusToProfessionalExamination,s4.ErrorMessage as SyncMessageToProfessionalExamination
+,s3.Id as SyncIdToPhysicalExamination,s3.SyncTime as LastSyncTimeToPhysicalExamination,s3.SyncStatus as SyncStatusToPhysicalExamination,s3.ErrorMessage as SyncMessageToPhysicalExamination
+,s4.Id as SyncIdToProfessionalExamination,s4.SyncTime as LastSyncTimeToProfessionalExamination,s4.SyncStatus as SyncStatusToProfessionalExamination,s4.ErrorMessage as SyncMessageToProfessionalExamination
 ,TSource.* from
 (
     select {string.Join(",", FieldNames)}

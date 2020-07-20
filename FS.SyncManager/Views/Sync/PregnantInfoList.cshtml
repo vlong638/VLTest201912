@@ -69,12 +69,19 @@
                         var operateColumn = {
                             field: 'none', title: '操作', width: 200, halign: 'center', align: 'left'
                             , formatter: function (value, row, index) {
-                                var id = row.Id;
-                                var str = '<a href="#" class="easyui-linkbutton" plain="true" onclick="deleteLog(' + id + ')">清理同步记录</a>';
+                                var str = '';
+                                var id1 = row.SyncIdToPregnantInfo;
+                                if (id1 && id1 > 0) {
+                                    str += '<a href="#" class="easyui-linkbutton" plain="true" onclick="deleteLog(' + id1 + ')">清理(基础信息)</a>   ';
+                                }
+                                var id2 = row.SyncIdToHistoryEnquiry;
+                                if (id2 && id2 > 0) {
+                                    str += '<a href="#" class="easyui-linkbutton" plain="true" onclick="deleteLog(' + id2 + ')">清理(问询病史)</a>';
+                                }
                                 return str;
                             }
                         };
-
+                        columns[0].push(operateColumn);
                         //init
                         $("#db_list").datagrid({
                             url: "GetPagedListOfPregnantInfo",
