@@ -10,6 +10,7 @@
             <span>同步状态</span>
             <select class="easyui-combobox" id="where_SyncStatus" style="width:200px;"></select>
             <a href="#" class="easyui-linkbutton" plain="true" onclick="doSearch()">搜索</a>
+            <a href="#" class="easyui-linkbutton" plain="true" onclick="deleteAllLogs()">批量清理同步记录</a>
         </div>
     </div>
     <div style="margin-top:5px">
@@ -27,6 +28,11 @@
         $("#db_list").datagrid('load', param);
     }
 
+    function deleteAllLogs() {
+        var rows = $('#db_list').datagrid('getSelections');
+
+    }
+
     function deleteLog(id) {
         if (id <= 0) {
             jAlert("id异常,无效的记录id");
@@ -40,7 +46,7 @@
                     dataType: 'json',
                     data: {
                         syncOrderId: id
-                    },
+                    },    
                     success: function (resp) {
                         console.log(resp);
                         if (resp.Message) {

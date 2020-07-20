@@ -154,7 +154,6 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\easyui\accordion.css" />
     <Content Include="Content\easyui\calendar.css" />
-    <Content Include="Content\easyui\color.css" />
     <Content Include="Content\easyui\combo.css" />
     <Content Include="Content\easyui\combobox.css" />
     <Content Include="Content\easyui\datagrid.css" />
@@ -163,7 +162,6 @@
     <Content Include="Content\easyui\dialog.css" />
     <Content Include="Content\easyui\easyui.css" />
     <Content Include="Content\easyui\filebox.css" />
-    <Content Include="Content\easyui\icon.css" />
     <Content Include="Content\easyui\icons\back.png" />
     <Content Include="Content\easyui\icons\blank.gif" />
     <Content Include="Content\easyui\icons\cancel.png" />
