@@ -71,6 +71,16 @@ namespace FrameworkTest.Business.SDMockCommit
         /// </summary>
         [Description("专科检查")]
         ProfessionalExamination = 4,
+        /// <summary>
+        /// 孕妇出院登记
+        /// </summary>
+        [Description("孕妇出院登记")]
+        PregnantDischarge = 5,
+        /// <summary>
+        /// 婴儿出院登记
+        /// </summary>
+        [Description("婴儿出院登记")]
+        ChildDischarge = 6,
     }
     public enum SyncStatus
     {

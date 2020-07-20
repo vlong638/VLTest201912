@@ -25,6 +25,11 @@ namespace FrameworkTest.Business.SDMockCommit
             this.DBContext = context;
         }
 
+        internal IEnumerable<PregnantDischarge> GetPregnantDischargesToCreate()
+        {
+            throw new NotImplementedException();
+        }
+
         #region SyncOrder
         public SyncOrder GetSyncOrder(TargetType TargetType, string sourceId)
         {
