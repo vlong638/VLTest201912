@@ -5,7 +5,13 @@
     wheres: function wheres(viewConfig) {
         for (var i = 0; i < viewConfig.Wheres.length; i++) {
             var where = viewConfig.Wheres[i];
-            $("#where_" + where.ComponentName).val(where.Value)
+            console.log("wheres");
+            var control = $("#where_" + where.ComponentName);
+            if (control[0] && control[0].type == "select-one") {
+                control.combobox('setValue', where.Value);
+            } else {
+                control.val(where.Value)
+            }
         }
     },
     properties: function properties(viewConfig) {

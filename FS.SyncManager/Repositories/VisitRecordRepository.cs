@@ -25,8 +25,10 @@ namespace FS.SyncManager.Repositories
             var sql = request.ToListSQL();
             var pars = request.GetParams();
             var table = new DataTable();
-            var reader = _context.DbGroup.Connection.ExecuteReader(sql, pars, transaction: _transaction);
-            table.Load(reader);
+            using (var reader = _context.DbGroup.Connection.ExecuteReader(sql, pars, transaction: _transaction))
+            {
+                table.Load(reader);
+            }
             return table.ToList();
         }
         /// <summary>
