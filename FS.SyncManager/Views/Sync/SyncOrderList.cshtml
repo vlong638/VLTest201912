@@ -6,7 +6,9 @@
     <div style="margin-top:5px">
         <div style="display:inline;">
             <span>姓名:</span>
-            <input id="where_PersonName" class="easyui-textbox"/>
+            <input id="where_PersonName" class="easyui-textbox" />
+            <span>目标类型</span>
+            <select class="easyui-combobox" id="where_TargetType" style="width:200px;"></select>
             <span>同步状态</span>
             <select class="easyui-combobox" id="where_SyncStatus" style="width:200px;"></select>
             <a href="#" class="easyui-linkbutton" plain="true" onclick="doSearch()">搜索</a>
@@ -22,6 +24,7 @@
     function doSearch() {
         var param = {
             PersonName: $('#where_PersonName').val(),
+            TargetType: $('#where_TargetType').combobox('getValues'),
             SyncStatus: $('#where_SyncStatus').combobox('getValues'),
         };
         console.log(param);
@@ -87,6 +90,7 @@
 
     $(function () {
         vl.select("SyncStatus", false, "#where_SyncStatus");
+        vl.select("TargetType", false, "#where_TargetType");
         var customConfigId = vl.getQueryString("CustomConfigId");
         $.ajax
             ({
@@ -123,6 +127,7 @@
                             url: "GetPageListOfSyncOrder",
                             queryParams: {
                                 PersonName: $('#where_PersonName').val(),
+                                TargetType: $('#where_TargetType').combobox('getValues'),
                                 SyncStatus: $('#where_SyncStatus').combobox('getValues'),
                             },
                             //idField:"Id",

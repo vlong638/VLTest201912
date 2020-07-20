@@ -48,7 +48,7 @@ namespace FS.SyncManager.Models
                     wheres.Add($"{nameof(VisitDate)} = @VisitDate");
                 }
             }
-            return wheres.Count == 0 ? "" : "where " + string.Join(" and", wheres);
+            return wheres.Count == 0 ? "" : "where " + string.Join(" and ", wheres);
         }
         public string ToCountSQL()
         {

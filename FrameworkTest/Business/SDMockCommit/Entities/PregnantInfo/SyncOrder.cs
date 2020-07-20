@@ -54,7 +54,7 @@ namespace FrameworkTest.Business.SDMockCommit
         /// <summary>
         /// 孕妇档案
         /// </summary>
-        [Description("孕妇档案")]
+        [Description("基本数据")]
         PregnantInfo = 1,
         /// <summary>
         /// 问询病史

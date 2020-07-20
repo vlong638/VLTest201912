@@ -1,4 +1,5 @@
-﻿using FrameworkTest.Common.PagerSolution;
+﻿using FrameworkTest.Business.SDMockCommit;
+using FrameworkTest.Common.PagerSolution;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,6 +46,7 @@ namespace FS.SyncManager.Models
 
         public string PersonName { set; get; }
         public string SyncStatus { set; get; }
+        public TargetType TargetType { set; get; }
 
         public Dictionary<string, object> GetParams()
         {
@@ -58,6 +60,10 @@ namespace FS.SyncManager.Models
             if (!string.IsNullOrEmpty(SyncStatus))
             {
                 args.Add(nameof(SyncStatus), SyncStatus);
+            }
+            if (TargetType != TargetType.None)
+            {
+                args.Add(nameof(TargetType), TargetType);
             }
             return args;
         }
@@ -80,8 +86,13 @@ namespace FS.SyncManager.Models
                         wheres.Add($"sall.{nameof(SyncStatus)} = @SyncStatus");
                     }
                 }
+                if (TargetType != TargetType.None)
+                {
+                    wheres.Add($"sall.{nameof(TargetType)} = @TargetType");
+                }
+                
             }
-            return wheres.Count == 0 ? "" : "and " + string.Join(" and", wheres);
+            return wheres.Count == 0 ? "" : " and " + string.Join(" and ", wheres);
         }
         public string ToCountSQL()
         {
