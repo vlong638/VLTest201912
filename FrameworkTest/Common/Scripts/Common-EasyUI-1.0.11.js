@@ -9,8 +9,14 @@
             var control = $("#where_" + where.ComponentName);
             if (control[0] && control[0].type == "select-one") {
                 control.combobox('setValue', where.Value);
+            }
+            else if (control[0] && control[0].type == "text") {
+                if (control[0].className == "") {
+                    control.val(where.Value)
+                } else {
+                    control.textbox('setValue', where.Value);
+                }
             } else {
-                control.val(where.Value)
             }
         }
     },

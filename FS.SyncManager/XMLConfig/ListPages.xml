@@ -464,7 +464,7 @@
 <View ViewName="Sync_SyncOrder">
 	<!--Wheres-->
 	<Wheres>
-		<Where ComponentName="personname" CompareOperator="Like" Value="" LinkOperator="None"/>
+		<Where ComponentName="PersonName" CompareOperator="Like" Value="" LinkOperator="None"/>
 		<Where ComponentName="SyncStatus" CompareOperator="Equal" Value="99" LinkOperator="None"/>
 	</Wheres>
 	<!--Order By-->
