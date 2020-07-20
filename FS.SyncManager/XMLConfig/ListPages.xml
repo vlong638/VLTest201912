@@ -283,7 +283,8 @@
 <View ViewName="Sync_VisitRecord">
 	<!--Wheres-->
 	<Wheres>
-		<Where ComponentName="visitdate" CompareOperator="Equal" Value="$GetDate()" LinkOperator="None"/>
+		<Where ComponentName="PersonName" CompareOperator="Like" Value="" LinkOperator="None"/>
+		<Where ComponentName="VisitDate" CompareOperator="Equal" Value="$GetDate()" LinkOperator="None"/>
 		<!--<Where ComponentName="visitdate" CompareOperator="Like" Value="$GetDate()" LinkOperator="None"/>-->
 	</Wheres>
 	<!--Order By-->

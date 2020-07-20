@@ -48,7 +48,7 @@ namespace FrameworkTest.Common.PagerSolution
         }
         protected Dictionary<string, bool> _Orders { get; set; }
 
-        public string GetOrderCondition()
+        public virtual string GetOrderCondition()
         {
             if (Orders.Count == 0)
                 return "";

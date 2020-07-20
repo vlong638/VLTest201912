@@ -5,8 +5,10 @@
 <dic id="list">
     <div style="margin-top:5px">
         <div style="display:inline;">
+            <span>姓名:</span>
+            <input id="where_PersonName" class="easyui-textbox" />
             <span>产检日期:</span>
-            <input id="where_visitdate" class="easyui-textbox" />
+            <input id="where_VisitDate" class="easyui-textbox" />
             <a href="#" class="easyui-linkbutton" plain="true" onclick="doSearch()">搜索</a>
         </div>
     </div>
@@ -18,7 +20,8 @@
 <script type="text/javascript">
     function doSearch() {
         $("#db_list").datagrid('load', {
-            VisitDate: $('#where_visitdate').val()
+            PersonName: $('#where_PersonName').val(),
+            VisitDate: $('#where_VisitDate').val(),
         });
     }
 
@@ -86,7 +89,10 @@
                         //init
                         $("#db_list").datagrid({
                             url: "GetPagedListOfVisitRecord",
-                            queryParams: { VisitDate: $('#where_visitdate').val() },
+                            queryParams: {
+                                PersonName: $('#where_PersonName').val(),
+                                VisitDate: $('#where_VisitDate').val(),
+                            },
                             pagination: true,
                             sortOrder: configData.ViewConfig.OrderBy.IsAsc ? "asc" : "desc",
                             sortName: configData.ViewConfig.OrderBy.ComponentName,
