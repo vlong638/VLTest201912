@@ -89,11 +89,11 @@ namespace FS.SyncManager.Models
 select count(*)
 from 
 (
-    select 1 as f1 from SyncForFS sall
+    select sall.id from SyncForFS sall
     left join PregnantInfo pi on sall.SourceType = 1 and sall.SourceId = pi.id
     where sall.SourceType = 1 {GetWhereCondition()}
     Union
-    select 1 as f1 from SyncForFS sall
+    select sall.id from SyncForFS sall
     left join MHC_VisitRecord vr on sall.SourceType = 2 and sall.SourceId = vr.id
     left join PregnantInfo pi on vr.Idcard= pi.Idcard
     where sall.SourceType = 2 {GetWhereCondition()}
