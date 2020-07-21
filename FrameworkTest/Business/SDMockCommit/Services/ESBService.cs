@@ -1,17 +1,5 @@
-﻿using Dapper;
-using Dapper.Contrib.Extensions;
-using FrameworkTest.Common.DBSolution;
-using FrameworkTest.Common.FileSolution;
-using FrameworkTest.Common.HttpSolution;
-using FrameworkTest.Common.ValuesSolution;
-using System;
+﻿using FrameworkTest.Common.DBSolution;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
 
 namespace FrameworkTest.Business.SDMockCommit
 {
@@ -52,6 +40,11 @@ namespace FrameworkTest.Business.SDMockCommit
         internal IEnumerable<PregnantDischarge> GetPregnantDischargesToCreate()
         {
             return ESBDAL.GetPregnantDischargesToCreate(DBContext.DbGroup);
+        }
+
+        internal IEnumerable<PregnantDischarge> GetPregnantDischargesToUpdate()
+        {
+            return ESBDAL.GetPregnantDischargesToUpdate(DBContext.DbGroup);
         }
 
         #endregion

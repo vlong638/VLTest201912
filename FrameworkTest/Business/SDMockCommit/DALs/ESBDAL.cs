@@ -54,7 +54,8 @@ and fm.inp_no ='0000265533'
 select top 1 * 
 from HELEESB.dbo.V_FWPT_GY_ZHUYUANFM fm
 left join HL_Pregnant.dbo.SyncForFS s5 on s5.TargetType = 5 and s5.SourceId = fm.inp_no
-where s5.id is not null and s5.SyncStatus = 2
+where s5.id is not null
+and fm.inp_no ='0000265533'
 ", transaction: dbGroup.Transaction).ToList();
         }
 

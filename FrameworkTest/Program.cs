@@ -3964,9 +3964,9 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 var retA = ms.ToArray();
                 var retB = Convert.ToBase64String(retA);
             }));
-            cmds.Add(new Command("m110,0703,自动同步-新增`孕妇出院`", () =>
+            cmds.Add(new Command("m110,0721,自动同步-新增`孕妇出院`", () =>
             {
-                var syncTask = new PregnantDischargeModel_SyncTask_Create(serviceContext);
+                var syncTask = new PregnantDischarge_SyncTask_Create(serviceContext);
                 syncTask.DoLogOnGetSource = (sourceData) =>
                 {
                     StringBuilder sb = new StringBuilder();
@@ -3978,6 +3978,26 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 syncTask.DoLogOnWork = (sourceData, sb) =>
                 {
                     var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Create-孕妇出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.inp_no + ".txt");
+                    File.WriteAllText(file, sb.ToString());
+                    Console.WriteLine($"result:{file}");
+                };
+                //自动执行
+                syncTask.Start_Auto_DoWork(serviceContext, SDBLL.UserInfo);
+            }));
+            cmds.Add(new Command("m111,0721,自动同步-更新`孕妇出院`", () =>
+            {
+                var syncTask = new PregnantDischarge_SyncTask_Update(serviceContext);
+                syncTask.DoLogOnGetSource = (sourceData) =>
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.AppendLine(sourceData.ToJson());
+                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Update-孕妇出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.inp_no + ".txt");
+                    File.WriteAllText(file, sb.ToString());
+                    Console.WriteLine($"result:{file}");
+                };
+                syncTask.DoLogOnWork = (sourceData, sb) =>
+                {
+                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Update-孕妇出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.inp_no + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };

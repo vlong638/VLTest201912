@@ -86,11 +86,11 @@ namespace FrameworkTest.Business.SDMockCommit
     {
         [Description("")]
         None = 0,
-        [Description("错误")]
+        [Description("执行出错")]
         Error = 1,//创建时 出现异常
-        [Description("重复")]
+        [Description("数据重复")]
         Existed = 11,//已存在
-        [Description("不存在")]
+        [Description("待更新主体不存在")]
         NotExisted = 12,//未存在
         [Description("未获得有效Id")]
         Repeated = 13,//查重出错

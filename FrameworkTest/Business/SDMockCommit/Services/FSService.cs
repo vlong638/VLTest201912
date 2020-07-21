@@ -354,7 +354,7 @@ namespace FrameworkTest.Business.SDMockCommit
         /// <param name="pregnantDischargeToCreate"></param>
         /// <param name="logger"></param>
         /// <returns></returns>
-        internal bool CreatePregnantDischarge(UserInfo userInfo, CQJL_LIST_Data listData, CQJL_WOMAN_FORM_SAVE_Data pregnantDischargeToCreate, string dischargeId, ref StringBuilder logger)
+        internal bool SavePregnantDischarge(UserInfo userInfo, CQJL_LIST_Data listData, CQJL_WOMAN_FORM_SAVE_Data pregnantDischargeToCreate, string dischargeId, ref StringBuilder logger)
         {
             var container = new CookieContainer();
             var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/CQJL_WOMAN_FORM_SAVE&sUserID={userInfo.UserId}&sParams=P${userInfo.OrgId}${listData.FMMainId}${dischargeId}${userInfo.UserId}$%E8%93%9D%E8%89%B3%E4%BA%91";

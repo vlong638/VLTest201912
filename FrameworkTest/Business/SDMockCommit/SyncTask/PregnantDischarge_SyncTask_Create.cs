@@ -1,19 +1,14 @@
-﻿using Dapper;
-using FrameworkTest.Common.DBSolution;
-using FrameworkTest.Common.ValuesSolution;
-using FrameworkTest.ConfigurableEntity;
+﻿using FrameworkTest.Common.ValuesSolution;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Web.UI.WebControls;
 
 namespace FrameworkTest.Business.SDMockCommit
 {
-    public class PregnantDischargeModel_SyncTask_Create : SyncTask<PregnantDischarge_SourceData>
+    public class PregnantDischarge_SyncTask_Create : SyncTask<PregnantDischarge_SourceData>
     {
-        public PregnantDischargeModel_SyncTask_Create(ServiceContext context) : base(context)
+        public PregnantDischarge_SyncTask_Create(ServiceContext context) : base(context)
         {
         }
 
@@ -60,7 +55,7 @@ namespace FrameworkTest.Business.SDMockCommit
                     pregnantDischargeToCreate.Init(userInfo, sourceData, listData.FMMainId);
                 pregnantDischargeToCreate.Update(sourceData);
                 //创建住院数据
-                var result = Context.FSService.CreatePregnantDischarge(userInfo, listData, pregnantDischargeToCreate, pregnantDischargeData?.DischargeId ?? "null", ref logger);
+                var result = Context.FSService.SavePregnantDischarge(userInfo, listData, pregnantDischargeToCreate, pregnantDischargeData?.DischargeId ?? "null", ref logger);
                 //保存同步记录
                 context.ESBService.SaveSyncOrder(syncOrder);
             }
