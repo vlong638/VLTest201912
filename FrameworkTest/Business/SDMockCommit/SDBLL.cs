@@ -666,19 +666,19 @@ and se.id is null
 
         public static SyncOrder GetSyncOrder(DbGroup group, TargetType TargetType, string sourceId)
         {
-            return SDDAL.GetSyncForFS(group, TargetType, sourceId);
+            return PregnantDAL.GetSyncForFS(group, TargetType, sourceId);
         }
 
         public static long SaveSyncOrder(DbGroup group, SyncOrder syncForFS)
         {
             if (syncForFS.Id > 0)
             {
-                SDDAL.UpdateSyncForFS(group, syncForFS);
+                PregnantDAL.UpdateSyncForFS(group, syncForFS);
                 return syncForFS.Id;
             }
             else
             {
-                return SDDAL.InsertSyncForFS(group, syncForFS);
+                return PregnantDAL.InsertSyncForFS(group, syncForFS);
             }
         }
 

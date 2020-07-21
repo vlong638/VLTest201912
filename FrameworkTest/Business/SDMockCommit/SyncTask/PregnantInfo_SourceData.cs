@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 
 namespace FrameworkTest.Business.SDMockCommit
 {
-    public class PregnantInfo_SourceData : SourceData
+    public class PregnantInfo_SourceData : SourceDataForPregnant
     {
         public PregnantInfo Data;
 

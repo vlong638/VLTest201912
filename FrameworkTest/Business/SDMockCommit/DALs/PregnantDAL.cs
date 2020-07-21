@@ -15,14 +15,15 @@ using System.Web;
 
 namespace FrameworkTest.Business.SDMockCommit
 {
-    public class SDDAL
+    public class PregnantDAL
     {
+        #region SyncOrder
+
         public static long InsertSyncForFS(DbGroup group, SyncOrder syncForFS)
         {
             return group.Connection.Insert(syncForFS, transaction: group.Transaction);
         }
 
-        #region SyncOrder
         public static bool UpdateSyncForFS(DbGroup group, SyncOrder syncForFS)
         {
             return group.Connection.Update(syncForFS, transaction: group.Transaction);
@@ -112,11 +113,11 @@ where vr.visitdate = convert(nvarchar,getdate(),23)
 and s4.id is not null and s4.SyncStatus in (2,11) 
 and vr.updatetime > DATEADD( SECOND,10 ,s4.SyncTime)
 ", transaction: dbGroup.Transaction).ToList();
-        } 
-//and vr.idcard = '142328199610271518'
+        }
+        //and vr.idcard = '142328199610271518'
         #endregion
 
-        #region MyRegion
+        #region PregnantInfo
         internal static List<PregnantInfo> GetPregnantInfoForCreateOrUpdate(DbGroup dbGroup)
         {
             //指定日期之后 非今天 当年会与常规新建和更新重复
@@ -188,8 +189,6 @@ union
 	and pi.updatetime < convert(nvarchar, getdate(),23)
 )
 ", transaction: dbGroup.Transaction).ToList();
-            //TODO 需要扩展编辑过初诊 但没有档案同步记录的数据 走11状态码
-
         }
 
         internal static IEnumerable<PregnantInfo> GetPregnantInfoForUpdate(DbGroup dbGroup)
@@ -207,6 +206,5 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
             //in (2, 11)
         } 
         #endregion
-
     }
 }

@@ -26,35 +26,37 @@ namespace FrameworkTest.Business.SDMockCommit
         }
 
         #region SyncOrder
+
         public SyncOrder GetSyncOrder(TargetType TargetType, string sourceId)
         {
-            return SDDAL.GetSyncForFS(DBContext.DbGroup, TargetType, sourceId);
+            return PregnantDAL.GetSyncForFS(DBContext.DbGroup, TargetType, sourceId);
         }
 
         public long SaveSyncOrder(SyncOrder syncForFS)
         {
             if (syncForFS.Id > 0)
             {
-                SDDAL.UpdateSyncForFS(DBContext.DbGroup, syncForFS);
+                PregnantDAL.UpdateSyncForFS(DBContext.DbGroup, syncForFS);
                 return syncForFS.Id;
             }
             else
             {
-                return SDDAL.InsertSyncForFS(DBContext.DbGroup, syncForFS);
+                return PregnantDAL.InsertSyncForFS(DBContext.DbGroup, syncForFS);
             }
         }
+
         #endregion
 
         #region PregnantInfo
 
         public IEnumerable<PregnantInfo> GetPregnantInfoForUpdate()
         {
-            return SDDAL.GetPregnantInfoForUpdate(DBContext.DbGroup);
+            return PregnantDAL.GetPregnantInfoForUpdate(DBContext.DbGroup);
         }
 
         public IEnumerable<PregnantInfo> GetPregnantInfoForCreate()
         {
-            return SDDAL.GetPregnantInfoForCreate(DBContext.DbGroup);
+            return PregnantDAL.GetPregnantInfoForCreate(DBContext.DbGroup);
         }
 
         /// <summary>
@@ -63,7 +65,7 @@ namespace FrameworkTest.Business.SDMockCommit
         /// <returns></returns>
         public List<PregnantInfo> GetPregnantInfoForCreateOrUpdate()
         {
-            return SDDAL.GetPregnantInfoForCreateOrUpdate(DBContext.DbGroup);
+            return PregnantDAL.GetPregnantInfoForCreateOrUpdate(DBContext.DbGroup);
         }
 
         #endregion
@@ -77,13 +79,13 @@ namespace FrameworkTest.Business.SDMockCommit
         public List<ProfessionalExaminationModel> GetProfessionalExaminationsToCreate()
         {
             //return SDDAL.GetProfessionalExaminationsToCreateByIdCard(DBContext.DbGroup, "142328199610271518");
-            return SDDAL.GetProfessionalExaminationsToCreate(DBContext.DbGroup);
+            return PregnantDAL.GetProfessionalExaminationsToCreate(DBContext.DbGroup);
         }
 
         public IEnumerable<ProfessionalExaminationModel> GetProfessionalExaminationsToUpdate()
         {
             //return SDDAL.GetProfessionalExaminationsToUpdateByIdCard(DBContext.DbGroup, "142328199610271518");
-            return SDDAL.GetProfessionalExaminationsToUpdate(DBContext.DbGroup);
+            return PregnantDAL.GetProfessionalExaminationsToUpdate(DBContext.DbGroup);
         }
 
         #endregion

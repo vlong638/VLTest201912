@@ -7,14 +7,21 @@ using System.Text;
 
 namespace FrameworkTest.Business.SDMockCommit
 {
-    public interface SourceData
+    public interface SourceDataForESB
+    {
+        string inp_no { get; }
+        string SourceId { get; }
+        TargetType TargetType { get; }
+    }
+
+    public interface SourceDataForPregnant
     {
         string IdCard { get; }
         string SourceId { get; }
         TargetType TargetType { get; }
     }
 
-    public abstract class SyncTask<T1> where T1 : SourceData
+    public abstract class SyncTask<T1> 
     {
         protected SyncTask(ServiceContext context)
         {

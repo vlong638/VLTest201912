@@ -112,6 +112,7 @@
   <ItemGroup>
     <Compile Include="Business\ConfigurableEntity\EntityAppConfig.cs" />
     <Compile Include="Business\GJPredeliveryAsync\PreDelivery.cs" />
+    <Compile Include="Business\SDMockCommit\DALs\ESBDAL.cs" />
     <Compile Include="Business\SDMockCommit\Dics\FetalMove.cs" />
     <Compile Include="Business\SDMockCommit\Dics\Common.cs" />
     <Compile Include="Business\SDMockCommit\Dics\AmnioticFluidCharacter.cs" />
@@ -144,6 +145,9 @@
     <Compile Include="Business\SDMockCommit\Entities\PregnantInfo\ProfessionalExaminationModel.cs" />
     <Compile Include="Business\SDMockCommit\Entities\PregnantInfo\PhysicalExaminationModel.cs" />
     <Compile Include="Business\SDMockCommit\Entities\PregnantInfo\PregnantInfo.cs" />
+    <Compile Include="Business\SDMockCommit\RequestAndResponse\CQJL_WOMAN_FORM_SAVE.cs" />
+    <Compile Include="Business\SDMockCommit\RequestAndResponse\CQJL_WOMAN_FORM_READ.cs" />
+    <Compile Include="Business\SDMockCommit\RequestAndResponse\CQJL_LIST.cs" />
     <Compile Include="Business\SDMockCommit\Services\ESBService.cs" />
     <Compile Include="Business\SDMockCommit\RequestAndResponse\WMH_CQBJ_CQJC_READ.cs" />
     <Compile Include="Business\SDMockCommit\RequestAndResponse\WMH_CQBJ_CQJC_SAVE.cs" />
@@ -159,7 +163,7 @@
     <Compile Include="Business\SDMockCommit\Services\FSService.cs" />
     <Compile Include="Business\SDMockCommit\Services\PregnantService.cs" />
     <Compile Include="Business\SDMockCommit\ServiceContext.cs" />
-    <Compile Include="Business\SDMockCommit\SDDAL.cs" />
+    <Compile Include="Business\SDMockCommit\DALs\PregnantDAL.cs" />
     <Compile Include="Business\SDMockCommit\RequestAndResponse\Response_WMH_CQBJ_JBXX_FORM_READ.cs" />
     <Compile Include="Business\SDMockCommit\RequestAndResponse\Response_WCQBJ_CZDH_DOCTOR_READ%28Base8%29.cs" />
     <Compile Include="Business\SDMockCommit\RequestAndResponse\Data_WMH_CQBJ_JBXX_FORM_SAVE.cs" />

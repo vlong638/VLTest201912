@@ -9,10 +9,9 @@ using System.Web.UI.WebControls;
 
 namespace FrameworkTest.Business.SDMockCommit
 {
-    public class PregnantDischarge_SourceData : SourceData
+    public class PregnantDischarge_SourceData : SourceDataForESB
     {
         public PregnantDischarge SourceData;
-        internal string chiefcomplaint;
 
         public PregnantDischarge_SourceData(PregnantDischarge pe)
         {
@@ -23,9 +22,9 @@ namespace FrameworkTest.Business.SDMockCommit
         //public string PersonName => SourceData.personname;
         //public string SourceId => SourceData.Id.ToString();
 
-        public string IdCard => "SourceData.idcard";
-        public string PersonName => "SourceData.personname";
-        public string SourceId => "SourceData.Id.ToString()";
+        public string inp_no => SourceData.inp_no;
+        public string PersonName => "蓝艳云";
+        public string SourceId => SourceData.inp_no;
         public TargetType TargetType => TargetType.PregnantDischarge;
     }
 }

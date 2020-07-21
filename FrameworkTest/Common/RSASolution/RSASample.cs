@@ -150,7 +150,7 @@ namespace FrameworkTest.Common.RSASolution
         //    return this.modulo(xy);
         //}
 
-        //TODO powMod
+        //powMod
         //barrett.powMod = function BarrettMu_powMod(x, y)
         //{
         //    var result = new BigInt();

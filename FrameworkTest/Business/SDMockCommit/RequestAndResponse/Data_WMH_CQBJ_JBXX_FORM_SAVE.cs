@@ -36,51 +36,51 @@ namespace FrameworkTest.Business.SDMockCommit
             D12 = "";//孕妇职业 1)  职业STD_OCCUPATION
             D13 = ""; //孕妇工作单位
             D14 = ""; //孕妇籍贯
-            D15 = ""; //孕妇户籍地址 [TODO 对照表] 省2位;市2位;县/区2位;乡镇街道3位;社区/村3位
-            D16 = ""; //孕妇户籍地址 [TODO 对照表]
-            D17 = "";//孕妇户籍地址 [TODO 对照表]
-            D18 = ""; //孕妇户籍地址 [TODO 对照表]
-            D19 = ""; //孕妇户籍地址 [TODO 对照表]
+            D15 = ""; //孕妇户籍地址 [ 对照表] 省2位;市2位;县/区2位;乡镇街道3位;社区/村3位
+            D16 = ""; //孕妇户籍地址 [ 对照表]
+            D17 = "";//孕妇户籍地址 [ 对照表]
+            D18 = ""; //孕妇户籍地址 [ 对照表]
+            D19 = ""; //孕妇户籍地址 [ 对照表]
             D20 = ""; //户籍详细地址
-            D21 = ""; //孕妇现住地址 [TODO 对照表]
-            D22 = ""; //孕妇现住地址 [TODO 对照表]
-            D23 = ""; //孕妇现住地址 [TODO 对照表]
-            D24 = ""; //孕妇现住地址 [TODO 对照表]
-            D25 = ""; //孕妇现住地址 [TODO 对照表]
+            D21 = ""; //孕妇现住地址 [ 对照表]
+            D22 = ""; //孕妇现住地址 [ 对照表]
+            D23 = ""; //孕妇现住地址 [ 对照表]
+            D24 = ""; //孕妇现住地址 [ 对照表]
+            D25 = ""; //孕妇现住地址 [ 对照表]
             D26 = ""; //产后休养地址
-            D27 = ""; //产后休养地址 [TODO 对照表]
-            D28 = ""; //产后休养地址 [TODO 对照表]
-            D29 = ""; //产后休养地址 [TODO 对照表]
-            D30 = ""; //产后休养地址 [TODO 对照表]
-            D31 = ""; //产后休养地址 [TODO 对照表]
+            D27 = ""; //产后休养地址 [ 对照表]
+            D28 = ""; //产后休养地址 [ 对照表]
+            D29 = ""; //产后休养地址 [ 对照表]
+            D30 = ""; //产后休养地址 [ 对照表]
+            D31 = ""; //产后休养地址 [ 对照表]
             D32 = ""; //产后详细地址
             D33 = ""; //孕妇户籍类型 1)  户籍类型STD_REGISTERT2PE
             D34 = ""; //孕妇户籍分类 非户籍:2 ;户籍:1
             D35 = ""; //来本地居住时间 
-            D36 = ""; //近亲结婚  [TODO 对照表]
+            D36 = ""; //近亲结婚  [ 对照表]
             D37 = ""; //孕妇结婚年龄 
             D38 = ""; //丈夫结婚年龄 
             D39 = ""; //丈夫姓名
-            D40 = ""; //丈夫国籍  [TODO 对照表]
-            D41 = ""; //丈夫民族  [TODO 对照表]
-            D42 = ""; //丈夫证件类型  [TODO 对照表]
+            D40 = ""; //丈夫国籍  [ 对照表]
+            D41 = ""; //丈夫民族  [ 对照表]
+            D42 = ""; //丈夫证件类型  [ 对照表]
             D43 = ""; //丈夫证件号码
             D44 = ""; //丈夫出生日期
             D45 = ""; //丈夫登记年龄
-            D46 = ""; //丈夫职业  [TODO 对照表]
+            D46 = ""; //丈夫职业  [ 对照表]
             D47 = "";  //丈夫工作单位
             D48 = ""; //丈夫联系电话
-            D49 = ""; //丈夫健康状况   [TODO 对照表]
-            D50 = ""; //丈夫嗜好   [TODO 对照表]
-            D51 = ""; //丈夫现在地址   [TODO 对照表]
+            D49 = ""; //丈夫健康状况   [ 对照表]
+            D50 = ""; //丈夫嗜好   [ 对照表]
+            D51 = ""; //丈夫现在地址   [ 对照表]
             D52 = ""; //丈夫现在地址
             D53 = ""; //丈夫现在地址
             D54 = ""; //丈夫现在地址
             D55 = ""; //丈夫现在地址
             D56 = ""; //现住详细地址
             D57 = "";
-            D62 = ""; //婚姻状况  [TODO 对照表]
-            D63 = ""; //医疗费用支付方式  [TODO 对照表]
+            D62 = ""; //婚姻状况  [ 对照表]
+            D63 = ""; //医疗费用支付方式  [ 对照表]
             D64 = ""; //厨房排风设施 PASS
             D65 = ""; //燃料类型 PASS
             D66 = ""; //饮水 PASS
@@ -177,43 +177,43 @@ namespace FrameworkTest.Business.SDMockCommit
         public string D12 { set; get; } //孕妇职业 1)  职业STD_OCCUPATION
         public string D13 { set; get; } //孕妇工作单位
         public string D14 { set; get; } //孕妇籍贯
-        public string D15 { set; get; } //孕妇户籍地址 [TODO 对照表] 省2位,市2位,县/区2位,乡镇街道3位,社区/村3位
-        public string D16 { set; get; } //孕妇户籍地址 [TODO 对照表]
-        public string D17 { set; get; } //孕妇户籍地址 [TODO 对照表]
-        public string D18 { set; get; } //孕妇户籍地址 [TODO 对照表]
-        public string D19 { set; get; } //孕妇户籍地址 [TODO 对照表]
+        public string D15 { set; get; } //孕妇户籍地址 [ 对照表] 省2位,市2位,县/区2位,乡镇街道3位,社区/村3位
+        public string D16 { set; get; } //孕妇户籍地址 [ 对照表]
+        public string D17 { set; get; } //孕妇户籍地址 [ 对照表]
+        public string D18 { set; get; } //孕妇户籍地址 [ 对照表]
+        public string D19 { set; get; } //孕妇户籍地址 [ 对照表]
         public string D20 { set; get; } //户籍详细地址
-        public string D21 { set; get; } //孕妇现住地址 [TODO 对照表]
-        public string D22 { set; get; } //孕妇现住地址 [TODO 对照表]
-        public string D23 { set; get; } //孕妇现住地址 [TODO 对照表]
-        public string D24 { set; get; } //孕妇现住地址 [TODO 对照表]
-        public string D25 { set; get; } //孕妇现住地址 [TODO 对照表]
+        public string D21 { set; get; } //孕妇现住地址 [ 对照表]
+        public string D22 { set; get; } //孕妇现住地址 [ 对照表]
+        public string D23 { set; get; } //孕妇现住地址 [ 对照表]
+        public string D24 { set; get; } //孕妇现住地址 [ 对照表]
+        public string D25 { set; get; } //孕妇现住地址 [ 对照表]
         public string D26 { set; get; } //产后休养地址
-        public string D27 { set; get; } //产后休养地址 [TODO 对照表]
-        public string D28 { set; get; } //产后休养地址 [TODO 对照表]
-        public string D29 { set; get; } //产后休养地址 [TODO 对照表]
-        public string D30 { set; get; } //产后休养地址 [TODO 对照表]
-        public string D31 { set; get; } //产后休养地址 [TODO 对照表]
+        public string D27 { set; get; } //产后休养地址 [ 对照表]
+        public string D28 { set; get; } //产后休养地址 [ 对照表]
+        public string D29 { set; get; } //产后休养地址 [ 对照表]
+        public string D30 { set; get; } //产后休养地址 [ 对照表]
+        public string D31 { set; get; } //产后休养地址 [ 对照表]
         public string D32 { set; get; } //产后详细地址
         public string D33 { set; get; } //孕妇户籍类型 1)  户籍类型STD_REGISTERT2PE
         public string D34 { set; get; } //孕妇户籍分类 非户籍:2 ,户籍:1
         public string D35 { set; get; } //来本地居住时间 
-        public string D36 { set; get; } //近亲结婚  [TODO 对照表]
+        public string D36 { set; get; } //近亲结婚  [ 对照表]
         public string D37 { set; get; } //孕妇结婚年龄 
         public string D38 { set; get; } //丈夫结婚年龄 
         public string D39 { set; get; } //丈夫姓名
-        public string D40 { set; get; } //丈夫国籍  [TODO 对照表]
-        public string D41 { set; get; } //丈夫民族  [TODO 对照表]
-        public string D42 { set; get; } //丈夫证件类型  [TODO 对照表]
+        public string D40 { set; get; } //丈夫国籍  [ 对照表]
+        public string D41 { set; get; } //丈夫民族  [ 对照表]
+        public string D42 { set; get; } //丈夫证件类型  [ 对照表]
         public string D43 { set; get; } //丈夫证件号码
         public string D44 { set; get; } //丈夫出生日期
         public string D45 { set; get; } //丈夫登记年龄
-        public string D46 { set; get; } //丈夫职业  [TODO 对照表]
+        public string D46 { set; get; } //丈夫职业  [ 对照表]
         public string D47 { set; get; }  //丈夫工作单位
         public string D48 { set; get; } //丈夫联系电话
-        public string D49 { set; get; } //丈夫健康状况   [TODO 对照表]
-        public string D50 { set; get; } //丈夫嗜好   [TODO 对照表]
-        public string D51 { set; get; } //丈夫现在地址   [TODO 对照表]
+        public string D49 { set; get; } //丈夫健康状况   [ 对照表]
+        public string D50 { set; get; } //丈夫嗜好   [ 对照表]
+        public string D51 { set; get; } //丈夫现在地址   [ 对照表]
         public string D52 { set; get; } //丈夫现在地址
         public string D53 { set; get; } //丈夫现在地址
         public string D54 { set; get; } //丈夫现在地址
@@ -224,8 +224,8 @@ namespace FrameworkTest.Business.SDMockCommit
         public string D59 { set; get; } //创建机构
         public string D60 { set; get; } //创建人员
         public string D61 { set; get; } //病案号
-        public string D62 { set; get; } //婚姻状况  [TODO 对照表]
-        public string D63 { set; get; } //医疗费用支付方式  [TODO 对照表]
+        public string D62 { set; get; } //婚姻状况  [ 对照表]
+        public string D63 { set; get; } //医疗费用支付方式  [ 对照表]
         public string D64 { set; get; } //厨房排风设施 PASS
         public string D65 { set; get; } //燃料类型 PASS
         public string D66 { set; get; } //饮水 PASS
@@ -322,7 +322,7 @@ namespace FrameworkTest.Business.SDMockCommit
             this.D44 = pregnantInfo.husbandbirthday?.ToString("yyyy-MM-dd") ?? "";
             //public string D45 { set; get; } //丈夫登记年龄
             this.D45 = pregnantInfo.husbandage ?? "";
-            //public string D46 { set; get; } //丈夫职业  [TODO 对照表] PASS(未有在用)
+            //public string D46 { set; get; } //丈夫职业  [ 对照表] PASS(未有在用)
             //this.D12 = VLConstraints.GetOccupation_STD_OCCUPATIONByOccupation_Hele(pregnantInfo.husbandworkcode);
             //public string D47 { set; get; }  //丈夫工作单位 PASS(未有在用)
             //public string D48 { set; get; } //丈夫联系电话

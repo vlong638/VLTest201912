@@ -48,7 +48,6 @@ namespace FrameworkTest.Business.SDMockCommit
         //职业  OCCUPATION workname/workcode
         public string workname { set; get; }
         public string workcode { set; get; }
-        //TODO
         //文化程度    DEGREE1 educationcode
         public string educationcode { set; get; }
         //工作单位 COMPANY workplace
@@ -70,7 +69,6 @@ namespace FrameworkTest.Business.SDMockCommit
         public string liveplace { set; get; }
         public string liveplace_text;
 
-        //TODO
 
         //邮编 POSTNUM zipcode
         public string zipcode { set; get; }
@@ -216,15 +214,12 @@ namespace FrameworkTest.Business.SDMockCommit
 
         //丈夫现住址详细地址 NFQXXX  需核对
         //public string NFQXXX { set; get; }
-        //TODO
 
         //推送人 SEND_PERSON 需核对 若与平台用户无关则对应editorname
         //public string NFQXXX { set; get; }
-        //TODO
 
         //推送机构    SEND_UNIT	45608491-9	顺德妇保机构代码：45608491-9
         //public string NFQXXX { set; get; }
-        //TODO
 
         //推送时间 SEND_DATE   当前时间
 
