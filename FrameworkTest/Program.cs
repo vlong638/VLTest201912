@@ -37,6 +37,8 @@ namespace FrameworkTest
 
         static void Main(string[] args)
         {
+            //var sste = @"1.孕28-30周行胎儿超声心动图；2.一周复查脐血流；3.注意休息，定期四周产检。\n低分子肝素皮下注射。";
+            //sste = FSService.RemoveUnacceptableString(sste);
 
             #region 特殊值异常
             //            var result22 = @"

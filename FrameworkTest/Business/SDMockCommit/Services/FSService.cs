@@ -369,5 +369,12 @@ namespace FrameworkTest.Business.SDMockCommit
         }
 
         #endregion
+
+        public static string RemoveUnacceptableString(string text)
+        {
+            text = text.Replace("\\n", "");
+            text = text.Replace("\\", "");
+            return text;
+        }
     }
 }

@@ -195,7 +195,7 @@ namespace FrameworkTest.Business.SDMockCommit
             this.D3 = sourceDataModel.SourceData.lastmenstrualperiod?.ToDateTime()?.ToString("yyyy-MM-dd") ?? "";//D3 矫正末次月经 = 孕妇档案.末次月经
             this.D4 = sourceDataModel.SourceData.dateofprenatal?.ToDateTime()?.ToString("yyyy-MM-dd") ?? "";//D4 矫正预产期 = 孕妇档案.预产期
             //D26,处理 = 处理意见
-            this.D26 = sourceDataModel.SourceData.suggestion ?? "";
+            this.D26 = FSService.RemoveUnacceptableString(sourceDataModel.SourceData.suggestion ?? "");
             ////D29,健康评估 = 其它评估 无需处理
             //this.D29 = sourceData.SourceData.generalcomment ?? "";
             //D39,下次预约时间 = 下次随访
