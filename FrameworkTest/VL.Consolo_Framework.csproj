@@ -167,6 +167,10 @@
     <Compile Include="Business\SDMockCommit\RequestAndResponse\Response_WMH_CQBJ_JBXX_FORM_READ.cs" />
     <Compile Include="Business\SDMockCommit\RequestAndResponse\Response_WCQBJ_CZDH_DOCTOR_READ%28Base8%29.cs" />
     <Compile Include="Business\SDMockCommit\RequestAndResponse\Data_WMH_CQBJ_JBXX_FORM_SAVE.cs" />
+    <Compile Include="Business\SDMockCommit\SyncTask\PhysicalExamination_SyncTask_Update.cs" />
+    <Compile Include="Business\SDMockCommit\SyncTask\PhysicalExamination_SyncTask_Create.cs" />
+    <Compile Include="Business\SDMockCommit\SyncTask\Enquiry_SyncTask_Update.cs" />
+    <Compile Include="Business\SDMockCommit\SyncTask\Enquiry_SyncTask_Create.cs" />
     <Compile Include="Business\SDMockCommit\SyncTask\PregnantInfo_SourceData.cs" />
     <Compile Include="Business\SDMockCommit\SyncTask\PregnantInfo_SyncTask_Create.cs" />
     <Compile Include="Business\SDMockCommit\SyncTask\PregnantInfo_SyncTask_Update.cs" />
@@ -210,7 +214,6 @@
     <Compile Include="Common\ValuesSolution\JsonEx.cs" />
     <Compile Include="Common\ValuesSolution\EnumEx.cs" />
     <Compile Include="Common\ValuesSolution\DataTableEx.cs" />
-    <Compile Include="Common\ValuesSolution\HexadecimalEx.cs" />
     <Compile Include="Common\ValuesSolution\ValueEx.cs" />
     <Compile Include="Common\XMLSolution\IXMLConfig.cs" />
     <Compile Include="Common\XMLSolution\XMLEx.cs" />

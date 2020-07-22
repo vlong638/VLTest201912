@@ -229,6 +229,44 @@ namespace FrameworkTest.Business.SDMockCommit
             //this.pagesize = physicalExamination.pagesize;
         }
 
+        public void UpdateExamination(PhysicalExaminationModel examination)
+        {
+            //--孕前体重 D50 PregnantInfo.weight
+            this.D50 = examination.pi_weight ?? "";
+            //-- 身高 D5   PregnantInfo.height
+            this.D5 = examination.pi_height ?? "";
+            //-- 孕前BMI指数 D43 PregnantInfo.bmi
+            this.D43 = examination.pi_bmi ?? "";
+            //--体温 D44 temperature
+            this.D44 = examination.temperature ?? "";
+            //--脉搏 D6 heartrate
+            this.D6 = examination.heartrate ?? "";
+            //--呼吸 D8 未找到
+            //--体重 D4 weight
+            this.D4 = examination.weight ?? "";
+            //-- 是否初检 D47
+            this.D47 = examination.firstvisitdate == examination.lastestvisitdate ? "1" : "2";
+            //dbp 舒张压 低值
+            this.D3 = examination.dbp;
+            //sbp 收缩压 高值
+            this.D2 = examination.sbp;
+
+            //以下都为文本
+            //未见异常
+            //异常：
+            //未做
+            //fs外阴 D35    hl外阴 tmpl_vulva
+            this.D35 = VLConstraints.Get_Common_AbnormalCheck(examination.vulva);
+            //fs阴道 D36    hl阴道 tmpl_vagina
+            this.D36 = VLConstraints.Get_Common_AbnormalCheck(examination.vagina);
+            //fs宫颈 D37    hl宫颈 tmpl_cervix
+            this.D37 = VLConstraints.Get_Common_AbnormalCheck(examination.cervix);
+            //fs宫体 D38    hl子宫 tmpl_uterus
+            this.D38 = VLConstraints.Get_Common_AbnormalCheck(examination.uterus);
+            //fs附件 D39    hl附件1 tmpl_appendages
+            this.D39 = VLConstraints.Get_Common_AbnormalCheck(examination.appendages);
+        }
+
         public string D1 { set; get; }//":"2020-06-29" //日期
         public string D44 { set; get; }//":"" //体温
         public string D6 { set; get; }//":"" //脉搏
