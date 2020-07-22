@@ -890,7 +890,7 @@ from
 				FROM PregnantInfo pi 
 				LEFT JOIN MHC_VisitRecord vr on pi.idcard = vr.idcard 
 				left join SyncForFS se on se.TargetType = 3 and se.SourceId = vr.Id			
-				where se.id is not null and se.SyncStatus in (2,11)
+				where se.id is not null and se.SyncStatus = 2
 				and vr.updatetime > DATEADD( SECOND,10 ,se.SyncTime)
 				and vr.visitdate = convert(nvarchar,getdate(),23)				
                 -- 追加13周前同步一次规则

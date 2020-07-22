@@ -110,7 +110,7 @@ FROM PregnantInfo pi
 LEFT JOIN MHC_VisitRecord vr on pi.idcard = vr.idcard 
 left join SyncForFS s4 on s4.TargetType = 4 and s4.SourceId = vr.Id			
 where vr.visitdate = convert(nvarchar,getdate(),23)
-and s4.id is not null and s4.SyncStatus in (2,11) 
+and s4.id is not null and s4.SyncStatus = 2
 and vr.updatetime > DATEADD( SECOND,10 ,s4.SyncTime)
 ", transaction: dbGroup.Transaction).ToList();
         }
