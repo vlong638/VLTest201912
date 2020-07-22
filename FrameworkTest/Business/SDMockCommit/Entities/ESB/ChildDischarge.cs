@@ -11,6 +11,8 @@ namespace FrameworkTest.Business.SDMockCommit
     [Table("[V_FWPT_GY_ZHUYUANFMYE]")]
     public class ChildDischarge
     {
+        public string inp_no { get; set; } //住院号
+        public string WYData { get; set; } //喂养
 
         public ChildDischarge()
         {

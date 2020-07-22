@@ -6,19 +6,19 @@ using System.Text;
 
 namespace FrameworkTest.Business.SDMockCommit
 {
-    public class PregnantDischarge_SyncTask_Create : SyncTask<PregnantDischarge_SourceData>
+    public class ChildDischarge_SyncTask_Create : SyncTask<ChildDischarge_SourceData>
     {
-        public PregnantDischarge_SyncTask_Create(ServiceContext context) : base(context)
+        public ChildDischarge_SyncTask_Create(ServiceContext context) : base(context)
         {
         }
 
-        public override List<PregnantDischarge_SourceData> GetSourceDatas(UserInfo userInfo)
+
+        public override List<ChildDischarge_SourceData> GetSourceDatas(UserInfo userInfo)
         {
-            Context.ESBService.UpdatePregnantDischarge();
-            return Context.ESBService.GetPregnantDischargesToCreate().Select(c => new PregnantDischarge_SourceData(c)).ToList();
+            return Context.ESBService.GetChildDischargesToCreate().Select(c => new ChildDischarge_SourceData(c)).ToList();
         }
 
-        public override void DoWork(ServiceContext context, UserInfo userInfo, PregnantDischarge_SourceData sourceData)
+        public override void DoWork(ServiceContext context, UserInfo userInfo, ChildDischarge_SourceData sourceData)
         {
             StringBuilder logger = new StringBuilder();
             var syncOrder = new SyncOrder()
@@ -27,12 +27,13 @@ namespace FrameworkTest.Business.SDMockCommit
                 TargetType = sourceData.TargetType,
                 SyncTime = DateTime.Now,
                 SyncStatus = SyncStatus.Success,
+                ErrorMessage = SyncStatus.Success.GetDescription(),
             };
             try
             {
                 //获取列表数据
-                var listData = Context.FSService.GetPregnantInHospitalList(userInfo, sourceData.inp_no,ref logger);
-                if (listData==null)
+                var listData = Context.FSService.GetPregnantInHospitalList(userInfo, sourceData.inp_no, ref logger);
+                if (listData == null)
                 {
                     syncOrder.SyncStatus = SyncStatus.Error;
                     syncOrder.ErrorMessage = "未获取到 列表数据";
@@ -40,12 +41,12 @@ namespace FrameworkTest.Business.SDMockCommit
                     return;
                 }
                 //获取住院数据
-                var pregnantDischargeData = Context.FSService.GetPregnantDischarge(userInfo, listData.FMMainId, ref logger);
+                var ChildDischargeData = Context.FSService.GetChildDischarge(userInfo, listData.FMMainId, ref logger);
                 //数据更新
-                var pregnantDischargeToCreate = new CQJL_WOMAN_FORM_SAVE_Data();
-                if (pregnantDischargeData != null)
+                var ChildDischargeToCreate = new CQJL_CHILD_FORM_SAVE_Data();
+                if (ChildDischargeData != null)
                 {
-                    //pregnantDischargeToCreate.Update(pregnantDischargeData);
+                    //ChildDischargeToCreate.Update(ChildDischargeData);
                     syncOrder.SyncStatus = SyncStatus.Existed;
                     syncOrder.ErrorMessage = SyncStatus.Existed.GetDescription();
                     context.ESBService.SaveSyncOrder(syncOrder);
@@ -53,11 +54,11 @@ namespace FrameworkTest.Business.SDMockCommit
                 }
                 else
                 {
-                    pregnantDischargeToCreate.Init(userInfo, sourceData, listData.FMMainId);
+                    ChildDischargeToCreate.Init(userInfo);
                 }
-                pregnantDischargeToCreate.Update(sourceData);
+                ChildDischargeToCreate.Update(sourceData);
                 //创建住院数据
-                var result = Context.FSService.SavePregnantDischarge(userInfo, listData, pregnantDischargeToCreate, pregnantDischargeData?.DischargeId ?? "null", ref logger);
+                var result = Context.FSService.SaveChildDischarge(userInfo, ChildDischargeToCreate, listData.FMMainId, ref logger);
                 //保存同步记录
                 context.ESBService.SaveSyncOrder(syncOrder);
             }
@@ -67,7 +68,7 @@ namespace FrameworkTest.Business.SDMockCommit
 
                 syncOrder.SyncStatus = SyncStatus.Error;
                 syncOrder.ErrorMessage = ex.ToString();
-                context.PregnantService.SaveSyncOrder(syncOrder);
+                context.ESBService.SaveSyncOrder(syncOrder);
             }
             finally
             {

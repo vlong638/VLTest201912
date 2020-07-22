@@ -55,6 +55,7 @@ namespace FrameworkTest.Business.SDMockCommit
 
         public static class DateTime {
             public static string DateFormatter = "yyyy-MM-dd";
+            public static string DateHHmmFormatter = "yyyy-MM-dd HH:mm";
             public static string DateTimeFormatter = "yyyy-MM-dd HH:mm:ss";
 
             /// <summary>

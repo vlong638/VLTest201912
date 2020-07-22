@@ -33,7 +33,7 @@ namespace FrameworkTest.Business.SDMockCommit
         public override void DoWork(ServiceContext context, UserInfo userInfo, ProfessionalExaminationModel_SourceData sourceDataModel)
         {
             StringBuilder logger = new StringBuilder();
-            var syncOrder = Context.PregnantService.GetSyncOrder(TargetType.ProfessionalExamination, sourceDataModel.SourceId);
+            var syncOrder = Context.PregnantService.GetSyncOrder(sourceDataModel.TargetType, sourceDataModel.SourceId);
             syncOrder.SyncTime = DateTime.Now;
             try
             {

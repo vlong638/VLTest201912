@@ -6,23 +6,25 @@ using System.Text;
 
 namespace FrameworkTest.Business.SDMockCommit
 {
-    public class PregnantDischarge_SyncTask_Update : SyncTask<PregnantDischarge_SourceData>
+    public class ChildDischarge_SyncTask_Update : SyncTask<ChildDischarge_SourceData>
     {
-        public PregnantDischarge_SyncTask_Update(ServiceContext context) : base(context)
+        public ChildDischarge_SyncTask_Update(ServiceContext context) : base(context)
         {
         }
 
 
-        public override List<PregnantDischarge_SourceData> GetSourceDatas(UserInfo userInfo)
+        public override List<ChildDischarge_SourceData> GetSourceDatas(UserInfo userInfo)
         {
-            return Context.ESBService.GetPregnantDischargesToUpdate().Select(c => new PregnantDischarge_SourceData(c)).ToList();
+            return Context.ESBService.GetChildDischargesToUpdate().Select(c => new ChildDischarge_SourceData(c)).ToList();
         }
 
-        public override void DoWork(ServiceContext context, UserInfo userInfo, PregnantDischarge_SourceData sourceData)
+        public override void DoWork(ServiceContext context, UserInfo userInfo, ChildDischarge_SourceData sourceData)
         {
             StringBuilder logger = new StringBuilder();
             var syncOrder = Context.PregnantService.GetSyncOrder(sourceData.TargetType, sourceData.SourceId);
             syncOrder.SyncTime = DateTime.Now;
+            syncOrder.SyncStatus = SyncStatus.Success;
+            syncOrder.ErrorMessage = SyncStatus.Success.GetDescription();
             try
             {
                 //获取列表数据
@@ -35,20 +37,23 @@ namespace FrameworkTest.Business.SDMockCommit
                     return;
                 }
                 //获取住院数据
-                var pregnantDischargeData = Context.FSService.GetPregnantDischarge(userInfo, listData.FMMainId, ref logger);
+                var ChildDischargeData = Context.FSService.GetChildDischarge(userInfo, listData.FMMainId, ref logger);
                 //数据更新
-                var pregnantDischargeToCreate = new CQJL_WOMAN_FORM_SAVE_Data();
-                if (pregnantDischargeData == null)
+                var ChildDischargeToCreate = new CQJL_CHILD_FORM_SAVE_Data();
+                if (ChildDischargeData == null)
                 {
                     syncOrder.SyncStatus = SyncStatus.NotExisted;
                     syncOrder.ErrorMessage = SyncStatus.NotExisted.GetDescription();
                     context.ESBService.SaveSyncOrder(syncOrder);
                     return;
                 }
-                pregnantDischargeToCreate.Update(pregnantDischargeData);
-                pregnantDischargeToCreate.Update(sourceData);
+                else
+                {
+                    ChildDischargeToCreate.Update(ChildDischargeData);
+                }
+                ChildDischargeToCreate.Update(sourceData);
                 //创建住院数据
-                var result = Context.FSService.SavePregnantDischarge(userInfo, listData, pregnantDischargeToCreate, pregnantDischargeData?.DischargeId ?? "null", ref logger);
+                var result = Context.FSService.SaveChildDischarge(userInfo, ChildDischargeToCreate, listData.FMMainId, ref logger);
                 //保存同步记录
                 context.ESBService.SaveSyncOrder(syncOrder);
             }
@@ -58,7 +63,7 @@ namespace FrameworkTest.Business.SDMockCommit
 
                 syncOrder.SyncStatus = SyncStatus.Error;
                 syncOrder.ErrorMessage = ex.ToString();
-                context.PregnantService.SaveSyncOrder(syncOrder);
+                context.ESBService.SaveSyncOrder(syncOrder);
             }
             finally
             {

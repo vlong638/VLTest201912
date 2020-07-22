@@ -298,32 +298,34 @@ namespace FrameworkTest.Business.SDMockCommit
             logger.AppendLine(result);
             return result.Contains("处理成功");
         }
-        
+
         #endregion
 
-        #region 孕妇出院登记
-
+        #region 孕妇住院数据
         /// <summary>
-        /// 获取 孕妇出院登记列表
+        /// 获取 孕妇住院数据列表
         /// </summary>
         /// <param name="userInfo"></param>
         /// <param name="idCard"></param>
         /// <param name="logger"></param>
         /// <returns></returns>
-        internal CQJL_LIST_Data GetPregnantDischargeList(UserInfo userInfo, string inp_no, ref StringBuilder logger)
+        internal CQJL_LIST_Data GetPregnantInHospitalList(UserInfo userInfo, string inp_no, ref StringBuilder logger)
         {
             var container = new CookieContainer();
             var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/CQJL_LIST&sUserID={userInfo.UserId}&sParams=null${userInfo.OrgId}$1${inp_no}$P$P";
             var postData = "pageIndex=0&pageSize=1000&sortField=&sortOrder=";
             var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
-            logger.AppendLine($">>>查询-获取孕妇出院登记列表");
+            logger.AppendLine($">>>查询-获取孕妇住院数据列表");
             logger.AppendLine(url);
             logger.AppendLine(result);
             var re2 = result.FromJson<CQJL_LIST>();
-            if (re2 == null || re2.data == null || re2.data.Count == 0 || re2.data.Count >1 )
+            if (re2 == null || re2.data == null || re2.data.Count == 0 || re2.data.Count > 1)
                 return null;
             return re2.data.First();
-        }
+        } 
+        #endregion
+
+        #region 孕妇出院登记
 
         /// <summary>
         /// 获取 孕妇出院登记
@@ -360,7 +362,53 @@ namespace FrameworkTest.Business.SDMockCommit
             var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/CQJL_WOMAN_FORM_SAVE&sUserID={userInfo.UserId}&sParams=P${userInfo.OrgId}${listData.FMMainId}${dischargeId}${userInfo.UserId}$%E8%93%9D%E8%89%B3%E4%BA%91";
             var json = new List<CQJL_WOMAN_FORM_SAVE_Data>() { pregnantDischargeToCreate }.ToJson();
             var postData = "data=" + HttpUtility.UrlEncode(json);
-            logger.AppendLine($">>>创建-孕妇出院登记");
+            logger.AppendLine($">>>保存-孕妇出院登记");
+            logger.AppendLine(url);
+            logger.AppendLine(json);
+            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            logger.AppendLine(result);
+            return result.Contains("处理成功");
+        }
+
+        #endregion
+
+        #region 婴儿出院登记
+
+        /// <summary>
+        /// 获取婴儿出院登记详情
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <param name="fMMainId"></param>
+        /// <param name="logger"></param>
+        /// <returns></returns>
+        internal CQJL_CHILD_FORM_READ_Data GetChildDischarge(UserInfo userInfo, string fMMainId, ref StringBuilder logger)
+        {
+            var container = new CookieContainer();
+            var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/CQJL_CHILD_FORM_READ&sUserID={userInfo.UserId}&sParams=P${userInfo.OrgId}${fMMainId}$null$1";
+            var postData = "";
+            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            logger.AppendLine($">>>查询-获取婴儿出院登记详情");
+            logger.AppendLine(url);
+            logger.AppendLine(result);
+            var re2 = result.FromJson<CQJL_CHILD_FORM_READ>();
+            if (re2 == null || re2.data == null || re2.data.Count == 0 || re2.data.Count > 1)
+                return null;
+            return re2.data.First();
+        }
+        /// <summary>
+        /// 保存 婴儿出院登记详情
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <param name="childDischargeToCreate"></param>
+        /// <param name="logger"></param>
+        /// <returns></returns>
+        internal object SaveChildDischarge(UserInfo userInfo, CQJL_CHILD_FORM_SAVE_Data childDischargeToCreate, string fMMainId, ref StringBuilder logger)
+        {
+            var container = new CookieContainer();
+            var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/CQJL_CHILD_FORM_SAVE&sUserID={userInfo.UserId}&sParams=P${userInfo.OrgId}${fMMainId}$null${userInfo.UserId}$1$ET_CYB1";
+            var json = new List<CQJL_CHILD_FORM_SAVE_Data>() { childDischargeToCreate }.ToJson();
+            var postData = "data=" + HttpUtility.UrlEncode(json);
+            logger.AppendLine($">>>保存-婴儿出院登记");
             logger.AppendLine(url);
             logger.AppendLine(json);
             var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");

@@ -1,4 +1,5 @@
 ﻿using FrameworkTest.Common.DBSolution;
+using System;
 using System.Collections.Generic;
 
 namespace FrameworkTest.Business.SDMockCommit
@@ -37,6 +38,11 @@ namespace FrameworkTest.Business.SDMockCommit
 
         #region PregnantDischarge
 
+        internal int UpdatePregnantDischarge()
+        {
+            return ESBDAL.UpdatePregnantDischarge(DBContext.DbGroup);
+        }
+
         internal IEnumerable<PregnantDischarge> GetPregnantDischargesToCreate()
         {
             return ESBDAL.GetPregnantDischargesToCreate(DBContext.DbGroup);
@@ -45,6 +51,20 @@ namespace FrameworkTest.Business.SDMockCommit
         internal IEnumerable<PregnantDischarge> GetPregnantDischargesToUpdate()
         {
             return ESBDAL.GetPregnantDischargesToUpdate(DBContext.DbGroup);
+        }
+
+        #endregion
+
+        #region ChildDischarge
+
+        internal IEnumerable<ChildDischarge> GetChildDischargesToCreate()
+        {
+            return ESBDAL.GetChildDischargesToCreate(DBContext.DbGroup);
+        }
+
+        internal IEnumerable<ChildDischarge> GetChildDischargesToUpdate()
+        {
+            return ESBDAL.GetChildDischargesToUpdate(DBContext.DbGroup);
         }
 
         #endregion
