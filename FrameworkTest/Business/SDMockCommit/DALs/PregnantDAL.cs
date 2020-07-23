@@ -1,17 +1,9 @@
 ﻿using Dapper;
 using Dapper.Contrib.Extensions;
 using FrameworkTest.Common.DBSolution;
-using FrameworkTest.Common.FileSolution;
-using FrameworkTest.Common.HttpSolution;
 using FrameworkTest.Common.ValuesSolution;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
 
 namespace FrameworkTest.Business.SDMockCommit
 {
@@ -32,10 +24,111 @@ namespace FrameworkTest.Business.SDMockCommit
         internal static SyncOrder GetSyncForFS(DbGroup group, TargetType TargetType, string sourceId)
         {
             return group.Connection.Query<SyncOrder>("select * from SyncForFS where TargetType = @TargetType and sourceId = @sourceId", new { TargetType, sourceId }, transaction: group.Transaction).FirstOrDefault();
-        } 
+        }
         #endregion
 
         #region PhysicalExamination
+
+        internal static List<PhysicalExaminationModel> GetPhysicalExaminationsToCreate(DbGroup dbGroup)
+        {
+            return dbGroup.Connection.Query<PhysicalExaminationModel>($@"
+select 
+T1.*
+,pi_data.personname pi_personname
+,pi_data.weight pi_weight
+,pi_data.height pi_height
+,pi_data.bmi pi_bmi
+,vr_data.Id
+,vr_data.weight
+,vr_data.temperature
+,vr_data.heartrate
+,vr_data.dbp
+,vr_data.sbp
+,vr_data.vulva
+,vr_data.vagina
+,vr_data.cervix
+,vr_data.uterus
+,vr_data.appendages
+from 
+(
+		SELECT 
+		vr.id,vr.idcard
+		,max(vr.visitdate) lastestvisitdate
+		,min(vr.visitdate) firstvisitdate		
+		FROM (
+				SELECT top 1
+				pi.idcard,vr.id sourceId
+				FROM PregnantInfo pi 
+				LEFT JOIN MHC_VisitRecord vr on pi.idcard = vr.idcard 
+				left join SyncForFS sp on sp.TargetType = 1 and sp.SourceId = pi.Id
+				left join SyncForFS se on se.TargetType = 3 and se.SourceId = vr.Id			
+				where sp.id is not null and sp.SyncStatus in (2,11) 
+				and se.id is null 
+				and vr.visitdate = convert(nvarchar,getdate(),23)
+		)  as toCreate 
+		LEFT JOIN MHC_VisitRecord vr on toCreate.idcard = vr.idcard  and vr.id = toCreate.sourceId
+		GROUP BY vr.id,vr.idcard
+) as T1
+left join PregnantInfo pi_data on pi_data.idcard = T1.idcard
+left join MHC_VisitRecord vr_data on vr_data.idcard = T1.idcard and vr_data.visitdate = T1.lastestvisitdate
+and vr_data.id = T1.Id
+", transaction: dbGroup.Transaction).ToList();
+        }
+
+        internal static List<PhysicalExaminationModel> GetPhysicalExaminationsToUpdate(DbGroup dbGroup)
+        {
+            return dbGroup.Connection.Query<PhysicalExaminationModel>($@"
+select 
+T1.*
+,pi_data.personname pi_personname
+,pi_data.weight pi_weight
+,pi_data.height pi_height
+,pi_data.bmi pi_bmi
+,vr_data.Id
+,vr_data.weight
+,vr_data.temperature
+,vr_data.heartrate
+,vr_data.dbp
+,vr_data.sbp
+,vr_data.vulva
+,vr_data.vagina
+,vr_data.cervix
+,vr_data.uterus
+,vr_data.appendages
+from 
+(
+		SELECT 
+		vr.id,vr.idcard
+		,max(vr.visitdate) lastestvisitdate
+		,min(vr.visitdate) firstvisitdate		
+		FROM (
+				SELECT top 1
+				pi.idcard,vr.id sourceId
+				FROM PregnantInfo pi 
+				LEFT JOIN MHC_VisitRecord vr on pi.idcard = vr.idcard 
+				left join SyncForFS se on se.TargetType = 3 and se.SourceId = vr.Id			
+				where se.id is not null and se.SyncStatus = 2
+				and vr.updatetime > DATEADD( SECOND,10 ,se.SyncTime)
+				and vr.visitdate = convert(nvarchar,getdate(),23)				
+                -- 追加13周前同步一次规则
+				and (
+					DATEADD(DAY,-189,pi.dateofprenatal) < vr.visitdate
+					or 
+					(DATEADD(DAY,-189,pi.dateofprenatal) > vr.visitdate and not EXISTS (
+						select 1 from SyncForFS s13 left join MHC_VisitRecord v13 on s13.TargetType = 3 and s13.SourceId = v13.id
+						where v13.idcard = pi.idcard
+					))
+				)
+		)  as toCreate 
+		LEFT JOIN MHC_VisitRecord vr on toCreate.idcard = vr.idcard  and vr.id = toCreate.sourceId
+		GROUP BY vr.id,vr.idcard
+) as T1
+left join PregnantInfo pi_data on pi_data.idcard = T1.idcard
+left join MHC_VisitRecord vr_data on vr_data.idcard = T1.idcard and vr_data.visitdate = T1.lastestvisitdate
+and vr_data.id = T1.Id
+", transaction: dbGroup.Transaction).ToList();
+        }
+
         #endregion
 
         #region ProfessionalExamination

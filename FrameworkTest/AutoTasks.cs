@@ -90,7 +90,7 @@ namespace FrameworkTest
             Console.WriteLine($"任务启动=>体格检查-新建");
             Task.Factory.StartNew(() =>
             {
-                new PhysicalExamination_SyncTask_Create().Start_Auto_DoWork();
+                new PhysicalExamination_SyncTask_Create2().Start_Auto_DoWork();
             });
 
             Console.WriteLine($"任务启动=>体格检查-更新");

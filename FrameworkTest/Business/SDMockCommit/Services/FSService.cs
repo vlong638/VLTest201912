@@ -82,6 +82,38 @@ namespace FrameworkTest.Business.SDMockCommit
 
         #region 孕妇档案
 
+        internal bool IsExistByMainIdOrIdCard(UserInfo userInfo, string mainId, PregnantInfo_SourceData sourceData, ref StringBuilder logger)
+        {
+            var container = new CookieContainer();
+            var url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_CC&sUserID={userInfo.UserId}&sParams={mainId}$P$null${sourceData.Data.idcard}&pageSize=10000&pageIndex=0";
+            var postData = "";
+            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var repeatData = result.FromJson<WMH_CQBJ_JBXX_FORM_CC>();
+            if (repeatData.data.Count != 0 && repeatData.data.FirstOrDefault(c => c.PersonName != sourceData.PersonName) != null)
+            {
+                logger.AppendLine($">>>查重时,出现重复");
+                logger.AppendLine(result);
+                return true;
+            }
+            return false;
+        }
+
+        internal bool IsExistByCareId(UserInfo userInfo, string mainId, string careId, PregnantInfo_SourceData sourceData, ref StringBuilder logger)
+        {
+            var container = new CookieContainer();
+            var url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_CC&sUserID={userInfo.UserId}&sParams=null$P${careId}$null&pageSize=10000&pageIndex=0";
+            var postData = "";
+            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var repeatData = result.FromJson<WMH_CQBJ_JBXX_FORM_CC>();
+            if (repeatData.data.Count != 0 && repeatData.data.FirstOrDefault(c => c.PersonName != sourceData.PersonName) != null)
+            {
+                logger.AppendLine($">>>查重时,出现重复");
+                logger.AppendLine(result);
+                return true;
+            }
+            return false;
+        }
+
         internal WMH_CQBJ_JBXX_FORM_READData GetBase77(UserInfo userInfo, string mainId, ref StringBuilder logger)
         {
             var container = new CookieContainer();
@@ -216,6 +248,7 @@ namespace FrameworkTest.Business.SDMockCommit
         #endregion
 
         #region 体格检查
+
         /// <summary>
         /// 获取体格检查Id
         /// </summary>
@@ -240,37 +273,80 @@ namespace FrameworkTest.Business.SDMockCommit
             return re2.d1;
         }
 
-        internal bool IsExistByMainIdOrIdCard(UserInfo userInfo, string mainId, PregnantInfo_SourceData sourceData, ref StringBuilder logger)
+        /// <summary>
+        /// 查询体格检查
+        /// </summary>
+        /// <param name="physicalExaminationId"></param>
+        /// <param name="userInfo"></param>
+        /// <param name="base8"></param>
+        /// <param name="now"></param>
+        /// <param name="logger"></param>
+        /// <returns></returns>
+        internal WMH_CQBJ_CQJC_TGJC_NEW_READ_Data GetPhysicalExamination(string physicalExaminationId, UserInfo userInfo, WCQBJ_CZDH_DOCTOR_READData base8, DateTime now, ref StringBuilder logger)
         {
             var container = new CookieContainer();
-            var url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_CC&sUserID={userInfo.UserId}&sParams={mainId}$P$null${sourceData.Data.idcard}&pageSize=10000&pageIndex=0";
+            //查询体格检查详情
+            var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_CQJC_TGJC_NEW_READ&sUserID={userInfo.UserId}&sParams={base8.MainId}${physicalExaminationId}";
             var postData = "";
             var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
-            var repeatData = result.FromJson<WMH_CQBJ_JBXX_FORM_CC>();
-            if (repeatData.data.Count != 0 && repeatData.data.FirstOrDefault(c => c.PersonName != sourceData.PersonName) != null)
-            {
-                logger.AppendLine($">>>查重时,出现重复");
-                logger.AppendLine(result);
-                return true;
-            }
-            return false;
+            logger.AppendLine($"查询-查询体格检查详情");
+            logger.AppendLine(url);
+            logger.AppendLine(result);
+            var re3 = result.FromJson<WMH_CQBJ_CQJC_TGJC_NEW_READ>();
+            if (re3.data.Count == 0)
+                return null;
+            return re3.data.FirstOrDefault();
         }
 
-        internal bool IsExistByCareId(UserInfo userInfo, string mainId, string careId, PregnantInfo_SourceData sourceData, ref StringBuilder logger)
+        /// <summary>
+        /// 新建体格检查
+        /// </summary>
+        /// <param name="datas"></param>
+        /// <param name="userInfo"></param>
+        /// <param name="uniqueId"></param>
+        /// <param name="base8"></param>
+        /// <param name="logger"></param>
+        /// <returns></returns>
+        internal bool CreatePhysicalExamination(List<WMH_CQBJ_CQJC_TGJC_NEW_SAVE_Data> datas, UserInfo userInfo, string uniqueId, WCQBJ_CZDH_DOCTOR_READData base8, ref StringBuilder logger)
         {
+            //创建体格检查
             var container = new CookieContainer();
-            var url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_CC&sUserID={userInfo.UserId}&sParams=null$P${careId}$null&pageSize=10000&pageIndex=0";
-            var postData = "";
+            var url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_CQJC_TGJC_NEW_SAVE&sUserID={userInfo.UserId}&sParams={userInfo.OrgId}${base8.MainId}$null${uniqueId}";
+            var json = datas.ToJson();
+            var postData = "data=" + HttpUtility.UrlEncode(json);
+            logger.AppendLine("Create 体格检查");
+            logger.AppendLine(url);
+            logger.AppendLine(json);
             var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
-            var repeatData = result.FromJson<WMH_CQBJ_JBXX_FORM_CC>();
-            if (repeatData.data.Count != 0 && repeatData.data.FirstOrDefault(c => c.PersonName != sourceData.PersonName) != null)
-            {
-                logger.AppendLine($">>>查重时,出现重复");
-                logger.AppendLine(result);
-                return true;
-            }
-            return false;
+            logger.AppendLine(result);
+            return result.Contains("处理成功");
         }
+
+        /// <summary>
+        /// 更新体格检查
+        /// </summary>
+        /// <param name="physicalExaminationId"></param>
+        /// <param name="datas"></param>
+        /// <param name="userInfo"></param>
+        /// <param name="base8"></param>
+        /// <param name="logger"></param>
+        /// <returns></returns>
+        internal bool UpdatePhysicalExamination(string physicalExaminationId, List<WMH_CQBJ_CQJC_TGJC_NEW_SAVE_Data> datas, UserInfo userInfo, WCQBJ_CZDH_DOCTOR_READData base8, ref StringBuilder logger)
+        {
+            //Create 体格检查索引ID
+            var container = new CookieContainer();
+            //创建提个检查
+            var url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_CQJC_TGJC_NEW_SAVE&sUserID={userInfo.UserId}&sParams={userInfo.OrgId}${base8.MainId}$null${physicalExaminationId}";
+            var json = datas.ToJson();
+            var postData = "data=" + HttpUtility.UrlEncode(json); 
+            logger.AppendLine("Update 体格检查");
+            logger.AppendLine(url);
+            logger.AppendLine(json);
+            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            logger.AppendLine(result);
+            return result.Contains("处理成功");
+        }
+
         #endregion
 
         #region 问询病史

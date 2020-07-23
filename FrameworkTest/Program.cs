@@ -3366,7 +3366,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             }));
             cmds.Add(new Command("m95,0630,自动同步-新增`体格检查`", () =>
             {
-                new PhysicalExamination_SyncTask_Create().Start_Auto_DoWork();
+                new PhysicalExamination_SyncTask_Create2().Start_Auto_DoWork();
             }));
             cmds.Add(new Command("m96,0630,自动同步-更新`体格检查`", () =>
             {
@@ -3597,7 +3597,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 Console.WriteLine($"任务启动=>体格检查-新建");
                 Task.Factory.StartNew(() =>
                 {
-                    new PhysicalExamination_SyncTask_Create().Start_Auto_DoWork();
+                    new PhysicalExamination_SyncTask_Create2().Start_Auto_DoWork();
                 });
 
                 Console.WriteLine($"任务启动=>体格检查-更新");

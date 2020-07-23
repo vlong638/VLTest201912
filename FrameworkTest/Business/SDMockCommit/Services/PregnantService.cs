@@ -26,6 +26,7 @@ namespace FrameworkTest.Business.SDMockCommit
             this.DBContext = context;
         }
 
+
         #region SyncOrder
 
         public SyncOrder GetSyncOrder(TargetType TargetType, string sourceId)
@@ -87,6 +88,16 @@ namespace FrameworkTest.Business.SDMockCommit
 
 
         #region PhysicalExamination
+
+        public List<PhysicalExaminationModel> GetPhysicalExaminationsToCreate()
+        {
+            return PregnantDAL.GetPhysicalExaminationsToCreate(DBContext.DbGroup);
+        }
+
+        public IEnumerable<PhysicalExaminationModel> GetPhysicalExaminationsToUpdate()
+        {
+            return PregnantDAL.GetPhysicalExaminationsToUpdate(DBContext.DbGroup);
+        }
 
         #endregion
 

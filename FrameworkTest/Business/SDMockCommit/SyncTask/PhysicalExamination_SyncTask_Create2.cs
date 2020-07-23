@@ -9,7 +9,7 @@ using System.Text;
 
 namespace FrameworkTest.Business.SDMockCommit
 {
-    public class PhysicalExamination_SyncTask_Create
+    public class PhysicalExamination_SyncTask_Create2
     {
         public void Start_Auto_DoWork()
         {
