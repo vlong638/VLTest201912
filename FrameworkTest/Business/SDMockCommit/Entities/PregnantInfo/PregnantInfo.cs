@@ -341,7 +341,7 @@ namespace FrameworkTest.Business.SDMockCommit
             {
                 Data.Add(new pregnanthistory()
                 {
-                    index = "1",
+                    index = pregnantInfo.gravidity,
                     pregnantage = $"{DateTime.Now.Year}- ",
                 });
                 sb.AppendLine("add 本孕2");
