@@ -120,6 +120,8 @@ namespace FrameworkTest.Business.SDMockCommit
                         }
                     }
                 }
+                //更新同步计划
+                context.PregnantService.SaveSyncOrder(syncOrder);
             }
             catch (Exception ex)
             {

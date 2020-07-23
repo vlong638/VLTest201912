@@ -269,6 +269,19 @@ namespace FrameworkTest.Business.SDMockCommit
         public int? PregnantageIndex { get; set; }
 
         private List<string> pregstatuss;
+
+        internal bool IsValid()
+        {
+            if (string.IsNullOrEmpty(index))
+            {
+                return false;
+            }
+            if (string.IsNullOrEmpty(pregstatus))
+            {
+                return false;
+            }
+            return true;
+        }
     }
 
     public class pregnanthistories
@@ -284,7 +297,18 @@ namespace FrameworkTest.Business.SDMockCommit
         /// 本孕修正处理
         /// </summary>
         public void FixCurrentHistory(PregnantInfo pregnantInfo, ref StringBuilder sb)
-        { //本孕
+        {
+            sb.AppendLine(">>> FixCurrentHistory");
+            //清理无效数据
+            for (int i = Data.Count()-1; i >=0; i--)
+            {
+                var pregnantHistory = Data[i];
+                if (!pregnantHistory.IsValid())
+                {
+                    Data.Remove(pregnantHistory);
+                }
+            }
+            //本孕
             if (pregnantInfo.gravidity == "1")
             {
                 if (Data.Count == 0)
@@ -294,7 +318,7 @@ namespace FrameworkTest.Business.SDMockCommit
                         index = "1",
                         pregnantage = $"本孕{DateTime.Now.Year}- ",
                     });
-                    sb.Append("add 本孕");
+                    sb.AppendLine("add 本孕");
                 }
                 else if (Data.Count == 1)
                 {
@@ -306,21 +330,21 @@ namespace FrameworkTest.Business.SDMockCommit
                     {
                         Data[0].pregnantage = $"本孕{DateTime.Now.Year}- ";
                     }
-                    sb.Append("孕次1一记录分支");
+                    sb.AppendLine("孕次1一记录分支");
                 }
                 else
                 {
-                    sb.Append("孕次1多记录分支");
+                    sb.AppendLine("孕次1多记录分支");
                 }
             }
             else
             {
                 Data.Add(new pregnanthistory()
                 {
-                    index = "",
-                    pregnantage = $"{DateTime.Now.Year}",
+                    index = "1",
+                    pregnantage = $"{DateTime.Now.Year}- ",
                 });
-                sb.Append("add 本孕2");
+                sb.AppendLine("add 本孕2");
             }
         }
 

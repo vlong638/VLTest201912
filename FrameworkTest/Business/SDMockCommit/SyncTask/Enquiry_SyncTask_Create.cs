@@ -42,10 +42,10 @@ namespace FrameworkTest.Business.SDMockCommit
                 }
                 //获取 问询病史
                 var enquiry = context.FSService.GetEnquiry(userInfo, base8, ref logger);
-                if (enquiry == null)
+                if (enquiry != null)
                 {
-                    syncOrder.SyncStatus = SyncStatus.Error;
-                    syncOrder.ErrorMessage = "未获取到 enquiry";
+                    syncOrder.SyncStatus = SyncStatus.Existed;
+                    syncOrder.ErrorMessage = "已存在 enquiry";
                     context.PregnantService.SaveSyncOrder(syncOrder);
                     return;
                 }
@@ -123,6 +123,8 @@ namespace FrameworkTest.Business.SDMockCommit
                         }
                     }
                 }
+                //更新同步计划
+                context.PregnantService.SaveSyncOrder(syncOrder);
             }
             catch (Exception ex)
             {

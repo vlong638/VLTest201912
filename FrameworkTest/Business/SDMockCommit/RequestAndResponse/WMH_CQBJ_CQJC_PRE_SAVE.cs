@@ -158,12 +158,12 @@ namespace FrameworkTest.Business.SDMockCommit
         {
             if (string.IsNullOrEmpty(D2))
             {
-                sb.AppendLine("无效的{孕次}数据");
+                sb.AppendLine($"无效的孕次数据,{D2}");
                 return false;
             }
             if (string.IsNullOrEmpty(D3))
             {
-                sb.AppendLine("无效的{年}数据");
+                sb.AppendLine($"无效的年数据,{D3}");
                 return false;
             }
             //if (string.IsNullOrEmpty(D4))
