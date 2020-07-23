@@ -612,10 +612,6 @@ order by pi.createtime ", transaction: group.Transaction).ToList();
             return tempPregnantInfos;
         }
 
-
-
-
-
         internal static List<PregnantInfo> GetPregnantInfosToCreateEnquiries()
         {
             var context = DBHelper.GetDbContext(ConntectingStringSD);

@@ -25,6 +25,7 @@ namespace FrameworkTest.Business.SDMockCommit
 
         public override void DoWork(ServiceContext context, UserInfo userInfo, PregnantInfo_SourceData sourceData)
         {
+            StringBuilder logger = new StringBuilder();
             var syncOrder = new SyncOrder()
             {
                 SourceId = sourceData.SourceId,
@@ -32,7 +33,6 @@ namespace FrameworkTest.Business.SDMockCommit
                 SyncTime = DateTime.Now,
                 SyncStatus = SyncStatus.Success,
             };
-            StringBuilder logger = new StringBuilder();
             try
             {
                 var pregnantInfo = context.FSService.GetPregnantInfo(userInfo, sourceData.IdCard, ref logger);
@@ -42,38 +42,6 @@ namespace FrameworkTest.Business.SDMockCommit
                     syncOrder.SyncStatus = SyncStatus.Existed;
                     context.PregnantService.SaveSyncOrder(syncOrder);
                     return;
-
-                    //syncOrder.ErrorMessage = "更新";
-                    //var base8 = Context.FSService.GetBase8(userInfo, sourceData.IdCard, ref logger);
-                    //if (base8==null)
-                    //{
-                    //    syncOrder.SyncStatus = SyncStatus.Error;
-                    //    syncOrder.ErrorMessage = "未获取到 Base8";
-                    //    context.SDService.SaveSyncOrder(syncOrder);
-                    //    return;
-                    //}
-
-                    //var base77 = Context.FSService.GetBase77(userInfo, base8.MainId, ref logger);
-                    //if (base77 == null)
-                    //{
-                    //    syncOrder.SyncStatus = SyncStatus.Error;
-                    //    syncOrder.ErrorMessage = "未获取到 Base77";
-                    //    context.SDService.SaveSyncOrder(syncOrder);
-                    //    return;
-                    //}
-
-                    ////更新用户数据
-                    //var data = new WMH_CQBJ_JBXX_FORM_SAVEData(base77);
-                    //data.UpdateData(sourceData.Data);
-                    //var datas = new List<WMH_CQBJ_JBXX_FORM_SAVEData>() { data };
-                    //var isSuccess = context.FSService.UpdatePregnantInfo(userInfo, base8.MainId, base77.MainIdForChange, datas, ref logger);
-                    //if (!isSuccess)
-                    //{
-                    //    syncOrder.SyncStatus = SyncStatus.Error;
-                    //    syncOrder.ErrorMessage = "更新未返回成功标识";
-                    //    context.SDService.SaveSyncOrder(syncOrder);
-                    //    return;
-                    //}
                 }
                 else //新建分支
                 {
