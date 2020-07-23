@@ -173,8 +173,8 @@
     <Compile Include="Business\SDMockCommit\SyncTask\Old_Enquiry_SyncTask_Create.cs" />
     <Compile Include="Business\SDMockCommit\SyncTask\Enquiry_SyncTask_Update.cs" />
     <Compile Include="Business\SDMockCommit\SyncTask\PhysicalExaminationModel_SyncTask_Update.cs" />
-    <Compile Include="Business\SDMockCommit\SyncTask\PhysicalExamination_SyncTask_Update.cs" />
-    <Compile Include="Business\SDMockCommit\SyncTask\PhysicalExamination_SyncTask_Create2.cs" />
+    <Compile Include="Business\SDMockCommit\SyncTask\Old_PhysicalExamination_SyncTask_Update.cs" />
+    <Compile Include="Business\SDMockCommit\SyncTask\Old_PhysicalExamination_SyncTask_Create2.cs" />
     <Compile Include="Business\SDMockCommit\SyncTask\Old_Enquiry_SyncTask_Update.cs" />
     <Compile Include="Business\SDMockCommit\SyncTask\Enquiry_SyncTask_Create.cs" />
     <Compile Include="Business\SDMockCommit\SyncTask\ChildDischarge_SourceData.cs" />
