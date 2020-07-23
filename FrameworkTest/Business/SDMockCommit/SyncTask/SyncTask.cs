@@ -38,7 +38,7 @@ namespace FrameworkTest.Business.SDMockCommit
         /// <returns></returns>
         public abstract List<T1> GetSourceDatas(UserInfo userInfo);
 
-        public abstract void DoWork(ServiceContext context, UserInfo userInfo, T1 sourceData);
+        public abstract void DoWork(ServiceContext context, UserInfo userInfo, T1 sourceData, ref StringBuilder sb);
 
         public virtual void Start_Auto_DoWork(ServiceContext context, UserInfo userInfo, int interval = 1000 * 10)
         {
@@ -47,8 +47,10 @@ namespace FrameworkTest.Business.SDMockCommit
                 var sourceDatas = GetSourceDatas(userInfo);
                 foreach (var sourceData in sourceDatas)
                 {
+                    StringBuilder sb = new StringBuilder();
                     DoLogOnGetSource?.Invoke(sourceData);
-                    DoWork(context, userInfo, sourceData);
+                    DoWork(context, userInfo, sourceData, ref sb);
+                    DoLogOnWork?.Invoke(sourceData, sb);
                 }
                 System.Threading.Thread.Sleep(interval);
             }

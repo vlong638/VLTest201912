@@ -23,11 +23,10 @@ namespace FrameworkTest.Business.SDMockCommit
             return Context.PregnantService.GetPregnantInfoForUpdate().Select(c => new PregnantInfo_SourceData(c)).ToList();
         }
 
-        public override void DoWork(ServiceContext context, UserInfo userInfo, PregnantInfo_SourceData sourceData)
+        public override void DoWork(ServiceContext context, UserInfo userInfo, PregnantInfo_SourceData sourceData, ref StringBuilder logger)
         {
             var syncOrder = Context.PregnantService.GetSyncOrder(sourceData.TargetType, sourceData.SourceId);
             syncOrder.SyncTime = DateTime.Now;
-            StringBuilder logger = new StringBuilder();
             try
             {
                 var pregnantInfo = context.FSService.GetPregnantInfo(userInfo, sourceData.IdCard, ref logger);
@@ -88,7 +87,6 @@ namespace FrameworkTest.Business.SDMockCommit
                 logger.AppendLine(syncOrder.ErrorMessage);
                 logger.AppendLine(">>>syncOrder.ToJson()");
                 logger.AppendLine(syncOrder.ToJson());
-                DoLogOnWork?.Invoke(sourceData, logger);
             }
         }
     }

@@ -24,9 +24,8 @@ namespace FrameworkTest.Business.SDMockCommit
         }
 
 
-        public override void DoWork(ServiceContext context, UserInfo userInfo, ProfessionalExaminationModel_SourceData sourceDataModel)
+        public override void DoWork(ServiceContext context, UserInfo userInfo, ProfessionalExaminationModel_SourceData sourceDataModel, ref StringBuilder logger)
         {
-            StringBuilder logger = new StringBuilder();
             var syncOrder = new SyncOrder()
             {
                 SourceId = sourceDataModel.SourceId,
@@ -160,7 +159,6 @@ namespace FrameworkTest.Business.SDMockCommit
                 logger.AppendLine(syncOrder.ErrorMessage);
                 logger.AppendLine(">>>syncOrder.ToJson()");
                 logger.AppendLine(syncOrder.ToJson());
-                DoLogOnWork?.Invoke(sourceDataModel, logger);
             }
         }
     }

@@ -176,6 +176,7 @@
     <Compile Include="Business\SDMockCommit\SyncTask\Enquiry_SyncTask_Create.cs" />
     <Compile Include="Business\SDMockCommit\SyncTask\ChildDischarge_SourceData.cs" />
     <Compile Include="Business\SDMockCommit\SyncTask\ChildDischarge_SyncTask_Create.cs" />
+    <Compile Include="Business\SDMockCommit\SyncTask\Enquiry_SourceData.cs" />
     <Compile Include="Business\SDMockCommit\SyncTask\PregnantInfo_SourceData.cs" />
     <Compile Include="Business\SDMockCommit\SyncTask\PregnantInfo_SyncTask_Create.cs" />
     <Compile Include="Business\SDMockCommit\SyncTask\PregnantInfo_SyncTask_Update.cs" />

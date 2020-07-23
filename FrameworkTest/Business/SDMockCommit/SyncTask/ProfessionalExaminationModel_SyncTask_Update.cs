@@ -30,9 +30,8 @@ namespace FrameworkTest.Business.SDMockCommit
             return syncOrder;
         }
 
-        public override void DoWork(ServiceContext context, UserInfo userInfo, ProfessionalExaminationModel_SourceData sourceDataModel)
+        public override void DoWork(ServiceContext context, UserInfo userInfo, ProfessionalExaminationModel_SourceData sourceDataModel, ref StringBuilder logger)
         {
-            StringBuilder logger = new StringBuilder();
             var syncOrder = Context.PregnantService.GetSyncOrder(sourceDataModel.TargetType, sourceDataModel.SourceId);
             syncOrder.SyncTime = DateTime.Now;
             try
@@ -151,7 +150,6 @@ namespace FrameworkTest.Business.SDMockCommit
                 logger.AppendLine(syncOrder.ErrorMessage);
                 logger.AppendLine(">>>syncOrder.ToJson()");
                 logger.AppendLine(syncOrder.ToJson());
-                DoLogOnWork?.Invoke(sourceDataModel, logger);
             }
         }
     }

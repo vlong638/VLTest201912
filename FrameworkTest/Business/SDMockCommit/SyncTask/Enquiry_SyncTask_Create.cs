@@ -9,6 +9,80 @@ using System.Text;
 
 namespace FrameworkTest.Business.SDMockCommit
 {
+
+    //public class Enquiry_SyncTask_Create : SyncTask<Enquiry_SourceData>
+    //{
+    //    public Enquiry_SyncTask_Create(ServiceContext context) : base(context)
+    //    {
+    //    }
+
+    //    public override List<Enquiry_SourceData> GetSourceDatas(UserInfo userInfo)
+    //    {
+    //        Context.ESBService.UpdateEnquiry();
+    //        return Context.ESBService.GetEnquirysToCreate().Select(c => new Enquiry_SourceData(c)).ToList();
+    //    }
+
+    //    public override void DoWork(ServiceContext context, UserInfo userInfo, Enquiry_SourceData sourceData, ref StringBuilder logger)
+    //    {
+    //        var syncOrder = new SyncOrder()
+    //        {
+    //            SourceId = sourceData.SourceId,
+    //            TargetType = sourceData.TargetType,
+    //            SyncTime = DateTime.Now,
+    //            SyncStatus = SyncStatus.Success,
+    //        };
+    //        try
+    //        {
+    //            //获取列表数据
+    //            var listData = Context.FSService.GetPregnantInHospitalList(userInfo, sourceData.inp_no, ref logger);
+    //            if (listData == null)
+    //            {
+    //                syncOrder.SyncStatus = SyncStatus.Error;
+    //                syncOrder.ErrorMessage = "未获取到 列表数据";
+    //                context.ESBService.SaveSyncOrder(syncOrder);
+    //                return;
+    //            }
+    //            //获取住院数据
+    //            var EnquiryData = Context.FSService.GetEnquiry(userInfo, listData.FMMainId, ref logger);
+    //            //数据更新
+    //            var EnquiryToCreate = new CQJL_WOMAN_FORM_SAVE_Data();
+    //            if (EnquiryData != null)
+    //            {
+    //                //EnquiryToCreate.Update(EnquiryData);
+    //                syncOrder.SyncStatus = SyncStatus.Existed;
+    //                syncOrder.ErrorMessage = SyncStatus.Existed.GetDescription();
+    //                context.ESBService.SaveSyncOrder(syncOrder);
+    //                return;
+    //            }
+    //            else
+    //            {
+    //                EnquiryToCreate.Init(userInfo, sourceData, listData.FMMainId);
+    //            }
+    //            EnquiryToCreate.Update(sourceData);
+    //            //创建住院数据
+    //            var result = Context.FSService.SaveEnquiry(userInfo, listData, EnquiryToCreate, EnquiryData?.DischargeId ?? "null", ref logger);
+    //            //保存同步记录
+    //            context.ESBService.SaveSyncOrder(syncOrder);
+    //        }
+    //        catch (Exception ex)
+    //        {
+    //            logger.AppendLine("出现异常:" + ex.ToString());
+
+    //            syncOrder.SyncStatus = SyncStatus.Error;
+    //            syncOrder.ErrorMessage = ex.ToString();
+    //            context.PregnantService.SaveSyncOrder(syncOrder);
+    //        }
+    //        finally
+    //        {
+    //            logger.AppendLine(">>>syncOrder.ErrorMessage");
+    //            logger.AppendLine(syncOrder.ErrorMessage);
+    //            logger.AppendLine(">>>syncOrder.ToJson()");
+    //            logger.AppendLine(syncOrder.ToJson());
+    //        }
+    //    }
+    //}
+
+
     public class Enquiry_SyncTask_Create 
     {
         public void Start_Auto_DoWork()

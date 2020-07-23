@@ -18,9 +18,8 @@ namespace FrameworkTest.Business.SDMockCommit
             return Context.ESBService.GetChildDischargesToUpdate().Select(c => new ChildDischarge_SourceData(c)).ToList();
         }
 
-        public override void DoWork(ServiceContext context, UserInfo userInfo, ChildDischarge_SourceData sourceData)
+        public override void DoWork(ServiceContext context, UserInfo userInfo, ChildDischarge_SourceData sourceData, ref StringBuilder logger)
         {
-            StringBuilder logger = new StringBuilder();
             var syncOrder = Context.PregnantService.GetSyncOrder(sourceData.TargetType, sourceData.SourceId);
             syncOrder.SyncTime = DateTime.Now;
             syncOrder.SyncStatus = SyncStatus.Success;
@@ -71,7 +70,6 @@ namespace FrameworkTest.Business.SDMockCommit
                 logger.AppendLine(syncOrder.ErrorMessage);
                 logger.AppendLine(">>>syncOrder.ToJson()");
                 logger.AppendLine(syncOrder.ToJson());
-                DoLogOnWork?.Invoke(sourceData, logger);
             }
         }
     }
