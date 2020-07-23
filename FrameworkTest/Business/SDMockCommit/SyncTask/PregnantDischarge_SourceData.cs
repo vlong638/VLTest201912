@@ -18,10 +18,6 @@ namespace FrameworkTest.Business.SDMockCommit
             this.SourceData = pe;
         }
 
-        //public string IdCard => SourceData.idcard;
-        //public string PersonName => SourceData.personname;
-        //public string SourceId => SourceData.Id.ToString();
-
         public string inp_no => SourceData.inp_no;
         public string PersonName => "蓝艳云";
         public string SourceId => SourceData.inp_no;

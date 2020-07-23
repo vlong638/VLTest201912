@@ -12,7 +12,6 @@ namespace FrameworkTest.Business.SDMockCommit
     public class ProfessionalExaminationModel_SourceData : SourceDataForPregnant
     {
         public ProfessionalExaminationModel SourceData;
-        internal string chiefcomplaint;
 
         public ProfessionalExaminationModel_SourceData(ProfessionalExaminationModel pe)
         {

@@ -34,6 +34,7 @@ namespace FrameworkTest.Business.SDMockCommit
             };
             try
             {
+                //获取`基本信息概要`
                 var pregnantInfo = context.FSService.GetPregnantInfo(userInfo, sourceData.IdCard, ref logger);
                 if (pregnantInfo != null)//已存在 更新分支
                 {

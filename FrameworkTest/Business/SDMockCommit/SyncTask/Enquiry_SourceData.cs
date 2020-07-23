@@ -18,12 +18,7 @@ namespace FrameworkTest.Business.SDMockCommit
             this.SourceData = pe;
         }
 
-        //public string IdCard => SourceData.idcard;
-        //public string PersonName => SourceData.personname;
-        //public string SourceId => SourceData.Id.ToString();
-
         public string IdCard => SourceData.idcard;
-        public string PersonName => SourceData.personname;
         public string SourceId => SourceData.Id.ToString();
         public TargetType TargetType => TargetType.PregnantInfo;
     }
