@@ -214,11 +214,25 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
         internal static IEnumerable<PregnantInfo> GetPregnantInfosToCreateEnquiries(DbGroup dbGroup)
         {
             return dbGroup.Connection.Query<PregnantInfo>($@"
-select Top 1 sp.id spid,se.id seid,pi.* from PregnantInfo pi
+select Top 1 sp.id spid,se.id seid,pi.* 
+from PregnantInfo pi
 left join SyncForFS sp on sp.TargetType = 1 and sp.SourceId = pi.Id
 left join SyncForFS se on se.TargetType = 2 and se.SourceId = pi.Id
-where sp.id is not null and sp.SyncStatus = 2
+where sp.id is not null 
+and sp.SyncStatus = 2
 and se.id is null
+", transaction: dbGroup.Transaction).ToList();
+        }
+
+        internal static IEnumerable<PregnantInfo> GetPregnantInfosToUpdateEnquiries(DbGroup dbGroup)
+        {
+            return dbGroup.Connection.Query<PregnantInfo>($@"
+select Top 1 se.id seid,se.SyncTime,pi.* 
+from PregnantInfo pi
+left join SyncForFS se on se.TargetType = 2 and se.SourceId = pi.Id
+where se.id is not null 
+and se.SyncStatus = 2 
+and pi.updatetime > DATEADD( SECOND,10 ,se.SyncTime)
 ", transaction: dbGroup.Transaction).ToList();
         }
 

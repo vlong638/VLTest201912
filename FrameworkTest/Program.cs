@@ -3347,7 +3347,22 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             }));
             cmds.Add(new Command("m94,0629,自动同步-更新`问询病史`", () =>
             {
-                new Enquiry_SyncTask_Update().Start_Auto_DoWork();
+                var syncTask = new Enquiry_SyncTask_Update(new ServiceContext());
+                syncTask.DoLogOnGetSource = (sourceData) =>
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.AppendLine(sourceData.ToJson());
+                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Update-问询病史-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.personname + "_" + sourceData.IdCard + ".txt");
+                    File.WriteAllText(file, sb.ToString());
+                    Console.WriteLine($"result:{file}");
+                };
+                syncTask.DoLogOnWork = (sourceData, sb) =>
+                {
+                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Update-问询病史-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.personname + "_" + sourceData.IdCard + ".txt");
+                    File.WriteAllText(file, sb.ToString());
+                    Console.WriteLine($"result:{file}");
+                };
+                syncTask.Start_Auto_DoWork(serviceContext, SDBLL.UserInfo);
             }));
             cmds.Add(new Command("m95,0630,自动同步-新增`体格检查`", () =>
             {
@@ -3713,7 +3728,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 //自动执行
                 syncTask.Start_Auto_DoWork(serviceContext, SDBLL.UserInfo);
             }));
-            cmds.Add(new Command("115,0723,自动同步-新增`孕妇档案`强制重试", () =>
+            cmds.Add(new Command("m115,0723,自动同步-新增`孕妇档案`强制重试", () =>
             {
                 var syncTask = new PregnantInfo_SyncTask_Create(new ServiceContext());
                 syncTask.RetryAmount = 100;

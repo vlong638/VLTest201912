@@ -78,10 +78,10 @@ namespace FrameworkTest.Business.SDMockCommit
             return PregnantDAL.GetPregnantInfosToCreateEnquiries(DBContext.DbGroup);
         }
 
-        //internal IEnumerable<PregnantInfo> GetPregnantInfosToUpdateEnquiries()
-        //{
-        //    return PregnantDAL.GetPregnantInfosToUpdateEnquiries(DBContext.DbGroup);
-        //}
+        internal IEnumerable<PregnantInfo> GetPregnantInfosToUpdateEnquiries()
+        {
+            return PregnantDAL.GetPregnantInfosToUpdateEnquiries(DBContext.DbGroup);
+        }
 
         #endregion
 
