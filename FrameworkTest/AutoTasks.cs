@@ -78,13 +78,13 @@ namespace FrameworkTest
             Console.WriteLine($"任务启动=>问询病史-新建");
             Task.Factory.StartNew(() =>
             {
-                new Enquiry_SyncTask_Create().Start_Auto_DoWork();
+                new Enquiry_SyncTask_Create2().Start_Auto_DoWork();
             });
 
             Console.WriteLine($"任务启动=>问询病史-更新");
             Task.Factory.StartNew(() =>
             {
-                new Enquiry_SyncTask_Update().Start_Auto_DoWork();
+                new Enquiry_SyncTask_Update2().Start_Auto_DoWork();
             });
 
             Console.WriteLine($"任务启动=>体格检查-新建");

@@ -118,6 +118,7 @@ and vr.updatetime > DATEADD( SECOND,10 ,s4.SyncTime)
         #endregion
 
         #region PregnantInfo
+
         internal static List<PregnantInfo> GetPregnantInfoForCreateOrUpdate(DbGroup dbGroup)
         {
             //指定日期之后 非今天 当年会与常规新建和更新重复
@@ -204,7 +205,23 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
 ", transaction: dbGroup.Transaction).ToList();
 
             //in (2, 11)
-        } 
+        }
+
+        #endregion
+
+        #region Enquiry
+
+        internal static IEnumerable<PregnantInfo> GetPregnantInfosToCreateEnquiries(DbGroup dbGroup)
+        {
+            return dbGroup.Connection.Query<PregnantInfo>($@"
+select Top 1 sp.id spid,se.id seid,pi.* from PregnantInfo pi
+left join SyncForFS sp on sp.TargetType = 1 and sp.SourceId = pi.Id
+left join SyncForFS se on se.TargetType = 2 and se.SourceId = pi.Id
+where sp.id is not null and sp.SyncStatus = 2
+and se.id is null
+", transaction: dbGroup.Transaction).ToList();
+        }
+
         #endregion
     }
 }

@@ -55,6 +55,13 @@ namespace FrameworkTest.Business.SDMockCommit
             return careId;
         }
 
+        /// <summary>
+        /// 获取Base8 8项概要信息
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <param name="idCard"></param>
+        /// <param name="logger"></param>
+        /// <returns></returns>
         internal WCQBJ_CZDH_DOCTOR_READData GetBase8(UserInfo userInfo, string idCard, ref StringBuilder logger)
         {
             var container = new CookieContainer();
@@ -248,6 +255,129 @@ namespace FrameworkTest.Business.SDMockCommit
             }
             return false;
         }
+        #endregion
+
+        #region 问询病史
+
+        /// <summary>
+        /// 查询问询病史
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <param name="base8"></param>
+        /// <param name="logger"></param>
+        /// <returns></returns>
+        internal MQDA_READ_NEWData GetEnquiry(UserInfo userInfo, WCQBJ_CZDH_DOCTOR_READData base8, ref StringBuilder logger)
+        {
+            var container = new CookieContainer();
+            var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/MQDA_READ_NEW&sUserID={userInfo.UserId}&sParams={base8.MainId}${userInfo.OrgId}";
+            var postData = "";
+            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            logger.AppendLine($"查询-问询病史");
+            logger.AppendLine(url);
+            logger.AppendLine(result);
+            var re2 = result.FromJson<MQDA_READ_NEWResponse>();
+            if (re2 == null || re2.data == null || re2.data.Count == 0)
+                return null;
+            return re2.data.First();
+        }
+
+        /// <summary>
+        /// 更新问询病史
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <param name="datas"></param>
+        /// <param name="logger"></param>
+        /// <returns></returns>
+        internal bool UpdateEnquiry(UserInfo userInfo, WCQBJ_CZDH_DOCTOR_READData base8, List<Data_MQDA_XWBS_SAVE> datas, ref StringBuilder logger)
+        {
+            var url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/MQDA_XWBS_SAVE&sUserID={userInfo.UserId}&sParams={base8.MainId}${userInfo.OrgId}";
+            var json = datas.ToJson();
+            var container = new CookieContainer();
+            var postData = "data=" + HttpUtility.UrlEncode(json);
+            logger.AppendLine("Update 问询病史");
+            logger.AppendLine(url);
+            logger.AppendLine(json);
+            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            logger.AppendLine(result);
+            return result.Contains((string)"处理成功");
+        }
+
+        /// <summary>
+        /// 查询生育史
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <param name="base8"></param>
+        /// <param name="sb"></param>
+        /// <returns></returns>
+        internal List<WMH_CQBJ_CQJC_PRE_READ_Data> GetEnquiryPregnanths(UserInfo userInfo, WCQBJ_CZDH_DOCTOR_READData base8, ref StringBuilder logger)
+        {
+            var container = new CookieContainer();
+            var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_CQJC_PRE_READ&sUserID={userInfo.UserId}&sParams={base8.MainId}";
+            var postData = "pageIndex=0&pageSize=1000&sortField=&sortOrder=";
+            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var re = result.FromJson<WMH_CQBJ_CQJC_PRE_READ>();
+            logger.AppendLine($"查询-问询病史-生育史");
+            logger.AppendLine(url);
+            logger.AppendLine(result);
+            return re.data;
+        }
+
+        /// <summary>
+        /// 新增生育史
+        /// </summary>
+        /// <param name="toAdd"></param>
+        /// <param name="userInfo"></param>
+        /// <param name="base8"></param>
+        /// <param name="logger"></param>
+        /// <returns></returns>
+        internal bool AddEnquiryPregnanth(WMH_CQBJ_CQJC_PRE_SAVE toAdd, UserInfo userInfo, WCQBJ_CZDH_DOCTOR_READData base8, ref StringBuilder logger)
+        {
+            var url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_CQJC_PRE_SAVE&sUserID={userInfo.UserId}&sParams={base8.MainId}${userInfo.OrgId}";
+            var datas = new List<WMH_CQBJ_CQJC_PRE_SAVE>();
+            datas.Add(toAdd);
+            var json = datas.ToJson();
+            var container = new CookieContainer();
+            var postData = "data=" + HttpUtility.UrlEncode(json);
+            logger.AppendLine("Add 问询病史-生育史");
+            logger.AppendLine(url);
+            logger.AppendLine(json);
+            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            logger.AppendLine(result);
+            return result.Contains("处理成功");
+        }
+
+        internal bool DeleteEnquiryPregnanth(WMH_CQBJ_CQJC_PRE_SAVE toChange, UserInfo userInfo, WCQBJ_CZDH_DOCTOR_READData base8, ref StringBuilder logger)
+        {
+            var url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_CQJC_SYS_DELETE&sUserID={userInfo.UserId}&sParams=1$1";
+            var datas = new List<WMH_CQBJ_CQJC_PRE_SAVE>();
+            datas.Add(toChange);
+            var json = datas.ToJson();
+            var container = new CookieContainer();
+            var postData = "data=" + HttpUtility.UrlEncode(json); 
+            logger.AppendLine("Delete 问询病史-生育史");
+            logger.AppendLine(url);
+            logger.AppendLine(json);
+            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            logger.AppendLine(result);
+            return result.Contains("处理成功");
+        }
+
+        internal bool UpdateEnquiryPregnanth(WMH_CQBJ_CQJC_PRE_SAVE toChange, UserInfo userInfo, WCQBJ_CZDH_DOCTOR_READData base8, ref StringBuilder logger)
+        {
+            var url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_CQJC_PRE_SAVE&sUserID={userInfo.UserId}&sParams={base8.MainId}${userInfo.OrgId}";
+            var datas = new List<WMH_CQBJ_CQJC_PRE_SAVE>();
+            datas.Add(toChange);
+            var json = datas.ToJson();
+            var container = new CookieContainer();
+            var postData = "data=" + HttpUtility.UrlEncode(json);
+            logger.AppendLine("Update 问询病史-生育史");
+            logger.AppendLine(url);
+            logger.AppendLine(json);
+            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            logger.AppendLine(result);
+            return result.Contains("处理成功");
+        }
+
         #endregion
 
         #region 专科检查

@@ -18,6 +18,7 @@ namespace FrameworkTest.Business.SDMockCommit
     public class PregnantService
     {
         public static string ConntectingString = "Data Source=201.201.201.89;Initial Catalog=HL_Pregnant;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sdfy;Password=sdfy123456";
+
         private DbContext DBContext;
 
         public PregnantService(DbContext context)
@@ -69,6 +70,21 @@ namespace FrameworkTest.Business.SDMockCommit
         }
 
         #endregion
+
+        #region Enquiry
+
+        internal IEnumerable<PregnantInfo> GetPregnantInfosToCreateEnquiries()
+        {
+            return PregnantDAL.GetPregnantInfosToCreateEnquiries(DBContext.DbGroup);
+        }
+
+        //internal IEnumerable<PregnantInfo> GetPregnantInfosToUpdateEnquiries()
+        //{
+        //    return PregnantDAL.GetPregnantInfosToUpdateEnquiries(DBContext.DbGroup);
+        //}
+
+        #endregion
+
 
         #region PhysicalExamination
 

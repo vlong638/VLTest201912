@@ -3328,7 +3328,22 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             }));
             cmds.Add(new Command("m93,0628,自动同步-新增`问询病史`", () =>
             {
-                new Enquiry_SyncTask_Create().Start_Auto_DoWork();
+                var syncTask = new Enquiry_SyncTask_Create(new ServiceContext());
+                syncTask.DoLogOnGetSource = (sourceData) =>
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.AppendLine(sourceData.ToJson());
+                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-问询病史-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.personname + "_" + sourceData.IdCard + ".txt");
+                    File.WriteAllText(file, sb.ToString());
+                    Console.WriteLine($"result:{file}");
+                };
+                syncTask.DoLogOnWork = (sourceData, sb) =>
+                {
+                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Create-问询病史-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.personname + "_" + sourceData.IdCard + ".txt");
+                    File.WriteAllText(file, sb.ToString());
+                    Console.WriteLine($"result:{file}");
+                };
+                syncTask.Start_Auto_DoWork(serviceContext, SDBLL.UserInfo);
             }));
             cmds.Add(new Command("m94,0629,自动同步-更新`问询病史`", () =>
             {
@@ -3555,13 +3570,13 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 Console.WriteLine($"任务启动=>问询病史-新建");
                 Task.Factory.StartNew(() =>
                 {
-                    new Enquiry_SyncTask_Create().Start_Auto_DoWork();
+                    new Enquiry_SyncTask_Create2().Start_Auto_DoWork();
                 });
 
                 Console.WriteLine($"任务启动=>问询病史-更新");
                 Task.Factory.StartNew(() =>
                 {
-                    new Enquiry_SyncTask_Update().Start_Auto_DoWork();
+                    new Enquiry_SyncTask_Update2().Start_Auto_DoWork();
                 });
 
                 Console.WriteLine($"任务启动=>体格检查-新建");

@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
+using System.Text;
 
 namespace FrameworkTest.Business.SDMockCommit
 {
@@ -267,5 +269,71 @@ namespace FrameworkTest.Business.SDMockCommit
         public int? PregnantageIndex { get; set; }
 
         private List<string> pregstatuss;
+    }
+
+    public class pregnanthistories
+    {
+        public List<pregnanthistory> Data { set; get; }
+
+        public pregnanthistories(List<pregnanthistory> data)
+        {
+            Data = data;
+        }
+
+        /// <summary>
+        /// 本孕修正处理
+        /// </summary>
+        public void FixCurrentHistory(PregnantInfo pregnantInfo, ref StringBuilder sb)
+        { //本孕
+            if (pregnantInfo.gravidity == "1")
+            {
+                if (Data.Count == 0)
+                {
+                    Data.Add(new pregnanthistory()
+                    {
+                        index = "1",
+                        pregnantage = $"本孕{DateTime.Now.Year}- ",
+                    });
+                    sb.Append("add 本孕");
+                }
+                else if (Data.Count == 1)
+                {
+                    if (string.IsNullOrEmpty(Data[0].index))
+                    {
+                        Data[0].index = "1";
+                    }
+                    if (string.IsNullOrEmpty(Data[0].pregnantage))
+                    {
+                        Data[0].pregnantage = $"本孕{DateTime.Now.Year}- ";
+                    }
+                    sb.Append("孕次1一记录分支");
+                }
+                else
+                {
+                    sb.Append("孕次1多记录分支");
+                }
+            }
+            else
+            {
+                Data.Add(new pregnanthistory()
+                {
+                    index = "",
+                    pregnantage = $"{DateTime.Now.Year}",
+                });
+                sb.Append("add 本孕2");
+            }
+        }
+
+        /// <summary>
+        /// 孕次修正
+        /// </summary>
+        public void FixPregnantageIndex()
+        {
+            Data = Data.OrderBy(c => c.pregnantage).ToList();
+            foreach (var pregnanthistory in Data)
+            {
+                pregnanthistory.PregnantageIndex = Data.IndexOf(pregnanthistory) + 1;
+            }
+        }
     }
 }
