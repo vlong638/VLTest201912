@@ -100,7 +100,7 @@ namespace FrameworkTest.Business.SDMockCommit
                         }
                         //保健号查重
                         careIdL8 = careId.Substring(8);
-                        var isRepeat = context.FSService.IsExist(userInfo, mainId, careId, sourceData, ref logger);
+                        var isRepeat = context.FSService.IsExistByCareId(userInfo, mainId, careId, sourceData, ref logger);
                         if (isRepeat)
                         {
                             errorCount++;

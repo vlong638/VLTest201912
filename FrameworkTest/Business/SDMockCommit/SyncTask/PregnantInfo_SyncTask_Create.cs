@@ -14,6 +14,8 @@ namespace FrameworkTest.Business.SDMockCommit
 {
     public class PregnantInfo_SyncTask_Create : SyncTask<PregnantInfo_SourceData>
     {
+        public int RetryAmount { get; set; } = 5;
+
         public PregnantInfo_SyncTask_Create(ServiceContext context) : base(context)
         {
         }
@@ -55,11 +57,20 @@ namespace FrameworkTest.Business.SDMockCommit
                         context.PregnantService.SaveSyncOrder(syncOrder);
                         return;
                     }
+                    //身份证,主索引查重出现重复
+                    var isRepeat = context.FSService.IsExistByMainIdOrIdCard(userInfo, mainId, sourceData, ref logger);
+                    if (isRepeat)
+                    {
+                        syncOrder.SyncStatus = SyncStatus.Error;
+                        syncOrder.ErrorMessage = "身份证,主索引查重出现重复";
+                        context.PregnantService.SaveSyncOrder(syncOrder);
+                        return;
+                    }
                     //获取 CareId
                     string careId = "";
                     string careIdL8 = "";
                     int errorCount = 0;
-                    int maxErrorCount = 5;
+                    int maxErrorCount = Math.Max(5, RetryAmount);
                     while (errorCount < maxErrorCount)
                     {
                         //Create 保健号
@@ -73,18 +84,18 @@ namespace FrameworkTest.Business.SDMockCommit
                         }
                         //保健号查重
                         careIdL8 = careId.Substring(8);
-                        var isRepeat = context.FSService.IsExist(userInfo, mainId, careId, sourceData, ref logger);
-                        if (isRepeat)
+                        var isRepeatByCareId = context.FSService.IsExistByCareId(userInfo, mainId, careId, sourceData, ref logger);
+                        if (isRepeatByCareId)
                         {
                             errorCount++;
                             continue;
                         }
                         break;
                     }
-                    //查重处理
+                    //保健号查重出现重复
                     if (errorCount == maxErrorCount)
                     {
-                        Console.WriteLine($"孕妇{sourceData.PersonName}查重时异常");
+                        Console.WriteLine($"保健号查重出现重复");
                         syncOrder.SyncStatus = SyncStatus.Repeated;
                         context.PregnantService.SaveSyncOrder(syncOrder);
                         return;

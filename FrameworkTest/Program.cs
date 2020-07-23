@@ -3693,7 +3693,6 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 //自动执行
                 syncTask.Start_Auto_DoWork(serviceContext, SDBLL.UserInfo);
             }));
-            #endregion
             cmds.Add(new Command("m114,0722,自动同步-更新`婴儿出院`", () =>
             {
                 var syncTask = new ChildDischarge_SyncTask_Update(serviceContext);
@@ -3714,6 +3713,27 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 //自动执行
                 syncTask.Start_Auto_DoWork(serviceContext, SDBLL.UserInfo);
             }));
+            cmds.Add(new Command("115,0723,自动同步-新增`孕妇档案`强制重试", () =>
+            {
+                var syncTask = new PregnantInfo_SyncTask_Create(new ServiceContext());
+                syncTask.RetryAmount = 100;
+                syncTask.DoLogOnGetSource = (sourceData) =>
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.AppendLine(sourceData.ToJson());
+                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
+                    File.WriteAllText(file, sb.ToString());
+                    Console.WriteLine($"result:{file}");
+                };
+                syncTask.DoLogOnWork = (sourceData, sb) =>
+                {
+                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Create-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
+                    File.WriteAllText(file, sb.ToString());
+                    Console.WriteLine($"result:{file}");
+                };
+                syncTask.Start_Auto_DoWork(serviceContext, SDBLL.UserInfo);
+            }));
+            #endregion
             cmds.Add(new Command("---------------------国健-------------------", () => { }));
             #region 国健
             cmds.Add(new Command("gj1,产前记录解析", () =>

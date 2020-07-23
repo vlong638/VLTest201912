@@ -240,10 +240,26 @@ namespace FrameworkTest.Business.SDMockCommit
             return re2.d1;
         }
 
-        internal bool IsExist(UserInfo userInfo, string mainId, string careId, PregnantInfo_SourceData sourceData, ref StringBuilder logger)
+        internal bool IsExistByMainIdOrIdCard(UserInfo userInfo, string mainId, PregnantInfo_SourceData sourceData, ref StringBuilder logger)
         {
             var container = new CookieContainer();
-            var url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_CC&sUserID={userInfo.UserId}&sParams={mainId}$P${careId}${sourceData.IdCard}&pageSize=10000&pageIndex=0";
+            var url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_CC&sUserID={userInfo.UserId}&sParams={mainId}$P$null${sourceData.Data.idcard}&pageSize=10000&pageIndex=0";
+            var postData = "";
+            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var repeatData = result.FromJson<WMH_CQBJ_JBXX_FORM_CC>();
+            if (repeatData.data.Count != 0 && repeatData.data.FirstOrDefault(c => c.PersonName != sourceData.PersonName) != null)
+            {
+                logger.AppendLine($">>>查重时,出现重复");
+                logger.AppendLine(result);
+                return true;
+            }
+            return false;
+        }
+
+        internal bool IsExistByCareId(UserInfo userInfo, string mainId, string careId, PregnantInfo_SourceData sourceData, ref StringBuilder logger)
+        {
+            var container = new CookieContainer();
+            var url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_CC&sUserID={userInfo.UserId}&sParams=null$P${careId}$null&pageSize=10000&pageIndex=0";
             var postData = "";
             var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             var repeatData = result.FromJson<WMH_CQBJ_JBXX_FORM_CC>();
