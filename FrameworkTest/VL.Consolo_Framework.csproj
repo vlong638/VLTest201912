@@ -138,7 +138,7 @@
     <Compile Include="Business\SDMockCommit\Dics\Occupation.cs" />
     <Compile Include="Business\SDMockCommit\Dics\Nation.cs" />
     <Compile Include="Business\SDMockCommit\Dics\Country.cs" />
-    <Compile Include="Business\SDMockCommit\BaseInfo.cs" />
+    <Compile Include="Business\SDMockCommit\UserInfo.cs" />
     <Compile Include="Business\SDMockCommit\Entities\PregnantInfo\cnarea.cs" />
     <Compile Include="Business\SDMockCommit\Entities\ESB\ChildDischarge.cs" />
     <Compile Include="Business\SDMockCommit\Entities\ESB\PregnantDischarge.cs" />
