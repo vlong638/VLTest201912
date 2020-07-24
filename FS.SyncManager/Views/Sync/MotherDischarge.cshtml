@@ -1,0 +1,124 @@
+﻿@{
+    ViewBag.Title = "母亲出院信息";
+}
+@*列表*@
+<dic id="list">
+    <div style="margin-top:5px">
+        <div style="display:inline;">
+            <span>姓名:</span>
+            <input id="where_patname" class="easyui-textbox" />
+            <span>住院号:</span>
+            <input id="where_inp_no" class="easyui-textbox" />
+            <span>出院日期:</span>
+            <input id="where_personname" class="easyui-textbox" />
+            <a href="#" class="easyui-linkbutton" plain="true" onclick="doSearch()">搜索</a>
+        </div>
+    </div>
+    <div style="margin-top:5px">
+        <table id="db_list" style="width:100%;"></table>
+    </div>
+</dic>
+@*脚本*@
+<script type="text/javascript">
+
+    function doSearch() {
+        $("#db_list").datagrid('load', {
+            PersonName: $('#where_personname').val()
+        });
+    }
+
+    function deleteLog(id) {
+        if (id <= 0) {
+            jAlert("id异常,无效的记录id");
+        }
+
+        vl.confirm(vlConstraints.Sync_DeleteSync
+            , function () {
+                $.ajax({
+                    url: '/Sync/DeleteSyncOrder',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        syncOrderId: id
+                    },
+                    success: function (resp) {
+                        if (resp.Message) {
+                            vl.alert(resp.Message);
+                        }
+                    }
+                });
+            }
+        );
+    }
+
+    $(function () {
+        var customConfigId = vl.getQueryString("CustomConfigId");
+        $.ajax
+            ({
+                url: "../Home/GetListConfig",
+                type: "post",
+                dataType: "json",
+                data: JSON.stringify({ ListName: "Sync_PregnantInfo", CustomConfigId: customConfigId }),
+                contentType: "application/json",
+                success: function (resp) {
+                    if (resp.Code == 200) {
+                        if (resp.msg != null && resp.msg != "") {
+                            ShowMessage(resp.msg);
+                        }
+                        console.log(1);
+                        configData = resp.Data;
+
+                        vl_easyui.config(configData.CustomConfigId);
+                        vl_easyui.wheres(configData.ViewConfig);
+                        var columns = vl_easyui.properties(configData.ViewConfig);
+                        //扩展操作按钮
+                        var operateColumn = {
+                            field: 'none', title: '操作', width: 200, halign: 'center', align: 'left'
+                            , formatter: function (value, row, index) {
+                                var str = '';
+                                var id1 = row.SyncIdToPregnantInfo;
+                                if (id1 && id1 > 0) {
+                                    str += '<a href="#" class="easyui-linkbutton" plain="true" onclick="deleteLog(' + id1 + ')">清理(基础信息)</a>   ';
+                                }
+                                var id2 = row.SyncIdToHistoryEnquiry;
+                                if (id2 && id2 > 0) {
+                                    str += '<a href="#" class="easyui-linkbutton" plain="true" onclick="deleteLog(' + id2 + ')">清理(问询病史)</a>';
+                                }
+                                return str;
+                            }
+                        };
+                        columns[0].push(operateColumn);
+                        //init
+                        $("#db_list").datagrid({
+                            url: "GetPagedListOfPregnantInfo",
+                            queryParams: { PersonName: $('#where_personname').val() },
+                            pagination: true,
+                            sortOrder: configData.ViewConfig.OrderBy.IsAsc ? "asc" : "desc",
+                            sortName: configData.ViewConfig.OrderBy.ComponentName,
+                            rownumbers: true,
+                            singleSelect: true,
+                            remoteSort: true,
+                            fitColumns: false,
+                            selectOnCheck: false,
+                            checkOnSelect: false,
+                            striped: true,
+                            pageSize: 20,
+                            pageList: [10, 20, 50],
+                            columns: columns,
+                            onDblClickRow: function (rowIndex, rowData) {
+                                //console.log(1);
+                                //var PregnantInfoId = rowData.id;
+                                //window.open("VisitRecordList?pregnantInfoId=" + PregnantInfoId);
+                                console.log(rowData);
+                            }
+                        });
+                    } else {
+                        if (resp.msg != null && resp.msg != "") {
+                            ShowMessage(resp.msg);
+                        }
+                        console.log(2);
+                    }
+                }
+            });
+    });
+</script>

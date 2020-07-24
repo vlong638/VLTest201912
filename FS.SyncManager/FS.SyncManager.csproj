@@ -129,6 +129,7 @@
     <Compile Include="Models\DTOs\PagedListOfSyncOrderModel.cs" />
     <Compile Include="Models\DTOs\PagedListOfVisitRecordModel.cs" />
     <Compile Include="Models\DTOs\PagedListOfPregnantInfoModel.cs" />
+    <Compile Include="Models\Entities\V_FWPT_GY_ZHUYUANFM.cs" />
     <Compile Include="Models\Entities\PregnantInfo.cs" />
     <Compile Include="Models\Entities\SyncOrder.cs" />
     <Compile Include="Models\Entities\VisitRecord.cs" />
@@ -640,6 +641,7 @@
     <Content Include="Views\Sync\PregnantInfoList.cshtml" />
     <Content Include="Views\Sync\VisitRecordList.cshtml" />
     <Content Include="Views\Sync\SyncOrderList.cshtml" />
+    <Content Include="Views\Sync\MotherDischarge.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
