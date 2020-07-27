@@ -119,17 +119,83 @@ namespace FrameworkTest.Business.SDMockCommit
 
         internal void Update(PregnantDischarge_SourceData sourceData)
         {
-            //this.D47 = sourceData.SourceData.分娩日期 ?? "";
+            this.D47 = sourceData.SourceData.FMRQDate?.ToDateTime()?.ToString(VLConstraints.DateTime.DateFormatter) ?? "";
+            this.D2 = sourceData.SourceData.xingming ?? "";
+            this.D3 = sourceData.SourceData.createage ?? "";
+            this.D4 = sourceData.SourceData.shouji ?? "";
+            this.D5 = sourceData.SourceData.restregioncode.GetSubStringOrEmpty(0, 2) ?? "";
+            this.D6 = sourceData.SourceData.restregioncode.GetSubStringOrEmpty(0, 4) ?? "";
+            this.D7 = sourceData.SourceData.restregioncode.GetSubStringOrEmpty(0, 6) ?? "";
+            this.D8 = sourceData.SourceData.restregioncode.GetSubStringOrEmpty(0, 9) ?? "";
+            this.D9 = sourceData.SourceData.restregioncode.GetSubStringOrEmpty(0, 12) ?? "";
+            this.D43 = sourceData.SourceData.restregiontext ?? "";//"广东省佛山市顺德区勒流街道龙眼村委会龙眼村委永安路43号", //产后休养详细地址
+            this.D46 = sourceData.SourceData.restregiontext ?? "";//"广东省佛山市顺德区勒流街道龙眼村委会龙眼村委永安路43号", //产后休养详细地址
+            this.D10 = sourceData.SourceData.chuyuanrqfixed?.ToDateTime()?.ToString(VLConstraints.DateTime.DateFormatter) ?? "";
             this.D11 = sourceData.SourceData.TWData ?? "";
             this.D12 = sourceData.SourceData.XYData ?? "";
             this.D12_1 = D12.GetSubStringOrEmpty(D12.IndexOf("/") + 1);
+            this.D13 = (sourceData.SourceData.RFQKData?.Contains("正常") == true ? "1" : "") ?? "";//"1",           //乳房
+            //TODO
+            this.D14 = VLConstraints.Get_FundusUteri_FS_By_FundusUteri_FM(sourceData.SourceData.gdgddata);//"3",           //宫底
+            //TODO
+            this.D15 = "";//"1",           //腹部伤口
+            //TODO
+            this.D16 = "";//"2",           //会阴伤口
+            //TODO
+            this.D17 = (sourceData.SourceData.RFQKData?.Contains("正常") == true ? "1" : "2") ?? "";//"2",           //恶露
+            //TODO
+            this.D18 = "";//"3",           //量
+            //TODO
+            this.D19 = "";//"3",           //色
+            //TODO
+            //默认`无异味`
+            this.D20 = "";//"2",           //味
 
+            this.D21 = "";//"2",           //妊娠合并症
+            this.D22 = "";//"3,8",         //产后并发症
+            this.D45 = "";//"5,14"          //妊娠并发症
+
+            //TODO
+            this.D23 = "";//"2",           //高危妊娠
+            //TODO
+            this.D24 = "";//"",            //高危因素
+            //TODO
+            this.D25 = "";//"",            //高危因素是否纠正
+
+            //TODO
+            //默认`正常`
+            this.D26 = "";//"1",           //产妇分类
+
+            this.D27 = "";//"",            //死亡原因
+
+            //TODO
+            //默认`否`
+            this.D28 = "";//"",            //是否转诊
+            this.D29 = "";//"",            //转诊原因
+            this.D30 = "";//"",            //拟转入机构
+
+            //TODO
+            this.D31 = "";//"",            //出院诊断
+            //TODO
+            this.D32 = "";//"",            //出院指导
+
+            this.D33 = "";//"1",           //血红蛋白检测
+            this.D34 = "";//"66",          //血红蛋白结果(g/L)
+            this.D35 = "";//"1",           //HBsAg检测
+            this.D36 = "";//"1",           //HBsAg
+            this.D37 = "";//"1",           //HIV抗体检测
+            this.D38 = "";//"1",           //梅毒螺旋体抗体检测
+            this.D39 = "";//"2",           //非梅毒螺旋体抗体检测
+            this.D44 = "";//
+            this.D47 = sourceData.SourceData.FMFSData?.ToDateTime()?.ToString(VLConstraints.DateTime.DateFormatter) ?? ""; //2020-07-15    //分娩日期
+
+            //TODO
+            this.D48 = "";//1              //分娩方式 
         }
 
         internal void Init(UserInfo userInfo, PregnantDischarge_SourceData sourceData, string fMMainId)
         {
             this.D1 = sourceData.inp_no;
-            this.D2 = sourceData.PersonName;
             this.D40 = userInfo.UserName;
             this.D41 = DateTime.Now.ToString(VLConstraints.DateTime.DateFormatter);
             this.D42 = "1";

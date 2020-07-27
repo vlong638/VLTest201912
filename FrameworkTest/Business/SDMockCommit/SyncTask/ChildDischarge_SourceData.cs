@@ -11,9 +11,9 @@ namespace FrameworkTest.Business.SDMockCommit
 {
     public class ChildDischarge_SourceData : SourceDataForESB
     {
-        public ChildDischarge SourceData;
+        public ChildDischargeModel SourceData;
 
-        public ChildDischarge_SourceData(ChildDischarge pe)
+        public ChildDischarge_SourceData(ChildDischargeModel pe)
         {
             this.SourceData = pe;
         }

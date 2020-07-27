@@ -3771,7 +3771,6 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
-                //自动执行
                 syncTask.Start_Auto_DoWork(serviceContext, SDBLL.UserInfo);
             }));
             cmds.Add(new Command("m112,0721,自动同步-更新`孕妇出院`", () =>
@@ -3791,7 +3790,6 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
-                //自动执行
                 syncTask.Start_Auto_DoWork(serviceContext, SDBLL.UserInfo);
             }));
             cmds.Add(new Command("m113,0722,自动同步-新增`婴儿出院`", () =>
@@ -3811,7 +3809,6 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
-                //自动执行
                 syncTask.Start_Auto_DoWork(serviceContext, SDBLL.UserInfo);
             }));
             cmds.Add(new Command("m114,0722,自动同步-更新`婴儿出院`", () =>
@@ -3831,7 +3828,6 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
-                //自动执行
                 syncTask.Start_Auto_DoWork(serviceContext, SDBLL.UserInfo);
             }));
             cmds.Add(new Command("m115,0723,自动同步-新增`孕妇档案`强制重试", () =>

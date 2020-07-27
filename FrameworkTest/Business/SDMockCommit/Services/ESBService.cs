@@ -43,12 +43,12 @@ namespace FrameworkTest.Business.SDMockCommit
             return ESBDAL.UpdatePregnantDischarge(DBContext.DbGroup);
         }
 
-        internal IEnumerable<PregnantDischarge> GetPregnantDischargesToCreate()
+        internal IEnumerable<PregnantDischargeModel> GetPregnantDischargesToCreate()
         {
             return ESBDAL.GetPregnantDischargesToCreate(DBContext.DbGroup);
         }
 
-        internal IEnumerable<PregnantDischarge> GetPregnantDischargesToUpdate()
+        internal IEnumerable<PregnantDischargeModel> GetPregnantDischargesToUpdate()
         {
             return ESBDAL.GetPregnantDischargesToUpdate(DBContext.DbGroup);
         }
@@ -57,12 +57,12 @@ namespace FrameworkTest.Business.SDMockCommit
 
         #region ChildDischarge
 
-        internal IEnumerable<ChildDischarge> GetChildDischargesToCreate()
+        internal IEnumerable<ChildDischargeModel> GetChildDischargesToCreate()
         {
             return ESBDAL.GetChildDischargesToCreate(DBContext.DbGroup);
         }
 
-        internal IEnumerable<ChildDischarge> GetChildDischargesToUpdate()
+        internal IEnumerable<ChildDischargeModel> GetChildDischargesToUpdate()
         {
             return ESBDAL.GetChildDischargesToUpdate(DBContext.DbGroup);
         }

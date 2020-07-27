@@ -47,26 +47,63 @@ where chuyuanrq is not null and chuyuanrqfixed is null
 ", transaction: dbGroup.Transaction);
         }
 
-        internal static List<PregnantDischarge> GetPregnantDischargesToCreate(DbGroup dbGroup)
+        internal static List<PregnantDischargeModel> GetPregnantDischargesToCreate(DbGroup dbGroup)
         {
-            return dbGroup.Connection.Query<PregnantDischarge>($@"
-select top 1 * 
+            return dbGroup.Connection.Query<PregnantDischargeModel>($@"
+select top 1 
+br.xingming
+,br.shouji
+,pi.createage
+,pi.restregioncode
+,pi.restregiontext
+,fm.inp_no -- 住院号
+,fm.FMRQDate -- 分娩日期
+,fm.FMFSData -- 分娩方式
+,fm.ZCJGData -- 助产机构
+,fm.TWData -- 体温
+,fm.XYData -- 血压
+,fm.RFQKData -- 乳房
+,fm.gdgddata -- 宫底
+,fm.hyskdata -- 会阴伤口
+,fm.ELUData -- 恶露
+,fm.CLJZDData -- 处理及指导
+,br.chuyuanrqfixed -- 出院日期
 from HELEESB.dbo.V_FWPT_GY_ZHUYUANFM fm
 left join HL_Pregnant.dbo.SyncForFS s5 on s5.TargetType = 5 and s5.SourceId = fm.inp_no
+left join HELEESB.dbo.V_FWPT_GY_BINGRENXXZY br on br.bingrenid = fm.inp_no
 where s5.id is null
-and fm.inp_no ='0000265533'
+and br.chuyuanrqfixed >= convert(nvarchar, getdate(),23) 
+and fm.inp_no ='0000312639'
 ", transaction: dbGroup.Transaction).ToList();
         }
 
-        internal static List<PregnantDischarge> GetPregnantDischargesToUpdate(DbGroup dbGroup)
+        internal static List<PregnantDischargeModel> GetPregnantDischargesToUpdate(DbGroup dbGroup)
         {
-            //VLTODO
-            return dbGroup.Connection.Query<PregnantDischarge>($@"
-select top 1 * 
+            return dbGroup.Connection.Query<PregnantDischargeModel>($@"
+select top 1 ''
+,br.xingming
+,br.shouji
+,pi.createage
+,pi.restregioncode
+,pi.restregiontext
+,fm.inp_no -- 住院号
+,fm.FMRQDate -- 分娩日期
+,fm.FMFSData -- 分娩方式
+,fm.ZCJGData -- 助产机构
+,fm.TWData -- 体温
+,fm.XYData -- 血压
+,fm.RFQKData -- 乳房
+,fm.gdgddata -- 宫底
+,fm.hyskdata -- 会阴伤口
+,fm.ELUData -- 恶露
+,fm.CLJZDData -- 处理及指导
+,br.chuyuanrqfixed -- 出院日期
 from HELEESB.dbo.V_FWPT_GY_ZHUYUANFM fm
 left join HL_Pregnant.dbo.SyncForFS s5 on s5.TargetType = 5 and s5.SourceId = fm.inp_no
-where s5.id is not null
-and fm.inp_no ='0000265533'
+left join HELEESB.dbo.V_FWPT_GY_BINGRENXXZY br on br.bingrenid = fm.inp_no
+where s5.id is not null and s5.SyncType = 2
+and br.chuyuanrqfixed >= convert(nvarchar, getdate(),23) 
+and fm.inp_no ='0000312639'
 ", transaction: dbGroup.Transaction).ToList();
         }
 
@@ -74,9 +111,9 @@ and fm.inp_no ='0000265533'
 
         #region ChildDischarge
 
-        internal static List<ChildDischarge> GetChildDischargesToCreate(DbGroup dbGroup)
+        internal static List<ChildDischargeModel> GetChildDischargesToCreate(DbGroup dbGroup)
         {
-            return dbGroup.Connection.Query<ChildDischarge>($@"
+            return dbGroup.Connection.Query<ChildDischargeModel>($@"
 select top 1 * 
 from HELEESB.dbo.V_FWPT_GY_ZHUYUANFMYE fm
 left join HL_Pregnant.dbo.SyncForFS s6 on s6.TargetType = 6 and s6.SourceId = fm.inp_no
@@ -85,9 +122,9 @@ and fm.inp_no ='0000265533'
 ", transaction: dbGroup.Transaction).ToList();
         }
 
-        internal static IEnumerable<ChildDischarge> GetChildDischargesToUpdate(DbGroup dbGroup)
+        internal static IEnumerable<ChildDischargeModel> GetChildDischargesToUpdate(DbGroup dbGroup)
         {
-            return dbGroup.Connection.Query<ChildDischarge>($@"
+            return dbGroup.Connection.Query<ChildDischargeModel>($@"
 select top 1 * 
 from HELEESB.dbo.V_FWPT_GY_ZHUYUANFMYE fm
 left join HL_Pregnant.dbo.SyncForFS s6 on s6.TargetType = 6 and s6.SourceId = fm.inp_no

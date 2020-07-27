@@ -11,9 +11,9 @@ namespace FrameworkTest.Business.SDMockCommit
 {
     public class PregnantDischarge_SourceData : SourceDataForESB
     {
-        public PregnantDischarge SourceData;
+        public PregnantDischargeModel SourceData;
 
-        public PregnantDischarge_SourceData(PregnantDischarge pe)
+        public PregnantDischarge_SourceData(PregnantDischargeModel pe)
         {
             this.SourceData = pe;
         }

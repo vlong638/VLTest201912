@@ -44,7 +44,6 @@ namespace FrameworkTest.Business.SDMockCommit
                 var pregnantDischargeToCreate = new CQJL_WOMAN_FORM_SAVE_Data();
                 if (pregnantDischargeData != null)
                 {
-                    //pregnantDischargeToCreate.Update(pregnantDischargeData);
                     syncOrder.SyncStatus = SyncStatus.Existed;
                     syncOrder.ErrorMessage = SyncStatus.Existed.GetDescription();
                     context.ESBService.SaveSyncOrder(syncOrder);
