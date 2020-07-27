@@ -86,7 +86,6 @@ namespace FrameworkTest.Business.SDMockCommit
 
         #endregion
 
-
         #region PhysicalExamination
 
         public List<PhysicalExaminationModel> GetPhysicalExaminationsToCreate()
@@ -113,6 +112,16 @@ namespace FrameworkTest.Business.SDMockCommit
         {
             //return SDDAL.GetProfessionalExaminationsToUpdateByIdCard(DBContext.DbGroup, "142328199610271518");
             return PregnantDAL.GetProfessionalExaminationsToUpdate(DBContext.DbGroup);
+        }
+
+        #endregion
+
+        #region HighRisk
+
+        internal List<HighRiskEntity> GetLatestHighRisksByIdCard(string idcard)
+        {
+            var highRsiksStr = PregnantDAL.GetLatestHighRisksByIdCard(DBContext.DbGroup, idcard);
+            return highRsiksStr?.FromJson<List<HighRiskEntity>>() ?? new List<HighRiskEntity>();
         }
 
         #endregion

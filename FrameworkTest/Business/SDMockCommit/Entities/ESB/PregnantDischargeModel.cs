@@ -12,6 +12,7 @@ namespace FrameworkTest.Business.SDMockCommit
     public class PregnantDischargeModel
     {
         public string inp_no { get; set; } //住院号
+        public string visit_id { get; set; } // 就诊号
         public string FMRQDate { get; set; } //分娩日期
         public string FMFSData { get; set; } //分娩方式
         public string ZCJGData { get; set; } //助产机构
@@ -21,12 +22,15 @@ namespace FrameworkTest.Business.SDMockCommit
         public string gdgddata { set; get; }//宫底
         public string hyskdata { set; get; }//会阴伤口
         public string ELUData { get; set; }//恶露
+
         //来源 病人表 
         //select chuyuanrq,chuyuanrqfixed,* from V_FWPT_GY_BINGRENXXZY br where br.bingrenid =fm.inp_no
         public string chuyuanrqfixed { set; get; } //出院日期
         public string xingming { get; set; }         //孕妇姓名
         public string shouji { get; set; }           //联系电话
+
         //来源PregnantInfo 
+        public string idcard { get; set; }//身份证
         public string createage { get; set; }//年龄
         public string restregioncode { get; set; }//产后休养地址1
         public string restregiontext { get; set; }//产后修养详情地址

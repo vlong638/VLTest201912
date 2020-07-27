@@ -1,6 +1,7 @@
 ﻿using FrameworkTest.Common.ValuesSolution;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.UI.WebControls;
 
 namespace FrameworkTest.Business.SDMockCommit
@@ -117,7 +118,7 @@ namespace FrameworkTest.Business.SDMockCommit
             this.D49 = data.D55;
         }
 
-        internal void Update(PregnantDischarge_SourceData sourceData)
+        internal void Update(PregnantDischarge_SourceData sourceData, List<HighRiskEntity> highRisks, IEnumerable<Diagnosis> diagnosis)
         {
             this.D47 = sourceData.SourceData.FMRQDate?.ToDateTime()?.ToString(VLConstraints.DateTime.DateFormatter) ?? "";
             this.D2 = sourceData.SourceData.xingming ?? "";
@@ -134,51 +135,49 @@ namespace FrameworkTest.Business.SDMockCommit
             this.D11 = sourceData.SourceData.TWData ?? "";
             this.D12 = sourceData.SourceData.XYData ?? "";
             this.D12_1 = D12.GetSubStringOrEmpty(D12.IndexOf("/") + 1);
-            this.D13 = (sourceData.SourceData.RFQKData?.Contains("正常") == true ? "1" : "") ?? "";//"1",           //乳房
-            //TODO
-            this.D14 = VLConstraints.Get_FundusUteri_FS_By_FundusUteri_FM(sourceData.SourceData.gdgddata);//"3",           //宫底
-            //TODO
-            this.D15 = "";//"1",           //腹部伤口
-            //TODO
-            this.D16 = "";//"2",           //会阴伤口
-            //TODO
-            this.D17 = (sourceData.SourceData.RFQKData?.Contains("正常") == true ? "1" : "2") ?? "";//"2",           //恶露
-            //TODO
+            this.D13 = VLConstraints.Get_BreastStatus_FS_By_BreastStatus_FM(sourceData.SourceData.RFQKData);//"1",          //乳房
+            this.D14 = VLConstraints.Get_FundusUteri_FS_By_FundusUteri_FM(sourceData.SourceData.gdgddata);//"3",            //宫底
+            this.D48 = VLConstraints.GetDeliveryMannerByDeliveryManner_FM(sourceData.SourceData.FMFSData);//                //分娩方式
+            switch (this.D48)
+            {
+                case "1"://顺产
+                    this.D16 = "1";//"无=1",       //会阴伤口
+                    break;
+                case "2"://剖宫产
+                    this.D16 = "2";//"愈合好=2",   //会阴伤口
+                    break;
+                default:
+                    break;
+            }
+            this.D15 = "1";//"1",          //腹部伤口 //无法传值
+            this.D17 = "2";//"2",           //恶露 //默认`有`
             this.D18 = "";//"3",           //量
-            //TODO
             this.D19 = "";//"3",           //色
-            //TODO
-            //默认`无异味`
-            this.D20 = "";//"2",           //味
-
+            switch (this.D17)
+            {
+                case "2"://有
+                    this.D18 = "3";//"3",           //量
+                    this.D19 = "3";//"3",           //色
+                    break;
+                case "1"://无
+                    break;
+                default:
+                    break;
+            }
+            this.D20 = "1";//"2",          //味  //默认`无异味`
             this.D21 = "";//"2",           //妊娠合并症
             this.D22 = "";//"3,8",         //产后并发症
-            this.D45 = "";//"5,14"          //妊娠并发症
-
-            //TODO
-            this.D23 = "";//"2",           //高危妊娠
-            //TODO
-            this.D24 = "";//"",            //高危因素
-            //TODO
-            this.D25 = "";//"",            //高危因素是否纠正
-
-            //TODO
-            //默认`正常`
-            this.D26 = "";//"1",           //产妇分类
-
+            this.D45 = "";//"5,14"         //妊娠并发症
+            this.D23 = highRisks.Count() > 0 ? "1" : "2";//"2",           //高危妊娠
+            this.D24 = string.Join(",", highRisks.Select(c => c.T));      //"",  //高危因素
+            this.D25 = "1";//"",           //高危因素是否纠正 //默认`是`
+            this.D26 = "1";//"1",          //产妇分类 //默认`正常`,`死亡`不传
             this.D27 = "";//"",            //死亡原因
-
-            //TODO
-            //默认`否`
-            this.D28 = "";//"",            //是否转诊
+            this.D28 = "";//"",            //是否转诊  产妇分类默认`正常` `正常`时,是否转诊不可填写
             this.D29 = "";//"",            //转诊原因
             this.D30 = "";//"",            //拟转入机构
-
-            //TODO
-            this.D31 = "";//"",            //出院诊断
-            //TODO
-            this.D32 = "";//"",            //出院指导
-
+            this.D31 = string.Join(",", diagnosis.Select(c => c.diag_desc));    //"",            //出院诊断
+            this.D32 = sourceData.SourceData.CLJZDData ?? "";                    //"",            //出院指导
             this.D33 = "";//"1",           //血红蛋白检测
             this.D34 = "";//"66",          //血红蛋白结果(g/L)
             this.D35 = "";//"1",           //HBsAg检测
@@ -188,9 +187,6 @@ namespace FrameworkTest.Business.SDMockCommit
             this.D39 = "";//"2",           //非梅毒螺旋体抗体检测
             this.D44 = "";//
             this.D47 = sourceData.SourceData.FMFSData?.ToDateTime()?.ToString(VLConstraints.DateTime.DateFormatter) ?? ""; //2020-07-15    //分娩日期
-
-            //TODO
-            this.D48 = "";//1              //分娩方式 
         }
 
         internal void Init(UserInfo userInfo, PregnantDischarge_SourceData sourceData, string fMMainId)

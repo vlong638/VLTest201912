@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace FrameworkTest.Business.SDMockCommit
 {
-    //(\w+)\s+([\w\(\)]+)
-    //{"$1" ,"$2"},
-    //存在中英文标点符号问题,作替换
-    //存在名称不对称问题 后续处理需做应对 忽略无法匹配的
+    /// <summary>
+    /// 受孕方式
+    /// </summary>
     public partial class VLConstraints
     {
         //运行时常量 readonly static (引用型),编译时常量 const (值类型)
@@ -47,11 +46,6 @@ namespace FrameworkTest.Business.SDMockCommit
                 return "胚胎移植";
             var value = PregnancyManner_Hele[key];
             return PregnancyManner.FirstOrDefault(c => c.Value == value).Value ?? "";
-        }
-
-        internal static string GetLinkByLink_HELE(object xianjie)
-        {
-            throw new NotImplementedException();
         }
     }
 }

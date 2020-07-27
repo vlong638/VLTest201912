@@ -68,5 +68,16 @@ namespace FrameworkTest.Business.SDMockCommit
         }
 
         #endregion
+
+
+        #region Diagnosis
+
+        internal IEnumerable<Diagnosis> GetDiagnosisByPatientIdAndINPNo(string patientId, string visitId)
+        {
+            return ESBDAL.GetDiagnosisByPatientIdAndVisitId(DBContext.DbGroup, patientId, visitId);
+        }
+
+        #endregion
+
     }
 }

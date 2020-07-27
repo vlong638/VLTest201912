@@ -53,6 +53,7 @@ where chuyuanrq is not null and chuyuanrqfixed is null
 select top 1 
 br.xingming
 ,br.shouji
+,pi.idcard
 ,pi.createage
 ,pi.restregioncode
 ,pi.restregiontext
@@ -71,6 +72,7 @@ br.xingming
 from HELEESB.dbo.V_FWPT_GY_ZHUYUANFM fm
 left join HL_Pregnant.dbo.SyncForFS s5 on s5.TargetType = 5 and s5.SourceId = fm.inp_no
 left join HELEESB.dbo.V_FWPT_GY_BINGRENXXZY br on br.bingrenid = fm.inp_no
+left join HL_Pregnant.dbo.PregnantInfo pi on pi.idcard = br.shenfenzh
 where s5.id is null
 and br.chuyuanrqfixed >= convert(nvarchar, getdate(),23) 
 and fm.inp_no ='0000312639'
@@ -135,5 +137,15 @@ and fm.inp_no ='0000265533'
 
         #endregion
 
+        #region Diagnosis
+
+        internal static IEnumerable<Diagnosis> GetDiagnosisByPatientIdAndVisitId(DbGroup dbGroup, string patientId, string visitId)
+        {
+            return dbGroup.Connection.Query<Diagnosis>($@"
+select * from V_FWPT_GY_ZHUYUANZD where patient_Id = @patientId and inp_no = @visitId
+", new { patientId, visitId }, transaction: dbGroup.Transaction).ToList();
+        }
+
+        #endregion
     }
 }

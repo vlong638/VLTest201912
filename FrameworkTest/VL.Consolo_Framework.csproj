@@ -113,10 +113,14 @@
     <Compile Include="Business\ConfigurableEntity\EntityAppConfig.cs" />
     <Compile Include="Business\GJPredeliveryAsync\PreDelivery.cs" />
     <Compile Include="Business\SDMockCommit\DALs\ESBDAL.cs" />
+    <Compile Include="Business\SDMockCommit\Dics\BreastStatus.cs" />
+    <Compile Include="Business\SDMockCommit\Dics\Diagnosis.cs" />
+    <Compile Include="Business\SDMockCommit\Dics\Lochia.cs" />
     <Compile Include="Business\SDMockCommit\Dics\FundusUteri.cs" />
     <Compile Include="Business\SDMockCommit\Dics\FetalMove.cs" />
     <Compile Include="Business\SDMockCommit\Dics\Common.cs" />
     <Compile Include="Business\SDMockCommit\Dics\AmnioticFluidCharacter.cs" />
+    <Compile Include="Business\SDMockCommit\Dics\DeliveryManner.cs" />
     <Compile Include="Business\SDMockCommit\Dics\UterineContraction.cs" />
     <Compile Include="Business\SDMockCommit\Dics\VaginalDeliveryType.cs" />
     <Compile Include="Business\SDMockCommit\Dics\0.Sample.cs" />
@@ -139,6 +143,7 @@
     <Compile Include="Business\SDMockCommit\Dics\Occupation.cs" />
     <Compile Include="Business\SDMockCommit\Dics\Nation.cs" />
     <Compile Include="Business\SDMockCommit\Dics\Country.cs" />
+    <Compile Include="Business\SDMockCommit\Entities\ESB\Diagnosis.cs" />
     <Compile Include="Business\SDMockCommit\UserInfo.cs" />
     <Compile Include="Business\SDMockCommit\Entities\PregnantInfo\cnarea.cs" />
     <Compile Include="Business\SDMockCommit\Entities\ESB\ChildDischargeModel.cs" />

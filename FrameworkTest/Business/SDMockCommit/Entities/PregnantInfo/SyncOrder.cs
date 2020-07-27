@@ -96,6 +96,8 @@ namespace FrameworkTest.Business.SDMockCommit
         Repeated = 13,//查重出错
         [Description("数据冲突")]
         Conflict = 14,//冲突,对方存在不同预产期的数据
+        [Description("诊断`死亡`")]
+        DeadDiagnosis = 15,
         [Description("成功")]
         Success = 2,//处理成功
         Test = 99,//更新成功 仅作测试使用

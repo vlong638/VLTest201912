@@ -6,19 +6,18 @@ using System.Threading.Tasks;
 
 namespace FrameworkTest.Business.SDMockCommit
 {
-    //(\w+)\s+([\w\(\)]+)
-    //{"$1" ,"$2"},
-    //存在中英文标点符号问题,作替换
-    //存在名称不对称问题 后续处理需做应对 忽略无法匹配的
+    /// <summary>
+    /// 宫底
+    /// </summary>
     public partial class VLConstraints
     {
         //运行时常量 readonly static (引用型),编译时常量 const (值类型)
         public readonly static Dictionary<string, string> FundusUteri_FS = new Dictionary<string, string>()
         {
             {"1" ,"平脐"},
-            {"1" ,"脐下一横指"},
-            {"1" ,"脐下两横指"},
-            {"1" ,"脐下三横指"},
+            {"2" ,"脐下一横指"},
+            {"3" ,"脐下两横指"},
+            {"4" ,"脐下三横指"},
             {"1" ,"降入骨盆"},
         };
 
@@ -35,7 +34,7 @@ namespace FrameworkTest.Business.SDMockCommit
         };
 
         /// <summary>
-        /// 性别
+        /// 宫底
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
@@ -44,8 +43,12 @@ namespace FrameworkTest.Business.SDMockCommit
             if (string.IsNullOrEmpty(key))
                 return "";
             if (key == "UF=0")
+                return "1";
+            else if (key == "UF-1")
+                return "2";
+            else if (key == "UF-2")
                 return "3";
-            if (key == "0")
+            else if (key == "UF-3")
                 return "4";
             return key;
         }

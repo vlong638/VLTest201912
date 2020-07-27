@@ -330,5 +330,16 @@ and pi.updatetime > DATEADD( SECOND,10 ,se.SyncTime)
         }
 
         #endregion
+
+        #region HighRisks
+
+        internal static string GetLatestHighRisksByIdCard(DbGroup dbGroup, string idcard)
+        {
+            return dbGroup.Connection.ExecuteScalar<string>($@"
+select top 1 highriskdic,highriskreason from HL_Pregnant.dbo.MHC_VISITRECORD where idcard = @idcard order by id desc
+", new { idcard }, transaction: dbGroup.Transaction);
+        } 
+
+        #endregion
     }
 }
