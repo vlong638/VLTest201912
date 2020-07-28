@@ -37,6 +37,13 @@ namespace FrameworkTest
 
         static void Main(string[] args)
         {
+            //            ryrqdata fmrqdate
+            //2020年07月26日 21时53分  2020年07月26日 23时14分
+
+            //var sdate = "2020年07月26日 23时14分";
+            //var dds = DateTime.Now;
+            //DateTime.TryParse(sdate, out dds);
+
             //var sste = @"1.孕28-30周行胎儿超声心动图；2.一周复查脐血流；3.注意休息，定期四周产检。\n低分子肝素皮下注射。";
             //sste = FSService.RemoveUnacceptableString(sste);
 

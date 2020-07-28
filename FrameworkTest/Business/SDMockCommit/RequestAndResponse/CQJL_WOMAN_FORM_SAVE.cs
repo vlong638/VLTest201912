@@ -124,7 +124,7 @@ namespace FrameworkTest.Business.SDMockCommit
         {
             this.D50 = "01";// 证件类型 1=身份证
             this.D51 = sourceData.idcard;
-            this.D47 = sourceData.SourceData.FMRQDate?.ToDateTime()?.ToString(VLConstraints.DateTime.DateFormatter) ?? "";
+            this.D47 = sourceData.SourceData.FMRQDate?.ToDateTime()?.ToString(VLConstraints.DateTime.DateFormatter) ?? ""; //2020-07-15    //分娩日期
             this.D2 = sourceData.SourceData.xingming ?? "";
             this.D3 = sourceData.SourceData.createage ?? "";
             this.D4 = sourceData.SourceData.shouji ?? "";
@@ -190,7 +190,6 @@ namespace FrameworkTest.Business.SDMockCommit
             this.D38 = "";//"1",           //梅毒螺旋体抗体检测
             this.D39 = "";//"2",           //非梅毒螺旋体抗体检测
             this.D44 = "";//
-            this.D47 = sourceData.SourceData.FMFSData?.ToDateTime()?.ToString(VLConstraints.DateTime.DateFormatter) ?? ""; //2020-07-15    //分娩日期
         }
 
         internal void Init(UserInfo userInfo, PregnantDischarge_SourceData sourceData, string fMMainId)
