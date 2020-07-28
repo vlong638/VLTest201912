@@ -541,10 +541,10 @@ namespace FrameworkTest.Business.SDMockCommit
             logger.AppendLine(url);
             logger.AppendLine(result);
             var re2 = result.FromJson<CQJL_LIST>();
-            if (re2 == null || re2.data == null || re2.data.Count == 0 || re2.data.Count > 1)
+            if (re2 == null || re2.data == null || re2.data.Count == 0)
                 return null;
-            return re2.data.First();
-        } 
+            return re2.data.FirstOrDefault(c => Convert.ToDateTime(c.D5) == re2.data.Select(d => Convert.ToDateTime(d.D5)).Max());
+        }
         #endregion
 
         #region 孕妇出院登记

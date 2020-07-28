@@ -27,6 +27,8 @@ using VL.Consoling.SemiAutoExport;
 
 namespace FrameworkTest
 {
+
+
     class Program
     {
         static string LocalMSSQL = "Data Source=127.0.0.1,1433;Initial Catalog=VLTest;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sa;Password=123";
@@ -3761,13 +3763,13 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(sourceData.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-孕妇出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.inp_no + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-孕妇出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.idcard + "_" + sourceData.inp_no + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
                 syncTask.DoLogOnWork = (sourceData, sb) =>
                 {
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Create-孕妇出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.inp_no + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Create-孕妇出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.idcard + "_" + sourceData.inp_no + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };

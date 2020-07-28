@@ -83,15 +83,13 @@ namespace FrameworkTest.Business.SDMockCommit
         public void Update(ChildDischarge_SourceData sourceData)
         {
             //this.D1 = "";//:"0000265533", 住院号
-
             //TODO
-            this.D2 = "";//:"蓝艳云婴", 儿童姓名
+            this.D5 = sourceData.SourceData.PATNAME;//:"蓝艳云", 产妇姓名
+            this.D2 = this.D5+"z";//:"蓝艳云婴", 儿童姓名
             //TODO
             this.D3 = sourceData.SourceData.xsrsex;//:"2", 性别
             //TODO
             this.D4 = sourceData.SourceData.temcdate;//:"66", 日龄
-            //TODO
-            this.D5 = sourceData.SourceData.PATNAME;//:"蓝艳云", 产妇姓名
             //TODO
             this.D6 = sourceData.SourceData.yccdata;//:"1", 本次胎次
             //TODO

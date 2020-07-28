@@ -51,7 +51,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>FrameworkTest.AutoTasks</StartupObject>
+    <StartupObject>FrameworkTest.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>A44E63B98D3E4703FA9817AD7ABC43E469323EC4</ManifestCertificateThumbprint>

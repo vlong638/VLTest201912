@@ -63,6 +63,8 @@ namespace FrameworkTest.Business.SDMockCommit
             this.D47 = "";
             this.D48 = "";
             this.D49 = "";
+            this.D50 = "";
+            this.D51 = "";
         }
 
         internal void Update(CQJL_WOMAN_FORM_READ_Data data)
@@ -120,6 +122,8 @@ namespace FrameworkTest.Business.SDMockCommit
 
         internal void Update(PregnantDischarge_SourceData sourceData, List<HighRiskEntity> highRisks, IEnumerable<Diagnosis> diagnosis)
         {
+            this.D50 = "01";// 证件类型 1=身份证
+            this.D51 = sourceData.idcard;
             this.D47 = sourceData.SourceData.FMRQDate?.ToDateTime()?.ToString(VLConstraints.DateTime.DateFormatter) ?? "";
             this.D2 = sourceData.SourceData.xingming ?? "";
             this.D3 = sourceData.SourceData.createage ?? "";
@@ -165,9 +169,9 @@ namespace FrameworkTest.Business.SDMockCommit
                     break;
             }
             this.D20 = "1";//"2",          //味  //默认`无异味`
-            this.D21 = "";//"2",           //妊娠合并症
-            this.D22 = "";//"3,8",         //产后并发症
-            this.D45 = "";//"5,14"         //妊娠并发症
+            this.D21 = "1";//"2",           //妊娠合并症
+            this.D22 = "1";//"3,8",         //产后并发症
+            this.D45 = "1";//"5,14"         //妊娠并发症
             this.D23 = highRisks.Count() > 0 ? "1" : "2";//"2",           //高危妊娠
             this.D24 = string.Join(",", highRisks.Select(c => c.T));      //"",  //高危因素
             this.D25 = "1";//"",           //高危因素是否纠正 //默认`是`
@@ -177,7 +181,7 @@ namespace FrameworkTest.Business.SDMockCommit
             this.D29 = "";//"",            //转诊原因
             this.D30 = "";//"",            //拟转入机构
             this.D31 = string.Join(",", diagnosis.Select(c => c.diag_desc));    //"",            //出院诊断
-            this.D32 = sourceData.SourceData.CLJZDData ?? "";                    //"",            //出院指导
+            this.D32 = sourceData.SourceData.CLJZDData ?? "无";                    //"",            //出院指导
             this.D33 = "";//"1",           //血红蛋白检测
             this.D34 = "";//"66",          //血红蛋白结果(g/L)
             this.D35 = "";//"1",           //HBsAg检测
@@ -248,5 +252,7 @@ namespace FrameworkTest.Business.SDMockCommit
         public string D47 { get; set; } //2020-07-15    //分娩日期
         public string D48 { get; set; }//1              //分娩方式 
         public string D49 { get; set; }//"45608491-9",  //机构Id
+        public string D50 { get; set; }//证件类型 1 = 身份证
+        public string D51 { get; set; }//身份证Id
     }
 }

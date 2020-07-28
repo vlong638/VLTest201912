@@ -35,7 +35,7 @@ namespace FrameworkTest.Business.SDMockCommit
                 {
                     syncOrder.SyncStatus = SyncStatus.Error;
                     syncOrder.ErrorMessage = "未获取到 列表数据";
-                    context.ESBService.SaveSyncOrder(syncOrder);
+                    syncOrder.Id = context.ESBService.SaveSyncOrder(syncOrder);
                     return;
                 }
                 //获得诊断信息
@@ -45,7 +45,7 @@ namespace FrameworkTest.Business.SDMockCommit
                 {
                     syncOrder.SyncStatus = SyncStatus.DeadDiagnosis;
                     syncOrder.ErrorMessage = SyncStatus.DeadDiagnosis.GetDescription();
-                    context.ESBService.SaveSyncOrder(syncOrder);
+                    syncOrder.Id = context.ESBService.SaveSyncOrder(syncOrder);
                     return;
                 }
                 //获取住院数据
@@ -58,7 +58,7 @@ namespace FrameworkTest.Business.SDMockCommit
                 {
                     syncOrder.SyncStatus = SyncStatus.Existed;
                     syncOrder.ErrorMessage = SyncStatus.Existed.GetDescription();
-                    context.ESBService.SaveSyncOrder(syncOrder);
+                    syncOrder.Id = context.ESBService.SaveSyncOrder(syncOrder);
                     return;
                 }
                 else
@@ -69,7 +69,7 @@ namespace FrameworkTest.Business.SDMockCommit
                 //创建住院数据
                 var result = Context.FSService.SavePregnantDischarge(userInfo, listData, pregnantDischargeToCreate, pregnantDischargeData?.DischargeId ?? "null", ref logger);
                 //保存同步记录2
-                context.ESBService.SaveSyncOrder(syncOrder);
+                syncOrder.Id = context.ESBService.SaveSyncOrder(syncOrder);
             }
             catch (Exception ex)
             {

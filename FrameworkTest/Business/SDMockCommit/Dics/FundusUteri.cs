@@ -18,7 +18,7 @@ namespace FrameworkTest.Business.SDMockCommit
             {"2" ,"脐下一横指"},
             {"3" ,"脐下两横指"},
             {"4" ,"脐下三横指"},
-            {"1" ,"降入骨盆"},
+            {"?1" ,"降入骨盆"},
         };
 
         //<Option value="1" text="男" selected="0"/>

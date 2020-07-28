@@ -50,9 +50,10 @@ where chuyuanrq is not null and chuyuanrqfixed is null
         internal static List<PregnantDischargeModel> GetPregnantDischargesToCreate(DbGroup dbGroup)
         {
             return dbGroup.Connection.Query<PregnantDischargeModel>($@"
-select top 1 
-br.xingming
-,br.shouji
+select top 1 ''
+,br.shouji --手机
+,br.xingming --姓名
+,br.chuyuanrqfixed -- 出院日期
 ,pi.idcard
 ,pi.createage
 ,pi.restregioncode
@@ -68,14 +69,13 @@ br.xingming
 ,fm.hyskdata -- 会阴伤口
 ,fm.ELUData -- 恶露
 ,fm.CLJZDData -- 处理及指导
-,br.chuyuanrqfixed -- 出院日期
 from HELEESB.dbo.V_FWPT_GY_ZHUYUANFM fm
 left join HL_Pregnant.dbo.SyncForFS s5 on s5.TargetType = 5 and s5.SourceId = fm.inp_no
 left join HELEESB.dbo.V_FWPT_GY_BINGRENXXZY br on br.bingrenid = fm.inp_no
 left join HL_Pregnant.dbo.PregnantInfo pi on pi.idcard = br.shenfenzh
 where s5.id is null
 and br.chuyuanrqfixed >= convert(nvarchar, getdate(),23) 
-and fm.inp_no ='0000312639'
+-- and fm.inp_no ='0000312639'
 ", transaction: dbGroup.Transaction).ToList();
         }
 
@@ -83,8 +83,10 @@ and fm.inp_no ='0000312639'
         {
             return dbGroup.Connection.Query<PregnantDischargeModel>($@"
 select top 1 ''
-,br.xingming
-,br.shouji
+,br.shouji --手机
+,br.xingming --姓名
+,br.chuyuanrqfixed -- 出院日期
+,pi.idcard
 ,pi.createage
 ,pi.restregioncode
 ,pi.restregiontext
@@ -99,13 +101,14 @@ select top 1 ''
 ,fm.hyskdata -- 会阴伤口
 ,fm.ELUData -- 恶露
 ,fm.CLJZDData -- 处理及指导
-,br.chuyuanrqfixed -- 出院日期
 from HELEESB.dbo.V_FWPT_GY_ZHUYUANFM fm
 left join HL_Pregnant.dbo.SyncForFS s5 on s5.TargetType = 5 and s5.SourceId = fm.inp_no
 left join HELEESB.dbo.V_FWPT_GY_BINGRENXXZY br on br.bingrenid = fm.inp_no
-where s5.id is not null and s5.SyncType = 2
+left join HL_Pregnant.dbo.PregnantInfo pi on pi.idcard = br.shenfenzh
+where s5.id is not null and s5.SyncStatus = 2
 and br.chuyuanrqfixed >= convert(nvarchar, getdate(),23) 
-and fm.inp_no ='0000312639'
+and fm.downloadtime > s5.SyncTime
+-- and fm.inp_no ='0000312639'
 ", transaction: dbGroup.Transaction).ToList();
         }
 
@@ -119,6 +122,7 @@ and fm.inp_no ='0000312639'
 select top 1 * 
 from HELEESB.dbo.V_FWPT_GY_ZHUYUANFMYE fm
 left join HL_Pregnant.dbo.SyncForFS s6 on s6.TargetType = 6 and s6.SourceId = fm.inp_no
+left join HELEESB.dbo.V_FWPT_GY_BINGRENXXZY br on br.bingrenid = fm.inp_no
 where s6.id is null
 and fm.inp_no ='0000265533'
 ", transaction: dbGroup.Transaction).ToList();

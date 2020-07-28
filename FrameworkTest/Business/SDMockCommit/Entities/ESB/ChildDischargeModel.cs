@@ -12,7 +12,10 @@ namespace FrameworkTest.Business.SDMockCommit
     public class ChildDischargeModel
     {
         public string inp_no { get; set; } //住院号
-        public string WYData { get; set; } //喂养
+        /// <summary>
+        /// 喂养
+        /// </summary>
+        public string WYData { get; set; } 
         /// <summary>
         /// 性别
         /// </summary>
@@ -55,3 +58,6 @@ namespace FrameworkTest.Business.SDMockCommit
         }
     }
 }
+
+
+

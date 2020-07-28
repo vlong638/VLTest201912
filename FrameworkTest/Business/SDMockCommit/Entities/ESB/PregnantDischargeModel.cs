@@ -35,7 +35,6 @@ namespace FrameworkTest.Business.SDMockCommit
         public string restregioncode { get; set; }//产后休养地址1
         public string restregiontext { get; set; }//产后修养详情地址
 
-        //TODO 补充
         //来源 住院表 一对多(可能)
         //left join V_FWPT_GY_ZHUYUANZD zd on zd.patient_id = fm.inp_no and zd.inp_no = fm.visit_id
         //zd.diag_desc

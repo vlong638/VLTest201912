@@ -15,8 +15,8 @@ namespace FrameworkTest.Business.SDMockCommit
         public readonly static Dictionary<string, string> BreastStatus_FS = new Dictionary<string, string>()
         {
             {"1" ,"未见异常"},
-            {"?" ,"红肿"},
-            {"?" ,"乳头皲裂"},
+            {"?1" ,"红肿"},
+            {"?2" ,"乳头皲裂"},
         };
 
         //<Option value="1" text="男" selected="0"/>

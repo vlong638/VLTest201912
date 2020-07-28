@@ -19,7 +19,8 @@ namespace FrameworkTest.Business.SDMockCommit
         }
 
         public string inp_no => SourceData.inp_no;
-        public string PersonName => "蓝艳云";
+        public string idcard => SourceData.idcard;
+        public string PersonName => SourceData.xingming;
         public string SourceId => SourceData.inp_no;
         public TargetType TargetType => TargetType.PregnantDischarge;
     }
