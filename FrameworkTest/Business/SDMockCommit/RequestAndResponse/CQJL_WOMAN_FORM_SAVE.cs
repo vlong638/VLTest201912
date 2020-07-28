@@ -185,7 +185,8 @@ namespace FrameworkTest.Business.SDMockCommit
             this.D33 = inspections.FirstOrDefault(c => c.chinesename == "血红蛋白") != null ? "1" : "2";//"1",           //血红蛋白检测
             this.D34 = inspections.OrderByDescending(c=>c.measuretime).FirstOrDefault(c => c.chinesename == "血红蛋白")?.testresult ?? "";//"66",          //血红蛋白结果(g/L)
             this.D35 = inspections.FirstOrDefault(c => c.chinesename == "乙肝表面抗原") != null ? "1" : "2";//"1",           //HBsAg检测   
-            this.D36 = inspections.OrderByDescending(c => c.measuretime).FirstOrDefault(c => c.chinesename == "乙肝表面抗原")?.testresult ?? ""; ;//"1",           //HBsAg
+            var D36text = inspections.OrderByDescending(c => c.measuretime).FirstOrDefault(c => c.chinesename == "乙肝表面抗原")?.testresult ?? "";
+            this.D36 = D36text.StartsWith("阴性") == true ? "1" : (D36text.StartsWith("阳性") == true ? "2" : "");//"1",           //HBsAg
             this.D37 = inspections.FirstOrDefault(c => c.chinesename == "人免疫缺陷病毒抗体测定") != null ? "1" : "2"; ;//"1",           //HIV抗体检测
             this.D38 = inspections.FirstOrDefault(c => c.chinesename == "梅毒螺旋体特异抗体测定") != null ? "1" : "2"; ;//"1",           //梅毒螺旋体抗体检测
             this.D39 = "";

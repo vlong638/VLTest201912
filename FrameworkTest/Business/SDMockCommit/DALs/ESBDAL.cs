@@ -52,7 +52,7 @@ where chuyuanrq is not null and chuyuanrqfixed is null
 select top 1 ''
 ,br.shouji,br.xingming,br.chuyuanrqfixed
 ,pi.idcard,pi.createage,pi.restregioncode,pi.restregiontext
-,fm.inp_no,fm.FMRQDate,fm.FMFSData,fm.ZCJGData ,fm.TWData ,fm.XYData ,fm.RFQKData ,fm.gdgddata ,fm.hyskdata ,fm.ELUData ,fm.CLJZDData 
+,fm.inp_no,fm.visit_id,fm.FMRQDate,fm.FMFSData,fm.ZCJGData ,fm.TWData ,fm.XYData ,fm.RFQKData ,fm.gdgddata ,fm.hyskdata ,fm.ELUData ,fm.CLJZDData 
 from HELEESB.dbo.V_FWPT_GY_ZHUYUANFM fm
 left join HL_Pregnant.dbo.SyncForFS s5 on s5.TargetType = 5 and s5.SourceId = fm.inp_no
 left join HELEESB.dbo.V_FWPT_GY_BINGRENXXZY br on br.bingrenid = fm.inp_no
@@ -69,7 +69,7 @@ and br.chuyuanrqfixed >= convert(nvarchar, getdate(),23)
 select top 1 ''
 ,br.shouji,br.xingming,br.chuyuanrqfixed
 ,pi.idcard,pi.createage,pi.restregioncode,pi.restregiontext
-,fm.inp_no,fm.FMRQDate,fm.FMFSData,fm.ZCJGData ,fm.TWData ,fm.XYData ,fm.RFQKData ,fm.gdgddata ,fm.hyskdata ,fm.ELUData ,fm.CLJZDData 
+,fm.inp_no,fm.visit_id,fm.FMRQDate,fm.FMFSData,fm.ZCJGData ,fm.TWData ,fm.XYData ,fm.RFQKData ,fm.gdgddata ,fm.hyskdata ,fm.ELUData ,fm.CLJZDData 
 from HELEESB.dbo.V_FWPT_GY_ZHUYUANFM fm
 left join HL_Pregnant.dbo.SyncForFS s5 on s5.TargetType = 5 and s5.SourceId = fm.inp_no
 left join HELEESB.dbo.V_FWPT_GY_BINGRENXXZY br on br.bingrenid = fm.inp_no
