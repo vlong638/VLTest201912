@@ -37,7 +37,6 @@ where Id = @Id
 
         #region PregnantDischarge
 
-
         internal static int UpdatePregnantDischarge(DbGroup dbGroup)
         {
             return dbGroup.Connection.ExecuteScalar<int>(@"
@@ -51,24 +50,9 @@ where chuyuanrq is not null and chuyuanrqfixed is null
         {
             return dbGroup.Connection.Query<PregnantDischargeModel>($@"
 select top 1 ''
-,br.shouji --手机
-,br.xingming --姓名
-,br.chuyuanrqfixed -- 出院日期
-,pi.idcard
-,pi.createage
-,pi.restregioncode
-,pi.restregiontext
-,fm.inp_no -- 住院号
-,fm.FMRQDate -- 分娩日期
-,fm.FMFSData -- 分娩方式
-,fm.ZCJGData -- 助产机构
-,fm.TWData -- 体温
-,fm.XYData -- 血压
-,fm.RFQKData -- 乳房
-,fm.gdgddata -- 宫底
-,fm.hyskdata -- 会阴伤口
-,fm.ELUData -- 恶露
-,fm.CLJZDData -- 处理及指导
+,br.shouji,br.xingming,br.chuyuanrqfixed
+,pi.idcard,pi.createage,pi.restregioncode,pi.restregiontext
+,fm.inp_no,fm.FMRQDate,fm.FMFSData,fm.ZCJGData ,fm.TWData ,fm.XYData ,fm.RFQKData ,fm.gdgddata ,fm.hyskdata ,fm.ELUData ,fm.CLJZDData 
 from HELEESB.dbo.V_FWPT_GY_ZHUYUANFM fm
 left join HL_Pregnant.dbo.SyncForFS s5 on s5.TargetType = 5 and s5.SourceId = fm.inp_no
 left join HELEESB.dbo.V_FWPT_GY_BINGRENXXZY br on br.bingrenid = fm.inp_no
@@ -83,24 +67,9 @@ and br.chuyuanrqfixed >= convert(nvarchar, getdate(),23)
         {
             return dbGroup.Connection.Query<PregnantDischargeModel>($@"
 select top 1 ''
-,br.shouji --手机
-,br.xingming --姓名
-,br.chuyuanrqfixed -- 出院日期
-,pi.idcard
-,pi.createage
-,pi.restregioncode
-,pi.restregiontext
-,fm.inp_no -- 住院号
-,fm.FMRQDate -- 分娩日期
-,fm.FMFSData -- 分娩方式
-,fm.ZCJGData -- 助产机构
-,fm.TWData -- 体温
-,fm.XYData -- 血压
-,fm.RFQKData -- 乳房
-,fm.gdgddata -- 宫底
-,fm.hyskdata -- 会阴伤口
-,fm.ELUData -- 恶露
-,fm.CLJZDData -- 处理及指导
+,br.shouji,br.xingming,br.chuyuanrqfixed
+,pi.idcard,pi.createage,pi.restregioncode,pi.restregiontext
+,fm.inp_no,fm.FMRQDate,fm.FMFSData,fm.ZCJGData ,fm.TWData ,fm.XYData ,fm.RFQKData ,fm.gdgddata ,fm.hyskdata ,fm.ELUData ,fm.CLJZDData 
 from HELEESB.dbo.V_FWPT_GY_ZHUYUANFM fm
 left join HL_Pregnant.dbo.SyncForFS s5 on s5.TargetType = 5 and s5.SourceId = fm.inp_no
 left join HELEESB.dbo.V_FWPT_GY_BINGRENXXZY br on br.bingrenid = fm.inp_no
@@ -150,6 +119,28 @@ select * from V_FWPT_GY_ZHUYUANZD where patient_Id = @patientId and inp_no = @vi
 ", new { patientId, visitId }, transaction: dbGroup.Transaction).ToList();
         }
 
+        #endregion
+
+        #region Inspection
+        internal static List<Inspection> GetInspectionsByPatientId(DbGroup dbGroup, string patientId)
+        {
+            return dbGroup.Connection.Query<Inspection>($@"
+select jy.chinesename,jy.testresult,jy.measuretime
+from V_FWPT_JY_JIANYANSQ sq
+left join v_fwpt_jy_jianyanjg jy on sq.laborder = jy.doctadviseno
+where sq.bingrenid = @patientId
+", new { patientId }, transaction: dbGroup.Transaction).ToList();
+        }
+
+        #endregion
+
+        #region Advice
+        internal static List<Advice> GetAdvicesByPatientId(DbGroup dbGroup, string patientId)
+        {
+            return dbGroup.Connection.Query<Advice>($@"
+select yizhumc from V_FWPT_MZ_YIJI where bingrenid = @patientId
+", new { patientId }, transaction: dbGroup.Transaction).ToList();
+        } 
         #endregion
     }
 }

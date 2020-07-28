@@ -52,6 +52,10 @@ namespace FrameworkTest.Business.SDMockCommit
                 var pregnantDischargeData = Context.FSService.GetPregnantDischarge(userInfo, listData.FMMainId, ref logger);
                 //获取高危因素
                 var highRisks = Context.PregnantService.GetLatestHighRisksByIdCard(sourceData.SourceData.idcard);
+                //获取医嘱信息
+                var advices = Context.ESBService.GetAdvicesByPatientId(sourceData.SourceData.inp_no);
+                //获取检验结果
+                var inspections = Context.ESBService.GetInspectionsByPatientId(sourceData.SourceData.inp_no);
                 //数据更新
                 var pregnantDischargeToCreate = new CQJL_WOMAN_FORM_SAVE_Data();
                 if (pregnantDischargeData != null)
@@ -65,7 +69,7 @@ namespace FrameworkTest.Business.SDMockCommit
                 {
                     pregnantDischargeToCreate.Init(userInfo, sourceData, listData.FMMainId);
                 }
-                pregnantDischargeToCreate.Update(sourceData, highRisks, diagnosis);
+                pregnantDischargeToCreate.Update(sourceData, highRisks, diagnosis, advices, inspections);
                 //创建住院数据
                 var result = Context.FSService.SavePregnantDischarge(userInfo, listData, pregnantDischargeToCreate, pregnantDischargeData?.DischargeId ?? "null", ref logger);
                 //保存同步记录2

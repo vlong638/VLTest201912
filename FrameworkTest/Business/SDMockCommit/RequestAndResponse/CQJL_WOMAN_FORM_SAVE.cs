@@ -120,7 +120,7 @@ namespace FrameworkTest.Business.SDMockCommit
             this.D49 = data.D55;
         }
 
-        internal void Update(PregnantDischarge_SourceData sourceData, List<HighRiskEntity> highRisks, IEnumerable<Diagnosis> diagnosis)
+        internal void Update(PregnantDischarge_SourceData sourceData, List<HighRiskEntity> highRisks, IEnumerable<Diagnosis> diagnosis, List<Advice> advices, List<Inspection> inspections)
         {
             this.D50 = "01";// 证件类型 1=身份证
             this.D51 = sourceData.idcard;
@@ -181,14 +181,17 @@ namespace FrameworkTest.Business.SDMockCommit
             this.D29 = "";//"",            //转诊原因
             this.D30 = "";//"",            //拟转入机构
             this.D31 = string.Join(",", diagnosis.Select(c => c.diag_desc));    //"",            //出院诊断
-            this.D32 = sourceData.SourceData.CLJZDData ?? "无";                    //"",            //出院指导
-            this.D33 = "";//"1",           //血红蛋白检测
-            this.D34 = "";//"66",          //血红蛋白结果(g/L)
-            this.D35 = "";//"1",           //HBsAg检测
-            this.D36 = "";//"1",           //HBsAg
-            this.D37 = "";//"1",           //HIV抗体检测
-            this.D38 = "";//"1",           //梅毒螺旋体抗体检测
-            this.D39 = "";//"2",           //非梅毒螺旋体抗体检测
+            this.D32 = string.Join(",", advices.Select(c => c.yizhumc));   //"",            //出院指导
+            this.D33 = inspections.FirstOrDefault(c => c.chinesename == "血红蛋白") != null ? "1" : "2";//"1",           //血红蛋白检测
+            this.D34 = inspections.OrderByDescending(c=>c.measuretime).FirstOrDefault(c => c.chinesename == "血红蛋白")?.testresult ?? "";//"66",          //血红蛋白结果(g/L)
+            this.D35 = inspections.FirstOrDefault(c => c.chinesename == "乙肝表面抗原") != null ? "1" : "2";//"1",           //HBsAg检测   
+            this.D36 = inspections.OrderByDescending(c => c.measuretime).FirstOrDefault(c => c.chinesename == "乙肝表面抗原")?.testresult ?? ""; ;//"1",           //HBsAg
+            this.D37 = inspections.FirstOrDefault(c => c.chinesename == "人免疫缺陷病毒抗体测定") != null ? "1" : "2"; ;//"1",           //HIV抗体检测
+            this.D38 = inspections.FirstOrDefault(c => c.chinesename == "梅毒螺旋体特异抗体测定") != null ? "1" : "2"; ;//"1",           //梅毒螺旋体抗体检测
+            this.D39 = "";
+            //TODO
+            //this.D38 = inspections.FirstOrDefault(c => c.chinesename == "梅毒螺旋体非特异抗体(TRUST)") != null ? "1" : "2"; ;//"1",           //梅毒螺旋体抗体检测
+            //this.D39 = inspections.FirstOrDefault(c => c.chinesename == "	非梅毒抗体") != null ? "1" : "2"; ;//"2",           //非梅毒螺旋体抗体检测
             this.D44 = "";//
         }
 

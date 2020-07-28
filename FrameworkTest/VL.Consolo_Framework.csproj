@@ -143,6 +143,8 @@
     <Compile Include="Business\SDMockCommit\Dics\Occupation.cs" />
     <Compile Include="Business\SDMockCommit\Dics\Nation.cs" />
     <Compile Include="Business\SDMockCommit\Dics\Country.cs" />
+    <Compile Include="Business\SDMockCommit\Entities\ESB\Inspection.cs" />
+    <Compile Include="Business\SDMockCommit\Entities\ESB\Advice.cs" />
     <Compile Include="Business\SDMockCommit\Entities\ESB\Diagnosis.cs" />
     <Compile Include="Business\SDMockCommit\UserInfo.cs" />
     <Compile Include="Business\SDMockCommit\Entities\PregnantInfo\cnarea.cs" />

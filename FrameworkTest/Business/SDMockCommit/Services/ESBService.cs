@@ -79,5 +79,23 @@ namespace FrameworkTest.Business.SDMockCommit
 
         #endregion
 
+        #region Advice
+
+        internal List<Advice> GetAdvicesByPatientId(string patientId)
+        {
+            return ESBDAL.GetAdvicesByPatientId(DBContext.DbGroup, patientId);
+        }
+
+        #endregion
+
+        #region Inspection
+
+        internal List<Inspection> GetInspectionsByPatientId(string patientId)
+        {
+            return ESBDAL.GetInspectionsByPatientId(DBContext.DbGroup, patientId);
+        }
+
+        #endregion
+
     }
 }

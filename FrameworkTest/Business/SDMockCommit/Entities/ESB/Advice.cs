@@ -3,10 +3,10 @@
 namespace FrameworkTest.Business.SDMockCommit
 {
     /// <summary>
-    /// 住院诊断
+    /// 医嘱
     /// </summary>
-    [Table("[V_FWPT_GY_ZHUYUANZD]")]
-    public class Diagnosis
+    [Table("[V_FWPT_MZ_YIJI]")]
+    public class Advice
     {
         //patient_id
         //visit_id
@@ -24,12 +24,8 @@ namespace FrameworkTest.Business.SDMockCommit
         //downloadtime
 
         /// <summary>
-        /// 诊断描述
+        /// 医嘱名称
         /// </summary>
-        public string diag_desc { get; set; }
-        /// <summary>
-        /// 诊断编码
-        /// </summary>
-        public string diag_code { get; set; }
+        public string yizhumc { get; set; }
     }
 }
