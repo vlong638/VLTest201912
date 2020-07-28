@@ -96,25 +96,22 @@ namespace FrameworkTest.Business.SDMockCommit
             this.D7 = sourceData.SourceData.chuyuanrq?.ToDateTime()?.ToString(VLConstraints.DateTime.DateFormatter) ?? ""; //出院日期 需做格式修正
             //TODO
             this.D8 = sourceData.SourceData.QBQKData;//:"1", 脐带
-            //TODO
-            //默认`有`
-            this.D9 = "";//:"1", 黄疸
-            //TODO
+            this.D9 =  " 2";//:"1", 黄疸 //默认`有` = 2 
+            //未说明字段对接需求
             this.D10 = "";//:"", 总胆红素
             //TODO
             this.D11 = "";//:"无高危因素,颅内出血", 高危因素文本集
             //TODO
+            this.D24 = "";//:"1,7", 高危因素值集
+            //TODO
             this.D12 = "";//:"1", 出生缺陷
-            //TODO
+            //未说明字段对接需求
             this.D13 = "";//:"", 类型
-            //默认``
-            this.D14 = "";//:"2", 窒息抢救是否成功
-            //TODO
-            this.D15 = "";//:"1", 疾病转归
-            //默认``
-            this.D16 = "";//:"777", 死亡原因
-            //TODO
-            this.D17 = sourceData.SourceData.SFZXSRKYY;//:"666", 转诊原因
+            this.D14 = "";//:"2", 窒息抢救是否成功 默认``
+            this.D15 = "";//:"1", 疾病转归 默认``
+            this.D16 = "";//:"777", 死亡原因 默认``
+            //【产妇分类】为`正常`时，不传。 
+            this.D17 = "";//:"666", 转诊原因
             //默认``
             this.D18 = "";//:"4406", 拟转入机构
             //TODO
@@ -122,9 +119,8 @@ namespace FrameworkTest.Business.SDMockCommit
             this.D20 = "";//:"1", 新生儿听力筛查
             this.D21 = "";//:"2", 乙肝免疫球蛋白注射
             this.D22 = "";//Init
+            //由Init处理
             //this.D23 = "";//:"2020-07-20",	创建时间 需做格式修正
-            //TODO
-            this.D24 = "";//:"1,7", 高危因素值集
             //TODO
             this.D25 = "";//:"1", 出生窒息
             //TODO
