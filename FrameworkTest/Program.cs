@@ -37,6 +37,10 @@ namespace FrameworkTest
 
         static void Main(string[] args)
         {
+            //var ycc = "1/2";
+            //var ycc2 = ycc.GetSubStringOrEmpty((ycc?.Length ?? 0) - 1) ?? "";//:"1", 本次胎次
+
+
             //var sdate = "2020年07月26日 23时14分";
             //var subb = sdate.GetSubStringOrEmpty(sdate.Length - 1);
             //sdate = null;
