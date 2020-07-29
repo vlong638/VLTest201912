@@ -49,5 +49,22 @@ namespace FrameworkTest.Business.SDMockCommit
                 return "4";
             return key;
         }
+
+        /// <summary>
+        /// 新生儿性别
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static string Get_BabySex_FS_By_BabySex_FM(string key)
+        {
+            if (string.IsNullOrEmpty(key))
+                return "";
+            key = key.Trim(',');
+            if (key.StartsWith("男"))
+                return "1";
+            if (key.StartsWith("女"))
+                return "2";
+            return key;
+        }
     }
 }

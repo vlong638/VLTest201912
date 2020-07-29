@@ -39,11 +39,21 @@ namespace FrameworkTest.Business.SDMockCommit
                     syncOrder.Id = context.ESBService.SaveSyncOrder(syncOrder);
                     return;
                 }
+                //获得诊断信息
+                var diagnosis = Context.ESBService.GetDiagnosisByPatientIdAndINPNo(sourceData.SourceData.inp_no, sourceData.SourceData.visit_id);
+                //有死亡风险的不作上传
+                if (VLConstraints.HasDeadDiagnosis(diagnosis))
+                {
+                    syncOrder.SyncStatus = SyncStatus.DeadDiagnosis;
+                    syncOrder.ErrorMessage = SyncStatus.DeadDiagnosis.GetDescription();
+                    syncOrder.Id = context.ESBService.SaveSyncOrder(syncOrder);
+                    return;
+                }
                 //获取住院数据
-                var ChildDischargeData = Context.FSService.GetChildDischarge(userInfo, listData.FMMainId, ref logger);
+                var childDischargeData = Context.FSService.GetChildDischarge(userInfo, listData.FMMainId, ref logger);
                 //数据更新
-                var ChildDischargeToCreate = new CQJL_CHILD_FORM_SAVE_Data();
-                if (ChildDischargeData != null)
+                var childDischargeToCreate = new CQJL_CHILD_FORM_SAVE_Data();
+                if (childDischargeData != null)
                 {
                     //ChildDischargeToCreate.Update(ChildDischargeData);
                     syncOrder.SyncStatus = SyncStatus.Existed;
@@ -53,11 +63,11 @@ namespace FrameworkTest.Business.SDMockCommit
                 }
                 else
                 {
-                    ChildDischargeToCreate.Init(userInfo);
+                    childDischargeToCreate.Init(userInfo);
                 }
-                ChildDischargeToCreate.Update(sourceData);
+                childDischargeToCreate.Update(sourceData, diagnosis);
                 //创建住院数据
-                var result = Context.FSService.SaveChildDischarge(userInfo, ChildDischargeToCreate, listData.FMMainId, ref logger);
+                var result = Context.FSService.SaveChildDischarge(userInfo, childDischargeToCreate, listData.FMMainId, ref logger);
                 //保存同步记录
                 syncOrder.Id = context.ESBService.SaveSyncOrder(syncOrder);
             }

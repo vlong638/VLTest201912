@@ -1,6 +1,7 @@
 ﻿using FrameworkTest.Common.ValuesSolution;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FrameworkTest.Business.SDMockCommit
 {
@@ -80,62 +81,57 @@ namespace FrameworkTest.Business.SDMockCommit
             this.D31 = data.D31;
         }
 
-        public void Update(ChildDischarge_SourceData sourceData)
+        public void Update(ChildDischarge_SourceData sourceData, IEnumerable<Diagnosis> diagnosis)
         {
-            //this.D1 = "";//:"0000265533", 住院号
-            //TODO
-            this.D5 = sourceData.SourceData.PATNAME;//:"蓝艳云", 产妇姓名
-            this.D2 = this.D5+"z";//:"蓝艳云婴", 儿童姓名
-            //TODO
-            this.D3 = sourceData.SourceData.xsrsex;//:"2", 性别
-            //TODO
-            this.D4 = sourceData.SourceData.temcdate;//:"66", 日龄
-            //TODO
-            this.D6 = sourceData.SourceData.yccdata;//:"1", 本次胎次
-            //TODO
-            this.D7 = sourceData.SourceData.chuyuanrq?.ToDateTime()?.ToString(VLConstraints.DateTime.DateFormatter) ?? ""; //出院日期 需做格式修正
-            //TODO
-            this.D8 = sourceData.SourceData.QBQKData;//:"1", 脐带
-            this.D9 =  " 2";//:"1", 黄疸 //默认`有` = 2 
+            this.D1 = sourceData.inp_no;//:"0000265533", 住院号
+            this.D5 = sourceData.SourceData.PATNAME ?? "";//:"蓝艳云", 产妇姓名
+            this.D3 = VLConstraints.Get_BabySex_FS_By_BabySex_FM(sourceData.SourceData.xsrsex);//:"2", 性别
+            this.D2 = this.D5 + "之" + (this.D3 == "1" ? "子" : (this.D3 == "2" ? "女" : ""));//:"蓝艳云婴", 儿童姓名
+            var d1 = sourceData.SourceData.temcdate.ToDateTime();
+            var d2 = sourceData.SourceData.chuyuanrqfixed.ToDateTime();
+            if (d1.HasValue && d2.HasValue)
+            {
+                this.D4 = (d2.Value - d1.Value).Days.ToString();
+            }
+            else
+            {
+                this.D4 = "";//:"66", 日龄
+            }
+            this.D6 = sourceData.SourceData.yccdata.GetSubStringOrEmpty(sourceData.SourceData.yccdata?.Length ?? 0 - 1) ?? "";//:"1", 本次胎次
+            this.D7 = sourceData.SourceData.chuyuanrqfixed.ToDateTime()?.ToString(VLConstraints.DateTime.DateFormatter) ?? ""; //出院日期 需做格式修正
+            this.D8 = sourceData.SourceData.QBQKData?.Contains("未脱") == true ? "1" : "";//:"1", 脐带
             //未说明字段对接需求
             this.D10 = "";//:"", 总胆红素
-            //TODO
-            this.D11 = "";//:"无高危因素,颅内出血", 高危因素文本集
-            //TODO
-            this.D24 = "";//:"1,7", 高危因素值集
-            //TODO
+            this.D11 = "无高危因素";//:"无高危因素,颅内出血", 高危因素文本集     //默认`无高危因素`
+            this.D24 = "";//:"1", 高危因素值集    //默认`无高危因素`
+            //未说明字段对接需求
             this.D12 = "";//:"1", 出生缺陷
             //未说明字段对接需求
             this.D13 = "";//:"", 类型
             this.D14 = "";//:"2", 窒息抢救是否成功 默认``
             this.D15 = "";//:"1", 疾病转归 默认``
             this.D16 = "";//:"777", 死亡原因 默认``
-            //【产妇分类】为`正常`时，不传。 
-            this.D17 = "";//:"666", 转诊原因
-            //默认``
-            this.D18 = "";//:"4406", 拟转入机构
-            //TODO
-            this.D19 = sourceData.SourceData.zhuyuanzd;//:"888", 出院诊断
+            this.D17 = "";//:"666", 转诊原因 //【产妇分类】为`正常`时，不传。 默认``
+            this.D18 = "";//:"4406", 拟转入机构 //默认``
+            this.D19 = string.Join(",", diagnosis.Select(c => c.diag_desc));    //"",            //出院诊断
             this.D20 = "";//:"1", 新生儿听力筛查
             this.D21 = "";//:"2", 乙肝免疫球蛋白注射
-            this.D22 = "";//Init
             //由Init处理
+            //this.D22 = "";//Init
             //this.D23 = "";//:"2020-07-20",	创建时间 需做格式修正
-            //TODO
-            this.D25 = "";//:"1", 出生窒息
-            //TODO
-            //默认`面部`
-            this.D26 = "";//:"", 黄疸部位
+            this.D25 = VLConstraints.Get_Apnea_FS_By_Apnea_FM(sourceData.SourceData.xsrzx);//:"1", 出生窒息
+            this.D9 =  " 2";//:"1", 黄疸 //默认`有` = 2 
+            this.D26 = "1";//:"", 黄疸部位 //默认`面部`
             //尚不对接疫苗
             //默认``
             this.D27 = ""; //:"2020-07-23 10:38", 乙肝疫苗注射时间 需做格式修正
             this.D28 = string.IsNullOrEmpty(sourceData.SourceData.WYData) ? "" : sourceData.SourceData.WYData.Contains("母乳") ? "1" : "2";
-            //TODO
-            this.D29 = sourceData.SourceData.mypfzjcdata;//:"2", 母乳喂养早接触
+            this.D29 = sourceData.SourceData.mypfzjcdata?.Contains("有") == true ? "1" : "";//:"2", 母乳喂养早接触
             //尚不对接疫苗
             //默认``
             this.D30 = ""; //:"2020-07-24 10:34", 乙肝免疫球蛋白接种时间  需做格式修正
             this.D31 = "";//:"",
+            this.D32 = "";//:"",
         }
 
         public void Init(UserInfo userInfo)
@@ -175,5 +171,6 @@ namespace FrameworkTest.Business.SDMockCommit
         public string D29 { set; get; }//:"2", 母乳喂养早接触
         public string D30 { set; get; }//:"2020-07-24 10:34", 乙肝免疫球蛋白接种时间  需做格式修正
         public string D31 { set; get; }//:"",
+        public string D32 { set; get; }//:"",
     }
 }

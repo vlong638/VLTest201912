@@ -113,6 +113,7 @@
     <Compile Include="Business\ConfigurableEntity\EntityAppConfig.cs" />
     <Compile Include="Business\GJPredeliveryAsync\PreDelivery.cs" />
     <Compile Include="Business\SDMockCommit\DALs\ESBDAL.cs" />
+    <Compile Include="Business\SDMockCommit\Dics\Apnea.cs" />
     <Compile Include="Business\SDMockCommit\Dics\BreastStatus.cs" />
     <Compile Include="Business\SDMockCommit\Dics\Diagnosis.cs" />
     <Compile Include="Business\SDMockCommit\Dics\Lochia.cs" />

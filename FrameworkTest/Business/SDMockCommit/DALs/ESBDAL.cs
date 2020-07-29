@@ -88,23 +88,50 @@ and fm.downloadtime > s5.SyncTime
         internal static List<ChildDischargeModel> GetChildDischargesToCreate(DbGroup dbGroup)
         {
             return dbGroup.Connection.Query<ChildDischargeModel>($@"
-select top 1 * 
-from HELEESB.dbo.V_FWPT_GY_ZHUYUANFMYE fm
+select top 1 ''
+,br.chuyuanrqfixed,br.shenfenzh
+,fm.inp_no,fm.visit_id
+,fm.patname --母亲姓名
+,fm.xsrsex --新生儿性别
+,fm.temcdate --胎儿娩出时间
+,fm.yccdata --本次胎次
+,fm.xsrzx --新生儿窒息
+,fm.mypfzjcdata --母乳喂养早接触
+,yr.qbqkdata --脐部
+,yr.sfzxsrkyy --转诊原因
+,yr.wydata --母乳喂养
+from HELEESB.dbo.V_FWPT_GY_ZHUYUANFMYE yr
+left join HELEESB.dbo.V_FWPT_GY_ZHUYUANFM fm on yr.inp_no = fm.inp_no
+left join HELEESB.dbo.V_FWPT_GY_BINGRENXXZY br on br.bingrenid = yr.inp_no
 left join HL_Pregnant.dbo.SyncForFS s6 on s6.TargetType = 6 and s6.SourceId = fm.inp_no
-left join HELEESB.dbo.V_FWPT_GY_BINGRENXXZY br on br.bingrenid = fm.inp_no
 where s6.id is null
-and fm.inp_no ='0000265533'
+and br.chuyuanrqfixed is not null
+-- and br.chuyuanrqfixed >= convert(nvarchar, getdate(),23) 
 ", transaction: dbGroup.Transaction).ToList();
         }
 
         internal static IEnumerable<ChildDischargeModel> GetChildDischargesToUpdate(DbGroup dbGroup)
         {
             return dbGroup.Connection.Query<ChildDischargeModel>($@"
-select top 1 * 
-from HELEESB.dbo.V_FWPT_GY_ZHUYUANFMYE fm
+select top 1 ''
+,br.chuyuanrqfixed,br.shenfenzh
+,fm.inp_no,fm.visit_id
+,fm.patname --母亲姓名
+,fm.xsrsex --新生儿性别
+,fm.temcdate --胎儿娩出时间
+,fm.yccdata --本次胎次
+,fm.xsrzx --新生儿窒息
+,fm.mypfzjcdata --母乳喂养早接触
+,yr.qbqkdata --脐部
+,yr.sfzxsrkyy --转诊原因
+,yr.wydata --母乳喂养
+from HELEESB.dbo.V_FWPT_GY_ZHUYUANFMYE yr
+left join HELEESB.dbo.V_FWPT_GY_ZHUYUANFM fm on yr.inp_no = fm.inp_no
+left join HELEESB.dbo.V_FWPT_GY_BINGRENXXZY br on br.bingrenid = yr.inp_no
 left join HL_Pregnant.dbo.SyncForFS s6 on s6.TargetType = 6 and s6.SourceId = fm.inp_no
-where s6.id is not null
-and fm.inp_no ='0000265533'
+where s6.id is not null and s6.SyncStatus = 2
+and br.chuyuanrqfixed is not null
+and yr.downloadtime > s6.SyncTime
 ", transaction: dbGroup.Transaction).ToList();
         }
 

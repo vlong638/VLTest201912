@@ -190,8 +190,9 @@ namespace FrameworkTest.Business.SDMockCommit
             this.D37 = inspections.FirstOrDefault(c => c.chinesename == "人免疫缺陷病毒抗体测定") != null ? "1" : "2"; ;//"1",           //HIV抗体检测
             this.D38 = inspections.FirstOrDefault(c => c.chinesename == "梅毒螺旋体特异抗体测定") != null ? "1" : "2"; ;//"1",           //梅毒螺旋体抗体检测
             this.D39 = "";
-            //TODO
+            //不对此类做对接
             //this.D38 = inspections.FirstOrDefault(c => c.chinesename == "梅毒螺旋体非特异抗体(TRUST)") != null ? "1" : "2"; ;//"1",           //梅毒螺旋体抗体检测
+            //没有此类对接数据
             //this.D39 = inspections.FirstOrDefault(c => c.chinesename == "	非梅毒抗体") != null ? "1" : "2"; ;//"2",           //非梅毒螺旋体抗体检测
             this.D44 = "";//
         }

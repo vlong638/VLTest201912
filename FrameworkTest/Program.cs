@@ -37,6 +37,10 @@ namespace FrameworkTest
 
         static void Main(string[] args)
         {
+            //var sdate = "2020年07月26日 23时14分";
+            //var subb = sdate.GetSubStringOrEmpty(sdate.Length - 1);
+            //sdate = null;
+            //subb = sdate.GetSubStringOrEmpty(sdate?.Length ?? 0 - 1);
             //            ryrqdata fmrqdate
             //2020年07月26日 21时53分  2020年07月26日 23时14分
 
@@ -3808,13 +3812,13 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(sourceData.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-婴儿出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.inp_no + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-婴儿出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.idcard + "_" + sourceData.inp_no + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
                 syncTask.DoLogOnWork = (sourceData, sb) =>
                 {
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Create-婴儿出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.inp_no + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Create-婴儿出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.idcard + "_" + sourceData.inp_no + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
@@ -3827,13 +3831,13 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(sourceData.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Update-婴儿出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.inp_no + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Update-婴儿出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.idcard + "_" + sourceData.inp_no + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
                 syncTask.DoLogOnWork = (sourceData, sb) =>
                 {
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Update-婴儿出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.inp_no + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Update-婴儿出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.idcard + "_" + sourceData.inp_no + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };

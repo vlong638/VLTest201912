@@ -55,6 +55,8 @@ namespace FrameworkTest.Common.ValuesSolution
                 return str.Substring(start, length);
             }
         }
+
+
         #endregion
 
         #region int

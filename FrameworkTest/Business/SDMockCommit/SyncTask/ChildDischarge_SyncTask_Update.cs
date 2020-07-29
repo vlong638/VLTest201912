@@ -35,6 +35,16 @@ namespace FrameworkTest.Business.SDMockCommit
                     syncOrder.Id = context.ESBService.SaveSyncOrder(syncOrder);
                     return;
                 }
+                //获得诊断信息
+                var diagnosis = Context.ESBService.GetDiagnosisByPatientIdAndINPNo(sourceData.SourceData.inp_no, sourceData.SourceData.visit_id);
+                //有死亡风险的不作上传
+                if (VLConstraints.HasDeadDiagnosis(diagnosis))
+                {
+                    syncOrder.SyncStatus = SyncStatus.DeadDiagnosis;
+                    syncOrder.ErrorMessage = SyncStatus.DeadDiagnosis.GetDescription();
+                    syncOrder.Id = context.ESBService.SaveSyncOrder(syncOrder);
+                    return;
+                }
                 //获取住院数据
                 var ChildDischargeData = Context.FSService.GetChildDischarge(userInfo, listData.FMMainId, ref logger);
                 //数据更新
@@ -50,7 +60,7 @@ namespace FrameworkTest.Business.SDMockCommit
                 {
                     ChildDischargeToCreate.Update(ChildDischargeData);
                 }
-                ChildDischargeToCreate.Update(sourceData);
+                ChildDischargeToCreate.Update(sourceData, diagnosis);
                 //创建住院数据
                 var result = Context.FSService.SaveChildDischarge(userInfo, ChildDischargeToCreate, listData.FMMainId, ref logger);
                 //保存同步记录
