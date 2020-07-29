@@ -58,6 +58,7 @@ left join HL_Pregnant.dbo.SyncForFS s5 on s5.TargetType = 5 and s5.SourceId = fm
 left join HELEESB.dbo.V_FWPT_GY_BINGRENXXZY br on br.bingrenid = fm.inp_no
 left join HL_Pregnant.dbo.PregnantInfo pi on pi.idcard = br.shenfenzh
 where s5.id is null
+and br.chuyuanrqfixed is not null
 and br.chuyuanrqfixed >= convert(nvarchar, getdate(),23) 
 -- and fm.inp_no ='0000312639'
 ", transaction: dbGroup.Transaction).ToList();
@@ -75,6 +76,7 @@ left join HL_Pregnant.dbo.SyncForFS s5 on s5.TargetType = 5 and s5.SourceId = fm
 left join HELEESB.dbo.V_FWPT_GY_BINGRENXXZY br on br.bingrenid = fm.inp_no
 left join HL_Pregnant.dbo.PregnantInfo pi on pi.idcard = br.shenfenzh
 where s5.id is not null and s5.SyncStatus = 2
+and br.chuyuanrqfixed is not null
 and br.chuyuanrqfixed >= convert(nvarchar, getdate(),23) 
 and fm.downloadtime > s5.SyncTime
 -- and fm.inp_no ='0000312639'
@@ -106,6 +108,7 @@ left join HELEESB.dbo.V_FWPT_GY_BINGRENXXZY br on br.bingrenid = yr.inp_no
 left join HL_Pregnant.dbo.SyncForFS s6 on s6.TargetType = 6 and s6.SourceId = fm.inp_no
 where s6.id is null
 and br.chuyuanrqfixed is not null
+and yr.inp_no = '0000312843'
 -- and br.chuyuanrqfixed >= convert(nvarchar, getdate(),23) 
 ", transaction: dbGroup.Transaction).ToList();
         }

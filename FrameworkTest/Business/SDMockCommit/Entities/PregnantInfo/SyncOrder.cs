@@ -21,6 +21,9 @@ namespace FrameworkTest.Business.SDMockCommit
                     case TargetType.PhysicalExamination:
                     case TargetType.ProfessionalExamination:
                         return SourceType.MHC_VisitRecord;
+                    case TargetType.ChildDischarge:
+                    case TargetType.PregnantDischarge:
+                        return SourceType.V_FWPT_GY_ZHUYUANFM;
                     default:
                         return SourceType.None;
                 }
@@ -46,6 +49,11 @@ namespace FrameworkTest.Business.SDMockCommit
         /// </summary>
         [Description("孕妇产前检查")]
         MHC_VisitRecord = 2,
+        /// <summary>
+        /// 出院管理
+        /// </summary>
+        [Description("出院管理")]
+        V_FWPT_GY_ZHUYUANFM = 2,
     }
     public enum TargetType
     {
