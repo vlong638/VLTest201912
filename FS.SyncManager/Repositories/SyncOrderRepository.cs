@@ -16,13 +16,14 @@ namespace FS.SyncManager.Repositories
         }
 
         /// <summary>
-        /// 获取孕妇档案分页列表
+        /// 获取`同步记录`分页列表
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         internal List<Dictionary<string, object>> GetSyncOrderPagedList(GetPagedListOfSyncOrderRequest request)
         {
             var sql = request.ToListSQL();
+            _context.VLLogger.Log("获取`同步记录`分页列表:" + sql);
             var pars = request.GetParams();
             var table = new DataTable();
             using (var reader = _context.DbGroup.Connection.ExecuteReader(sql, pars, transaction: _transaction))

@@ -8,12 +8,11 @@ using System.Threading.Tasks;
 
 namespace FrameworkTest.Common.FileSolution
 {
-    class FileHelper
+    public class FileHelper
     {
-
         public static string GetDirectoryToOutput(string suffix)
         {
-            var path = Path.Combine(Directory.GetCurrentDirectory(), suffix);
+            var path = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, suffix);
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
             return path;

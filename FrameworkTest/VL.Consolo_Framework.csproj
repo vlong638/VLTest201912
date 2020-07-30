@@ -224,6 +224,7 @@
     <Compile Include="Business\Kettle\O_LabResult.cs" />
     <Compile Include="Common\FileSolution\FileHelper.cs" />
     <Compile Include="Common\HttpSolution\HttpHelper.cs" />
+    <Compile Include="Common\LoggerSolution\VLLogger.cs" />
     <Compile Include="Common\PagerSolution\IQueriablePagedList.cs" />
     <Compile Include="Common\PagerSolution\VLPageRequest.cs" />
     <Compile Include="Common\PagerSolution\VLPageResult.cs" />

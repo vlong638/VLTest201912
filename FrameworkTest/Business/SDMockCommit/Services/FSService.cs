@@ -524,6 +524,7 @@ namespace FrameworkTest.Business.SDMockCommit
         #endregion
 
         #region 孕妇住院数据
+
         /// <summary>
         /// 获取 孕妇住院数据列表
         /// </summary>
@@ -545,6 +546,7 @@ namespace FrameworkTest.Business.SDMockCommit
                 return null;
             return re2.data.FirstOrDefault(c => Convert.ToDateTime(c.D5) == re2.data.Select(d => Convert.ToDateTime(d.D5)).Max());
         }
+
         #endregion
 
         #region 孕妇出院登记

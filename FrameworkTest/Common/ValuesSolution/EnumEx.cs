@@ -40,7 +40,7 @@ namespace FrameworkTest.Common.ValuesSolution
 
         public static string ToEnumDescription(this object value, Type t)
         {
-            if (value == null)
+            if (value == null || t == null)
                 return null;
             int i;
             string name;
@@ -51,6 +51,10 @@ namespace FrameworkTest.Common.ValuesSolution
             else
             {
                 name = value.ToString();
+            }
+            if (name ==null)
+            {
+                return null;
             }
             var field = t.GetField(name);
             if (field == null)

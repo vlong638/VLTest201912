@@ -52,7 +52,7 @@ namespace FrameworkTest.Business.SDMockCommit
         /// <summary>
         /// 出院管理
         /// </summary>
-        [Description("出院管理")]
+        [Description("出院管理-分娩记录")]
         V_FWPT_GY_ZHUYUANFM = 2,
     }
     public enum TargetType
@@ -108,6 +108,6 @@ namespace FrameworkTest.Business.SDMockCommit
         DeadDiagnosis = 15,
         [Description("成功")]
         Success = 2,//处理成功
-        Test = 99,//更新成功 仅作测试使用
+        AllError = 99,//更新成功 仅作测试使用
     }
 }

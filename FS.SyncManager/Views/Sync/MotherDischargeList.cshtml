@@ -6,11 +6,11 @@
     <div style="margin-top:5px">
         <div style="display:inline;">
             <span>姓名:</span>
-            <input id="where_patname" class="easyui-textbox" />
+            <input id="where_xingming" class="easyui-textbox" />
             <span>住院号:</span>
             <input id="where_inp_no" class="easyui-textbox" />
             <span>出院日期:</span>
-            <input id="where_personname" class="easyui-textbox" />
+            <input id="where_chuyuanrqfixed" class="easyui-textbox" />
             <a href="#" class="easyui-linkbutton" plain="true" onclick="doSearch()">搜索</a>
         </div>
     </div>
@@ -23,7 +23,9 @@
 
     function doSearch() {
         $("#db_list").datagrid('load', {
-            PersonName: $('#where_personname').val()
+            PersonName: $('#where_xingming').val(),
+            inp_no: $('#where_inp_no').val(),
+            chuyuanrqfixed: $('#where_chuyuanrqfixed').val()
         });
     }
 
@@ -58,7 +60,7 @@
                 url: "../Home/GetListConfig",
                 type: "post",
                 dataType: "json",
-                data: JSON.stringify({ ListName: "Sync_PregnantInfo", CustomConfigId: customConfigId }),
+                data: JSON.stringify({ ListName: "Sync_MotherDischarge", CustomConfigId: customConfigId }),
                 contentType: "application/json",
                 success: function (resp) {
                     if (resp.Code == 200) {

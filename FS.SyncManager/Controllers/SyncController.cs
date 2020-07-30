@@ -1,5 +1,6 @@
 ﻿using FrameworkTest.Common.ControllerSolution;
 using FrameworkTest.Common.DBSolution;
+using FrameworkTest.Common.FileSolution;
 using FrameworkTest.Common.PagerSolution;
 using FS.SyncManager.Models;
 using FS.SyncManager.Service;
@@ -13,6 +14,37 @@ namespace FS.SyncManager.Controllers
 {
     public class SyncController : BaseController
     {
+        #region MotherDischarge
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult MotherDischargeList()
+        {
+            return View();             
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult GetPagedListOfMotherDischarge(GetPagedListOfMotherDischargeRequest request)
+        {
+            var viewConfig = HomeController.LoadDefaultConfig("Sync_MotherDischarge");
+            request.UpdateFieldNames(viewConfig);
+
+            var serviceResult = new ServiceContext().SyncService.GetPagedListOfMotherDischarge(request);
+            if (!serviceResult.IsSuccess)
+                return Error(serviceResult.Data, serviceResult.Messages);
+            viewConfig.UpdateValues(serviceResult.Data.List);
+            return Json(new { total = serviceResult.Data.Count, rows = serviceResult.Data.List.ToList() });
+        }
+
+        #endregion
+
         #region PregnantInfo
 
         /// <summary>
@@ -134,10 +166,19 @@ namespace FS.SyncManager.Controllers
                 return Error(serviceResult.Data, serviceResult.Messages);
             viewConfig.UpdateValues(serviceResult.Data.List);
             return Json(new { total = serviceResult.Data.Count, rows = serviceResult.Data.List.ToList() });
+
+            //理应以过滤器全局封装
+            //try
+            //{
+            //}
+            //catch (Exception ex)
+            //{
+            //    var VLLogger = new VLLogger(FileHelper.GetDirectoryToOutput("Logs"));
+            //    VLLogger.Log(ex.ToString());
+            //    return Json(new { total = 0, rows = 0 });
+            //}
         }
 
         #endregion
     }
 }
-
-

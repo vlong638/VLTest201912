@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FS.SyncManager.Models
 {
-    public class GetPagedListOfPregnantInfoRequest : VLPageRequest, IQueriablePagedList
+    public class GetPagedListOfMotherDischargeRequest : VLPageRequest, IQueriablePagedList
     {
         #region OrientInput
         public int page { get; set; }
@@ -12,8 +12,8 @@ namespace FS.SyncManager.Models
         public string order { get; set; }
         #endregion
 
-        public GetPagedListOfPregnantInfoRequest()
-        { 
+        public GetPagedListOfMotherDischargeRequest()
+        {
         }
 
         public string PersonName { set; get; }
@@ -63,22 +63,23 @@ from {PregnantInfo.TableName}
         {
             if (Orders.Count == 0)
             {
-                Orders.Add("Id", false);
+                Orders.Add("br.chuyuanrqfixed", false);
             }
             return $@"
-select 1
-,s1.Id as SyncIdToPregnantInfo,s1.SyncTime as LastSyncTimeToPregnantInfo,s1.SyncStatus as SyncStatusToPregnantInfo,s1.ErrorMessage as SyncMessageToPregnantInfo
-,s2.Id as SyncIdToHistoryEnquiry,s2.SyncTime as LastSyncTimeToHistoryEnquiry,s2.SyncStatus as SyncStatusToHistoryEnquiry,s2.ErrorMessage as SyncMessageToHistoryEnquiry
-,TSource.* from
-(
-    select {string.Join(",", FieldNames)}
-    from {PregnantInfo.TableName}
-    {GetWhereCondition()}
-    {GetOrderCondition()}
-    {GetLimitCondition()}
+select {string.Join(",", FieldNames)}
+from (
+    select top 1 ''
+    ,br.shouji,br.xingming,br.chuyuanrqfixed
+    ,pi.idcard,pi.createage,pi.restregioncode,pi.restregiontext
+    ,fm.inp_no,fm.FMRQDate,fm.FMFSData,fm.ZCJGData ,fm.TWData ,fm.XYData ,fm.RFQKData ,fm.gdgddata ,fm.hyskdata ,fm.ELUData ,fm.CLJZDData 
+    from HELEESB.dbo.V_FWPT_GY_ZHUYUANFM fm
+    left join HL_Pregnant.dbo.SyncForFS s5 on s5.TargetType = 5 and s5.SourceId = fm.inp_no
+    left join HELEESB.dbo.V_FWPT_GY_BINGRENXXZY br on br.bingrenid = fm.inp_no
+    left join HL_Pregnant.dbo.PregnantInfo pi on pi.idcard = br.shenfenzh
 ) as TSource
-left join SyncForFS s1 on TSource.Id =s1.SourceId and s1.TargetType = 1
-left join SyncForFS s2 on TSource.Id =s2.SourceId and s2.TargetType = 2
+{GetWhereCondition()}
+{GetOrderCondition()}
+{GetLimitCondition()}
 ";
         }
 

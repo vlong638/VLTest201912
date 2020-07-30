@@ -30,8 +30,8 @@ namespace FrameworkTest.Business.SDMockCommit
             try
             {
                 //获取列表数据
-                var listData = Context.FSService.GetPregnantInHospitalList(userInfo, sourceData.inp_no,ref logger);
-                if (listData==null)
+                var listData = Context.FSService.GetPregnantInHospitalList(userInfo, sourceData.inp_no, ref logger);
+                if (listData == null)
                 {
                     syncOrder.SyncStatus = SyncStatus.Error;
                     syncOrder.ErrorMessage = "未获取到 列表数据";

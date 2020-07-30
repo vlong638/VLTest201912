@@ -97,7 +97,6 @@ namespace FrameworkTest.Business.SDMockCommit
             {
                 this.D4 = "";//:"66", 日龄
             }
-            //1/2
             this.D6 = sourceData.SourceData.yccdata.GetSubStringOrEmpty((sourceData.SourceData.yccdata?.Length ?? 0) - 1) ?? "";//:"1", 本次胎次
             this.D7 = sourceData.SourceData.chuyuanrqfixed.ToDateTime()?.ToString(VLConstraints.DateTime.DateFormatter) ?? ""; //出院日期 需做格式修正
             this.D8 = sourceData.SourceData.QBQKData?.Contains("未脱") == true ? "1" : "";//:"1", 脐带

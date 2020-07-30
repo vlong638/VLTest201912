@@ -465,21 +465,52 @@
 	<View ViewName="Sync_MotherDischarge">
 		<!--Wheres-->
 		<Wheres>
-			<Where ComponentName="PersonName" CompareOperator="Like" Value="" LinkOperator="None"/>
-			<Where ComponentName="SyncStatus" CompareOperator="Equal" Value="99" LinkOperator="None"/>
+			<Where ComponentName="xingming" CompareOperator="Like" Value="" LinkOperator="None"/>
+			<Where ComponentName="inp_no" CompareOperator="Equal" Value="" LinkOperator="None"/>
+			<Where ComponentName="chuyuanrqfixed" CompareOperator="Equal" Value="GetDate()" LinkOperator="None"/>
 		</Wheres>
 		<!--Order By-->
 		<OrderBy ComponentName="Id" IsAsc="False" />
 		<!--Selects-->
-		<Property IsNeedOnPage="true" IsNeedOnDatabase="true" DisplayName="编号" ColumnName="Id" DisplayType="None" DisplayWidth="60" IsSortable="true" IsCheckable="true" DataType="bigint" Description="0" />
-		<Property IsNeedOnPage="true" DisplayName="姓名" ColumnName="PersonName" DisplayType="None" DisplayWidth="60" IsSortable="true" DataType="char" Description="" />
-		<Property IsNeedOnPage="true" DisplayName="身份证" ColumnName="Idcard" DisplayType="None" DisplayWidth="180" IsSortable="false" DataType="char" Description="" />
-		<Property IsNeedOnPage="true" IsNeedOnDatabase="true" DisplayName="来源类型" ColumnName="SourceType" DisplayType="Enum" EnumType="SourceType" DisplayWidth="80" IsSortable="False" DataType="smallint" Description="来源类型" />
-		<Property IsNeedOnPage="true" IsNeedOnDatabase="true" DisplayName="来源Id" ColumnName="SourceId" DisplayType="None" DisplayWidth="80" IsSortable="False" DataType="varchar" Description="来源Id" />
-		<Property IsNeedOnPage="true" IsNeedOnDatabase="true" DisplayName="同步时间" ColumnName="SyncTime" DisplayType="DateTime" DisplayWidth="180" IsSortable="true" DataType="datetime" Description="同步时间" />
-		<Property IsNeedOnPage="true" IsNeedOnDatabase="true" DisplayName="错误信息" ColumnName="ErrorMessage" DisplayType="None" DisplayWidth="80" IsSortable="False" DataType="varchar" Description="错误信息" />
-		<Property IsNeedOnPage="true" IsNeedOnDatabase="true" DisplayName="同步状态" ColumnName="SyncStatus" DisplayType="Enum" EnumType="SyncStatus" DisplayWidth="80" IsSortable="true" DataType="smallint" Description="同步状态" />
-		<Property IsNeedOnPage="true" IsNeedOnDatabase="true" DisplayName="目标类型" ColumnName="TargetType" DisplayType="Enum" EnumType="TargetType" DisplayWidth="80" IsSortable="False" DataType="smallint" Description="目标类型" />
+		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="助产机构" ColumnName="zcjgdata" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="助产机构" />
+		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="住院号" ColumnName="inp_no" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="住院号" />
+		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="流水号" ColumnName="visit_id" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="流水号" />
+		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="入院日期" ColumnName="ryrqdata" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="入院日期" />
+		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="分娩日期" ColumnName="fmrqdate" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="分娩日期" />
+		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="分娩方式" ColumnName="fmfsdata" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="分娩方式" />
+		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="孕周" ColumnName="yzweek" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="孕周" />
+		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="会阴情况" ColumnName="hyqkdata" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="会阴情况" />
+		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="总产程" ColumnName="zccdata" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="总产程" />
+		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="产后出血" ColumnName="chcxdata" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="产后出血" />
+		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="新生儿性别" ColumnName="xsrsex" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="新生儿性别" />
+		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="新生儿体重" ColumnName="xsrtz" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="新生儿体重" />
+		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="新生儿身高" ColumnName="xsrsg" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="新生儿身高" />
+		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="apgar评分1分钟" ColumnName="apgarpf1" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="apgar评分1分钟" />
+		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="apgar评分5分钟" ColumnName="apgarpf5" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="apgar评分5分钟" />
+		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="apgar评分10分钟" ColumnName="apgarpf10" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="apgar评分10分钟" />
+		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="孕产妇分类" ColumnName="ycffldata" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="孕产妇分类" />
+		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="孕产妇产后诊断" ColumnName="ycfchzd" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="孕产妇产后诊断" />
+		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="主诉" ColumnName="zsdata" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="主诉" />
+		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="健康情况" ColumnName="jkqkdata" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="健康情况" />
+		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="24小时出血量" ColumnName="cxl24hour" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="24小时出血量" />
+		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="体温" ColumnName="twdata" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="体温" />
+		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="血压" ColumnName="xydata" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="血压" />
+		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="乳房" ColumnName="rfqkdata" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="乳房" />
+		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="子宫复旧" ColumnName="zgfjqk" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="子宫复旧" />
+		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="伤口" ColumnName="skqkdata" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="伤口" />
+		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="恶露" ColumnName="eludata" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="恶露" />
+		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="处理及指导" ColumnName="cljzddata" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="处理及指导" />
+		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="patname" ColumnName="downloadtime" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="datetime2" Description="patname" />	varchar	255		False		孕妇姓名
+		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="年龄" ColumnName="patage" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="年龄" />
+		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="孕产次" ColumnName="yccdata" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="孕产次" />
+		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="胎儿娩出时间" ColumnName="temcdate" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="胎儿娩出时间" />
+		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="新生儿窒息" ColumnName="xsrzx" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="新生儿窒息" />
+		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="出生缺陷" ColumnName="csqxdata" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="出生缺陷" />
+		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="母婴皮肤早接触" ColumnName="mypfzjcdata" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="母婴皮肤早接触" />
+		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="早吸吮" ColumnName="zsxdata" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="早吸吮" />
+		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="宫底" ColumnName="gdgddata" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="宫底" />
+		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="腹部伤口" ColumnName="fbskdata" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="腹部伤口" />
+		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="会阴伤口" ColumnName="hyskdata" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="会阴伤口" />
 	</View>
 	<View ViewName="Sync_ChildDischarge">
 		<!--Wheres-->

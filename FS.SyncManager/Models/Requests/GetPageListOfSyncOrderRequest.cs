@@ -1,5 +1,6 @@
 ﻿using FrameworkTest.Business.SDMockCommit;
 using FrameworkTest.Common.PagerSolution;
+using FrameworkTest.Common.ValuesSolution;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,7 +60,7 @@ namespace FS.SyncManager.Models
             }
             if (!string.IsNullOrEmpty(SyncStatus))
             {
-                args.Add(nameof(SyncStatus), SyncStatus);
+                args.Add(nameof(SyncStatus), this.SyncStatus.ToEnum<SyncStatus>());
             }
             if (TargetType != TargetType.None)
             {
@@ -108,6 +109,11 @@ from
     left join MHC_VisitRecord vr on sall.SourceType = 2 and sall.SourceId = vr.id
     left join PregnantInfo pi on vr.Idcard= pi.Idcard
     where sall.SourceType = 2 {GetWhereCondition()}
+    Union
+    select sall.id from SyncForFS sall
+    left join HELEESB.dbo.V_FWPT_GY_ZHUYUANFM fm on fm.inp_no = sall.SourceId
+    left join HELEESB.dbo.V_FWPT_GY_BINGRENXXZY br on br.bingrenid = fm.inp_no
+    where sall.SourceType = 3 {GetWhereCondition()}
 ) as T
 ";
         }
@@ -128,6 +134,12 @@ from
         left join MHC_VisitRecord vr on sall.SourceType = 2 and sall.SourceId = vr.id
         left join PregnantInfo pi on vr.Idcard= pi.Idcard
         where sall.SourceType = 2 {GetWhereCondition()}
+        Union
+        select br.xingming as PersonName,br.shenfenzh as Idcard,{string.Join(",", FieldNames.Select(c => "sall." + c))} 
+        from SyncForFS sall
+        left join HELEESB.dbo.V_FWPT_GY_ZHUYUANFM fm on fm.inp_no = sall.SourceId
+        left join HELEESB.dbo.V_FWPT_GY_BINGRENXXZY br on br.bingrenid = fm.inp_no
+        where sall.SourceType = 3 {GetWhereCondition()}
     ) as T
     {GetOrderCondition()}
     {GetLimitCondition()}

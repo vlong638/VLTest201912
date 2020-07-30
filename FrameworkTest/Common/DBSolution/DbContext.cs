@@ -1,16 +1,37 @@
-﻿using FrameworkTest.Common.ServiceSolution;
+﻿using FrameworkTest.Common.FileSolution;
+using FrameworkTest.Common.ServiceSolution;
 using System;
 using System.Data;
+using System.IO;
+using System.Text;
 
 namespace FrameworkTest.Common.DBSolution
 {
+    public class VLLogger
+    {
+        public VLLogger(string directory)
+        {
+            Directory = directory;
+        }
+
+        public string Directory { set; get; }
+
+        public void Log(string text, string file= "log.txt")
+        {
+            var path = Path.Combine(Directory, file);
+            File.AppendAllText(path, text);
+        }
+    }
+
     public class DbContext
     {
         public DbGroup DbGroup { set; get; }
+        public VLLogger VLLogger { set; get; }
 
         public DbContext(IDbConnection connection)
         {
             DbGroup = new DbGroup(connection);
+            VLLogger = new VLLogger(FileHelper.GetDirectoryToOutput("Logs"));
         }
 
         /// <summary>
@@ -34,6 +55,7 @@ namespace FrameworkTest.Common.DBSolution
             }
             catch (Exception ex)
             {
+                VLLogger.Log(ex.ToString());
                 DbGroup.Transaction.Rollback();
                 DbGroup.Connection.Close();
                 return new ServiceResult<T>(default(T), ex.Message);

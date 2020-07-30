@@ -67,7 +67,7 @@ namespace FrameworkTest.ConfigurableEntity
                     case DisplayType.Enum:
                         System.Reflection.Assembly assembly = System.Reflection.Assembly.Load("FrameworkTest");
                         var type = assembly.ExportedTypes.FirstOrDefault(c => c.Name == property.EnumType);
-                        if (type!=null)
+                        if (type != null)
                         {
                             foreach (var item in list)
                             {

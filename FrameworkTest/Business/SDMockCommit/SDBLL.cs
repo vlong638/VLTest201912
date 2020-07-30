@@ -141,7 +141,7 @@ namespace FrameworkTest.Business.SDMockCommit
                     TargetType = TargetType.PregnantInfo,
                     SourceId = pregnantInfo.Id.ToString(),
                     SyncTime = DateTime.Now,
-                    SyncStatus = SyncStatus.Test
+                    SyncStatus = SyncStatus.AllError
                 };
                 var serviceResult = context.DelegateTransaction((group) =>
                 {
