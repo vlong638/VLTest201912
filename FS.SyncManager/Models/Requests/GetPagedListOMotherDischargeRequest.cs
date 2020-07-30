@@ -96,16 +96,15 @@ from (
         {
             if (Orders.Count == 0)
             {
-                Orders.Add("br.chuyuanrqfixed", false);
+                Orders.Add("chuyuanrqfixed", false);
             }
             return $@"
 select 
 1
-,s5.Id as SyncIdTos5,s5.SyncTime as LastSyncTimeTos5,s5.SyncStatus as SyncStatusTos5,s5.ErrorMessage as SyncMessageTos5
 ,{string.Join(",", FieldNames)}
 from (
-    select fm.inp_no as id
-    ,br.shouji,br.xingming,br.chuyuanrqfixed
+    select br.shouji,br.xingming,br.chuyuanrqfixed
+    ,s5.Id as SyncIdTos5,s5.SyncTime as LastSyncTimeTos5,s5.SyncStatus as SyncStatusTos5,s5.ErrorMessage as SyncMessageTos5
     ,pi.idcard,pi.createage,pi.restregioncode,pi.restregiontext
     ,fm.inp_no,fm.FMRQDate,fm.FMFSData,fm.ZCJGData ,fm.TWData ,fm.XYData ,fm.RFQKData ,fm.gdgddata ,fm.hyskdata ,fm.ELUData ,fm.CLJZDData 
     from HELEESB.dbo.V_FWPT_GY_ZHUYUANFM fm
@@ -116,7 +115,6 @@ from (
 {GetWhereCondition()}
 {GetOrderCondition()}
 {GetLimitCondition()}
-left join SyncForFS s5 on TSource.Id =s5.SourceId and s5.TargetType = 1
 ";
         }
 
