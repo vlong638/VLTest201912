@@ -8,20 +8,21 @@ using System.Data;
 
 namespace FS.SyncManager.Repositories
 {
-    public class PregnantInfoRepository : RepositoryBase<PregnantInfo>
+    public class MotherDischargeRepository : RepositoryBase<MotherDischarge>
     {
-        public PregnantInfoRepository(DbContext context) : base(context)
+        public MotherDischargeRepository(DbContext context) : base(context)
         {
         }
 
         /// <summary>
-        /// 获取孕妇档案分页列表
+        /// 获`母亲出院`分页列表
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>88888
-        internal List<Dictionary<string, object>> GetPregnantInfoPagedList(GetPagedListOfPregnantInfoRequest request)
+        internal List<Dictionary<string, object>> GetMotherDischargePagedList(GetPagedListOfMotherDischargeRequest request)
         {
             var sql = request.ToListSQL();
+            _context.VLLogger.Log("获取`母亲出院`分页列表:" + sql);
             var pars = request.GetParams();
             var table = new DataTable();
             using (var reader = _context.DbGroup.Connection.ExecuteReader(sql, pars, transaction: _transaction))
@@ -31,11 +32,11 @@ namespace FS.SyncManager.Repositories
             return table.ToList();
         }
         /// <summary>
-        /// 获取孕妇档案分页计数
+        /// 获`母亲出院`分页列表计数
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        internal int GetPregnantInfoPagedListCount(GetPagedListOfPregnantInfoRequest request)
+        internal int GetMotherDischargePagedListCount(GetPagedListOfMotherDischargeRequest request)
         {
             var sql = request.ToCountSQL();
             var pars = request.GetParams();

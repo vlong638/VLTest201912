@@ -144,6 +144,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\MotherDischargeRepository.cs" />
     <Compile Include="Repositories\SyncOrderRepository.cs" />
     <Compile Include="Repositories\VisitRecordRepository.cs" />
     <Compile Include="Repositories\PregnantInfoRepository.cs" />

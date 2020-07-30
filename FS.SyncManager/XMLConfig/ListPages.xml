@@ -467,13 +467,22 @@
 		<Wheres>
 			<Where ComponentName="xingming" CompareOperator="Like" Value="" LinkOperator="None"/>
 			<Where ComponentName="inp_no" CompareOperator="Equal" Value="" LinkOperator="None"/>
-			<Where ComponentName="chuyuanrqfixed" CompareOperator="Equal" Value="GetDate()" LinkOperator="None"/>
+			<Where ComponentName="chuyuanrqfixed" CompareOperator="Equal" Value="$GetDate()" LinkOperator="None"/>
 		</Wheres>
 		<!--Order By-->
 		<OrderBy ComponentName="Id" IsAsc="False" />
 		<!--Selects-->
+		<Property IsNeedOnPage="true" IsNeedOnDatabase="false" DisplayName="姓名" ColumnName="xingming" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="" />
+		<Property IsNeedOnPage="true" IsNeedOnDatabase="false" DisplayName="身份证" ColumnName="idcard" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="" />
+		<Property IsNeedOnPage="true" IsNeedOnDatabase="false" DisplayName="出院日期" ColumnName="chuyuanrqfixed" DisplayType="Date" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="" />
+		<Property IsNeedOnPage="true" IsNeedOnDatabase="false" DisplayName="住院号" ColumnName="inp_no" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="住院号" />
+		
+		<Property IsNeedOnPage="true" DisplayName="" ColumnName="SyncIdTos5" DisplayType="Hidden" DisplayWidth="100" IsSortable="False" DataType="char" Description="" />
+		<Property IsNeedOnPage="true" DisplayName="最近同步时间(基本档案)" ColumnName="LastSyncTimeTos5" DisplayType="DateTime" DisplayWidth="180" IsSortable="False" DataType="char" Description="" />
+		<Property IsNeedOnPage="true" DisplayName="同步状态" ColumnName="SyncStatusTos5" DisplayType="Enum" EnumType="SyncStatus" DisplayWidth="100" IsSortable="False" DataType="char" Description="" />
+		<Property IsNeedOnPage="true" DisplayName="同步消息" ColumnName="SyncMessageTos5" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="char" Description="" />
+
 		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="助产机构" ColumnName="zcjgdata" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="助产机构" />
-		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="住院号" ColumnName="inp_no" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="住院号" />
 		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="流水号" ColumnName="visit_id" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="流水号" />
 		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="入院日期" ColumnName="ryrqdata" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="入院日期" />
 		<Property IsNeedOnPage="false" IsNeedOnDatabase="false" DisplayName="分娩日期" ColumnName="fmrqdate" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="分娩日期" />

@@ -20,8 +20,9 @@ namespace FrameworkTest.Common.PagerSolution
     {
         public static void UpdateFieldNames(this IQueriablePagedList request, EntityAppConfig viewConfig)
         {
-            if (viewConfig.Properties.Count > 0)
-                request.FieldNames = viewConfig.Properties.Where(c=>c.IsNeedOnDatabase).Select(c => c.ColumnName).ToList();
+            var propertiesToLoad = viewConfig.Properties.Where(c => c.IsNeedOnDatabase);
+            if (propertiesToLoad.Count() > 0)
+                request.FieldNames = propertiesToLoad.Select(c => c.ColumnName).ToList();
         }
     }
 }

@@ -2,6 +2,7 @@
 using FrameworkTest.Common.DBSolution;
 using FrameworkTest.Common.FileSolution;
 using FrameworkTest.Common.PagerSolution;
+using FrameworkTest.Common.ValuesSolution;
 using FS.SyncManager.Models;
 using FS.SyncManager.Service;
 using System;
