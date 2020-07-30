@@ -172,3 +172,90 @@ from (
 order by Id desc
 offset 0 rows fetch next 20 rows only
 left join SyncForFS s5 on TSource.Id =s5.SourceId and s5.TargetType = 1
+获取`母亲出院`分页列表:
+select 
+1
+,*
+from (
+    select br.shouji,br.xingming,br.chuyuanrqfixed
+    ,s5.Id as SyncIdTos5,s5.SyncTime as LastSyncTimeTos5,s5.SyncStatus as SyncStatusTos5,s5.ErrorMessage as SyncMessageTos5
+    ,pi.idcard,pi.createage,pi.restregioncode,pi.restregiontext
+    ,fm.inp_no,fm.FMRQDate,fm.FMFSData,fm.ZCJGData ,fm.TWData ,fm.XYData ,fm.RFQKData ,fm.gdgddata ,fm.hyskdata ,fm.ELUData ,fm.CLJZDData 
+    from HELEESB.dbo.V_FWPT_GY_ZHUYUANFM fm
+    left join HL_Pregnant.dbo.SyncForFS s5 on s5.TargetType = 5 and s5.SourceId = fm.inp_no
+    left join HELEESB.dbo.V_FWPT_GY_BINGRENXXZY br on br.bingrenid = fm.inp_no
+    left join HL_Pregnant.dbo.PregnantInfo pi on pi.idcard = br.shenfenzh
+) as TSource
+where chuyuanrqfixed>=@chuyuanrqfixedStart and chuyuanrqfixed<@chuyuanrqfixedEnd
+order by chuyuanrqfixed desc
+offset 0 rows fetch next 20 rows only
+获取`母亲出院`分页列表:
+select 
+1
+,*
+from (
+    select br.shouji,br.xingming,br.chuyuanrqfixed
+    ,s5.Id as SyncIdTos5,s5.SyncTime as LastSyncTimeTos5,s5.SyncStatus as SyncStatusTos5,s5.ErrorMessage as SyncMessageTos5
+    ,pi.idcard,pi.createage,pi.restregioncode,pi.restregiontext
+    ,fm.inp_no,fm.FMRQDate,fm.FMFSData,fm.ZCJGData ,fm.TWData ,fm.XYData ,fm.RFQKData ,fm.gdgddata ,fm.hyskdata ,fm.ELUData ,fm.CLJZDData 
+    from HELEESB.dbo.V_FWPT_GY_ZHUYUANFM fm
+    left join HL_Pregnant.dbo.SyncForFS s5 on s5.TargetType = 5 and s5.SourceId = fm.inp_no
+    left join HELEESB.dbo.V_FWPT_GY_BINGRENXXZY br on br.bingrenid = fm.inp_no
+    left join HL_Pregnant.dbo.PregnantInfo pi on pi.idcard = br.shenfenzh
+) as TSource
+where chuyuanrqfixed>=@chuyuanrqfixedStart and chuyuanrqfixed<@chuyuanrqfixedEnd
+order by chuyuanrqfixed desc
+offset 0 rows fetch next 20 rows only
+获取`母亲出院`分页列表:
+select 
+1
+,*
+from (
+    select br.shouji,br.xingming,br.chuyuanrqfixed
+    ,s5.Id as SyncIdTos5,s5.SyncTime as LastSyncTimeTos5,s5.SyncStatus as SyncStatusTos5,s5.ErrorMessage as SyncMessageTos5
+    ,pi.idcard,pi.createage,pi.restregioncode,pi.restregiontext
+    ,fm.inp_no,fm.FMRQDate,fm.FMFSData,fm.ZCJGData ,fm.TWData ,fm.XYData ,fm.RFQKData ,fm.gdgddata ,fm.hyskdata ,fm.ELUData ,fm.CLJZDData 
+    from HELEESB.dbo.V_FWPT_GY_ZHUYUANFM fm
+    left join HL_Pregnant.dbo.SyncForFS s5 on s5.TargetType = 5 and s5.SourceId = fm.inp_no
+    left join HELEESB.dbo.V_FWPT_GY_BINGRENXXZY br on br.bingrenid = fm.inp_no
+    left join HL_Pregnant.dbo.PregnantInfo pi on pi.idcard = br.shenfenzh
+) as TSource
+where chuyuanrqfixed>=@chuyuanrqfixedStart and chuyuanrqfixed<@chuyuanrqfixedEnd
+order by chuyuanrqfixed desc
+offset 0 rows fetch next 20 rows only
+获取`母亲出院`分页列表:
+select 
+1
+,*
+from (
+    select br.shouji,br.xingming,br.chuyuanrqfixed
+    ,s5.Id as SyncIdTos5,s5.SyncTime as LastSyncTimeTos5,s5.SyncStatus as SyncStatusTos5,s5.ErrorMessage as SyncMessageTos5
+    ,pi.idcard,pi.createage,pi.restregioncode,pi.restregiontext
+    ,fm.inp_no,fm.FMRQDate,fm.FMFSData,fm.ZCJGData ,fm.TWData ,fm.XYData ,fm.RFQKData ,fm.gdgddata ,fm.hyskdata ,fm.ELUData ,fm.CLJZDData 
+    from HELEESB.dbo.V_FWPT_GY_ZHUYUANFM fm
+    left join HL_Pregnant.dbo.SyncForFS s5 on s5.TargetType = 5 and s5.SourceId = fm.inp_no
+    left join HELEESB.dbo.V_FWPT_GY_BINGRENXXZY br on br.bingrenid = fm.inp_no
+    left join HL_Pregnant.dbo.PregnantInfo pi on pi.idcard = br.shenfenzh
+) as TSource
+where chuyuanrqfixed>=@chuyuanrqfixedStart and chuyuanrqfixed<@chuyuanrqfixedEnd
+order by chuyuanrqfixed desc
+offset 0 rows fetch next 20 rows only
+获取`婴儿出院`分页列表:
+select 
+1
+,*
+from (
+    select br.shouji,br.xingming,br.chuyuanrqfixed
+    ,fm.temcdate --胎儿娩出时间
+    ,s6.Id as SyncIdTos6,s6.SyncTime as LastSyncTimeTos6,s6.SyncStatus as SyncStatusTos6,s6.ErrorMessage as SyncMessageTos6
+    ,pi.idcard,pi.createage,pi.restregioncode,pi.restregiontext
+    ,fm.inp_no,fm.FMRQDate,fm.FMFSData,fm.ZCJGData ,fm.TWData ,fm.XYData ,fm.RFQKData ,fm.gdgddata ,fm.hyskdata ,fm.ELUData ,fm.CLJZDData 
+    from HELEESB.dbo.V_FWPT_GY_ZHUYUANFM fm
+    left join HELEESB.dbo.V_FWPT_GY_ZHUYUANFMYE yr on yr.inp_no = fm.inp_no
+    left join HL_Pregnant.dbo.SyncForFS s6 on s6.TargetType = 6 and s6.SourceId = fm.inp_no
+    left join HELEESB.dbo.V_FWPT_GY_BINGRENXXZY br on br.bingrenid = fm.inp_no
+    left join HL_Pregnant.dbo.PregnantInfo pi on pi.idcard = br.shenfenzh
+) as TSource
+where br.chuyuanrqfixed>=@chuyuanrqfixedStart and br.chuyuanrqfixed<@chuyuanrqfixedEnd
+order by chuyuanrqfixed desc
+offset 0 rows fetch next 20 rows only

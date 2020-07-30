@@ -46,6 +46,37 @@ namespace FS.SyncManager.Controllers
 
         #endregion
 
+        #region ChildDischarge
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult ChildDischargeList()
+        {
+            return View();
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult GetPagedListOfChildDischarge(GetPagedListOfChildDischargeRequest request)
+        {
+            var viewConfig = HomeController.LoadDefaultConfig("Sync_ChildDischarge");
+            request.UpdateFieldNames(viewConfig);
+
+            var serviceResult = new ServiceContext().SyncService.GetPagedListOfChildDischarge(request);
+            if (!serviceResult.IsSuccess)
+                return Error(serviceResult.Data, serviceResult.Messages);
+            viewConfig.UpdateValues(serviceResult.Data.List);
+            return Json(new { total = serviceResult.Data.Count, rows = serviceResult.Data.List.ToList() });
+        }
+
+        #endregion
+
         #region PregnantInfo
 
         /// <summary>

@@ -129,12 +129,14 @@
     <Compile Include="Models\DTOs\PagedListOfSyncOrderModel.cs" />
     <Compile Include="Models\DTOs\PagedListOfVisitRecordModel.cs" />
     <Compile Include="Models\DTOs\PagedListOfPregnantInfoModel.cs" />
+    <Compile Include="Models\Entities\ChildDischarge.cs" />
     <Compile Include="Models\Entities\MotherDischarge.cs" />
     <Compile Include="Models\Entities\V_FWPT_GY_ZHUYUANFM.cs" />
     <Compile Include="Models\Entities\PregnantInfo.cs" />
     <Compile Include="Models\Entities\SyncOrder.cs" />
     <Compile Include="Models\Entities\VisitRecord.cs" />
-    <Compile Include="Models\Requests\GetPagedListOMotherDischargeRequest.cs" />
+    <Compile Include="Models\Requests\GetPagedListOfChildDischargeRequest.cs" />
+    <Compile Include="Models\Requests\GetPagedListOfMotherDischargeRequest.cs" />
     <Compile Include="Models\Requests\GetPageListOfSyncOrderRequest.cs" />
     <Compile Include="Models\Requests\GetPagedListOfVisitRecordRequest.cs" />
     <Compile Include="Models\Requests\GetPagedListOfPregnantInfoRequest.cs" />
@@ -144,6 +146,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ChildDischargeRepository.cs" />
     <Compile Include="Repositories\MotherDischargeRepository.cs" />
     <Compile Include="Repositories\SyncOrderRepository.cs" />
     <Compile Include="Repositories\VisitRecordRepository.cs" />
@@ -645,6 +648,7 @@
     <Content Include="Views\Sync\VisitRecordList.cshtml" />
     <Content Include="Views\Sync\SyncOrderList.cshtml" />
     <Content Include="Views\Sync\MotherDischargeList.cshtml" />
+    <Content Include="Views\Sync\ChildDischargeList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

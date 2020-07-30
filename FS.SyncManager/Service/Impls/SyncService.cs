@@ -97,5 +97,19 @@ namespace FS.SyncManager.Service
             return result;
         }
         #endregion
+
+        #region ChildDischarge
+        ChildDischargeRepository ChildDischargeRepository { get { return new ChildDischargeRepository(DbContext); } }
+        internal ServiceResult<VLPageResult<Dictionary<string, object>>> GetPagedListOfChildDischarge(GetPagedListOfChildDischargeRequest request)
+        {
+            var result = DbContext.DbGroup.DelegateTransaction(() =>
+            {
+                var list = ChildDischargeRepository.GetChildDischargePagedList(request);
+                var count = ChildDischargeRepository.GetChildDischargePagedListCount(request);
+                return new VLPageResult<Dictionary<string, object>>() { List = list, Count = count, CurrentIndex = request.PageIndex };
+            });
+            return result;
+        }
+        #endregion
     }
 }
