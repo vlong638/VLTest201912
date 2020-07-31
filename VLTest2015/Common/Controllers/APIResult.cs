@@ -46,11 +46,21 @@ namespace VLTest2015.Common.Controllers
     /// <typeparam name="T"></typeparam>
     public class APIResult<T> : APIResult
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="code"></param>
+        /// <param name="messages"></param>
         public APIResult(T data, int code, params string[] messages) : base(code, messages)
         {
             Data = data;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="messages"></param>
         public APIResult(T data, params string[] messages) : base(messages)
         {
             Data = data;

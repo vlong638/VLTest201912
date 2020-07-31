@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FrameworkTest.Common.DBSolution
+﻿namespace VL.Consolo_Core.Common.ServiceSolution
 {
     /// <summary>
     /// Service层返回结构

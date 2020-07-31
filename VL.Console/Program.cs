@@ -1,6 +1,6 @@
 ﻿using Dapper;
-using FrameworkTest.Common.DBSolution;
-using FrameworkTest.Common.ValuesSolution;
+using VL.Consolo_Core.Common.DBSolution;
+using VL.Consolo_Core.Common.ValuesSolution;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
-namespace FrameworkTest.Common.ValuesSolution
+namespace VL.Consolo_Core.Common.ValuesSolution
 {
     public static class DataTableEx
     {

@@ -1,42 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using VLTest2015.DAL;
-using VLTest2015.Utils;
+using VL.Consolo_Core.Common.DBSolution;
+using VL.Consolo_Core.Common.ServiceSolution;
+using VL.Research.Models;
+using VL.Research.Repositories;
+using VLTest2015.Common.MD5Solution;
 
-namespace VLTest2015.Services
+namespace VL.Research.Services
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public class UserService : BaseService, IUserService
     {
-        IUserRepository _userRepository;
-        IUserAuthorityRepository _userAuthorityRepository;
-        IUserRoleRepository _userRoleRepository;
-        IRoleRepository _roleRepository;
-        IRoleAuthorityRepository _roleAuthorityRepository;
+        UserRepository _userRepository;
+        UserAuthorityRepository _userAuthorityRepository;
+        UserRoleRepository _userRoleRepository;
+        RoleRepository _roleRepository;
+        RoleAuthorityRepository _roleAuthorityRepository;
         UserMenuRepository _userMenuRepository;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public UserService()
+        public UserService(DbContext dbContext)
         {
-            _userRepository = new UserRepository(_context);
-            _userAuthorityRepository = new UserAuthorityRepository(_context);
-            _userRoleRepository = new UserRoleRepository(_context);
-            _roleRepository = new RoleRepository(_context);
-            _roleAuthorityRepository = new RoleAuthorityRepository(_context);
-            _userMenuRepository = new UserMenuRepository(_context);
+            _userRepository = new UserRepository(dbContext);
+            _userAuthorityRepository = new UserAuthorityRepository(dbContext);
+            _userRoleRepository = new UserRoleRepository(dbContext);
+            _roleRepository = new RoleRepository(dbContext);
+            _roleAuthorityRepository = new RoleAuthorityRepository(dbContext);
+            _userMenuRepository = new UserMenuRepository(dbContext);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="userName"></param>
-        /// <param name="password"></param>
-        /// <returns></returns>
         public ServiceResult<User> Register(string userName, string password)
         {
             var hashPassword = MD5Helper.GetHashValue(password);
@@ -54,13 +44,6 @@ namespace VLTest2015.Services
             return Success(user);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="userName"></param>
-        /// <param name="password"></param>
-        /// <param name="shouldLockout"></param>
-        /// <returns></returns>
         public ServiceResult<User> PasswordSignIn(string userName, string password, bool shouldLockout)
         {
             var hashPassword = MD5Helper.GetHashValue(password);
@@ -77,33 +60,33 @@ namespace VLTest2015.Services
             return Success(result);
         }
 
-        public ServiceResult<bool> EditUserAuthorities(long userId, IEnumerable<long> authorityIds)
-        {
-            return DelegateTransaction(() =>
-            {
-                _userAuthorityRepository.DeleteBy(userId);
-                var userAuthorities = authorityIds.Select(c => new UserAuthority() { UserId = userId, AuthorityId = c }).ToArray();
-                foreach (var userAuthority in userAuthorities)
-                {
-                    userAuthority.AuthorityId = _userAuthorityRepository.Insert(userAuthority);
-                }
-                return true;
-            });
-        }
+        //public ServiceResult<bool> EditUserAuthorities(long userId, IEnumerable<long> authorityIds)
+        //{
+        //    return DelegateTransaction(() =>
+        //    {
+        //        _userAuthorityRepository.DeleteBy(userId);
+        //        var userAuthorities = authorityIds.Select(c => new UserAuthority() { UserId = userId, AuthorityId = c }).ToArray();
+        //        foreach (var userAuthority in userAuthorities)
+        //        {
+        //            userAuthority.AuthorityId = _userAuthorityRepository.Insert(userAuthority);
+        //        }
+        //        return true;
+        //    });
+        //}
 
-        public ServiceResult<bool> EditUserRoles(long userId, IEnumerable<long> roleIds)
-        {
-            return DelegateTransaction(() =>
-            {
-                _userRoleRepository.DeleteBy(userId);
-                var userRoles = roleIds.Select(c => new UserRole() { UserId = userId, RoleId = c }).ToArray();
-                foreach (var userRole in userRoles)
-                {
-                    userRole.Id = _userRoleRepository.Insert(userRole);
-                }
-                return true;
-            });
-        }
+        //public ServiceResult<bool> EditUserRoles(long userId, IEnumerable<long> roleIds)
+        //{
+        //    return DelegateTransaction(() =>
+        //    {
+        //        _userRoleRepository.DeleteBy(userId);
+        //        var userRoles = roleIds.Select(c => new UserRole() { UserId = userId, RoleId = c }).ToArray();
+        //        foreach (var userRole in userRoles)
+        //        {
+        //            userRole.Id = _userRoleRepository.Insert(userRole);
+        //        }
+        //        return true;
+        //    });
+        //}
 
         public ServiceResult<IEnumerable<long>> GetAllUserAuthorityIds(long userId)
         {
@@ -114,13 +97,13 @@ namespace VLTest2015.Services
             return Success(allAuthorityIds);
         }
 
-        public ServiceResult<PagerResponse<User>> GetUserPageList(GetUserPageListRequest request)
-        {
-            PagerResponse<User> result = new PagerResponse<User>();
-            result.TotalCount = _userRepository.GetUserPageListCount(request);
-            result.Data = _userRepository.GetUserPageListData(request);
-            return Success(result);
-        }
+        //public ServiceResult<PagerResponse<User>> GetUserPageList(GetUserPageListRequest request)
+        //{
+        //    PagerResponse<User> result = new PagerResponse<User>();
+        //    result.TotalCount = _userRepository.GetUserPageListCount(request);
+        //    result.Data = _userRepository.GetUserPageListData(request);
+        //    return Success(result);
+        //}
 
         public ServiceResult<IEnumerable<UserRoleInfo>> GetRoleInfoByUserIds(params long[] userIds)
         {
@@ -143,19 +126,19 @@ namespace VLTest2015.Services
             return Success(id);
         }
 
-        public ServiceResult<bool> EditRoleAuthorities(long roleId, IEnumerable<long> authorityIds)
-        {
-            return DelegateTransaction(() =>
-            {
-                _roleAuthorityRepository.DeleteBy(roleId);
-                var roleAuthorities = authorityIds.Select(c => new RoleAuthority() { RoleId = roleId, AuthorityId = c }).ToArray();
-                foreach (var roleAuthority in roleAuthorities)
-                {
-                    roleAuthority.Id = _roleAuthorityRepository.Insert(roleAuthority);
-                }
-                return true;
-            });
-        }
+        //public ServiceResult<bool> EditRoleAuthorities(long roleId, IEnumerable<long> authorityIds)
+        //{
+        //    return DelegateTransaction(() =>
+        //    {
+        //        _roleAuthorityRepository.DeleteBy(roleId);
+        //        var roleAuthorities = authorityIds.Select(c => new RoleAuthority() { RoleId = roleId, AuthorityId = c }).ToArray();
+        //        foreach (var roleAuthority in roleAuthorities)
+        //        {
+        //            roleAuthority.Id = _roleAuthorityRepository.Insert(roleAuthority);
+        //        }
+        //        return true;
+        //    });
+        //}
 
         public ServiceResult<IEnumerable<long>> GetRoleAuthorityIds(long roleId)
         {

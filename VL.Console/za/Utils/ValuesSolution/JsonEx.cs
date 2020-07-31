@@ -7,7 +7,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FrameworkTest.Common.ValuesSolution
+namespace VL.Consolo_Core.Common.ValuesSolution
 {
     public static class JsonEx
     {

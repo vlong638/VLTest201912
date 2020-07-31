@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Common;
+﻿using System.Data.Common;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using VL.Consolo_Core.Common.DBSolution;
 
-namespace FrameworkTest.Common.DBSolution
+namespace VL.Consolo_Core.Common.DBSolution
 {
     public static class DBHelper
     {

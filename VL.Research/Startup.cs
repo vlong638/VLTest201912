@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using VL.Consolo_Core.Common.DBSolution;
+using VL.Research.Services;
 
 namespace VL.Research
 {
@@ -25,10 +27,15 @@ namespace VL.Research
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddControllers();
             services.AddControllersWithViews();
 
-            //swagger
+            //基础设施
+            services.AddScoped<DbContext>();
+
+            //服务设施
+            services.AddScoped<UserService>();
+
+            //服务接口管理
             services.AddSwaggerGen(p =>
             {
                 p.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "VL.Research", Version = "v1" });

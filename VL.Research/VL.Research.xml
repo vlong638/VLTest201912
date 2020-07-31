@@ -4,5 +4,147 @@
         <name>VL.Research</name>
     </assembly>
     <members>
+        <member name="T:VL.Research.Common.Authority">
+            <summary>
+            权限 
+            前三位代表业务系统,后三位表示模块内功能模块,后三位表示功能模块内细分功能
+            通用功能为000
+            </summary>
+        </member>
+        <member name="F:VL.Research.Common.Authority.查看用户分娩信息">
+            <summary>
+            查看用户分娩信息 001
+            </summary>
+        </member>
+        <member name="F:VL.Research.Common.Authority.搜索用户分娩信息">
+            <summary>
+            搜索用户分娩信息 002
+            </summary>
+        </member>
+        <member name="F:VL.Research.Common.Authority.查看用户列表">
+            <summary>
+            查看用户列表 001
+            </summary>
+        </member>
+        <member name="F:VL.Research.Common.Authority.编辑用户角色">
+            <summary>
+            编辑用户角色 002
+            </summary>
+        </member>
+        <member name="F:VL.Research.Common.Authority.查看角色列表">
+            <summary>
+            查看角色列表 001
+            </summary>
+        </member>
+        <member name="F:VL.Research.Common.Authority.创建角色">
+            <summary>
+            创建角色 002
+            </summary>
+        </member>
+        <member name="F:VL.Research.Common.Authority.编辑角色权限">
+            <summary>
+            编辑角色权限 003
+            </summary>
+        </member>
+        <member name="T:VL.Research.Common.CurrentUser">
+            <summary>
+            当前用户
+            </summary>
+        </member>
+        <member name="T:VL.Research.Controllers.AccountController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VL.Research.Controllers.AccountController.#ctor(Microsoft.Extensions.Logging.ILogger{VL.Research.Controllers.HomeController})">
+            <summary>
+            
+            </summary>
+            <param name="logger"></param>
+        </member>
+        <member name="M:VL.Research.Controllers.AccountController.Login(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="returnUrl"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.AccountController.Login(VL.Research.Services.UserService,VL.Research.Models.LoginViewModel,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="UserService"></param>
+            <param name="model"></param>
+            <param name="returnUrl"></param>
+            <returns></returns>
+        </member>
+        <member name="T:VL.Research.Models.LoginViewModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.LoginViewModel.UserName">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.LoginViewModel.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.LoginViewModel.RememberMe">
+            <summary>
+            记住我
+            </summary>
+        </member>
+        <member name="M:VL.Research.Repositories.PregnantInfoRepository.GetPregnantInfoById(System.Int64)">
+            <summary>
+            根据 PregnantInfoId 查询 PregnantInfo
+            </summary>
+            <param name="pregnantInfoId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:VLTest2015.Common.IMySession">
+            <summary>
+            会话层
+            可在CurrentUser介于B/S两端交互过程构建缓存存储的一层
+            </summary>
+        </member>
+        <member name="M:VLTest2015.Common.IMySession.Set``1(System.String,``0)">
+            <summary>
+            设置项
+            清空项时，将value设为null即可
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:VLTest2015.Common.IMySession.Get``1(System.String)">
+            <summary>
+            获取项
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VLTest2015.Common.IMySession.GetSessionId">
+            <summary>
+            获取会话id
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VLTest2015.Common.IMySession.SetSessionId(System.String)">
+            <summary>
+            设置会话id
+            </summary>
+            <param name="sessinId"></param>
+        </member>
+        <member name="M:VLTest2015.Common.IMySession.Clear">
+            <summary>
+            用户退出
+            </summary>
+            <param name="sessionId"></param>
+        </member>
     </members>
 </doc>

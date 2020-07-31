@@ -1,15 +1,15 @@
 ﻿using System.Data;
 
-namespace FrameworkTest.Common.DBSolution
+namespace VL.Consolo_Core.Common.DBSolution
 {
     /// <summary>
     /// 数据库访问单元:支持事务及跨库协作
     /// </summary>
     public class DbGroup
     {
-        internal IDbConnection Connection;
-        internal IDbCommand Command;
-        internal IDbTransaction Transaction;
+        public IDbConnection Connection;
+        public IDbCommand Command;
+        public IDbTransaction Transaction;
 
         public DbGroup(IDbConnection dbConnection)
         {

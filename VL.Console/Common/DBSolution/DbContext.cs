@@ -1,11 +1,13 @@
-﻿using System;
+﻿using VL.Consolo_Core.Common.DBSolution;
+using System;
 using System.Data;
+using VL.Consolo_Core.Common.ServiceSolution;
 
-namespace FrameworkTest.Common.DBSolution
+namespace VL.Consolo_Core.Common.DBSolution
 {
     public class DbContext
     {
-        internal DbGroup DbGroup { set; get; }
+        public DbGroup DbGroup { set; get; }
 
         public DbContext(IDbConnection connection)
         {
