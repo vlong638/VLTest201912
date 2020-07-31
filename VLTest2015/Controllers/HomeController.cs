@@ -13,11 +13,13 @@ namespace VLTest2015.Controllers
 {
     public class HomeController : BaseController
     {
+        [HttpGet]
         public ActionResult Index()
         {
             return View();
         }
 
+        [HttpGet]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -25,6 +27,7 @@ namespace VLTest2015.Controllers
             return View();
         }
 
+        [HttpGet]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
@@ -160,6 +163,7 @@ namespace VLTest2015.Controllers
 
         #region 登陆模拟
 
+        [HttpGet]
         public ActionResult RSATest()
         {
             return View();
