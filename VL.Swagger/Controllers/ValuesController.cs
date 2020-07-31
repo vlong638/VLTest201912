@@ -35,5 +35,9 @@ namespace VL.Swagger.Controllers
         public void Delete(int id)
         {
         }
+
+        public void Test(int id)
+        {
+        }
     }
 }
