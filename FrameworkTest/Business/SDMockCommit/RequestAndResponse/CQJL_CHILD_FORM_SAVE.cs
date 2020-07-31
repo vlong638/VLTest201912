@@ -120,7 +120,7 @@ namespace FrameworkTest.Business.SDMockCommit
             //this.D22 = "";//Init
             //this.D23 = "";//:"2020-07-20",	创建时间 需做格式修正
             this.D25 = VLConstraints.Get_Apnea_FS_By_Apnea_FM(sourceData.SourceData.xsrzx);//:"1", 出生窒息
-            this.D9 =  " 2";//:"1", 黄疸 //默认`有` = 2 
+            this.D9 = " 2";//:"1", 黄疸 //默认`有` = 2 
             this.D26 = "1";//:"", 黄疸部位 //默认`面部`
             //尚不对接疫苗
             //默认``

@@ -143,6 +143,13 @@ and yr.downloadtime > s6.SyncTime
 
         #region Diagnosis
 
+        /// <summary>
+        /// 诊断
+        /// </summary>
+        /// <param name="dbGroup"></param>
+        /// <param name="patientId"></param>
+        /// <param name="visitId"></param>
+        /// <returns></returns>
         internal static IEnumerable<Diagnosis> GetDiagnosisByPatientIdAndVisitId(DbGroup dbGroup, string patientId, string visitId)
         {
             return dbGroup.Connection.Query<Diagnosis>($@"
@@ -153,6 +160,12 @@ select * from V_FWPT_GY_ZHUYUANZD where patient_Id = @patientId and inp_no = @vi
         #endregion
 
         #region Inspection
+        /// <summary>
+        /// 检验
+        /// </summary>
+        /// <param name="dbGroup"></param>
+        /// <param name="patientId"></param>
+        /// <returns></returns>
         internal static List<Inspection> GetInspectionsByPatientId(DbGroup dbGroup, string patientId)
         {
             return dbGroup.Connection.Query<Inspection>($@"
@@ -166,6 +179,12 @@ where sq.bingrenid = @patientId
         #endregion
 
         #region Advice
+        /// <summary>
+        /// 医嘱
+        /// </summary>
+        /// <param name="dbGroup"></param>
+        /// <param name="patientId"></param>
+        /// <returns></returns>
         internal static List<Advice> GetAdvicesByPatientId(DbGroup dbGroup, string patientId)
         {
             return dbGroup.Connection.Query<Advice>($@"
