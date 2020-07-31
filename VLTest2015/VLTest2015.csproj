@@ -400,6 +400,7 @@
     <Compile Include="Common\Utils\Values\EnumEx.cs" />
     <Compile Include="Common\Utils\Values\ValueEx.cs" />
     <Compile Include="Controllers\PregnantController.cs" />
+    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DAL\Impl\LabCheckRepository.cs" />
     <Compile Include="DAL\Impl\UserMenuRepository.cs" />
     <Compile Include="DAL\Impl\VisitRecordRepository.cs" />

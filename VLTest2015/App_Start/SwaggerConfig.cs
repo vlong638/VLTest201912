@@ -35,9 +35,8 @@ namespace VLTest2015
                         // hold additional metadata for an API. Version and title are required but you can also provide
                         // additional fields by chaining methods off SingleApiVersion.
                         //
-                        c.SingleApiVersion("v2", "VLTest2015");
+                        c.SingleApiVersion("v1", "VLTest2015");
                         c.IncludeXmlComments(xmlFile);
-
                         // If you want the output Swagger docs to be indented properly, enable the "PrettyPrint" option.
                         //
                         //c.PrettyPrint();
