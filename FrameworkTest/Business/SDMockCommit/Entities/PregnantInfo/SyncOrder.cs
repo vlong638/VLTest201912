@@ -53,7 +53,7 @@ namespace FrameworkTest.Business.SDMockCommit
         /// 出院管理
         /// </summary>
         [Description("出院管理-分娩记录")]
-        V_FWPT_GY_ZHUYUANFM = 2,
+        V_FWPT_GY_ZHUYUANFM = 3,
     }
     public enum TargetType
     {
