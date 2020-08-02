@@ -9,7 +9,7 @@ namespace VL.Research.Common
     /// <summary>
     /// 
     /// </summary>
-    public class DbContext
+    public class APIContext
     {
         /// <summary>
         /// 
@@ -19,7 +19,7 @@ namespace VL.Research.Common
         /// <summary>
         /// 
         /// </summary>
-        public DbContext(IOptions<DBConfig> loggingConfig)
+        public APIContext(IOptions<DBConfig> loggingConfig)
         {
             var connectingStr = DBHelper.GetDbConnection(loggingConfig.Value.ConnectionString);
             DbGroup = new DbGroup(connectingStr);
@@ -29,7 +29,6 @@ namespace VL.Research.Common
         /// 扩展事务(服务层)通用处理
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="connection"></param>
         /// <param name="exec"></param>
         /// <returns></returns>
         public ServiceResult<T> DelegateTransaction<T>(Func<DbGroup, T> exec)

@@ -6,7 +6,7 @@ namespace VLVLTest2015.Common.Pager
     /// <summary>
     /// 分页入参规范
     /// </summary>
-    public class VLPageRequest
+    public class VLPagerRequest
     {
         #region 分页
         public int PageIndex { set; get; }

@@ -23,13 +23,13 @@ namespace VLTest2015.Services
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public ServiceResult<VLPageResult<PagedListOfPregnantInfoModel>> GetPagedListOfPregnantInfo(GetPagedListOfPregnantInfoRequest request)
+        public ServiceResult<VLPagerResult<PagedListOfPregnantInfoModel>> GetPagedListOfPregnantInfo(GetPagedListOfPregnantInfoRequest request)
         {
             var result = DelegateTransaction(() =>
             {
                 var list = _PregnantInfoRepository.GetPregnantInfoPagedList(request);
                 var count = _PregnantInfoRepository.GetPregnantInfoPagedListCount(request);
-                return new VLPageResult<PagedListOfPregnantInfoModel>() { List = list, Count = count, CurrentIndex = request.PageIndex };
+                return new VLPagerResult<PagedListOfPregnantInfoModel>() { List = list, Count = count, CurrentIndex = request.PageIndex };
             });
             return result;
         }
@@ -39,13 +39,13 @@ namespace VLTest2015.Services
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public ServiceResult<VLPageSingleResult<DataTable>> GetConfigurablePagedListOfPregnantInfo(GetPagedListOfPregnantInfoRequest request)
+        public ServiceResult<VLPagerTableResult<DataTable>> GetConfigurablePagedListOfPregnantInfo(GetPagedListOfPregnantInfoRequest request)
         {
             var result = DelegateTransaction(() =>
             {
                 var list = _PregnantInfoRepository.GetConfigurablePregnantInfoPagedList(request);
                 var count = _PregnantInfoRepository.GetPregnantInfoPagedListCount(request);
-                return new VLPageSingleResult<DataTable>() { DataTable = list, Count = count, CurrentIndex = request.PageIndex };
+                return new VLPagerTableResult<DataTable>() { DataTable = list, Count = count, CurrentIndex = request.PageIndex };
             });
             return result;
         }
@@ -70,13 +70,13 @@ namespace VLTest2015.Services
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public ServiceResult<VLPageResult<PagedListOfVisitRecordModel>> GetPagedListOfVisitRecord(GetPagedListOfVisitRecordRequest request)
+        public ServiceResult<VLPagerResult<PagedListOfVisitRecordModel>> GetPagedListOfVisitRecord(GetPagedListOfVisitRecordRequest request)
         {
             var result = DelegateTransaction(() =>
             {
                 var list = _VisitRecordRepository.GetVisitRecordPagedList(request);
                 var count = _VisitRecordRepository.GetVisitRecordPagedListCount(request);
-                return new VLPageResult<PagedListOfVisitRecordModel>() { List = list, Count = count, CurrentIndex = request.PageIndex };
+                return new VLPagerResult<PagedListOfVisitRecordModel>() { List = list, Count = count, CurrentIndex = request.PageIndex };
             });
             return result;
         }
@@ -86,13 +86,13 @@ namespace VLTest2015.Services
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public ServiceResult<VLPageResult<PagedListOfLabOrderModel>> GetPagedListOfLabOrder(GetPagedListOfLabOrderRequest request)
+        public ServiceResult<VLPagerResult<PagedListOfLabOrderModel>> GetPagedListOfLabOrder(GetPagedListOfLabOrderRequest request)
         {
             var result = DelegateTransaction(() =>
             {
                 var list = _LabOrderRepository.GetLabOrderPagedList(request);
                 var count = _LabOrderRepository.GetLabOrderPagedListCount(request);
-                return new VLPageResult<PagedListOfLabOrderModel>() { List = list, Count = count, CurrentIndex = request.PageIndex };
+                return new VLPagerResult<PagedListOfLabOrderModel>() { List = list, Count = count, CurrentIndex = request.PageIndex };
             });
             return result;
         }

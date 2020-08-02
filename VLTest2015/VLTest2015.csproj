@@ -389,8 +389,8 @@
     <Compile Include="Common\Models\RequestDTO\GetPagedListOfLabOrderRequest.cs" />
     <Compile Include="Common\Models\RequestDTO\GetPagedListOfPregnantInfoRequest.cs" />
     <Compile Include="Common\Models\Pager\IQueriablePagedList.cs" />
-    <Compile Include="Common\Models\Pager\VLPageRequest.cs" />
-    <Compile Include="Common\Models\Pager\VLPageResult.cs" />
+    <Compile Include="Common\Models\Pager\VLPagerRequest.cs" />
+    <Compile Include="Common\Models\Pager\VLPagerResult.cs" />
     <Compile Include="Common\Models\ResponseDTO\GetListConfigResponse.cs" />
     <Compile Include="Common\Utils\ConfigurableEntity\EntityAppConfigProperty.cs" />
     <Compile Include="Common\Utils\ConfigurableEntity\EntityAppConfig.cs" />

@@ -1,12 +1,7 @@
-﻿using FrameworkTest.Common.ValuesSolution;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
+using VL.Consolo_Core.Common.ValuesSolution;
 
-namespace FrameworkTest.ConfigurableEntity
+namespace VL.Research.Common
 {
     /// <summary>
     /// 显示类型
@@ -93,7 +88,7 @@ namespace FrameworkTest.ConfigurableEntity
         //public bool IsRequired { set; get; } 
         #endregion
 
-        public ViewConfigProperty(EntityDBConfig dbConfig)
+        public ViewConfigProperty(DBViewConfig dbConfig)
         {
             ColumnName = dbConfig.ColumnName;
             DisplayName = "";

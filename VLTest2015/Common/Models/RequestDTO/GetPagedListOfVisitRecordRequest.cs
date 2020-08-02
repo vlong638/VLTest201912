@@ -7,7 +7,7 @@ using VLVLTest2015.Common.Pager;
 
 namespace VLTest2015.Common.Models.RequestDTO
 {
-    public class GetPagedListOfVisitRecordRequest : VLPageRequest, IQueriablePagedList
+    public class GetPagedListOfVisitRecordRequest : VLPagerRequest, IQueriablePagedList
     {
         public long? PregnantInfoId { set; get; }
 

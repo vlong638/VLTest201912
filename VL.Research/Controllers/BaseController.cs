@@ -61,6 +61,12 @@ namespace VL.Research.Controllers
 
         #region FileDownload
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
         public FileResult Download(string path, string fileName)
         {
             return File(path, "text/plain", fileName);

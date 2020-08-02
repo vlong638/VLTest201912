@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using VLTest2015.Services;
-using VLVLTest2015.Common.Pager;
+﻿using System.Collections.Generic;
+using VL.Consolo_Core.Common.PagerSolution;
 
-namespace VLTest2015.Common.Models.RequestDTO
+namespace VL.Research.Models
 {
-    public class GetPagedListOfPregnantInfoRequest : VLPagerRequest, IQueriablePagedList
+    public class GetPagedListOfLabOrderRequest : VLPagerRequest, IQueriablePagedList
     {
-        public string PersonName { set; get; }
-        public List<string> FieldNames { get; internal set; } = new List<string>() { "*" };
+        public long? PregnantInfoId { set; get; }
 
         Dictionary<string, object> args = new Dictionary<string, object>();
         List<string> wheres = new List<string>();
@@ -20,9 +15,9 @@ namespace VLTest2015.Common.Models.RequestDTO
             if (args.Count > 0)
                 return args;
 
-            if (!string.IsNullOrEmpty(PersonName))
+            if (PregnantInfoId.HasValue && PregnantInfoId != 0)
             {
-                args.Add(nameof(PersonName), $"%{PersonName}%");
+                args.Add(nameof(PregnantInfoId), PregnantInfoId);
             }
             return args;
         }
@@ -31,10 +26,7 @@ namespace VLTest2015.Common.Models.RequestDTO
         {
             if (wheres.Count == 0)
             {
-                if (!string.IsNullOrEmpty(PersonName))
-                {
-                    wheres.Add($"{nameof(PersonName)} Like @PersonName");
-                }
+                //wheres.Add($"l.PregnantInfoId  = @PregnantInfoId");
             }
             return wheres.Count == 0 ? "" : "where " + string.Join(" and", wheres);
         }
@@ -43,7 +35,8 @@ namespace VLTest2015.Common.Models.RequestDTO
         {
             return $@"
 select count(*)
-from {PregnantInfo.TableName}
+from {LabOrder.TableName} l
+inner join {PregnantInfo.TableName} p on p.idcard = l.idcard and p.id= @PregnantInfoId
 {GetWhereCondition()}
 ";
         }
@@ -52,11 +45,12 @@ from {PregnantInfo.TableName}
         {
             if (Orders.Count == 0)
             {
-                Orders.Add("Id", false);
+                Orders.Add("l.Id", false);
             }
             return $@"
-select {string.Join(",", FieldNames)}
-from {PregnantInfo.TableName}
+select l.*
+from {LabOrder.TableName} l
+inner join {PregnantInfo.TableName} p on p.idcard = l.idcard and p.Id  = @PregnantInfoId
 {GetWhereCondition()}
 {GetOrderCondition()}
 {GetLimitCondition()}

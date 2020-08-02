@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using VLTest2015.Services;
-using VLVLTest2015.Common.Pager;
+﻿using System.Collections.Generic;
+using VL.Consolo_Core.Common.PagerSolution;
 
-namespace VLTest2015.Common.Models.RequestDTO
+namespace VL.Research.Models
 {
     public class GetPagedListOfPregnantInfoRequest : VLPagerRequest, IQueriablePagedList
     {

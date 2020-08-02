@@ -16,24 +16,26 @@ namespace VL.Research.Services
     /// </summary>
     public class UserService : BaseService, IUserService
     {
-        UserRepository _userRepository;
-        UserAuthorityRepository _userAuthorityRepository;
-        UserRoleRepository _userRoleRepository;
-        RoleRepository _roleRepository;
-        RoleAuthorityRepository _roleAuthorityRepository;
-        UserMenuRepository _userMenuRepository;
+        DbContext dbContext;
+        UserRepository userRepository;
+        UserAuthorityRepository userAuthorityRepository;
+        UserRoleRepository userRoleRepository;
+        RoleRepository roleRepository;
+        RoleAuthorityRepository roleAuthorityRepository;
+        UserMenuRepository userMenuRepository;
 
         /// <summary>
         /// 
         /// </summary>
         public UserService(DbContext dbContext)
         {
-            _userRepository = new UserRepository(dbContext);
-            _userAuthorityRepository = new UserAuthorityRepository(dbContext);
-            _userRoleRepository = new UserRoleRepository(dbContext);
-            _roleRepository = new RoleRepository(dbContext);
-            _roleAuthorityRepository = new RoleAuthorityRepository(dbContext);
-            _userMenuRepository = new UserMenuRepository(dbContext);
+            this.dbContext = dbContext;
+            userRepository = new UserRepository(dbContext);
+            userAuthorityRepository = new UserAuthorityRepository(dbContext);
+            userRoleRepository = new UserRoleRepository(dbContext);
+            roleRepository = new RoleRepository(dbContext);
+            roleAuthorityRepository = new RoleAuthorityRepository(dbContext);
+            userMenuRepository = new UserMenuRepository(dbContext);
         }
 
         public ServiceResult<User> Register(string userName, string password)
@@ -44,12 +46,12 @@ namespace VL.Research.Services
                 Name = userName,
                 Password = hashPassword,
             };
-            var result = _userRepository.GetBy(user.Name);
+            var result = userRepository.GetBy(user.Name);
             if (result != null)
             {
                 return Error<User>("用户名已存在");
             }
-            user.Id = _userRepository.Insert(user);
+            user.Id = userRepository.Insert(user);
             return Success(user);
         }
 
@@ -61,7 +63,7 @@ namespace VL.Research.Services
                 Name = userName,
                 Password = hashPassword,
             };
-            var result = _userRepository.GetBy(user.Name, user.Password);
+            var result = userRepository.GetBy(user.Name, user.Password);
             if (result == null)
             {
                 return Error<User>("用户名不存在或与密码不匹配");
@@ -73,11 +75,11 @@ namespace VL.Research.Services
         //{
         //    return DelegateTransaction(() =>
         //    {
-        //        _userAuthorityRepository.DeleteBy(userId);
+        //        userAuthorityRepository.DeleteBy(userId);
         //        var userAuthorities = authorityIds.Select(c => new UserAuthority() { UserId = userId, AuthorityId = c }).ToArray();
         //        foreach (var userAuthority in userAuthorities)
         //        {
-        //            userAuthority.AuthorityId = _userAuthorityRepository.Insert(userAuthority);
+        //            userAuthority.AuthorityId = userAuthorityRepository.Insert(userAuthority);
         //        }
         //        return true;
         //    });
@@ -87,11 +89,11 @@ namespace VL.Research.Services
         //{
         //    return DelegateTransaction(() =>
         //    {
-        //        _userRoleRepository.DeleteBy(userId);
+        //        userRoleRepository.DeleteBy(userId);
         //        var userRoles = roleIds.Select(c => new UserRole() { UserId = userId, RoleId = c }).ToArray();
         //        foreach (var userRole in userRoles)
         //        {
-        //            userRole.Id = _userRoleRepository.Insert(userRole);
+        //            userRole.Id = userRoleRepository.Insert(userRole);
         //        }
         //        return true;
         //    });
@@ -99,9 +101,9 @@ namespace VL.Research.Services
 
         public ServiceResult<IEnumerable<long>> GetAllUserAuthorityIds(long userId)
         {
-            var userAuthorities = _userAuthorityRepository.GetBy(userId);
-            var userRoles = _userRoleRepository.GetBy(userId);
-            var roleAuthorities = userRoles.Count() == 0 ? new List<RoleAuthority>() : _roleAuthorityRepository.GetBy(userRoles.Select(c => c.RoleId).ToArray());
+            var userAuthorities = userAuthorityRepository.GetBy(userId);
+            var userRoles = userRoleRepository.GetBy(userId);
+            var roleAuthorities = userRoles.Count() == 0 ? new List<RoleAuthority>() : roleAuthorityRepository.GetBy(userRoles.Select(c => c.RoleId).ToArray());
             var allAuthorityIds = userAuthorities.Select(c => c.AuthorityId).Union(roleAuthorities.Select(c => c.AuthorityId)).Distinct();
             return Success(allAuthorityIds);
         }
@@ -109,14 +111,14 @@ namespace VL.Research.Services
         //public ServiceResult<PagerResponse<User>> GetUserPageList(GetUserPageListRequest request)
         //{
         //    PagerResponse<User> result = new PagerResponse<User>();
-        //    result.TotalCount = _userRepository.GetUserPageListCount(request);
-        //    result.Data = _userRepository.GetUserPageListData(request);
+        //    result.TotalCount = userRepository.GetUserPageListCount(request);
+        //    result.Data = userRepository.GetUserPageListData(request);
         //    return Success(result);
         //}
 
-        public ServiceResult<IEnumerable<UserRoleInfo>> GetRoleInfoByUserIds(params long[] userIds)
+        public ServiceResult<IEnumerable<UserRoleInfoModel>> GetRoleInfoByUserIds(params long[] userIds)
         {
-            var result = _roleRepository.GetUserRoleInfosBy(userIds);
+            var result = roleRepository.GetUserRoleInfosBy(userIds);
             return Success(result);
         }
 
@@ -126,12 +128,12 @@ namespace VL.Research.Services
             {
                 Name = roleName,
             };
-            var result = _roleRepository.GetBy(role.Name);
+            var result = roleRepository.GetBy(role.Name);
             if (result != null)
             {
                 return Error<long>("角色名称已存在", 501);
             }
-            var id = _roleRepository.Insert(role);
+            var id = roleRepository.Insert(role);
             return Success(id);
         }
 
@@ -139,11 +141,11 @@ namespace VL.Research.Services
         //{
         //    return DelegateTransaction(() =>
         //    {
-        //        _roleAuthorityRepository.DeleteBy(roleId);
+        //        roleAuthorityRepository.DeleteBy(roleId);
         //        var roleAuthorities = authorityIds.Select(c => new RoleAuthority() { RoleId = roleId, AuthorityId = c }).ToArray();
         //        foreach (var roleAuthority in roleAuthorities)
         //        {
-        //            roleAuthority.Id = _roleAuthorityRepository.Insert(roleAuthority);
+        //            roleAuthority.Id = roleAuthorityRepository.Insert(roleAuthority);
         //        }
         //        return true;
         //    });
@@ -151,38 +153,38 @@ namespace VL.Research.Services
 
         public ServiceResult<IEnumerable<long>> GetRoleAuthorityIds(long roleId)
         {
-            var roleAuthorities = _roleAuthorityRepository.GetBy(roleId);
+            var roleAuthorities = roleAuthorityRepository.GetBy(roleId);
             return Success(roleAuthorities.Select(c => c.AuthorityId));
         }
 
         public ServiceResult<IEnumerable<Role>> GetAllRoles()
         {
-            var roles = _roleRepository.GetAll();
+            var roles = roleRepository.GetAll();
             return Success(roles);
         }
 
         public ServiceResult<bool> UpdateUserMenu(UserMenu userMenu)
         {
-            var isSuccess = _userMenuRepository.Update(userMenu);
+            var isSuccess = userMenuRepository.Update(userMenu);
             return Success(isSuccess);
         }
 
         public ServiceResult<long> CreateUserMenu(UserMenu userMenu)
         {
-            var id = _userMenuRepository.Insert(userMenu);
+            var id = userMenuRepository.Insert(userMenu);
             return Success(id);
         }
 
         public ServiceResult<List<UserMenu>> GetUserMenus(long userId)
         {
-            var userMenus = _userMenuRepository.GetByUserId(userId);
+            var userMenus = userMenuRepository.GetByUserId(userId);
             userMenus.ForEach(c => c.URL = string.Format(c.URL, c.Id));
             return Success(userMenus);
         }
 
         public ServiceResult<UserMenu> GetUserMenuById(long customConfigId)
         {
-            var userMenu = _userMenuRepository.GetById(customConfigId);
+            var userMenu = userMenuRepository.GetById(customConfigId);
             return Success(userMenu);
         }
     }

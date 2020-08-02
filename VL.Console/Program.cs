@@ -1299,7 +1299,7 @@ order by Table_Name,Column_Name;
                         {
                             ID = i,
                             patientid = "E" + personId,
-                            idcard = "3303" + personId.ToString().ToMD5().Substring(0, 12),//330326 6 19910508 8 0033 4
+                            //idcard = "3303" + personId.ToString().ToMD5().Substring(0, 12),//330326 6 19910508 8 0033 4
                             name = personId.ToString(),
                             orderid = i.ToString(),
                             setid = null,

@@ -18,7 +18,7 @@ namespace FrameworkTest.Common.PagerSolution
 
     public static class IQueriablePagedListEx
     {
-        public static void UpdateFieldNames(this IQueriablePagedList request, EntityAppConfig viewConfig)
+        public static void UpdateFieldNames(this IQueriablePagedList request, ViewConfig viewConfig)
         {
             var propertiesToLoad = viewConfig.Properties.Where(c => c.IsNeedOnDatabase);
             if (propertiesToLoad.Count() > 0)

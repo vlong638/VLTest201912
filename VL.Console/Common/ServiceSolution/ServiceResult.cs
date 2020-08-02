@@ -23,6 +23,10 @@
         /// </summary>
         public string[] Messages { set; get; }
         /// <summary>
+        /// 
+        /// </summary>
+        public string Message { get { return string.Join(",", Messages); } }
+        /// <summary>
         /// 状态码
         /// </summary>
         public int Code { set; get; }

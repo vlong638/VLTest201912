@@ -624,15 +624,15 @@ order by def.[TableName],def.Id
 
                 //写成xml
                 var groupedProperties = serviceResult.Data.GroupBy(c => c.TableName).ToList();
-                var root = new XElement(EntityAppConfig.RootElementName);
+                var root = new XElement(ViewConfig.RootElementName);
                 var tableConfigs = groupedProperties.Select(ps =>
                 {
-                    var configTable = new EntityAppConfig()
+                    var configTable = new ViewConfig()
                     {
                         ViewName = ps.Key,
-                        Properties = ps.Select(p => new EntityAppConfigProperty(p)).ToList(),
-                        Wheres = new List<EntityAppConfigWhere> { new EntityAppConfigWhere() },
-                        OrderBy = new EntityAppConfigOrderBy(),
+                        Properties = ps.Select(p => new ViewConfigProperty(p)).ToList(),
+                        Wheres = new List<ViewConfigWhere> { new ViewConfigWhere() },
+                        OrderBy = new ViewConfigOrderBy(),
                     };
                     return configTable;
                 });
@@ -645,9 +645,9 @@ order by def.[TableName],def.Id
                 //读取xml
                 var path = @"D:\ListPages.xml";
                 XDocument doc = XDocument.Load(path);
-                var tableElements = doc.Descendants(EntityAppConfig.NodeElementName);
-                var tableConfig = new EntityAppConfig(tableElements.First());
-                var tableConfigs = tableElements.Select(c => new EntityAppConfig(c));
+                var tableElements = doc.Descendants(ViewConfig.NodeElementName);
+                var tableConfig = new ViewConfig(tableElements.First());
+                var tableConfigs = tableElements.Select(c => new ViewConfig(c));
             }));
             #endregion
             #region XML

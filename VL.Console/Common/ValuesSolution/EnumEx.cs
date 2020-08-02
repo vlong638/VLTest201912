@@ -27,5 +27,32 @@ namespace VL.Consolo_Core.Common.ValuesSolution
             Enum.TryParse<T>(value, out t);
             return t;
         }
+
+        public static string ToEnumDescription(this object value, Type t)
+        {
+            if (value == null || t == null)
+                return null;
+            int i;
+            string name;
+            if (int.TryParse(value.ToString(), out i))
+            {
+                name = t.GetEnumName(i);
+            }
+            else
+            {
+                name = value.ToString();
+            }
+            if (name == null)
+            {
+                return null;
+            }
+            var field = t.GetField(name);
+            if (field == null)
+            {
+                return null;
+            }
+            var att = Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute), false);
+            return att == null ? field.Name : ((DescriptionAttribute)att).Description;
+        }
     }
 }

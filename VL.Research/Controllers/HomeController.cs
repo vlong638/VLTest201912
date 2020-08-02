@@ -1,18 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using NPOI.HSSF.UserModel;
+using NPOI.SS.UserModel;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Xml.Linq;
+using VL.Consolo_Core.Common.FileSolution;
+using VL.Research.Common;
 using VL.Research.Models;
 
 namespace VL.Research.Controllers
 {
 
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController()
         {
-            _logger = logger;
         }
 
         public IActionResult Index()
@@ -30,5 +36,145 @@ namespace VL.Research.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [VLAuthentication(Authority.查看孕妇档案列表)]
+        public ActionResult PregnantInfoList()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pregnantInfoId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [VLAuthentication(Authority.查看孕妇档案详情)]
+        public ActionResult PregnantInfo(long pregnantInfoId)
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pregnantInfoId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [VLAuthentication(Authority.查看检查列表)]
+        public ActionResult LabOrderList(long pregnantInfoId)
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pregnantInfoId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [VLAuthentication(Authority.查看产检列表)]
+        public ActionResult VisitRecordList(long pregnantInfoId)
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pregnantInfoId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [VLAuthentication(Authority.查看检查详情)]
+        public ActionResult LabOrderDetail(long pregnantInfoId)
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public FileResult GetConfigurablePagedListOfPregnantInfoExcel([FromServices] PregnantService pregnantService, string name)
+        {
+            var sort = "";
+            var order = "";
+            var pars = new GetPagedListOfPregnantInfoRequest()
+            {
+                PersonName = name,
+                PageIndex = 1,
+                PageSize = 100000,
+                Orders = string.IsNullOrEmpty(sort) ? new Dictionary<string, bool>() : (new Dictionary<string, bool>() { { sort, (order == "asc") } }),
+            };
+            string fileName = $"GetConfigurablePagedListOfPregnantInfoExcel{ DateTime.Now.ToString("yyyyMMdd_HHmmss")}.xls";
+            string filePath = Path.Combine(FileHelper.GetDirectory("~/Download"), fileName);
+            var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", "ListPages.xml");
+            XDocument doc = XDocument.Load(path);
+            var tableElements = doc.Descendants("Table");
+            var tableConfigs = tableElements.Select(c => new ViewConfig(c));
+            var tableConfig = tableConfigs.FirstOrDefault(c => c.ViewName == "O_PregnantInfo");
+            var displayProperties = tableConfig.Properties.Where(c => c.IsNeedOnPage);
+            pars.FieldNames = displayProperties.Select(c => c.ColumnName).ToList();
+            var serviceResult = pregnantService.GetConfigurablePagedListOfPregnantInfo(pars);
+            if (!serviceResult.IsSuccess)
+                throw new NotImplementedException(serviceResult.Message);
+
+            var displayNames = displayProperties.Select(c => c.DisplayName).ToList();
+            var dt = serviceResult.Data.DataTable;
+            IWorkbook workbook = null;
+            FileStream fs = null;
+            IRow row = null;
+            ISheet sheet = null;
+            ICell cell = null;
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                workbook = new HSSFWorkbook();
+                sheet = workbook.CreateSheet("Sheet0");//创建一个名称为Sheet0的表  
+                int rowCount = dt.Rows.Count;//行数  
+                int columnCount = dt.Columns.Count;//列数  
+
+                //设置列头  
+                row = sheet.CreateRow(0);//excel第一行设为列头  
+                for (int c = 0; c < displayNames.Count(); c++)
+                {
+                    cell = row.CreateCell(c);
+                    cell.SetCellValue(displayNames[c]);
+                }
+
+                //设置每行每列的单元格,  
+                for (int i = 0; i < rowCount; i++)
+                {
+                    row = sheet.CreateRow(i + 1);
+                    for (int j = 0; j < columnCount; j++)
+                    {
+                        cell = row.CreateCell(j);//excel第二行开始写入数据  
+                        cell.SetCellValue(dt.Rows[i][j].ToString());
+                    }
+                }
+                using (fs = System.IO.File.OpenWrite(filePath))
+                {
+                    workbook.Write(fs);//向打开的这个xls文件中写入数据  
+                }
+            }
+            return Download(filePath, fileName);
+        }
+
+
+        [HttpGet]
+        [VLAuthentication]
+        public ActionResult AllStatistics()
+        {
+            return View();
+        }
+
+
     }
 }

@@ -24,6 +24,9 @@ namespace VLTest2015.Services
         /// 信息
         /// </summary>
         public string[] Messages { set; get; }
+        /// <summary>
+        /// 
+        /// </summary>
         public string Message { get { return string.Join(",", Messages); } }
         /// <summary>
         /// 状态码

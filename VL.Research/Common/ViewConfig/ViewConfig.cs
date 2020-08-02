@@ -1,13 +1,10 @@
-﻿using FrameworkTest.Common.PagerSolution;
-using FrameworkTest.Common.ValuesSolution;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
+using VL.Consolo_Core.Common.ValuesSolution;
 
-namespace FrameworkTest.ConfigurableEntity
+namespace VL.Research.Common
 {
     public class ViewConfig
     {

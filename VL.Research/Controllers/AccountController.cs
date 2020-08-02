@@ -34,15 +34,12 @@ namespace VL.Research.Controllers
     /// </summary>
     public class AccountController : BaseController
     {
-        private readonly ILogger<HomeController> _logger;
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="logger"></param>
-        public AccountController(ILogger<HomeController> logger)
+        public AccountController()
         {
-            _logger = logger;
         }
 
         /// <summary>

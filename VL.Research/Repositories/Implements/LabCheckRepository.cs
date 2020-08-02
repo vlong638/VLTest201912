@@ -23,14 +23,14 @@ namespace VL.Research.Repositories
         //{
         //    var sql = request.ToListSQL();
         //    var pars = request.GetParams();
-        //    return _context.Connection.Query<PagedListOfLabCheckModel>(sql, pars, transaction: _transaction).ToList();
+        //    return _context.DbGroup.Connection.Query<PagedListOfLabCheckModel>(sql, pars, transaction: _transaction).ToList();
         //}
 
         //internal int GetLabCheckPagedListCount(GetPagedListOfLabCheckRequest request)
         //{
         //    var sql = request.ToCountSQL();
         //    var pars = request.GetParams();
-        //    return _context.Connection.ExecuteScalar<int>(sql, pars, transaction: _transaction);
+        //    return _context.DbGroup.Connection.ExecuteScalar<int>(sql, pars, transaction: _transaction);
         //}
     }
 }
