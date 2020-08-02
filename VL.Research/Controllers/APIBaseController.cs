@@ -19,7 +19,7 @@ namespace VL.Research.Controllers
         //    CurrentUser.SetCurrentUser(currentUser, isRemeberMe, Response);
         //}
 
-        public CurrentUser GetCurrentUser()
+        internal CurrentUser GetCurrentUser()
         {
             return new CurrentUser();
 
@@ -35,7 +35,7 @@ namespace VL.Research.Controllers
         /// <typeparam name="T"></typeparam>
         /// <param name="data"></param>
         /// <returns></returns>
-        public APIResult<T> Success<T>(T data)
+        internal APIResult<T> Success<T>(T data)
         {
             return new APIResult<T>(data);
         }
@@ -43,7 +43,7 @@ namespace VL.Research.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        public APIResult<T> Error<T>(T data, IList<string> messages)
+        internal APIResult<T> Error<T>(T data, IList<string> messages)
         {
             return new APIResult<T>(data, messages.ToArray());
         }
@@ -51,7 +51,7 @@ namespace VL.Research.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        public APIResult<T> Error<T>(T data, int code, IList<string> messages)
+        internal APIResult<T> Error<T>(T data, int code, IList<string> messages)
         {
             return new APIResult<T>(data, code, messages.ToArray());
         }
@@ -59,7 +59,7 @@ namespace VL.Research.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        public APIResult<T> Error<T>(T data, params string[] messages)
+        internal APIResult<T> Error<T>(T data, params string[] messages)
         {
             return new APIResult<T>(data, messages);
         }
@@ -67,7 +67,7 @@ namespace VL.Research.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        public APIResult<T> Error<T>(T data, int code, params string[] messages)
+        internal APIResult<T> Error<T>(T data, int code, params string[] messages)
         {
             return new APIResult<T>(data, code, messages);
         }

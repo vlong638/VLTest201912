@@ -13,11 +13,16 @@ using VL.Research.Services;
 
 namespace VL.Research.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [ApiController]
     [Route("api/[controller]/[action]")]
     public class SystemController : APIBaseController
     {
-
+        /// <summary>
+        /// 
+        /// </summary>
         public SystemController()
         {
         }
@@ -53,6 +58,11 @@ namespace VL.Research.Controllers
         /// </summary>
         public class DropDownItem
         {
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="text"></param>
+            /// <param name="value"></param>
             public DropDownItem(string text, string value)
             {
                 this.text = text;

@@ -22,11 +22,21 @@ namespace VL.Research.Controllers
     [Route("api/[controller]/[action]")]
     public class PregnantController : APIBaseController
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public PregnantController()
         {
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pregnantService"></param>
+        /// <param name="page"></param>
+        /// <param name="rows"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
         [HttpPost]
         [VLAuthentication(Authority.查看孕妇档案列表)]
         public APIResult<VLPagerResult<PagedListOfPregnantInfoModel>> GetPagedListOfPregnantInfo([FromServices] PregnantService pregnantService, int page, int rows, string name)
@@ -122,6 +132,14 @@ namespace VL.Research.Controllers
             return Success(serviceResult.Data);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pregnantService"></param>
+        /// <param name="page"></param>
+        /// <param name="rows"></param>
+        /// <param name="pregnantInfoId"></param>
+        /// <returns></returns>
         [HttpPost]
         [VLAuthentication(Authority.查看检查列表)]
         public APIResult<VLPagerResult<PagedListOfLabOrderModel>> GetPagedListOfLabOrder([FromServices] PregnantService pregnantService, int page, int rows, long pregnantInfoId)

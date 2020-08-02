@@ -346,6 +346,21 @@
             
             </summary>
         </member>
+        <member name="M:VL.Research.Controllers.PregnantController.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VL.Research.Controllers.PregnantController.GetPagedListOfPregnantInfo(VL.Research.Models.PregnantService,System.Int32,System.Int32,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="pregnantService"></param>
+            <param name="page"></param>
+            <param name="rows"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
         <member name="M:VL.Research.Controllers.PregnantController.GetConfigurablePagedListOfPregnantInfo(VL.Research.Models.PregnantService,System.Int32,System.Int32,System.String,System.String,System.String)">
             <summary>
             
@@ -376,6 +391,16 @@
             <param name="pregnantInfoId"></param>
             <returns></returns>
         </member>
+        <member name="M:VL.Research.Controllers.PregnantController.GetPagedListOfLabOrder(VL.Research.Models.PregnantService,System.Int32,System.Int32,System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="pregnantService"></param>
+            <param name="page"></param>
+            <param name="rows"></param>
+            <param name="pregnantInfoId"></param>
+            <returns></returns>
+        </member>
         <member name="M:VL.Research.Controllers.PregnantController.GetAllStatics">
              <summary>
              全统计汇总
@@ -389,6 +414,16 @@
              </summary>
              <returns></returns>
         </member>
+        <member name="T:VL.Research.Controllers.SystemController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VL.Research.Controllers.SystemController.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="M:VL.Research.Controllers.SystemController.GetDropDowns(System.String,System.Boolean)">
             <summary>
             获取下拉项        /// </summary>
@@ -400,6 +435,13 @@
             <summary>
             下拉项
             </summary>
+        </member>
+        <member name="M:VL.Research.Controllers.SystemController.DropDownItem.#ctor(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="text"></param>
+            <param name="value"></param>
         </member>
         <member name="M:VL.Research.Controllers.SystemController.GetListConfig(VL.Research.Services.UserService,VL.Research.Models.GetListConfigRequest)">
             <summary>
