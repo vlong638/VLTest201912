@@ -526,6 +526,11 @@
             记住我
             </summary>
         </member>
+        <member name="P:VL.Research.Models.PagedListOfPregnantInfoModel.idcard">
+            <summary>
+            身份证号
+            </summary>
+        </member>
         <member name="T:VL.Research.Models.PregnantService">
             <summary>
             

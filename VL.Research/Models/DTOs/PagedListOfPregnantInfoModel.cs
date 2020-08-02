@@ -8,6 +8,9 @@ namespace VL.Research.Models
         //public long InstitutionCode { set; get; } //机构编码
         //public long CreatorId { set; get; } //创建者
         public string patientid { set; get; }
+        /// <summary>
+        /// 身份证号
+        /// </summary>
         public string idcard { set; get; } //身份证号
 
 
