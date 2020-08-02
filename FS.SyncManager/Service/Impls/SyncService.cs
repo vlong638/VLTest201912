@@ -13,6 +13,8 @@ namespace FS.SyncManager.Service
     {
         DbContext DbContext;
 
+        public SyncService()
+        { }
         public SyncService(DbContext context)
         {
             DbContext = context;

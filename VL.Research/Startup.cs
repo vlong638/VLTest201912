@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using VL.Consolo_Core.Common.DBSolution;
+using VL.Research.Common.Configuration;
 using VL.Research.Services;
 
 namespace VL.Research
@@ -28,6 +29,9 @@ namespace VL.Research
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            //配置文件
+            services.Configure<DBConfig>(Configuration.GetSection("DB"));
 
             //基础设施
             services.AddScoped<DbContext>();

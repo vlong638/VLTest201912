@@ -1,20 +1,28 @@
-﻿using VL.Consolo_Core.Common.DBSolution;
+﻿using Microsoft.Extensions.Options;
 using System;
-using System.Data;
+using VL.Consolo_Core.Common.DBSolution;
 using VL.Consolo_Core.Common.ServiceSolution;
+using VL.Research.Common.Configuration;
 
-namespace VL.Consolo_Core.Common.DBSolution
+namespace VL.Research.Common
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class DbContext
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public DbGroup DbGroup { set; get; }
 
-        public DbContext()
-        { }
-
-        public DbContext(IDbConnection connection)
+        /// <summary>
+        /// 
+        /// </summary>
+        public DbContext(IOptions<DBConfig> loggingConfig)
         {
-            DbGroup = new DbGroup(connection);
+            var connectingStr = DBHelper.GetDbConnection(loggingConfig.Value.ConnectionString);
+            DbGroup = new DbGroup(connectingStr);
         }
 
         /// <summary>

@@ -1,13 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using System.Collections.Generic;
 using System.Linq;
 using VL.Consolo_Core.Common.DBSolution;
 using VL.Consolo_Core.Common.ServiceSolution;
+using VL.Research.Common.Configuration;
 using VL.Research.Models;
 using VL.Research.Repositories;
 using VLTest2015.Common.MD5Solution;
 
 namespace VL.Research.Services
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class UserService : BaseService, IUserService
     {
         UserRepository _userRepository;
@@ -17,6 +23,9 @@ namespace VL.Research.Services
         RoleAuthorityRepository _roleAuthorityRepository;
         UserMenuRepository _userMenuRepository;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public UserService(DbContext dbContext)
         {
             _userRepository = new UserRepository(dbContext);
