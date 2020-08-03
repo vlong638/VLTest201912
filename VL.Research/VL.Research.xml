@@ -134,6 +134,54 @@
             说明
             </summary>
         </member>
+        <member name="T:VL.Research.Common.ViewConfig">
+            <summary>
+            页面配置
+            </summary>
+        </member>
+        <member name="P:VL.Research.Common.ViewConfig.ViewName">
+            <summary>
+            页面名称
+            </summary>
+        </member>
+        <member name="P:VL.Research.Common.ViewConfig.Properties">
+            <summary>
+            页面字段
+            </summary>
+        </member>
+        <member name="P:VL.Research.Common.ViewConfig.Wheres">
+            <summary>
+            页面条件项
+            </summary>
+        </member>
+        <member name="P:VL.Research.Common.ViewConfig.OrderBy">
+            <summary>
+            页面排序项
+            </summary>
+        </member>
+        <member name="M:VL.Research.Common.ViewConfig.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VL.Research.Common.ViewConfig.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            
+            </summary>
+            <param name="element"></param>
+        </member>
+        <member name="M:VL.Research.Common.ViewConfig.UpdateValues(System.Collections.Generic.IEnumerable{System.Collections.Generic.Dictionary{System.String,System.Object}})">
+            <summary>
+            
+            </summary>
+            <param name="list"></param>
+        </member>
+        <member name="M:VL.Research.Common.ViewConfig.ToXElement">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:VL.Research.Common.CompareOperator">
             <summary>
             比较操作
@@ -143,6 +191,48 @@
             <summary>
             组合操作
             </summary>
+        </member>
+        <member name="T:VL.Research.Common.ViewConfigWhere">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VL.Research.Common.ViewConfigWhere.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VL.Research.Common.ViewConfigWhere.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            
+            </summary>
+            <param name="element"></param>
+        </member>
+        <member name="P:VL.Research.Common.ViewConfigWhere.ComponentName">
+            <summary>
+            项目名称
+            </summary>
+        </member>
+        <member name="P:VL.Research.Common.ViewConfigWhere.CompareOperator">
+            <summary>
+            比较操作符
+            </summary>
+        </member>
+        <member name="P:VL.Research.Common.ViewConfigWhere.Value">
+            <summary>
+            值
+            </summary>
+        </member>
+        <member name="P:VL.Research.Common.ViewConfigWhere.LinkOperator">
+            <summary>
+            链接操作符
+            </summary>
+        </member>
+        <member name="M:VL.Research.Common.ViewConfigWhere.ToXElement">
+            <summary>
+            
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:VL.Research.Common.DisplayType">
             <summary>
@@ -343,67 +433,67 @@
         </member>
         <member name="T:VL.Research.Controllers.PregnantController">
             <summary>
-            
+            控制器 孕妇信息
             </summary>
         </member>
         <member name="M:VL.Research.Controllers.PregnantController.#ctor">
             <summary>
-            
+            控制器 孕妇信息
             </summary>
         </member>
         <member name="M:VL.Research.Controllers.PregnantController.GetPagedListOfPregnantInfo(VL.Research.Models.PregnantService,System.Int32,System.Int32,System.String)">
             <summary>
-            
+            获取 孕妇档案列表
             </summary>
             <param name="pregnantService"></param>
-            <param name="page"></param>
-            <param name="rows"></param>
-            <param name="name"></param>
+            <param name="page">页码</param>
+            <param name="rows">每页行数</param>
+            <param name="name">参数(姓名)</param>
             <returns></returns>
         </member>
         <member name="M:VL.Research.Controllers.PregnantController.GetConfigurablePagedListOfPregnantInfo(VL.Research.Models.PregnantService,System.Int32,System.Int32,System.String,System.String,System.String)">
             <summary>
-            
+            获取 自定义配置的孕妇档案列表
             </summary>
             <param name="pregnantService"></param>
-            <param name="page"></param>
-            <param name="rows"></param>
-            <param name="name"></param>
-            <param name="sort"></param>
-            <param name="order"></param>
+            <param name="page">页码</param>
+            <param name="rows">每页行数</param>
+            <param name="name">参数(姓名)</param>
+            <param name="sort">参数(排序项)</param>
+            <param name="order">参数(排序顺序:asc|desc)</param>
             <returns></returns>
         </member>
         <member name="M:VL.Research.Controllers.PregnantController.GetPregnantInfo(VL.Research.Models.PregnantService,System.Int64)">
             <summary>
-            
+            获取 孕妇档案详情
             </summary>
             <param name="pregnantService"></param>
-            <param name="pregnantInfoId"></param>
+            <param name="pregnantInfoId">孕妇档案Id</param>
             <returns></returns>
         </member>
         <member name="M:VL.Research.Controllers.PregnantController.GetPagedListOfVisitRecord(VL.Research.Models.PregnantService,System.Int32,System.Int32,System.Int64)">
             <summary>
-            
+            获取 产检列表
             </summary>
             <param name="pregnantService"></param>
-            <param name="page"></param>
-            <param name="rows"></param>
-            <param name="pregnantInfoId"></param>
+            <param name="page">页码</param>
+            <param name="rows">每页行数</param>
+            <param name="pregnantInfoId">参数(孕妇档案Id)</param>
             <returns></returns>
         </member>
         <member name="M:VL.Research.Controllers.PregnantController.GetPagedListOfLabOrder(VL.Research.Models.PregnantService,System.Int32,System.Int32,System.Int64)">
             <summary>
-            
+            获取 检查列表
             </summary>
             <param name="pregnantService"></param>
-            <param name="page"></param>
-            <param name="rows"></param>
-            <param name="pregnantInfoId"></param>
+            <param name="page">页码</param>
+            <param name="rows">每页行数</param>
+            <param name="pregnantInfoId">参数(孕妇档案Id)</param>
             <returns></returns>
         </member>
         <member name="M:VL.Research.Controllers.PregnantController.GetAllStatics">
-             <summary>
-             全统计汇总
+            <summary>
+            获取 全统计汇总
             顺产人数
             剖宫产人数
             引产人数
@@ -411,8 +501,8 @@
             侧切人数
             裂伤人数
             新生儿人数
-             </summary>
-             <returns></returns>
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:VL.Research.Controllers.SystemController">
             <summary>
@@ -426,45 +516,56 @@
         </member>
         <member name="M:VL.Research.Controllers.SystemController.GetDropDowns(System.String,System.Boolean)">
             <summary>
-            获取下拉项        /// </summary>
-            <param name="type"></param>
-            <param name="isForceChange"></param>
+            获取 下拉项        
+            </summary>
+            <param name="type">类型名称</param>
+            <param name="isForceChange">是否强制获取最新</param>
             <returns></returns>
-        </member>
-        <member name="T:VL.Research.Controllers.SystemController.DropDownItem">
-            <summary>
-            下拉项
-            </summary>
-        </member>
-        <member name="M:VL.Research.Controllers.SystemController.DropDownItem.#ctor(System.String,System.String)">
-            <summary>
-            
-            </summary>
-            <param name="text"></param>
-            <param name="value"></param>
         </member>
         <member name="M:VL.Research.Controllers.SystemController.GetListConfig(VL.Research.Services.UserService,VL.Research.Models.GetListConfigRequest)">
             <summary>
-            列表配置
+            获取 列表配置
             </summary>
             <param name="userService"></param>
-            <param name="request"></param>
+            <param name="request">请求参数实体</param>
             <returns></returns>
         </member>
         <member name="M:VL.Research.Controllers.SystemController.SaveListConfig(VL.Research.Services.UserService,VL.Research.Models.SaveListConfigRequest)">
             <summary>
-            
+            保存 列表配置
             </summary>
             <param name="userService"></param>
-            <param name="request"></param>
+            <param name="request">请求参数实体</param>
             <returns></returns>
         </member>
         <member name="M:VL.Research.Controllers.SystemController.GetListMenu(VL.Research.Services.UserService)">
             <summary>
-            
+            获取 列表配置(当前用户)
             </summary>
             <param name="userService"></param>
             <returns></returns>
+        </member>
+        <member name="T:VL.Research.Models.DropDownItem">
+            <summary>
+            下拉项
+            </summary>
+        </member>
+        <member name="M:VL.Research.Models.DropDownItem.#ctor(System.String,System.String)">
+            <summary>
+            下拉项
+            </summary>
+            <param name="text"></param>
+            <param name="value"></param>
+        </member>
+        <member name="P:VL.Research.Models.DropDownItem.text">
+            <summary>
+            文本
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.DropDownItem.value">
+            <summary>
+            值
+            </summary>
         </member>
         <member name="T:VL.Research.Models.AllStaticsModel">
             <summary>
@@ -506,6 +607,21 @@
             新生儿人数
             </summary>
         </member>
+        <member name="T:VL.Research.Models.GetListConfigModel">
+            <summary>
+            页面配置 模型
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.GetListConfigModel.CustomConfigId">
+            <summary>
+            个性化配置Id
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.GetListConfigModel.ViewConfig">
+            <summary>
+            页面配置
+            </summary>
+        </member>
         <member name="T:VL.Research.Models.LoginViewModel">
             <summary>
             
@@ -526,9 +642,289 @@
             记住我
             </summary>
         </member>
+        <member name="P:VL.Research.Models.PagedListOfLabOrderModel.Id">
+            <summary>
+            标识符
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PagedListOfLabOrderModel.orderid">
+            <summary>
+            检查id
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PagedListOfLabOrderModel.examname">
+            <summary>
+            检查名称
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PagedListOfLabOrderModel.examcode">
+            <summary>
+            检查编码
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PagedListOfLabOrderModel.ordertime">
+            <summary>
+            检查时间
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PagedListOfLabOrderModel.orderdocid">
+            <summary>
+            检查医生Id
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PagedListOfLabOrderModel.orderdocname">
+            <summary>
+            检查医生名称
+            </summary>
+        </member>
+        <member name="T:VL.Research.Models.PagedListOfPregnantInfoModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PagedListOfPregnantInfoModel.id">
+            <summary>
+            标识符
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PagedListOfPregnantInfoModel.patientid">
+            <summary>
+            病人Id
+            </summary>
+        </member>
         <member name="P:VL.Research.Models.PagedListOfPregnantInfoModel.idcard">
             <summary>
             身份证号
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PagedListOfPregnantInfoModel.personname">
+            <summary>
+            孕妇姓名
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PagedListOfPregnantInfoModel.sexcode">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PagedListOfPregnantInfoModel.contactphone">
+            <summary>
+            联系人电话
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PagedListOfPregnantInfoModel.birthday">
+            <summary>
+            出生日期
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PagedListOfPregnantInfoModel.gravidity">
+            <summary>
+            孕次
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PagedListOfPregnantInfoModel.parity">
+            <summary>
+            产次
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PagedListOfPregnantInfoModel.iscreatebook">
+            <summary>
+            是否建册
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PagedListOfPregnantInfoModel.GestationalWeeks">
+            <summary>
+            建册孕周
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PagedListOfPregnantInfoModel.lastmenstrualperiod">
+            <summary>
+            末次月经
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PagedListOfPregnantInfoModel.dateofprenatal">
+            <summary>
+            预产期
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PagedListOfPregnantInfoModel.filestatus">
+            <summary>
+            档案状态:(结案标识)
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PagedListOfVisitRecordModel.Id">
+            <summary>
+            标识符
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PagedListOfVisitRecordModel.PregnantInfoId">
+            <summary>
+            病人编码
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PagedListOfVisitRecordModel.VisitDate">
+            <summary>
+            检查时间
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PagedListOfVisitRecordModel.DBP">
+            <summary>
+            舒张压(mmhg)
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PagedListOfVisitRecordModel.SBP">
+            <summary>
+            收缩压(mmhg)
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PagedListOfVisitRecordModel.Weight">
+            <summary>
+            体重(kg)
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PagedListOfVisitRecordModel.HeightFundusuterus">
+            <summary>
+            宫高(cm)
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PagedListOfVisitRecordModel.AbdomenCircumference">
+            <summary>
+            腹围(cm)
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PagedListOfVisitRecordModel.FetalHeartRate">
+            <summary>
+            胎心率(次)
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PagedListOfVisitRecordModel.EdemaStatus">
+            <summary>
+            浮肿
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PregnantInfo.Id">
+            <summary>
+            标识符
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PregnantInfo.InstitutionCode">
+            <summary>
+            机构编码
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PregnantInfo.CreatorId">
+            <summary>
+            创建者
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PregnantInfo.PatientId">
+            <summary>
+            病人Id
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PregnantInfo.IdCard">
+            <summary>
+            身份证号
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PregnantInfo.PersonName">
+            <summary>
+            孕妇姓名
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PregnantInfo.SexCode">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PregnantInfo.ContactPhone">
+            <summary>
+            联系人电话
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PregnantInfo.Birthday">
+            <summary>
+            出生日期
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PregnantInfo.Gravidity">
+            <summary>
+            孕次
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PregnantInfo.Parity">
+            <summary>
+            产次
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PregnantInfo.IsCreateBook">
+            <summary>
+            是否建册
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PregnantInfo.GestationalWeeks">
+            <summary>
+            建册孕周
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PregnantInfo.LastMenstrualPeriod">
+            <summary>
+            末次月经
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PregnantInfo.DateOfPrenatal">
+            <summary>
+            预产期
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.PregnantInfo.FileStatus">
+            <summary>
+            档案状态:(结案标识)
+            </summary>
+        </member>
+        <member name="T:VL.Research.Models.GetListConfigRequest">
+            <summary>
+            请求参数实体
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.GetListConfigRequest.ListName">
+            <summary>
+            列表名称
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.GetListConfigRequest.CustomConfigId">
+            <summary>
+            自定义配置Id
+            </summary>
+        </member>
+        <member name="T:VL.Research.Models.GetPagedListOfLabOrderRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.GetPagedListOfLabOrderRequest.PregnantInfoId">
+            <summary>
+            病人档案Id
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.GetPagedListOfPregnantInfoRequest.PersonName">
+            <summary>
+            孕妇姓名
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.GetPagedListOfPregnantInfoRequest.FieldNames">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:VL.Research.Models.GetPagedListOfVisitRecordRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.GetPagedListOfVisitRecordRequest.PregnantInfoId">
+            <summary>
+            病人档案Id
             </summary>
         </member>
         <member name="T:VL.Research.Models.PregnantService">
@@ -546,33 +942,35 @@
             <summary>
             孕妇档案列表
             </summary>
-            <param name="request"></param>
+            <param name="request">请求参数实体</param>
             <returns></returns>
         </member>
         <member name="M:VL.Research.Models.PregnantService.GetConfigurablePagedListOfPregnantInfo(VL.Research.Models.GetPagedListOfPregnantInfoRequest)">
             <summary>
             孕妇档案列表
             </summary>
+            <param name="request">请求参数实体</param>
             <returns></returns>
         </member>
         <member name="M:VL.Research.Models.PregnantService.GetPregnantInfoByPregnantInfoId(System.Int64)">
             <summary>
             孕妇档案详情
             </summary>
+            <param name="pregnantInfoId">孕妇档案Id</param>
             <returns></returns>
         </member>
         <member name="M:VL.Research.Models.PregnantService.GetPagedListOfVisitRecord(VL.Research.Models.GetPagedListOfVisitRecordRequest)">
             <summary>
             产检列表
             </summary>
-            <param name="request"></param>
+            <param name="request">请求参数实体</param>
             <returns></returns>
         </member>
         <member name="M:VL.Research.Models.PregnantService.GetPagedListOfLabOrder(VL.Research.Models.GetPagedListOfLabOrderRequest)">
             <summary>
             检查单列表
             </summary>
-            <param name="request"></param>
+            <param name="request">请求参数实体</param>
             <returns></returns>
         </member>
         <member name="M:VL.Research.Repositories.PregnantInfoRepository.GetPregnantInfoById(System.Int64)">

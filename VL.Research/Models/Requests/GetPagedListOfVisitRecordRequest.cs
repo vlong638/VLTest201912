@@ -3,8 +3,14 @@ using VL.Consolo_Core.Common.PagerSolution;
 
 namespace VL.Research.Models
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class GetPagedListOfVisitRecordRequest : VLPagerRequest, IQueriablePagedList
     {
+        /// <summary>
+        /// 病人档案Id
+        /// </summary>
         public long? PregnantInfoId { set; get; }
 
         Dictionary<string, object> args = new Dictionary<string, object>();

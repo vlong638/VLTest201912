@@ -28,11 +28,14 @@ namespace VL.Research.Controllers
         }
 
         #region JsonConfig
+
         static Dictionary<string, string> JsonConfigs = new Dictionary<string, string>();
+
         /// <summary>
-        /// 获取下拉项        /// </summary>
-        /// <param name="type"></param>
-        /// <param name="isForceChange"></param>
+        /// 获取 下拉项        
+        /// </summary>
+        /// <param name="type">类型名称</param>
+        /// <param name="isForceChange">是否强制获取最新</param>
         /// <returns></returns>
         [HttpGet]
         [AllowAnonymous]
@@ -53,35 +56,15 @@ namespace VL.Research.Controllers
             return Success(entity);
         }
 
-        /// <summary>
-        /// 下拉项
-        /// </summary>
-        public class DropDownItem
-        {
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="text"></param>
-            /// <param name="value"></param>
-            public DropDownItem(string text, string value)
-            {
-                this.text = text;
-                this.value = value;
-            }
-
-            public string text { set; get; }
-            public string value { set; get; }
-        }
-
         #endregion
 
         #region XMLConfig
 
         /// <summary>
-        /// 列表配置
+        /// 获取 列表配置
         /// </summary>
         /// <param name="userService"></param>
-        /// <param name="request"></param>
+        /// <param name="request">请求参数实体</param>
         /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
@@ -125,10 +108,10 @@ namespace VL.Research.Controllers
         }
 
         /// <summary>
-        /// 
+        /// 保存 列表配置
         /// </summary>
         /// <param name="userService"></param>
-        /// <param name="request"></param>
+        /// <param name="request">请求参数实体</param>
         /// <returns></returns>
         [HttpPost]
         public APIResult<long> SaveListConfig([FromServices] UserService userService, SaveListConfigRequest request)
@@ -158,7 +141,7 @@ namespace VL.Research.Controllers
         }
 
         /// <summary>
-        /// 
+        /// 获取 列表配置(当前用户)
         /// </summary>
         /// <param name="userService"></param>
         /// <returns></returns>

@@ -1,12 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Xml.Linq;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using VL.Consolo_Core.Common.ControllerSolution;
 using VL.Consolo_Core.Common.PagerSolution;
 using VL.Consolo_Core.Common.ServiceSolution;
@@ -16,26 +14,26 @@ using VL.Research.Models;
 namespace VL.Research.Controllers
 {
     /// <summary>
-    /// 
+    /// 控制器 孕妇信息
     /// </summary>
     [ApiController]
     [Route("api/[controller]/[action]")]
     public class PregnantController : APIBaseController
     {
         /// <summary>
-        /// 
+        /// 控制器 孕妇信息
         /// </summary>
         public PregnantController()
         {
         }
 
         /// <summary>
-        /// 
+        /// 获取 孕妇档案列表
         /// </summary>
         /// <param name="pregnantService"></param>
-        /// <param name="page"></param>
-        /// <param name="rows"></param>
-        /// <param name="name"></param>
+        /// <param name="page">页码</param>
+        /// <param name="rows">每页行数</param>
+        /// <param name="name">参数(姓名)</param>
         /// <returns></returns>
         [HttpPost]
         [VLAuthentication(Authority.查看孕妇档案列表)]
@@ -54,14 +52,14 @@ namespace VL.Research.Controllers
         }
 
         /// <summary>
-        /// 
+        /// 获取 自定义配置的孕妇档案列表
         /// </summary>
         /// <param name="pregnantService"></param>
-        /// <param name="page"></param>
-        /// <param name="rows"></param>
-        /// <param name="name"></param>
-        /// <param name="sort"></param>
-        /// <param name="order"></param>
+        /// <param name="page">页码</param>
+        /// <param name="rows">每页行数</param>
+        /// <param name="name">参数(姓名)</param>
+        /// <param name="sort">参数(排序项)</param>
+        /// <param name="order">参数(排序顺序:asc|desc)</param>
         /// <returns></returns>
         [HttpPost]
         [VLAuthentication(Authority.查看孕妇档案列表)]
@@ -89,10 +87,10 @@ namespace VL.Research.Controllers
         }
 
         /// <summary>
-        /// 
+        /// 获取 孕妇档案详情
         /// </summary>
         /// <param name="pregnantService"></param>
-        /// <param name="pregnantInfoId"></param>
+        /// <param name="pregnantInfoId">孕妇档案Id</param>
         /// <returns></returns>
         [HttpPost]
         [VLAuthentication(Authority.查看孕妇档案详情)]
@@ -109,12 +107,12 @@ namespace VL.Research.Controllers
         }
 
         /// <summary>
-        /// 
+        /// 获取 产检列表
         /// </summary>
         /// <param name="pregnantService"></param>
-        /// <param name="page"></param>
-        /// <param name="rows"></param>
-        /// <param name="pregnantInfoId"></param>
+        /// <param name="page">页码</param>
+        /// <param name="rows">每页行数</param>
+        /// <param name="pregnantInfoId">参数(孕妇档案Id)</param>
         /// <returns></returns>
         [HttpPost]
         [VLAuthentication(Authority.查看产检列表)]
@@ -133,12 +131,12 @@ namespace VL.Research.Controllers
         }
 
         /// <summary>
-        /// 
+        /// 获取 检查列表
         /// </summary>
         /// <param name="pregnantService"></param>
-        /// <param name="page"></param>
-        /// <param name="rows"></param>
-        /// <param name="pregnantInfoId"></param>
+        /// <param name="page">页码</param>
+        /// <param name="rows">每页行数</param>
+        /// <param name="pregnantInfoId">参数(孕妇档案Id)</param>
         /// <returns></returns>
         [HttpPost]
         [VLAuthentication(Authority.查看检查列表)]
@@ -157,14 +155,14 @@ namespace VL.Research.Controllers
         }
 
         /// <summary>
-        /// 全统计汇总
-        ///顺产人数
-        ///剖宫产人数
-        ///引产人数
-        ///顺转剖人数
-        ///侧切人数
-        ///裂伤人数
-        ///新生儿人数
+        /// 获取 全统计汇总
+        /// 顺产人数
+        /// 剖宫产人数
+        /// 引产人数
+        /// 顺转剖人数
+        /// 侧切人数
+        /// 裂伤人数
+        /// 新生儿人数
         /// </summary>
         /// <returns></returns>
         [HttpPost]

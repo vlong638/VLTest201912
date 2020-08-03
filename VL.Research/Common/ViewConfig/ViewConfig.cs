@@ -6,20 +6,42 @@ using VL.Consolo_Core.Common.ValuesSolution;
 
 namespace VL.Research.Common
 {
+    /// <summary>
+    /// 页面配置
+    /// </summary>
     public class ViewConfig
     {
         public static string RootElementName = "Views";
         public static string NodeElementName = "View";
 
+        /// <summary>
+        /// 页面名称
+        /// </summary>
         public string ViewName { set; get; }
+        /// <summary>
+        /// 页面字段
+        /// </summary>
         public List<ViewConfigProperty> Properties { set; get; } 
+        /// <summary>
+        /// 页面条件项
+        /// </summary>
         public List<ViewConfigWhere> Wheres { set; get; }
+        /// <summary>
+        /// 页面排序项
+        /// </summary>
         public ViewConfigOrderBy OrderBy { set; get; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public ViewConfig()
         {
 
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="element"></param>
         public ViewConfig(XElement element)
         {
             ViewName = element.Attribute(nameof(ViewName)).Value;
@@ -27,7 +49,10 @@ namespace VL.Research.Common
             Wheres = element.Descendants(ViewConfigWhere.ElementName).Select(c => new ViewConfigWhere(c)).ToList();
             OrderBy = element.Descendants(ViewConfigOrderBy.ElementName).Select(c => new ViewConfigOrderBy(c)).FirstOrDefault() ?? new ViewConfigOrderBy();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="list"></param>
         public void UpdateValues(IEnumerable<Dictionary<string, object>> list)
         {
             var validProperties = Properties.Where(c => c.IsNeedOnPage);
@@ -79,7 +104,10 @@ namespace VL.Research.Common
                 }
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public XElement ToXElement()
         {
             //view
@@ -130,16 +158,26 @@ namespace VL.Research.Common
         Or = 2,
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public class ViewConfigWhere
     {
         public const string RootElementName = "Wheres";
         public const string ElementName = "Where";
 
+        /// <summary>
+        /// 
+        /// </summary>
         public ViewConfigWhere()
         {
             ComponentName = "";
             Value = "";
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="element"></param>
         public ViewConfigWhere(XElement element)
         {
             ComponentName = element.Attribute(nameof(ComponentName))?.Value;
@@ -154,11 +192,27 @@ namespace VL.Research.Common
             LinkOperator = element.Attribute(nameof(LinkOperator))?.Value.ToEnum<LinkOperator>() ?? LinkOperator.None;
         }
 
+        /// <summary>
+        /// 项目名称
+        /// </summary>
         public string ComponentName { set; get; }
+        /// <summary>
+        /// 比较操作符
+        /// </summary>
         public CompareOperator CompareOperator { set; get; }
+        /// <summary>
+        /// 值
+        /// </summary>
         public string Value { set; get; }
+        /// <summary>
+        /// 链接操作符
+        /// </summary>
         public LinkOperator LinkOperator { set; get; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public XElement ToXElement()
         {
             var property = new XElement(ElementName);

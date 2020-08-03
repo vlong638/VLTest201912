@@ -5,7 +5,14 @@ namespace VL.Research.Models
 {
     public class GetPagedListOfPregnantInfoRequest : VLPagerRequest, IQueriablePagedList
     {
+        /// <summary>
+        /// 孕妇姓名
+        /// </summary>
         public string PersonName { set; get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public List<string> FieldNames { get; internal set; } = new List<string>() { "*" };
 
         Dictionary<string, object> args = new Dictionary<string, object>();

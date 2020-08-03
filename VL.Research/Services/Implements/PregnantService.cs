@@ -33,7 +33,7 @@ namespace VL.Research.Models
         /// <summary>
         /// 孕妇档案列表
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="request">请求参数实体</param>
         /// <returns></returns>
         public ServiceResult<VLPagerResult<PagedListOfPregnantInfoModel>> GetPagedListOfPregnantInfo(GetPagedListOfPregnantInfoRequest request)
         {
@@ -49,6 +49,7 @@ namespace VL.Research.Models
         /// <summary>
         /// 孕妇档案列表
         /// </summary>
+        /// <param name="request">请求参数实体</param>
         /// <returns></returns>
         public ServiceResult<VLPagerTableResult<DataTable>> GetConfigurablePagedListOfPregnantInfo(GetPagedListOfPregnantInfoRequest request)
         {
@@ -64,6 +65,7 @@ namespace VL.Research.Models
         /// <summary>
         /// 孕妇档案详情
         /// </summary>
+        /// <param name="pregnantInfoId">孕妇档案Id</param>
         /// <returns></returns>
         public ServiceResult<PregnantInfo> GetPregnantInfoByPregnantInfoId(long pregnantInfoId)
         {
@@ -78,7 +80,7 @@ namespace VL.Research.Models
         /// <summary>
         /// 产检列表
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="request">请求参数实体</param>
         /// <returns></returns>
         public ServiceResult<VLPagerResult<PagedListOfVisitRecordModel>> GetPagedListOfVisitRecord(GetPagedListOfVisitRecordRequest request)
         {
@@ -94,7 +96,7 @@ namespace VL.Research.Models
         /// <summary>
         /// 检查单列表
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="request">请求参数实体</param>
         /// <returns></returns>
         public ServiceResult<VLPagerResult<PagedListOfLabOrderModel>> GetPagedListOfLabOrder(GetPagedListOfLabOrderRequest request)
         {
