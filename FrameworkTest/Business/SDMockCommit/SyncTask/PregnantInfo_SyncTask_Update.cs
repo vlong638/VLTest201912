@@ -29,7 +29,7 @@ namespace FrameworkTest.Business.SDMockCommit
             syncOrder.SyncTime = DateTime.Now;
             try
             {
-                var pregnantInfo = context.FSService.GetPregnantInfo(userInfo, sourceData.IdCard, ref logger);
+                var pregnantInfo = context.FSService.GetBase8(userInfo, sourceData.IdCard, ref logger);
                 if (pregnantInfo != null)//已存在 更新分支
                 {
                     syncOrder.ErrorMessage = "更新";

@@ -102,7 +102,7 @@ namespace FrameworkTest.Business.SDMockCommit
         NotExisted = 12,//未存在
         [Description("未获得有效Id")]
         Repeated = 13,//查重出错
-        [Description("数据冲突")]
+        [Description("预产期冲突")]
         Conflict = 14,//冲突,对方存在不同预产期的数据
         [Description("诊断`死亡`")]
         DeadDiagnosis = 15,

@@ -80,7 +80,7 @@ namespace FS.SyncManager.Controllers
         public class GetListConfigResponse
         {
             public long CustomConfigId { set; get; }
-            public EntityAppConfig ViewConfig { set; get; }
+            public ViewConfig ViewConfig { set; get; }
         }
 
         /// <summary>
@@ -122,12 +122,12 @@ namespace FS.SyncManager.Controllers
             }
         }
 
-        public static EntityAppConfig LoadDefaultConfig(string listName)
+        public static ViewConfig LoadDefaultConfig(string listName)
         {
             var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", "ListPages.xml");
             XDocument doc = XDocument.Load(path);
-            var viewElements = doc.Descendants(EntityAppConfig.NodeElementName);
-            var viewConfigs = viewElements.Select(c => new EntityAppConfig(c));
+            var viewElements = doc.Descendants(ViewConfig.NodeElementName);
+            var viewConfigs = viewElements.Select(c => new ViewConfig(c));
             var viewConfig = viewConfigs.FirstOrDefault(c => c.ViewName == listName);
             return viewConfig;
         }

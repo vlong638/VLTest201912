@@ -35,7 +35,7 @@ namespace FrameworkTest.Business.SDMockCommit
             syncOrder.SyncTime = DateTime.Now;
             try
             {
-                var pregnantInfo = context.FSService.GetPregnantInfo(userInfo, sourceData.IdCard, ref logger);
+                var pregnantInfo = context.FSService.GetBase8(userInfo, sourceData.IdCard, ref logger);
                 if (pregnantInfo != null)//已存在 更新分支
                 {
                     syncOrder.ErrorMessage = "更新";
@@ -138,7 +138,7 @@ namespace FrameworkTest.Business.SDMockCommit
                     datas.Add(data);
                     var isSuccess = context.FSService.CreatePregnantInfo(userInfo, mainId, datas, ref logger);
                     //这里的isSuccess不足以判断后续的成功
-                    pregnantInfo = context.FSService.GetPregnantInfo(userInfo, sourceData.IdCard, ref logger);
+                    pregnantInfo = context.FSService.GetBase8(userInfo, sourceData.IdCard, ref logger);
                     if (pregnantInfo == null)
                     {
                         syncOrder.SyncStatus = SyncStatus.Error;

@@ -10,7 +10,7 @@ namespace FrameworkTest.Common.PagerSolution
     public interface IQueriablePagedList
     {
         List<string> FieldNames { set; get; }
-        string GetWhereCondition();
+        //string GetWhereCondition();
         Dictionary<string, object> GetParams();
         string ToListSQL();
         string ToCountSQL();

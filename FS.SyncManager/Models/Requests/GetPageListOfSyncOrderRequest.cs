@@ -68,13 +68,29 @@ namespace FS.SyncManager.Models
             }
             return args;
         }
-        public string GetWhereCondition()
+        public string GetWhereCondition(SourceType sourceType)
         {
             if (wheres.Count == 0)
             {
-                if (!string.IsNullOrEmpty(PersonName))
+                switch (sourceType)
                 {
-                    wheres.Add($"pi.{nameof(PersonName)} Like @PersonName");
+                    case SourceType.None:
+                        break;
+                    case SourceType.PregnantInfo:
+                    case SourceType.MHC_VisitRecord:
+                        if (!string.IsNullOrEmpty(PersonName))
+                        {
+                            wheres.Add($"pi.PersonName Like @PersonName");
+                        }
+                        break;
+                    case SourceType.V_FWPT_GY_ZHUYUANFM:
+                        if (!string.IsNullOrEmpty(PersonName))
+                        {
+                            wheres.Add($"br.xingming Like @PersonName");
+                        }
+                        break;
+                    default:
+                        break;
                 }
                 if (!string.IsNullOrEmpty(SyncStatus))
                 {
@@ -103,17 +119,17 @@ from
 (
     select sall.id from SyncForFS sall
     left join PregnantInfo pi on sall.SourceType = 1 and sall.SourceId = pi.id
-    where sall.SourceType = 1 {GetWhereCondition()}
+    where sall.SourceType = 1 {GetWhereCondition(SourceType.PregnantInfo)}
     Union
     select sall.id from SyncForFS sall
     left join MHC_VisitRecord vr on sall.SourceType = 2 and sall.SourceId = vr.id
     left join PregnantInfo pi on vr.Idcard= pi.Idcard
-    where sall.SourceType = 2 {GetWhereCondition()}
+    where sall.SourceType = 2 {GetWhereCondition(SourceType.MHC_VisitRecord)}
     Union
     select sall.id from SyncForFS sall
     left join HELEESB.dbo.V_FWPT_GY_ZHUYUANFM fm on fm.inp_no = sall.SourceId
     left join HELEESB.dbo.V_FWPT_GY_BINGRENXXZY br on br.bingrenid = fm.inp_no
-    where sall.SourceType = 3 {GetWhereCondition()}
+    where sall.SourceType = 3 {GetWhereCondition(SourceType.V_FWPT_GY_ZHUYUANFM)}
 ) as T
 ";
         }
@@ -127,19 +143,19 @@ from
         select pi.PersonName,pi.Idcard,{string.Join(",", FieldNames.Select(c => "sall." + c))} 
         from SyncForFS sall
         left join PregnantInfo pi on sall.SourceType = 1 and sall.SourceId = pi.id
-        where sall.SourceType = 1 {GetWhereCondition()}
+        where sall.SourceType = 1 {GetWhereCondition(SourceType.PregnantInfo)}
         Union
         select pi.PersonName,pi.Idcard,{string.Join(",", FieldNames.Select(c => "sall." + c))} 
         from SyncForFS sall
         left join MHC_VisitRecord vr on sall.SourceType = 2 and sall.SourceId = vr.id
         left join PregnantInfo pi on vr.Idcard= pi.Idcard
-        where sall.SourceType = 2 {GetWhereCondition()}
+        where sall.SourceType = 2 {GetWhereCondition(SourceType.MHC_VisitRecord)}
         Union
         select br.xingming as PersonName,br.shenfenzh as Idcard,{string.Join(",", FieldNames.Select(c => "sall." + c))} 
         from SyncForFS sall
         left join HELEESB.dbo.V_FWPT_GY_ZHUYUANFM fm on fm.inp_no = sall.SourceId
         left join HELEESB.dbo.V_FWPT_GY_BINGRENXXZY br on br.bingrenid = fm.inp_no
-        where sall.SourceType = 3 {GetWhereCondition()}
+        where sall.SourceType = 3 {GetWhereCondition(SourceType.V_FWPT_GY_ZHUYUANFM)}
     ) as T
     {GetOrderCondition()}
     {GetLimitCondition()}

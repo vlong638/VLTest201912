@@ -78,6 +78,51 @@ namespace FrameworkTest.Business.SDMockCommit
             return resultBase.data.First();
         }
 
+        /// <summary>
+        /// 获取Base18 8项概要信息
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <param name="idCard"></param>
+        /// <param name="logger"></param>
+        /// <returns></returns>
+        internal WCQBJ_CZDH_DOCTOR_READData GetBase18(UserInfo userInfo, string idCard, ref StringBuilder logger)
+        {
+            var container = new CookieContainer();
+            var postData = "";
+            var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID={userInfo.UserId}&sParams=P${idCard}$P$P";
+            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var resultBase = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
+            logger.AppendLine($">>>查询 孕妇档案 Base8");
+            logger.AppendLine(url);
+            logger.AppendLine(result);
+            logger.AppendLine(resultBase.ToJson());
+            if (resultBase == null || resultBase.data == null || resultBase.data.Count == 0)
+                return null;
+            return resultBase.data.First();
+        }
+
+        /// <summary>
+        /// 获取Base 77 孕妇档案详情
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <param name="mainId"></param>
+        /// <param name="logger"></param>
+        /// <returns></returns>
+        internal WMH_CQBJ_JBXX_FORM_READData GetBase77(UserInfo userInfo, string mainId, ref StringBuilder logger)
+        {
+            var container = new CookieContainer();
+            var postData = "";
+            var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_READ&sUserID={userInfo.UserId}&sParams={mainId}";
+            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var resultBase = result.FromJson<WMH_CQBJ_JBXX_FORM_READResponse>();
+            logger.AppendLine($">>>查询 孕妇档案77项数据");
+            logger.AppendLine(result);
+            logger.AppendLine(resultBase.ToJson());
+            if (resultBase == null || resultBase.data == null || resultBase.data.Count == 0)
+                return null;
+            return resultBase.data.First();
+        }
+
         #endregion
 
         #region 孕妇档案
@@ -112,35 +157,6 @@ namespace FrameworkTest.Business.SDMockCommit
                 return true;
             }
             return false;
-        }
-
-        internal WMH_CQBJ_JBXX_FORM_READData GetBase77(UserInfo userInfo, string mainId, ref StringBuilder logger)
-        {
-            var container = new CookieContainer();
-            var postData = "";
-            var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_READ&sUserID={userInfo.UserId}&sParams={mainId}";
-            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
-            var resultBase = result.FromJson<WMH_CQBJ_JBXX_FORM_READResponse>();
-            logger.AppendLine($">>>查询 孕妇档案77项数据");
-            logger.AppendLine(result);
-            logger.AppendLine(resultBase.ToJson());
-            if (resultBase == null || resultBase.data == null || resultBase.data.Count == 0)
-                return null;
-            return resultBase.data.First();
-        }
-
-        internal WCQBJ_CZDH_DOCTOR_READData GetPregnantInfo(UserInfo userInfo, string idCard, ref StringBuilder logger)
-        {
-            var container = new CookieContainer();
-            var postData = "";
-            var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID={userInfo.UserId}&sParams=P${idCard}$P$P";
-            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
-            logger.AppendLine($">>>查询-获取孕妇档案");
-            logger.AppendLine(url);
-            logger.AppendLine(result);
-            var re = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
-            logger.AppendLine(re?.ToJson());
-            return re?.data?.FirstOrDefault();
         }
 
         /// <summary>

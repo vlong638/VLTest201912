@@ -37,7 +37,7 @@ namespace FrameworkTest.Business.SDMockCommit
             try
             {
                 //获取`基本信息概要`
-                var pregnantInfo = context.FSService.GetPregnantInfo(userInfo, sourceData.IdCard, ref logger);
+                var pregnantInfo = context.FSService.GetBase8(userInfo, sourceData.IdCard, ref logger);
                 if (pregnantInfo != null)//已存在 更新分支
                 {
                     logger.Append("用户数据已存在");
@@ -123,7 +123,7 @@ namespace FrameworkTest.Business.SDMockCommit
                     datas.Add(data);
                     var isSuccess = context.FSService.CreatePregnantInfo(userInfo, mainId, datas, ref logger);
                     //这里的isSuccess不足以判断后续的成功
-                    pregnantInfo = context.FSService.GetPregnantInfo(userInfo, sourceData.IdCard, ref logger);
+                    pregnantInfo = context.FSService.GetBase8(userInfo, sourceData.IdCard, ref logger);
                     if (pregnantInfo == null)
                     {
                         syncOrder.SyncStatus = SyncStatus.Error;
