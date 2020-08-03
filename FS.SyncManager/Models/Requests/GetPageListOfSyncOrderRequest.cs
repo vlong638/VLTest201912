@@ -70,44 +70,41 @@ namespace FS.SyncManager.Models
         }
         public string GetWhereCondition(SourceType sourceType)
         {
-            if (wheres.Count == 0)
+            wheres.Clear();
+            switch (sourceType)
             {
-                switch (sourceType)
-                {
-                    case SourceType.None:
-                        break;
-                    case SourceType.PregnantInfo:
-                    case SourceType.MHC_VisitRecord:
-                        if (!string.IsNullOrEmpty(PersonName))
-                        {
-                            wheres.Add($"pi.PersonName Like @PersonName");
-                        }
-                        break;
-                    case SourceType.V_FWPT_GY_ZHUYUANFM:
-                        if (!string.IsNullOrEmpty(PersonName))
-                        {
-                            wheres.Add($"br.xingming Like @PersonName");
-                        }
-                        break;
-                    default:
-                        break;
-                }
-                if (!string.IsNullOrEmpty(SyncStatus))
-                {
-                    if (SyncStatus=="99")
+                case SourceType.None:
+                    break;
+                case SourceType.PregnantInfo:
+                case SourceType.MHC_VisitRecord:
+                    if (!string.IsNullOrEmpty(PersonName))
                     {
-                        wheres.Add($"sall.{nameof(SyncStatus)} not in (2,11)");
+                        wheres.Add($"pi.PersonName Like @PersonName");
                     }
-                    else
+                    break;
+                case SourceType.V_FWPT_GY_ZHUYUANFM:
+                    if (!string.IsNullOrEmpty(PersonName))
                     {
-                        wheres.Add($"sall.{nameof(SyncStatus)} = @SyncStatus");
+                        wheres.Add($"br.xingming Like @PersonName");
                     }
-                }
-                if (TargetType != TargetType.None)
+                    break;
+                default:
+                    break;
+            }
+            if (!string.IsNullOrEmpty(SyncStatus))
+            {
+                if (SyncStatus == "99")
                 {
-                    wheres.Add($"sall.{nameof(TargetType)} = @TargetType");
+                    wheres.Add($"sall.{nameof(SyncStatus)} not in (2,11)");
                 }
-                
+                else
+                {
+                    wheres.Add($"sall.{nameof(SyncStatus)} = @SyncStatus");
+                }
+            }
+            if (TargetType != TargetType.None)
+            {
+                wheres.Add($"sall.{nameof(TargetType)} = @TargetType");
             }
             return wheres.Count == 0 ? "" : " and " + string.Join(" and ", wheres);
         }

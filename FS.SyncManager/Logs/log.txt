@@ -259,3 +259,72 @@ from (
 where br.chuyuanrqfixed>=@chuyuanrqfixedStart and br.chuyuanrqfixed<@chuyuanrqfixedEnd
 order by chuyuanrqfixed desc
 offset 0 rows fetch next 20 rows only
+获取`同步记录`分页列表:
+    select *
+    from  
+    (
+        select pi.PersonName,pi.Idcard,sall.Id,sall.SourceType,sall.SourceId,sall.SyncTime,sall.ErrorMessage,sall.SyncStatus,sall.TargetType 
+        from SyncForFS sall
+        left join PregnantInfo pi on sall.SourceType = 1 and sall.SourceId = pi.id
+        where sall.SourceType = 1  and sall.SyncStatus not in (2,11)
+        Union
+        select pi.PersonName,pi.Idcard,sall.Id,sall.SourceType,sall.SourceId,sall.SyncTime,sall.ErrorMessage,sall.SyncStatus,sall.TargetType 
+        from SyncForFS sall
+        left join MHC_VisitRecord vr on sall.SourceType = 2 and sall.SourceId = vr.id
+        left join PregnantInfo pi on vr.Idcard= pi.Idcard
+        where sall.SourceType = 2  and sall.SyncStatus not in (2,11)
+        Union
+        select br.xingming as PersonName,br.shenfenzh as Idcard,sall.Id,sall.SourceType,sall.SourceId,sall.SyncTime,sall.ErrorMessage,sall.SyncStatus,sall.TargetType 
+        from SyncForFS sall
+        left join HELEESB.dbo.V_FWPT_GY_ZHUYUANFM fm on fm.inp_no = sall.SourceId
+        left join HELEESB.dbo.V_FWPT_GY_BINGRENXXZY br on br.bingrenid = fm.inp_no
+        where sall.SourceType = 3  and sall.SyncStatus not in (2,11)
+    ) as T
+    order by Id desc
+    offset 0 rows fetch next 20 rows only
+获取`同步记录`分页列表:
+    select *
+    from  
+    (
+        select pi.PersonName,pi.Idcard,sall.Id,sall.SourceType,sall.SourceId,sall.SyncTime,sall.ErrorMessage,sall.SyncStatus,sall.TargetType 
+        from SyncForFS sall
+        left join PregnantInfo pi on sall.SourceType = 1 and sall.SourceId = pi.id
+        where sall.SourceType = 1  and pi.PersonName Like @PersonName and sall.SyncStatus not in (2,11)
+        Union
+        select pi.PersonName,pi.Idcard,sall.Id,sall.SourceType,sall.SourceId,sall.SyncTime,sall.ErrorMessage,sall.SyncStatus,sall.TargetType 
+        from SyncForFS sall
+        left join MHC_VisitRecord vr on sall.SourceType = 2 and sall.SourceId = vr.id
+        left join PregnantInfo pi on vr.Idcard= pi.Idcard
+        where sall.SourceType = 2  and pi.PersonName Like @PersonName and sall.SyncStatus not in (2,11)
+        Union
+        select br.xingming as PersonName,br.shenfenzh as Idcard,sall.Id,sall.SourceType,sall.SourceId,sall.SyncTime,sall.ErrorMessage,sall.SyncStatus,sall.TargetType 
+        from SyncForFS sall
+        left join HELEESB.dbo.V_FWPT_GY_ZHUYUANFM fm on fm.inp_no = sall.SourceId
+        left join HELEESB.dbo.V_FWPT_GY_BINGRENXXZY br on br.bingrenid = fm.inp_no
+        where sall.SourceType = 3  and pi.PersonName Like @PersonName and sall.SyncStatus not in (2,11)
+    ) as T
+    order by Id desc
+    offset 0 rows fetch next 20 rows only
+获取`同步记录`分页列表:
+    select *
+    from  
+    (
+        select pi.PersonName,pi.Idcard,sall.Id,sall.SourceType,sall.SourceId,sall.SyncTime,sall.ErrorMessage,sall.SyncStatus,sall.TargetType 
+        from SyncForFS sall
+        left join PregnantInfo pi on sall.SourceType = 1 and sall.SourceId = pi.id
+        where sall.SourceType = 1  and pi.PersonName Like @PersonName and sall.SyncStatus not in (2,11)
+        Union
+        select pi.PersonName,pi.Idcard,sall.Id,sall.SourceType,sall.SourceId,sall.SyncTime,sall.ErrorMessage,sall.SyncStatus,sall.TargetType 
+        from SyncForFS sall
+        left join MHC_VisitRecord vr on sall.SourceType = 2 and sall.SourceId = vr.id
+        left join PregnantInfo pi on vr.Idcard= pi.Idcard
+        where sall.SourceType = 2  and pi.PersonName Like @PersonName and sall.SyncStatus not in (2,11)
+        Union
+        select br.xingming as PersonName,br.shenfenzh as Idcard,sall.Id,sall.SourceType,sall.SourceId,sall.SyncTime,sall.ErrorMessage,sall.SyncStatus,sall.TargetType 
+        from SyncForFS sall
+        left join HELEESB.dbo.V_FWPT_GY_ZHUYUANFM fm on fm.inp_no = sall.SourceId
+        left join HELEESB.dbo.V_FWPT_GY_BINGRENXXZY br on br.bingrenid = fm.inp_no
+        where sall.SourceType = 3  and pi.PersonName Like @PersonName and sall.SyncStatus not in (2,11)
+    ) as T
+    order by Id desc
+    offset 0 rows fetch next 20 rows only
