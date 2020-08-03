@@ -37,13 +37,47 @@ namespace FrameworkTest.Business.SDMockCommit
             try
             {
                 //获取`基本信息概要`
-                var pregnantInfo = context.FSService.GetBase8(userInfo, sourceData.IdCard, ref logger);
-                if (pregnantInfo != null)//已存在 更新分支
+                var base8 = context.FSService.GetBase8(userInfo, sourceData.IdCard, ref logger);
+                if (base8 != null)//已存在 更新分支
                 {
-                    logger.Append("用户数据已存在");
-                    syncOrder.SyncStatus = SyncStatus.Existed;
-                    context.PregnantService.SaveSyncOrder(syncOrder);
-                    return;
+                    var base18 = context.FSService.GetBase18(userInfo, sourceData.IdCard, ref logger);
+                    if (base18 == null)
+                    {
+                        logger.Append("用户数据已存在");
+                        syncOrder.SyncStatus = SyncStatus.Existed;
+                        syncOrder.ErrorMessage = "无`base18`数据";
+                        context.PregnantService.SaveSyncOrder(syncOrder);
+                        return;
+                    }
+                    else
+                    {
+                        var lastmenstrualperiod1 = sourceData.Data.lastmenstrualperiod;
+                        var lastmenstrualperiod2 = base18.D4.ToDateTime();
+                        if (lastmenstrualperiod1.HasValue && lastmenstrualperiod2.HasValue)
+                        {
+                            if (lastmenstrualperiod1.Value.Date!= lastmenstrualperiod2.Value.Date)
+                            {
+                                syncOrder.SyncStatus = SyncStatus.Conflict;
+                                syncOrder.ErrorMessage = SyncStatus.Conflict.GetDescription();
+                                context.PregnantService.SaveSyncOrder(syncOrder);
+                                return;
+                            }
+                            else
+                            {
+                                syncOrder.SyncStatus = SyncStatus.Existed;
+                                syncOrder.ErrorMessage = SyncStatus.Existed.GetDescription();
+                                context.PregnantService.SaveSyncOrder(syncOrder);
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            syncOrder.SyncStatus = SyncStatus.Existed;
+                            syncOrder.ErrorMessage = "无`预产期`数据";
+                            context.PregnantService.SaveSyncOrder(syncOrder);
+                            return;
+                        }
+                    }
                 }
                 else //新建分支
                 {
@@ -123,8 +157,8 @@ namespace FrameworkTest.Business.SDMockCommit
                     datas.Add(data);
                     var isSuccess = context.FSService.CreatePregnantInfo(userInfo, mainId, datas, ref logger);
                     //这里的isSuccess不足以判断后续的成功
-                    pregnantInfo = context.FSService.GetBase8(userInfo, sourceData.IdCard, ref logger);
-                    if (pregnantInfo == null)
+                    base8 = context.FSService.GetBase8(userInfo, sourceData.IdCard, ref logger);
+                    if (base8 == null)
                     {
                         syncOrder.SyncStatus = SyncStatus.Error;
                         syncOrder.ErrorMessage = "基本数据未成功创建";

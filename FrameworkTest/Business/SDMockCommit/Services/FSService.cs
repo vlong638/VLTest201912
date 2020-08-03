@@ -79,20 +79,20 @@ namespace FrameworkTest.Business.SDMockCommit
         }
 
         /// <summary>
-        /// 获取Base18 8项概要信息
+        /// 获取 Base18 18项概要信息
         /// </summary>
         /// <param name="userInfo"></param>
         /// <param name="idCard"></param>
         /// <param name="logger"></param>
         /// <returns></returns>
-        internal WCQBJ_CZDH_DOCTOR_READData GetBase18(UserInfo userInfo, string idCard, ref StringBuilder logger)
+        internal WMH_WCQBJ_CZDH_JBXX_READ_Data GetBase18(UserInfo userInfo, string mainId, ref StringBuilder logger)
         {
             var container = new CookieContainer();
             var postData = "";
-            var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID={userInfo.UserId}&sParams=P${idCard}$P$P";
+            var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_WCQBJ_CZDH_JBXX_READ&sUserID={userInfo.UserId}&sParams={mainId}${userInfo.OrgId}";
             var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
-            var resultBase = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
-            logger.AppendLine($">>>查询 孕妇档案 Base8");
+            var resultBase = result.FromJson<WMH_WCQBJ_CZDH_JBXX_READ>();
+            logger.AppendLine($">>>查询 Base18");
             logger.AppendLine(url);
             logger.AppendLine(result);
             logger.AppendLine(resultBase.ToJson());
