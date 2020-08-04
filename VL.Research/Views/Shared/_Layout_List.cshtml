@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" src="../../../assets/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../../../assets/layui/layui.js"></script>
+    <script type="text/javascript" src="../../../assets/js/render_layui.js"></script>
+    <script type="text/javascript" src="../../../assets/js/common.js"></script>
+    <link rel="stylesheet" href="../assets/layui/css/layui.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            justify-items: center;
+            align-content: center;
+            align-items: center;
+        }
+
+        .layui-table-tool {
+            background-color: white !important;
+        }
+
+        thead > tr {
+            background-color: #E7F4F8 !important;
+        }
+
+        th > .layui-table-cell > span {
+            font-weight: bold !important;
+        }
+
+        td, th {
+            border: none !important;
+        }
+
+        div[lay-id="dataTable"] {
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    @RenderBody()
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

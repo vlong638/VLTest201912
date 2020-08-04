@@ -154,6 +154,83 @@ namespace VL.Research.Controllers
                 return Error(serviceResult.Data, serviceResult.Messages);
             return Success(serviceResult.Data);
         }
+
+        /// <summary>
+        /// 获取 列表配置(当前用户)
+        /// </summary>
+        /// <param name="userService"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public APIResult<List<MenuItem>> GetAllListMenu([FromServices] UserService userService)
+        {
+            return Success(DefaultMenuItems);
+
+            //var userId = GetCurrentUser().UserId;
+            //var serviceResult = userService.GetUserMenus(userId);
+            //if (!serviceResult.IsSuccess)
+            //    return Error(DefaultMenuItems, serviceResult.Messages);
+            //var menuItems = DefaultMenuItems.Select(c => c).ToList();
+            //menuItems.AddRange(serviceResult.Data.Select(c=>new MenuItem(ser)))
+
+            //return Success(serviceResult.Data);
+        }
+
+        static List<MenuItem> DefaultMenuItems = new List<MenuItem>()
+        {
+            new MenuItem("1","","业务列表","",""),
+            new MenuItem("11","1","孕妇档案","","../Home/PregnantInfoList"),
+            new MenuItem("2","","自定义查询","",""),
+            new MenuItem("3","","账户管理","",""),
+            new MenuItem("31","3","用户管理","",""),
+            new MenuItem("32","3","角色管理","",""),
+            new MenuItem("4","","个人中心","",""),
+            new MenuItem("41","4","修改密码","",""),
+        };
+
+        /// <summary>
+        /// 页面菜单
+        /// </summary>
+        public class MenuItem {
+
+            /// <summary>
+            /// /
+            /// </summary>
+            /// <param name="id"></param>
+            /// <param name="parentId"></param>
+            /// <param name="text"></param>
+            /// <param name="icon"></param>
+            /// <param name="url"></param>
+            public MenuItem(string id, string parentId, string text, string icon, string url)
+            {
+                this.id = id;
+                this.parentId = parentId;
+                this.text = text;
+                this.icon = icon;
+                this.url = url;
+            }
+
+            /// <summary>
+            /// 节点Id
+            /// </summary>
+            public string id { set; get; }
+            /// <summary>
+            /// 上级节点id
+            /// </summary>
+            public string parentId { set; get; }
+            /// <summary>
+            /// 显示文本
+            /// </summary>
+            public string text { set; get; }
+            /// <summary>
+            /// 图标
+            /// </summary>
+            public string icon { set; get; }
+            /// <summary>
+            /// 跳转链接
+            /// </summary>
+            public string url { set; get; }
+        }
+
         #endregion
     }
 }

@@ -1,3 +1,67 @@
+jQuery.prototype.renderList = function (_data, _layui) {
+    const _this = this;
+    const $ = _layui.jquery,
+        index = _layui.index;
+    let html = ``;
+    _this.html("");
+
+    let list = [];
+    $.each(_data, function (index, item) {
+        if (isBlank(item.parentId)) {
+            let node_1 = item;
+            node_1.childrenNode = [];
+            $.each(_data, function (_index, _item) {
+                if (_item.parentId === item.id) {
+                    let node_2 = _item;
+                    node_2.childrenNode = [];
+                    $.each(_data, function (_index_, _item_) {
+                        if (_item_.parentId === _item.id) {
+                            node_2.childrenNode.push(_item_);
+                        }
+                    });
+                    node_1.childrenNode.push(node_2);
+                }
+            });
+            list.push(node_1)
+        }
+    })
+
+    // console.log(list);
+
+    html = ``;
+    $.each(list, function (index, item) {
+        html += `
+            <li class="layui-nav-item">
+                <a style="color: black !important;"><i class="layui-icon" style="color: black !important;">` + item.icon + `</i>&emsp;<cite>` + item.text + `</cite></a>`
+        $.each(item.childrenNode, function (_index, _item) {
+            if (_index === 0) {
+                html += `<dl class="layui-nav-child" style="background-color: #DFE1E7 !important;">`;
+            }
+            if (!isBlank(_item.url)) {
+                html += `<dd><a lay-href="` + _item.url + `" style="color: black;">` + _item.text + `</a></dd>`;
+            } else {
+                html += `<dd><a style="color: black !important;">` + _item.text + `</a>`;
+                $.each(_item.childrenNode, function (_index_, _item_) {
+                    if (_index_ === 0) {
+                        html += `<dl class="layui-nav-child" style="background-color: #D4D6DB !important;">`;
+                    }
+                    html += `<dd><a lay-href="` + _item_.url + `" style="color: black;">` + _item_.text + `</a></dd>`;
+                    if (_index_ === _item.childrenNode.length) {
+                        html += `</dl>`;
+                    }
+                });
+                html += `</dd>`;
+            }
+            if (_index === item.childrenNode.length) {
+                html += `</dl>`;
+            }
+        })
+        html += `</li>`;
+    })
+
+    _this.append(html);
+}
+
 jQuery.prototype.renderTable = function (_data, _layui, _parent) {
     const _this = this;
     const $ = _layui.jquery,
@@ -60,7 +124,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
         })
         html += `
         <div class="layui-inline">&emsp;
-            <button class="layui-btn icon-btn" lay-filter="tbSearch" lay-submit>
+            <button class="layui-btn icon-btn" lay-filter="tbSearch" lay-submit style="background-color: #30ABC9 !important;">
                 <i class="layui-icon">&#xe615;</i>搜索
             </button>
         </div>`
@@ -125,13 +189,13 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
 
     let THToolbar = ['<p>']
     if (!isBlank(_data.table.add_btn)) {
-        THToolbar.push('<button lay-event="add" data-url="' + _data.table.add_btn.url +'" data-type="' + _data.table.add_btn.type + '" class="layui-btn layui-btn-sm icon-btn"><i class="layui-icon">&#xe654;</i>' + _data.table.add_btn.text + '</button>&nbsp;')
+        THToolbar.push('<button style="background-color: #30ABC9 !important;" lay-event="add" data-url="' + _data.table.add_btn.url + '" data-type="' + _data.table.add_btn.type + '" class="layui-btn layui-btn-sm icon-btn"><i class="layui-icon">&#xe654;</i>' + _data.table.add_btn.text + '</button>&nbsp;')
     }
     THToolbar.push('</p>')
-        /*['<p>',
-        '<button lay-event="add" class="layui-btn layui-btn-sm icon-btn"><i class="layui-icon">&#xe654;</i>添加</button>&nbsp;',
-        // '<button lay-event="del" class="layui-btn layui-btn-sm layui-btn-danger icon-btn"><i class="layui-icon">&#xe640;</i>删除</button>',
-        '</p>']*/
+    /*['<p>',
+    '<button lay-event="add" class="layui-btn layui-btn-sm icon-btn"><i class="layui-icon">&#xe654;</i>添加</button>&nbsp;',
+    // '<button lay-event="del" class="layui-btn layui-btn-sm layui-btn-danger icon-btn"><i class="layui-icon">&#xe640;</i>删除</button>',
+    '</p>']*/
     // 表格渲染
     let dataTable = _layui.table.render({
         elem: '#dataTable',
@@ -317,68 +381,183 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
     }
 }
 
-jQuery.prototype.renderList = function (_data, _layui) {
+jQuery.prototype.renderForm = function (_data, _layui, _parent) {
     const _this = this;
     const $ = _layui.jquery,
-        index = _layui.index;
-    let html = ``;
-    _this.html("");
+        layer = _layui.layer,
+        form = _layui.form,
+        table = _layui.table,
+        laydate = _layui.laydate,
+        index = _parent.index,
+        util = _layui.util,
+        admin = _layui.admin,
+        xmSelect = _layui.xmSelect;
 
-    let list = [];
-    $.each(_data, function (index, item) {
-        if (isBlank(item.parentId)) {
-            let node_1 = item;
-            node_1.childrenNode = [];
-            $.each(_data, function (_index, _item) {
-                if (_item.parentId === item.id) {
-                    let node_2 = _item;
-                    node_2.childrenNode = [];
-                    $.each(_data, function (_index_, _item_) {
-                        if (_item_.parentId === _item.id) {
-                            node_2.childrenNode.push(_item_);
+    _this.html("")
+    let html = ``;
+    $.each(_data, function (index, card) {
+        html += `
+            <div class="layui-card">
+                <div class="layui-card-header">` + card.text + `</div>
+                    <div class="layui-card-body">`;
+        if (!card.isTextArea) {
+            $.each(card.rows, function (index, row) {
+                html += `<div class="layui-form-item layui-row" >`;
+                $.each(row, function (index, item) {
+                    switch (item.type) {
+                        case 1: {
+                            html += `
+                            <div class="layui-inline layui-col-md` + item.column + `">
+                                <label class="layui-form-label` + (item.required ? ' layui-form-required' : '') + `">` + item.text + `:</label>
+                                <div class="layui-input-block">
+                                    <input name="` + item.param + `" class="layui-input"` + (item.required ? ' lay-verify="required" required' : '') + `
+                                        value="` + item.value + `"/>
+                                </div>
+                            </div>`;
+                            break;
                         }
-                    });
-                    node_1.childrenNode.push(node_2);
-                }
+                        case 2: {
+                            if (item.range) {
+                                html += `
+                                <div class="layui-inline layui-col-md` + item.column + `">
+                                    <label class="layui-form-label` + (item.required ? ' layui-form-required' : '') + `">` + item.text + `:</label>
+                                    <div class="layui-input-block" style="text-align: center;line-height: 36px">
+                                        <input name="` + item.param[0] + `" class="layui-input" type="number" style="width: 45%;display: inline-block;float: left;"
+                                            ` + (item.required ? ' lay-verify="required" required' : '') + `value="` + item.value[0] + `"/>
+                                            -
+                                        <input name="` + item.param[1] + `" class="layui-input" type="number" style="width: 45%;display: inline-block;float: right;"
+                                        ` + (item.required ? ' lay-verify="required" required' : '') + `value="` + item.value[1] + `"/>
+                                    </div>
+                                </div>`;
+                            } else {
+                                html += `
+                                <div class="layui-inline layui-col-md` + item.column + `">
+                                    <label class="layui-form-label` + (item.required ? ' layui-form-required' : '') + `">` + item.text + `:</label>
+                                    <div class="layui-input-block">
+                                        <input name="` + item.param + `" class="layui-input" type="number" value="` + item.value + `"
+                                            ` + (item.required ? ' lay-verify="required" required' : '') + `/>
+                                    </div>
+                                </div>`;
+                            }
+                            break;
+                        }
+                        case 3: {
+                            html += `
+                            <div class="layui-inline layui-col-md` + item.column + `">
+                                <label class="layui-form-label` + (item.required ? ' layui-form-required' : '') + `">` + item.text + `:</label>
+                                <div class="layui-input-block">
+                                    <select name="` + item.param + `" ` + (item.required ? ' lay-verify="required" required' : '') + `>
+                                        <option value="">请选择</option>`;
+                            $.each(item.value, function (index, option) {
+                                html += `<option value="` + option.value + `" ` + (option.checked ? 'selected' : '') + `>` + option.text + `</option>`
+                            })
+                            html += `
+                                    </select>
+                                </div>
+                            </div>`;
+                            break;
+                        }
+                        case 4: {
+                            html += `
+                            <div class="layui-inline layui-col-md` + item.column + `">
+                                <label class="layui-form-label` + (item.required ? ' layui-form-required' : '') + `">` + item.text + `:</label>
+                                <div class="layui-input-block">`;
+                            $.each(item.value, function (index, option) {
+                                html += `<input type="radio" name="` + item.param + `" value="` + option.value + `" lay-skin="primary" title="` + option.text + `"` + (option.checked ? 'checked=""' : '') + `>`
+                            })
+                            html += `</div></div>`;
+                            break;
+                        }
+                        case 5: {
+                            html += `
+                            <div class="layui-inline layui-col-md` + item.column + `">
+                                <label class="layui-form-label` + (item.required ? ' layui-form-required' : '') + `">` + item.text + `:</label>
+                                <div class="layui-input-block">`;
+                            $.each(item.value, function (index, option) {
+                                html += `<input type="checkbox" name="` + item.param + `[` + option.value + `]" lay-skin="primary" title="` + option.text + `"` + (option.checked ? ' checked=""' : '') + `>`
+                            })
+                            html += `</div></div>`;
+                            break;
+                        }
+                        case 6: {
+                            html += `
+                            <div class="layui-inline layui-col-md` + item.column + `">
+                                <label class="layui-form-label` + (item.required ? ' layui-form-required' : '') + `">` + item.text + `:</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="` + item.param + `" lay-skin="switch" lay-text="是|否"` + (item.value ? ' checked=""' : '') + `>
+                                </div>
+                            </div>`;
+                            break;
+                        }
+                        case 7: {
+                            html += `
+                            <div class="layui-inline layui-col-md` + item.column + `">
+                                <label class="layui-form-label` + (item.required ? ' layui-form-required' : '') + `">` + item.text + `:</label>
+                                <div class="layui-input-block">
+                                    <input name="` + item.param + `" class="layui-input icon-date` + (item.range ? ' rangeDate' : ' datepicker') + `" autocomplete="off"
+                                           ` + (item.required ? ' lay-verify="required" required' : '') + ` value="` + item.value + `"/>
+                                </div>
+                            </div>`;
+                            break;
+                        }
+                        case 8: {
+                            html += `
+                            <div class="layui-inline layui-col-md` + item.column + `">
+                                <label class="layui-form-label` + (item.required ? ' layui-form-required' : '') + `">` + item.text + `:</label>
+                                <div class="layui-input-block">
+                                    <textarea rows="2" name="` + item.param + `" class="layui-input"` + (item.required ? ' lay-verify="required" required' : '') + `
+                                        style="resize: none;padding-top: 10px;height: ` + (item.lineNum === null || item.lineNum === 0 ? 1 : item.lineNum) * 38 + `px"
+                                        data-defaultValue="` + item.value + `"/>
+                                </div>
+                            </div>`;
+                            break;
+                        }
+                    }
+                });
+                html += `</div>`;
             });
-            list.push(node_1)
+        } else {
+            html += `
+                <div class="layui-form-item layui-row">
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label` + (card.areaRequired ? ' layui-form-required' : '') + `">` + card.areaText + `:</label>
+                        <div class="layui-input-block">
+                            <textarea rows="2" name="` + card.areaParam + `" class="layui-input"` + (card.areaRequired ? ' lay-verify="required" required' : '') + `
+                                 style="resize: none;padding-top: 10px;height: ` + (card.lineNum === null || card.lineNum === 0 ? 1 : card.lineNum) * 38 + `px"/>
+                        </div>
+                    </div>
+                </div>`
+        }
+        html += `</div></div></div>`
+    })
+    // console.log(html);
+    _this.append(html);
+
+    layui.form.render();
+
+    $("textarea").each(function () {
+        if ($(this).attr("data-defaultValue") !== null) {
+            $(this).val($(this).attr("data-defaultValue"))
         }
     })
 
-    // console.log(list);
-
-    html = ``;
-    $.each(list, function (index, item) {
-        html += `
-            <li class="layui-nav-item">
-                <a><i class="layui-icon">` + item.icon + `</i>&emsp;<cite>` + item.text + `</cite></a>`
-        $.each(item.childrenNode, function (_index, _item) {
-            if (_index === 0) {
-                html += `<dl class="layui-nav-child">`;
-            }
-            if (!isBlank(_item.url)) {
-                html += `<dd><a lay-href="` + _item.url + `">` + _item.text + `</a></dd>`;
-            } else {
-                html += `<dd><a>` + _item.text + `</a>`;
-                $.each(_item.childrenNode, function (_index_, _item_) {
-                    if (_index_ === 0) {
-                        html += `<dl class="layui-nav-child">`;
-                    }
-                    html += `<dd><a lay-href="` + _item_.url + `">` + _item_.text + `</a></dd>`;
-                    if (_index_ === _item.childrenNode.length) {
-                        html += `</dl>`;
-                    }
-                });
-                html += `</dd>`;
-            }
-            if (_index === item.childrenNode.length) {
-                html += `</dl>`;
-            }
-        })
-        html += `</li>`;
+    $('.datepicker').each(function () {
+        laydate.render({
+            elem: this,
+            type: 'date',
+            trigger: 'click'
+        });
     })
 
-    _this.append(html);
+    $('.rangeDate').each(function () {
+        laydate.render({
+            elem: this,
+            type: 'date',
+            range: true,
+            trigger: 'click'
+        });
+    })
+
 }
 
 function isBlank(s) {

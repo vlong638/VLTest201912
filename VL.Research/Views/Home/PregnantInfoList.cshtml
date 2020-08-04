@@ -1,0 +1,15 @@
+﻿@{
+    Layout = "../Shared/_Layout_List.cshtml";
+    ViewBag.Title = "列表";
+}
+<div id="root" class="layui-fluid" style="padding: 15px;width: 100%;"></div>
+<script type="text/javascript">
+    layui.use(['layer', 'form', 'table', 'util', 'laydate'], function () {
+        const $ = layui.jquery;
+        sendAjax('get', '../../assets/json/test.json', {}, function (res) {
+            if (res.code === 200) {
+                $('#root').renderTable(res.data, layui, parent.layui);
+            }
+        });
+    });
+</script>

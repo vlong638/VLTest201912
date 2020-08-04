@@ -16,7 +16,9 @@
             background-color: #30ABC9 !important;
             color: white !important;
         }
-
+        .layui-laypage-em {
+            background-color: #30ABC9 !important;
+        }
 
         /*body {
             display: flex;
@@ -124,17 +126,15 @@
         layui.use(['index', 'element'], function () {
             var $ = layui.jquery;
             var index = layui.index;
-
             sendAjax('get', '../api/System/GetAllListMenu', {}, function (res) {
                 if (res.code === 200) {
                     $('#admin-side-nav').renderList(res.data, layui);
                     layui.element.init();
                 }
             });
-
             // 默认加载主页
             index.loadHome({
-                menuPath: 'console/workplace.html',
+                menuPath: '../Home/PregnantInfoList',
                 menuName: '<i class="layui-icon layui-icon-home"></i>'
             });
         });

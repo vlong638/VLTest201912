@@ -13,25 +13,25 @@ namespace VL.Consolo_Core.Common.ControllerSolution
 
         public APIResult(params string[] messages)
         {
-            Code = SuccessCode;
+            code = SuccessCode;
             if (messages != null & messages.Length != 0)
-                Message = string.Join(",", messages);
+                msg = string.Join(",", messages);
         }
         public APIResult(int code, params string[] messages)
         {
-            Code = code;
+            this.code = code;
             if (messages != null & messages.Length != 0)
-                Message = string.Join(",", messages);
+                msg = string.Join(",", messages);
         }
 
         /// <summary>
         /// 信息
         /// </summary>
-        public string Message { set; get; }
+        public string msg { set; get; }
         /// <summary>
         /// 状态码
         /// </summary>
-        public int Code { set; get; }
+        public int code { set; get; }
         /// <summary>
         /// 是否成功
         /// 诸如以下的业务异常
@@ -39,7 +39,7 @@ namespace VL.Consolo_Core.Common.ControllerSolution
         /// 诸如以下的组件异常
         /// false case: 比如服务层返回异常(如服务层校验未通过,出现事务回滚异常)
         /// </summary>
-        public bool IsValidated { get { return Code == 200; } }
+        public bool IsValidated { get { return code == 200; } }
     }
     /// <summary>
     /// Controller层返回结构
@@ -55,7 +55,7 @@ namespace VL.Consolo_Core.Common.ControllerSolution
         /// <param name="messages"></param>
         public APIResult(T data, int code, params string[] messages) : base(code, messages)
         {
-            Data = data;
+            this.data = data;
         }
         /// <summary>
         /// 
@@ -64,12 +64,12 @@ namespace VL.Consolo_Core.Common.ControllerSolution
         /// <param name="messages"></param>
         public APIResult(T data, params string[] messages) : base(messages)
         {
-            Data = data;
+            this.data = data;
         }
 
         /// <summary>
         /// 数据
         /// </summary>
-        public T Data { set; get; }
+        public T data { set; get; }
     }
 }
