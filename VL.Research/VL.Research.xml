@@ -66,23 +66,10 @@
             
             </summary>
         </member>
-        <member name="P:VL.Research.Common.APIContext.DbGroup">
-            <summary>
-            
-            </summary>
-        </member>
         <member name="M:VL.Research.Common.APIContext.#ctor(Microsoft.Extensions.Options.IOptions{VL.Research.Common.Configuration.DBConfig})">
             <summary>
             
             </summary>
-        </member>
-        <member name="M:VL.Research.Common.APIContext.DelegateTransaction``1(System.Func{VL.Consolo_Core.Common.DBSolution.DbGroup,``0})">
-            <summary>
-            扩展事务(服务层)通用处理
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="exec"></param>
-            <returns></returns>
         </member>
         <member name="P:VL.Research.Common.DBViewConfig.TableName">
             <summary>
@@ -329,22 +316,6 @@
             
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.AccountController.Login(System.String)">
-            <summary>
-            
-            </summary>
-            <param name="returnUrl"></param>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Research.Controllers.AccountController.Login(VL.Research.Services.UserService,VL.Research.Models.LoginViewModel,System.String)">
-            <summary>
-            
-            </summary>
-            <param name="UserService"></param>
-            <param name="model"></param>
-            <param name="returnUrl"></param>
-            <returns></returns>
-        </member>
         <member name="T:VL.Research.Controllers.APIBaseController">
             <summary>
             
@@ -388,6 +359,22 @@
             </summary>
             <param name="path"></param>
             <param name="fileName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.HomeController.Login(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="returnUrl"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.HomeController.Login(VL.Research.Services.UserService,VL.Research.Models.LoginViewModel,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="userService"></param>
+            <param name="model"></param>
+            <param name="returnUrl"></param>
             <returns></returns>
         </member>
         <member name="M:VL.Research.Controllers.HomeController.PregnantInfoList">
@@ -1006,10 +993,39 @@
             
             </summary>
         </member>
-        <member name="M:VL.Research.Services.UserService.#ctor(VL.Consolo_Core.Common.DBSolution.DbContext)">
+        <member name="M:VL.Research.Services.UserService.#ctor(VL.Research.Common.APIContext)">
             <summary>
             
             </summary>
+        </member>
+        <member name="T:VL.Research.Startup">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VL.Research.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            
+            </summary>
+            <param name="configuration"></param>
+        </member>
+        <member name="P:VL.Research.Startup.Configuration">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VL.Research.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This method gets called by the runtime. Use this method to add services to the container.
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:VL.Research.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
         </member>
         <member name="T:VLTest2015.Common.IMySession">
             <summary>

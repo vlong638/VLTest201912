@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using VL.Consolo_Core.Common.DBSolution;
 using VL.Consolo_Core.Common.ServiceSolution;
+using VL.Research.Common;
 using VL.Research.Common.Configuration;
 using VL.Research.Models;
 using VL.Research.Repositories;
@@ -27,7 +28,7 @@ namespace VL.Research.Services
         /// <summary>
         /// 
         /// </summary>
-        public UserService(DbContext dbContext)
+        public UserService(APIContext dbContext)
         {
             this.dbContext = dbContext;
             userRepository = new UserRepository(dbContext);

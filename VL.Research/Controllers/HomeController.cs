@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
@@ -11,6 +12,7 @@ using System.Xml.Linq;
 using VL.Consolo_Core.Common.FileSolution;
 using VL.Research.Common;
 using VL.Research.Models;
+using VL.Research.Services;
 
 namespace VL.Research.Controllers
 {
@@ -35,6 +37,72 @@ namespace VL.Research.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
+        [AllowAnonymous]
+        public ActionResult Login(string returnUrl)
+        {
+            ViewBag.ReturnUrl = returnUrl;
+            return View();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userService"></param>
+        /// <param name="model"></param>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult Login([FromServices] UserService userService, LoginViewModel model, string returnUrl)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            // 这不会计入到为执行帐户锁定而统计的登录失败次数中
+            // 若要在多次输入错误密码的情况下触发帐户锁定，请更改为 shouldLockout: true
+            var result = userService.PasswordSignIn(model.UserName, model.Password, false);
+            if (result.IsSuccess)
+            {
+                var user = result.Data;
+                var authorityIds = userService.GetAllUserAuthorityIds(result.Data.Id).Data;
+
+                #region 登录缓存处理
+
+                //SetCurrentUser(new CurrentUser()
+                //{
+                //    UserId = user.Id,
+                //    UserName = user.Name,
+                //    AuthorityIds = authorityIds.ToList(),
+                //});
+
+                #endregion
+
+                return RedirectToLocal(returnUrl);
+            }
+            else
+            {
+                switch (result.Code)
+                {
+                    case (int)SignInStatus.LockedOut:
+                        return View("Lockout");
+                    case (int)SignInStatus.RequiresVerification:
+                        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    case (int)SignInStatus.Failure:
+                    default:
+                        ModelState.AddModelError("", string.Join(",", result.Messages));
+                        return View(model);
+                }
+            }
         }
 
         /// <summary>
