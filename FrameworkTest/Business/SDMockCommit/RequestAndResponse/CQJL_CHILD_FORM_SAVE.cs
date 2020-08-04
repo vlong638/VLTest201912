@@ -126,7 +126,7 @@ namespace FrameworkTest.Business.SDMockCommit
             //默认``
             this.D27 = ""; //:"2020-07-23 10:38", 乙肝疫苗注射时间 需做格式修正
             this.D28 = string.IsNullOrEmpty(sourceData.SourceData.WYData) ? "" : sourceData.SourceData.WYData.Contains("母乳") ? "1" : "2";
-            this.D29 = sourceData.SourceData.mypfzjcdata?.Contains("有") == true ? "1" : "";//:"2", 母乳喂养早接触
+            this.D29 = sourceData.SourceData.mypfzjcdata?.Contains("有") == true ? "1" : (sourceData.SourceData.mypfzjcdata?.Contains("无") == true ? "2" : "");//:"2", 母乳喂养早接触
             //尚不对接疫苗
             //默认``
             this.D30 = ""; //:"2020-07-24 10:34", 乙肝免疫球蛋白接种时间  需做格式修正

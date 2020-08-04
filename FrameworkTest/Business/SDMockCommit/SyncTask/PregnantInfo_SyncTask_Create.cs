@@ -55,7 +55,7 @@ namespace FrameworkTest.Business.SDMockCommit
                         var lastmenstrualperiod2 = base18.D4.ToDateTime();
                         if (lastmenstrualperiod1.HasValue && lastmenstrualperiod2.HasValue)
                         {
-                            if (lastmenstrualperiod1.Value.Date!= lastmenstrualperiod2.Value.Date)
+                            if (lastmenstrualperiod1.Value.Date != lastmenstrualperiod2.Value.Date)
                             {
                                 syncOrder.SyncStatus = SyncStatus.Conflict;
                                 syncOrder.ErrorMessage = SyncStatus.Conflict.GetDescription();
