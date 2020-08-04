@@ -1,0 +1,119 @@
+{
+  "code": 200,
+  "msg": "",
+  "data":{
+    "search": [
+      {
+        "name": "name",
+        "text": "姓名",
+        "type": 1,
+        "value": "姓名"
+      },{
+        "name": "age",
+        "text": "年龄",
+        "type": 2,
+        "value": "20"
+      },{
+        "name": "sex",
+        "text": "性别",
+        "type": 3,
+        "value": [
+          {
+            "name": "男",
+            "value": "1"
+          },{
+            "name": "女",
+            "value": "2"
+          }
+        ]
+      },{
+        "name": "createTime",
+        "text": "创建时间",
+        "type": 5,
+        "value": "2020-07-30 - 2020-07-30"
+      }
+    ],
+    "table": {
+      "url": "../assets/json/user.json",
+      "add_btn": {
+        "text": "添加",
+        "type": "newPage",
+        "url": "add"
+      },
+      "line_toolbar": [
+        {
+          "text": "更多",
+          "type": "window",
+          "url": "/window",
+          "params": ["userId"]
+        },{
+          "text": "修改",
+          "type": "newPage",
+          "url": "/newPage",
+          "params": ["userId"]
+        },{
+          "text": "删除",
+          "type": "confirm",
+          "desc": "是否删除",
+          "url": "/confirm",
+          "params": ["userId"]
+        }
+      ],
+      "toolbar_viewModel": {
+        "model": [
+          {
+            "text": "账号",
+            "type": "1",
+            "param": "username",
+            "value": ""
+          },{
+            "text": "用户名",
+            "type": "1",
+            "param": "nickName",
+            "value": ""
+          },{
+            "text": "性别",
+            "type": "4",
+            "param": "sex",
+            "value": "1"
+          },{
+            "text": "性别",
+            "type": "3",
+            "param": "sex",
+            "value": "1"
+          },{
+            "text": "手机号",
+            "type": "1",
+            "param": "phone",
+            "value": ""
+          },{
+            "text": "创建时间",
+            "type": "5",
+            "param": "createTime",
+            "value": ""
+          }
+        ],
+        "save_url": "/save_url",
+        "get_url": "/get_url",
+        "params": ["id"]
+      },
+      "page": true,
+      "limit": 10,
+      "cols": [[
+        {"type": "numbers", "align":"center", "fixed": "left"},
+        {"field": "username", "title": "账号", "align":"center", "sort": true, "fixed": "true"},
+        {"field": "nickName", "title": "用户名", "align":"center", "sort": true},
+        {"field": "sex", "title": "性别", "align":"center", "sort": true},
+        {"field": "phone", "title": "手机号", "align":"left"},
+        {"field": "createTime", "title": "创建时间", "align":"right"}
+      ]],
+      "where": [
+        {
+          "name": "sex",
+          "value": "男"
+        }
+      ]
+    }
+  }
+}
+

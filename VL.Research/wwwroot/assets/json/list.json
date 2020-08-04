@@ -1,0 +1,51 @@
+{
+  "code": 200,
+  "msg": "",
+  "data": [
+    {
+      "id": "001",
+      "parentId": "",
+      "text": "主测页面",
+      "icon": "&#xe66c;"
+    },{
+      "id": "005",
+      "parentId": "001",
+      "text": "展示",
+      "url": "firstView.html"
+    },{
+      "id": "002",
+      "parentId": "",
+      "text": "一级目录1",
+      "url": "",
+      "icon": "&#xe770;"
+    },{
+      "id": "003",
+      "parentId": "",
+      "text": "一级目录2",
+      "url": "",
+      "icon": "&#xe705;"
+    },{
+      "id": "004",
+      "parentId": "",
+      "text": "一级目录3",
+      "url": "",
+      "icon": "&#xe657;"
+    },{
+      "id": "006",
+      "parentId": "002",
+      "text": "二级目录1",
+      "url": ""
+    },{
+      "id": "007",
+      "parentId": "002",
+      "text": "二级目录2",
+      "url": ""
+    },{
+      "id": "008",
+      "parentId": "006",
+      "text": "三级目录1",
+      "url": ""
+    }
+  ]
+}
+
