@@ -1,0 +1,262 @@
+{
+  "code": 200,
+  "msg": "",
+  "data": {
+    "view": [
+      {
+        "text": "标题11111",
+        "isTextArea": false,
+        "rows": [
+          [
+            {
+              "column": 12,
+              "text": "字段1",
+              "type": 1,
+              "param": "param1",
+              "required": false,
+              "value": "这是默认值"
+            },
+            {
+              "column": 3,
+              "text": "字段2",
+              "type": 2,
+              "range": false,
+              "param": "param2",
+              "required": false,
+              "value": "1"
+            },
+            {
+              "column": 3,
+              "text": "字段3",
+              "type": 2,
+              "range": true,
+              "param": [
+                "param3-1",
+                "param3-2"
+              ],
+              "required": false,
+              "value": [
+                "2",
+                "3"
+              ]
+            },
+            {
+              "column": 6,
+              "text": "字段14",
+              "type": 8,
+              "lineNum": 3,
+              "param": "param14",
+              "required": false,
+              "value": "这里是文本域的默认值哈哈哈\n哈哈哈哈啊哈哈啊哈哈哈哈哈哈哈哈哈"
+            },
+            {
+              "column": 3,
+              "text": "字段4",
+              "type": 3,
+              "multiple": false,
+              "param": "param4",
+              "required": false,
+              "options": [
+                {
+                  "value": "1",
+                  "text": "A",
+                  "checked": true
+                },
+                {
+                  "value": "2",
+                  "text": "B",
+                  "checked": false
+                },
+                {
+                  "value": "3",
+                  "text": "C",
+                  "checked": false
+                }
+              ]
+            },
+            {
+              "column": 3,
+              "text": "字段5",
+              "type": 3,
+              "multiple": true,
+              "param": "param5",
+              "required": false,
+              "options": [
+                {
+                  "value": "1",
+                  "text": "A",
+                  "checked": true
+                },
+                {
+                  "value": "2",
+                  "text": "B",
+                  "checked": true
+                },
+                {
+                  "value": "3",
+                  "text": "C",
+                  "checked": false
+                }
+              ]
+            },
+            {
+              "column": 3,
+              "text": "字段6",
+              "type": 7,
+              "range": false,
+              "param": "param6",
+              "required": false,
+              "value": "2020-07-31"
+            },
+            {
+              "column": 3,
+              "text": "字段7",
+              "type": 7,
+              "range": true,
+              "param": [
+                "param7-1",
+                "param7-2"
+              ],
+              "required": false,
+              "value": "2020-07-01 - 2020-07-31"
+            }
+          ]
+        ]
+      },
+      {
+        "text": "标题2",
+        "isTextArea": false,
+        "rows": [
+          [
+            {
+              "column": 4,
+              "text": "字段8",
+              "type": 4,
+              "param": "param8",
+              "required": false,
+              "options": [
+                {
+                  "value": "11",
+                  "text": "AA",
+                  "checked": false
+                },
+                {
+                  "value": "22",
+                  "text": "BB",
+                  "checked": true
+                },
+                {
+                  "value": "33",
+                  "text": "CC",
+                  "checked": false
+                }
+              ]
+            },
+            {
+              "column": 4,
+              "text": "字段9",
+              "type": 5,
+              "param": "param9",
+              "required": false,
+              "options": [
+                {
+                  "value": "111",
+                  "text": "AAA",
+                  "checked": true
+                },
+                {
+                  "value": "222",
+                  "text": "BBB",
+                  "checked": false
+                },
+                {
+                  "value": "333",
+                  "text": "CCC",
+                  "checked": true
+                }
+              ]
+            },
+            {
+              "column": 4,
+              "text": "字段10",
+              "type": 6,
+              "param": "param10",
+              "required": false,
+              "value": true
+            }
+          ],
+          [
+            {
+              "column": 4,
+              "text": "字段11",
+              "type": 4,
+              "param": "param11",
+              "required": false,
+              "options": [
+                {
+                  "value": "01",
+                  "text": "aa",
+                  "checked": true
+                },
+                {
+                  "value": "02",
+                  "text": "bb",
+                  "checked": false
+                },
+                {
+                  "value": "03",
+                  "text": "cc",
+                  "checked": false
+                }
+              ]
+            },
+            {
+              "column": 4,
+              "text": "字段12",
+              "type": 5,
+              "param": "param12",
+              "required": true,
+              "options": [
+                {
+                  "value": "001",
+                  "text": "aaa",
+                  "checked": false
+                },
+                {
+                  "value": "002",
+                  "text": "bbb",
+                  "checked": true
+                },
+                {
+                  "value": "003",
+                  "text": "ccc",
+                  "checked": true
+                }
+              ]
+            },
+            {
+              "column": 4,
+              "text": "字段13",
+              "type": 6,
+              "param": "param13",
+              "required": false,
+              "value": false
+            }
+          ]
+        ]
+      },
+      {
+        "text": "标题3-文本域",
+        "lineNum": 3,
+        "isTextArea": true,
+        "areaText": "文本域",
+        "areaParam": "areaParam",
+        "areaRequired": true,
+        "areaValue": "q-w-e-r-t-y-u-i-o-p\na-s-d-f-g-h-j-k-l\nz-x-c-v-b-n-m"
+      }
+    ],
+    "getUrl": "/getUrl",
+    "getUrl_param": ["a=1"],
+    "saveUrl": "../assets/json/ok.json"
+  }
+}

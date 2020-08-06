@@ -1,11 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using VL.Consolo_Core.Common.DBSolution;
 using VL.Consolo_Core.Common.ServiceSolution;
 using VL.Research.Common;
-using VL.Research.Common.Configuration;
 using VL.Research.Models;
 using VL.Research.Repositories;
 using VLTest2015.Common.MD5Solution;

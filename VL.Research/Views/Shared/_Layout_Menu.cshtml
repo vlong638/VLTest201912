@@ -126,7 +126,7 @@
         layui.use(['index', 'element'], function () {
             var $ = layui.jquery;
             var index = layui.index;
-            sendAjax('get', '../api/System/GetAllListMenu', {}, function (res) {
+            sendAjax('get', '../api/System/GetListMenu_LayUI', {}, function (res) {
                 if (res.code === 200) {
                     $('#admin-side-nav').renderList(res.data, layui);
                     layui.element.init();

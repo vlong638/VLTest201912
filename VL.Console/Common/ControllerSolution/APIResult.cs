@@ -39,7 +39,7 @@ namespace VL.Consolo_Core.Common.ControllerSolution
         /// 诸如以下的组件异常
         /// false case: 比如服务层返回异常(如服务层校验未通过,出现事务回滚异常)
         /// </summary>
-        public bool IsValidated { get { return code == 200; } }
+        public bool IsValidated { get { return code == 0; } }
     }
     /// <summary>
     /// Controller层返回结构

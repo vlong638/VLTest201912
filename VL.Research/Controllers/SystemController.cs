@@ -77,7 +77,37 @@ namespace VL.Research.Controllers
                 {
                     return Error(new GetListConfigModel(), "无效的用户配置");
                 }
-                var viewConfig = serviceResult.Data.ViewConfig.FromJson<ViewConfig>();
+                var viewConfig = serviceResult.PagedData.ViewConfig.FromJson<ViewConfig>();
+                var result = new GetListConfigModel()
+                {
+                    CustomConfigId = request.CustomConfigId,
+                    //ViewConfig = viewConfig,
+                };
+                return Success(result);
+            }
+            else
+            {
+                return Success(LoadDefaultConfig(request));
+            }
+        }
+
+        /// <summary>
+        /// 获取 列表配置
+        /// </summary>
+        /// <param name="userService"></param>
+        /// <param name="request">请求参数实体</param>
+        /// <returns></returns>
+        [HttpPost]
+        public APIResult<GetListConfigModel> GetListConfig_LayUI([FromServices] UserService userService, GetListConfigRequest request)
+        {
+            if (request.CustomConfigId > 0)
+            {
+                var serviceResult = userService.GetUserMenuById(request.CustomConfigId);
+                if (!serviceResult.IsSuccess)
+                {
+                    return Error(new GetListConfigModel(), "无效的用户配置");
+                }
+                var viewConfig = serviceResult.PagedData.ViewConfig.FromJson<ViewConfig>();
                 var result = new GetListConfigModel()
                 {
                     CustomConfigId = request.CustomConfigId,
@@ -103,6 +133,45 @@ namespace VL.Research.Controllers
             {
                 CustomConfigId = request.CustomConfigId,
                 ViewConfig = viewConfig,
+                search = viewConfig.Wheres.Select(c => new GetListConfigModel_Search()
+                {
+                    name = c.ComponentName,
+                    text = c.DisplayName,
+                    type = c.DisplayType,
+                    value = c.DisplayValues,
+                }).ToList(),
+                table = new GetListConfigModel_TableConfg()
+                {
+                    url = viewConfig.ViewURL,
+                    add_btn = new GetListConfigModel_TableConfg_AddButton()
+                    {
+                        text = "新增",
+                        type = "newPage",
+                        url = "",//新增提交的页面
+                        defaultParam = new List<string>(),
+                    },
+                    line_toolbar = new List<GetListConfigModel_TableConfg_ToolBar>(),
+                    toolbar_viewModel = new GetListConfigModel_TableConfg_ViewModel(),
+                    page = true,
+                    limit = 20,
+                    initSort = new GetListConfigModel_TableConfg_InitSort(),
+                    cols = new List<List<GetListConfigModel_TableConfg_Col>>()
+                    {
+                        viewConfig.Properties.Select(c => new GetListConfigModel_TableConfg_Col()
+                        {
+                            field = c.ColumnName,
+                            title = c.DisplayName,
+                            align = "center",
+                            templet ="",
+                            width=c.DisplayWidth,
+                            @fixed="",
+                            sort=c.IsSortable,
+                            colspan="",
+                            rowspan="",
+                        }).ToList()
+                    },
+                    where = new List<GetListConfigModel_TableConfg_Where>(),
+                },
             };
             return result;
         }
@@ -128,15 +197,15 @@ namespace VL.Research.Controllers
             {
                 var serviceResult = userService.UpdateUserMenu(userMenu);
                 if (!serviceResult.IsSuccess)
-                    return Error(serviceResult.Data ? 1L : 0L, serviceResult.Messages);
-                return Success(serviceResult.Data ? 1L : 0L);
+                    return Error(serviceResult.PagedData ? 1L : 0L, serviceResult.Messages);
+                return Success(serviceResult.PagedData ? 1L : 0L);
             }
             else
             {
                 var serviceResult = userService.CreateUserMenu(userMenu);
                 if (!serviceResult.IsSuccess)
-                    return Error(serviceResult.Data, serviceResult.Messages);
-                return Success(serviceResult.Data);
+                    return Error(serviceResult.PagedData, serviceResult.Messages);
+                return Success(serviceResult.PagedData);
             }
         }
 
@@ -151,8 +220,8 @@ namespace VL.Research.Controllers
             var userId = GetCurrentUser().UserId;
             var serviceResult = userService.GetUserMenus(userId);
             if (!serviceResult.IsSuccess)
-                return Error(serviceResult.Data, serviceResult.Messages);
-            return Success(serviceResult.Data);
+                return Error(serviceResult.PagedData, serviceResult.Messages);
+            return Success(serviceResult.PagedData);
         }
 
         /// <summary>
@@ -161,7 +230,7 @@ namespace VL.Research.Controllers
         /// <param name="userService"></param>
         /// <returns></returns>
         [HttpGet]
-        public APIResult<List<MenuItem>> GetAllListMenu([FromServices] UserService userService)
+        public APIResult<List<MenuItem>> GetListMenu_LayUI([FromServices] UserService userService)
         {
             return Success(DefaultMenuItems);
 

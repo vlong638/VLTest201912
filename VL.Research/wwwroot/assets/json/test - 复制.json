@@ -1,0 +1,158 @@
+{
+  "CustomConfigId": 0,
+  "ViewConfig": {
+    "ViewName": "PregnantInfo",
+    "ViewURL": "../../Pregnant/GetConfigurablePagedListOfPregnantInfo",
+    "Properties": [
+      {
+        "ColumnName": "id",
+        "Description": "自动编号",
+        "DisplayName": "编号",
+        "DisplayType": 0,
+        "EnumType": null,
+        "DisplayWidth": "100",
+        "IsSortable": true,
+        "IsCheckable": false,
+        "IsNeedOnPage": true,
+        "IsNeedOnDatabase": false,
+        "DataType": "int"
+      },
+      {
+        "ColumnName": "personname",
+        "Description": "孕妇姓名",
+        "DisplayName": "孕妇姓名",
+        "DisplayType": 0,
+        "EnumType": null,
+        "DisplayWidth": "100",
+        "IsSortable": true,
+        "IsCheckable": false,
+        "IsNeedOnPage": true,
+        "IsNeedOnDatabase": false,
+        "DataType": "varchar"
+      },
+      {
+        "ColumnName": "sexcode",
+        "Description": "性别",
+        "DisplayName": "性别",
+        "DisplayType": 0,
+        "EnumType": null,
+        "DisplayWidth": "100",
+        "IsSortable": true,
+        "IsCheckable": false,
+        "IsNeedOnPage": true,
+        "IsNeedOnDatabase": false,
+        "DataType": "char"
+      },
+      {
+        "ColumnName": "idcard",
+        "Description": "孕妇证件号",
+        "DisplayName": "身份证号",
+        "DisplayType": 0,
+        "EnumType": null,
+        "DisplayWidth": "100",
+        "IsSortable": false,
+        "IsCheckable": false,
+        "IsNeedOnPage": true,
+        "IsNeedOnDatabase": false,
+        "DataType": "varchar"
+      }
+    ],
+    "Wheres": [
+      {
+        "ComponentName": "personname",
+        "CompareOperator": 4,
+        "Value": "刘",
+        "LinkOperator": 0,
+        "DisplayName": "姓名",
+        "DisplayType": "text",
+        "DisplayValues": null
+      }
+    ],
+    "OrderBy": {
+      "ComponentName": "",
+      "IsAsc": false
+    }
+  },
+  "modelId": 0,
+  "modelName": null,
+  "saveModelUrl": null,
+  "deleteModelUrl": null,
+  "search": [
+    {
+      "name": "personname",
+      "text": "姓名",
+      "type": "text",
+      "value": null,
+      "options": null
+    }
+  ],
+  "table": {
+    "url": "../../Pregnant/GetConfigurablePagedListOfPregnantInfo",
+    "add_btn": {
+      "url": "",
+      "defaultParam": [],
+      "text": "新增",
+      "type": "newPage"
+    },
+    "line_toolbar": [],
+    "toolbar_viewModel": {
+      "model": [],
+      "get_url": null,
+      "params": [],
+      "save_url": null
+    },
+    "page": true,
+    "limit": 20,
+    "cols": [
+      {
+        "field": "id",
+        "title": "编号",
+        "align": "center",
+        "templet": "",
+        "width": "100",
+        "type": null,
+        "fixed": "",
+        "sort": true,
+        "colspan": "",
+        "rowspan": ""
+      },
+      {
+        "field": "personname",
+        "title": "孕妇姓名",
+        "align": "center",
+        "templet": "",
+        "width": "100",
+        "type": null,
+        "fixed": "",
+        "sort": true,
+        "colspan": "",
+        "rowspan": ""
+      },
+      {
+        "field": "sexcode",
+        "title": "性别",
+        "align": "center",
+        "templet": "",
+        "width": "100",
+        "type": null,
+        "fixed": "",
+        "sort": true,
+        "colspan": "",
+        "rowspan": ""
+      },
+      {
+        "field": "idcard",
+        "title": "身份证号",
+        "align": "center",
+        "templet": "",
+        "width": "100",
+        "type": null,
+        "fixed": "",
+        "sort": false,
+        "colspan": "",
+        "rowspan": ""
+      }
+    ],
+    "where": []
+  }
+}

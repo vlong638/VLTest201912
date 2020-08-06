@@ -47,7 +47,7 @@ namespace VL.Research.Common
         /// <summary>
         /// 显示宽度
         /// </summary>
-        public int DisplayWidth { set; get; }
+        public string DisplayWidth { set; get; }
         /// <summary>
         /// 可排序的
         /// </summary>
@@ -95,7 +95,7 @@ namespace VL.Research.Common
             DisplayType = DisplayType.None;
             EnumType = "";
             DataType = dbConfig.DataType;
-            DisplayWidth = 100;
+            DisplayWidth = "100";
             IsSortable = false;
             IsCheckable = false;
             IsNeedOnPage = false;
@@ -108,7 +108,7 @@ namespace VL.Research.Common
             DisplayName = element.Attribute(nameof(DisplayName))?.Value;
             DisplayType = element.Attribute(nameof(DisplayType))?.Value.ToEnum<DisplayType>() ?? DisplayType.None;
             EnumType = element.Attribute(nameof(EnumType))?.Value;
-            DisplayWidth = element.Attribute(nameof(DisplayWidth))?.Value.ToInt() ?? 100;
+            DisplayWidth = element.Attribute(nameof(DisplayWidth))?.Value;
             IsSortable = element.Attribute(nameof(IsSortable))?.Value.ToBool() ?? false;
             IsCheckable = element.Attribute(nameof(IsCheckable))?.Value.ToBool() ?? false;
             DataType = element.Attribute(nameof(DataType))?.Value;

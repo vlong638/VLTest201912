@@ -2,6 +2,10 @@
   "code": 200,
   "msg": "",
   "data": {
+    "modelId": "<模版ID>",
+    "modelName": "<模版名称>",
+    "saveModelUrl": "<保存模版URL>",
+    "deleteModelUrl": "<删除模版URL>",
     "search": [
       {
         "name": "<用于搜索的参数名1>",
@@ -14,7 +18,8 @@
       "add_btn": {
         "text": "<新增按钮文本>",
         "type": "<[window-弹窗|newPage-新页面]>",
-        "url": ""
+        "url": "",
+        "defaultParam": [ "<固定参数>" ]
       },
       "line_toolbar": [
         {
@@ -22,7 +27,8 @@
           "type": "<[window-弹窗|newPage-新页面|confirm-提示]>",
           "desc": "<提示文本>",
           "url": "<操作URL>",
-          "param": ["<用于url的参数>"]
+          "param": [ "<用于url的参数>" ],
+          "defaultParam": [ "<固定参数>" ]
         }
       ],
       "toolbar_viewModel": {
@@ -36,27 +42,33 @@
         ],
         "get_url": "<用于 详情|编辑 时的查询接口>",
         "save_url": "<用于 保存|编辑 时的保存接口>",
-        "param": ["<用于查询接口的参数>"]
+        "param": [ "<用于查询接口的参数>" ]
       },
       "page": "<是否分页[true|false][默认:true]>",
       "limit": "<每页显示的条数[默认:10]>",
-      "cols": [[
-        {
-          "field": "<参数名1>",
-          "title": "<参数中文名>",
-          "align": "<内容对齐方式[center|right|left][默认:center]>",
-          "templet": "<模版[就是这里写什么,就显示什么]>",
-          "width": "<单元格宽度[数字|百分比][默认:自动]>",
-          "type": "<列类型[normal-常规列|radio-单选框列|numbers-序号列][默认:normal]>",
-          "fixed": "<固定列[left|true-固定在左|right-固定在右][注意：如果是固定在左，该列必须放在表头最前面；如果是固定在右，该列必须放在表头最后面]>",
-          "sort": "<是否允许排序[true|false][默认:false]>",
-          "colspan": "单元格所占列数[用于多级表头][这种情况下不用设置field和width]",
-          "rowspan": "单元格所占行数[用于多级表头]"
-        },
-        {
-          "field": "<参数名2>"
-        }
-        ],[
+      "initSort": {
+        "field": "<需要排序的字段名>",
+        "type": "<排序方式[desc|asc]>"
+      },
+      "cols": [
+        [
+          {
+            "field": "<参数名1>",
+            "title": "<参数中文名>",
+            "align": "<内容对齐方式[center|right|left][默认:center]>",
+            "templet": "<模版[就是这里写什么,就显示什么]>",
+            "width": "<单元格宽度[数字|百分比][默认:自动]>",
+            "type": "<列类型[normal-常规列|radio-单选框列|numbers-序号列][默认:normal]>",
+            "fixed": "<固定列[left|true-固定在左|right-固定在右][注意：如果是固定在左，该列必须放在表头最前面；如果是固定在右，该列必须放在表头最后面]>",
+            "sort": "<是否允许排序[true|false][默认:false]>",
+            "colspan": "单元格所占列数[用于多级表头][这种情况下不用设置field和width]",
+            "rowspan": "单元格所占行数[用于多级表头]"
+          },
+          {
+            "field": "<参数名2>"
+          }
+        ],
+        [
           "如存在多级表头，则以此写法。不存在则忽略"
         ]
       ],

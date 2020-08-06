@@ -19,6 +19,11 @@ namespace VL.Research.Common
         /// </summary>
         public string ViewName { set; get; }
         /// <summary>
+        /// 页面数据URL
+        /// </summary>
+        public string ViewURL { set; get; }
+
+        /// <summary>
         /// 页面字段
         /// </summary>
         public List<ViewConfigProperty> Properties { set; get; } 
@@ -45,6 +50,7 @@ namespace VL.Research.Common
         public ViewConfig(XElement element)
         {
             ViewName = element.Attribute(nameof(ViewName)).Value;
+            ViewURL = element.Attribute(nameof(ViewURL))?.Value;
             Properties = element.Descendants(ViewConfigProperty.ElementName).Select(c => new ViewConfigProperty(c)).ToList();
             Wheres = element.Descendants(ViewConfigWhere.ElementName).Select(c => new ViewConfigWhere(c)).ToList();
             OrderBy = element.Descendants(ViewConfigOrderBy.ElementName).Select(c => new ViewConfigOrderBy(c)).FirstOrDefault() ?? new ViewConfigOrderBy();
@@ -113,6 +119,7 @@ namespace VL.Research.Common
             //view
             var node = new XElement(NodeElementName);
             node.SetAttributeValue(nameof(ViewName), ViewName);
+            node.SetAttributeValue(nameof(ViewURL), ViewURL);
             //properties
             if (Properties != null && Properties.Count > 0)
             {
@@ -190,6 +197,9 @@ namespace VL.Research.Common
             } 
             #endregion
             LinkOperator = element.Attribute(nameof(LinkOperator))?.Value.ToEnum<LinkOperator>() ?? LinkOperator.None;
+            DisplayName = element.Attribute(nameof(DisplayName))?.Value;
+            DisplayType = element.Attribute(nameof(DisplayType))?.Value;
+            DisplayValues = element.Attribute(nameof(DisplayValues))?.Value;
         }
 
         /// <summary>
@@ -208,6 +218,18 @@ namespace VL.Research.Common
         /// 链接操作符
         /// </summary>
         public LinkOperator LinkOperator { set; get; }
+        /// <summary>
+        /// 页面 字段名称
+        /// </summary>
+        public string DisplayName { get; set; }
+        /// <summary>
+        /// 页面 数据类型
+        /// </summary>
+        public string DisplayType { get; set; }
+        /// <summary>
+        /// 页面 下拉项配置
+        /// </summary>
+        public string DisplayValues { get; set; }
 
         /// <summary>
         /// 
@@ -220,6 +242,9 @@ namespace VL.Research.Common
             property.SetAttributeValue(nameof(CompareOperator), CompareOperator.ToString());
             property.SetAttributeValue(nameof(Value), Value);
             property.SetAttributeValue(nameof(LinkOperator), LinkOperator.ToString());
+            property.SetAttributeValue(nameof(DisplayName), DisplayName);
+            property.SetAttributeValue(nameof(DisplayType), DisplayType);
+            property.SetAttributeValue(nameof(DisplayValues), DisplayValues);
             return property;
         }
     }

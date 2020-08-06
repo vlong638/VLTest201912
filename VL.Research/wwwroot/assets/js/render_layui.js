@@ -26,8 +26,6 @@ jQuery.prototype.renderList = function (_data, _layui) {
         }
     })
 
-    // console.log(list);
-
     html = ``;
     $.each(list, function (index, item) {
         html += `
@@ -78,7 +76,8 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
         <div class="layui-card">
             <div class="layui-card-body">
                 <form class="layui-form toolbar">
-                    <div class="layui-form-item">`
+                    <div class="layui-form-item" style="display: flex;flex-wrap: nowrap;">
+                        <div style="display: flex;flex-wrap: wrap;/*flex: 1 0 0;*/">`
     if (!isBlank(_data.search)) {
         // 处理搜索条件
         $.each(_data.search, function (index, item) {
@@ -107,8 +106,8 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                     <div class="layui-input-inline">
                         <select name="` + item.name + `">
                             <option value="">请选择</option>`;
-                $.each(item.value, function (_index, _item) {
-                    html += `<option value="` + _item.value + `">` + _item.name + `</option>`
+                $.each(item.options, function (_index, _item) {
+                    html += `<option value="` + _item.value + `" ` + (_item.checked ? 'selected' : '') + `>` + _item.name + `</option>`
                 });
                 html += `</select></div></div>`
             }
@@ -123,12 +122,30 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
             }
         })
         html += `
-        <div class="layui-inline">&emsp;
-            <button class="layui-btn icon-btn" lay-filter="tbSearch" lay-submit style="background-color: #30ABC9 !important;">
-                <i class="layui-icon">&#xe615;</i>搜索
-            </button>
-        </div>`
+            <div class="layui-inline" style="flex: 1 0 0;">&emsp;
+                <button class="layui-btn icon-btn" lay-filter="tbSearch" lay-submit>
+                    <i class="layui-icon">&#xe615;</i>搜索
+                </button>
+            </div>`
+        html += `</div>`
+
     }
+    html += `
+        <div style="flex: 1 0 100px;">
+            <div class="layui-inline" style="border: 1px solid #ccc;width: 26px;height: 26px;text-align: center;position: fixed;right: 55px;top: 35px;"
+                title="编辑并保存" id="MODEL_SAVE">
+                <i class="layui-icon layui-icon-edit"></i>
+            </div>`
+
+    if (!isBlank(_data.modelId)) {
+        html += `
+            <div class="layui-inline" style="border: 1px solid #ccc;width: 26px;height: 26px;text-align: center;position: fixed;right: 20px;top: 35px;"
+                title="删除" id="MODEL_DELETE">
+                <i class="layui-icon layui-icon-delete"></i>
+            </div>`
+    }
+    html += `</div>`
+
     html += `</div></form>`
 
     if (!isBlank(_data.table)) {
@@ -148,23 +165,20 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
         // 处理行工具栏
         scriptObject = `<script type="text/html" id="tbBar">`;
         $.each(_data.table.line_toolbar, function (index, item) {
-            let params = '';
-            $.each(item.params, function (_index, param) {
-                params += (param + '|');
-            })
-            params = params.slice(0, params.length - 1)
             switch (item.type) {
                 case 'window': {
-                    scriptObject += `<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="window" data-url="` + item.url + `" data-params="` + params + `">` + item.text + `</a>`;
+                    scriptObject += `<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="window"
+                        data-default="` + item.defaultParam.join('&') + `" data-url="` + item.url + `" data-params="` + item.params.join('|') + `">` + item.text + `</a>`;
                     break;
                 }
                 case 'newPage': {
-                    scriptObject += `<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="newPage" data-url="` + item.url + `" data-params="` + params + `">` + item.text + `</a>`;
+                    scriptObject += `<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="newPage"
+                        data-default="` + item.defaultParam.join('&') + `" data-url="` + item.url + `" data-params="` + item.params.join('|') + `">` + item.text + `</a>`;
                     break;
                 }
                 case 'confirm': {
-                    scriptObject += `<a class="layui-btn layui-btn-warm layui-btn-xs" data-desc="` + item.desc + `"
-                        lay-event="confirm" data-url="` + item.url + `" data-params="` + params + `">` + item.text + `</a>`;
+                    scriptObject += `<a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="confirm"
+                        data-desc="` + item.desc + `" data-default="` + item.defaultParam.join('&') + `" data-url="` + item.url + `" data-params="` + item.params.join('|') + `">` + item.text + `</a>`;
                     break;
                 }
             }
@@ -173,7 +187,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
 
         _this.after(scriptObject);
 
-        _data.table.cols[0].push({title: '操作', toolbar: '#tbBar', align: 'center', minWidth: 200})
+        _data.table.cols[0].push({ title: '操作', toolbar: '#tbBar', align: 'center', minWidth: 200 })
     }
 
 
@@ -189,7 +203,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
 
     let THToolbar = ['<p>']
     if (!isBlank(_data.table.add_btn)) {
-        THToolbar.push('<button style="background-color: #30ABC9 !important;" lay-event="add" data-url="' + _data.table.add_btn.url + '" data-type="' + _data.table.add_btn.type + '" class="layui-btn layui-btn-sm icon-btn"><i class="layui-icon">&#xe654;</i>' + _data.table.add_btn.text + '</button>&nbsp;')
+        THToolbar.push('<button lay-event="add" data-default="' + _data.table.add_btn.defaultParam.join('&') + '" data-url="' + _data.table.add_btn.url + '" data-type="' + _data.table.add_btn.type + '" class="layui-btn layui-btn-sm icon-btn"><i class="layui-icon">&#xe654;</i>' + _data.table.add_btn.text + '</button>&nbsp;')
     }
     THToolbar.push('</p>')
     /*['<p>',
@@ -204,76 +218,114 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
         page: _data.table.page,
         toolbar: THToolbar.join(''),
         cellMinWidth: 100,
+        limit: _data.table.limit,
+        initSort: isBlank(_data.table.initSort) ? {} : _data.table.initSort,
+        response: {
+            statusCode: 200,
+            dataName: 'sourceData' //规定数据列表的字段名称，默认：data
+        },
         cols: _data.table.cols,
         done: function (res, curr, count) {
 
         },
     });
 
+    //监听排序事件
+    table.on('sort(dataTable)', function (obj) { //注：sort 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+        _data.table.initSort = obj
+        table.reload('dataTable', {
+            initSort: obj, //记录初始排序，如果不设的话，将无法标记表头的排序状态。
+            where: { //请求参数（注意：这里面的参数可任意定义，并非下面固定的格式）
+                field: obj.field, //排序字段
+                order: obj.type //排序方式
+            }
+        });
+
+        layer.msg('服务端排序。order by ' + obj.field + ' ' + obj.type);
+    });
+
     /* 表格搜索 */
     form.on('submit(tbSearch)', function (data) {
-        dataTable.reload({where: data.field, page: {curr: 1}});
+        for (let i in data.field) {
+            $.each(_data.search, function (index, item) {
+                if (item.name === i) {
+                    if (item.type === 3 || item.type === 4) {
+                        $.each(item.options, function (_index, _item) {
+                            _item.checked = _item.value === data.field[i];
+                        })
+                    }
+                }
+            })
+        }
+        dataTable.reload({ where: data.field, page: { curr: 1 } });
+        return false;
+    });
+
+    $('#MODEL_SAVE').on('click', function () {
+        layer.prompt({
+            formType: 0,
+            value: isBlank(_data.modelName) ? '' : _data.modelName,
+            title: '请输入模版名称',
+            area: ['800px', '350px'], //自定义文本域宽高
+            btn: ['保存', '取消']
+        }, function (value, index, elem) {
+            _data.modelId = isBlank(_data.modelId) ? "" : _data.modelId
+            _data.modelName = value
+            $.post(_data.saveModelUrl, JSON.stringify(_data), function (res) {
+                layer.close(loadIndex);
+                if (res.code === 200) {
+                    layer.msg(res.msg, { icon: 1 });
+                } else {
+                    layer.msg(res.msg, { icon: 2 });
+                }
+            }, 'json');
+            layer.close(index);
+        });
+        return false;
+    });
+
+    $('#MODEL_DELETE').on('click', function () {
+        layer.confirm("确认删除此模版？", {
+            skin: 'layui-layer-admin',
+            shade: .1
+        }, function (i) {
+            console.log("_data.deleteModelUrl = " + _data.deleteModelUrl);
+            $.get(_data.deleteModelUrl, { modelId: _data.modelId }, function (res) {
+                layer.close(loadIndex);
+                if (res.code === 200) {
+                    layer.msg(res.msg, { icon: 1 });
+                    _parent.location.reload();
+                    _parent.admin.events.closeThisTabs();
+                } else {
+                    layer.msg(res.msg, { icon: 2 });
+                }
+            }, 'json');
+        });
         return false;
     });
 
     /* 表格头工具栏点击事件 */
     table.on('toolbar(dataTable)', function (obj) {
+        let _this = $(this);
+        let url = _this.attr('data-url');
+        if (!isBlank(_this.attr('data-default'))) {
+            url += '?' + _this.attr('data-default')
+        }
         if (obj.event === 'add') { // 添加
-            if ($(this).attr('data-type') === 'window') {
+            if (_this.attr('data-type') === 'window') {
                 admin.open({
-                    type: 1,
+                    type: 2,
+                    area: ['1000px', '1000px'],
                     title: '',
-                    content: '',
+                    content: [url],
                     success: function (layero, dIndex) {
-                        // 回显表单数据
-                        form.val('userEditForm', mData);
-                        // 表单提交事件
-                        form.on('submit(userEditSubmit)', function (data) {
-                            data.field.roleIds = insRoleSel.getValue('valueStr');
-                            let loadIndex = layer.load(2);
-                            $.get(mData ? '../../json/ok.json' : '../../json/ok.json', data.field, function (res) {  // 实际项目这里url可以是mData?'user/update':'user/add'
-                                layer.close(loadIndex);
-                                if (res.code === 200) {
-                                    layer.close(dIndex);
-                                    layer.msg(res.msg, {icon: 1});
-                                    insTb.reload({page: {curr: 1}});
-                                } else {
-                                    layer.msg(res.msg, {icon: 2});
-                                }
-                            }, 'json');
-                            return false;
-                        });
-                        // 渲染多选下拉框
-                        let insRoleSel = xmSelect.render({
-                            el: '#userEditRoleSel',
-                            name: 'userEditRoleSel',
-                            layVerify: 'required',
-                            layVerType: 'tips',
-                            data: [{
-                                name: '管理员',
-                                value: 1
-                            }, {
-                                name: '普通用户',
-                                value: 2
-                            }, {
-                                name: '游客',
-                                value: 3
-                            }]
-                        });
-                        // 回显选中角色
-                        if (mData && mData.roles) {
-                            insRoleSel.setValue(mData.roles.map(function (item) {
-                                return item.roleId;
-                            }));
-                        }
-                        // 禁止弹窗出现滚动条
                         $(layero).children('.layui-layer-content').css('overflow', 'visible');
                     }
                 });
             }
-            if ($(this).attr('data-type') === 'newPage') {
-                newTab($(this).attr('data-url'), $(this).text(), function () {
-                    dataTable.reload({page: {curr: 1}});
+            if (_this.attr('data-type') === 'newPage') {
+                newTab(url, _this.text(), function () {
+                    dataTable.reload({ page: { curr: 1 } });
                 })
             }
         }
@@ -282,64 +334,30 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
     /* 表格工具条点击事件 */
     table.on('tool(dataTable)', function (obj) {
         let _this = $(this);
-        let url = _this.attr('data-url');
         let params = _this.attr('data-params').split("|");
+        let url = _this.attr('data-url') + buildUrlParam(obj.data, params);
+        if (!isBlank(_this.attr('data-default'))) {
+            url += '&' + _this.attr('data-default')
+        }
         if (obj.event === 'window') { // 弹窗
             admin.open({
-                type: 1,
+                type: 2,
+                area: ['1000px', '1000px'],
                 title: '',
-                content: '',
+                content: [url],
                 success: function (layero, dIndex) {
-                    // 回显表单数据
-                    form.val('userEditForm', mData);
-                    // 表单提交事件
-                    form.on('submit(userEditSubmit)', function (data) {
-                        data.field.roleIds = insRoleSel.getValue('valueStr');
-                        let loadIndex = layer.load(2);
-                        $.get(mData ? '../../json/ok.json' : '../../json/ok.json', data.field, function (res) {  // 实际项目这里url可以是mData?'user/update':'user/add'
-                            layer.close(loadIndex);
-                            if (res.code === 200) {
-                                layer.close(dIndex);
-                                layer.msg(res.msg, {icon: 1});
-                                insTb.reload({page: {curr: 1}});
-                            } else {
-                                layer.msg(res.msg, {icon: 2});
-                            }
-                        }, 'json');
-                        return false;
-                    });
-                    // 渲染多选下拉框
-                    let insRoleSel = xmSelect.render({
-                        el: '#userEditRoleSel',
-                        name: 'userEditRoleSel',
-                        layVerify: 'required',
-                        layVerType: 'tips',
-                        data: [{
-                            name: '管理员',
-                            value: 1
-                        }, {
-                            name: '普通用户',
-                            value: 2
-                        }, {
-                            name: '游客',
-                            value: 3
-                        }]
-                    });
-                    // 回显选中角色
-                    if (mData && mData.roles) {
-                        insRoleSel.setValue(mData.roles.map(function (item) {
-                            return item.roleId;
-                        }));
-                    }
-                    // 禁止弹窗出现滚动条
                     $(layero).children('.layui-layer-content').css('overflow', 'visible');
                 }
             });
         } else if (obj.event === 'newPage') { // 新标签页
             newTab(url, _this.text(), function () {
-                dataTable.reload({page: {curr: 1}});
+                dataTable.reload({ page: { curr: 1 } });
             })
         } else if (obj.event === 'confirm') { // 提示框
+            url = _this.attr('data-url')
+            if (!isBlank(_this.attr('data-default'))) {
+                url += '?' + _this.attr('data-default')
+            }
             layer.confirm(_this.attr('data-desc'), {
                 skin: 'layui-layer-admin',
                 shade: .1
@@ -353,22 +371,35 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                 $.get(url, param, function (res) {
                     layer.close(loadIndex);
                     if (res.code === 200) {
-                        layer.msg(res.msg, {icon: 1});
-                        dataTable.reload({page: {curr: 1}});
+                        layer.msg(res.msg, { icon: 1 });
+                        dataTable.reload({ page: { curr: 1 } });
                     } else {
-                        layer.msg(res.msg, {icon: 2});
+                        layer.msg(res.msg, { icon: 2 });
                     }
                 }, 'json');
             });
         }
     });
 
-    laydate.render({
-        elem: '.datepicker',
-        type: 'date',
-        range: true,
-        trigger: 'click'
-    });
+    function buildUrlParam(data, params) {
+        let urlParam = [];
+        $.each(params, function (index, item) {
+            urlParam.push(item + '=' + data[item])
+        })
+        if (urlParam.length !== 0) {
+            return '?' + urlParam.join('&');
+        }
+        return ''
+    }
+
+    $('.datepicker').each(function () {
+        laydate.render({
+            elem: this,
+            type: 'date',
+            range: true,
+            trigger: 'click'
+        });
+    })
 
 
     //在新标签页中 打开页面
@@ -395,7 +426,7 @@ jQuery.prototype.renderForm = function (_data, _layui, _parent) {
 
     _this.html("")
     let html = ``;
-    $.each(_data, function (index, card) {
+    $.each(_data.view, function (index, card) {
         html += `
             <div class="layui-card">
                 <div class="layui-card-header">` + card.text + `</div>
@@ -448,7 +479,7 @@ jQuery.prototype.renderForm = function (_data, _layui, _parent) {
                                 <div class="layui-input-block">
                                     <select name="` + item.param + `" ` + (item.required ? ' lay-verify="required" required' : '') + `>
                                         <option value="">请选择</option>`;
-                            $.each(item.value, function (index, option) {
+                            $.each(item.options, function (index, option) {
                                 html += `<option value="` + option.value + `" ` + (option.checked ? 'selected' : '') + `>` + option.text + `</option>`
                             })
                             html += `
@@ -462,7 +493,7 @@ jQuery.prototype.renderForm = function (_data, _layui, _parent) {
                             <div class="layui-inline layui-col-md` + item.column + `">
                                 <label class="layui-form-label` + (item.required ? ' layui-form-required' : '') + `">` + item.text + `:</label>
                                 <div class="layui-input-block">`;
-                            $.each(item.value, function (index, option) {
+                            $.each(item.options, function (index, option) {
                                 html += `<input type="radio" name="` + item.param + `" value="` + option.value + `" lay-skin="primary" title="` + option.text + `"` + (option.checked ? 'checked=""' : '') + `>`
                             })
                             html += `</div></div>`;
@@ -473,9 +504,10 @@ jQuery.prototype.renderForm = function (_data, _layui, _parent) {
                             <div class="layui-inline layui-col-md` + item.column + `">
                                 <label class="layui-form-label` + (item.required ? ' layui-form-required' : '') + `">` + item.text + `:</label>
                                 <div class="layui-input-block">`;
-                            $.each(item.value, function (index, option) {
-                                html += `<input type="checkbox" name="` + item.param + `[` + option.value + `]" lay-skin="primary" title="` + option.text + `"` + (option.checked ? ' checked=""' : '') + `>`
+                            $.each(item.options, function (index, option) {
+                                html += `<input data-type="checkbox" type="checkbox" name="` + item.param + `" value="` + option.value + `" lay-skin="primary" title="` + option.text + `"` + (option.checked ? ' checked=""' : '') + `>`
                             })
+                            //TODO 获取checkbox的值 获取同一个name的多选值
                             html += `</div></div>`;
                             break;
                         }
@@ -530,7 +562,6 @@ jQuery.prototype.renderForm = function (_data, _layui, _parent) {
         }
         html += `</div></div></div>`
     })
-    // console.log(html);
     _this.append(html);
 
     layui.form.render();
@@ -540,6 +571,36 @@ jQuery.prototype.renderForm = function (_data, _layui, _parent) {
             $(this).val($(this).attr("data-defaultValue"))
         }
     })
+
+    if (!isBlank(_data.getUrl)) {
+        setDefaultValue();
+    }
+
+    function setDefaultValue() {
+        let url = isBlank(_data.getUrl_param) ? _data.getUrl : _data.getUrl + '?' + _data.getUrl_param.join('&');
+        sendAjax('get', url, {}, function (res) {
+            form.val('formAdvForm', res.data);
+        }, "application/json", "json", function (res) {
+            layer.msg("查询失败", { icon: 2 });
+        })
+    }
+
+    // 表单提交事件
+    form.on('submit(formAdvSubmit)', function (data) {
+        data.field = getValue(data.field);
+        console.log(data.field);
+        let loadIndex = layer.load(2);
+        $.get(_data.saveUrl, data.field, function (res) {  // 实际项目这里url可以是mData?'user/update':'user/add'
+            layer.close(loadIndex);
+            if (res.code === 200) {
+                layer.msg(res.msg, { icon: 1 });
+                _parent.admin.events.closeThisTabs();
+            } else {
+                layer.msg(res.msg, { icon: 2 });
+            }
+        }, 'json');
+        return false;
+    });
 
     $('.datepicker').each(function () {
         laydate.render({
@@ -558,7 +619,32 @@ jQuery.prototype.renderForm = function (_data, _layui, _parent) {
         });
     })
 
+    function getValue(data) {
+        $('.rangeDate').each(function () {
+            let params = $(this).attr('name')
+            let values = $(this).val().split(' - ');
+            delete data[params];
+            $.each(params.split(','), function (index, item) {
+                data[item] = values[index];
+            })
+        })
+
+        let r = {};
+        $('input[data-type="checkbox"]:checked').each(function () {
+            let _this = $(this);
+            if (isBlank(r[_this.attr('name')]))
+                r[_this.attr('name')] = [];
+            r[_this.attr('name')].push(_this.val());
+        })
+        for (let i in r) {
+            data[i] = r[i].join(',');
+        }
+
+        return data
+    }
+
 }
+
 
 function isBlank(s) {
     return s === null || s === undefined || s === "" || s.length === 0

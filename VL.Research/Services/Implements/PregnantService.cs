@@ -1,10 +1,14 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
+using System.Data;
 using VL.Consolo_Core.Common.DBSolution;
 using VL.Consolo_Core.Common.PagerSolution;
 using VL.Consolo_Core.Common.ServiceSolution;
+using VL.Consolo_Core.Common.ValuesSolution;
+using VL.Research.Common;
+using VL.Research.Models;
 using VL.Research.Repositories;
 
-namespace VL.Research.Models
+namespace VL.Research.Services
 {
     /// <summary>
     /// 
@@ -21,7 +25,7 @@ namespace VL.Research.Models
         /// 
         /// </summary>
         /// <param name="dbContext"></param>
-        public PregnantService(DbContext dbContext)
+        public PregnantService(APIContext dbContext)
         {
             this.dbContext = dbContext;
             pregnantInfoRepository = new PregnantInfoRepository(dbContext);
@@ -51,13 +55,13 @@ namespace VL.Research.Models
         /// </summary>
         /// <param name="request">请求参数实体</param>
         /// <returns></returns>
-        public ServiceResult<VLPagerTableResult<DataTable>> GetConfigurablePagedListOfPregnantInfo(GetPagedListOfPregnantInfoRequest request)
+        public ServiceResult<VLPagerTableResult<List<Dictionary<string, object>>>> GetConfigurablePagedListOfPregnantInfo(GetPagedListOfPregnantInfoRequest request)
         {
             var result = dbContext.DelegateTransaction((g) =>
             {
                 var list = pregnantInfoRepository.GetConfigurablePregnantInfoPagedList(request);
                 var count = pregnantInfoRepository.GetPregnantInfoPagedListCount(request);
-                return new VLPagerTableResult<DataTable>() { DataTable = list, Count = count, CurrentIndex = request.PageIndex };
+                return new VLPagerTableResult<List<Dictionary<string, object>>>() { SourceData = list.ToList(), Count = count, CurrentIndex = request.PageIndex };
             });
             return result;
         }

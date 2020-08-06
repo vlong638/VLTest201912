@@ -10,6 +10,17 @@
 
   <ItemGroup>
     <None Remove="VL.Research.xml" />
+    <None Remove="XMLConfig\CustomConfig.xml" />
+    <None Remove="XMLConfig\ListPages.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="XMLConfig\CustomConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="XMLConfig\ListPages.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
