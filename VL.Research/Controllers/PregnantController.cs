@@ -59,19 +59,19 @@ namespace VL.Research.Controllers
         /// <param name="page">页码</param>
         /// <param name="limit">每页行数</param>
         /// <param name="personname">参数(姓名)</param>
-        /// <param name="sort">参数(排序项)</param>
+        /// <param name="field">参数(排序项)</param>
         /// <param name="order">参数(排序顺序:asc|desc)</param>
         /// <returns></returns>
         [HttpGet]
         //[VLAuthentication(Authority.查看孕妇档案列表)]
-        public APIResult<List<Dictionary<string, object>>, int> GetConfigurablePagedListOfPregnantInfo([FromServices] PregnantService pregnantService, int page, int limit, string sort, string order, string personname)
+        public APIResult<List<Dictionary<string, object>>, int> GetConfigurablePagedListOfPregnantInfo([FromServices] PregnantService pregnantService, int page, int limit, string field, string order, string personname)
         {
             var pars = new GetPagedListOfPregnantInfoRequest()
             {
                 PageIndex = page,
                 PageSize = limit,
                 PersonName = personname,
-                Orders = sort == null ? new Dictionary<string, bool>() : (new Dictionary<string, bool>() { { sort, (order == "asc") } }),
+                Orders = field == null ? new Dictionary<string, bool>() : (new Dictionary<string, bool>() { { field, (order == "asc") } }),
             };
             var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", "ListPages.xml");
             XDocument doc = XDocument.Load(path);

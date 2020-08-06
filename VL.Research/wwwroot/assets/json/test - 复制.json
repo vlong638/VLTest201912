@@ -2,7 +2,7 @@
   "CustomConfigId": 0,
   "ViewConfig": {
     "ViewName": "PregnantInfo",
-    "ViewURL": "../../Pregnant/GetConfigurablePagedListOfPregnantInfo",
+    "ViewURL": "../../api/Pregnant/GetConfigurablePagedListOfPregnantInfo",
     "Properties": [
       {
         "ColumnName": "id",
@@ -87,7 +87,7 @@
     }
   ],
   "table": {
-    "url": "../../Pregnant/GetConfigurablePagedListOfPregnantInfo",
+    "url": "../../api/Pregnant/GetConfigurablePagedListOfPregnantInfo",
     "add_btn": {
       "url": "",
       "defaultParam": [],
@@ -103,55 +103,61 @@
     },
     "page": true,
     "limit": 20,
+    "initSort": {
+      "field": null,
+      "type": null
+    },
     "cols": [
-      {
-        "field": "id",
-        "title": "编号",
-        "align": "center",
-        "templet": "",
-        "width": "100",
-        "type": null,
-        "fixed": "",
-        "sort": true,
-        "colspan": "",
-        "rowspan": ""
-      },
-      {
-        "field": "personname",
-        "title": "孕妇姓名",
-        "align": "center",
-        "templet": "",
-        "width": "100",
-        "type": null,
-        "fixed": "",
-        "sort": true,
-        "colspan": "",
-        "rowspan": ""
-      },
-      {
-        "field": "sexcode",
-        "title": "性别",
-        "align": "center",
-        "templet": "",
-        "width": "100",
-        "type": null,
-        "fixed": "",
-        "sort": true,
-        "colspan": "",
-        "rowspan": ""
-      },
-      {
-        "field": "idcard",
-        "title": "身份证号",
-        "align": "center",
-        "templet": "",
-        "width": "100",
-        "type": null,
-        "fixed": "",
-        "sort": false,
-        "colspan": "",
-        "rowspan": ""
-      }
+      [
+        {
+          "field": "id",
+          "title": "编号",
+          "align": "center",
+          "templet": "",
+          "width": "100",
+          "type": null,
+          "fixed": "",
+          "sort": true,
+          "colspan": "",
+          "rowspan": ""
+        },
+        {
+          "field": "personname",
+          "title": "孕妇姓名",
+          "align": "center",
+          "templet": "",
+          "width": "100",
+          "type": null,
+          "fixed": "",
+          "sort": true,
+          "colspan": "",
+          "rowspan": ""
+        },
+        {
+          "field": "sexcode",
+          "title": "性别",
+          "align": "center",
+          "templet": "",
+          "width": "100",
+          "type": null,
+          "fixed": "",
+          "sort": true,
+          "colspan": "",
+          "rowspan": ""
+        },
+        {
+          "field": "idcard",
+          "title": "身份证号",
+          "align": "center",
+          "templet": "",
+          "width": "100",
+          "type": null,
+          "fixed": "",
+          "sort": false,
+          "colspan": "",
+          "rowspan": ""
+        }
+      ]
     ],
     "where": []
   }

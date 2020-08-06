@@ -137,8 +137,9 @@ namespace VL.Research.Controllers
                 {
                     name = c.ComponentName,
                     text = c.DisplayName,
-                    type = c.DisplayType,
-                    value = c.DisplayValues,
+                    type = c.DisplayType.ToInt().Value,
+                    value = c.DisplayValues ?? "",
+                    options = new List<GetListConfigModel_Search_Option>(),
                 }).ToList(),
                 table = new GetListConfigModel_TableConfg()
                 {

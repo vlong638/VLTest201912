@@ -138,15 +138,16 @@
 	IsNeedOnPage="true" DisplayName="$2" $1 Description="$2"$3\r\n-->
 	<View ViewName="PregnantInfo" ViewURL="../../api/Pregnant/GetConfigurablePagedListOfPregnantInfo">
 		<Wheres>
-			<Where ComponentName="personname" CompareOperator="Like" Value="刘" LinkOperator="None" DisplayName="姓名" DisplayType="text"/>
+			<!--"DisplayType <类型[1-文本框|2-数字框|3-单选下拉框|4-树状下拉框|5-日期选择框][默认:1]>",-->
+			<Where ComponentName="personname" CompareOperator="Like" Value="刘" LinkOperator="None" DisplayName="姓名" DisplayType="1"/>
 		</Wheres>
 		<OrderBy ComponentName="" IsAsc="False" />
 		<Property IsNeedOnPage="true" DisplayName="编号" ColumnName="id" DisplayType="None" DisplayWidth="100" IsSortable="true" DataType="int" Description="自动编号" />
-		<Property IsNeedOnPage="true" DisplayName="孕妇姓名" ColumnName="personname" DisplayType="None" DisplayWidth="100" IsSortable="true" DataType="varchar" Description="孕妇姓名" />
+		<Property IsNeedOnPage="true" DisplayName="孕妇姓名" ColumnName="personname" DisplayType="None" DisplayWidth="120" IsSortable="true" DataType="varchar" Description="孕妇姓名" />
 		<Property IsNeedOnPage="true" DisplayName="性别" ColumnName="sexcode" DisplayType="None" DisplayWidth="100" IsSortable="true" DataType="char" Description="性别" />
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="photo" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="证件照编号" />
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="cardno" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="就诊卡号" />
-		<Property IsNeedOnPage="true" DisplayName="身份证号" ColumnName="idcard" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="孕妇证件号" />
+		<Property IsNeedOnPage="true" DisplayName="身份证号" ColumnName="idcard" DisplayType="None" DisplayWidth="180" IsSortable="False" DataType="varchar" Description="孕妇证件号" />
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="registeredpermanent" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="户籍标志" />
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="bloodtypecode" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="char" Description="血型" />
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="homeplace" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="出生地" />

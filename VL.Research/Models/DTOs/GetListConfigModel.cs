@@ -59,7 +59,7 @@ namespace VL.Research.Models
         /// <summary>
         /// 类型 1-文本框|2-数字框|3-单选下拉框|4-树状下拉框|5-日期选择框,默认:1
         /// </summary>
-        public string type { set; get; }
+        public int type { set; get; }
         /// <summary>
         /// 输入项的输入值
         /// </summary>
