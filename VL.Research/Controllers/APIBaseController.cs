@@ -42,10 +42,31 @@ namespace VL.Research.Controllers
         /// <summary>
         /// 
         /// </summary>
+        /// <typeparam name="T1"></typeparam>
+        /// <typeparam name="T2"></typeparam>
+        /// <param name="data1"></param>
+        /// <param name="data2"></param>
+        /// <param name="messages"></param>
+        /// <returns></returns>
+        internal APIResult<T1, T2> Success<T1, T2>(T1 data1, T2 data2, params string[] messages)
+        {
+            return new APIResult<T1, T2>(data1, data2, messages);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
         /// <returns></returns>
         internal APIResult<T> Error<T>(T data, IList<string> messages)
         {
             return new APIResult<T>(data, messages.ToArray());
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        internal APIResult<T1, T2> Error<T1, T2>(T1 data1, T2 data2, params string[] messages)
+        {
+            return new APIResult<T1, T2>(data1, data2, messages);
         }
         /// <summary>
         /// 

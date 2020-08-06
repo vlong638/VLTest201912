@@ -75,7 +75,7 @@ namespace VL.Research.Controllers
                 var serviceResult = userService.GetUserMenuById(request.CustomConfigId);
                 if (!serviceResult.IsSuccess)
                 {
-                    return Error(new GetListConfigModel(), "无效的用户配置");
+                    return Error(data: new GetListConfigModel(), "无效的用户配置");
                 }
                 var viewConfig = serviceResult.PagedData.ViewConfig.FromJson<ViewConfig>();
                 var result = new GetListConfigModel()
@@ -105,7 +105,7 @@ namespace VL.Research.Controllers
                 var serviceResult = userService.GetUserMenuById(request.CustomConfigId);
                 if (!serviceResult.IsSuccess)
                 {
-                    return Error(new GetListConfigModel(), "无效的用户配置");
+                    return Error(data: new GetListConfigModel(), "无效的用户配置");
                 }
                 var viewConfig = serviceResult.PagedData.ViewConfig.FromJson<ViewConfig>();
                 var result = new GetListConfigModel()
@@ -259,7 +259,8 @@ namespace VL.Research.Controllers
         /// <summary>
         /// 页面菜单
         /// </summary>
-        public class MenuItem {
+        public class MenuItem
+        {
 
             /// <summary>
             /// /

@@ -64,7 +64,7 @@ namespace VL.Research.Controllers
         /// <returns></returns>
         [HttpGet]
         //[VLAuthentication(Authority.查看孕妇档案列表)]
-        public PagedAPIResult<List<Dictionary<string, object>>> GetConfigurablePagedListOfPregnantInfo([FromServices] PregnantService pregnantService, int page, int limit, string sort, string order, string personname)
+        public APIResult<List<Dictionary<string, object>>, int> GetConfigurablePagedListOfPregnantInfo([FromServices] PregnantService pregnantService, int page, int limit, string sort, string order, string personname)
         {
             var pars = new GetPagedListOfPregnantInfoRequest()
             {
@@ -80,39 +80,10 @@ namespace VL.Research.Controllers
             var tableConfig = tableConfigs.FirstOrDefault(c => c.ViewName == "PregnantInfo");
             var displayProperties = tableConfig.Properties.Where(c => c.IsNeedOnPage);
             pars.FieldNames = displayProperties.Select(c => c.ColumnName).ToList();
-
             var serviceResult = pregnantService.GetConfigurablePagedListOfPregnantInfo(pars);
             if (!serviceResult.IsSuccess)
-                return new PagedAPIResult<List<Dictionary<string, object>>>()
-                {
-                    code = 200,
-                    msg = "",
-                    Count = 0,
-                    SourceData = null,
-                };
-            return new PagedAPIResult<List<Dictionary<string, object>>>()
-            {
-                code = 200,
-                msg = "",
-                Count = serviceResult.PagedData.Count,
-                SourceData = serviceResult.PagedData.SourceData,
-            };
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        public class PagedAPIResult<T> : APIResult
-        {
-            /// <summary>
-            /// 列表总数
-            /// </summary>
-            public int Count { set; get; }
-            /// <summary>
-            /// 列表数据
-            /// </summary>
-            public T SourceData { set; get; }
+                return Error(data1: serviceResult.PagedData.SourceData, data2: serviceResult.PagedData.Count, messages: serviceResult.Messages);
+            return Success(serviceResult.PagedData.SourceData, serviceResult.PagedData.Count, serviceResult.Messages);
         }
 
         /// <summary>
@@ -127,7 +98,7 @@ namespace VL.Research.Controllers
         {
             if (pregnantInfoId == 0)
             {
-                return Error(default(PregnantInfo), "缺少有效的 pregnantInfoId");
+                return Error(data: default(PregnantInfo), messages: "缺少有效的 pregnantInfoId");
             }
             var serviceResult = pregnantService.GetPregnantInfoByPregnantInfoId(pregnantInfoId);
             if (!serviceResult.IsSuccess)
@@ -155,7 +126,7 @@ namespace VL.Research.Controllers
             };
             var serviceResult = pregnantService.GetPagedListOfVisitRecord(pars);
             if (!serviceResult.IsSuccess)
-                return Error(serviceResult.PagedData, serviceResult.Message);
+                return Error(data: serviceResult.PagedData, messages: serviceResult.Message);
             return Success(serviceResult.PagedData);
         }
 
@@ -208,7 +179,7 @@ namespace VL.Research.Controllers
                 ChildCount = 111,
             });
             if (!serviceResult.IsSuccess)
-                return Error(serviceResult.PagedData, "");
+                return Error(data:serviceResult.PagedData, "");
             return Success(serviceResult.PagedData);
         }
     }

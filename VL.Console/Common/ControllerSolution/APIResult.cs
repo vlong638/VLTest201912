@@ -72,4 +72,36 @@ namespace VL.Consolo_Core.Common.ControllerSolution
         /// </summary>
         public T data { set; get; }
     }
+    /// <summary>
+    /// Controller层返回结构
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class APIResult<T1,T2> : APIResult
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="code"></param>
+        /// <param name="messages"></param>
+        public APIResult(T1 data1, T2 data2, int code, params string[] messages) : base(code, messages)
+        {
+            this.data1 = data1;
+            this.data2 = data2;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="messages"></param>
+        public APIResult(T1 data1, T2 data2, params string[] messages) : this(data1, data2, APIResult.SuccessCode, messages)
+        {
+        }
+
+        /// <summary>
+        /// 数据
+        /// </summary>
+        public T1 data1 { set; get; }
+        public T2 data2 { set; get; }
+    }
 }

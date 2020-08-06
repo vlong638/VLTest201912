@@ -349,7 +349,24 @@
             <param name="data"></param>
             <returns></returns>
         </member>
+        <member name="M:VL.Research.Controllers.APIBaseController.Success``2(``0,``1,System.String[])">
+            <summary>
+            
+            </summary>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+            <param name="data1"></param>
+            <param name="data2"></param>
+            <param name="messages"></param>
+            <returns></returns>
+        </member>
         <member name="M:VL.Research.Controllers.APIBaseController.Error``1(``0,System.Collections.Generic.IList{System.String})">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.APIBaseController.Error``2(``0,``1,System.String[])">
             <summary>
             
             </summary>
@@ -469,22 +486,6 @@
             <param name="sort">参数(排序项)</param>
             <param name="order">参数(排序顺序:asc|desc)</param>
             <returns></returns>
-        </member>
-        <member name="T:VL.Research.Controllers.PregnantController.PagedAPIResult`1">
-            <summary>
-            
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
-        <member name="P:VL.Research.Controllers.PregnantController.PagedAPIResult`1.Count">
-            <summary>
-            列表总数
-            </summary>
-        </member>
-        <member name="P:VL.Research.Controllers.PregnantController.PagedAPIResult`1.SourceData">
-            <summary>
-            列表数据
-            </summary>
         </member>
         <member name="M:VL.Research.Controllers.PregnantController.GetPregnantInfo(VL.Research.Services.PregnantService,System.Int64)">
             <summary>
