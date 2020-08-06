@@ -222,7 +222,8 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
         initSort: isBlank(_data.table.initSort) ? {} : _data.table.initSort,
         response: {
             statusCode: 200,
-            dataName: 'sourceData' //规定数据列表的字段名称，默认：data
+            dataName: 'data1', //规定数据列表的字段名称，默认：data
+            countName:'data2'
         },
         cols: _data.table.cols,
         done: function (res, curr, count) {
