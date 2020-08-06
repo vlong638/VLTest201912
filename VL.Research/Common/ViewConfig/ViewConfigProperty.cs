@@ -16,6 +16,7 @@ namespace VL.Research.Common
         Date = 3,
         DateTime = 31,
         Enum = 4,
+        JsonEnum = 5,
     }
 
     public class ViewConfigProperty

@@ -93,7 +93,7 @@ namespace VL.Research.Common
                         }
                         break;
                     case DisplayType.Enum:
-                        System.Reflection.Assembly assembly = System.Reflection.Assembly.Load("FrameworkTest");
+                        System.Reflection.Assembly assembly = System.Reflection.Assembly.Load("VL.Research");
                         var type = assembly.ExportedTypes.FirstOrDefault(c => c.Name == property.EnumType);
                         if (type != null)
                         {
@@ -105,6 +105,7 @@ namespace VL.Research.Common
                             }
                         }
                         break;
+                    case DisplayType.JsonEnum:
                     default:
                         break;
                 }

@@ -1286,6 +1286,26 @@
             档案状态:(结案标识)
             </summary>
         </member>
+        <member name="T:VL.Research.Models.Enums.Sex">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="F:VL.Research.Models.Enums.Sex.None">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:VL.Research.Models.Enums.Sex.Man">
+            <summary>
+            男性
+            </summary>
+        </member>
+        <member name="F:VL.Research.Models.Enums.Sex.Woman">
+            <summary>
+            女性
+            </summary>
+        </member>
         <member name="T:VL.Research.Models.GetListConfigRequest">
             <summary>
             请求参数实体
