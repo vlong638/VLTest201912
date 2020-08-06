@@ -1,139 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Views>
-	<View ViewName="A_Role">
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="Id" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="Name" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
-		<Wheres>
-			<Where ComponentName="" CompareOperator="None" Value="" LinkOperator="None" />
-		</Wheres>
-		<OrderBy ComponentName="" IsAsc="False" />
-	</View>
-	<View ViewName="A_RoleAuthority">
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="Id" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="RoleId" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="AuthorityId" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
-		<Wheres>
-			<Where ComponentName="" CompareOperator="None" Value="" LinkOperator="None" />
-		</Wheres>
-		<OrderBy ComponentName="" IsAsc="False" />
-	</View>
-	<View ViewName="A_User">
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="Id" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="Password" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="Name" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
-		<Wheres>
-			<Where ComponentName="" CompareOperator="None" Value="" LinkOperator="None" />
-		</Wheres>
-		<OrderBy ComponentName="" IsAsc="False" />
-	</View>
-	<View ViewName="A_UserAuthority">
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="Id" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="UserId" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="AuthorityId" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
-		<Wheres>
-			<Where ComponentName="" CompareOperator="None" Value="" LinkOperator="None" />
-		</Wheres>
-		<OrderBy ComponentName="" IsAsc="False" />
-	</View>
-	<View ViewName="A_UserMenu">
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="Id" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="UserId" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="MenuName" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="URL" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="EntityAppConfig" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nvarchar" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="EntityAppConfig" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="sysname" Description="-" />
-		<Wheres>
-			<Where ComponentName="" CompareOperator="None" Value="" LinkOperator="None" />
-		</Wheres>
-		<OrderBy ComponentName="" IsAsc="False" />
-	</View>
-	<View ViewName="A_UserRole">
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="Id" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="UserId" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="RoleId" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
-		<Wheres>
-			<Where ComponentName="" CompareOperator="None" Value="" LinkOperator="None" />
-		</Wheres>
-		<OrderBy ComponentName="" IsAsc="False" />
-	</View>
-	<View ViewName="Lock1">
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="C1" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="int" Description="-" />
-		<Wheres>
-			<Where ComponentName="" CompareOperator="None" Value="" LinkOperator="None" />
-		</Wheres>
-		<OrderBy ComponentName="" IsAsc="False" />
-	</View>
-	<View ViewName="Lock2">
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="C1" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="int" Description="-" />
-		<Wheres>
-			<Where ComponentName="" CompareOperator="None" Value="" LinkOperator="None" />
-		</Wheres>
-		<OrderBy ComponentName="" IsAsc="False" />
-	</View>
-	<View ViewName="O_LabOrder">
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="ID" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="patientid" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nvarchar" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="patientid" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="sysname" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="idcard" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nchar" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="name" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nvarchar" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="name" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="sysname" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="orderid" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nvarchar" Description="检查id" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="orderid" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="sysname" Description="检查id" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="examname" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nvarchar" Description="检查名称" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="examname" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="sysname" Description="检查名称" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="examcode" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nvarchar" Description="检查编码" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="examcode" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="sysname" Description="检查编码" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="ordertime" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="datetime" Description="检查时间" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="orderdocid" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nchar" Description="检查医生Id" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="orderdocname" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nvarchar" Description="检查医生名称" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="orderdocname" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="sysname" Description="检查医生名称" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="technician" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nvarchar" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="technician" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="sysname" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="executer" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nvarchar" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="executer" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="sysname" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="examtime" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="datetime" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="reporttime" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="datetime" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="examfinished" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bit" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="status" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bit" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="examhospital" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="importtime" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="datetime" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="jigoudm" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="deliverydate" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="datetime" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="deliveryid" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
-		<Wheres>
-			<Where ComponentName="" CompareOperator="None" Value="" LinkOperator="None" />
-		</Wheres>
-		<OrderBy ComponentName="" IsAsc="False" />
-	</View>
-	<View ViewName="O_LabResult">
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="ID" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="patientid" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nvarchar" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="patientid" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="sysname" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="idcard" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nchar" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="name" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nvarchar" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="name" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="sysname" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="orderid" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nvarchar" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="orderid" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="sysname" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="setid" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="int" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="itemid" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nvarchar" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="itemid" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="sysname" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="itemname" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nvarchar" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="itemname" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="sysname" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="value" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nvarchar" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="value" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="sysname" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="unit" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nvarchar" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="unit" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="sysname" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="reference" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nvarchar" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="reference" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="sysname" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="resultflag" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nchar" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="status" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bit" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="deliverydate" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="datetime" Description="-" />
-		<Property IsNeedOnPage="false" DisplayName="" ColumnName="NewColumn" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
-		<Wheres>
-			<Where ComponentName="" CompareOperator="None" Value="" LinkOperator="None" />
-		</Wheres>
-		<OrderBy ComponentName="" IsAsc="False" />
-	</View>
 	<!--IsNeedOnPage="false" DisplayName="" (.+) Description="(\w+)"(.+)\r\n
 	IsNeedOnPage="true" DisplayName="$2" $1 Description="$2"$3\r\n-->
 	<View ViewName="PregnantInfo" ViewURL="../../api/Pregnant/GetConfigurablePagedListOfPregnantInfo">
@@ -141,7 +7,11 @@
 			<!--"DisplayType <类型[1-文本框|2-数字框|3-单选下拉框|4-树状下拉框|5-日期选择框][默认:1]>",-->
 			<Where ComponentName="personname" CompareOperator="Like" Value="刘" LinkOperator="None" DisplayName="姓名" DisplayType="1"/>
 		</Wheres>
-		<OrderBy ComponentName="" IsAsc="False" />
+		<OrderBys DefaultName ="id" DefaultValue ="desc">
+			<OrderBy ComponentName="id" Value ="id"/>
+			<OrderBy ComponentName="personname" Value ="personname"/>
+			<OrderBy ComponentName="sexcode" Value ="sexcode"/>
+		</OrderBys>
 		<Property IsNeedOnPage="true" DisplayName="编号" ColumnName="id" DisplayType="None" DisplayWidth="100" IsSortable="true" DataType="int" Description="自动编号" />
 		<Property IsNeedOnPage="true" DisplayName="孕妇姓名" ColumnName="personname" DisplayType="None" DisplayWidth="120" IsSortable="true" DataType="varchar" Description="孕妇姓名" />
 		<Property IsNeedOnPage="true" DisplayName="性别" ColumnName="sexcode" DisplayType="None" DisplayWidth="100" IsSortable="true" DataType="char" Description="性别" />
@@ -391,6 +261,140 @@
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="ReceiveRemark" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="领用情况-备注" />
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="PregnantInfoId" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="int" Description="自动编号" />
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="NewColumn" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+	</View>
+	<View ViewName="A_Role">
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="Id" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="Name" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+		<Wheres>
+			<Where ComponentName="" CompareOperator="None" Value="" LinkOperator="None" />
+		</Wheres>
+		<OrderBy ComponentName="" IsAsc="False" />
+	</View>
+	<View ViewName="A_RoleAuthority">
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="Id" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="RoleId" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="AuthorityId" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
+		<Wheres>
+			<Where ComponentName="" CompareOperator="None" Value="" LinkOperator="None" />
+		</Wheres>
+		<OrderBy ComponentName="" IsAsc="False" />
+	</View>
+	<View ViewName="A_User">
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="Id" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="Password" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="Name" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+		<Wheres>
+			<Where ComponentName="" CompareOperator="None" Value="" LinkOperator="None" />
+		</Wheres>
+		<OrderBy ComponentName="" IsAsc="False" />
+	</View>
+	<View ViewName="A_UserAuthority">
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="Id" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="UserId" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="AuthorityId" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
+		<Wheres>
+			<Where ComponentName="" CompareOperator="None" Value="" LinkOperator="None" />
+		</Wheres>
+		<OrderBy ComponentName="" IsAsc="False" />
+	</View>
+	<View ViewName="A_UserMenu">
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="Id" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="UserId" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="MenuName" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="URL" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="EntityAppConfig" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nvarchar" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="EntityAppConfig" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="sysname" Description="-" />
+		<Wheres>
+			<Where ComponentName="" CompareOperator="None" Value="" LinkOperator="None" />
+		</Wheres>
+		<OrderBy ComponentName="" IsAsc="False" />
+	</View>
+	<View ViewName="A_UserRole">
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="Id" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="UserId" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="RoleId" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
+		<Wheres>
+			<Where ComponentName="" CompareOperator="None" Value="" LinkOperator="None" />
+		</Wheres>
+		<OrderBy ComponentName="" IsAsc="False" />
+	</View>
+	<View ViewName="Lock1">
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="C1" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="int" Description="-" />
+		<Wheres>
+			<Where ComponentName="" CompareOperator="None" Value="" LinkOperator="None" />
+		</Wheres>
+		<OrderBy ComponentName="" IsAsc="False" />
+	</View>
+	<View ViewName="Lock2">
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="C1" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="int" Description="-" />
+		<Wheres>
+			<Where ComponentName="" CompareOperator="None" Value="" LinkOperator="None" />
+		</Wheres>
+		<OrderBy ComponentName="" IsAsc="False" />
+	</View>
+	<View ViewName="O_LabOrder">
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="ID" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="patientid" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nvarchar" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="patientid" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="sysname" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="idcard" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nchar" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="name" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nvarchar" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="name" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="sysname" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="orderid" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nvarchar" Description="检查id" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="orderid" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="sysname" Description="检查id" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="examname" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nvarchar" Description="检查名称" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="examname" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="sysname" Description="检查名称" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="examcode" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nvarchar" Description="检查编码" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="examcode" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="sysname" Description="检查编码" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="ordertime" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="datetime" Description="检查时间" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="orderdocid" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nchar" Description="检查医生Id" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="orderdocname" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nvarchar" Description="检查医生名称" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="orderdocname" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="sysname" Description="检查医生名称" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="technician" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nvarchar" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="technician" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="sysname" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="executer" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nvarchar" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="executer" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="sysname" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="examtime" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="datetime" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="reporttime" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="datetime" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="examfinished" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bit" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="status" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bit" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="examhospital" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="importtime" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="datetime" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="jigoudm" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="deliverydate" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="datetime" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="deliveryid" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+		<Wheres>
+			<Where ComponentName="" CompareOperator="None" Value="" LinkOperator="None" />
+		</Wheres>
+		<OrderBy ComponentName="" IsAsc="False" />
+	</View>
+	<View ViewName="O_LabResult">
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="ID" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="patientid" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nvarchar" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="patientid" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="sysname" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="idcard" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nchar" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="name" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nvarchar" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="name" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="sysname" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="orderid" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nvarchar" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="orderid" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="sysname" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="setid" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="int" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="itemid" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nvarchar" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="itemid" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="sysname" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="itemname" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nvarchar" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="itemname" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="sysname" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="value" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nvarchar" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="value" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="sysname" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="unit" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nvarchar" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="unit" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="sysname" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="reference" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nvarchar" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="reference" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="sysname" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="resultflag" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="nchar" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="status" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bit" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="deliverydate" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="datetime" Description="-" />
+		<Property IsNeedOnPage="false" DisplayName="" ColumnName="NewColumn" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+		<Wheres>
+			<Where ComponentName="" CompareOperator="None" Value="" LinkOperator="None" />
+		</Wheres>
+		<OrderBy ComponentName="" IsAsc="False" />
 	</View>
 	<View ViewName="O_VisitRecord">
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="id" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="int" Description="编号" />

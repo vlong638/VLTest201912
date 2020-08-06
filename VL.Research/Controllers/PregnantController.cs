@@ -66,24 +66,38 @@ namespace VL.Research.Controllers
         //[VLAuthentication(Authority.查看孕妇档案列表)]
         public APIResult<List<Dictionary<string, object>>, int> GetConfigurablePagedListOfPregnantInfo([FromServices] PregnantService pregnantService, int page, int limit, string field, string order, string personname)
         {
+            ViewConfig tableConfig;
+            tableConfig = GetViewConfigByName("PregnantInfo");
             var pars = new GetPagedListOfPregnantInfoRequest()
             {
                 PageIndex = page,
                 PageSize = limit,
                 PersonName = personname,
-                Orders = field == null ? new Dictionary<string, bool>() : (new Dictionary<string, bool>() { { field, (order == "asc") } }),
+                Orders = new Dictionary<string, bool>(),
             };
-            var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", "ListPages.xml");
-            XDocument doc = XDocument.Load(path);
-            var tableElements = doc.Descendants(ViewConfig.NodeElementName);
-            var tableConfigs = tableElements.Select(c => new ViewConfig(c));
-            var tableConfig = tableConfigs.FirstOrDefault(c => c.ViewName == "PregnantInfo");
+            //更新字段参数
             var displayProperties = tableConfig.Properties.Where(c => c.IsNeedOnPage);
             pars.FieldNames = displayProperties.Select(c => c.ColumnName).ToList();
+            //更新排序参数
+            var orderby = tableConfig.OrderBys.OrderByList.FirstOrDefault(c => c.ComponentName == field);
+            if (orderby!=null)
+                pars.Orders.Add(orderby.Value, order == "asc");
+
             var serviceResult = pregnantService.GetConfigurablePagedListOfPregnantInfo(pars);
             if (!serviceResult.IsSuccess)
                 return Error(data1: serviceResult.PagedData.SourceData, data2: serviceResult.PagedData.Count, messages: serviceResult.Messages);
             return Success(serviceResult.PagedData.SourceData, serviceResult.PagedData.Count, serviceResult.Messages);
+        }
+
+        private static ViewConfig GetViewConfigByName(string viewName)
+        {
+            ViewConfig tableConfig;
+            var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", "ListPages.xml");
+            XDocument doc = XDocument.Load(path);
+            var tableElements = doc.Descendants(ViewConfig.NodeElementName);
+            var tableConfigs = tableElements.Select(c => new ViewConfig(c));
+            tableConfig = tableConfigs.FirstOrDefault(c => c.ViewName == viewName);
+            return tableConfig;
         }
 
         /// <summary>

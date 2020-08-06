@@ -34,7 +34,7 @@ namespace VL.Research.Common
         /// <summary>
         /// 页面排序项
         /// </summary>
-        public ViewConfigOrderBy OrderBy { set; get; }
+        public ViewConfigOrderBys OrderBys { set; get; }
 
         /// <summary>
         /// 
@@ -53,7 +53,7 @@ namespace VL.Research.Common
             ViewURL = element.Attribute(nameof(ViewURL))?.Value;
             Properties = element.Descendants(ViewConfigProperty.ElementName).Select(c => new ViewConfigProperty(c)).ToList();
             Wheres = element.Descendants(ViewConfigWhere.ElementName).Select(c => new ViewConfigWhere(c)).ToList();
-            OrderBy = element.Descendants(ViewConfigOrderBy.ElementName).Select(c => new ViewConfigOrderBy(c)).FirstOrDefault() ?? new ViewConfigOrderBy();
+            OrderBys = element.Descendants(ViewConfigOrderBys.ElementName).Select(c => new ViewConfigOrderBys(c)).FirstOrDefault() ?? new ViewConfigOrderBys();
         }
         /// <summary>
         /// 
@@ -110,6 +110,7 @@ namespace VL.Research.Common
                 }
             }
         }
+
         /// <summary>
         /// 
         /// </summary>
@@ -135,9 +136,9 @@ namespace VL.Research.Common
                 node.Add(wheresRoot);
             }
             //orderby
-            if (OrderBy != null)
+            if (OrderBys != null)
             {
-                node.Add(OrderBy.ToXElement());
+                node.Add(OrderBys.ToXElement());
             }
             return node;
         }
@@ -249,28 +250,54 @@ namespace VL.Research.Common
         }
     }
 
+    public class ViewConfigOrderBys
+    {
+        public const string ElementName = "OrderBys";
+
+        public string DefaultName { set; get; }
+        public string DefaultValue { set; get; }
+        public List<ViewConfigOrderBy> OrderByList { set; get; }
+
+
+        public ViewConfigOrderBys()
+        {
+            DefaultName = "";
+        }
+        public ViewConfigOrderBys(XElement element)
+        {
+            DefaultName = element.Attribute(nameof(DefaultName))?.Value;
+            DefaultValue = element.Attribute(nameof(DefaultValue))?.Value;
+            OrderByList = element.Descendants(ViewConfigOrderBy.ElementName).Select(c => new ViewConfigOrderBy(c))?.ToList() ?? new List<ViewConfigOrderBy>();
+        }
+
+        public XElement ToXElement()
+        {
+            var property = new XElement(ElementName);
+            property.SetAttributeValue(nameof(DefaultName), DefaultName);
+            property.SetAttributeValue(nameof(DefaultValue), DefaultValue.ToString());
+            return property;
+        }
+    }
+
+
     public class ViewConfigOrderBy
     {
         public const string ElementName = "OrderBy";
 
         public string ComponentName { set; get; }
-        public bool IsAsc { set; get; }
+        public string Value { set; get; }
 
-        public ViewConfigOrderBy()
-        {
-            ComponentName = "";
-        }
         public ViewConfigOrderBy(XElement element)
         {
             ComponentName = element.Attribute(nameof(ComponentName))?.Value;
-            IsAsc = element.Attribute(nameof(IsAsc))?.Value.ToBool() ?? false;
+            Value = element.Attribute(nameof(Value))?.Value;
         }
 
         public XElement ToXElement()
         {
             var property = new XElement(ElementName);
             property.SetAttributeValue(nameof(ComponentName), ComponentName);
-            property.SetAttributeValue(nameof(IsAsc), IsAsc.ToString());
+            property.SetAttributeValue(nameof(Value), Value);
             return property;
         }
     }

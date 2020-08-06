@@ -51,7 +51,6 @@ namespace VL.Research.Repositories
         {
             var sql = request.ToListSQL();
             var pars = request.GetParams();
-
             DataTable table = new DataTable("MyTable");
             var reader = _context.DbGroup.Connection.ExecuteReader(sql, pars, transaction: _transaction);
             table.Load(reader);

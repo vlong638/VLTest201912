@@ -146,7 +146,7 @@
             页面条件项
             </summary>
         </member>
-        <member name="P:VL.Research.Common.ViewConfig.OrderBy">
+        <member name="P:VL.Research.Common.ViewConfig.OrderBys">
             <summary>
             页面排序项
             </summary>
@@ -483,7 +483,7 @@
             <param name="page">页码</param>
             <param name="limit">每页行数</param>
             <param name="personname">参数(姓名)</param>
-            <param name="sort">参数(排序项)</param>
+            <param name="field">参数(排序项)</param>
             <param name="order">参数(排序顺序:asc|desc)</param>
             <returns></returns>
         </member>
