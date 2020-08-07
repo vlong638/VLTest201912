@@ -39,6 +39,14 @@ namespace VL.Research.Common
         /// </summary>
         public List<SQLConfigOrderBy> OrderBys { set; get; }
         /// <summary>
+        /// 默认排序项
+        /// </summary>
+        public string DefaultComponentName { get; private set; }
+        /// <summary>
+        /// 默认排序项
+        /// </summary>
+        public string DefaultOrder { get; private set; }
+        /// <summary>
         /// 预设SQL
         /// </summary>
         public string SQL { set; get; }
@@ -61,18 +69,25 @@ namespace VL.Research.Common
             Wheres = element.Descendants(SQLConfigWhere.ElementName).Select(c => new SQLConfigWhere(c)).ToList();
             OrderBys = element.Descendants(SQLConfigOrderBy.ElementName).Select(c => new SQLConfigOrderBy(c)).ToList();
             SQL = element.Descendants("SQL").First().Value;
+            var OrderBysRoot = element.Descendants(SQLConfigOrderBy.RootElementName).First();
+            DefaultComponentName = OrderBysRoot.Attribute(nameof(DefaultComponentName))?.Value ?? "";
+            DefaultOrder = OrderBysRoot.Attribute(nameof(DefaultOrder))?.Value ?? "";
         }
         #endregion
 
         #region 动态更新
         internal void UpdateOrderBy(string field, string order)
         {
+            var tempField = field.IsNullOrEmpty() ? DefaultComponentName : field;
+            var tempOrder = field.IsNullOrEmpty() ? DefaultOrder : order;
             foreach (var OrderBy in OrderBys)
             {
-                if (field == OrderBy.ComponentName)
+                OrderBy.IsOn = false;
+
+                if (tempField == OrderBy.ComponentName)
                 {
                     OrderBy.IsOn = true;
-                    OrderBy.IsAsc = order == "asc";
+                    OrderBy.IsAsc = tempOrder == "asc";
                 }
             }
         }
@@ -104,6 +119,7 @@ namespace VL.Research.Common
         {
             get { return PageSize > 0 ? PageSize : 10; }
         }
+
         #endregion
         #endregion
 
@@ -265,6 +281,10 @@ namespace VL.Research.Common
     /// </summary>
     public class SQLConfigOrderBy
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string RootElementName = "OrderBys";
         /// <summary>
         /// 
         /// </summary>

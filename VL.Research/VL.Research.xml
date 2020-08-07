@@ -183,6 +183,16 @@
             页面排序项
             </summary>
         </member>
+        <member name="P:VL.Research.Common.SQLConfig.DefaultComponentName">
+            <summary>
+            默认排序项
+            </summary>
+        </member>
+        <member name="P:VL.Research.Common.SQLConfig.DefaultOrder">
+            <summary>
+            默认排序项
+            </summary>
+        </member>
         <member name="P:VL.Research.Common.SQLConfig.SQL">
             <summary>
             预设SQL
@@ -284,6 +294,11 @@
             <returns></returns>
         </member>
         <member name="T:VL.Research.Common.SQLConfigOrderBy">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:VL.Research.Common.SQLConfigOrderBy.RootElementName">
             <summary>
             
             </summary>

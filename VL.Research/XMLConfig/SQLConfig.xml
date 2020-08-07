@@ -51,7 +51,7 @@
 		<Wheres>
 			<Where ComponentName="name" Formatter="%@name%">r.name like @name</Where>
 		</Wheres>
-		<OrderBys>
+		<OrderBys DefaultComponentName="id" DefaultOrder="asc">
 			<OrderBy ComponentName="id" Alias ="r.id"/>
 			<OrderBy ComponentName="name" Alias ="r.name"/>
 		</OrderBys>
