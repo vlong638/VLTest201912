@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Views>
-	<View ViewName="PregnantInfo" ViewURL="../../api/Pregnant/GetConfigurablePagedListOfPregnantInfo">
+	<View ViewName="PregnantInfo">
 		<Properties>
 			<Property IsOn="true" ColumnName="id" Alias ="pi.id"/>
 			<Property IsOn="true" ColumnName="personname" Alias ="pi.personname"/>
@@ -18,6 +18,26 @@
 		<SQL>
 			select @Fields
 			from PregnantInfo pi
+			@Wheres
+			@OrderBy
+			@Pager
+		</SQL>
+	</View>
+	<View ViewName="Account">
+		<Properties>
+			<Property IsOn="true" ColumnName="id" Alias ="u.id"/>
+			<Property IsOn="true" ColumnName="name" Alias ="u.name"/>
+		</Properties>
+		<Wheres>
+			<Where ComponentName="name" Formatter="%@name%">u.name like @name</Where>
+		</Wheres>
+		<OrderBys>
+			<OrderBy ComponentName="id" Alias ="u.id"/>
+			<OrderBy ComponentName="name" Alias ="u.name"/>
+		</OrderBys>
+		<SQL>
+			select @Fields
+			from A_User u
 			@Wheres
 			@OrderBy
 			@Pager

@@ -283,7 +283,7 @@ namespace VL.Research.Controllers
             new MenuItem("11","1","孕妇档案","","../Home/PregnantInfoList"),
             new MenuItem("2","","自定义查询","",""),
             new MenuItem("3","","账户管理","",""),
-            new MenuItem("31","3","用户管理","",""),
+            new MenuItem("31","3","用户管理","","../Home/AccountList"),
             new MenuItem("32","3","角色管理","",""),
             new MenuItem("4","","个人中心","",""),
             new MenuItem("41","4","修改密码","",""),

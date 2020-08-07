@@ -258,11 +258,16 @@
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="PregnantInfoId" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="int" Description="自动编号" />
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="NewColumn" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
 	</View>
-	
-	
-	
-	
-	
+	<View ViewName="Account" ViewURL="../../api/Account/GetCommonSelectOfAccount">
+		<Wheres>
+			<!--"DisplayType <类型[1-文本框|2-数字框|3-单选下拉框|4-树状下拉框|5-日期选择框][默认:1]>",-->
+			<Where ComponentName="Name" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="用户名" DisplayType="1"/>
+		</Wheres>
+		<OrderBy DefaultName ="Id" DefaultValue ="desc"/>
+		
+		<Property IsNeedOnPage="true" DisplayName="标识号" ColumnName="Id" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
+		<Property IsNeedOnPage="true" DisplayName="用户名" ColumnName="Name" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+	</View>
 	
 	
 	

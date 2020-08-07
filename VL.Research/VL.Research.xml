@@ -532,14 +532,14 @@
             账户
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.AccountController.GetConfigurablePagedListOfPregnantInfo(VL.Research.Services.UserService,System.Int32,System.Int32,System.String,System.String,System.String)">
+        <member name="M:VL.Research.Controllers.AccountController.GetCommonSelectOfAccount(VL.Research.Services.SharedService,System.Int32,System.Int32,System.String,System.String,System.String)">
             <summary>
             获取 自定义配置的孕妇档案列表
             </summary>
-            <param name="userService"></param>
+            <param name="sharedService"></param>
             <param name="page">页码</param>
             <param name="limit">每页行数</param>
-            <param name="personname">参数(姓名)</param>
+            <param name="name">参数(姓名)</param>
             <param name="field">参数(排序项)</param>
             <param name="order">参数(排序顺序:asc|desc)</param>
             <returns></returns>
@@ -620,6 +620,12 @@
             <param name="userService"></param>
             <param name="model"></param>
             <param name="returnUrl"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.HomeController.AccountList">
+            <summary>
+            
+            </summary>
             <returns></returns>
         </member>
         <member name="M:VL.Research.Controllers.HomeController.PregnantInfoList">

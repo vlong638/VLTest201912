@@ -52,39 +52,33 @@ namespace VL.Research.Controllers
         /// <summary>
         /// 获取 自定义配置的孕妇档案列表
         /// </summary>
-        /// <param name="userService"></param>
+        /// <param name="sharedService"></param>
         /// <param name="page">页码</param>
         /// <param name="limit">每页行数</param>
-        /// <param name="personname">参数(姓名)</param>
+        /// <param name="name">参数(姓名)</param>
         /// <param name="field">参数(排序项)</param>
         /// <param name="order">参数(排序顺序:asc|desc)</param>
         /// <returns></returns>
         [HttpGet]
         //[VLAuthentication(Authority.查看孕妇档案列表)]
-        public APIResult<List<Dictionary<string, object>>, int> GetConfigurablePagedListOfPregnantInfo([FromServices] UserService userService, int page, int limit, string field, string order, string personname)
+        public APIResult<List<Dictionary<string, object>>, int> GetCommonSelectOfAccount([FromServices] SharedService sharedService, int page, int limit, string field, string order, string name)
         {
-            throw new NotImplementedException();
+            var viewConfig = SystemController.GetViewConfigByName("Account");
+            var sqlConfig = SystemController.GetSQLConfigByName("Account");
+            Dictionary<string, object> wheres = new Dictionary<string, object>();
+            wheres.Add("name", name);
+            sqlConfig.PageIndex = page;
+            sqlConfig.PageSize = limit;
+            sqlConfig.UpdateWheres(wheres);
+            sqlConfig.UpdateOrderBy(field, order);
+            //获取数据
+            var serviceResult = sharedService.GetCommonSelect(sqlConfig);
+            //更新显示映射(枚举,函数,脱敏)
+            viewConfig.UpdateValues(serviceResult.PagedData.SourceData);
 
-            //ViewConfig viewConfig;
-            //viewConfig = SystemController.GetViewConfigByName("Account");
-            //var pars = new GetUserPageListRequest()
-            //{
-            //    PageIndex = page,
-            //    PageSize = limit,
-            //    PersonName = personname,
-            //    Orders = new Dictionary<string, bool>(),
-            //};
-            ////更新字段参数
-            //viewConfig.UpdatePropertiesToSelect(pars.FieldNames);
-            ////更新排序参数
-            //viewConfig.UpdateOrderBy(pars.Orders, field, order);
-            ////获取数据
-            //var serviceResult = userService.GetUserPageList(pars);
-            //if (!serviceResult.IsSuccess)
-            //    return Error(data1: serviceResult.PagedData.SourceData, data2: serviceResult.PagedData.Count, messages: serviceResult.Messages);
-            ////更新显示映射(枚举,函数,脱敏)
-            //viewConfig.UpdateValues(serviceResult.PagedData.SourceData);
-            //return Success(serviceResult.PagedData.SourceData, serviceResult.PagedData.Count, serviceResult.Messages);
+            if (!serviceResult.IsSuccess)
+                return Error(data1: serviceResult.PagedData.SourceData, data2: serviceResult.PagedData.Count, messages: serviceResult.Messages);
+            return Success(serviceResult.PagedData.SourceData, serviceResult.PagedData.Count, serviceResult.Messages);
         }
     }
 }
