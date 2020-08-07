@@ -34,7 +34,7 @@ namespace VL.Research.Common
         /// <summary>
         /// 页面排序项
         /// </summary>
-        public ViewConfigOrderBys OrderBys { set; get; }
+        public ViewConfigOrderBy OrderBys { set; get; }
 
         /// <summary>
         /// 
@@ -53,7 +53,7 @@ namespace VL.Research.Common
             ViewURL = element.Attribute(nameof(ViewURL))?.Value;
             Properties = element.Descendants(ViewConfigProperty.ElementName).Select(c => new ViewConfigProperty(c)).ToList();
             Wheres = element.Descendants(ViewConfigWhere.ElementName).Select(c => new ViewConfigWhere(c)).ToList();
-            OrderBys = element.Descendants(ViewConfigOrderBys.ElementName).Select(c => new ViewConfigOrderBys(c)).FirstOrDefault() ?? new ViewConfigOrderBys();
+            OrderBys = element.Descendants(ViewConfigOrderBy.ElementName).Select(c => new ViewConfigOrderBy(c)).FirstOrDefault() ?? new ViewConfigOrderBy();
         }
         /// <summary>
         /// 
@@ -61,6 +61,8 @@ namespace VL.Research.Common
         /// <param name="list"></param>
         public void UpdateValues(IEnumerable<Dictionary<string, object>> list)
         {
+            if (list == null)
+                return;
             var validProperties = Properties.Where(c => c.IsNeedOnPage);
             foreach (var property in validProperties)
             {
@@ -110,6 +112,29 @@ namespace VL.Research.Common
                         break;
                 }
             }
+        }
+
+        /// <summary>
+        /// 更新排序项
+        /// </summary>
+        /// <param name="orders"></param>
+        /// <param name="field"></param>
+        /// <param name="order"></param>
+        internal void UpdateOrderBy(Dictionary<string, bool> orders, string field, string order)
+        {
+            //var orderby = this.OrderBys.FirstOrDefault(c => c.ComponentName == field);
+            //if (orderby != null)
+            //    orders.Add(orderby.Value, order == "asc");
+        }
+
+        /// <summary>
+        /// 更新待选择显示的字段
+        /// </summary>
+        /// <param name="fieldNames"></param>
+        internal void UpdatePropertiesToSelect(List<string> fieldNames)
+        {
+            var displayProperties = this.Properties.Where(c => c.IsNeedOnPage);
+            fieldNames = displayProperties.Select(c => c.ColumnName).ToList();
         }
 
         /// <summary>
@@ -251,24 +276,25 @@ namespace VL.Research.Common
         }
     }
 
-    public class ViewConfigOrderBys
+    /// <summary>
+    /// 
+    /// </summary>
+    public class ViewConfigOrderBy
     {
-        public const string ElementName = "OrderBys";
+        public const string ElementName = "OrderBy";
 
         public string DefaultName { set; get; }
         public string DefaultValue { set; get; }
-        public List<ViewConfigOrderBy> OrderByList { set; get; }
 
 
-        public ViewConfigOrderBys()
+        public ViewConfigOrderBy()
         {
             DefaultName = "";
         }
-        public ViewConfigOrderBys(XElement element)
+        public ViewConfigOrderBy(XElement element)
         {
             DefaultName = element.Attribute(nameof(DefaultName))?.Value;
             DefaultValue = element.Attribute(nameof(DefaultValue))?.Value;
-            OrderByList = element.Descendants(ViewConfigOrderBy.ElementName).Select(c => new ViewConfigOrderBy(c))?.ToList() ?? new List<ViewConfigOrderBy>();
         }
 
         public XElement ToXElement()
@@ -276,29 +302,6 @@ namespace VL.Research.Common
             var property = new XElement(ElementName);
             property.SetAttributeValue(nameof(DefaultName), DefaultName);
             property.SetAttributeValue(nameof(DefaultValue), DefaultValue.ToString());
-            return property;
-        }
-    }
-
-
-    public class ViewConfigOrderBy
-    {
-        public const string ElementName = "OrderBy";
-
-        public string ComponentName { set; get; }
-        public string Value { set; get; }
-
-        public ViewConfigOrderBy(XElement element)
-        {
-            ComponentName = element.Attribute(nameof(ComponentName))?.Value;
-            Value = element.Attribute(nameof(Value))?.Value;
-        }
-
-        public XElement ToXElement()
-        {
-            var property = new XElement(ElementName);
-            property.SetAttributeValue(nameof(ComponentName), ComponentName);
-            property.SetAttributeValue(nameof(Value), Value);
             return property;
         }
     }

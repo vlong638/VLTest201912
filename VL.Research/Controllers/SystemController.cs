@@ -61,6 +61,38 @@ namespace VL.Research.Controllers
         #region XMLConfig
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="viewName"></param>
+        /// <returns></returns>
+        public static ViewConfig GetViewConfigByName(string viewName)
+        {
+            ViewConfig tableConfig;
+            var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", "ViewConfig.xml");
+            XDocument doc = XDocument.Load(path);
+            var tableElements = doc.Descendants(ViewConfig.NodeElementName);
+            var tableConfigs = tableElements.Select(c => new ViewConfig(c));
+            tableConfig = tableConfigs.FirstOrDefault(c => c.ViewName == viewName);
+            return tableConfig;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="viewName"></param>
+        /// <returns></returns>
+        public static SQLConfig GetSQLConfigByName(string viewName)
+        {
+            SQLConfig tableConfig;
+            var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", "SQLConfig.xml");
+            XDocument doc = XDocument.Load(path);
+            var tableElements = doc.Descendants(SQLConfig.NodeElementName);
+            var tableConfigs = tableElements.Select(c => new SQLConfig(c));
+            tableConfig = tableConfigs.FirstOrDefault(c => c.ViewName == viewName);
+            return tableConfig;
+        }
+
+        /// <summary>
         /// 获取 列表配置
         /// </summary>
         /// <param name="userService"></param>
@@ -123,7 +155,7 @@ namespace VL.Research.Controllers
 
         private GetListConfigModel LoadDefaultConfig(GetListConfigRequest request)
         {
-            var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", "ListPages.xml");
+            var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", "ViewConfig.xml");
             XDocument doc = XDocument.Load(path);
             var viewElements = doc.Descendants(ViewConfig.NodeElementName);
             var viewConfigs = viewElements.Select(c => new ViewConfig(c));

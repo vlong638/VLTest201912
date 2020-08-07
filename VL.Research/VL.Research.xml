@@ -71,6 +71,183 @@
             
             </summary>
         </member>
+        <member name="T:VL.Research.Common.SQLConfig">
+            <summary>
+            查询sql配置
+            </summary>
+        </member>
+        <member name="F:VL.Research.Common.SQLConfig.RootElementName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:VL.Research.Common.SQLConfig.NodeElementName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:VL.Research.Common.SQLConfig.ViewName">
+            <summary>
+            页面名称
+            </summary>
+        </member>
+        <member name="P:VL.Research.Common.SQLConfig.Properties">
+            <summary>
+            页面字段
+            </summary>
+        </member>
+        <member name="P:VL.Research.Common.SQLConfig.Wheres">
+            <summary>
+            页面条件项
+            </summary>
+        </member>
+        <member name="P:VL.Research.Common.SQLConfig.OrderBys">
+            <summary>
+            页面排序项
+            </summary>
+        </member>
+        <member name="P:VL.Research.Common.SQLConfig.SQL">
+            <summary>
+            预设SQL
+            </summary>
+        </member>
+        <member name="M:VL.Research.Common.SQLConfig.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VL.Research.Common.SQLConfig.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            
+            </summary>
+            <param name="element"></param>
+        </member>
+        <member name="T:VL.Research.Common.SQLConfigProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:VL.Research.Common.SQLConfigProperty.ElementName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VL.Research.Common.SQLConfigProperty.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            
+            </summary>
+            <param name="element"></param>
+        </member>
+        <member name="P:VL.Research.Common.SQLConfigProperty.IsOn">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="P:VL.Research.Common.SQLConfigProperty.ColumnName">
+            <summary>
+            字段名称
+            </summary>
+        </member>
+        <member name="P:VL.Research.Common.SQLConfigProperty.Alias">
+            <summary>
+            查询用名称
+            </summary>
+        </member>
+        <member name="M:VL.Research.Common.SQLConfigProperty.ToXElement">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:VL.Research.Common.SQLConfigWhere">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:VL.Research.Common.SQLConfigWhere.ElementName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VL.Research.Common.SQLConfigWhere.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            
+            </summary>
+            <param name="element"></param>
+        </member>
+        <member name="P:VL.Research.Common.SQLConfigWhere.IsOn">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="P:VL.Research.Common.SQLConfigWhere.Value">
+            <summary>
+            值
+            </summary>
+        </member>
+        <member name="P:VL.Research.Common.SQLConfigWhere.ComponentName">
+            <summary>
+            项目名称
+            </summary>
+        </member>
+        <member name="P:VL.Research.Common.SQLConfigWhere.SQL">
+            <summary>
+            值
+            </summary>
+        </member>
+        <member name="P:VL.Research.Common.SQLConfigWhere.Formatter">
+            <summary>
+            格式化
+            </summary>
+        </member>
+        <member name="M:VL.Research.Common.SQLConfigWhere.ToXElement">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:VL.Research.Common.SQLConfigOrderBy">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:VL.Research.Common.SQLConfigOrderBy.ElementName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:VL.Research.Common.SQLConfigOrderBy.IsOn">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="P:VL.Research.Common.SQLConfigOrderBy.IsAsc">
+            <summary>
+            是否正序
+            </summary>
+        </member>
+        <member name="P:VL.Research.Common.SQLConfigOrderBy.ComponentName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:VL.Research.Common.SQLConfigOrderBy.Alias">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VL.Research.Common.SQLConfigOrderBy.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            
+            </summary>
+            <param name="element"></param>
+        </member>
+        <member name="M:VL.Research.Common.SQLConfigOrderBy.ToXElement">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
         <member name="P:VL.Research.Common.DBViewConfig.TableName">
             <summary>
             表名
@@ -168,6 +345,20 @@
             </summary>
             <param name="list"></param>
         </member>
+        <member name="M:VL.Research.Common.ViewConfig.UpdateOrderBy(System.Collections.Generic.Dictionary{System.String,System.Boolean},System.String,System.String)">
+            <summary>
+            更新排序项
+            </summary>
+            <param name="orders"></param>
+            <param name="field"></param>
+            <param name="order"></param>
+        </member>
+        <member name="M:VL.Research.Common.ViewConfig.UpdatePropertiesToSelect(System.Collections.Generic.List{System.String})">
+            <summary>
+            更新待选择显示的字段
+            </summary>
+            <param name="fieldNames"></param>
+        </member>
         <member name="M:VL.Research.Common.ViewConfig.ToXElement">
             <summary>
             
@@ -240,6 +431,11 @@
             
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:VL.Research.Common.ViewConfigOrderBy">
+            <summary>
+            
+            </summary>
         </member>
         <member name="T:VL.Research.Common.DisplayType">
             <summary>
@@ -333,8 +529,20 @@
         </member>
         <member name="M:VL.Research.Controllers.AccountController.#ctor">
             <summary>
-            
+            账户
             </summary>
+        </member>
+        <member name="M:VL.Research.Controllers.AccountController.GetConfigurablePagedListOfPregnantInfo(VL.Research.Services.UserService,System.Int32,System.Int32,System.String,System.String,System.String)">
+            <summary>
+            获取 自定义配置的孕妇档案列表
+            </summary>
+            <param name="userService"></param>
+            <param name="page">页码</param>
+            <param name="limit">每页行数</param>
+            <param name="personname">参数(姓名)</param>
+            <param name="field">参数(排序项)</param>
+            <param name="order">参数(排序顺序:asc|desc)</param>
+            <returns></returns>
         </member>
         <member name="T:VL.Research.Controllers.APIBaseController">
             <summary>
@@ -487,6 +695,18 @@
             <param name="order">参数(排序顺序:asc|desc)</param>
             <returns></returns>
         </member>
+        <member name="M:VL.Research.Controllers.PregnantController.GetCommonSelectOfPregnantInfo(VL.Research.Services.SharedService,System.Int32,System.Int32,System.String,System.String,System.String)">
+            <summary>
+            获取 自定义配置的孕妇档案列表
+            </summary>
+            <param name="sharedService"></param>
+            <param name="page">页码</param>
+            <param name="limit">每页行数</param>
+            <param name="personname">参数(姓名)</param>
+            <param name="field">参数(排序项)</param>
+            <param name="order">参数(排序顺序:asc|desc)</param>
+            <returns></returns>
+        </member>
         <member name="M:VL.Research.Controllers.PregnantController.GetPregnantInfo(VL.Research.Services.PregnantService,System.Int64)">
             <summary>
             获取 孕妇档案详情
@@ -544,6 +764,20 @@
             </summary>
             <param name="type">类型名称</param>
             <param name="isForceChange">是否强制获取最新</param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.SystemController.GetViewConfigByName(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="viewName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.SystemController.GetSQLConfigByName(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="viewName"></param>
             <returns></returns>
         </member>
         <member name="M:VL.Research.Controllers.SystemController.GetListConfig(VL.Research.Services.UserService,VL.Research.Models.GetListConfigRequest)">
@@ -1331,6 +1565,21 @@
             病人档案Id
             </summary>
         </member>
+        <member name="P:VL.Research.Models.CommonSelectRequest.PersonName">
+            <summary>
+            孕妇姓名
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.CommonSelectRequest.FieldNames">
+            <summary>
+            待查询的字段
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.CommonSelectRequest.Params">
+            <summary>
+            参数项集合
+            </summary>
+        </member>
         <member name="P:VL.Research.Models.GetPagedListOfPregnantInfoRequest.PersonName">
             <summary>
             孕妇姓名
@@ -1379,6 +1628,29 @@
             <param name="request"></param>
             <returns></returns>
         </member>
+        <member name="T:VL.Research.Repositories.SharedRepository">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VL.Research.Repositories.SharedRepository.#ctor(VL.Consolo_Core.Common.DBSolution.DbContext)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:VL.Research.Repositories.SharedRepository.GetCommonSelect(VL.Research.Common.SQLConfig)">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Repositories.SharedRepository.GetCommonSelectCount(VL.Research.Common.SQLConfig)">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:VL.Research.Services.PregnantService">
             <summary>
             
@@ -1424,6 +1696,22 @@
             </summary>
             <param name="request">请求参数实体</param>
             <returns></returns>
+        </member>
+        <member name="T:VL.Research.Services.SharedService">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VL.Research.Services.SharedService.#ctor(VL.Research.Common.APIContext)">
+            <summary>
+            
+            </summary>
+            <param name="dbContext"></param>
+        </member>
+        <member name="M:VL.Research.Services.SharedService.GetCommonSelect(VL.Research.Common.SQLConfig)">
+            <summary>
+            通用查询模型
+            </summary>
         </member>
         <member name="T:VL.Research.Services.UserService">
             <summary>

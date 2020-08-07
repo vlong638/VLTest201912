@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Views>
+	<View ViewName="PregnantInfo" ViewURL="../../api/Pregnant/GetConfigurablePagedListOfPregnantInfo">
+		<Properties>
+			<Property IsOn="true" ColumnName="id" Alias ="pi.id"/>
+			<Property IsOn="true" ColumnName="personname" Alias ="pi.personname"/>
+			<Property IsOn="true" ColumnName="sexcode" Alias ="pi.sexcode"/>
+			<Property IsOn="true" ColumnName="idcard" Alias ="pi.idcard"/>
+		</Properties>
+		<Wheres>
+			<Where ComponentName="personname" Formatter="%@personname%">pi.PersonName like @personname</Where>
+		</Wheres>
+		<OrderBys>
+			<OrderBy ComponentName="id" Alias ="pi.id"/>
+			<OrderBy ComponentName="personname" Alias ="pi.personname"/>
+			<OrderBy ComponentName="sexcode" Alias ="pi.sexcode"/>
+		</OrderBys>
+		<SQL>
+			select @Fields
+			from PregnantInfo pi
+			@Wheres
+			@OrderBy
+			@Pager
+		</SQL>
+	</View>
+</Views>

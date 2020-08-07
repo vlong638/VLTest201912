@@ -11,14 +11,18 @@
   <ItemGroup>
     <None Remove="VL.Research.xml" />
     <None Remove="XMLConfig\CustomConfig.xml" />
-    <None Remove="XMLConfig\ListPages.xml" />
+    <None Remove="XMLConfig\SQLConfig.xml" />
+    <None Remove="XMLConfig\ViewConfig.xml" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="XMLConfig\CustomConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="XMLConfig\ListPages.xml">
+    <Content Include="XMLConfig\SQLConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="XMLConfig\ViewConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

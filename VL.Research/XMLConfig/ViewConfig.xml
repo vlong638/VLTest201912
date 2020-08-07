@@ -2,16 +2,12 @@
 <Views>
 	<!--IsNeedOnPage="false" DisplayName="" (.+) Description="(\w+)"(.+)\r\n
 	IsNeedOnPage="true" DisplayName="$2" $1 Description="$2"$3\r\n-->
-	<View ViewName="PregnantInfo" ViewURL="../../api/Pregnant/GetConfigurablePagedListOfPregnantInfo">
+	<View ViewName="PregnantInfo" ViewURL="../../api/Pregnant/GetCommonSelectOfPregnantInfo">
 		<Wheres>
 			<!--"DisplayType <类型[1-文本框|2-数字框|3-单选下拉框|4-树状下拉框|5-日期选择框][默认:1]>",-->
 			<Where ComponentName="personname" CompareOperator="Like" Value="刘" LinkOperator="None" DisplayName="姓名" DisplayType="1"/>
 		</Wheres>
-		<OrderBys DefaultName ="id" DefaultValue ="desc">
-			<OrderBy ComponentName="id" Value ="id"/>
-			<OrderBy ComponentName="personname" Value ="personname"/>
-			<OrderBy ComponentName="sexcode" Value ="sexcode"/>
-		</OrderBys>
+		<OrderBy DefaultName ="id" DefaultValue ="desc"/>
 		<Property IsNeedOnPage="true" DisplayName="编号" ColumnName="id" DisplayType="None" DisplayWidth="100" IsSortable="true" DataType="int" Description="自动编号" />
 		<Property IsNeedOnPage="true" DisplayName="孕妇姓名" ColumnName="personname" DisplayType="None" DisplayWidth="120" IsSortable="true" DataType="varchar" Description="孕妇姓名" />
 		<Property IsNeedOnPage="true" DisplayName="性别" ColumnName="sexcode" DisplayType="Enum" EnumType="Sex" DisplayWidth="100" IsSortable="true" DataType="char" Description="性别" />
@@ -262,6 +258,16 @@
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="PregnantInfoId" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="int" Description="自动编号" />
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="NewColumn" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
 	</View>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	<View ViewName="A_Role">
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="Id" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
 		<Property IsNeedOnPage="false" DisplayName="" ColumnName="Name" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />

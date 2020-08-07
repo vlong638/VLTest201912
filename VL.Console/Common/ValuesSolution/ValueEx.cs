@@ -14,6 +14,10 @@ namespace VL.Consolo_Core.Common.ValuesSolution
         #endregion
 
         #region string
+        public static bool IsNullOrEmpty(this string str)
+        {
+            return string.IsNullOrEmpty(str);
+        }
         public static string TrimStart(this string str, string strToTrim)
         {
             while (str.StartsWith(strToTrim))

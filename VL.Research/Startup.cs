@@ -51,8 +51,9 @@ namespace VL.Research
             services.AddScoped<APIContext>();
 
             //服务设施
-            services.AddScoped<UserService>();
             services.AddScoped<PregnantService>();
+            services.AddScoped<SharedService>();
+            services.AddScoped<UserService>();
 
             //服务接口管理
             services.AddSwaggerGen(p =>

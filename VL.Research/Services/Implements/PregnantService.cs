@@ -34,6 +34,22 @@ namespace VL.Research.Services
             labCheckRepository = new LabCheckRepository(dbContext);
         }
 
+        ///// <summary>
+        ///// 通用查询模型
+        ///// </summary>
+        ///// <param name="request">请求参数实体</param>
+        ///// <returns></returns>
+        //public ServiceResult<VLPagerTableResult<List<Dictionary<string, object>>>> GetCommonSelect(CommonSelectRequest request)
+        //{
+        //    var result = dbContext.DelegateTransaction((g) =>
+        //    {
+        //        var list = pregnantInfoRepository.GetConfigurablePregnantInfoPagedList(request);
+        //        var count = pregnantInfoRepository.GetPregnantInfoPagedListCount(request);
+        //        return new VLPagerTableResult<List<Dictionary<string, object>>>() { SourceData = list.ToList(), Count = count, CurrentIndex = request.PageIndex };
+        //    });
+        //    return result;
+        //}
+
         /// <summary>
         /// 孕妇档案列表
         /// </summary>
