@@ -752,18 +752,6 @@
             <param name="order">参数(排序顺序:asc|desc)</param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.PregnantController.GetCommonSelectOfPregnantInfo(VL.Research.Services.SharedService,System.Int32,System.Int32,System.String,System.String,System.String)">
-            <summary>
-            获取 自定义配置的孕妇档案列表
-            </summary>
-            <param name="sharedService"></param>
-            <param name="page">页码</param>
-            <param name="limit">每页行数</param>
-            <param name="personname">参数(姓名)</param>
-            <param name="field">参数(排序项)</param>
-            <param name="order">参数(排序顺序:asc|desc)</param>
-            <returns></returns>
-        </member>
         <member name="M:VL.Research.Controllers.PregnantController.GetPregnantInfo(VL.Research.Services.PregnantService,System.Int64)">
             <summary>
             获取 孕妇档案详情
@@ -837,11 +825,10 @@
             <param name="viewName"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.SystemController.GetMenuConfigByName(System.String)">
+        <member name="M:VL.Research.Controllers.SystemController.GetMenuConfig">
             <summary>
             
             </summary>
-            <param name="viewName"></param>
             <returns></returns>
         </member>
         <member name="M:VL.Research.Controllers.SystemController.GetListConfig(VL.Research.Services.UserService,VL.Research.Models.GetListConfigRequest)">
@@ -882,6 +869,11 @@
             <param name="userService"></param>
             <returns></returns>
         </member>
+        <member name="M:VL.Research.Controllers.SystemController.GetCommonSelect(VL.Research.Services.SharedService,VL.Research.Models.GetCommonSelectRequest)">
+            <summary>
+            获取 通用分页列表
+            </summary>
+        </member>
         <member name="T:VL.Research.Controllers.SignInStatus">
             <summary>
             登录状态枚举
@@ -917,29 +909,10 @@
             账户
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.UserController.GetCommonSelectOfUser(VL.Research.Services.SharedService,System.Int32,System.Int32,System.String,System.String,System.String)">
-            <summary>
-            获取 用户列表
-            </summary>
-            <param name="sharedService"></param>
-            <param name="page">页码</param>
-            <param name="limit">每页行数</param>
-            <param name="name">参数(姓名)</param>
-            <param name="field">参数(排序项)</param>
-            <param name="order">参数(排序顺序:asc|desc)</param>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Research.Controllers.UserController.GetCommonSelectOfRole(VL.Research.Services.SharedService,System.Int32,System.Int32,System.String,System.String,System.String)">
+        <member name="M:VL.Research.Controllers.UserController.GetCommonSelectOfRole(VL.Research.Services.SharedService,VL.Research.Models.GetCommonSelectRequest)">
             <summary>
             获取 角色列表
             </summary>
-            <param name="sharedService"></param>
-            <param name="page">页码</param>
-            <param name="limit">每页行数</param>
-            <param name="name">参数(姓名)</param>
-            <param name="field">参数(排序项)</param>
-            <param name="order">参数(排序顺序:asc|desc)</param>
-            <returns></returns>
         </member>
         <member name="T:VL.Research.Models.DropDownItem">
             <summary>
@@ -1621,6 +1594,56 @@
         <member name="F:VL.Research.Models.Enums.Sex.Woman">
             <summary>
             女性
+            </summary>
+        </member>
+        <member name="T:VL.Research.Models.KeyValue">
+            <summary>
+            键值对
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.KeyValue.Key">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.KeyValue.Value">
+            <summary>
+            /
+            </summary>
+        </member>
+        <member name="T:VL.Research.Models.GetCommonSelectRequest">
+            <summary>
+            统一查询入参结构
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.GetCommonSelectRequest.target">
+            <summary>
+            目标视图
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.GetCommonSelectRequest.page">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.GetCommonSelectRequest.limit">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.GetCommonSelectRequest.field">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.GetCommonSelectRequest.order">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.GetCommonSelectRequest.search">
+            <summary>
+            
             </summary>
         </member>
         <member name="T:VL.Research.Models.GetListConfigRequest">

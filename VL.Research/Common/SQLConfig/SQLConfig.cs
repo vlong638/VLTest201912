@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using VL.Consolo_Core.Common.ValuesSolution;
+using VL.Research.Models;
 
 namespace VL.Research.Common
 {
@@ -91,12 +92,15 @@ namespace VL.Research.Common
                 }
             }
         }
-        internal void UpdateWheres(Dictionary<string, object> wheres)
+        internal void UpdateWheres(List<KeyValue> wheres)
         {
+            if (wheres == null)
+                return;
+
             foreach (var where in wheres)
             {
                 var whereConfig = Wheres.FirstOrDefault(c => c.ComponentName.ToLower() == where.Key.ToLower());
-                if (where.Value != null)
+                if (!where.Value.IsNullOrEmpty())
                 {
                     whereConfig.IsOn = true;
                     whereConfig.Value = where.Value;
@@ -131,7 +135,7 @@ namespace VL.Research.Common
             var propertiesIsOn = Properties.Where(c => c.IsOn);
             var fields = propertiesIsOn.Count() == 0 ? "*" : string.Join(",", propertiesIsOn);
             sql = sql.Replace("@Fields", fields);
-            var wheresIsOn = Wheres.Where(c => c.IsOn).Select(c=>c.SQL);
+            var wheresIsOn = Wheres.Where(c => c.IsOn).Select(c => c.SQL);
             var wheres = wheresIsOn.Count() == 0 ? "" : $"where {string.Join(",", wheresIsOn)}";
             sql = sql.Replace("@Wheres", wheres);
             var orderByIsOn = OrderBys.FirstOrDefault(c => c.IsOn) ?? OrderBys.First();
@@ -177,7 +181,7 @@ namespace VL.Research.Common
     /// <summary>
     /// 
     /// </summary>
-    public class SQLConfigProperty 
+    public class SQLConfigProperty
     {
         /// <summary>
         /// 
@@ -249,7 +253,7 @@ namespace VL.Research.Common
         /// <summary>
         /// 值
         /// </summary>
-        public object Value{ set; get; }
+        public object Value { set; get; }
         /// <summary>
         /// 项目名称
         /// </summary>

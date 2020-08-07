@@ -88,39 +88,6 @@ namespace VL.Research.Controllers
                 return Error(data1: serviceResult.PagedData.SourceData, data2: serviceResult.PagedData.Count, messages: serviceResult.Messages);
             return Success(serviceResult.PagedData.SourceData, serviceResult.PagedData.Count, serviceResult.Messages);
         }
-
-        /// <summary>
-        /// 获取 自定义配置的孕妇档案列表
-        /// </summary>
-        /// <param name="sharedService"></param>
-        /// <param name="page">页码</param>
-        /// <param name="limit">每页行数</param>
-        /// <param name="personname">参数(姓名)</param>
-        /// <param name="field">参数(排序项)</param>
-        /// <param name="order">参数(排序顺序:asc|desc)</param>
-        /// <returns></returns>
-        [HttpGet]
-        //[VLAuthentication(Authority.查看孕妇档案列表)]
-        public APIResult<List<Dictionary<string, object>>, int> GetCommonSelectOfPregnantInfo([FromServices] SharedService sharedService, int page, int limit, string field, string order, string personname)
-        {
-            var viewConfig = SystemController.GetViewConfigByName("PregnantInfo");
-            var sqlConfig = SystemController.GetSQLConfigByName("PregnantInfo");
-            Dictionary<string, object> wheres = new Dictionary<string, object>();
-            wheres.Add("PersonName", personname);
-            sqlConfig.PageIndex = page;
-            sqlConfig.PageSize = limit;
-            sqlConfig.UpdateWheres(wheres);
-            sqlConfig.UpdateOrderBy(field, order);
-            //获取数据
-            var serviceResult = sharedService.GetCommonSelect(sqlConfig);
-            //更新显示映射(枚举,函数,脱敏)
-            viewConfig.UpdateValues(serviceResult.PagedData.SourceData);
-
-            if (!serviceResult.IsSuccess)
-                return Error(data1: serviceResult.PagedData.SourceData, data2: serviceResult.PagedData.Count, messages: serviceResult.Messages);
-            return Success(serviceResult.PagedData.SourceData, serviceResult.PagedData.Count, serviceResult.Messages);
-        }
-
         /// <summary>
         /// 获取 孕妇档案详情
         /// </summary>

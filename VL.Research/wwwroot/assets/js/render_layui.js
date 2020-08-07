@@ -215,6 +215,8 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
         elem: '#dataTable',
         url: _data.table.url,
         where: where,
+        method: "post",
+        contentType: "application/json",
         page: _data.table.page,
         toolbar: THToolbar.join(''),
         cellMinWidth: 100,
@@ -247,16 +249,20 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
 
     /* 表格搜索 */
     form.on('submit(tbSearch)', function (data) {
+        data.field.search = [];
         for (let i in data.field) {
-            $.each(_data.search, function (index, item) {
-                if (item.name === i) {
-                    if (item.type === 3 || item.type === 4) {
-                        $.each(item.options, function (_index, _item) {
-                            _item.checked = _item.value === data.field[i];
-                        })
+            if (i !== 'search') {
+                $.each(_data.search, function (index, item) {
+                    if (item.name === i) {
+                        if (item.type === 3 || item.type === 4) {
+                            $.each(item.options, function (_index, _item) {
+                                _item.checked = _item.value === data.field[i];
+                            })
+                        }
                     }
-                }
-            })
+                })
+                data.field.search.push({ key: i, value: data.field[i] })
+            }
         }
         dataTable.reload({ where: data.field, page: { curr: 1 } });
         return false;

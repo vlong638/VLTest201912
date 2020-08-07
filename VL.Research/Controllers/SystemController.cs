@@ -95,9 +95,8 @@ namespace VL.Research.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="viewName"></param>
         /// <returns></returns>
-        public static MenuConfig GetMenuConfigByName(string viewName)
+        public static MenuConfig GetMenuConfig()
         {
             MenuConfig tableConfig;
             var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", "MenuConfig.xml");
@@ -219,7 +218,13 @@ namespace VL.Research.Controllers
                             rowspan="",
                         }).ToList()
                     },
-                    where = new List<GetListConfigModel_TableConfg_Where>(),
+                    where = new List<GetListConfigModel_TableConfg_Where>()
+                    {
+                        new GetListConfigModel_TableConfg_Where(){ 
+                            name = "target",
+                            value = request.ListName,
+                        }
+                    },
                 },
             };
             return result;
@@ -281,7 +286,7 @@ namespace VL.Research.Controllers
         [HttpGet]
         public APIResult<List<MenuItem>> GetListMenu_LayUI([FromServices] UserService userService)
         {
-            MenuConfig menuConfig = SystemController.GetMenuConfigByName("PregnantInfo");
+            MenuConfig menuConfig = SystemController.GetMenuConfig();
             return Success(menuConfig.MenuItems);
 
             //var userId = GetCurrentUser().UserId;
@@ -305,6 +310,33 @@ namespace VL.Research.Controllers
         //    new MenuItem("4","","个人中心","",""),
         //    new MenuItem("41","4","修改密码","",""),
         //};
+
+        #endregion
+
+        #region CommonPageList
+
+        /// <summary>
+        /// 获取 通用分页列表
+        /// </summary>
+        [HttpPost]
+        //[VLAuthentication(Authority.查看孕妇档案列表)]
+        public APIResult<List<Dictionary<string, object>>, int> GetCommonSelect([FromServices] SharedService sharedService, GetCommonSelectRequest request)
+        {
+            var viewConfig = GetViewConfigByName(request.target);
+            var sqlConfig = GetSQLConfigByName(request.target);
+            sqlConfig.PageIndex = request.page;
+            sqlConfig.PageSize = request.limit;
+            sqlConfig.UpdateWheres(request.search);
+            sqlConfig.UpdateOrderBy(request.field, request.order);
+            //获取数据
+            var serviceResult = sharedService.GetCommonSelect(sqlConfig);
+            //更新显示映射(枚举,函数,脱敏)
+            viewConfig.UpdateValues(serviceResult.PagedData.SourceData);
+
+            if (!serviceResult.IsSuccess)
+                return Error(data1: serviceResult.PagedData.SourceData, data2: serviceResult.PagedData.Count, messages: serviceResult.Messages);
+            return Success(serviceResult.PagedData.SourceData, serviceResult.PagedData.Count, serviceResult.Messages);
+        }
 
         #endregion
     }
