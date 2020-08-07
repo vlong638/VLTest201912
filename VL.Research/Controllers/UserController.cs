@@ -39,18 +39,18 @@ namespace VL.Research.Controllers
     /// </summary>
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class AccountController : APIBaseController
+    public class UserController : APIBaseController
     {
         /// <summary>
         /// 账户
         /// </summary>
-        public AccountController()
+        public UserController()
         {
         }
 
 
         /// <summary>
-        /// 获取 自定义配置的孕妇档案列表
+        /// 获取 用户列表
         /// </summary>
         /// <param name="sharedService"></param>
         /// <param name="page">页码</param>
@@ -61,10 +61,41 @@ namespace VL.Research.Controllers
         /// <returns></returns>
         [HttpGet]
         //[VLAuthentication(Authority.查看孕妇档案列表)]
-        public APIResult<List<Dictionary<string, object>>, int> GetCommonSelectOfAccount([FromServices] SharedService sharedService, int page, int limit, string field, string order, string name)
+        public APIResult<List<Dictionary<string, object>>, int> GetCommonSelectOfUser([FromServices] SharedService sharedService, int page, int limit, string field, string order, string name)
         {
-            var viewConfig = SystemController.GetViewConfigByName("Account");
-            var sqlConfig = SystemController.GetSQLConfigByName("Account");
+            var viewConfig = SystemController.GetViewConfigByName("User");
+            var sqlConfig = SystemController.GetSQLConfigByName("User");
+            Dictionary<string, object> wheres = new Dictionary<string, object>();
+            wheres.Add("name", name);
+            sqlConfig.PageIndex = page;
+            sqlConfig.PageSize = limit;
+            sqlConfig.UpdateWheres(wheres);
+            sqlConfig.UpdateOrderBy(field, order);
+            //获取数据
+            var serviceResult = sharedService.GetCommonSelect(sqlConfig);
+            //更新显示映射(枚举,函数,脱敏)
+            viewConfig.UpdateValues(serviceResult.PagedData.SourceData);
+
+            if (!serviceResult.IsSuccess)
+                return Error(data1: serviceResult.PagedData.SourceData, data2: serviceResult.PagedData.Count, messages: serviceResult.Messages);
+            return Success(serviceResult.PagedData.SourceData, serviceResult.PagedData.Count, serviceResult.Messages);
+        }
+        /// <summary>
+        /// 获取 角色列表
+        /// </summary>
+        /// <param name="sharedService"></param>
+        /// <param name="page">页码</param>
+        /// <param name="limit">每页行数</param>
+        /// <param name="name">参数(姓名)</param>
+        /// <param name="field">参数(排序项)</param>
+        /// <param name="order">参数(排序顺序:asc|desc)</param>
+        /// <returns></returns>
+        [HttpGet]
+        //[VLAuthentication(Authority.查看孕妇档案列表)]
+        public APIResult<List<Dictionary<string, object>>, int> GetCommonSelectOfRole([FromServices] SharedService sharedService, int page, int limit, string field, string order, string name)
+        {
+            var viewConfig = SystemController.GetViewConfigByName("Role");
+            var sqlConfig = SystemController.GetSQLConfigByName("Role");
             Dictionary<string, object> wheres = new Dictionary<string, object>();
             wheres.Add("name", name);
             sqlConfig.PageIndex = page;

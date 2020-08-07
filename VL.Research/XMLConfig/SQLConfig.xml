@@ -23,7 +23,7 @@
 			@Pager
 		</SQL>
 	</View>
-	<View ViewName="Account">
+	<View ViewName="User">
 		<Properties>
 			<Property IsOn="true" ColumnName="id" Alias ="u.id"/>
 			<Property IsOn="true" ColumnName="name" Alias ="u.name"/>
@@ -38,6 +38,26 @@
 		<SQL>
 			select @Fields
 			from A_User u
+			@Wheres
+			@OrderBy
+			@Pager
+		</SQL>
+	</View>
+	<View ViewName="Role">
+		<Properties>
+			<Property IsOn="true" ColumnName="id" Alias ="r.id"/>
+			<Property IsOn="true" ColumnName="name" Alias ="r.name"/>
+		</Properties>
+		<Wheres>
+			<Where ComponentName="name" Formatter="%@name%">r.name like @name</Where>
+		</Wheres>
+		<OrderBys>
+			<OrderBy ComponentName="id" Alias ="r.id"/>
+			<OrderBy ComponentName="name" Alias ="r.name"/>
+		</OrderBys>
+		<SQL>
+			select @Fields
+			from A_Role r
 			@Wheres
 			@OrderBy
 			@Pager

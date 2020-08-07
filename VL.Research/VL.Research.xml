@@ -574,53 +574,6 @@
             数据类型(显示,校验)
             </summary>
         </member>
-        <member name="T:VL.Research.Controllers.SignInStatus">
-            <summary>
-            登录状态枚举
-            </summary>
-        </member>
-        <member name="F:VL.Research.Controllers.SignInStatus.Success">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="F:VL.Research.Controllers.SignInStatus.LockedOut">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="F:VL.Research.Controllers.SignInStatus.RequiresVerification">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="F:VL.Research.Controllers.SignInStatus.Failure">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="T:VL.Research.Controllers.AccountController">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:VL.Research.Controllers.AccountController.#ctor">
-            <summary>
-            账户
-            </summary>
-        </member>
-        <member name="M:VL.Research.Controllers.AccountController.GetCommonSelectOfAccount(VL.Research.Services.SharedService,System.Int32,System.Int32,System.String,System.String,System.String)">
-            <summary>
-            获取 自定义配置的孕妇档案列表
-            </summary>
-            <param name="sharedService"></param>
-            <param name="page">页码</param>
-            <param name="limit">每页行数</param>
-            <param name="name">参数(姓名)</param>
-            <param name="field">参数(排序项)</param>
-            <param name="order">参数(排序顺序:asc|desc)</param>
-            <returns></returns>
-        </member>
         <member name="T:VL.Research.Controllers.APIBaseController">
             <summary>
             
@@ -699,7 +652,13 @@
             <param name="returnUrl"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.HomeController.AccountList">
+        <member name="M:VL.Research.Controllers.HomeController.UserList">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.HomeController.RoleList">
             <summary>
             
             </summary>
@@ -906,6 +865,65 @@
             获取 列表配置(当前用户)
             </summary>
             <param name="userService"></param>
+            <returns></returns>
+        </member>
+        <member name="T:VL.Research.Controllers.SignInStatus">
+            <summary>
+            登录状态枚举
+            </summary>
+        </member>
+        <member name="F:VL.Research.Controllers.SignInStatus.Success">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:VL.Research.Controllers.SignInStatus.LockedOut">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:VL.Research.Controllers.SignInStatus.RequiresVerification">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:VL.Research.Controllers.SignInStatus.Failure">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:VL.Research.Controllers.UserController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VL.Research.Controllers.UserController.#ctor">
+            <summary>
+            账户
+            </summary>
+        </member>
+        <member name="M:VL.Research.Controllers.UserController.GetCommonSelectOfUser(VL.Research.Services.SharedService,System.Int32,System.Int32,System.String,System.String,System.String)">
+            <summary>
+            获取 用户列表
+            </summary>
+            <param name="sharedService"></param>
+            <param name="page">页码</param>
+            <param name="limit">每页行数</param>
+            <param name="name">参数(姓名)</param>
+            <param name="field">参数(排序项)</param>
+            <param name="order">参数(排序顺序:asc|desc)</param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.UserController.GetCommonSelectOfRole(VL.Research.Services.SharedService,System.Int32,System.Int32,System.String,System.String,System.String)">
+            <summary>
+            获取 角色列表
+            </summary>
+            <param name="sharedService"></param>
+            <param name="page">页码</param>
+            <param name="limit">每页行数</param>
+            <param name="name">参数(姓名)</param>
+            <param name="field">参数(排序项)</param>
+            <param name="order">参数(排序顺序:asc|desc)</param>
             <returns></returns>
         </member>
         <member name="T:VL.Research.Models.DropDownItem">
