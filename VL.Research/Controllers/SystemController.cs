@@ -93,6 +93,22 @@ namespace VL.Research.Controllers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="viewName"></param>
+        /// <returns></returns>
+        public static MenuConfig GetMenuConfigByName(string viewName)
+        {
+            MenuConfig tableConfig;
+            var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", "MenuConfig.xml");
+            XDocument doc = XDocument.Load(path);
+            var tableElements = doc.Descendants(MenuConfig.RootElementName);
+            var tableConfigs = tableElements.Select(c => new MenuConfig(c));
+            tableConfig = tableConfigs.FirstOrDefault();
+            return tableConfig;
+        }
+
+        /// <summary>
         /// 获取 列表配置
         /// </summary>
         /// <param name="userService"></param>
@@ -265,7 +281,8 @@ namespace VL.Research.Controllers
         [HttpGet]
         public APIResult<List<MenuItem>> GetListMenu_LayUI([FromServices] UserService userService)
         {
-            return Success(DefaultMenuItems);
+            MenuConfig menuConfig = SystemController.GetMenuConfigByName("PregnantInfo");
+            return Success(menuConfig.MenuItems);
 
             //var userId = GetCurrentUser().UserId;
             //var serviceResult = userService.GetUserMenus(userId);
@@ -277,62 +294,17 @@ namespace VL.Research.Controllers
             //return Success(serviceResult.Data);
         }
 
-        static List<MenuItem> DefaultMenuItems = new List<MenuItem>()
-        {
-            new MenuItem("1","","业务列表","",""),
-            new MenuItem("11","1","孕妇档案","","../Home/PregnantInfoList"),
-            new MenuItem("2","","自定义查询","",""),
-            new MenuItem("3","","账户管理","",""),
-            new MenuItem("31","3","用户管理","","../Home/AccountList"),
-            new MenuItem("32","3","角色管理","",""),
-            new MenuItem("4","","个人中心","",""),
-            new MenuItem("41","4","修改密码","",""),
-        };
-
-        /// <summary>
-        /// 页面菜单
-        /// </summary>
-        public class MenuItem
-        {
-
-            /// <summary>
-            /// /
-            /// </summary>
-            /// <param name="id"></param>
-            /// <param name="parentId"></param>
-            /// <param name="text"></param>
-            /// <param name="icon"></param>
-            /// <param name="url"></param>
-            public MenuItem(string id, string parentId, string text, string icon, string url)
-            {
-                this.id = id;
-                this.parentId = parentId;
-                this.text = text;
-                this.icon = icon;
-                this.url = url;
-            }
-
-            /// <summary>
-            /// 节点Id
-            /// </summary>
-            public string id { set; get; }
-            /// <summary>
-            /// 上级节点id
-            /// </summary>
-            public string parentId { set; get; }
-            /// <summary>
-            /// 显示文本
-            /// </summary>
-            public string text { set; get; }
-            /// <summary>
-            /// 图标
-            /// </summary>
-            public string icon { set; get; }
-            /// <summary>
-            /// 跳转链接
-            /// </summary>
-            public string url { set; get; }
-        }
+        //static List<MenuItem> DefaultMenuItems = new List<MenuItem>()
+        //{
+        //    new MenuItem("1","","业务列表","",""),
+        //    new MenuItem("11","1","孕妇档案","","../Home/PregnantInfoList"),
+        //    new MenuItem("2","","自定义查询","",""),
+        //    new MenuItem("3","","账户管理","",""),
+        //    new MenuItem("31","3","用户管理","","../Home/AccountList"),
+        //    new MenuItem("32","3","角色管理","",""),
+        //    new MenuItem("4","","个人中心","",""),
+        //    new MenuItem("41","4","修改密码","",""),
+        //};
 
         #endregion
     }

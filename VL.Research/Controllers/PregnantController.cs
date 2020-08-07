@@ -66,8 +66,7 @@ namespace VL.Research.Controllers
         //[VLAuthentication(Authority.查看孕妇档案列表)]
         public APIResult<List<Dictionary<string, object>>, int> GetConfigurablePagedListOfPregnantInfo([FromServices] PregnantService pregnantService, int page, int limit, string field, string order, string personname)
         {
-            ViewConfig viewConfig;
-            viewConfig = SystemController.GetViewConfigByName("PregnantInfo");
+            ViewConfig viewConfig = SystemController.GetViewConfigByName("PregnantInfo");
             var pars = new GetPagedListOfPregnantInfoRequest()
             {
                 PageIndex = page,

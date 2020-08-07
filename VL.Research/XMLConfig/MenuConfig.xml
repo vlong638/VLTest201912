@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Menus>
+	<Menu id="1" parentId="" text="业务列表" icon="" url=""/>
+	<Menu id="11" parentId="1" text="孕妇档案" icon="" url="../Home/PregnantInfoList"/>
+	<Menu id="2" parentId="" text="自定义查询" icon="" url=""/>
+	<Menu id="3" parentId="" text="账户管理" icon="" url=""/>
+	<Menu id="31" parentId="3" text="用户管理" icon="" url="../Home/AccountList"/>
+	<Menu id="32" parentId="3" text="角色管理" icon="" url=""/>
+	<Menu id="4" parentId="" text="个人中心" icon="" url=""/>
+	<Menu id="41" parentId="4" text="修改密码" icon="" url=""/>
+</Menus>
