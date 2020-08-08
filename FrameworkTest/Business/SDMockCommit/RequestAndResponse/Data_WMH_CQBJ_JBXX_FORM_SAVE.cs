@@ -13,7 +13,7 @@ namespace FrameworkTest.Business.SDMockCommit
             D2 = ""; //@保健号
             D7 = "";   //身份证              
             D58 = "";//创建时间
-            curdate1 ="";
+            curdate1 = "";
             D59 = "";//创建机构Id
             D60 = ""; //创建人员
             D61 = null;//病案号
@@ -246,7 +246,7 @@ namespace FrameworkTest.Business.SDMockCommit
             //public string D7 { set; get; } //身份证
             this.D7 = pregnantInfo.idcard;
             //public string D8 { set; get; } //生日
-            this.D8 = pregnantInfo.birthday?.ToString("yyyy-MM-dd");
+            this.D8 = pregnantInfo.birthday?.ToString("yyyy-MM-dd") ?? "";
             //public string D9 { set; get; } //孕妇年龄
             this.D9 = pregnantInfo.createage ?? "";
             //public string D10 { set; get; } //孕妇文化程度 1)  文化程度STD_CULTURALDEG

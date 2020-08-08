@@ -1,31 +1,10 @@
-﻿using Dapper;
-using Dapper.Contrib.Extensions;
-using FrameworkTest.Business.GJPredeliveryAsync;
-using FrameworkTest.Business.SDMockCommit;
-using FrameworkTest.Business.TaskScheduler;
-using FrameworkTest.Common.DBSolution;
+﻿using FrameworkTest.Business.SDMockCommit;
 using FrameworkTest.Common.FileSolution;
-using FrameworkTest.Common.HttpSolution;
 using FrameworkTest.Common.ValuesSolution;
-using FrameworkTest.Common.XMLSolution;
-using FrameworkTest.ConfigurableEntity;
-using FrameworkTest.Kettle;
 using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
 using System.IO;
-using System.Linq;
-using System.Net;
-using System.Reflection;
-using System.Security.Cryptography;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Web;
-using System.Web.WebSockets;
-using System.Xml.Linq;
-using VL.Consoling.SemiAutoExport;
 
 namespace FrameworkTest
 {

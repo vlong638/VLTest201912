@@ -254,7 +254,7 @@ namespace FrameworkTest.Business.SDMockCommit
             var json = datas.ToJson();
             var postData = "data=" + HttpUtility.UrlEncode(json);
             var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
-            logger.AppendLine(">>>Create 基本信息");
+            logger.AppendLine(">>>Update 基本信息");
             logger.AppendLine(url);
             logger.AppendLine(json);
             logger.AppendLine(result);
