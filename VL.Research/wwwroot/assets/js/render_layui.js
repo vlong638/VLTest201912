@@ -1,3 +1,692 @@
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631
+632
+633
+634
+635
+636
+637
+638
+639
+640
+641
+642
+643
+644
+645
+646
+647
+648
+649
+650
+651
+652
+653
+654
+655
+656
+657
+658
+659
+660
+661
+662
+663
+664
+665
+666
+667
+668
+669
+670
+671
+672
+673
+674
+675
+676
+677
+678
+679
+680
+681
+682
+683
+684
+685
+686
+687
+688
+689
 jQuery.prototype.renderList = function (_data, _layui) {
     const _this = this;
     const $ = _layui.jquery,
@@ -168,7 +857,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
             switch (item.type) {
                 case 'window': {
                     scriptObject += `<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="window"
-                        data-default="` + item.defaultParam.join('&') + `" data-url="` + item.url + `" data-params="` + item.params.join('|') + `">` + item.text + `</a>`;
+                        data-default="` + item.defaultParam.join('&') + `" data-url="` + item.url + `" data-params="` + item.params.join('|') + `" data-area='` + JSON.stringify(_data.table.add_btn.area) + `' data-yesFun="` + item.yesFun + `">` + item.text + `</a>`;
                     break;
                 }
                 case 'newPage': {
@@ -203,7 +892,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
 
     let THToolbar = ['<p>']
     if (!isBlank(_data.table.add_btn)) {
-        THToolbar.push('<button lay-event="add" data-default="' + _data.table.add_btn.defaultParam.join('&') + '" data-url="' + _data.table.add_btn.url + '" data-type="' + _data.table.add_btn.type + '" class="layui-btn layui-btn-sm icon-btn"><i class="layui-icon">&#xe654;</i>' + _data.table.add_btn.text + '</button>&nbsp;')
+        THToolbar.push('<button lay-event="add" data-default="' + _data.table.add_btn.defaultParam.join('&') + '" data-url="' + _data.table.add_btn.url + '" data-area=\'' + JSON.stringify(_data.table.add_btn.area) + '\' data-type="' + _data.table.add_btn.type + '" class="layui-btn layui-btn-sm icon-btn"><i class="layui-icon">&#xe654;</i>' + _data.table.add_btn.text + '</button>&nbsp;')
     }
     THToolbar.push('</p>')
     /*['<p>',
@@ -225,7 +914,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
         response: {
             statusCode: 200,
             dataName: 'data1', //规定数据列表的字段名称，默认：data
-            countName:'data2'
+            countName: 'data2'
         },
         cols: _data.table.cols,
         done: function (res, curr, count) {
@@ -322,7 +1011,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
             if (_this.attr('data-type') === 'window') {
                 admin.open({
                     type: 2,
-                    area: ['1000px', '1000px'],
+                    area: JSON.parse(_this.attr('data-area')),
                     title: '',
                     content: [url],
                     success: function (layero, dIndex) {
@@ -347,13 +1036,23 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
             url += '&' + _this.attr('data-default')
         }
         if (obj.event === 'window') { // 弹窗
+            let _index_;
             admin.open({
                 type: 2,
-                area: ['1000px', '1000px'],
-                title: '',
+                area: JSON.parse(_this.attr('data-area')),
+                title: 'a',
                 content: [url],
+                btn: ['确认', '取消'],
                 success: function (layero, dIndex) {
                     $(layero).children('.layui-layer-content').css('overflow', 'visible');
+                    _index_ = dIndex;
+                },
+                yes: function () {
+                    if (isBlank(_this.attr('data-yesFun'))) {
+                        return false;
+                    } else {
+                        eval("$('#layui-layer-iframe'+_index_)[0].contentWindow." + _this.attr('data-yesFun') + '()')
+                    }
                 }
             });
         } else if (obj.event === 'newPage') { // 新标签页
@@ -433,142 +1132,37 @@ jQuery.prototype.renderForm = function (_data, _layui, _parent) {
 
     _this.html("")
     let html = ``;
-    $.each(_data.view, function (index, card) {
+    $.each(_data.cards, function (index, card) {
         html += `
             <div class="layui-card">
                 <div class="layui-card-header">` + card.text + `</div>
-                    <div class="layui-card-body">`;
+                <div class="layui-card-body">`;
         if (!card.isTextArea) {
-            $.each(card.rows, function (index, row) {
-                html += `<div class="layui-form-item layui-row" >`;
-                $.each(row, function (index, item) {
-                    switch (item.type) {
-                        case 1: {
-                            html += `
-                            <div class="layui-inline layui-col-md` + item.column + `">
-                                <label class="layui-form-label` + (item.required ? ' layui-form-required' : '') + `">` + item.text + `:</label>
-                                <div class="layui-input-block">
-                                    <input name="` + item.param + `" class="layui-input"` + (item.required ? ' lay-verify="required" required' : '') + `
-                                        value="` + item.value + `"/>
-                                </div>
-                            </div>`;
-                            break;
-                        }
-                        case 2: {
-                            if (item.range) {
-                                html += `
-                                <div class="layui-inline layui-col-md` + item.column + `">
-                                    <label class="layui-form-label` + (item.required ? ' layui-form-required' : '') + `">` + item.text + `:</label>
-                                    <div class="layui-input-block" style="text-align: center;line-height: 36px">
-                                        <input name="` + item.param[0] + `" class="layui-input" type="number" style="width: 45%;display: inline-block;float: left;"
-                                            ` + (item.required ? ' lay-verify="required" required' : '') + `value="` + item.value[0] + `"/>
-                                            -
-                                        <input name="` + item.param[1] + `" class="layui-input" type="number" style="width: 45%;display: inline-block;float: right;"
-                                        ` + (item.required ? ' lay-verify="required" required' : '') + `value="` + item.value[1] + `"/>
-                                    </div>
-                                </div>`;
-                            } else {
-                                html += `
-                                <div class="layui-inline layui-col-md` + item.column + `">
-                                    <label class="layui-form-label` + (item.required ? ' layui-form-required' : '') + `">` + item.text + `:</label>
-                                    <div class="layui-input-block">
-                                        <input name="` + item.param + `" class="layui-input" type="number" value="` + item.value + `"
-                                            ` + (item.required ? ' lay-verify="required" required' : '') + `/>
-                                    </div>
-                                </div>`;
-                            }
-                            break;
-                        }
-                        case 3: {
-                            html += `
-                            <div class="layui-inline layui-col-md` + item.column + `">
-                                <label class="layui-form-label` + (item.required ? ' layui-form-required' : '') + `">` + item.text + `:</label>
-                                <div class="layui-input-block">
-                                    <select name="` + item.param + `" ` + (item.required ? ' lay-verify="required" required' : '') + `>
-                                        <option value="">请选择</option>`;
-                            $.each(item.options, function (index, option) {
-                                html += `<option value="` + option.value + `" ` + (option.checked ? 'selected' : '') + `>` + option.text + `</option>`
-                            })
-                            html += `
-                                    </select>
-                                </div>
-                            </div>`;
-                            break;
-                        }
-                        case 4: {
-                            html += `
-                            <div class="layui-inline layui-col-md` + item.column + `">
-                                <label class="layui-form-label` + (item.required ? ' layui-form-required' : '') + `">` + item.text + `:</label>
-                                <div class="layui-input-block">`;
-                            $.each(item.options, function (index, option) {
-                                html += `<input type="radio" name="` + item.param + `" value="` + option.value + `" lay-skin="primary" title="` + option.text + `"` + (option.checked ? 'checked=""' : '') + `>`
-                            })
-                            html += `</div></div>`;
-                            break;
-                        }
-                        case 5: {
-                            html += `
-                            <div class="layui-inline layui-col-md` + item.column + `">
-                                <label class="layui-form-label` + (item.required ? ' layui-form-required' : '') + `">` + item.text + `:</label>
-                                <div class="layui-input-block">`;
-                            $.each(item.options, function (index, option) {
-                                html += `<input data-type="checkbox" type="checkbox" name="` + item.param + `" value="` + option.value + `" lay-skin="primary" title="` + option.text + `"` + (option.checked ? ' checked=""' : '') + `>`
-                            })
-                            //TODO 获取checkbox的值 获取同一个name的多选值
-                            html += `</div></div>`;
-                            break;
-                        }
-                        case 6: {
-                            html += `
-                            <div class="layui-inline layui-col-md` + item.column + `">
-                                <label class="layui-form-label` + (item.required ? ' layui-form-required' : '') + `">` + item.text + `:</label>
-                                <div class="layui-input-block">
-                                    <input type="checkbox" name="` + item.param + `" lay-skin="switch" lay-text="是|否"` + (item.value ? ' checked=""' : '') + `>
-                                </div>
-                            </div>`;
-                            break;
-                        }
-                        case 7: {
-                            html += `
-                            <div class="layui-inline layui-col-md` + item.column + `">
-                                <label class="layui-form-label` + (item.required ? ' layui-form-required' : '') + `">` + item.text + `:</label>
-                                <div class="layui-input-block">
-                                    <input name="` + item.param + `" class="layui-input icon-date` + (item.range ? ' rangeDate' : ' datepicker') + `" autocomplete="off"
-                                           ` + (item.required ? ' lay-verify="required" required' : '') + ` value="` + item.value + `"/>
-                                </div>
-                            </div>`;
-                            break;
-                        }
-                        case 8: {
-                            html += `
-                            <div class="layui-inline layui-col-md` + item.column + `">
-                                <label class="layui-form-label` + (item.required ? ' layui-form-required' : '') + `">` + item.text + `:</label>
-                                <div class="layui-input-block">
-                                    <textarea rows="2" name="` + item.param + `" class="layui-input"` + (item.required ? ' lay-verify="required" required' : '') + `
-                                        style="resize: none;padding-top: 10px;height: ` + (item.lineNum === null || item.lineNum === 0 ? 1 : item.lineNum) * 38 + `px"
-                                        data-defaultValue="` + item.value + `"/>
-                                </div>
-                            </div>`;
-                            break;
-                        }
-                    }
-                });
+            $.each(card.content, function (index, row) {
+                html += `<div class="layui-form-item layui-row" style="margin-bottom: 0;">`;
+                html = displayRow(html, row)
                 html += `</div>`;
             });
         } else {
+            console.log(!card.isTextArea);
             html += `
                 <div class="layui-form-item layui-row">
                     <div class="layui-inline layui-col-md12">
                         <label class="layui-form-label` + (card.areaRequired ? ' layui-form-required' : '') + `">` + card.areaText + `:</label>
                         <div class="layui-input-block">
-                            <textarea rows="2" name="` + card.areaParam + `" class="layui-input"` + (card.areaRequired ? ' lay-verify="required" required' : '') + `
-                                 style="resize: none;padding-top: 10px;height: ` + (card.lineNum === null || card.lineNum === 0 ? 1 : card.lineNum) * 38 + `px"/>
+                            <textarea rows="2" name="` + card.areaParam + `" class="layui-input"` + (card.areaRequired ? ' lay-verify="required" required' : '') + ` placeholder="请输入"
+                                 style="resize: none;padding-top: 10px;height: ` + ((card.lineNum === null || card.lineNum === 0 ? 1 : card.lineNum) * (38 + 25) - 25) + `px"></textarea>
                         </div>
                     </div>
                 </div>`
         }
-        html += `</div></div></div>`
+        html += `
+                </div>
+            </div>`
     })
+
+    console.log(html);
+
     _this.append(html);
 
     layui.form.render();
@@ -648,6 +1242,133 @@ jQuery.prototype.renderForm = function (_data, _layui, _parent) {
         }
 
         return data
+    }
+
+    function displayRow(html, row) {
+        $.each(row, function (index, element) {
+            if (isBlank(element.child)) {
+                html = getElement(html, element);
+            } else {
+                html += `<div class="layui-inline layui-col-md` + element.width + `" style="margin-bottom: 0">`
+                html = displayRow(html, element.child)
+                html += `</div>`
+            }
+        })
+
+        return html;
+
+        function getElement(html, element) {
+            switch (element.attr.type) {
+                case 1: {
+                    html += `
+                    <div class="layui-inline layui-col-md` + element.width + `">
+                        <label class="layui-form-label` + (element.attr.required ? ' layui-form-required' : '') + `">` + element.attr.text + `:</label>
+                        <div class="layui-input-block">
+                            <input name="` + element.attr.param + `" class="layui-input"` + (element.attr.required ? ' lay-verify="required" required' : '') + `
+                                value="` + (isBlank(element.attr.value) ? "" : element.attr.value) + `" placeholder="请输入"/>
+                        </div>
+                    </div>`;
+                    break;
+                }
+                case 2: {
+                    if (element.attr.range) {
+                        html += `
+                        <div class="layui-inline layui-col-md` + element.width + `">
+                            <label class="layui-form-label` + (element.attr.required ? ' layui-form-required' : '') + `">` + element.attr.text + `:</label>
+                            <div class="layui-input-block" style="text-align: center;line-height: 36px">
+                                <input name="` + element.attr.param[0] + `" class="layui-input" type="number" style="width: 45%;display: inline-block;float: left;"
+                                    ` + (element.attr.required ? ' lay-verify="required" required' : '') + `value="` + element.attr.value[0] + `" placeholder="请输入"/>
+                                    -
+                                <input name="` + element.attr.param[1] + `" class="layui-input" type="number" style="width: 45%;display: inline-block;float: right;"
+                                ` + (element.attr.required ? ' lay-verify="required" required' : '') + `value="` + element.attr.value[1] + `" placeholder="请输入"/>
+                            </div>
+                        </div>`;
+                    } else {
+                        html += `
+                        <div class="layui-inline layui-col-md` + element.width + `">
+                            <label class="layui-form-label` + (element.attr.required ? ' layui-form-required' : '') + `">` + element.attr.text + `:</label>
+                            <div class="layui-input-block">
+                                <input name="` + element.attr.param + `" class="layui-input" type="number" value="` + (isBlank(element.attr.value) ? "" : element.attr.value) + `"
+                                    ` + (element.attr.required ? ' lay-verify="required" required' : '') + ` placeholder="请输入"/>
+                            </div>
+                        </div>`;
+                    }
+                    break;
+                }
+                case 3: {
+                    html += `
+                    <div class="layui-inline layui-col-md` + element.width + `">
+                        <label class="layui-form-label` + (element.attr.required ? ' layui-form-required' : '') + `">` + element.attr.text + `:</label>
+                        <div class="layui-input-block">
+                            <select name="` + element.attr.param + `" ` + (element.attr.required ? ' lay-verify="required" required' : '') + `>
+                                <option value="">请选择</option>`;
+                    $.each(element.attr.options, function (index, option) {
+                        html += `<option value="` + option.value + `" ` + (option.checked ? 'selected' : '') + `>` + option.text + `</option>`
+                    })
+                    html += `
+                            </select>
+                        </div>
+                    </div>`;
+                    break;
+                }
+                case 4: {
+                    html += `
+                    <div class="layui-inline layui-col-md` + element.width + `">
+                        <label class="layui-form-label` + (element.attr.required ? ' layui-form-required' : '') + `">` + element.attr.text + `:</label>
+                        <div class="layui-input-block">`;
+                    $.each(element.attr.options, function (index, option) {
+                        html += `<input type="radio" name="` + element.attr.param + `" value="` + option.value + `" lay-skin="primary" title="` + option.text + `"` + (option.checked ? 'checked=""' : '') + `>`
+                    })
+                    html += `</div></div>`;
+                    break;
+                }
+                case 5: {
+                    html += `
+                    <div class="layui-inline layui-col-md` + element.width + `">
+                        <label class="layui-form-label` + (element.attr.required ? ' layui-form-required' : '') + `">` + element.attr.text + `:</label>
+                        <div class="layui-input-block">`;
+                    $.each(element.attr.options, function (index, option) {
+                        html += `<input data-type="checkbox" type="checkbox" name="` + element.attr.param + `" value="` + option.value + `" lay-skin="primary" title="` + option.text + `"` + (option.checked ? ' checked=""' : '') + `>`
+                    })
+                    html += `</div></div>`;
+                    break;
+                }
+                case 6: {
+                    html += `
+                    <div class="layui-inline layui-col-md` + element.width + `">
+                        <label class="layui-form-label` + (element.attr.required ? ' layui-form-required' : '') + `">` + element.attr.text + `:</label>
+                        <div class="layui-input-block">
+                            <input type="checkbox" name="` + element.attr.param + `" lay-skin="switch" lay-text="是|否"` + (element.attr.value ? ' checked=""' : '') + `>
+                        </div>
+                    </div>`;
+                    break;
+                }
+                case 7: {
+                    html += `
+                    <div class="layui-inline layui-col-md` + element.width + `">
+                        <label class="layui-form-label` + (element.attr.required ? ' layui-form-required' : '') + `">` + element.attr.text + `:</label>
+                        <div class="layui-input-block">
+                            <input name="` + element.attr.param + `" class="layui-input icon-date` + (element.attr.range ? ' rangeDate' : ' datepicker') + `" autocomplete="off"
+                                   ` + (element.attr.required ? ' lay-verify="required" required' : '') + ` value="` + (isBlank(element.attr.value) ? "" : element.attr.value) + `" placeholder="请输入"/>
+                        </div>
+                    </div>`;
+                    break;
+                }
+                case 8: {
+                    html += `
+                    <div class="layui-inline layui-col-md` + element.width + `">
+                        <label class="layui-form-label` + (element.attr.required ? ' layui-form-required' : '') + `">` + element.attr.text + `:</label>
+                        <div class="layui-input-block">
+                            <textarea rows="2" name="` + element.attr.param + `" class="layui-input"` + (element.attr.required ? ' lay-verify="required" required' : '') + `
+                                style="resize: none;padding-top: 10px;height: ` + ((element.attr.lineNum === null || element.attr.lineNum === 0 ? 1 : element.attr.lineNum) * (38 + 25) - 25) + `px"
+                                data-defaultValue="` + (isBlank(element.attr.value) ? "" : element.attr.value) + `" placeholder="请输入"></textarea>
+                        </div>
+                    </div>`;
+                    break;
+                }
+            }
+            return html;
+        }
     }
 
 }

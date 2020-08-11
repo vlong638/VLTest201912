@@ -186,7 +186,7 @@ namespace VL.Research.Controllers
                     text = c.DisplayName,
                     type = c.DisplayType.ToInt().Value,
                     value = c.DisplayValues ?? "",
-                    options = new List<GetListConfigModel_Search_Option>(),
+                    options = new GetListConfigModel_Search_Options(c.Options),
                 }).ToList(),
                 table = new GetListConfigModel_TableConfg()
                 {

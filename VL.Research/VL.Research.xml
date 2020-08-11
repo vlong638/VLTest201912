@@ -528,6 +528,11 @@
             页面 下拉项配置
             </summary>
         </member>
+        <member name="P:VL.Research.Common.ViewConfigWhere.Options">
+            <summary>
+            页面 下拉项选项
+            </summary>
+        </member>
         <member name="M:VL.Research.Common.ViewConfigWhere.ToXElement">
             <summary>
             
@@ -1081,6 +1086,17 @@
             <summary>
             是否选中
             </summary>
+        </member>
+        <member name="T:VL.Research.Models.GetListConfigModel_Search_Options">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VL.Research.Models.GetListConfigModel_Search_Options.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="options"></param>
         </member>
         <member name="T:VL.Research.Models.GetListConfigModel_TableConfg">
             <summary>

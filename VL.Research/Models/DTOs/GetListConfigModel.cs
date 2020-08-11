@@ -87,6 +87,41 @@ namespace VL.Research.Models
         /// </summary>
         public bool @checked { set; get; }
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public class GetListConfigModel_Search_Options : List<GetListConfigModel_Search_Option>
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="options"></param>
+        public GetListConfigModel_Search_Options(string options)
+        {
+            if (options == null)
+                return;
+
+            var splits1 = options.Split("|");
+            var defaultValue = splits1.Length > 1 ? splits1[0] : "";
+            var optionStr = splits1.Length > 1 ? splits1[1] : options;
+            var splitOptions = optionStr.Split(",");
+            foreach (var splitOption in splitOptions)
+            {
+                var keyValue = splitOption.Split(":");
+                var key = keyValue[0];
+                var value = keyValue[1];
+                var isDefaultValue = key == defaultValue;
+                this.Add(new GetListConfigModel_Search_Option()
+                {
+                    name = value,
+                    value = key,
+                    @checked = isDefaultValue,
+                });
+            }
+        }
+    }
+
     /// <summary>
     /// 页面配置 模型子项
     /// </summary>

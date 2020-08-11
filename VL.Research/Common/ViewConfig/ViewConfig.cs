@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using VL.Consolo_Core.Common.ValuesSolution;
+using VL.Research.Models;
 
 namespace VL.Research.Common
 {
@@ -227,6 +228,7 @@ namespace VL.Research.Common
             DisplayName = element.Attribute(nameof(DisplayName))?.Value;
             DisplayType = element.Attribute(nameof(DisplayType))?.Value;
             DisplayValues = element.Attribute(nameof(DisplayValues))?.Value;
+            Options = element.Attribute(nameof(Options))?.Value;
         }
 
         /// <summary>
@@ -257,6 +259,10 @@ namespace VL.Research.Common
         /// 页面 下拉项配置
         /// </summary>
         public string DisplayValues { get; set; }
+        /// <summary>
+        /// 页面 下拉项选项
+        /// </summary>
+        public string Options { set; get; }
 
         /// <summary>
         /// 
@@ -272,6 +278,7 @@ namespace VL.Research.Common
             property.SetAttributeValue(nameof(DisplayName), DisplayName);
             property.SetAttributeValue(nameof(DisplayType), DisplayType);
             property.SetAttributeValue(nameof(DisplayValues), DisplayValues);
+            property.SetAttributeValue(nameof(Options), Options);
             return property;
         }
     }
