@@ -1,16 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using VL.Consolo_Core.Common.DBSolution;
+using System;
+using System.Security.Claims;
+using VL.Consolo_Core.AuthenticationSolution;
 using VL.Research.Common;
 using VL.Research.Common.Configuration;
 using VL.Research.Services;
@@ -42,12 +41,17 @@ namespace VL.Research
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
-
             //配置文件
             services.Configure<DBConfig>(Configuration.GetSection("DB"));
+            services.Configure<AuthenticationOptions>(Configuration.GetSection("Authentication"));
+
+            #region 接口及服务
+
+            //Controller
+            services.AddControllersWithViews();
 
             //基础设施
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<APIContext>();
 
             //服务设施
@@ -62,6 +66,38 @@ namespace VL.Research
                 p.IncludeXmlComments(AppDomain.CurrentDomain.BaseDirectory + "VL.Research.xml");
                 p.CustomSchemaIds(x => x.FullName);
             });
+
+            #endregion
+
+            #region 认证
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+            })
+            .AddCookie(b =>
+            {
+                //登陆地址
+                b.LoginPath = "/Home/Login";
+                b.Cookie.Name = "My_SessionId";
+                // b.Cookie.Domain = "shenniu.core.com";
+                b.Cookie.Path = "/";
+                b.Cookie.HttpOnly = true;
+                b.Cookie.Expiration = new TimeSpan(0, 0, 30);
+                b.ExpireTimeSpan = new TimeSpan(0, 0, 30);
+            });
+
+            services.AddAuthenticationCore(options => options.AddScheme<VLAuthenticationHandler>(VLAuthenticationHandler.ShemeName, "VL Scheme"));
+            services.AddDataProtection();
+            services.AddWebEncoders();
+            services.AddScoped<IAuthenticationService, UserService>();//核心对象一 认证服务
+            services.AddSingleton<IClaimsTransformation, NoopClaimsTransformation>();
+            services.AddSingleton<IAuthenticationSchemeProvider, AuthenticationSchemeProvider>();//核心对象二 认证模式
+            services.AddSingleton<IAuthenticationHandlerProvider, AuthenticationHandlerProvider>();//核心对象三 认证代理
+
+            #endregion
         }
 
         /// <summary>
@@ -81,20 +117,21 @@ namespace VL.Research
                 app.UseHsts();
             }
 
+            //注册重定向中间件
             app.UseHttpsRedirection();
+            //注册静态资源
             app.UseStaticFiles();
-
+            //注册路由中间件
             app.UseRouting();
-
+            //注册认证中间件
             app.UseAuthorization();
-
+            //注册路由配置
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-                    //pattern: "{controller=Home}/{action=Login}/{id?}");
             });
 
             //swagger
@@ -103,6 +140,60 @@ namespace VL.Research
             {
                 p.SwaggerEndpoint("/swagger/v1/swagger.json", "VL API");
             });
+
+
+            #region 认证代理
+
+            //// 登录
+            //app.Map("/Home/Login", builder => builder.Use(next =>
+            //{
+            //    return async (context) =>
+            //    {
+            //        var claimIdentity = new ClaimsIdentity();
+            //        claimIdentity.AddClaim(new Claim(ClaimTypes.Name, "jim"));
+            //        await context.SignInAsync(VLAuthenticationHandler.ShemeName, new ClaimsPrincipal(claimIdentity));
+            //    };
+            //}));
+
+            //// 退出
+            //app.Map("/logout", builder => builder.Use(next =>
+            //{
+            //    return async (context) =>
+            //    {
+            //        await context.SignOutAsync(VLAuthenticationHandler.ShemeName);
+            //    };
+            //}));
+
+            // 认证
+            app.Use(next =>
+            {
+                return async (context) =>
+                {
+                    var result = await context.AuthenticateAsync(VLAuthenticationHandler.ShemeName);
+                    if (result?.Principal != null) context.User = result.Principal;
+                    await next(context);
+                };
+            });
+
+            // 授权
+            app.Use(async (context, next) =>
+            {
+                var user = context.User;
+                if (user?.Identity?.IsAuthenticated ?? false)
+                {
+                    if (user.Identity.Name != "jim") await context.ForbidAsync(VLAuthenticationHandler.ShemeName);
+                    else await next();
+                }
+                else
+                {
+                    await context.ChallengeAsync(VLAuthenticationHandler.ShemeName);
+                }
+            });
+
+            // 访问受保护资源
+            app.Map("/resource", builder => builder.Run(async (context) => await context.Response.WriteAsync("Hello, ASP.NET Core!")));
+
+            #endregion
         }
     }
 }

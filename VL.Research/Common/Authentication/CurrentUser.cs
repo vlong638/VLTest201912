@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Http;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
 namespace VL.Research.Common
 {
@@ -13,8 +17,7 @@ namespace VL.Research.Common
         public List<Authority> Authorities { set; get; }
         public List<long> AuthorityIds { set; get; }
 
-
-        //public static void SetCurrentUser(CurrentUser currentUser, bool isRemeberMe, HttpResponseBase response)
+        //public static void SetCurrentUser(HttpContextAccessor httpContext, CurrentUser currentUser, bool isRemeberMe, HttpContext response)
         //{
         //    var userName = currentUser.UserName;
         //    var userData = currentUser.UserId.ToString() + "_" + string.Join(",", currentUser.AuthorityIds);
@@ -41,7 +44,7 @@ namespace VL.Research.Common
         //    var userName = httpContext.User.Identity.Name;
         //    var userData = authTicket.UserData.Split('_');
         //    var userId = string.IsNullOrEmpty(userData[0]) ? 0 : Int64.Parse(userData[0]);
-        //    var authorityIds = userData.Length<2||string.IsNullOrEmpty(userData[1]) ? new long[0] : userData[1].Split(',').Select(c => Int64.Parse(c)).ToArray();
+        //    var authorityIds = userData.Length < 2 || string.IsNullOrEmpty(userData[1]) ? new long[0] : userData[1].Split(',').Select(c => Int64.Parse(c)).ToArray();
         //    return new CurrentUser()
         //    {
         //        UserId = userId,

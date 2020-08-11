@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using VL.Research.Common;
 
 namespace VL.Research.Controllers
 {
@@ -24,20 +25,6 @@ namespace VL.Research.Controllers
                 ModelState.AddModelError("", error);
             }
         }
-        #endregion
-
-        #region Auth
-        //public void SetCurrentUser(CurrentUser currentUser, bool isRemeberMe = false)
-        //{
-        //    CurrentUser.SetCurrentUser(currentUser, isRemeberMe, Response);
-        //}
-
-
-        //public CurrentUser GetCurrentUser()
-        //{
-        //    var httpContext = HttpContext;
-        //    return CurrentUser.GetCurrentUser(httpContext);
-        //}
         #endregion
 
         #region APIResult,便捷方法

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NPOI.HSSF.UserModel;
@@ -8,7 +9,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using System.Xml.Linq;
+using VL.Consolo_Core.AuthenticationSolution;
 using VL.Consolo_Core.Common.FileSolution;
 using VL.Research.Common;
 using VL.Research.Models;
@@ -55,13 +59,14 @@ namespace VL.Research.Controllers
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="apiContext"></param>
         /// <param name="userService"></param>
         /// <param name="model"></param>
         /// <param name="returnUrl"></param>
         /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Login([FromServices] UserService userService, LoginViewModel model, string returnUrl)
+        public async Task<ActionResult> Login([FromServices] APIContext apiContext, [FromServices] UserService userService, LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
             {
@@ -78,16 +83,12 @@ namespace VL.Research.Controllers
 
                 #region 登录缓存处理
 
-                //SetCurrentUser(new CurrentUser()
-                //{
-                //    UserId = user.Id,
-                //    UserName = user.Name,
-                //    AuthorityIds = authorityIds.ToList(),
-                //});
+                var claimIdentity = new ClaimsIdentity();
+                claimIdentity.AddClaim(new Claim(ClaimTypes.Name, "jim"));
+                await apiContext.HttpContext.SignInAsync(UserService.ShemeName, new ClaimsPrincipal(claimIdentity));
+                return RedirectToLocal(returnUrl);
 
                 #endregion
-
-                return RedirectToLocal(returnUrl);
             }
             else
             {
@@ -143,7 +144,7 @@ namespace VL.Research.Controllers
         /// <param name="pregnantInfoId"></param>
         /// <returns></returns>
         [HttpGet]
-        [VLAuthentication(Authority.查看孕妇档案详情)]
+        //[VLAuthentication(Authority.查看孕妇档案详情)]
         public ActionResult PregnantInfo(long pregnantInfoId)
         {
             return View();
@@ -155,7 +156,7 @@ namespace VL.Research.Controllers
         /// <param name="pregnantInfoId"></param>
         /// <returns></returns>
         [HttpGet]
-        [VLAuthentication(Authority.查看检查列表)]
+        //[VLAuthentication(Authority.查看检查列表)]
         public ActionResult LabOrderList(long pregnantInfoId)
         {
             return View();
@@ -167,7 +168,7 @@ namespace VL.Research.Controllers
         /// <param name="pregnantInfoId"></param>
         /// <returns></returns>
         [HttpGet]
-        [VLAuthentication(Authority.查看产检列表)]
+        //[VLAuthentication(Authority.查看产检列表)]
         public ActionResult VisitRecordList(long pregnantInfoId)
         {
             return View();
@@ -179,7 +180,7 @@ namespace VL.Research.Controllers
         /// <param name="pregnantInfoId"></param>
         /// <returns></returns>
         [HttpGet]
-        [VLAuthentication(Authority.查看检查详情)]
+        //[VLAuthentication(Authority.查看检查详情)]
         public ActionResult LabOrderDetail(long pregnantInfoId)
         {
             return View();

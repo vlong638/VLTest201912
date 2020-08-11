@@ -14,5 +14,14 @@
       "Microsoft": "Warning"
     }
   },
+  "Authentication": {
+    "DefaultAuthenticateScheme": "vlsheme",
+    "DefaultChallengeScheme": "vlsheme",
+    "DefaultForbidScheme": "vlsheme",
+    "DefaultScheme": "vlsheme",
+    "DefaultSignInScheme": "vlsheme",
+    "DefaultSignOutScheme": "vlsheme",
+    "RequireAuthenticatedSignIn": "false"
+  },
   "AllowedHosts": "*"
 }

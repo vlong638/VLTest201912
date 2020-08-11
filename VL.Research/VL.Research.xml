@@ -66,7 +66,17 @@
             
             </summary>
         </member>
-        <member name="M:VL.Research.Common.APIContext.#ctor(Microsoft.Extensions.Options.IOptions{VL.Research.Common.Configuration.DBConfig})">
+        <member name="P:VL.Research.Common.APIContext.HttpContextAccessor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:VL.Research.Common.APIContext.HttpContext">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VL.Research.Common.APIContext.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Microsoft.Extensions.Options.IOptions{VL.Research.Common.Configuration.DBConfig})">
             <summary>
             
             </summary>
@@ -658,10 +668,11 @@
             <param name="returnUrl"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.HomeController.Login(VL.Research.Services.UserService,VL.Research.Models.LoginViewModel,System.String)">
+        <member name="M:VL.Research.Controllers.HomeController.Login(VL.Research.Common.APIContext,VL.Research.Services.UserService,VL.Research.Models.LoginViewModel,System.String)">
             <summary>
             
             </summary>
+            <param name="apiContext"></param>
             <param name="userService"></param>
             <param name="model"></param>
             <param name="returnUrl"></param>
@@ -1706,6 +1717,24 @@
             病人档案Id
             </summary>
         </member>
+        <member name="T:VL.Research.Program">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VL.Research.Program.Main(System.String[])">
+            <summary>
+            程序启动入口
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:VL.Research.Program.CreateHostBuilder(System.String[])">
+            <summary>
+            Host启动配置
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
         <member name="M:VL.Research.Repositories.PregnantInfoRepository.GetPregnantInfoById(System.Int64)">
             <summary>
             根据 PregnantInfoId 查询 PregnantInfo
@@ -1824,10 +1853,55 @@
             
             </summary>
         </member>
-        <member name="M:VL.Research.Services.UserService.#ctor(VL.Research.Common.APIContext)">
+        <member name="M:VL.Research.Services.UserService.#ctor(VL.Research.Common.APIContext,Microsoft.AspNetCore.Authentication.IAuthenticationSchemeProvider,Microsoft.AspNetCore.Authentication.IAuthenticationHandlerProvider,Microsoft.AspNetCore.Authentication.IClaimsTransformation)">
             <summary>
             
             </summary>
+        </member>
+        <member name="M:VL.Research.Services.UserService.AuthenticateAsync(Microsoft.AspNetCore.Http.HttpContext,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+            <param name="scheme"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Services.UserService.ChallengeAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+            <param name="scheme"></param>
+            <param name="properties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Services.UserService.ForbidAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+            <param name="scheme"></param>
+            <param name="properties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Services.UserService.SignInAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,System.Security.Claims.ClaimsPrincipal,Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+            <param name="scheme"></param>
+            <param name="principal"></param>
+            <param name="properties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Services.UserService.SignOutAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+            <param name="scheme"></param>
+            <param name="properties"></param>
+            <returns></returns>
         </member>
         <member name="T:VL.Research.Startup">
             <summary>

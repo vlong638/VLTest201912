@@ -1,7 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using VL.Consolo_Core.AuthenticationSolution;
 using VL.Consolo_Core.Common.DBSolution;
 using VL.Consolo_Core.Common.ServiceSolution;
+using VL.Consolo_Core.Common.ValuesSolution;
 using VL.Research.Common;
 using VL.Research.Models;
 using VL.Research.Repositories;
@@ -12,22 +20,32 @@ namespace VL.Research.Services
     /// <summary>
     /// 
     /// </summary>
-    public class UserService : BaseService, IUserService
+    public class UserService : BaseService, IAuthenticationService, IUserService
     {
-        DbContext dbContext;
-        UserRepository userRepository;
-        UserAuthorityRepository userAuthorityRepository;
-        UserRoleRepository userRoleRepository;
-        RoleRepository roleRepository;
-        RoleAuthorityRepository roleAuthorityRepository;
-        UserMenuRepository userMenuRepository;
+        DbContext dbContext { set; get; }
+        public IAuthenticationSchemeProvider Schemes { get; }
+        public IAuthenticationHandlerProvider Handlers { get; }
+        public IClaimsTransformation Transform { get; }
+
+        UserRepository userRepository { set; get; }
+        UserAuthorityRepository userAuthorityRepository { set; get; }
+        UserRoleRepository userRoleRepository { set; get; }
+        RoleRepository roleRepository { set; get; }
+        RoleAuthorityRepository roleAuthorityRepository { set; get; }
+        UserMenuRepository userMenuRepository { set; get; }
 
         /// <summary>
         /// 
         /// </summary>
-        public UserService(APIContext dbContext)
+        public UserService(APIContext dbContext
+                , IAuthenticationSchemeProvider Schemes
+                , IAuthenticationHandlerProvider Handlers
+                , IClaimsTransformation Transform)
         {
             this.dbContext = dbContext;
+            this.Schemes = Schemes;
+            this.Handlers = Handlers;
+            this.Transform = Transform;
             userRepository = new UserRepository(dbContext);
             userAuthorityRepository = new UserAuthorityRepository(dbContext);
             userRoleRepository = new UserRoleRepository(dbContext);
@@ -185,5 +203,151 @@ namespace VL.Research.Services
             var userMenu = userMenuRepository.GetById(customConfigId);
             return Success(userMenu);
         }
+
+        #region IAuthenticationService
+
+        public const string AuthCookieName = "vlcookie";
+        public const string ShemeName = "vlsheme";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="scheme"></param>
+        /// <returns></returns>
+        public async Task<AuthenticateResult> AuthenticateAsync(HttpContext context, string scheme)
+        {
+            var cookieValue = context.Request.Cookies[AuthCookieName];
+            if (string.IsNullOrEmpty(cookieValue))
+            {
+                return AuthenticateResult.NoResult();
+            }
+            return AuthenticateResult.Success(VLAuthenticationTicketHelper.Decrypt(cookieValue));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="scheme"></param>
+        /// <param name="properties"></param>
+        /// <returns></returns>
+        public Task ChallengeAsync(HttpContext context, string scheme, AuthenticationProperties properties)
+        {
+            context.Response.Redirect("/Home/Login");
+            return Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="scheme"></param>
+        /// <param name="properties"></param>
+        /// <returns></returns>
+        public Task ForbidAsync(HttpContext context, string scheme, AuthenticationProperties properties)
+        {
+            context.Response.StatusCode = 403;
+            return Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="scheme"></param>
+        /// <param name="principal"></param>
+        /// <param name="properties"></param>
+        /// <returns></returns>
+        public Task SignInAsync(HttpContext context, string scheme, ClaimsPrincipal principal, AuthenticationProperties properties)
+        {
+            var ticket = new AuthenticationTicket(principal, properties, scheme);
+            string cookieStr = VLAuthenticationTicketHelper.Encrypt(ticket);
+            context.Response.Cookies.Append(AuthCookieName, cookieStr);
+            return Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="scheme"></param>
+        /// <param name="properties"></param>
+        /// <returns></returns>
+        public Task SignOutAsync(HttpContext context, string scheme, AuthenticationProperties properties)
+        {
+            context.Response.Cookies.Delete(AuthCookieName);
+            context.Response.Redirect("/Home/Login");
+            return Task.CompletedTask;
+        }
+
+        #endregion
     }
+
+    ///// <summary>
+    ///// HttpContext 扩展
+    ///// </summary>
+    //public static class AuthenticationHttpContextExtensions
+    //{
+    //    /// <summary>
+    //    /// 
+    //    /// </summary>
+    //    /// <param name="context"></param>
+    //    /// <param name="scheme"></param>
+    //    /// <returns></returns>
+    //    public static Task<AuthenticateResult> AuthenticateAsync(this HttpContext context, string scheme) =>
+    //        context.RequestServices.GetRequiredService<IAuthenticationService>().AuthenticateAsync(context, scheme);
+
+    //    /// <summary>
+    //    /// 
+    //    /// </summary>
+    //    /// <param name="context"></param>
+    //    /// <param name="scheme"></param>
+    //    /// <param name="properties"></param>
+    //    /// <returns></returns>
+    //    public static Task ChallengeAsync(this HttpContext context, string scheme, AuthenticationProperties properties) =>
+    //        context.RequestServices.GetRequiredService<IAuthenticationService>().ChallengeAsync(context, scheme, properties);
+
+    //    /// <summary>
+    //    /// 
+    //    /// </summary>
+    //    /// <param name="context"></param>
+    //    /// <param name="scheme"></param>
+    //    /// <param name="properties"></param>
+    //    /// <returns></returns>
+    //    public static Task ForbidAsync(this HttpContext context, string scheme, AuthenticationProperties properties) =>
+    //        context.RequestServices.GetRequiredService<IAuthenticationService>().ForbidAsync(context, scheme, properties);
+
+    //    /// <summary>
+    //    /// 
+    //    /// </summary>
+    //    /// <param name="context"></param>
+    //    /// <param name="scheme"></param>
+    //    /// <param name="principal"></param>
+    //    /// <param name="properties"></param>
+    //    /// <returns></returns>
+    //    public static Task SignInAsync(this HttpContext context, string scheme, ClaimsPrincipal principal, AuthenticationProperties properties) =>
+    //        context.RequestServices.GetRequiredService<IAuthenticationService>().SignInAsync(context, scheme, principal, properties);
+
+    //    /// <summary>
+    //    /// 
+    //    /// </summary>
+    //    /// <param name="context"></param>
+    //    /// <param name="scheme"></param>
+    //    /// <param name="properties"></param>
+    //    /// <returns></returns>
+    //    public static Task SignOutAsync(this HttpContext context, string scheme, AuthenticationProperties properties) =>
+    //        context.RequestServices.GetRequiredService<IAuthenticationService>().SignOutAsync(context, scheme, properties);
+
+    //    /// <summary>
+    //    /// 
+    //    /// </summary>
+    //    /// <param name="context"></param>
+    //    /// <param name="scheme"></param>
+    //    /// <param name="tokenName"></param>
+    //    /// <returns></returns>
+    //    public static Task<string> GetTokenAsync(this HttpContext context, string scheme, string tokenName) =>
+    //        context.RequestServices.GetRequiredService<IAuthenticationService>().GetTokenAsync(context, scheme, tokenName);
+
+    //}
 }

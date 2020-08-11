@@ -320,6 +320,7 @@ namespace VL.Research.Controllers
         /// </summary>
         [HttpPost]
         //[VLAuthentication(Authority.查看孕妇档案列表)]
+        //[Authorize]
         public APIResult<List<Dictionary<string, object>>, int> GetCommonSelect([FromServices] SharedService sharedService, GetCommonSelectRequest request)
         {
             var viewConfig = GetViewConfigByName(request.target);
