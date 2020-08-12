@@ -28,6 +28,13 @@
 		<Properties>
 			<Property IsOn="true" ColumnName="id" Alias ="u.id"/>
 			<Property IsOn="true" ColumnName="name" Alias ="u.name"/>
+			<Property IsOn="true" ColumnName="rolenames" Alias ="
+(select r.Name+ ','
+from A_User u 
+left join A_UserRole ur on u.id = ur.userid
+left join A_Role r on ur.roleid = r.id
+for xml path('')) as rolenames
+"/>
 		</Properties>
 		<Wheres>
 			<Where ComponentName="name" Formatter="%@name%">u.name like @name</Where>

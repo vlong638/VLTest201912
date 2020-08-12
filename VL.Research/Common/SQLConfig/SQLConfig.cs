@@ -132,7 +132,7 @@ namespace VL.Research.Common
         internal string GetListSQL()
         {
             var sql = SQL;
-            var propertiesIsOn = Properties.Where(c => c.IsOn);
+            var propertiesIsOn = Properties.Where(c => c.IsOn).Select(c => c.Alias);
             var fields = propertiesIsOn.Count() == 0 ? "*" : string.Join(",", propertiesIsOn);
             sql = sql.Replace("@Fields", fields);
             var wheresIsOn = Wheres.Where(c => c.IsOn).Select(c => c.SQL);
@@ -186,7 +186,7 @@ namespace VL.Research.Common
         /// <summary>
         /// 
         /// </summary>
-        public const string ElementName = "Properties";
+        public const string ElementName = "Property";
 
         /// <summary>
         /// 
