@@ -120,6 +120,26 @@ namespace VL.Research.Services
             });
         }
 
+        /// <summary>
+        /// 用户角色编辑
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="roleIds"></param>
+        /// <returns></returns>
+        public ServiceResult<bool> EditUserRoles(long userId, IEnumerable<long> roleIds)
+        {
+            return dbContext.DelegateTransaction((g) =>
+            {
+                userRoleRepository.DeleteBy(userId);
+                var userRoles = roleIds.Select(c => new UserRole() { UserId = userId, RoleId = c }).ToArray();
+                foreach (var userRole in userRoles)
+                {
+                    userRole.Id = userRoleRepository.Insert(userRole);
+                }
+                return true;
+            });
+        }
+
         //public ServiceResult<bool> EditUserAuthorities(long userId, IEnumerable<long> authorityIds)
         //{
         //    return DelegateTransaction(() =>
@@ -129,20 +149,6 @@ namespace VL.Research.Services
         //        foreach (var userAuthority in userAuthorities)
         //        {
         //            userAuthority.AuthorityId = userAuthorityRepository.Insert(userAuthority);
-        //        }
-        //        return true;
-        //    });
-        //}
-
-        //public ServiceResult<bool> EditUserRoles(long userId, IEnumerable<long> roleIds)
-        //{
-        //    return DelegateTransaction(() =>
-        //    {
-        //        userRoleRepository.DeleteBy(userId);
-        //        var userRoles = roleIds.Select(c => new UserRole() { UserId = userId, RoleId = c }).ToArray();
-        //        foreach (var userRole in userRoles)
-        //        {
-        //            userRole.Id = userRoleRepository.Insert(userRole);
         //        }
         //        return true;
         //    });
@@ -185,20 +191,6 @@ namespace VL.Research.Services
             var id = roleRepository.Insert(role);
             return Success(id);
         }
-
-        //public ServiceResult<bool> EditRoleAuthorities(long roleId, IEnumerable<long> authorityIds)
-        //{
-        //    return DelegateTransaction(() =>
-        //    {
-        //        roleAuthorityRepository.DeleteBy(roleId);
-        //        var roleAuthorities = authorityIds.Select(c => new RoleAuthority() { RoleId = roleId, AuthorityId = c }).ToArray();
-        //        foreach (var roleAuthority in roleAuthorities)
-        //        {
-        //            roleAuthority.Id = roleAuthorityRepository.Insert(roleAuthority);
-        //        }
-        //        return true;
-        //    });
-        //}
 
         public ServiceResult<IEnumerable<long>> GetRoleAuthorityIds(long roleId)
         {

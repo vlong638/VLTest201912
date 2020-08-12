@@ -128,16 +128,25 @@ namespace VL.Research.Controllers
         }
 
         /// <summary>
-        /// 
+        /// 编辑角色权限
         /// </summary>
         /// <returns></returns>
         [HttpGet]
         //[VLAuthentication(Authority.查看孕妇档案列表)]
-        public ActionResult RoleAuthorities()
+        public ActionResult EditRoleAuthorities()
         {
             return View();
         }
 
+        /// <summary>
+        /// 编辑用户角色
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult EditUserRoles()
+        {
+            return View();
+        }
 
         /// <summary>
         /// 

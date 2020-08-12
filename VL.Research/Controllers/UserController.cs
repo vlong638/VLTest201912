@@ -87,20 +87,19 @@ namespace VL.Research.Controllers
         }
 
         /// <summary>
-        /// 获取 当前用户的角色
+        /// 获取 用户的角色
         /// </summary>
         [HttpGet]
         //[VLAuthentication(Authority.编辑用户角色)]
-        public APIResult<List<CheckableTreeResponse>> GetUserRoleListByCurrentUser([FromServices] UserService userService)
+        public APIResult<List<CheckableTreeResponse>> GetUserRoles([FromServices] UserService userService, long id)
         {
-            var user = GetCurrentUser();
-            if (user.UserId <= 0)
+            if (id <= 0)
             {
                 return Error<List<CheckableTreeResponse>>(messages: "需选中用户");
             }
 
             var roles = userService.GetAllRoles().Data;
-            var userRoles = userService.GetRoleInfoByUserIds(user.UserId).Data;
+            var userRoles = userService.GetRoleInfoByUserIds(id).Data;
             List<CheckableTreeResponse> result = roles.Select(c => new CheckableTreeResponse()
             {
                 id = c.Id,
@@ -109,6 +108,31 @@ namespace VL.Research.Controllers
                 @checked = userRoles.FirstOrDefault(d => d.RoleId == c.Id) != null
             }).ToList();
             return Success(result);
+        }
+
+        /// <summary>
+        /// 编辑 用户角色
+        /// </summary>
+        /// <param name="userService"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        [HttpPost]
+        //[VLAuthentication(Authority.编辑用户角色)]
+        public APIResult<bool> EditUserRoles([FromServices] UserService userService, EditUserRoleRequest data)
+        {
+            var userId = data.userId.ToLong();
+            if (!userId.HasValue || userId.Value == 0)
+            {
+                return Error<bool>(messages: "缺少有效的账户Id");
+            }
+            var result = userService.EditUserRoles(userId.Value, data.roleIds);
+            return Success<bool>(result.Data, "保存成功");
+        }
+
+        public class EditUserRoleRequest
+        {
+            public string userId { set; get; }
+            public List<long> roleIds { set; get; }
         }
 
         /// <summary>

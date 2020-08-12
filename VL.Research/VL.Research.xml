@@ -721,9 +721,15 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.HomeController.RoleAuthorities">
+        <member name="M:VL.Research.Controllers.HomeController.EditRoleAuthorities">
             <summary>
-            
+            编辑角色权限
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.HomeController.EditUserRoles">
+            <summary>
+            编辑用户角色
             </summary>
             <returns></returns>
         </member>
@@ -987,10 +993,18 @@
             
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.UserController.GetUserRoleListByCurrentUser(VL.Research.Services.UserService)">
+        <member name="M:VL.Research.Controllers.UserController.GetUserRoles(VL.Research.Services.UserService,System.Int64)">
             <summary>
-            获取 当前用户的角色
+            获取 用户的角色
             </summary>
+        </member>
+        <member name="M:VL.Research.Controllers.UserController.EditUserRoles(VL.Research.Services.UserService,VL.Research.Controllers.UserController.EditUserRoleRequest)">
+            <summary>
+            编辑 用户角色
+            </summary>
+            <param name="userService"></param>
+            <param name="data"></param>
+            <returns></returns>
         </member>
         <member name="M:VL.Research.Controllers.UserController.GetRoleAuthorities(VL.Research.Services.UserService,System.Int64)">
             <summary>
@@ -1979,6 +1993,14 @@
             </summary>
             <param name="roleId"></param>
             <param name="authorityIds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Services.UserService.EditUserRoles(System.Int64,System.Collections.Generic.IEnumerable{System.Int64})">
+            <summary>
+            用户角色编辑
+            </summary>
+            <param name="userId"></param>
+            <param name="roleIds"></param>
             <returns></returns>
         </member>
         <member name="M:VL.Research.Services.UserService.AuthenticateAsync(Microsoft.AspNetCore.Http.HttpContext,System.String)">
