@@ -1,6 +1,6 @@
 ﻿namespace VL.Research.Common
 {
-    public class DBViewConfig
+    public class DBListConfig
     {
         public long Id { set; get; }
         /// <summary>

@@ -11,9 +11,9 @@
   <ItemGroup>
     <None Remove="VL.Research.xml" />
     <None Remove="XMLConfig\CustomConfig.xml" />
+    <None Remove="XMLConfig\LIstConfig.xml" />
     <None Remove="XMLConfig\MenuConfig.xml" />
     <None Remove="XMLConfig\SQLConfig.xml" />
-    <None Remove="XMLConfig\ViewConfig.xml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,7 +26,7 @@
     <Content Include="XMLConfig\MenuConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="XMLConfig\ViewConfig.xml">
+    <Content Include="XMLConfig\ListConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

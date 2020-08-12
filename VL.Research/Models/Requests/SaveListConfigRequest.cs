@@ -6,7 +6,7 @@ namespace VL.Research.Models
     {
         public long CustomConfigId { set; get; }
         public string ListName { set; get; }
-        public ViewConfig ViewConfig { set; get; }
+        public ListConfig ListConfig { set; get; }
         public string URL { get; set; }
     }
 }

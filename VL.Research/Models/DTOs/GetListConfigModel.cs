@@ -16,7 +16,7 @@ namespace VL.Research.Models
         /// <summary>
         /// 页面配置
         /// </summary>
-        public ViewConfig ViewConfig { set; get; }
+        public ListConfig ListConfig { set; get; }
 
         /// <summary>
         /// 模版ID

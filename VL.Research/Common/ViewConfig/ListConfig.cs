@@ -10,7 +10,7 @@ namespace VL.Research.Common
     /// <summary>
     /// 页面配置
     /// </summary>
-    public class ViewConfig
+    public class ListConfig
     {
         public static string RootElementName = "Views";
         public static string NodeElementName = "View";
@@ -27,24 +27,24 @@ namespace VL.Research.Common
         /// <summary>
         /// 页面字段
         /// </summary>
-        public List<ViewConfigProperty> Properties { set; get; }
+        public List<ListConfigProperty> Properties { set; get; }
         /// <summary>
         /// 页面条件项
         /// </summary>
-        public List<ViewConfigWhere> Wheres { set; get; }
+        public List<ListConfigWhere> Wheres { set; get; }
         /// <summary>
         /// 页面排序项
         /// </summary>
-        public ViewConfigOrderBy OrderBys { set; get; }
+        public ListConfigOrderBy OrderBys { set; get; }
         /// <summary>
         /// 行内功能栏
         /// </summary>
-        public List<ViewConfigToolBar> ToolBars { set; get; }
+        public List<ListConfigToolBar> ToolBars { set; get; }
 
         /// <summary>
         /// 
         /// </summary>
-        public ViewConfig()
+        public ListConfig()
         {
 
         }
@@ -52,14 +52,14 @@ namespace VL.Research.Common
         /// 
         /// </summary>
         /// <param name="element"></param>
-        public ViewConfig(XElement element)
+        public ListConfig(XElement element)
         {
             ViewName = element.Attribute(nameof(ViewName)).Value;
             ViewURL = element.Attribute(nameof(ViewURL))?.Value;
-            Properties = element.Descendants(ViewConfigProperty.ElementName).Select(c => new ViewConfigProperty(c)).ToList();
-            Wheres = element.Descendants(ViewConfigWhere.ElementName).Select(c => new ViewConfigWhere(c)).ToList();
-            OrderBys = element.Descendants(ViewConfigOrderBy.ElementName).Select(c => new ViewConfigOrderBy(c)).FirstOrDefault() ?? new ViewConfigOrderBy();
-            ToolBars = element.Descendants(ViewConfigToolBar.ElementName).Select(c => new ViewConfigToolBar(c)).ToList();
+            Properties = element.Descendants(ListConfigProperty.ElementName).Select(c => new ListConfigProperty(c)).ToList();
+            Wheres = element.Descendants(ListConfigWhere.ElementName).Select(c => new ListConfigWhere(c)).ToList();
+            OrderBys = element.Descendants(ListConfigOrderBy.ElementName).Select(c => new ListConfigOrderBy(c)).FirstOrDefault() ?? new ListConfigOrderBy();
+            ToolBars = element.Descendants(ListConfigToolBar.ElementName).Select(c => new ListConfigToolBar(c)).ToList();
         }
         /// <summary>
         /// 
@@ -162,7 +162,7 @@ namespace VL.Research.Common
         //    //wheres
         //    if (Wheres != null && Wheres.Count > 0)
         //    {
-        //        var wheresRoot = new XElement(ViewConfigWhere.RootElementName);
+        //        var wheresRoot = new XElement(ListConfigWhere.RootElementName);
         //        var wheres = Wheres.Select(p => p.ToXElement());
         //        wheresRoot.Add(wheres);
         //        node.Add(wheresRoot);
@@ -201,7 +201,7 @@ namespace VL.Research.Common
     /// <summary>
     /// 
     /// </summary>
-    public class ViewConfigWhere
+    public class ListConfigWhere
     {
         public const string RootElementName = "Wheres";
         public const string ElementName = "Where";
@@ -209,7 +209,7 @@ namespace VL.Research.Common
         /// <summary>
         /// 
         /// </summary>
-        public ViewConfigWhere()
+        public ListConfigWhere()
         {
             ComponentName = "";
             Value = "";
@@ -218,7 +218,7 @@ namespace VL.Research.Common
         /// 
         /// </summary>
         /// <param name="element"></param>
-        public ViewConfigWhere(XElement element)
+        public ListConfigWhere(XElement element)
         {
             ComponentName = element.Attribute(nameof(ComponentName))?.Value;
             CompareOperator = element.Attribute(nameof(CompareOperator))?.Value.ToEnum<CompareOperator>() ?? CompareOperator.None;
@@ -291,7 +291,7 @@ namespace VL.Research.Common
     /// <summary>
     /// 
     /// </summary>
-    public class ViewConfigOrderBy
+    public class ListConfigOrderBy
     {
         public const string ElementName = "OrderBy";
 
@@ -299,11 +299,11 @@ namespace VL.Research.Common
         public string DefaultValue { set; get; }
 
 
-        public ViewConfigOrderBy()
+        public ListConfigOrderBy()
         {
             DefaultName = "";
         }
-        public ViewConfigOrderBy(XElement element)
+        public ListConfigOrderBy(XElement element)
         {
             DefaultName = element.Attribute(nameof(DefaultName))?.Value;
             DefaultValue = element.Attribute(nameof(DefaultValue))?.Value;
@@ -320,7 +320,7 @@ namespace VL.Research.Common
     /// <summary>
     /// 
     /// </summary>
-    public class ViewConfigToolBar
+    public class ListConfigToolBar
     {
         public const string ElementName = "ToolBar";
 
@@ -344,7 +344,7 @@ namespace VL.Research.Common
         /// <summary>
         /// 
         /// </summary>
-        public ViewConfigToolBar()
+        public ListConfigToolBar()
         {
             Text = "";
             Type = "";
@@ -359,7 +359,7 @@ namespace VL.Research.Common
         /// 
         /// </summary>
         /// <param name="element"></param>
-        public ViewConfigToolBar(XElement element)
+        public ListConfigToolBar(XElement element)
         {
             Text = element.Attribute(nameof(Text))?.Value;
             Type = element.Attribute(nameof(Type))?.Value;

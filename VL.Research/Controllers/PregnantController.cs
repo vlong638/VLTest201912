@@ -66,7 +66,7 @@ namespace VL.Research.Controllers
         //[VLAuthentication(Authority.查看孕妇档案列表)]
         public APIResult<List<Dictionary<string, object>>, int> GetConfigurablePagedListOfPregnantInfo([FromServices] PregnantService pregnantService, int page, int limit, string field, string order, string personname)
         {
-            ViewConfig viewConfig = SystemController.GetViewConfigByName("PregnantInfo");
+            ListConfig ListConfig = SystemController.GetListConfigByName("PregnantInfo");
             var pars = new GetPagedListOfPregnantInfoRequest()
             {
                 PageIndex = page,
@@ -76,13 +76,13 @@ namespace VL.Research.Controllers
             };
 
             //更新字段参数
-            viewConfig.UpdatePropertiesToSelect(pars.FieldNames);
+            ListConfig.UpdatePropertiesToSelect(pars.FieldNames);
             //更新排序参数
-            viewConfig.UpdateOrderBy(pars.Orders, field, order);
+            ListConfig.UpdateOrderBy(pars.Orders, field, order);
             //获取数据
             var serviceResult = pregnantService.GetConfigurablePagedListOfPregnantInfo(pars);
             //更新显示映射(枚举,函数,脱敏)
-            viewConfig.UpdateValues(serviceResult.Data.SourceData);
+            ListConfig.UpdateValues(serviceResult.Data.SourceData);
 
             if (!serviceResult.IsSuccess)
                 return Error(data1: serviceResult.Data.SourceData, data2: serviceResult.Data.Count, messages: serviceResult.Messages);

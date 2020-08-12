@@ -19,7 +19,7 @@ namespace VL.Research.Common
         JsonEnum = 5,
     }
 
-    public class ViewConfigProperty
+    public class ListConfigProperty
     {
         public static string ElementName = "Property";
 
@@ -89,7 +89,7 @@ namespace VL.Research.Common
         //public bool IsRequired { set; get; } 
         #endregion
 
-        public ViewConfigProperty(DBViewConfig dbConfig)
+        public ListConfigProperty(DBListConfig dbConfig)
         {
             ColumnName = dbConfig.ColumnName;
             DisplayName = "";
@@ -103,7 +103,7 @@ namespace VL.Research.Common
             IsNeedOnDatabase = false;
             Description = dbConfig.Description;
         }
-        public ViewConfigProperty(XElement element)
+        public ListConfigProperty(XElement element)
         {
             ColumnName = element.Attribute(nameof(ColumnName))?.Value;
             DisplayName = element.Attribute(nameof(DisplayName))?.Value;

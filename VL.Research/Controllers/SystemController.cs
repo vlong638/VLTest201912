@@ -111,23 +111,6 @@ namespace VL.Research.Controllers
         /// <returns></returns>
         public static SQLConfig GetSQLConfigByName(string viewName)
         {
-
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="viewName"></param>
-            /// <returns></returns>
-            public static ViewConfig GetViewConfigByName(string viewName)
-        {
-            ViewConfig tableConfig;
-            var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", "ViewConfig.xml");
-            XDocument doc = XDocument.Load(path);
-            var tableElements = doc.Descendants(ViewConfig.NodeElementName);
-            var tableConfigs = tableElements.Select(c => new ViewConfig(c));
-            tableConfig = tableConfigs.FirstOrDefault(c => c.ViewName == viewName);
-            return tableConfig;
-        }
-
             SQLConfig tableConfig;
             var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", "SQLConfig.xml");
             XDocument doc = XDocument.Load(path);
@@ -138,7 +121,24 @@ namespace VL.Research.Controllers
         }
         #endregion
 
-        #region ListConfig
+        #region ListConfig,ListConfig
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="viewName"></param>
+        /// <returns></returns>
+        public static ListConfig GetListConfigByName(string viewName)
+        {
+            ListConfig tableConfig;
+            var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", "ListConfig.xml");
+            XDocument doc = XDocument.Load(path);
+            var tableElements = doc.Descendants(ListConfig.NodeElementName);
+            var tableConfigs = tableElements.Select(c => new ListConfig(c));
+            tableConfig = tableConfigs.FirstOrDefault(c => c.ViewName == viewName);
+            return tableConfig;
+        }
+
         /// <summary>
         /// 获取 列表配置
         /// </summary>
@@ -156,11 +156,11 @@ namespace VL.Research.Controllers
                 {
                     return Error(data: new GetListConfigModel(), "无效的用户配置");
                 }
-                var viewConfig = serviceResult.Data.ViewConfig.FromJson<ViewConfig>();
+                var ListConfig = serviceResult.Data.ListConfig.FromJson<ListConfig>();
                 var result = new GetListConfigModel()
                 {
                     CustomConfigId = request.CustomConfigId,
-                    //ViewConfig = viewConfig,
+                    //ListConfig = ListConfig,
                 };
                 return Success(result);
             }
@@ -186,11 +186,11 @@ namespace VL.Research.Controllers
                 {
                     return Error(data: new GetListConfigModel(), "无效的用户配置");
                 }
-                var viewConfig = serviceResult.Data.ViewConfig.FromJson<ViewConfig>();
+                var ListConfig = serviceResult.Data.ListConfig.FromJson<ListConfig>();
                 var result = new GetListConfigModel()
                 {
                     CustomConfigId = request.CustomConfigId,
-                    ViewConfig = viewConfig,
+                    ListConfig = ListConfig,
                 };
                 return Success(result);
             }
@@ -202,17 +202,17 @@ namespace VL.Research.Controllers
 
         private GetListConfigModel LoadDefaultConfig(GetListConfigRequest request)
         {
-            var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", "ViewConfig.xml");
+            var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", "ListConfig.xml");
             XDocument doc = XDocument.Load(path);
-            var viewElements = doc.Descendants(ViewConfig.NodeElementName);
-            var viewConfigs = viewElements.Select(c => new ViewConfig(c));
-            var viewConfig = viewConfigs.FirstOrDefault(c => c.ViewName == request.ListName);
-            viewConfig.Properties.RemoveAll(c => !c.IsNeedOnPage);
+            var viewElements = doc.Descendants(ListConfig.NodeElementName);
+            var listConfigs = viewElements.Select(c => new ListConfig(c));
+            var listConfig = listConfigs.FirstOrDefault(c => c.ViewName == request.ListName);
+            listConfig.Properties.RemoveAll(c => !c.IsNeedOnPage);
             var result = new GetListConfigModel()
             {
                 CustomConfigId = request.CustomConfigId,
-                ViewConfig = viewConfig,
-                search = viewConfig.Wheres.Select(c => new GetListConfigModel_Search()
+                ListConfig = listConfig,
+                search = listConfig.Wheres.Select(c => new GetListConfigModel_Search()
                 {
                     name = c.ComponentName,
                     text = c.DisplayName,
@@ -222,15 +222,15 @@ namespace VL.Research.Controllers
                 }).ToList(),
                 table = new GetListConfigModel_TableConfg()
                 {
-                    url = viewConfig.ViewURL,
+                    url = listConfig.ViewURL,
                     add_btn = new GetListConfigModel_TableConfg_AddButton()
                     {
                         text = "新增",
-                        type = "newPage",
+                        type = "window",
                         url = "",//新增提交的页面
                         defaultParam = new List<string>(),
                     },
-                    line_toolbar = viewConfig.ToolBars.Select(c => new GetListConfigModel_TableConfg_ToolBar()
+                    line_toolbar = listConfig.ToolBars.Select(c => new GetListConfigModel_TableConfg_ToolBar()
                     {
                         text = c.Text,
                         type = c.Type,
@@ -241,26 +241,13 @@ namespace VL.Research.Controllers
                         yesFun = c.YesFun,
                         defaultParam = c.DefaultParams,
                     }).ToList(),
-                    //line_toolbar = new List<GetListConfigModel_TableConfg_ToolBar>()
-                    //{
-                    //    new GetListConfigModel_TableConfg_ToolBar(){ 
-                    //        url = "../Home/RoleAuthorities",
-                    //        @params  = new List<string>(){ nameof(Role.Id) },
-                    //        defaultParam  = new List<string>(),
-                    //        text = "编辑权限",
-                    //        type = "window",
-                    //        desc = "",
-                    //        area = new List<string>(){ "300px","400px"},
-                    //        yesFun = "yesFun",
-                    //    }
-                    //},
                     toolbar_viewModel = new GetListConfigModel_TableConfg_ViewModel(),
                     page = true,
                     limit = 20,
                     initSort = new GetListConfigModel_TableConfg_InitSort(),
                     cols = new List<List<GetListConfigModel_TableConfg_Col>>()
                     {
-                        viewConfig.Properties.Select(c => new GetListConfigModel_TableConfg_Col()
+                        listConfig.Properties.Select(c => new GetListConfigModel_TableConfg_Col()
                         {
                             field = c.ColumnName,
                             title = c.DisplayName,
@@ -300,7 +287,7 @@ namespace VL.Research.Controllers
                 UserId = GetCurrentUser().UserId,
                 MenuName = request.ListName,
                 URL = request.URL,
-                ViewConfig = request.ViewConfig.ToJson(),
+                ListConfig = request.ListConfig.ToJson(),
             };
             if (request.CustomConfigId > 0)
             {
@@ -331,7 +318,7 @@ namespace VL.Research.Controllers
         //[Authorize]
         public APIResult<List<Dictionary<string, object>>, int> GetCommonSelect([FromServices] SharedService sharedService, GetCommonSelectRequest request)
         {
-            var viewConfig = GetViewConfigByName(request.target);
+            var ListConfig = GetListConfigByName(request.target);
             var sqlConfig = GetSQLConfigByName(request.target);
             sqlConfig.PageIndex = request.page;
             sqlConfig.PageSize = request.limit;
@@ -340,7 +327,7 @@ namespace VL.Research.Controllers
             //获取数据
             var serviceResult = sharedService.GetCommonSelect(sqlConfig);
             //更新显示映射(枚举,函数,脱敏)
-            viewConfig.UpdateValues(serviceResult.Data.SourceData);
+            ListConfig.UpdateValues(serviceResult.Data.SourceData);
 
             if (!serviceResult.IsSuccess)
                 return Error(data1: serviceResult.Data.SourceData, data2: serviceResult.Data.Count, messages: serviceResult.Messages);
