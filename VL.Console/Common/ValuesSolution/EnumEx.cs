@@ -7,6 +7,15 @@ namespace VL.Consolo_Core.Common.ValuesSolution
 {
     public static class EnumEx
     {
+        public static List<T> GetAllEnums<T>(this Type type)
+        {
+            if (type.BaseType != typeof(Enum))
+                return null;
+
+            var enums = Enum.GetNames(type).Select(c => (T)Enum.Parse(type, c)).ToList();
+            return enums;
+        }
+
         public static string GetDescription(this Enum @this)
         {
             var name = @this.ToString();

@@ -191,6 +191,7 @@ namespace VL.Research.Models
     /// </summary>
     public class GetListConfigModel_TableConfg_ToolBar
     {
+
         /// <summary>
         /// 接口
         /// </summary>
@@ -198,7 +199,7 @@ namespace VL.Research.Models
         /// <summary>
         /// 用于url的参数
         /// </summary>
-        public List<string> param { set; get; }
+        public List<string> @params { set; get; }
         /// <summary>
         /// 默认参数
         /// </summary>
@@ -215,6 +216,14 @@ namespace VL.Research.Models
         /// 提示文本
         /// </summary>
         public string desc { set; get; }
+        /// <summary>
+        /// 弹窗宽高 { 宽 } or { 宽,高 }
+        /// </summary>
+        public List<string> area { set; get; }
+        /// <summary>
+        /// 弹窗确认调用函数
+        /// </summary>
+        public string yesFun { get;  set; }
     }
     /// <summary>
     /// 页面配置 模型子项

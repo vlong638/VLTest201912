@@ -13,12 +13,12 @@
         </member>
         <member name="F:VL.Research.Common.Authority.查看用户分娩信息">
             <summary>
-            查看用户分娩信息 001
+            查看用户分娩信息 101
             </summary>
         </member>
         <member name="F:VL.Research.Common.Authority.搜索用户分娩信息">
             <summary>
-            搜索用户分娩信息 002
+            搜索用户分娩信息 102
             </summary>
         </member>
         <member name="F:VL.Research.Common.Authority.查看用户列表">
@@ -617,6 +617,11 @@
             <param name="data"></param>
             <returns></returns>
         </member>
+        <member name="M:VL.Research.Controllers.APIBaseController.Success``1(``0,System.String[])">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="M:VL.Research.Controllers.APIBaseController.Success``2(``0,``1,System.String[])">
             <summary>
             
@@ -641,6 +646,12 @@
             <returns></returns>
         </member>
         <member name="M:VL.Research.Controllers.APIBaseController.Error``1(``0,System.Int32,System.Collections.Generic.IList{System.String})">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.APIBaseController.Error``1(System.String[])">
             <summary>
             
             </summary>
@@ -690,6 +701,12 @@
             <returns></returns>
         </member>
         <member name="M:VL.Research.Controllers.HomeController.RoleList">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.HomeController.RoleAuthorities">
             <summary>
             
             </summary>
@@ -873,14 +890,14 @@
         </member>
         <member name="M:VL.Research.Controllers.SystemController.GetListMenu(VL.Research.Services.UserService)">
             <summary>
-            获取 列表配置(当前用户)
+            获取 菜单栏(当前用户)
             </summary>
             <param name="userService"></param>
             <returns></returns>
         </member>
         <member name="M:VL.Research.Controllers.SystemController.GetListMenu_LayUI(VL.Research.Services.UserService)">
             <summary>
-            获取 列表配置(当前用户)
+            获取 菜单栏(当前用户)
             </summary>
             <param name="userService"></param>
             <returns></returns>
@@ -925,9 +942,49 @@
             账户
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.UserController.GetCommonSelectOfRole(VL.Research.Services.SharedService,VL.Research.Models.GetCommonSelectRequest)">
+        <member name="T:VL.Research.Controllers.UserController.CheckableTreeResponse">
             <summary>
-            获取 角色列表
+            可选树形列表
+            </summary>
+        </member>
+        <member name="P:VL.Research.Controllers.UserController.CheckableTreeResponse.id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:VL.Research.Controllers.UserController.CheckableTreeResponse.name">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:VL.Research.Controllers.UserController.CheckableTreeResponse.open">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:VL.Research.Controllers.UserController.CheckableTreeResponse.pId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:VL.Research.Controllers.UserController.CheckableTreeResponse.checked">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VL.Research.Controllers.UserController.GetUserRoleListByCurrentUser(VL.Research.Services.UserService)">
+            <summary>
+            获取 当前用户的角色
+            </summary>
+        </member>
+        <member name="M:VL.Research.Controllers.UserController.GetRoleAuthorities(VL.Research.Services.UserService,System.Int64)">
+            <summary>
+            获取 角色权限`
+            </summary>
+        </member>
+        <member name="M:VL.Research.Controllers.UserController.EditRoleAuthority(VL.Research.Services.UserService,VL.Research.Controllers.UserController.EditRoleAuthorityRequest)">
+            <summary>
+            编辑 角色权限
             </summary>
         </member>
         <member name="T:VL.Research.Models.DropDownItem">
@@ -1183,7 +1240,7 @@
             接口
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_ToolBar.param">
+        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_ToolBar.params">
             <summary>
             用于url的参数
             </summary>
@@ -1206,6 +1263,16 @@
         <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_ToolBar.desc">
             <summary>
             提示文本
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_ToolBar.area">
+            <summary>
+            弹窗宽高 { 宽 } or { 宽,高 }
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_ToolBar.yesFun">
+            <summary>
+            弹窗确认调用函数
             </summary>
         </member>
         <member name="T:VL.Research.Models.GetListConfigModel_TableConfg_ViewModel_Model">
@@ -1873,6 +1940,31 @@
             <summary>
             
             </summary>
+        </member>
+        <member name="M:VL.Research.Services.UserService.Register(System.String,System.String)">
+            <summary>
+            用户注册
+            </summary>
+            <param name="userName"></param>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Services.UserService.PasswordSignIn(System.String,System.String,System.Boolean)">
+            <summary>
+            密码登录
+            </summary>
+            <param name="userName"></param>
+            <param name="password"></param>
+            <param name="shouldLockout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Services.UserService.EditRoleAuthorities(System.Int64,System.Collections.Generic.List{System.Int64})">
+            <summary>
+            角色权限编辑
+            </summary>
+            <param name="roleId"></param>
+            <param name="authorityIds"></param>
+            <returns></returns>
         </member>
         <member name="M:VL.Research.Services.UserService.AuthenticateAsync(Microsoft.AspNetCore.Http.HttpContext,System.String)">
             <summary>

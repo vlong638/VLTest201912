@@ -48,8 +48,8 @@ namespace VL.Research.Controllers
             };
             var serviceResult = pregnantService.GetPagedListOfPregnantInfo(pars);
             if (!serviceResult.IsSuccess)
-                return Error(serviceResult.PagedData, serviceResult.Messages);
-            return Success(serviceResult.PagedData);
+                return Error(serviceResult.Data, serviceResult.Messages);
+            return Success(serviceResult.Data);
         }
 
         /// <summary>
@@ -82,11 +82,11 @@ namespace VL.Research.Controllers
             //获取数据
             var serviceResult = pregnantService.GetConfigurablePagedListOfPregnantInfo(pars);
             //更新显示映射(枚举,函数,脱敏)
-            viewConfig.UpdateValues(serviceResult.PagedData.SourceData);
+            viewConfig.UpdateValues(serviceResult.Data.SourceData);
 
             if (!serviceResult.IsSuccess)
-                return Error(data1: serviceResult.PagedData.SourceData, data2: serviceResult.PagedData.Count, messages: serviceResult.Messages);
-            return Success(serviceResult.PagedData.SourceData, serviceResult.PagedData.Count, serviceResult.Messages);
+                return Error(data1: serviceResult.Data.SourceData, data2: serviceResult.Data.Count, messages: serviceResult.Messages);
+            return Success(serviceResult.Data.SourceData, serviceResult.Data.Count, serviceResult.Messages);
         }
         /// <summary>
         /// 获取 孕妇档案详情
@@ -104,8 +104,8 @@ namespace VL.Research.Controllers
             }
             var serviceResult = pregnantService.GetPregnantInfoByPregnantInfoId(pregnantInfoId);
             if (!serviceResult.IsSuccess)
-                return Error(serviceResult.PagedData, serviceResult.Messages);
-            return Success(serviceResult.PagedData);
+                return Error(serviceResult.Data, serviceResult.Messages);
+            return Success(serviceResult.Data);
         }
 
         /// <summary>
@@ -128,8 +128,8 @@ namespace VL.Research.Controllers
             };
             var serviceResult = pregnantService.GetPagedListOfVisitRecord(pars);
             if (!serviceResult.IsSuccess)
-                return Error(data: serviceResult.PagedData, messages: serviceResult.Message);
-            return Success(serviceResult.PagedData);
+                return Error(data: serviceResult.Data, messages: serviceResult.Message);
+            return Success(serviceResult.Data);
         }
 
         /// <summary>
@@ -152,8 +152,8 @@ namespace VL.Research.Controllers
             };
             var serviceResult = pregnantService.GetPagedListOfLabOrder(pars);
             if (!serviceResult.IsSuccess)
-                return Error(serviceResult.PagedData, serviceResult.Messages);
-            return Success(serviceResult.PagedData);
+                return Error(serviceResult.Data, serviceResult.Messages);
+            return Success(serviceResult.Data);
         }
 
         /// <summary>
@@ -181,8 +181,8 @@ namespace VL.Research.Controllers
                 ChildCount = 111,
             });
             if (!serviceResult.IsSuccess)
-                return Error(data:serviceResult.PagedData, "");
-            return Success(serviceResult.PagedData);
+                return Error(data:serviceResult.Data, "");
+            return Success(serviceResult.Data);
         }
     }
 }

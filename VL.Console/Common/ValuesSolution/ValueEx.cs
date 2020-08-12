@@ -39,6 +39,13 @@ namespace VL.Consolo_Core.Common.ValuesSolution
             return str.TrimStart(strToTrim).TrimEnd(strToTrim);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="start">0-based</param>
+        /// <param name="length"></param>
+        /// <returns></returns>
         public static string GetSubStringOrEmpty(this string str, int start, int length = 0)
         {
             if (string.IsNullOrEmpty(str))

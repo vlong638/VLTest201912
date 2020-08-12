@@ -78,8 +78,8 @@ namespace VL.Research.Controllers
             var result = userService.PasswordSignIn(model.UserName, model.Password, false);
             if (result.IsSuccess)
             {
-                var user = result.PagedData;
-                var authorityIds = userService.GetAllUserAuthorityIds(result.PagedData.Id).PagedData;
+                var user = result.Data;
+                var authorityIds = userService.GetAllUserAuthorityIds(result.Data.Id).Data;
 
                 #region 登录缓存处理
 
@@ -126,6 +126,18 @@ namespace VL.Research.Controllers
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        //[VLAuthentication(Authority.查看孕妇档案列表)]
+        public ActionResult RoleAuthorities()
+        {
+            return View();
+        }
+
 
         /// <summary>
         /// 

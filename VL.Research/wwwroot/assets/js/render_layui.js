@@ -857,17 +857,17 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
             switch (item.type) {
                 case 'window': {
                     scriptObject += `<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="window"
-                        data-default="` + item.defaultParam.join('&') + `" data-url="` + item.url + `" data-params="` + item.params.join('|') + `" data-area='` + JSON.stringify(_data.table.add_btn.area) + `' data-yesFun="` + item.yesFun + `">` + item.text + `</a>`;
+                        ` + (isBlank(item.defaultParam) ? '' : 'data-default="' + item.defaultParam.join('&') + '"') + ` data-url="` + item.url + `" data-params="` + item.params.join('|') + `" data-area='` + JSON.stringify(item.area) + `' data-yesFun="` + item.yesFun + `">` + item.text + `</a>`;
                     break;
                 }
                 case 'newPage': {
                     scriptObject += `<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="newPage"
-                        data-default="` + item.defaultParam.join('&') + `" data-url="` + item.url + `" data-params="` + item.params.join('|') + `">` + item.text + `</a>`;
+                        ` + (isBlank(item.defaultParam) ? '' : 'data-default="' + item.defaultParam.join('&') + '"') + ` data-url="` + item.url + `" data-params="` + item.params.join('|') + `">` + item.text + `</a>`;
                     break;
                 }
                 case 'confirm': {
                     scriptObject += `<a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="confirm"
-                        data-desc="` + item.desc + `" data-default="` + item.defaultParam.join('&') + `" data-url="` + item.url + `" data-params="` + item.params.join('|') + `">` + item.text + `</a>`;
+                        data-desc="` + item.desc + `" ` + (isBlank(item.defaultParam) ? '' : 'data-default="' + item.defaultParam.join('&') + '"') + ` data-url="` + item.url + `" data-params="` + item.params.join('|') + `">` + item.text + `</a>`;
                     break;
                 }
             }
@@ -892,7 +892,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
 
     let THToolbar = ['<p>']
     if (!isBlank(_data.table.add_btn)) {
-        THToolbar.push('<button lay-event="add" data-default="' + _data.table.add_btn.defaultParam.join('&') + '" data-url="' + _data.table.add_btn.url + '" data-area=\'' + JSON.stringify(_data.table.add_btn.area) + '\' data-type="' + _data.table.add_btn.type + '" class="layui-btn layui-btn-sm icon-btn"><i class="layui-icon">&#xe654;</i>' + _data.table.add_btn.text + '</button>&nbsp;')
+        THToolbar.push('<button lay-event="add" ' + (isBlank(_data.table.add_btn.defaultParam) ? '' : 'data-default="' + _data.table.add_btn.defaultParam.join('&') + '"') + ' data-url="' + _data.table.add_btn.url + '" data-area=\'' + JSON.stringify(_data.table.add_btn.area) + '\' data-type="' + _data.table.add_btn.type + '" class="layui-btn layui-btn-sm icon-btn"><i class="layui-icon">&#xe654;</i>' + _data.table.add_btn.text + '</button>&nbsp;')
     }
     THToolbar.push('</p>')
     /*['<p>',

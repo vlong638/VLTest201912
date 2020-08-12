@@ -54,6 +54,12 @@ namespace VL.Research.Services
             userMenuRepository = new UserMenuRepository(dbContext);
         }
 
+        /// <summary>
+        /// 用户注册
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         public ServiceResult<User> Register(string userName, string password)
         {
             var hashPassword = MD5Helper.GetHashValue(password);
@@ -71,6 +77,13 @@ namespace VL.Research.Services
             return Success(user);
         }
 
+        /// <summary>
+        /// 密码登录
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="password"></param>
+        /// <param name="shouldLockout"></param>
+        /// <returns></returns>
         public ServiceResult<User> PasswordSignIn(string userName, string password, bool shouldLockout)
         {
             var hashPassword = MD5Helper.GetHashValue(password);
@@ -85,6 +98,26 @@ namespace VL.Research.Services
                 return Error<User>("用户名不存在或与密码不匹配");
             }
             return Success(result);
+        }
+
+        /// <summary>
+        /// 角色权限编辑
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <param name="authorityIds"></param>
+        /// <returns></returns>
+        internal ServiceResult<bool> EditRoleAuthorities(long roleId, List<long>  authorityIds)
+        {
+            return dbContext.DelegateTransaction((g) =>
+            {
+                roleAuthorityRepository.DeleteBy(roleId);
+                var roleAuthorities = authorityIds.Select(c => new RoleAuthority() { RoleId = roleId, AuthorityId = c }).ToArray();
+                foreach (var roleAuthority in roleAuthorities)
+                {
+                    roleAuthority.Id = roleAuthorityRepository.Insert(roleAuthority);
+                }
+                return true;
+            });
         }
 
         //public ServiceResult<bool> EditUserAuthorities(long userId, IEnumerable<long> authorityIds)

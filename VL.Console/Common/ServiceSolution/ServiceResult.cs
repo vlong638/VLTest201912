@@ -52,17 +52,17 @@
     {
         public ServiceResult(T data, int code, params string[] messages) : base(code, messages)
         {
-            PagedData = data;
+            Data = data;
         }
 
         public ServiceResult(T data, params string[] messages) : base(messages)
         {
-            PagedData = data;
+            Data = data;
         }
 
         /// <summary>
         /// 数据
         /// </summary>
-        public T PagedData { set; get; }
+        public T Data { set; get; }
     }
 }

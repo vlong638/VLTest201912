@@ -124,7 +124,7 @@ namespace VL.Research.Controllers
                 {
                     return Error(data: new GetListConfigModel(), "无效的用户配置");
                 }
-                var viewConfig = serviceResult.PagedData.ViewConfig.FromJson<ViewConfig>();
+                var viewConfig = serviceResult.Data.ViewConfig.FromJson<ViewConfig>();
                 var result = new GetListConfigModel()
                 {
                     CustomConfigId = request.CustomConfigId,
@@ -154,7 +154,7 @@ namespace VL.Research.Controllers
                 {
                     return Error(data: new GetListConfigModel(), "无效的用户配置");
                 }
-                var viewConfig = serviceResult.PagedData.ViewConfig.FromJson<ViewConfig>();
+                var viewConfig = serviceResult.Data.ViewConfig.FromJson<ViewConfig>();
                 var result = new GetListConfigModel()
                 {
                     CustomConfigId = request.CustomConfigId,
@@ -198,7 +198,19 @@ namespace VL.Research.Controllers
                         url = "",//新增提交的页面
                         defaultParam = new List<string>(),
                     },
-                    line_toolbar = new List<GetListConfigModel_TableConfg_ToolBar>(),
+                    line_toolbar = new List<GetListConfigModel_TableConfg_ToolBar>()
+                    {
+                        new GetListConfigModel_TableConfg_ToolBar(){ 
+                            url = "../Home/RoleAuthorities",
+                            @params  = new List<string>(){ nameof(Role.Id) },
+                            defaultParam  = new List<string>(),
+                            text = "编辑权限",
+                            type = "window",
+                            desc = "",
+                            area = new List<string>(){ "300px","400px"},
+                            yesFun = "yesFun",
+                        }
+                    },
                     toolbar_viewModel = new GetListConfigModel_TableConfg_ViewModel(),
                     page = true,
                     limit = 20,
@@ -251,20 +263,20 @@ namespace VL.Research.Controllers
             {
                 var serviceResult = userService.UpdateUserMenu(userMenu);
                 if (!serviceResult.IsSuccess)
-                    return Error(serviceResult.PagedData ? 1L : 0L, serviceResult.Messages);
-                return Success(serviceResult.PagedData ? 1L : 0L);
+                    return Error(serviceResult.Data ? 1L : 0L, serviceResult.Messages);
+                return Success(serviceResult.Data ? 1L : 0L);
             }
             else
             {
                 var serviceResult = userService.CreateUserMenu(userMenu);
                 if (!serviceResult.IsSuccess)
-                    return Error(serviceResult.PagedData, serviceResult.Messages);
-                return Success(serviceResult.PagedData);
+                    return Error(serviceResult.Data, serviceResult.Messages);
+                return Success(serviceResult.Data);
             }
         }
 
         /// <summary>
-        /// 获取 列表配置(当前用户)
+        /// 获取 菜单栏(当前用户)
         /// </summary>
         /// <param name="userService"></param>
         /// <returns></returns>
@@ -274,12 +286,12 @@ namespace VL.Research.Controllers
             var userId = GetCurrentUser().UserId;
             var serviceResult = userService.GetUserMenus(userId);
             if (!serviceResult.IsSuccess)
-                return Error(serviceResult.PagedData, serviceResult.Messages);
-            return Success(serviceResult.PagedData);
+                return Error(serviceResult.Data, serviceResult.Messages);
+            return Success(serviceResult.Data);
         }
 
         /// <summary>
-        /// 获取 列表配置(当前用户)
+        /// 获取 菜单栏(当前用户)
         /// </summary>
         /// <param name="userService"></param>
         /// <returns></returns>
@@ -332,11 +344,11 @@ namespace VL.Research.Controllers
             //获取数据
             var serviceResult = sharedService.GetCommonSelect(sqlConfig);
             //更新显示映射(枚举,函数,脱敏)
-            viewConfig.UpdateValues(serviceResult.PagedData.SourceData);
+            viewConfig.UpdateValues(serviceResult.Data.SourceData);
 
             if (!serviceResult.IsSuccess)
-                return Error(data1: serviceResult.PagedData.SourceData, data2: serviceResult.PagedData.Count, messages: serviceResult.Messages);
-            return Success(serviceResult.PagedData.SourceData, serviceResult.PagedData.Count, serviceResult.Messages);
+                return Error(data1: serviceResult.Data.SourceData, data2: serviceResult.Data.Count, messages: serviceResult.Messages);
+            return Success(serviceResult.Data.SourceData, serviceResult.Data.Count, serviceResult.Messages);
         }
 
         #endregion
