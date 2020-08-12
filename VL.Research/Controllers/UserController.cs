@@ -153,9 +153,9 @@ namespace VL.Research.Controllers
                 pId = ((int)c).ToString().GetSubStringOrEmpty(0,3).ToLong().Value,
                 name = c.GetDescription(),
                 @checked = roleAuthorities.ToList().Contains((long)c) }).ToList();
-            result.Add(new CheckableTreeResponse(101, "分娩信息", false));
-            result.Add(new CheckableTreeResponse(102, "孕妇档案", false));
-            result.Add(new CheckableTreeResponse(999, "账户系统", false));
+            result.Add(new CheckableTreeResponse(101, "分娩信息", true));
+            result.Add(new CheckableTreeResponse(102, "孕妇档案", true));
+            result.Add(new CheckableTreeResponse(999, "账户系统", true));
             return Success(result);
         }
 

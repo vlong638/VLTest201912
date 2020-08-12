@@ -262,11 +262,11 @@
 	<View ViewName="User" ViewURL="../../api/System/GetCommonSelect">
 		<Wheres>
 			<!--"DisplayType <类型[1-文本框|2-数字框|3-单选下拉框|4-树状下拉框|5-日期选择框][默认:1]>",-->
-			<Where ComponentName="Name" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="用户名" DisplayType="1"/>
+			<Where ComponentName="name" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="用户名" DisplayType="1"/>
 		</Wheres>
-		<OrderBy DefaultName ="Id" DefaultValue ="desc"/>
+		<OrderBy DefaultName ="id" DefaultValue ="desc"/>
 		<ToolBars>
-			<ToolBar URL ="../Home/EditUserRoles" Params ="Id" DefaultParams="" Text="编辑角色"
+			<ToolBar URL ="../Home/EditUserRoles" Params ="id" DefaultParams="" Text="编辑角色"
 					 Type = "window" Description = "" Area = "300px,400px" YesFun = "yesFun"/>
 		</ToolBars>
 		<Property IsNeedOnPage="true" DisplayName="标识号" ColumnName="id" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
@@ -278,9 +278,9 @@
 			<!--"DisplayType <类型[1-文本框|2-数字框|3-单选下拉框|4-树状下拉框|5-日期选择框][默认:1]>",-->
 			<Where ComponentName="Name" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="角色名" DisplayType="1"/>
 		</Wheres>
-		<OrderBy DefaultName ="Id" DefaultValue ="desc"/>
+		<OrderBy DefaultName ="id" DefaultValue ="desc"/>
 		<ToolBars>
-			<ToolBar URL ="../Home/EditRoleAuthorities" Params ="Id" DefaultParams="" Text="编辑权限" 
+			<ToolBar URL ="../Home/EditRoleAuthorities" Params ="id" DefaultParams="" Text="编辑权限" 
 					 Type = "window" Description = "" Area = "300px,400px" YesFun = "yesFun"/>
 		</ToolBars>
 		<Property IsNeedOnPage="true" DisplayName="标识号" ColumnName="id" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
