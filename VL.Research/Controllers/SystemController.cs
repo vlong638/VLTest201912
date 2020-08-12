@@ -198,19 +198,29 @@ namespace VL.Research.Controllers
                         url = "",//新增提交的页面
                         defaultParam = new List<string>(),
                     },
-                    line_toolbar = new List<GetListConfigModel_TableConfg_ToolBar>()
-                    {
-                        new GetListConfigModel_TableConfg_ToolBar(){ 
-                            url = "../Home/RoleAuthorities",
-                            @params  = new List<string>(){ nameof(Role.Id) },
-                            defaultParam  = new List<string>(),
-                            text = "编辑权限",
-                            type = "window",
-                            desc = "",
-                            area = new List<string>(){ "300px","400px"},
-                            yesFun = "yesFun",
-                        }
-                    },
+                    line_toolbar = viewConfig.ToolBars.Select(c=>new GetListConfigModel_TableConfg_ToolBar() {
+                        text = c.Text,
+                        type = c.Type,
+                        desc = c.Description,
+                        url = c.URL,
+                        @params = c.Params,
+                        area = c.Area,
+                        yesFun = c.YesFun,
+                        defaultParam = c.DefaultParams,
+                    }).ToList(),
+                    //line_toolbar = new List<GetListConfigModel_TableConfg_ToolBar>()
+                    //{
+                    //    new GetListConfigModel_TableConfg_ToolBar(){ 
+                    //        url = "../Home/RoleAuthorities",
+                    //        @params  = new List<string>(){ nameof(Role.Id) },
+                    //        defaultParam  = new List<string>(),
+                    //        text = "编辑权限",
+                    //        type = "window",
+                    //        desc = "",
+                    //        area = new List<string>(){ "300px","400px"},
+                    //        yesFun = "yesFun",
+                    //    }
+                    //},
                     toolbar_viewModel = new GetListConfigModel_TableConfg_ViewModel(),
                     page = true,
                     limit = 20,

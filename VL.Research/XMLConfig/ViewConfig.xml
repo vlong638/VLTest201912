@@ -275,7 +275,10 @@
 			<Where ComponentName="Name" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="角色名" DisplayType="1"/>
 		</Wheres>
 		<OrderBy DefaultName ="Id" DefaultValue ="desc"/>
-
+		<ToolBars>
+			<ToolBar URL ="../Home/RoleAuthorities" Params ="Id" DefaultParams="" Text="编辑权限" 
+					 Type = "window" Description = "" Area = "300px,400px" YesFun = "yesFun"/>
+		</ToolBars>
 		<Property IsNeedOnPage="true" DisplayName="标识号" ColumnName="Id" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
 		<Property IsNeedOnPage="true" DisplayName="角色名" ColumnName="Name" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
 	</View>

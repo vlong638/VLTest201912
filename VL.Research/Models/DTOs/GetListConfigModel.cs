@@ -203,7 +203,7 @@ namespace VL.Research.Models
         /// <summary>
         /// 默认参数
         /// </summary>
-        public List<string> defaultParam { set; get; } = new List<string>();
+        public string defaultParam { set; get; }
         /// <summary>
         /// 显示文本
         /// </summary>

@@ -27,7 +27,7 @@ namespace VL.Research.Common
         /// <summary>
         /// 页面字段
         /// </summary>
-        public List<ViewConfigProperty> Properties { set; get; } 
+        public List<ViewConfigProperty> Properties { set; get; }
         /// <summary>
         /// 页面条件项
         /// </summary>
@@ -36,6 +36,10 @@ namespace VL.Research.Common
         /// 页面排序项
         /// </summary>
         public ViewConfigOrderBy OrderBys { set; get; }
+        /// <summary>
+        /// 行内功能栏
+        /// </summary>
+        public List<ViewConfigToolBar> ToolBars { set; get; }
 
         /// <summary>
         /// 
@@ -55,6 +59,7 @@ namespace VL.Research.Common
             Properties = element.Descendants(ViewConfigProperty.ElementName).Select(c => new ViewConfigProperty(c)).ToList();
             Wheres = element.Descendants(ViewConfigWhere.ElementName).Select(c => new ViewConfigWhere(c)).ToList();
             OrderBys = element.Descendants(ViewConfigOrderBy.ElementName).Select(c => new ViewConfigOrderBy(c)).FirstOrDefault() ?? new ViewConfigOrderBy();
+            ToolBars = element.Descendants(ViewConfigToolBar.ElementName).Select(c => new ViewConfigToolBar(c)).ToList();
         }
         /// <summary>
         /// 
@@ -138,37 +143,37 @@ namespace VL.Research.Common
             fieldNames = displayProperties.Select(c => c.ColumnName).ToList();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public XElement ToXElement()
-        {
-            //view
-            var node = new XElement(NodeElementName);
-            node.SetAttributeValue(nameof(ViewName), ViewName);
-            node.SetAttributeValue(nameof(ViewURL), ViewURL);
-            //properties
-            if (Properties != null && Properties.Count > 0)
-            {
-                var properties = Properties.Select(p => p.ToXElement());
-                node.Add(properties);
-            }
-            //wheres
-            if (Wheres != null && Wheres.Count > 0)
-            {
-                var wheresRoot = new XElement(ViewConfigWhere.RootElementName);
-                var wheres = Wheres.Select(p => p.ToXElement());
-                wheresRoot.Add(wheres);
-                node.Add(wheresRoot);
-            }
-            //orderby
-            if (OrderBys != null)
-            {
-                node.Add(OrderBys.ToXElement());
-            }
-            return node;
-        }
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <returns></returns>
+        //public XElement ToXElement()
+        //{
+        //    //view
+        //    var node = new XElement(NodeElementName);
+        //    node.SetAttributeValue(nameof(ViewName), ViewName);
+        //    node.SetAttributeValue(nameof(ViewURL), ViewURL);
+        //    //properties
+        //    if (Properties != null && Properties.Count > 0)
+        //    {
+        //        var properties = Properties.Select(p => p.ToXElement());
+        //        node.Add(properties);
+        //    }
+        //    //wheres
+        //    if (Wheres != null && Wheres.Count > 0)
+        //    {
+        //        var wheresRoot = new XElement(ViewConfigWhere.RootElementName);
+        //        var wheres = Wheres.Select(p => p.ToXElement());
+        //        wheresRoot.Add(wheres);
+        //        node.Add(wheresRoot);
+        //    }
+        //    //orderby
+        //    if (OrderBys != null)
+        //    {
+        //        node.Add(OrderBys.ToXElement());
+        //    }
+        //    return node;
+        //}
     }
 
     /// <summary>
@@ -222,7 +227,7 @@ namespace VL.Research.Common
             if (Value == "$GetDate()")
             {
                 Value = DateTime.Now.ToString("yyyy-MM-dd");
-            } 
+            }
             #endregion
             LinkOperator = element.Attribute(nameof(LinkOperator))?.Value.ToEnum<LinkOperator>() ?? LinkOperator.None;
             DisplayName = element.Attribute(nameof(DisplayName))?.Value;
@@ -312,4 +317,59 @@ namespace VL.Research.Common
             return property;
         }
     }
+    /// <summary>
+    /// 
+    /// </summary>
+    public class ViewConfigToolBar
+    {
+        public const string ElementName = "ToolBar";
+
+        //"text": "<行工具栏文本>",
+        public string Text { set; get; }
+        //"type": "<[window-弹窗|newPage-新页面|confirm-提示]>",
+        public string Type { set; get; }
+        //"desc": "<提示文本>",
+        public string Description { set; get; }
+        //"url": "<操作URL>",
+        public string URL { set; get; }
+        //"params": [ "<用于url的参数>" ],
+        public List<string> Params { set; get; }
+        //"area": [ "<弹窗宽高> 100 or 100px" ],
+        public List<string> Area { set; get; }
+        //"yesFun": "<弹窗确认调用函数>",
+        public string YesFun { set; get; }
+        //"defaultParam": [ "<固定参数>" ]
+        public string DefaultParams { set; get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ViewConfigToolBar()
+        {
+            Text = "";
+            Type = "";
+            Description = "";
+            URL = "";
+            Params = new List<string>();
+            Area = new List<string>();
+            YesFun = "";
+            DefaultParams = "";
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="element"></param>
+        public ViewConfigToolBar(XElement element)
+        {
+            Text = element.Attribute(nameof(Text))?.Value;
+            Type = element.Attribute(nameof(Type))?.Value;
+            Description = element.Attribute(nameof(Description))?.Value;
+            URL = element.Attribute(nameof(URL))?.Value;
+            Params = element.Attribute(nameof(Params))?.Value?.Split(',').ToList();
+            Area = element.Attribute(nameof(Area))?.Value.Split(',').ToList();
+            YesFun = element.Attribute(nameof(YesFun))?.Value;
+            DefaultParams = element.Attribute(nameof(DefaultParams))?.Value;
+        }
+    }
+
 }
