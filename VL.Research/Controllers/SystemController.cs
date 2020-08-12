@@ -60,38 +60,7 @@ namespace VL.Research.Controllers
 
         #region XMLConfig
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="viewName"></param>
-        /// <returns></returns>
-        public static ViewConfig GetViewConfigByName(string viewName)
-        {
-            ViewConfig tableConfig;
-            var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", "ViewConfig.xml");
-            XDocument doc = XDocument.Load(path);
-            var tableElements = doc.Descendants(ViewConfig.NodeElementName);
-            var tableConfigs = tableElements.Select(c => new ViewConfig(c));
-            tableConfig = tableConfigs.FirstOrDefault(c => c.ViewName == viewName);
-            return tableConfig;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="viewName"></param>
-        /// <returns></returns>
-        public static SQLConfig GetSQLConfigByName(string viewName)
-        {
-            SQLConfig tableConfig;
-            var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", "SQLConfig.xml");
-            XDocument doc = XDocument.Load(path);
-            var tableElements = doc.Descendants(SQLConfig.NodeElementName);
-            var tableConfigs = tableElements.Select(c => new SQLConfig(c));
-            tableConfig = tableConfigs.FirstOrDefault(c => c.ViewName == viewName);
-            return tableConfig;
-        }
-
+        #region MenuConfig
         /// <summary>
         /// 
         /// </summary>
@@ -106,7 +75,70 @@ namespace VL.Research.Controllers
             tableConfig = tableConfigs.FirstOrDefault();
             return tableConfig;
         }
+        /// <summary>
+        /// 获取 菜单栏(当前用户)
+        /// </summary>
+        /// <param name="userService"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public APIResult<List<UserMenu>> GetListMenu([FromServices] UserService userService)
+        {
+            var userId = GetCurrentUser().UserId;
+            var serviceResult = userService.GetUserMenus(userId);
+            if (!serviceResult.IsSuccess)
+                return Error(serviceResult.Data, serviceResult.Messages);
+            return Success(serviceResult.Data);
+        }
 
+        /// <summary>
+        /// 获取 菜单栏(当前用户)
+        /// </summary>
+        /// <param name="userService"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public APIResult<List<MenuItem>> GetListMenu_LayUI([FromServices] UserService userService)
+        {
+            MenuConfig menuConfig = SystemController.GetMenuConfig();
+            return Success(menuConfig.MenuItems);
+        }
+        #endregion
+
+        #region SQLConfig
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="viewName"></param>
+        /// <returns></returns>
+        public static SQLConfig GetSQLConfigByName(string viewName)
+        {
+
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="viewName"></param>
+            /// <returns></returns>
+            public static ViewConfig GetViewConfigByName(string viewName)
+        {
+            ViewConfig tableConfig;
+            var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", "ViewConfig.xml");
+            XDocument doc = XDocument.Load(path);
+            var tableElements = doc.Descendants(ViewConfig.NodeElementName);
+            var tableConfigs = tableElements.Select(c => new ViewConfig(c));
+            tableConfig = tableConfigs.FirstOrDefault(c => c.ViewName == viewName);
+            return tableConfig;
+        }
+
+            SQLConfig tableConfig;
+            var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", "SQLConfig.xml");
+            XDocument doc = XDocument.Load(path);
+            var tableElements = doc.Descendants(SQLConfig.NodeElementName);
+            var tableConfigs = tableElements.Select(c => new SQLConfig(c));
+            tableConfig = tableConfigs.FirstOrDefault(c => c.ViewName == viewName);
+            return tableConfig;
+        }
+        #endregion
+
+        #region ListConfig
         /// <summary>
         /// 获取 列表配置
         /// </summary>
@@ -198,7 +230,8 @@ namespace VL.Research.Controllers
                         url = "",//新增提交的页面
                         defaultParam = new List<string>(),
                     },
-                    line_toolbar = viewConfig.ToolBars.Select(c=>new GetListConfigModel_TableConfg_ToolBar() {
+                    line_toolbar = viewConfig.ToolBars.Select(c => new GetListConfigModel_TableConfg_ToolBar()
+                    {
                         text = c.Text,
                         type = c.Type,
                         desc = c.Description,
@@ -242,7 +275,7 @@ namespace VL.Research.Controllers
                     },
                     where = new List<GetListConfigModel_TableConfg_Where>()
                     {
-                        new GetListConfigModel_TableConfg_Where(){ 
+                        new GetListConfigModel_TableConfg_Where(){
                             name = "target",
                             value = request.ListName,
                         }
@@ -283,55 +316,8 @@ namespace VL.Research.Controllers
                     return Error(serviceResult.Data, serviceResult.Messages);
                 return Success(serviceResult.Data);
             }
-        }
-
-        /// <summary>
-        /// 获取 菜单栏(当前用户)
-        /// </summary>
-        /// <param name="userService"></param>
-        /// <returns></returns>
-        [HttpGet]
-        public APIResult<List<UserMenu>> GetListMenu([FromServices] UserService userService)
-        {
-            var userId = GetCurrentUser().UserId;
-            var serviceResult = userService.GetUserMenus(userId);
-            if (!serviceResult.IsSuccess)
-                return Error(serviceResult.Data, serviceResult.Messages);
-            return Success(serviceResult.Data);
-        }
-
-        /// <summary>
-        /// 获取 菜单栏(当前用户)
-        /// </summary>
-        /// <param name="userService"></param>
-        /// <returns></returns>
-        [HttpGet]
-        public APIResult<List<MenuItem>> GetListMenu_LayUI([FromServices] UserService userService)
-        {
-            MenuConfig menuConfig = SystemController.GetMenuConfig();
-            return Success(menuConfig.MenuItems);
-
-            //var userId = GetCurrentUser().UserId;
-            //var serviceResult = userService.GetUserMenus(userId);
-            //if (!serviceResult.IsSuccess)
-            //    return Error(DefaultMenuItems, serviceResult.Messages);
-            //var menuItems = DefaultMenuItems.Select(c => c).ToList();
-            //menuItems.AddRange(serviceResult.Data.Select(c=>new MenuItem(ser)))
-
-            //return Success(serviceResult.Data);
-        }
-
-        //static List<MenuItem> DefaultMenuItems = new List<MenuItem>()
-        //{
-        //    new MenuItem("1","","业务列表","",""),
-        //    new MenuItem("11","1","孕妇档案","","../Home/PregnantInfoList"),
-        //    new MenuItem("2","","自定义查询","",""),
-        //    new MenuItem("3","","账户管理","",""),
-        //    new MenuItem("31","3","用户管理","","../Home/AccountList"),
-        //    new MenuItem("32","3","角色管理","",""),
-        //    new MenuItem("4","","个人中心","",""),
-        //    new MenuItem("41","4","修改密码","",""),
-        //};
+        } 
+        #endregion
 
         #endregion
 
