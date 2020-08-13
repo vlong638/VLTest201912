@@ -38,7 +38,8 @@
 		</Properties>
 		<Wheres>
 			<Where ComponentName="personname" Formatter="%@personname%">pi.PersonName like @personname</Where>
-			<Where ComponentName="visitdate"> vr.visitdate = @visitdate</Where>
+			<Where ComponentName="visitdateStart"> vr.visitdate &lt;= @visitdateStart</Where>
+			<Where ComponentName="visitdateEnd"> vr.visitdate &gt;= @visitdateEnd</Where>
 		</Wheres>
 		<OrderBys>
 			<OrderBy ComponentName="id" Alias ="pi.id"/>

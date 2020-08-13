@@ -35,7 +35,7 @@ namespace VL.Research.Models
         /// <summary>
         /// 用于查询接口的参数
         /// </summary>
-        public string getUrl_param { set; get; }
+        public List<string> getUrl_param { set; get; }
         /// <summary>
         /// 用于查询接口的参数
         /// </summary>
@@ -57,7 +57,7 @@ namespace VL.Research.Models
             ViewName = element.Attribute(nameof(ViewName)).Value;
             cards = element.Descendants(DetailConfig_Card.ElementName).Select(c => new DetailConfig_Card(c)).ToList();
             getUrl = element.Attribute(nameof(getUrl))?.Value;
-            getUrl_param = element.Attribute(nameof(getUrl_param))?.Value;
+            getUrl_param = element.Attribute(nameof(getUrl_param))?.Value.Split(",").ToList() ?? new List<string>();
             saveUrl = element.Attribute(nameof(saveUrl))?.Value;
         }
     }

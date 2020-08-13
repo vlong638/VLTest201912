@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using VL.Consolo_Core.Common.ValuesSolution;
 using VL.Research.Common;
 
 namespace VL.Research.Models
@@ -99,7 +100,7 @@ namespace VL.Research.Models
         /// <param name="options"></param>
         public GetListConfigModel_Search_Options(string options)
         {
-            if (options == null)
+            if (options.IsNullOrEmpty())
                 return;
 
             var splits1 = options.Split("|");
@@ -109,6 +110,7 @@ namespace VL.Research.Models
             foreach (var splitOption in splitOptions)
             {
                 var keyValue = splitOption.Split(":");
+
                 var key = keyValue[0];
                 var value = keyValue[1];
                 var isDefaultValue = key == defaultValue;
