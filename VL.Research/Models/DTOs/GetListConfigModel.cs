@@ -176,7 +176,7 @@ namespace VL.Research.Models
         /// <summary>
         /// 默认参数
         /// </summary>
-        public List<string> defaultParam { set; get; } = new List<string>();
+        public string defaultParam { set; get; }
         /// <summary>
         /// 显示文本
         /// </summary>
@@ -185,7 +185,10 @@ namespace VL.Research.Models
         /// window-弹窗|newPage-新页面
         /// </summary>
         public string type { set; get; }
-        public List<string> area { get; internal set; }
+        /// <summary>
+        /// 窗体大小
+        /// </summary>
+        public List<string> area { get; set; }
     }
     /// <summary>
     /// 页面配置 模型子项

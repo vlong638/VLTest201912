@@ -279,11 +279,10 @@
 			<Where ComponentName="Name" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="角色名" DisplayType="1"/>
 		</Wheres>
 		<OrderBy DefaultName ="id" DefaultValue ="desc"/>
+		<AddButton text="新建角色" type="window" url="../../Home/CreateRole" area="400px,400px" defaultParam="" /> 
 		<ToolBars>
-			<ToolBar URL ="../Home/EditRole" Params ="id" DefaultParams="" Text="编辑角色"
-					 Type = "newPage" Description = "" Area = "300px,400px" YesFun = "yesFun"/>
-			<ToolBar URL ="../Home/EditRoleAuthorities" Params ="id" DefaultParams="" Text="编辑权限"
-					 Type = "window" Description = "" Area = "300px,400px" YesFun = "yesFun"/>
+			<ToolBar URL ="../Home/EditRole" Params ="id" DefaultParams="" Text="编辑角色" Type = "newPage" Description = "" Area = "300px,400px" YesFun = "yesFun"/>
+			<ToolBar URL ="../Home/EditRoleAuthorities" Params ="id" DefaultParams="" Text="编辑权限" Type = "window" Description = "" Area = "300px,400px" YesFun = "yesFun"/>
 		</ToolBars>
 		<Property IsNeedOnPage="true" DisplayName="标识号" ColumnName="id" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
 		<Property IsNeedOnPage="true" DisplayName="角色名" ColumnName="name" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />

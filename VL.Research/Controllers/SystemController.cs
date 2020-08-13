@@ -227,11 +227,11 @@ namespace VL.Research.Controllers
                     url = listConfig.ViewURL,
                     add_btn = new GetListConfigModel_TableConfg_AddButton()
                     {
-                        text = "新建角色",
-                        type = "window",
-                        url = "../../Home/CreateRole",//新增提交的页面
-                        area =new List<string>() { "400px", "400px" },
-                        defaultParam = new List<string>(),
+                        text = listConfig.AddButton.text,
+                        type = listConfig.AddButton.type,
+                        url = listConfig.AddButton.url,
+                        area = listConfig.AddButton.area,
+                        defaultParam = listConfig.AddButton.defaultParam
                     },
                     line_toolbar = listConfig.ToolBars.Select(c => new GetListConfigModel_TableConfg_ToolBar()
                     {

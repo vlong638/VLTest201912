@@ -40,6 +40,10 @@ namespace VL.Research.Common
         /// 行内功能栏
         /// </summary>
         public List<ListConfigToolBar> ToolBars { set; get; }
+        /// <summary>
+        /// 新增按钮
+        /// </summary>
+        public ListConfigAddButton AddButton { set; get; }
 
         /// <summary>
         /// 
@@ -60,7 +64,9 @@ namespace VL.Research.Common
             Wheres = element.Descendants(ListConfigWhere.ElementName).Select(c => new ListConfigWhere(c)).ToList();
             OrderBys = element.Descendants(ListConfigOrderBy.ElementName).Select(c => new ListConfigOrderBy(c)).FirstOrDefault() ?? new ListConfigOrderBy();
             ToolBars = element.Descendants(ListConfigToolBar.ElementName).Select(c => new ListConfigToolBar(c)).ToList();
+            AddButton = element.Descendants(ListConfigAddButton.ElementName).Select(c => new ListConfigAddButton(c)).FirstOrDefault() ?? new ListConfigAddButton();
         }
+
         /// <summary>
         /// 
         /// </summary>
@@ -143,37 +149,6 @@ namespace VL.Research.Common
             fieldNames = displayProperties.Select(c => c.ColumnName).ToList();
         }
 
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <returns></returns>
-        //public XElement ToXElement()
-        //{
-        //    //view
-        //    var node = new XElement(NodeElementName);
-        //    node.SetAttributeValue(nameof(ViewName), ViewName);
-        //    node.SetAttributeValue(nameof(ViewURL), ViewURL);
-        //    //properties
-        //    if (Properties != null && Properties.Count > 0)
-        //    {
-        //        var properties = Properties.Select(p => p.ToXElement());
-        //        node.Add(properties);
-        //    }
-        //    //wheres
-        //    if (Wheres != null && Wheres.Count > 0)
-        //    {
-        //        var wheresRoot = new XElement(ListConfigWhere.RootElementName);
-        //        var wheres = Wheres.Select(p => p.ToXElement());
-        //        wheresRoot.Add(wheres);
-        //        node.Add(wheresRoot);
-        //    }
-        //    //orderby
-        //    if (OrderBys != null)
-        //    {
-        //        node.Add(OrderBys.ToXElement());
-        //    }
-        //    return node;
-        //}
     }
 
     /// <summary>
@@ -371,5 +346,46 @@ namespace VL.Research.Common
             DefaultParams = element.Attribute(nameof(DefaultParams))?.Value;
         }
     }
+    /// <summary>
+    /// 
+    /// </summary>
+    public class ListConfigAddButton
+    {
+        public const string ElementName = "AddButton";
 
+        //"text": "<按钮文本>",
+        public string text { set; get; }
+        //"type": "<[window-弹窗|newPage-新页面|confirm-提示]>",
+        public string type { set; get; }
+        //"url": "<操作URL>",
+        public string url { set; get; }
+        //"area": [ "<弹窗宽高> 100 or 100px" ],
+        public List<string> area { set; get; }
+        //"defaultParam": [ "<固定参数>" ]
+        public string defaultParam { set; get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ListConfigAddButton()
+        {
+            text = "";
+            type = "";
+            url = "";
+            area = new List<string>();
+            defaultParam = "";
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="element"></param>
+        public ListConfigAddButton(XElement element)
+        {
+            text = element.Attribute(nameof(text))?.Value;
+            type = element.Attribute(nameof(type))?.Value;
+            url = element.Attribute(nameof(url))?.Value;
+            area = element.Attribute(nameof(area))?.Value.Split(',').ToList();
+            defaultParam = element.Attribute(nameof(defaultParam))?.Value;
+        }
+    }
 }
