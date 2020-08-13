@@ -228,11 +228,12 @@ namespace VL.Research.Services
             {
                 return Error<bool>("角色名称不可为空");
             }
-            var repeat = roleRepository.GetBy(role.Name);
+            var repeat = roleRepository.GetBy(roleName);
             if (repeat != null)
             {
                 return Error<bool>("角色名称已存在");
             }
+            role.Name = roleName;
             var result = roleRepository.Update(role);
             return Success(result);
         }

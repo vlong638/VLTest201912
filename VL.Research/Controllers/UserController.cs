@@ -93,20 +93,19 @@ namespace VL.Research.Controllers
 
         public class EditRoleRequest
         {
-            public long id { set; get; }
+            public string id { set; get; }
             public string name { set; get; }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="userService"></param>s
         /// <returns></returns>
         [HttpPost]
         //[VLAuthentication(Authority.创建角色)]
         public APIResult<bool> EditRole([FromServices] UserService userService, EditRoleRequest request)
         {
-            var result = userService.EditRole(request.id, request.name);
+            var result = userService.EditRole(request.id.ToLong() ?? 0, request.name);
             if (result.Data)
             {
                 return Success(data: result.Data, "创建成功");

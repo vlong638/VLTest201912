@@ -2019,7 +2019,6 @@
             <summary>
             
             </summary>
-            <param name="userService"></param>s
             <returns></returns>
         </member>
         <member name="T:VL.Research.Controllers.UserController.CheckableTreeResponse">

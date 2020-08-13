@@ -27,6 +27,7 @@
 	<View ViewName="EditRole" getUrl="../../api/User/GetRole" getUrl_param="id" saveUrl="../../api/User/EditRole">
 		<Group text="">
 			<Section width="12">
+				<Item width="12" text="标识号" param="id" required="true" type="9" range="false" lineNum="0" multiple="false" value="" option=""/>
 				<Item width="12" text="角色名" param="name" required="true" type="1" range="false" lineNum="0" multiple="false" value="" option=""/>
 			</Section>
 		</Group>
