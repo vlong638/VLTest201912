@@ -1,0 +1,274 @@
+{
+  "data": {
+    "viewName": "Role",
+    "cards": [
+      {
+        "text": "分组",
+        "content": [
+          {
+            "width": 12,
+            "child": [
+              {
+                "width": 12,
+                "attr": {
+                  "text": "角色名",
+                  "type": 1,
+                  "range": false,
+                  "lineNum": 0,
+                  "multiple": false,
+                  "required": true,
+                  "param": "name",
+                  "value": "",
+                  "options": []
+                }
+              }
+            ]
+          }
+        ],
+        "isTextArea": false
+      }
+    ],
+    "getUrl": "",
+    "getUrl_param": "",
+    "saveUrl": ""
+  },
+  "msg": null,
+  "code": 200,
+  "isValidated": false
+}
+
+
+{
+  "code": 200,
+  "msg": "",
+  "data": {
+    "cards": [
+      {
+        "text": "标题11111",
+        "content": [
+          [
+            {
+              "width": "6",
+              "child": [
+                {
+                  "width": "6",
+                  "attr": {
+                    "text": "a1",
+                    "type": 1,
+                    "param": "a1"
+                  }
+                },
+                {
+                  "width": "6",
+                  "attr": {
+                    "text": "a2",
+                    "type": 1,
+                    "param": "a2"
+                  }
+                },
+                {
+                  "width": "4",
+                  "attr": {
+                    "text": "a3",
+                    "type": 1,
+                    "param": "a3"
+                  }
+                },
+                {
+                  "width": "4",
+                  "attr": {
+                    "text": "a4",
+                    "type": 1,
+                    "param": "a4"
+                  }
+                },
+                {
+                  "width": "4",
+                  "attr": {
+                    "text": "a5",
+                    "type": 1,
+                    "param": "a5"
+                  }
+                }
+              ]
+            },
+            {
+              "width": "6",
+              "attr": {
+                "text": "TextArea",
+                "type": 8,
+                "lineNum": 2,
+                "param": "textarea",
+                "value": "<默认值1>\n<默认值1>"
+              }
+            }
+          ]
+        ],
+        "isTextArea": false
+      },
+      {
+        "text": "标题2223",
+        "content": [
+          [
+            {
+              "width": "8",
+              "child": [
+                {
+                  "width": "6",
+                  "attr": {
+                    "text": "a1",
+                    "type": 1,
+                    "param": "a1"
+                  }
+                },
+                {
+                  "width": "6",
+                  "attr": {
+                    "text": "a2",
+                    "type": 1,
+                    "param": "a2"
+                  }
+                },
+                {
+                  "width": "4",
+                  "attr": {
+                    "text": "a3",
+                    "type": 1,
+                    "param": "a3"
+                  }
+                },
+                {
+                  "width": "4",
+                  "attr": {
+                    "text": "a4",
+                    "type": 1,
+                    "param": "a4"
+                  }
+                },
+                {
+                  "width": "4",
+                  "attr": {
+                    "text": "a5",
+                    "type": 1,
+                    "param": "a5"
+                  }
+                }
+              ]
+            },
+            {
+              "width": "4",
+              "attr": {
+                "text": "TextArea",
+                "type": 8,
+                "lineNum": 2,
+                "param": "textarea",
+                "value": "<默认值1>\n<默认值1>"
+              }
+            },
+            {
+              "width": "8",
+              "attr": {
+                "text": "TextArea",
+                "type": 8,
+                "lineNum": 3,
+                "param": "textarea",
+                "value": "<默认值1>\n<默认值1>"
+              }
+            },
+            {
+              "width": "4",
+              "child": [
+                {
+                  "width": "6",
+                  "attr": {
+                    "text": "a1",
+                    "type": 1,
+                    "param": "a1"
+                  }
+                },
+                {
+                  "width": "3",
+                  "attr": {
+                    "text": "a2",
+                    "type": 1,
+                    "param": "a2"
+                  }
+                },
+                {
+                  "width": "3",
+                  "attr": {
+                    "text": "a2",
+                    "type": 1,
+                    "param": "a2"
+                  }
+                }
+              ,
+                {
+                  "width": "4",
+                  "attr": {
+                    "text": "a3",
+                    "type": 1,
+                    "param": "a3"
+                  }
+                },
+                {
+                  "width": "4",
+                  "attr": {
+                    "text": "a4",
+                    "type": 1,
+                    "param": "a4"
+                  }
+                },
+                {
+                  "width": "4",
+                  "attr": {
+                    "text": "a5",
+                    "type": 1,
+                    "param": "a5"
+                  }
+                },
+                {
+                  "width": "4",
+                  "attr": {
+                    "text": "a5",
+                    "type": 1,
+                    "param": "a5"
+                  }
+                },
+                {
+                  "width": "4",
+                  "attr": {
+                    "text": "a5",
+                    "type": 1,
+                    "param": "a5"
+                  }
+                },
+                {
+                  "width": "4",
+                  "attr": {
+                    "text": "a5",
+                    "type": 1,
+                    "param": "a5"
+                  }
+                }
+              ]
+            }
+          ]
+        ],
+        "isTextArea": false
+      },
+      {
+        "text": "标题-文本域",
+        "isTextArea": true,
+        "lineNum": 3,
+        "areaText": "文本域",
+        "areaParam": "areaParam",
+        "areaValue": "q-w-e-r-t-y-u-i-o-p\na-s-d-f-g-h-j-k-l\nz-x-c-v-b-n-m",
+        "areaRequired": true
+      }
+    ],
+    "getUrl": "/getUrl",
+    "getUrl_param": ["a=1"],
+    "saveUrl": "../assets/json/ok.json"
+  }
+}

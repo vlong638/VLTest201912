@@ -1191,7 +1191,7 @@ jQuery.prototype.renderForm = function (_data, _layui, _parent) {
         data.field = getValue(data.field);
         console.log(data.field);
         let loadIndex = layer.load(2);
-        $.get(_data.saveUrl, data.field, function (res) {  // 实际项目这里url可以是mData?'user/update':'user/add'
+        $.post(_data.saveUrl, JSON.stringify(data.field), function (res) {  // 实际项目这里url可以是mData?'user/update':'user/add'
             layer.close(loadIndex);
             if (res.code === 200) {
                 layer.msg(res.msg, { icon: 1 });

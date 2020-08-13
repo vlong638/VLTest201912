@@ -6,7 +6,7 @@
 <script type="text/javascript">
     layui.use(['layer', 'form', 'table', 'util', 'laydate'], function () {
         const $ = layui.jquery;
-        sendAjax('post', '../../api/System/GetListConfig_LayUI', JSON.stringify({ ListName: "PregnantInfo", CustomConfigId: 0 }), function (res) {
+        sendAjax('post', '../../api/System/GetListConfig_LayUI', JSON.stringify({ ViewName: "PregnantInfo", CustomConfigId: 0 }), function (res) {
             if (res.code === 200) {
                 $('#root').renderTable(res.data, layui, parent.layui);
             }

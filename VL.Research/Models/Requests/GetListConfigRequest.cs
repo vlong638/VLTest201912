@@ -8,7 +8,7 @@
         /// <summary>
         /// 列表名称
         /// </summary>
-        public string ListName { set; get; }
+        public string ViewName { set; get; }
         /// <summary>
         /// 自定义配置Id
         /// </summary>

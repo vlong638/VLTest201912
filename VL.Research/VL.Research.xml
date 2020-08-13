@@ -619,401 +619,174 @@
             数据类型(显示,校验)
             </summary>
         </member>
-        <member name="T:VL.Research.Controllers.APIBaseController">
+        <member name="T:VL.Research.Models.DetailConfig">
+            <summary>
+            页面配置
+            </summary>
+        </member>
+        <member name="F:VL.Research.Models.DetailConfig.RootElementName">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.APIBaseController.Success``1(``0)">
-            <summary>
-            
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="data"></param>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Research.Controllers.APIBaseController.Success``1(``0,System.String[])">
+        <member name="F:VL.Research.Models.DetailConfig.NodeElementName">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.APIBaseController.Success``2(``0,``1,System.String[])">
+        <member name="P:VL.Research.Models.DetailConfig.ViewName">
             <summary>
-            
-            </summary>
-            <typeparam name="T1"></typeparam>
-            <typeparam name="T2"></typeparam>
-            <param name="data1"></param>
-            <param name="data2"></param>
-            <param name="messages"></param>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Research.Controllers.APIBaseController.Error``1(``0,System.Collections.Generic.IList{System.String})">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Research.Controllers.APIBaseController.Error``2(``0,``1,System.String[])">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Research.Controllers.APIBaseController.Error``1(``0,System.Int32,System.Collections.Generic.IList{System.String})">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Research.Controllers.APIBaseController.Error``1(System.String[])">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Research.Controllers.APIBaseController.Error``1(``0,System.String[])">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Research.Controllers.APIBaseController.Error``1(``0,System.Int32,System.String[])">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Research.Controllers.BaseController.Download(System.String,System.String)">
-            <summary>
-            
-            </summary>
-            <param name="path"></param>
-            <param name="fileName"></param>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Research.Controllers.HomeController.Login(System.String)">
-            <summary>
-            
-            </summary>
-            <param name="returnUrl"></param>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Research.Controllers.HomeController.Login(VL.Research.Common.APIContext,VL.Research.Services.UserService,VL.Research.Models.LoginViewModel,System.String)">
-            <summary>
-            
-            </summary>
-            <param name="apiContext"></param>
-            <param name="userService"></param>
-            <param name="model"></param>
-            <param name="returnUrl"></param>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Research.Controllers.HomeController.UserList">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Research.Controllers.HomeController.RoleList">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Research.Controllers.HomeController.EditRoleAuthorities">
-            <summary>
-            编辑角色权限
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Research.Controllers.HomeController.EditUserRoles">
-            <summary>
-            编辑用户角色
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Research.Controllers.HomeController.PregnantInfoList">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Research.Controllers.HomeController.PregnantInfo(System.Int64)">
-            <summary>
-            
-            </summary>
-            <param name="pregnantInfoId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Research.Controllers.HomeController.LabOrderList(System.Int64)">
-            <summary>
-            
-            </summary>
-            <param name="pregnantInfoId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Research.Controllers.HomeController.VisitRecordList(System.Int64)">
-            <summary>
-            
-            </summary>
-            <param name="pregnantInfoId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Research.Controllers.HomeController.LabOrderDetail(System.Int64)">
-            <summary>
-            
-            </summary>
-            <param name="pregnantInfoId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Research.Controllers.HomeController.GetConfigurablePagedListOfPregnantInfoExcel(VL.Research.Services.PregnantService,System.String)">
-            <summary>
-            
-            </summary>
-            <param name="name"></param>
-            <returns></returns>
-        </member>
-        <member name="T:VL.Research.Controllers.PregnantController">
-            <summary>
-            控制器 孕妇信息
+            页面名称
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.PregnantController.#ctor">
+        <member name="P:VL.Research.Models.DetailConfig.cards">
             <summary>
-            控制器 孕妇信息
+            页面字段
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.PregnantController.GetPagedListOfPregnantInfo(VL.Research.Services.PregnantService,System.Int32,System.Int32,System.String)">
+        <member name="P:VL.Research.Models.DetailConfig.getUrl">
             <summary>
-            获取 孕妇档案列表
+            用于 详情|编辑 时的查询接口
             </summary>
-            <param name="pregnantService"></param>
-            <param name="page">页码</param>
-            <param name="rows">每页行数</param>
-            <param name="name">参数(姓名)</param>
-            <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.PregnantController.GetConfigurablePagedListOfPregnantInfo(VL.Research.Services.PregnantService,System.Int32,System.Int32,System.String,System.String,System.String)">
+        <member name="P:VL.Research.Models.DetailConfig.getUrl_param">
             <summary>
-            获取 自定义配置的孕妇档案列表
+            用于查询接口的参数
             </summary>
-            <param name="pregnantService"></param>
-            <param name="page">页码</param>
-            <param name="limit">每页行数</param>
-            <param name="personname">参数(姓名)</param>
-            <param name="field">参数(排序项)</param>
-            <param name="order">参数(排序顺序:asc|desc)</param>
-            <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.PregnantController.GetPregnantInfo(VL.Research.Services.PregnantService,System.Int64)">
+        <member name="P:VL.Research.Models.DetailConfig.saveUrl">
             <summary>
-            获取 孕妇档案详情
+            用于查询接口的参数
             </summary>
-            <param name="pregnantService"></param>
-            <param name="pregnantInfoId">孕妇档案Id</param>
-            <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.PregnantController.GetPagedListOfVisitRecord(VL.Research.Services.PregnantService,System.Int32,System.Int32,System.Int64)">
-            <summary>
-            获取 产检列表
-            </summary>
-            <param name="pregnantService"></param>
-            <param name="page">页码</param>
-            <param name="rows">每页行数</param>
-            <param name="pregnantInfoId">参数(孕妇档案Id)</param>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Research.Controllers.PregnantController.GetPagedListOfLabOrder(VL.Research.Services.PregnantService,System.Int32,System.Int32,System.Int64)">
-            <summary>
-            获取 检查列表
-            </summary>
-            <param name="pregnantService"></param>
-            <param name="page">页码</param>
-            <param name="rows">每页行数</param>
-            <param name="pregnantInfoId">参数(孕妇档案Id)</param>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Research.Controllers.PregnantController.GetAllStatics">
-            <summary>
-            获取 全统计汇总
-            顺产人数
-            剖宫产人数
-            引产人数
-            顺转剖人数
-            侧切人数
-            裂伤人数
-            新生儿人数
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:VL.Research.Controllers.SystemController">
+        <member name="M:VL.Research.Models.DetailConfig.#ctor">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.SystemController.#ctor">
+        <member name="M:VL.Research.Models.DetailConfig.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            
+            </summary>
+            <param name="element"></param>
+        </member>
+        <member name="T:VL.Research.Models.DetailConfig_Card">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.SystemController.GetDropDowns(System.String,System.Boolean)">
-            <summary>
-            获取 下拉项        
-            </summary>
-            <param name="type">类型名称</param>
-            <param name="isForceChange">是否强制获取最新</param>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Research.Controllers.SystemController.GetMenuConfig">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Research.Controllers.SystemController.GetListMenu(VL.Research.Services.UserService)">
-            <summary>
-            获取 菜单栏(当前用户)
-            </summary>
-            <param name="userService"></param>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Research.Controllers.SystemController.GetListMenu_LayUI(VL.Research.Services.UserService)">
-            <summary>
-            获取 菜单栏(当前用户)
-            </summary>
-            <param name="userService"></param>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Research.Controllers.SystemController.GetSQLConfigByName(System.String)">
-            <summary>
-            
-            </summary>
-            <param name="viewName"></param>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Research.Controllers.SystemController.GetListConfigByName(System.String)">
-            <summary>
-            
-            </summary>
-            <param name="viewName"></param>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Research.Controllers.SystemController.GetListConfig(VL.Research.Services.UserService,VL.Research.Models.GetListConfigRequest)">
-            <summary>
-            获取 列表配置
-            </summary>
-            <param name="userService"></param>
-            <param name="request">请求参数实体</param>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Research.Controllers.SystemController.GetListConfig_LayUI(VL.Research.Services.UserService,VL.Research.Models.GetListConfigRequest)">
-            <summary>
-            获取 列表配置
-            </summary>
-            <param name="userService"></param>
-            <param name="request">请求参数实体</param>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Research.Controllers.SystemController.SaveListConfig(VL.Research.Services.UserService,VL.Research.Models.SaveListConfigRequest)">
-            <summary>
-            保存 列表配置
-            </summary>
-            <param name="userService"></param>
-            <param name="request">请求参数实体</param>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Research.Controllers.SystemController.GetCommonSelect(VL.Research.Services.SharedService,VL.Research.Models.GetCommonSelectRequest)">
-            <summary>
-            获取 通用分页列表
-            </summary>
-        </member>
-        <member name="T:VL.Research.Controllers.SignInStatus">
-            <summary>
-            登录状态枚举
-            </summary>
-        </member>
-        <member name="F:VL.Research.Controllers.SignInStatus.Success">
+        <member name="F:VL.Research.Models.DetailConfig_Card.ElementName">
             <summary>
             
             </summary>
         </member>
-        <member name="F:VL.Research.Controllers.SignInStatus.LockedOut">
+        <member name="M:VL.Research.Models.DetailConfig_Card.#ctor">
             <summary>
             
             </summary>
         </member>
-        <member name="F:VL.Research.Controllers.SignInStatus.RequiresVerification">
+        <member name="M:VL.Research.Models.DetailConfig_Card.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            
+            </summary>
+            <param name="element"></param>
+        </member>
+        <member name="P:VL.Research.Models.DetailConfig_Card.text">
+            <summary>
+            标题
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.DetailConfig_Card.content">
             <summary>
             
             </summary>
         </member>
-        <member name="F:VL.Research.Controllers.SignInStatus.Failure">
+        <member name="T:VL.Research.Models.DetailConfig_Card_Content">
             <summary>
             
             </summary>
         </member>
-        <member name="T:VL.Research.Controllers.UserController">
+        <member name="F:VL.Research.Models.DetailConfig_Card_Content.ElementName">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.UserController.#ctor">
-            <summary>
-            账户
-            </summary>
-        </member>
-        <member name="T:VL.Research.Controllers.UserController.CheckableTreeResponse">
-            <summary>
-            可选树形列表
-            </summary>
-        </member>
-        <member name="P:VL.Research.Controllers.UserController.CheckableTreeResponse.id">
+        <member name="M:VL.Research.Models.DetailConfig_Card_Content.#ctor">
             <summary>
             
             </summary>
         </member>
-        <member name="P:VL.Research.Controllers.UserController.CheckableTreeResponse.name">
+        <member name="M:VL.Research.Models.DetailConfig_Card_Content.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            
+            </summary>
+            <param name="element"></param>
+        </member>
+        <member name="P:VL.Research.Models.DetailConfig_Card_Content.width">
+            <summary>
+            标题
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.DetailConfig_Card_Content.child">
+            <summary>
+            比较操作符
+            </summary>
+        </member>
+        <member name="T:VL.Research.Models.DetailConfig_Card_Content_Child">
             <summary>
             
             </summary>
         </member>
-        <member name="P:VL.Research.Controllers.UserController.CheckableTreeResponse.open">
+        <member name="F:VL.Research.Models.DetailConfig_Card_Content_Child.ElementName">
             <summary>
             
             </summary>
         </member>
-        <member name="P:VL.Research.Controllers.UserController.CheckableTreeResponse.pId">
+        <member name="M:VL.Research.Models.DetailConfig_Card_Content_Child.#ctor">
             <summary>
             
             </summary>
         </member>
-        <member name="P:VL.Research.Controllers.UserController.CheckableTreeResponse.checked">
+        <member name="M:VL.Research.Models.DetailConfig_Card_Content_Child.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            
+            </summary>
+            <param name="element"></param>
+        </member>
+        <member name="P:VL.Research.Models.DetailConfig_Card_Content_Child.width">
+            <summary>
+            所占单位[12个单位为一行]
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.DetailConfig_Card_Content_Child.attr">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.UserController.GetUserRoles(VL.Research.Services.UserService,System.Int64)">
+        <member name="T:VL.Research.Models.DetailConfig_Card_Content_Child_Attribute">
             <summary>
-            获取 用户的角色
+            
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.UserController.EditUserRoles(VL.Research.Services.UserService,VL.Research.Controllers.UserController.EditUserRoleRequest)">
+        <member name="F:VL.Research.Models.DetailConfig_Card_Content_Child_Attribute.ElementName">
             <summary>
-            编辑 用户角色
-            </summary>
-            <param name="userService"></param>
-            <param name="data"></param>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Research.Controllers.UserController.GetRoleAuthorities(VL.Research.Services.UserService,System.Int64)">
-            <summary>
-            获取 角色权限`
+            
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.UserController.EditRoleAuthority(VL.Research.Services.UserService,VL.Research.Controllers.UserController.EditRoleAuthorityRequest)">
+        <member name="M:VL.Research.Models.DetailConfig_Card_Content_Child_Attribute.#ctor">
             <summary>
-            编辑 角色权限
+            
+            </summary>
+        </member>
+        <member name="M:VL.Research.Models.DetailConfig_Card_Content_Child_Attribute.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            
+            </summary>
+            <param name="element"></param>
+        </member>
+        <member name="P:VL.Research.Models.DetailConfig_Card_Content_Child_Attribute.options">
+            <summary>
+            下拉项的下拉项
             </summary>
         </member>
         <member name="T:VL.Research.Models.DropDownItem">
@@ -1153,22 +926,22 @@
             下拉项的下拉项
             </summary>
         </member>
-        <member name="T:VL.Research.Models.GetListConfigModel_Search_Option">
+        <member name="T:VL.Research.Models.Config_Option">
             <summary>
             页面配置 模型子项
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_Search_Option.name">
+        <member name="P:VL.Research.Models.Config_Option.name">
             <summary>
             名称
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_Search_Option.value">
+        <member name="P:VL.Research.Models.Config_Option.value">
             <summary>
             值
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_Search_Option.checked">
+        <member name="P:VL.Research.Models.Config_Option.checked">
             <summary>
             是否选中
             </summary>
@@ -1774,7 +1547,7 @@
             请求参数实体
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigRequest.ListName">
+        <member name="P:VL.Research.Models.GetListConfigRequest.ViewName">
             <summary>
             列表名称
             </summary>
@@ -1827,6 +1600,437 @@
         <member name="P:VL.Research.Models.GetPagedListOfVisitRecordRequest.PregnantInfoId">
             <summary>
             病人档案Id
+            </summary>
+        </member>
+        <member name="T:VL.Research.Controllers.APIBaseController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VL.Research.Controllers.APIBaseController.Success``1(``0)">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.APIBaseController.Success``1(``0,System.String[])">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VL.Research.Controllers.APIBaseController.Success``2(``0,``1,System.String[])">
+            <summary>
+            
+            </summary>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+            <param name="data1"></param>
+            <param name="data2"></param>
+            <param name="messages"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.APIBaseController.Error``1(``0,System.Collections.Generic.IList{System.String})">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.APIBaseController.Error``2(``0,``1,System.String[])">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.APIBaseController.Error``1(``0,System.Int32,System.Collections.Generic.IList{System.String})">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.APIBaseController.Error``1(System.String[])">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.APIBaseController.Error``1(``0,System.String[])">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.APIBaseController.Error``1(``0,System.Int32,System.String[])">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.BaseController.Download(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="path"></param>
+            <param name="fileName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.HomeController.Login(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="returnUrl"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.HomeController.Login(VL.Research.Common.APIContext,VL.Research.Services.UserService,VL.Research.Models.LoginViewModel,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="apiContext"></param>
+            <param name="userService"></param>
+            <param name="model"></param>
+            <param name="returnUrl"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.HomeController.UserList">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.HomeController.RoleList">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.HomeController.CreateRole">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.HomeController.EditRoleAuthorities">
+            <summary>
+            编辑角色权限
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.HomeController.EditUserRoles">
+            <summary>
+            编辑用户角色
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.HomeController.PregnantInfoList">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.HomeController.PregnantInfo(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="pregnantInfoId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.HomeController.LabOrderList(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="pregnantInfoId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.HomeController.VisitRecordList(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="pregnantInfoId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.HomeController.LabOrderDetail(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="pregnantInfoId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.HomeController.GetConfigurablePagedListOfPregnantInfoExcel(VL.Research.Services.PregnantService,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="T:VL.Research.Controllers.PregnantController">
+            <summary>
+            控制器 孕妇信息
+            </summary>
+        </member>
+        <member name="M:VL.Research.Controllers.PregnantController.#ctor">
+            <summary>
+            控制器 孕妇信息
+            </summary>
+        </member>
+        <member name="M:VL.Research.Controllers.PregnantController.GetPagedListOfPregnantInfo(VL.Research.Services.PregnantService,System.Int32,System.Int32,System.String)">
+            <summary>
+            获取 孕妇档案列表
+            </summary>
+            <param name="pregnantService"></param>
+            <param name="page">页码</param>
+            <param name="rows">每页行数</param>
+            <param name="name">参数(姓名)</param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.PregnantController.GetConfigurablePagedListOfPregnantInfo(VL.Research.Services.PregnantService,System.Int32,System.Int32,System.String,System.String,System.String)">
+            <summary>
+            获取 自定义配置的孕妇档案列表
+            </summary>
+            <param name="pregnantService"></param>
+            <param name="page">页码</param>
+            <param name="limit">每页行数</param>
+            <param name="personname">参数(姓名)</param>
+            <param name="field">参数(排序项)</param>
+            <param name="order">参数(排序顺序:asc|desc)</param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.PregnantController.GetPregnantInfo(VL.Research.Services.PregnantService,System.Int64)">
+            <summary>
+            获取 孕妇档案详情
+            </summary>
+            <param name="pregnantService"></param>
+            <param name="pregnantInfoId">孕妇档案Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.PregnantController.GetPagedListOfVisitRecord(VL.Research.Services.PregnantService,System.Int32,System.Int32,System.Int64)">
+            <summary>
+            获取 产检列表
+            </summary>
+            <param name="pregnantService"></param>
+            <param name="page">页码</param>
+            <param name="rows">每页行数</param>
+            <param name="pregnantInfoId">参数(孕妇档案Id)</param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.PregnantController.GetPagedListOfLabOrder(VL.Research.Services.PregnantService,System.Int32,System.Int32,System.Int64)">
+            <summary>
+            获取 检查列表
+            </summary>
+            <param name="pregnantService"></param>
+            <param name="page">页码</param>
+            <param name="rows">每页行数</param>
+            <param name="pregnantInfoId">参数(孕妇档案Id)</param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.PregnantController.GetAllStatics">
+            <summary>
+            获取 全统计汇总
+            顺产人数
+            剖宫产人数
+            引产人数
+            顺转剖人数
+            侧切人数
+            裂伤人数
+            新生儿人数
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:VL.Research.Controllers.SystemController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VL.Research.Controllers.SystemController.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VL.Research.Controllers.SystemController.GetDropDowns(System.String,System.Boolean)">
+            <summary>
+            获取 下拉项        
+            </summary>
+            <param name="type">类型名称</param>
+            <param name="isForceChange">是否强制获取最新</param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.SystemController.GetMenuConfig">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.SystemController.GetListMenu(VL.Research.Services.UserService)">
+            <summary>
+            获取 菜单栏(当前用户)
+            </summary>
+            <param name="userService"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.SystemController.GetListMenu_LayUI(VL.Research.Services.UserService)">
+            <summary>
+            获取 菜单栏(当前用户)
+            </summary>
+            <param name="userService"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.SystemController.GetSQLConfigByName(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="viewName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.SystemController.GetListConfigByName(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="viewName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.SystemController.GetListConfig(VL.Research.Services.UserService,VL.Research.Models.GetListConfigRequest)">
+            <summary>
+            获取 列表配置
+            </summary>
+            <param name="userService"></param>
+            <param name="request">请求参数实体</param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.SystemController.GetListConfig_LayUI(VL.Research.Services.UserService,VL.Research.Models.GetListConfigRequest)">
+            <summary>
+            获取 列表配置
+            </summary>
+            <param name="userService"></param>
+            <param name="request">请求参数实体</param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.SystemController.SaveListConfig(VL.Research.Services.UserService,VL.Research.Models.SaveListConfigRequest)">
+            <summary>
+            保存 列表配置
+            </summary>
+            <param name="userService"></param>
+            <param name="request">请求参数实体</param>
+            <returns></returns>
+        </member>
+        <member name="T:VL.Research.Controllers.SystemController.GetDetailConfigRequest">
+            <summary>
+            请求参数实体
+            </summary>
+        </member>
+        <member name="P:VL.Research.Controllers.SystemController.GetDetailConfigRequest.ViewName">
+            <summary>
+            列表名称
+            </summary>
+        </member>
+        <member name="P:VL.Research.Controllers.SystemController.GetDetailConfigRequest.CustomConfigId">
+            <summary>
+            自定义配置Id
+            </summary>
+        </member>
+        <member name="M:VL.Research.Controllers.SystemController.GetDetailConfig(VL.Research.Services.UserService,System.String)">
+            <summary>
+            获取 列表配置
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.SystemController.GetCommonSelect(VL.Research.Services.SharedService,VL.Research.Models.GetCommonSelectRequest)">
+            <summary>
+            获取 通用分页列表
+            </summary>
+        </member>
+        <member name="T:VL.Research.Controllers.SignInStatus">
+            <summary>
+            登录状态枚举
+            </summary>
+        </member>
+        <member name="F:VL.Research.Controllers.SignInStatus.Success">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:VL.Research.Controllers.SignInStatus.LockedOut">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:VL.Research.Controllers.SignInStatus.RequiresVerification">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:VL.Research.Controllers.SignInStatus.Failure">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:VL.Research.Controllers.UserController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VL.Research.Controllers.UserController.#ctor">
+            <summary>
+            账户
+            </summary>
+        </member>
+        <member name="M:VL.Research.Controllers.UserController.CreateRole(VL.Research.Services.UserService,VL.Research.Controllers.UserController.CreateRoleRequest)">
+            <summary>
+            
+            </summary>
+            <param name="userService"></param>s
+            <returns></returns>
+        </member>
+        <member name="T:VL.Research.Controllers.UserController.CheckableTreeResponse">
+            <summary>
+            可选树形列表
+            </summary>
+        </member>
+        <member name="P:VL.Research.Controllers.UserController.CheckableTreeResponse.id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:VL.Research.Controllers.UserController.CheckableTreeResponse.name">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:VL.Research.Controllers.UserController.CheckableTreeResponse.open">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:VL.Research.Controllers.UserController.CheckableTreeResponse.pId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:VL.Research.Controllers.UserController.CheckableTreeResponse.checked">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VL.Research.Controllers.UserController.GetUserRoles(VL.Research.Services.UserService,System.Int64)">
+            <summary>
+            获取 用户的角色
+            </summary>
+        </member>
+        <member name="M:VL.Research.Controllers.UserController.EditUserRoles(VL.Research.Services.UserService,VL.Research.Controllers.UserController.EditUserRoleRequest)">
+            <summary>
+            编辑 用户角色
+            </summary>
+            <param name="userService"></param>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.UserController.GetRoleAuthorities(VL.Research.Services.UserService,System.Int64)">
+            <summary>
+            获取 角色权限`
+            </summary>
+        </member>
+        <member name="M:VL.Research.Controllers.UserController.EditRoleAuthority(VL.Research.Services.UserService,VL.Research.Controllers.UserController.EditRoleAuthorityRequest)">
+            <summary>
+            编辑 角色权限
             </summary>
         </member>
         <member name="T:VL.Research.Program">

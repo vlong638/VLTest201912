@@ -183,10 +183,14 @@ namespace VL.Research.Services
             {
                 Name = roleName,
             };
+            if (string.IsNullOrEmpty(roleName))
+            {
+                return Error<long>("角色名称不可为空");
+            }
             var result = roleRepository.GetBy(role.Name);
             if (result != null)
             {
-                return Error<long>("角色名称已存在", 501);
+                return Error<long>("角色名称已存在");
             }
             var id = roleRepository.Insert(role);
             return Success(id);

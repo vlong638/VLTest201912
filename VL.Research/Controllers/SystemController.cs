@@ -121,7 +121,7 @@ namespace VL.Research.Controllers
         }
         #endregion
 
-        #region ListConfig,ListConfig
+        #region ListConfig
 
         /// <summary>
         /// 
@@ -202,11 +202,13 @@ namespace VL.Research.Controllers
 
         private GetListConfigModel LoadDefaultConfig(GetListConfigRequest request)
         {
+            if (request.ViewName.IsNullOrEmpty())
+                return null;
             var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", "ListConfig.xml");
             XDocument doc = XDocument.Load(path);
             var viewElements = doc.Descendants(ListConfig.NodeElementName);
             var listConfigs = viewElements.Select(c => new ListConfig(c));
-            var listConfig = listConfigs.FirstOrDefault(c => c.ViewName == request.ListName);
+            var listConfig = listConfigs.FirstOrDefault(c => c.ViewName == request.ViewName);
             listConfig.Properties.RemoveAll(c => !c.IsNeedOnPage);
             var result = new GetListConfigModel()
             {
@@ -225,9 +227,10 @@ namespace VL.Research.Controllers
                     url = listConfig.ViewURL,
                     add_btn = new GetListConfigModel_TableConfg_AddButton()
                     {
-                        text = "新增",
+                        text = "新建角色",
                         type = "window",
-                        url = "",//新增提交的页面
+                        url = "../../Home/CreateRole",//新增提交的页面
+                        area =new List<string>() { "400px", "400px" },
                         defaultParam = new List<string>(),
                     },
                     line_toolbar = listConfig.ToolBars.Select(c => new GetListConfigModel_TableConfg_ToolBar()
@@ -264,7 +267,7 @@ namespace VL.Research.Controllers
                     {
                         new GetListConfigModel_TableConfg_Where(){
                             name = "target",
-                            value = request.ListName,
+                            value = request.ViewName,
                         }
                     },
                 },
@@ -303,7 +306,46 @@ namespace VL.Research.Controllers
                     return Error(serviceResult.Data, serviceResult.Messages);
                 return Success(serviceResult.Data);
             }
-        } 
+        }
+        #endregion
+
+        #region DetailConfig
+
+        /// <summary>
+        /// 请求参数实体
+        /// </summary>
+        public class GetDetailConfigRequest
+        {
+            /// <summary>
+            /// 列表名称
+            /// </summary>
+            public string ViewName { set; get; }
+            /// <summary>
+            /// 自定义配置Id
+            /// </summary>
+            public long CustomConfigId { set; get; }
+        }
+
+        /// <summary>
+        /// 获取 列表配置
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public APIResult<DetailConfig> GetDetailConfig([FromServices] UserService userService, string viewName)
+        {
+            return Success(LoadDefaultDetailConfig(viewName));
+        }
+
+        private DetailConfig LoadDefaultDetailConfig(string viewName)
+        {
+            var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", "DetailConfig.xml");
+            XDocument doc = XDocument.Load(path);
+            var viewElements = doc.Descendants(DetailConfig.NodeElementName);
+            var detailConfigs = viewElements.Select(c => new DetailConfig(c));
+            var detailConfig = detailConfigs.FirstOrDefault(c => c.ViewName == viewName);
+            return detailConfig;
+        }
+
         #endregion
 
         #endregion

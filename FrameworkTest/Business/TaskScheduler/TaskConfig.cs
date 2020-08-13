@@ -51,7 +51,7 @@ namespace FrameworkTest.Business.TaskScheduler
             Name = element.Attribute(nameof(Name)).Value;
             FrequencyType = element.Attribute(nameof(FrequencyType)).Value.ToEnum<FreqencyType>();
             LastExecuteTime = element.Attribute(nameof(LastExecuteTime)).Value.ToDateTime();
-            IsActivated = element.Attribute(nameof(IsActivated)).Value.ToBool();
+            IsActivated = element.Attribute(nameof(IsActivated)).Value.ToBool() ?? false;
             TaskType = element.Attribute(nameof(TaskType)).Value.ToEnum<TaskType>();
             Interval = element.Attribute(nameof(Interval)).Value.ToInt().Value;
         }

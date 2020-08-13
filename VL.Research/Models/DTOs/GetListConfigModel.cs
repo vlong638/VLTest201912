@@ -67,12 +67,12 @@ namespace VL.Research.Models
         /// <summary>
         /// 下拉项的下拉项
         /// </summary>
-        public List<GetListConfigModel_Search_Option> options { set; get; }
+        public List<Config_Option> options { set; get; }
     }
     /// <summary>
     /// 页面配置 模型子项
     /// </summary>
-    public class GetListConfigModel_Search_Option
+    public class Config_Option
     {
         /// <summary>
         /// 名称
@@ -91,7 +91,7 @@ namespace VL.Research.Models
     /// <summary>
     /// 
     /// </summary>
-    public class GetListConfigModel_Search_Options : List<GetListConfigModel_Search_Option>
+    public class GetListConfigModel_Search_Options : List<Config_Option>
     {
         /// <summary>
         /// 
@@ -112,7 +112,7 @@ namespace VL.Research.Models
                 var key = keyValue[0];
                 var value = keyValue[1];
                 var isDefaultValue = key == defaultValue;
-                this.Add(new GetListConfigModel_Search_Option()
+                this.Add(new Config_Option()
                 {
                     name = value,
                     value = key,
@@ -185,6 +185,7 @@ namespace VL.Research.Models
         /// window-弹窗|newPage-新页面
         /// </summary>
         public string type { set; get; }
+        public List<string> area { get; internal set; }
     }
     /// <summary>
     /// 页面配置 模型子项

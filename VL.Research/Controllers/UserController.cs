@@ -48,6 +48,31 @@ namespace VL.Research.Controllers
         {
         }
 
+        public class CreateRoleRequest
+        {
+            public string name { set; get; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userService"></param>s
+        /// <returns></returns>
+        [HttpPost]
+        //[VLAuthentication(Authority.创建角色)]
+        public APIResult<long> CreateRole([FromServices] UserService userService, CreateRoleRequest request)
+        {
+            var result = userService.CreateRole(request.name);
+            if (result.Data > 0)
+            {
+                return Success(data: result.Data, "创建成功");
+            }
+            else
+            {
+                return Error(data: 0L, result.Message);
+            }
+        }
+
         /// <summary>
         /// 可选树形列表
         /// </summary>

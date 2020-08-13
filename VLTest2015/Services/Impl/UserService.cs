@@ -128,12 +128,21 @@ namespace VLTest2015.Services
             return Success(result);
         }
 
+        /// <summary>
+        /// 新建角色
+        /// </summary>
+        /// <param name="roleName"></param>
+        /// <returns></returns>
         public ServiceResult<long> CreateRole(string roleName)
         {
             Role role = new Role()
             {
                 Name = roleName,
             };
+            if (string.IsNullOrEmpty(role.Name))
+            {
+                return Error<long>("角色名称不能为空", 502);
+            }
             var result = _roleRepository.GetBy(role.Name);
             if (result != null)
             {

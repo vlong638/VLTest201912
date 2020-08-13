@@ -7,9 +7,14 @@ namespace VL.Consolo_Core.Common.ValuesSolution
     public static class ValueEx
     {
         #region bool
-        public static bool ToBool(this string str)
+        public static bool? ToBool(this string str)
         {
-            return bool.Parse(str);
+            if (str==null)
+                return null;
+
+            bool result;
+            bool.TryParse(str, out result);
+            return result;
         }
         #endregion
 
