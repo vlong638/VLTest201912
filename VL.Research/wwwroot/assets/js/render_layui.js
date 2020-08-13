@@ -1191,15 +1191,19 @@ jQuery.prototype.renderForm = function (_data, _layui, _parent) {
         data.field = getValue(data.field);
         console.log(data.field);
         let loadIndex = layer.load(2);
-        $.post(_data.saveUrl, JSON.stringify(data.field), function (res) {  // 实际项目这里url可以是mData?'user/update':'user/add'
-            layer.close(loadIndex);
-            if (res.code === 200) {
-                layer.msg(res.msg, { icon: 1 });
-                _parent.admin.events.closeThisTabs();
-            } else {
-                layer.msg(res.msg, { icon: 2 });
+        sendAjax('post', _data.saveUrl
+            , JSON.stringify(data.field)
+            , function (res) {
+                layer.close(loadIndex);
+                if (res.code === 200) {
+                    layer.msg(res.msg, { icon: 1 });
+                    _parent.admin.events.closeThisTabs();
+                } else {
+                    layer.msg(res.msg, { icon: 2 });
+                }
             }
-        }, 'json');
+            //,"json"
+        );
         return false;
     });
 

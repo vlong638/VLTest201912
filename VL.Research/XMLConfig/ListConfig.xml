@@ -280,7 +280,9 @@
 		</Wheres>
 		<OrderBy DefaultName ="id" DefaultValue ="desc"/>
 		<ToolBars>
-			<ToolBar URL ="../Home/EditRoleAuthorities" Params ="id" DefaultParams="" Text="编辑权限" 
+			<ToolBar URL ="../Home/EditRole" Params ="id" DefaultParams="" Text="编辑角色"
+					 Type = "newPage" Description = "" Area = "300px,400px" YesFun = "yesFun"/>
+			<ToolBar URL ="../Home/EditRoleAuthorities" Params ="id" DefaultParams="" Text="编辑权限"
 					 Type = "window" Description = "" Area = "300px,400px" YesFun = "yesFun"/>
 		</ToolBars>
 		<Property IsNeedOnPage="true" DisplayName="标识号" ColumnName="id" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />

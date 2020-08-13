@@ -196,6 +196,47 @@ namespace VL.Research.Services
             return Success(id);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ServiceResult<Role> GetRole(long id)
+        {
+            Role role = roleRepository.GetById(id);
+            if (role == null)
+            {
+                return Error<Role>("无效的角色Id");
+            }
+            return Success(role);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="roleName"></param>
+        /// <returns></returns>
+        public ServiceResult<bool> EditRole(long id , string roleName)
+        {
+            Role role = roleRepository.GetById(id);
+            if (role==null)
+            {
+                return Error<bool>("无效的角色Id");
+            }
+            if (string.IsNullOrEmpty(roleName))
+            {
+                return Error<bool>("角色名称不可为空");
+            }
+            var repeat = roleRepository.GetBy(role.Name);
+            if (repeat != null)
+            {
+                return Error<bool>("角色名称已存在");
+            }
+            var result = roleRepository.Update(role);
+            return Success(result);
+        }
+
         public ServiceResult<IEnumerable<long>> GetRoleAuthorityIds(long roleId)
         {
             var roleAuthorities = roleAuthorityRepository.GetBy(roleId);

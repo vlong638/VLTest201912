@@ -74,6 +74,51 @@ namespace VL.Research.Controllers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        [HttpGet]
+        //[VLAuthentication(Authority.创建角色)]
+        public APIResult<Role> GetRole([FromServices] UserService userService, long id)
+        {
+            var result = userService.GetRole(id);
+            if (result.Data!=null)
+            {
+                return Success(data: result.Data);
+            }
+            else
+            {
+                return Error(data: result.Data, result.Message);
+            }
+        }
+
+        public class EditRoleRequest
+        {
+            public long id { set; get; }
+            public string name { set; get; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userService"></param>s
+        /// <returns></returns>
+        [HttpPost]
+        //[VLAuthentication(Authority.创建角色)]
+        public APIResult<bool> EditRole([FromServices] UserService userService, EditRoleRequest request)
+        {
+            var result = userService.EditRole(request.id, request.name);
+            if (result.Data)
+            {
+                return Success(data: result.Data, "创建成功");
+            }
+            else
+            {
+                return Error(data: result.Data, result.Message);
+            }
+        }
+
+
+        /// <summary>
         /// 可选树形列表
         /// </summary>
         public class CheckableTreeResponse
