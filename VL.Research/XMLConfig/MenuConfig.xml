@@ -2,6 +2,8 @@
 <Menus>
 	<Menu id="1" parentId="" text="业务列表" icon="" url=""/>
 	<Menu id="11" parentId="1" text="孕妇档案" icon="" url="../Home/PregnantInfoList"/>
+	<Menu id="11" parentId="1" text="孕妇产检" icon="" url="../Home/VisitRecordList"/>
+	<Menu id="11" parentId="1" text="孕妇检验单" icon="" url="../Home/LabOrderList"/>
 	<Menu id="2" parentId="" text="自定义查询" icon="" url=""/>
 	<Menu id="3" parentId="" text="账户管理" icon="" url=""/>
 	<Menu id="31" parentId="3" text="用户管理" icon="" url="../Home/UserList"/>

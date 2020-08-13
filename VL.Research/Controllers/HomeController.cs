@@ -184,35 +184,33 @@ namespace VL.Research.Controllers
         /// <summary>
         /// 
         /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        //[VLAuthentication(Authority.查看孕妇档案列表)]
+        public ActionResult VisitRecordList()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        //[VLAuthentication(Authority.查看孕妇档案列表)]
+        public ActionResult LabOrderList()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="pregnantInfoId"></param>
         /// <returns></returns>
         [HttpGet]
         //[VLAuthentication(Authority.查看孕妇档案详情)]
         public ActionResult PregnantInfo(long pregnantInfoId)
-        {
-            return View();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="pregnantInfoId"></param>
-        /// <returns></returns>
-        [HttpGet]
-        //[VLAuthentication(Authority.查看检查列表)]
-        public ActionResult LabOrderList(long pregnantInfoId)
-        {
-            return View();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="pregnantInfoId"></param>
-        /// <returns></returns>
-        [HttpGet]
-        //[VLAuthentication(Authority.查看产检列表)]
-        public ActionResult VisitRecordList(long pregnantInfoId)
         {
             return View();
         }

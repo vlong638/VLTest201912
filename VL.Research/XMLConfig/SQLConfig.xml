@@ -6,6 +6,7 @@
 			<Property IsOn="true" ColumnName="personname" Alias ="pi.personname"/>
 			<Property IsOn="true" ColumnName="sexcode" Alias ="pi.sexcode"/>
 			<Property IsOn="true" ColumnName="idcard" Alias ="pi.idcard"/>
+			<Property IsOn="true" ColumnName="create_localuser" Alias ="pi.create_localuser"/>
 		</Properties>
 		<Wheres>
 			<Where ComponentName="personname" Formatter="%@personname%">pi.PersonName like @personname</Where>
@@ -19,6 +20,61 @@
 		<SQL>
 			select @Fields
 			from PregnantInfo pi
+			@Wheres
+			@OrderBy
+			@Pager
+		</SQL>
+	</View>
+	<View ViewName="VisitRecord">
+		<Properties>
+			<Property IsOn="true" ColumnName="personname" Alias ="pi.personname"/>
+			<Property IsOn="true" ColumnName="visitdate" Alias ="vr.visitdate"/>
+			<Property IsOn="true" ColumnName="id" Alias ="vr.id"/>
+			<Property IsOn="true" ColumnName="idcard" Alias ="vr.idcard"/>
+			<Property IsOn="true" ColumnName="weight" Alias ="vr.weight"/>
+			<Property IsOn="true" ColumnName="dbp" Alias ="vr.dbp"/>
+			<Property IsOn="true" ColumnName="sbp" Alias ="vr.sbp"/>
+			<Property IsOn="true" ColumnName="doctorname" Alias ="vr.doctorname"/>
+		</Properties>
+		<Wheres>
+			<Where ComponentName="personname" Formatter="%@personname%">pi.PersonName like @personname</Where>
+			<Where ComponentName="visitdate"> vr.visitdate = @visitdate</Where>
+		</Wheres>
+		<OrderBys>
+			<OrderBy ComponentName="id" Alias ="pi.id"/>
+			<OrderBy ComponentName="personname" Alias ="pi.personname"/>
+			<OrderBy ComponentName="sexcode" Alias ="pi.sexcode"/>
+		</OrderBys>
+		<SQL>
+			select @Fields
+			from VisitRecord vr
+			left join PregnantInfo pi on pi.idcard = vr.idcard
+			@Wheres
+			@OrderBy
+			@Pager
+		</SQL>
+	</View>
+	<View ViewName="LabOrder">
+		<Properties>
+			<Property IsOn="true" ColumnName="id" Alias ="lo.id"/>
+			<Property IsOn="true" ColumnName="idcard" Alias ="lo.idcard"/>
+			<Property IsOn="true" ColumnName="name" Alias ="lo.name"/>
+			<Property IsOn="true" ColumnName="examname" Alias ="lo.examname"/>
+			<Property IsOn="true" ColumnName="ordertime" Alias ="lo.ordertime"/>
+			<Property IsOn="true" ColumnName="orderdocid" Alias ="lo.orderdocid"/>
+		</Properties>
+		<Wheres>
+			<Where ComponentName="name" Formatter="%@name%">lo.name like @name</Where>
+			<Where ComponentName="idcard"> lo.idcard = @idcard</Where>
+		</Wheres>
+		<OrderBys>
+			<OrderBy ComponentName="id" Alias ="lo.id"/>
+			<OrderBy ComponentName="name" Alias ="lo.name"/>
+			<OrderBy ComponentName="ordertime" Alias ="lo.ordertime"/>
+		</OrderBys>
+		<SQL>
+			select @Fields
+			from LabOrder lo
 			@Wheres
 			@OrderBy
 			@Pager

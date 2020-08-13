@@ -1760,21 +1760,19 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:VL.Research.Controllers.HomeController.VisitRecordList">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.HomeController.LabOrderList">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:VL.Research.Controllers.HomeController.PregnantInfo(System.Int64)">
-            <summary>
-            
-            </summary>
-            <param name="pregnantInfoId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Research.Controllers.HomeController.LabOrderList(System.Int64)">
-            <summary>
-            
-            </summary>
-            <param name="pregnantInfoId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Research.Controllers.HomeController.VisitRecordList(System.Int64)">
             <summary>
             
             </summary>
