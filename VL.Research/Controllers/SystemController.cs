@@ -368,11 +368,10 @@ namespace VL.Research.Controllers
             sqlConfig.UpdateOrderBy(request.field, request.order);
             //获取数据
             var serviceResult = sharedService.GetCommonSelect(sqlConfig);
-            //更新显示映射(枚举,函数,脱敏)
-            ListConfig.UpdateValues(serviceResult.Data.SourceData);
-
             if (!serviceResult.IsSuccess)
                 return Error(data1: serviceResult.Data.SourceData, data2: serviceResult.Data.Count, messages: serviceResult.Messages);
+            //更新显示映射(枚举,函数,脱敏)
+            ListConfig.UpdateValues(serviceResult.Data.SourceData);
             return Success(serviceResult.Data.SourceData, serviceResult.Data.Count, serviceResult.Messages);
         }
 
