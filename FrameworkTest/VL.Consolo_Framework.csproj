@@ -51,7 +51,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>FrameworkTest.AutoTasks</StartupObject>
+    <StartupObject>FrameworkTest.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>A44E63B98D3E4703FA9817AD7ABC43E469323EC4</ManifestCertificateThumbprint>
@@ -66,11 +66,17 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.6.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
+      <HintPath>..\packages\Portable.BouncyCastle.1.8.6\lib\net40\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
     <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.2.0.35\lib\net461\Dapper.dll</HintPath>
     </Reference>
     <Reference Include="Dapper.Contrib, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.Contrib.2.0.35\lib\net461\Dapper.Contrib.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=1.2.0.246, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.1.2.0\lib\net45\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNetCore.Authentication.Abstractions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.Authentication.Abstractions.2.1.0\lib\netstandard2.0\Microsoft.AspNetCore.Authentication.Abstractions.dll</HintPath>
@@ -98,6 +104,18 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI, Version=2.5.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.5.1\lib\net45\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML, Version=2.5.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.5.1\lib\net45\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net, Version=2.5.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.5.1\lib\net45\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats, Version=2.5.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.5.1\lib\net45\NPOI.OpenXmlFormats.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -148,6 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Business\ConfigurableEntity\EntityAppConfig.cs" />
+    <Compile Include="Business\ExcelGenerator\ExportConfig.cs" />
     <Compile Include="Business\GJPredeliveryAsync\PreDelivery.cs" />
     <Compile Include="Business\SDMockCommit\DALs\ESBDAL.cs" />
     <Compile Include="Business\SDMockCommit\Dics\Apnea.cs" />
@@ -260,6 +279,7 @@
     <Compile Include="Business\ConfigurableEntity\EntityDBConfig.cs" />
     <Compile Include="Business\ConfigurableEntity\SampleEntity.cs" />
     <Compile Include="Business\Kettle\O_LabResult.cs" />
+    <Compile Include="Common\ExcelSolution\ExcelHelper.cs" />
     <Compile Include="Common\FileSolution\FileHelper.cs" />
     <Compile Include="Common\HttpSolution\HttpHelper.cs" />
     <Compile Include="Common\LoggerSolution\VLLogger.cs" />
@@ -293,6 +313,9 @@
     <Compile Include="Business\SemiAutoExport\FileConfigField.cs" />
     <Compile Include="Business\SemiAutoExport\FileConfigSource.cs" />
     <Compile Include="Business\SemiAutoExport\IAllService.cs" />
+    <Content Include="Business\ExcelGenerator\ExportConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Common\Scripts\Common-Constraints-1.0.0.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -306,6 +329,9 @@
   <ItemGroup>
     <None Include="app.config" />
     <Compile Include="Common\DALSolution\RepositoryBase.cs" />
+    <None Include="Business\ExcelGenerator\高危妊娠管理个案登记表.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

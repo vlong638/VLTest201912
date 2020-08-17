@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Exports>
+	<Export ExportName="高危妊娠表" FileName="高危妊娠管理个案登记表.xlsx">
+		<Sheet SheetName="高危妊娠管理个案登记表">
+			<Source SourceName="PIData">
+				<Properties>
+					<Property ColumnName="id" Alias ="pi.id"/>
+					<Property ColumnName="personname" Alias ="pi.personname"/>
+					<Property ColumnName="sexcode" Alias ="pi.sexcode"/>
+					<Property ColumnName="idcard" Alias ="pi.idcard"/>
+					<Property ColumnName="phoneNumber" Alias ="pi.phoneNumber"/>
+				</Properties>
+				<Wheres>
+					<Where ComponentName="personname" Formatter="%@personname%">pi.PersonName like @personname</Where>
+					<Where ComponentName="idcard"> pi.idcard = @idcard</Where>
+				</Wheres>
+				<OrderBys>
+					<OrderBy ComponentName="id" Alias ="pi.id"/>
+					<OrderBy ComponentName="personname" Alias ="pi.personname"/>
+					<OrderBy ComponentName="sexcode" Alias ="pi.sexcode"/>
+				</OrderBys>
+				<SQL>
+					select @Fields
+					from PregnantInfo pi
+					@Wheres
+					@OrderBy
+				</SQL>
+			</Source>
+			<Source SourceName="VRData">
+				<Properties>
+					<Property ColumnName="id" Alias ="vr.id"/>
+					<Property ColumnName="checkweek" Alias ="vr.checkweek"/>
+					<Property ColumnName="visitdate" Alias ="vr.visitdate"/>
+				</Properties>
+				<Wheres>
+					<Where ComponentName="personname" Formatter="%@personname%">vr.idcard = (select top 1 pi.idcard from PregnantInfo pi where pi.personname like @personname)</Where>
+				</Wheres>
+				<OrderBys>
+					<OrderBy ComponentName="id" Alias ="vr.id"/>
+				</OrderBys>
+				<SQL>
+					select @Fields
+					from MHC_VisitRecord vr
+					@Wheres
+					@OrderBy
+				</SQL>
+			</Source>
+		</Sheet>
+	</Export>
+</Exports>

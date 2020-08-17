@@ -19,10 +19,15 @@ namespace FrameworkTest.Common.ValuesSolution
             bool result;
             bool.TryParse(str, out result);
             return result;
-        } 
+        }
         #endregion
 
         #region string
+
+        public static bool IsNullOrEmpty(this string str)
+        {
+            return string.IsNullOrEmpty(str);
+        }
         public static string TrimStart(this string str, string strToTrim)
         {
             while (str.StartsWith(strToTrim))

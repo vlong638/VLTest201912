@@ -9,7 +9,9 @@ using FrameworkTest.Common.HttpSolution;
 using FrameworkTest.Common.ValuesSolution;
 using FrameworkTest.Common.XMLSolution;
 using FrameworkTest.ConfigurableEntity;
+using FrameworkTest.ExcelGenerator;
 using FrameworkTest.Kettle;
+using NPOI.XSSF.UserModel;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -255,6 +257,50 @@ namespace FrameworkTest
                     Console.WriteLine(cmd.Name);
                 }
             }));
+            #region Excel
+            cmds.Add(new Command("xls001,xml", () =>
+            {
+
+                var path = Path.Combine(AppContext.BaseDirectory, @"Business\ExcelGenerator", "ExportConfig.xml");
+                XDocument doc = XDocument.Load(path);
+                var tableElements = doc.Descendants(ExportConfig.NodeElementName);
+                var configs = tableElements.Select(c => new ExportConfig(c));
+
+                var input = "高危妊娠表";
+                var config = configs.FirstOrDefault(c => c.ExportName == input);
+                if (config == null)
+                {
+                    Console.WriteLine("无效的导出配置");
+                    return;
+                }
+                var modelPath = Path.Combine(AppContext.BaseDirectory, @"Business\ExcelGenerator", config.FileName);
+                var outputPath  = Path.Combine(AppContext.BaseDirectory, @"Business\ExcelGenerator", "TextExport.xlsx");
+                if (!File.Exists(modelPath))
+                {
+                    Console.WriteLine("模板文件不存在");
+                    return;
+                }
+                var search = new List<KeyValue>() { new KeyValue("personname", "贾婷婷") };
+                using (FileStream s =File.OpenRead(modelPath))
+                {
+                    var workbook = new XSSFWorkbook(s);
+                    foreach (var sheetConfig in config.Sheets)
+                    {
+                        sheetConfig.UpdateWheres(search);
+                        var sheet = workbook.GetSheet(sheetConfig.SheetName);
+                        if (sheet != null)
+                        {
+                            sheetConfig.PrepareSourceData();
+                            sheetConfig.Render(sheet);
+                        }
+                    }
+                    using (Stream stream = File.OpenWrite(outputPath))
+                    {
+                        workbook.Write(stream);
+                    }
+                }
+            }));
+            #endregion
             #region SQL
             cmds.Add(new Command("---------------------SQL-------------------", () => { }));
             cmds.Add(new Command("s1_0000,数据库连接测试", () =>
@@ -3877,8 +3923,30 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 PreDeliveryParser.GetPreDeliveries(str, ref sb);
             }));
             #endregion
+
             cmds.Start();
         }
+    }
+
+    /// <summary>
+    /// 键值对
+    /// </summary>
+    public class KeyValue
+    {
+        public KeyValue(string key, string value)
+        {
+            Key = key;
+            Value = value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Key { set; get; }
+        /// <summary>
+        /// /
+        /// </summary>
+        public string Value { set; get; }
     }
 
     #region CommandMode
