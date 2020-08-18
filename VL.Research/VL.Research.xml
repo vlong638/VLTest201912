@@ -1718,6 +1718,12 @@
             <param name="returnUrl"></param>
             <returns></returns>
         </member>
+        <member name="M:VL.Research.Controllers.HomeController.CommonList(System.String)">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:VL.Research.Controllers.HomeController.UserList">
             <summary>
             

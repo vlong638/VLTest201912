@@ -7,6 +7,7 @@
 			<!--"DisplayType <类型[1-文本框|2-数字框|3-单选下拉框|4-树状下拉框|5-日期选择框][默认:1]>",-->
 			<Where ComponentName="personname" CompareOperator="Like" Value="刘" LinkOperator="None" DisplayName="姓名" DisplayType="1"/>
 			<Where ComponentName="sexcode" CompareOperator="" Value="" LinkOperator="" DisplayName="性别" DisplayType="3" Options="1|1:男,2:女"/>
+			<Where ComponentName="idcard" CompareOperator="" Value="" LinkOperator="" DisplayName="身份证号" DisplayType="1" />
 		</Wheres>
 		<OrderBy DefaultName ="id" DefaultValue ="desc"/>
 		<Property IsNeedOnPage="true" DisplayName="编号" ColumnName="id" DisplayType="None" DisplayWidth="100" IsSortable="true" DataType="int" Description="自动编号" />

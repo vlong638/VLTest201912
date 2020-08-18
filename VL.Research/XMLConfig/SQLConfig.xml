@@ -11,6 +11,7 @@
 		<Wheres>
 			<Where ComponentName="personname" Formatter="%@personname%">pi.PersonName like @personname</Where>
 			<Where ComponentName="sexcode"> pi.sexcode = @sexcode</Where>
+			<Where ComponentName="idcard"> pi.idcard = @idcard</Where>
 		</Wheres>
 		<OrderBys>
 			<OrderBy ComponentName="id" Alias ="pi.id"/>

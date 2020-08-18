@@ -136,7 +136,7 @@ namespace VL.Research.Common
             var fields = propertiesIsOn.Count() == 0 ? "*" : string.Join(",", propertiesIsOn);
             sql = sql.Replace("@Fields", fields);
             var wheresIsOn = Wheres.Where(c => c.IsOn).Select(c => c.SQL);
-            var wheres = wheresIsOn.Count() == 0 ? "" : $"where {string.Join(",", wheresIsOn)}";
+            var wheres = wheresIsOn.Count() == 0 ? "" : $"where {string.Join(" and ", wheresIsOn)}";
             sql = sql.Replace("@Wheres", wheres);
             var orderByIsOn = OrderBys.FirstOrDefault(c => c.IsOn) ?? OrderBys.First();
             var orderBy = orderByIsOn.Alias;

@@ -110,6 +110,18 @@ namespace VL.Research.Controllers
         /// <returns></returns>
         [HttpGet]
         //[VLAuthentication(Authority.查看孕妇档案列表)]
+        public ActionResult CommonList(string viewName)
+        {
+            ViewBag.ViewName = viewName;
+            return View();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        //[VLAuthentication(Authority.查看孕妇档案列表)]
         public ActionResult UserList()
         {
             return View();

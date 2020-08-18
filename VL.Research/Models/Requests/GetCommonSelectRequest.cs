@@ -7,13 +7,13 @@ namespace VL.Research.Models
     /// </summary>
     public class KeyValue
     {
-        private string v1;
-        private string v2;
-
-        public KeyValue(string v1, string v2)
+        public KeyValue()
         {
-            this.v1 = v1;
-            this.v2 = v2;
+        }
+        public KeyValue(string key, string value)
+        {
+            this.Key = key;
+            this.Value = value;
         }
 
         /// <summary>
