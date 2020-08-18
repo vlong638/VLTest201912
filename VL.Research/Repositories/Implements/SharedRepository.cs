@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using VL.Consolo_Core.Common.DBSolution;
+using VL.Consolo_Core.Common.ExcelExportSolution;
 using VL.Consolo_Core.Common.RepositorySolution;
 using VL.Research.Common;
 using VL.Research.Models;
@@ -47,5 +48,20 @@ namespace VL.Research.Repositories
             var pars = sqlConfig.GetParams();
             return _context.DbGroup.Connection.ExecuteScalar<int>(sql, pars, transaction: _transaction);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public DataTable GetCommonSelect(ExportSource config)
+        {
+            var sql = config.GetListSQL();
+            var pars = config.GetParams();
+            DataTable table = new DataTable("MyTable");
+            var reader = _context.DbGroup.Connection.ExecuteReader(sql, pars, transaction: _transaction);
+            table.Load(reader);
+            return table;
+        }
+
     }
 }

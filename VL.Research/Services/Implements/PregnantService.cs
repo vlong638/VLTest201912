@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using VL.Consolo_Core.Common.DBSolution;
+using VL.Consolo_Core.Common.ExcelExportSolution;
 using VL.Consolo_Core.Common.PagerSolution;
 using VL.Consolo_Core.Common.ServiceSolution;
 using VL.Consolo_Core.Common.ValuesSolution;
@@ -127,6 +129,11 @@ namespace VL.Research.Services
                 return new VLPagerResult<PagedListOfLabOrderModel>() { List = list, Count = count, CurrentIndex = request.PageIndex };
             });
             return result;
+        }
+
+        public void GetCommonSelect(ExportSource sourceConfig)
+        {
+            throw new NotImplementedException();
         }
     }
 }

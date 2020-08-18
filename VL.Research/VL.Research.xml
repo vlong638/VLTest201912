@@ -1793,6 +1793,14 @@
             <param name="name"></param>
             <returns></returns>
         </member>
+        <member name="M:VL.Research.Controllers.HomeController.CommonExport(VL.Research.Services.SharedService,System.String)">
+            <summary>
+            通用导出方案
+            </summary>
+            <param name="service"></param>
+            <param name="exportName"></param>
+            <returns></returns>
+        </member>
         <member name="T:VL.Research.Controllers.PregnantController">
             <summary>
             控制器 孕妇信息
@@ -2138,6 +2146,12 @@
             <returns></returns>
         </member>
         <member name="M:VL.Research.Repositories.SharedRepository.GetCommonSelectCount(VL.Research.Common.SQLConfig)">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Repositories.SharedRepository.GetCommonSelect(VL.Consolo_Core.Common.ExcelExportSolution.ExportSource)">
             <summary>
             
             </summary>

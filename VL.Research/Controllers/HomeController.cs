@@ -1,19 +1,17 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using NPOI.HSSF.UserModel;
-using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using VL.Consolo_Core.AuthenticationSolution;
-using VL.Consolo_Core.Common.FileSolution;
+using VL.Consolo_Core.Common.ExcelExportSolution;
+using VL.Consolo_Core.Common.ValuesSolution;
 using VL.Research.Common;
 using VL.Research.Models;
 using VL.Research.Services;
@@ -310,5 +308,68 @@ namespace VL.Research.Controllers
         }
 
 
+        #region ExcelExport
+
+        /// <summary>
+        /// 通用导出方案
+        /// </summary>
+        /// <param name="service"></param>
+        /// <param name="exportName"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult CommonExport([FromServices] SharedService service, string exportName)
+        {
+            exportName = "高危妊娠表";
+            var search = new List<VLKeyValue>() { new VLKeyValue("personname", "贾婷婷") };
+
+            var path = System.IO.Path.Combine(AppContext.BaseDirectory, @"Common\ExcelExportSolution", "ExportConfig.xml");
+            XDocument doc = XDocument.Load(path);
+            var tableElements = doc.Descendants(ExportConfig.NodeElementName);
+            var configs = tableElements.Select(c => new ExportConfig(c));
+            var config = configs.FirstOrDefault(c => c.ExportName == exportName);
+            if (config == null)
+            {
+                throw new NotImplementedException("无效的导出配置");
+            }
+            var modelPath = System.IO.Path.Combine(AppContext.BaseDirectory, @"Common\ExcelExportSolution", config.FileName);
+            var filename = DateTime.Now.ToString("yyyyMMdd_HHmmss") + config.FileName;
+            var outputPath = System.IO.Path.Combine(AppContext.BaseDirectory, @"Common\ExcelExportSolution", filename);
+            if (!System.IO.File.Exists(modelPath))
+            {
+                throw new NotImplementedException("模板文件不存在");
+            }
+            using (System.IO.FileStream s = System.IO.File.OpenRead(modelPath))
+            {
+                var workbook = new XSSFWorkbook(s);
+                foreach (var sheetConfig in config.Sheets)
+                {
+                    sheetConfig.UpdateWheres(search);
+                    var sheet = workbook.GetSheet(sheetConfig.SheetName);
+                    if (sheet != null)
+                    {
+                        sheetConfig.DataSources = new Dictionary<string, DataTable>();
+                        foreach (var sourceConfig in sheetConfig.Sources)
+                        {
+                            var result = service.GetCommonSelect(sourceConfig);
+                            if (result.Data == null)
+                            {
+                                throw new NotImplementedException("无效的数据源:" + sourceConfig.SourceName);
+                            }
+                            sheetConfig.DataSources[sourceConfig.SourceName] = result.Data;
+                        }
+                        sheetConfig.Render(sheet);
+                    }
+                }
+                using (System.IO.Stream stream = System.IO.File.OpenWrite(outputPath))
+                {
+                    workbook.Write(stream);
+                }
+            }
+            var ss = System.IO.File.OpenRead(outputPath);
+            return File(ss, "application/vnd.android.package-archive", outputPath);
+        }
+
+        #endregion
     }
 }

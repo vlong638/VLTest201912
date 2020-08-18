@@ -1,16 +1,15 @@
-﻿using Dapper;
-using FrameworkTest.Common.DALSolution;
-using FrameworkTest.Common.DBSolution;
-using FrameworkTest.Common.ExcelSolution;
-using FrameworkTest.Common.ValuesSolution;
-using NPOI.SS.UserModel;
+﻿using NPOI.SS.UserModel;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Text;
 using System.Xml.Linq;
+using VL.Consolo_Core.Common.DBSolution;
+using VL.Consolo_Core.Common.ExcelSolution;
+using VL.Consolo_Core.Common.ValuesSolution;
 
-namespace FrameworkTest.Business.ExcelGenerator
+namespace VL.Consolo_Core.Common.ExcelExportSolution
 {
     /// <summary>
     /// 查询sql配置
@@ -89,7 +88,7 @@ namespace FrameworkTest.Business.ExcelGenerator
             Sources = element.Descendants(ExportSource.NodeElementName).Select(c => new ExportSource(c)).ToList();
         }
 
-        internal void Render(ISheet sheet)
+        public void Render(ISheet sheet)
         {
             List<string> contentsToDeal = new List<string>();
             var rowsCount = sheet.LastRowNum;
@@ -130,7 +129,7 @@ namespace FrameworkTest.Business.ExcelGenerator
             }
         }
 
-        internal void UpdateWheres(List<KeyValue> wheres)
+        public void UpdateWheres(List<VLKeyValue> wheres)
         {
             if (wheres == null)
                 return;
@@ -149,21 +148,21 @@ namespace FrameworkTest.Business.ExcelGenerator
             }
         }
 
-        Dictionary<string, DataTable> DataSources { set; get; }
-        internal void PrepareSourceData()
-        {
-            DataSources = new Dictionary<string, DataTable>();
-            foreach (var sourceConfig in Sources)
-            {
-                var dbContext = new DbContext(DBHelper.GetDbConnection("Data Source=192.168.50.102;Initial Catalog=HL_Pregnant;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=HZFYUSER;Password=HZFYPWD"));
-                var sampleRespository = new SampleRespository(dbContext);
-                var result = dbContext.DelegateTransaction((g) =>
-                {
-                    return sampleRespository.GetCommonSelect(sourceConfig);
-                });
-                DataSources[sourceConfig.SourceName] = result.Data;
-            }
-        }
+        public Dictionary<string, DataTable> DataSources { set; get; }
+        //internal void PrepareSourceData(DbContext dbContext)
+        //{
+        //    DataSources = new Dictionary<string, DataTable>();
+        //    foreach (var sourceConfig in Sources)
+        //    {
+        //        var dbContext = new DbContext(DBHelper.GetDbConnection("Data Source=192.168.50.102;Initial Catalog=HL_Pregnant;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=HZFYUSER;Password=HZFYPWD"));
+        //        var sampleRespository = new SampleRespository(dbContext);
+        //        var result = dbContext.DelegateTransaction((g) =>
+        //        {
+        //            return sampleRespository.GetCommonSelect(sourceConfig);
+        //        });
+        //        DataSources[sourceConfig.SourceName] = result.Data;
+        //    }
+        //}
     }
     /// <summary>
     /// 数据源
@@ -206,7 +205,7 @@ namespace FrameworkTest.Business.ExcelGenerator
             OrderBys = element.Descendants(ExportSourceOrderBy.NodeElementName).Select(c => new ExportSourceOrderBy(c)).ToList();
         }
 
-        internal string GetListSQL()
+        public string GetListSQL()
         {
             var sql = SQL;
             var propertiesIsOn = Properties.Select(c => c.Alias);
@@ -222,7 +221,7 @@ namespace FrameworkTest.Business.ExcelGenerator
             return sql;
         }
 
-        internal Dictionary<string, object> GetParams()
+        public Dictionary<string, object> GetParams()
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
             foreach (var where in Wheres)
@@ -319,7 +318,7 @@ namespace FrameworkTest.Business.ExcelGenerator
         /// <summary>
         /// 值
         /// </summary>
-        public object Value { set; get; } 
+        public object Value { set; get; }
         #endregion
 
         /// <summary>
@@ -385,34 +384,4 @@ namespace FrameworkTest.Business.ExcelGenerator
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    public class SampleRespository
-    {
-        DbContext Context;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="context"></param>
-        public SampleRespository(DbContext context)
-        {
-            Context = context;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public DataTable GetCommonSelect(ExportSource config)
-        {
-            var sql = config.GetListSQL();
-            var pars = config.GetParams();
-            DataTable table = new DataTable("MyTable");
-            var reader = Context.DbGroup.Connection.ExecuteReader(sql, pars, transaction: Context.DbGroup.Transaction);
-            table.Load(reader);
-            return table;
-        }
-    }
 }

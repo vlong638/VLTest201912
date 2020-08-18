@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using VL.Consolo_Core.Common.DBSolution;
+using VL.Consolo_Core.Common.ExcelExportSolution;
 using VL.Consolo_Core.Common.PagerSolution;
 using VL.Consolo_Core.Common.ServiceSolution;
 using VL.Consolo_Core.Common.ValuesSolution;
@@ -38,6 +40,15 @@ namespace VL.Research.Services
                 var list = sharedRepository.GetCommonSelect(sqlConfig);
                 var count = sharedRepository.GetCommonSelectCount(sqlConfig);
                 return new VLPagerTableResult<List<Dictionary<string, object>>>() { SourceData = list.ToList(), Count = count, CurrentIndex = sqlConfig.PageIndex };
+            });
+            return result;
+        }
+
+        internal ServiceResult<DataTable> GetCommonSelect(ExportSource sourceConfig)
+        {
+            var result = dbContext.DelegateTransaction((g) =>
+            {
+                return sharedRepository.GetCommonSelect(sourceConfig);
             });
             return result;
         }

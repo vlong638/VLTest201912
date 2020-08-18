@@ -167,6 +167,7 @@
   <ItemGroup>
     <Compile Include="Business\ConfigurableEntity\EntityAppConfig.cs" />
     <Compile Include="Business\ExcelGenerator\ExportConfig.cs" />
+    <Compile Include="Business\ExcelGenerator\PlaceHolder.cs" />
     <Compile Include="Business\GJPredeliveryAsync\PreDelivery.cs" />
     <Compile Include="Business\SDMockCommit\DALs\ESBDAL.cs" />
     <Compile Include="Business\SDMockCommit\Dics\Apnea.cs" />
