@@ -100,7 +100,7 @@ namespace VL.Research.Common
             foreach (var where in wheres)
             {
                 var whereConfig = Wheres.FirstOrDefault(c => c.ComponentName.ToLower() == where.Key.ToLower());
-                if (!where.Value.IsNullOrEmpty())
+                if (where != null && !where.Value.IsNullOrEmpty())
                 {
                     whereConfig.IsOn = true;
                     whereConfig.Value = where.Value;

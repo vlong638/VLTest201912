@@ -89,6 +89,15 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="XMLConfig\User\ListConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLConfig\User\SQLConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
   <ProjectExtensions><VisualStudio><UserProperties configs_4config_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 
