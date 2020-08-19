@@ -151,7 +151,7 @@ namespace VL.Research.Common
             var sql = SQL;
             sql = sql.Replace("@Fields", "count(*)");
             var wheresIsOn = Wheres.Where(c => c.IsOn).Select(c => c.SQL);
-            var wheres = wheresIsOn.Count() == 0 ? "" : $"where {string.Join(",", wheresIsOn)}";
+            var wheres = wheresIsOn.Count() == 0 ? "" : $"where {string.Join(" and ", wheresIsOn)}";
             sql = sql.Replace("@Wheres", wheres);
             sql = sql.Replace("@OrderBy", $"");
             sql = sql.Replace("@Pager", $"");

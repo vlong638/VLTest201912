@@ -1918,14 +1918,14 @@
             <param name="userService"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.SystemController.GetSQLConfigByName(System.String)">
+        <member name="M:VL.Research.Controllers.SystemController.GetSQLConfigByTagName(System.String)">
             <summary>
             
             </summary>
             <param name="viewName"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.SystemController.GetListConfigByName(System.String)">
+        <member name="M:VL.Research.Controllers.SystemController.GetListConfigByTagName(System.String)">
             <summary>
             
             </summary>
@@ -1978,6 +1978,33 @@
             <returns></returns>
         </member>
         <member name="M:VL.Research.Controllers.SystemController.GetCommonSelect(VL.Research.Services.SharedService,VL.Research.Models.GetCommonSelectRequest)">
+            <summary>
+            获取 通用分页列表
+            </summary>
+        </member>
+        <member name="M:VL.Research.Controllers.SystemController.GetListConfig_LayUIByDirectoryName(VL.Research.Services.UserService,VL.Research.Models.GetListConfigRequest)">
+            <summary>
+            获取 列表配置
+            </summary>
+            <param name="userService"></param>
+            <param name="request">请求参数实体</param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.SystemController.GetListConfigByDirectoryName(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="viewName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.SystemController.GetSQLConfigByDirectoryName(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="viewName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.SystemController.GetCommonList(VL.Research.Services.SharedService,VL.Research.Models.GetCommonSelectRequest)">
             <summary>
             获取 通用分页列表
             </summary>

@@ -14,6 +14,8 @@
     <None Remove="XMLConfig\DetailConfig.xml" />
     <None Remove="XMLConfig\LIstConfig.xml" />
     <None Remove="XMLConfig\MenuConfig.xml" />
+    <None Remove="XMLConfig\PregnantInfo\ListConfig.xml" />
+    <None Remove="XMLConfig\PregnantInfo\SQLConfig.xml" />
     <None Remove="XMLConfig\SQLConfig.xml" />
   </ItemGroup>
 
@@ -22,6 +24,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="XMLConfig\DetailConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="XMLConfig\PregnantInfo\ListConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="XMLConfig\PregnantInfo\SQLConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="XMLConfig\SQLConfig.xml">

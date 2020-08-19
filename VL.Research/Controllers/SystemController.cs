@@ -110,7 +110,7 @@ namespace VL.Research.Controllers
         /// </summary>
         /// <param name="viewName"></param>
         /// <returns></returns>
-        public static SQLConfig GetSQLConfigByName(string viewName)
+        public static SQLConfig GetSQLConfigByTagName(string viewName)
         {
             SQLConfig tableConfig;
             var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", "SQLConfig.xml");
@@ -129,7 +129,7 @@ namespace VL.Research.Controllers
         /// </summary>
         /// <param name="viewName"></param>
         /// <returns></returns>
-        public static ListConfig GetListConfigByName(string viewName)
+        public static ListConfig GetListConfigByTagName(string viewName)
         {
             ListConfig tableConfig;
             var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", "ListConfig.xml");
@@ -361,8 +361,8 @@ namespace VL.Research.Controllers
         //[Authorize]
         public APIResult<List<Dictionary<string, object>>, int> GetCommonSelect([FromServices] SharedService sharedService, GetCommonSelectRequest request)
         {
-            var ListConfig = GetListConfigByName(request.target);
-            var sqlConfig = GetSQLConfigByName(request.target);
+            var ListConfig = GetListConfigByTagName(request.target);
+            var sqlConfig = GetSQLConfigByTagName(request.target);
             sqlConfig.PageIndex = request.page;
             sqlConfig.PageSize = request.limit;
             sqlConfig.UpdateWheres(request.search);
@@ -370,7 +370,147 @@ namespace VL.Research.Controllers
             //获取数据
             var serviceResult = sharedService.GetCommonSelect(sqlConfig);
             if (!serviceResult.IsSuccess)
-                return Error(data1: serviceResult.Data.SourceData, data2: serviceResult.Data.Count, messages: serviceResult.Messages);
+                return Error<List<Dictionary<string, object>>,int>( null, 0, messages: serviceResult.Messages);
+            //更新显示映射(枚举,函数,脱敏)
+            ListConfig.UpdateValues(serviceResult.Data.SourceData);
+            return Success(serviceResult.Data.SourceData, serviceResult.Data.Count, serviceResult.Messages);
+        }
+
+        #endregion
+
+        #region CommonList
+
+
+        /// <summary>
+        /// 获取 列表配置
+        /// </summary>
+        /// <param name="userService"></param>
+        /// <param name="request">请求参数实体</param>
+        /// <returns></returns>
+        [HttpPost]
+        public APIResult<GetListConfigModel> GetListConfig_LayUIByDirectoryName([FromServices] UserService userService, GetListConfigRequest request)
+        {
+            if (request.ViewName.IsNullOrEmpty())
+                return null;
+            var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", request.ViewName, "ListConfig.xml");
+            XDocument doc = XDocument.Load(path);
+            var viewElements = doc.Descendants(ListConfig.NodeElementName);
+            var listConfigs = viewElements.Select(c => new ListConfig(c));
+            var listConfig = listConfigs.FirstOrDefault(c => c.ViewName == request.ViewName);
+            listConfig.Properties.RemoveAll(c => !c.IsNeedOnPage);
+            var result = new GetListConfigModel()
+            {
+                CustomConfigId = request.CustomConfigId,
+                ListConfig = listConfig,
+                search = listConfig.Wheres.Select(c => new GetListConfigModel_Search()
+                {
+                    name = c.ComponentName,
+                    text = c.DisplayName,
+                    type = c.DisplayType.ToInt().Value,
+                    value = c.DisplayValues ?? "",
+                    options = new GetListConfigModel_Search_Options(c.Options),
+                }).ToList(),
+                table = new GetListConfigModel_TableConfg()
+                {
+                    url = listConfig.ViewURL,
+                    add_btn = new GetListConfigModel_TableConfg_AddButton()
+                    {
+                        text = listConfig.AddButton.text,
+                        type = listConfig.AddButton.type,
+                        url = listConfig.AddButton.url,
+                        area = listConfig.AddButton.area,
+                        defaultParam = listConfig.AddButton.defaultParam
+                    },
+                    line_toolbar = listConfig.ToolBars.Select(c => new GetListConfigModel_TableConfg_ToolBar()
+                    {
+                        text = c.Text,
+                        type = c.Type,
+                        desc = c.Description,
+                        url = c.URL,
+                        @params = c.Params,
+                        area = c.Area,
+                        yesFun = c.YesFun,
+                        defaultParam = c.DefaultParams,
+                    }).ToList(),
+                    toolbar_viewModel = new GetListConfigModel_TableConfg_ViewModel(),
+                    page = true,
+                    limit = 20,
+                    initSort = new GetListConfigModel_TableConfg_InitSort(),
+                    cols = new List<List<GetListConfigModel_TableConfg_Col>>()
+                    {
+                        listConfig.Properties.Select(c => new GetListConfigModel_TableConfg_Col()
+                        {
+                            field = c.ColumnName,
+                            title = c.DisplayName,
+                            align = "center",
+                            templet ="",
+                            width=c.DisplayWidth,
+                            @fixed="",
+                            sort=c.IsSortable,
+                            colspan="",
+                            rowspan="",
+                        }).ToList()
+                    },
+                    where = new List<GetListConfigModel_TableConfg_Where>()
+                    {
+                        new GetListConfigModel_TableConfg_Where(){
+                            name = "target",
+                            value = request.ViewName,
+                        }
+                    },
+                },
+            };
+            return Success(result);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="viewName"></param>
+        /// <returns></returns>
+        public static ListConfig GetListConfigByDirectoryName(string viewName)
+        {
+            ListConfig tableConfig;
+            var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", viewName, "ListConfig.xml");
+            XDocument doc = XDocument.Load(path);
+            var tableElements = doc.Descendants(ListConfig.NodeElementName);
+            var tableConfigs = tableElements.Select(c => new ListConfig(c));
+            tableConfig = tableConfigs.FirstOrDefault();
+            return tableConfig;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="viewName"></param>
+        /// <returns></returns>
+        public static SQLConfig GetSQLConfigByDirectoryName(string viewName)
+        {
+            var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", viewName, "SQLConfig.xml");
+            XDocument doc = XDocument.Load(path);
+            var tableElements = doc.Descendants(SQLConfig.NodeElementName);
+            var tableConfigs = tableElements.Select(c => new SQLConfig(c));
+            return tableConfigs.FirstOrDefault();
+        }
+
+        /// <summary>
+        /// 获取 通用分页列表
+        /// </summary>
+        [HttpPost]
+        //[VLAuthentication(Authority.查看孕妇档案列表)]
+        //[Authorize]
+        public APIResult<List<Dictionary<string, object>>, int> GetCommonList([FromServices] SharedService sharedService, GetCommonSelectRequest request)
+        {
+            var ListConfig = GetListConfigByDirectoryName(request.target);
+            var sqlConfig = GetSQLConfigByDirectoryName(request.target);
+            sqlConfig.PageIndex = request.page;
+            sqlConfig.PageSize = request.limit;
+            sqlConfig.UpdateWheres(request.search);
+            sqlConfig.UpdateOrderBy(request.field, request.order);
+            //获取数据
+            var serviceResult = sharedService.GetCommonSelect(sqlConfig);
+            if (!serviceResult.IsSuccess)
+                return Error<List<Dictionary<string, object>>, int>(null, 0, messages: serviceResult.Messages);
             //更新显示映射(枚举,函数,脱敏)
             ListConfig.UpdateValues(serviceResult.Data.SourceData);
             return Success(serviceResult.Data.SourceData, serviceResult.Data.Count, serviceResult.Messages);

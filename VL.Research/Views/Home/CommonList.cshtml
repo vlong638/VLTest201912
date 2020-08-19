@@ -49,7 +49,7 @@
         layui.use(['layer', 'form', 'table', 'util', 'laydate'], function () {
             const $ = layui.jquery;
             var viewName = $("#viewName").val();
-            sendAjax('post', '../../api/System/GetListConfig_LayUI', JSON.stringify({ ViewName: viewName, CustomConfigId: 0 }), function (res) {
+            sendAjax('post', '../../api/System/GetListConfig_LayUIByDirectoryName', JSON.stringify({ ViewName: viewName, CustomConfigId: 0 }), function (res) {
                 if (res.code === 200) {
                     $('#root').renderTable(res.data, layui, parent.layui);
                 }
