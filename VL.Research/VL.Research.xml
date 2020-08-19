@@ -76,6 +76,11 @@
             
             </summary>
         </member>
+        <member name="P:VL.Research.Common.APIContext.CommonDbContext">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="M:VL.Research.Common.APIContext.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Microsoft.Extensions.Options.IOptions{VL.Research.Common.Configuration.DBConfig})">
             <summary>
             

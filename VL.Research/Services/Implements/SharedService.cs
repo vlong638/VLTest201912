@@ -17,7 +17,7 @@ namespace VL.Research.Services
     /// </summary>
     public class SharedService : BaseService
     {
-        DbContext dbContext;
+        APIContext dbContext;
         SharedRepository sharedRepository;
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace VL.Research.Services
         public SharedService(APIContext dbContext)
         {
             this.dbContext = dbContext;
-            sharedRepository = new SharedRepository(dbContext);
+            sharedRepository = new SharedRepository(dbContext.CommonDbContext);
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace VL.Research.Services
         /// </summary>
         public ServiceResult<VLPagerTableResult<List<Dictionary<string, object>>>> GetCommonSelect(SQLConfig sqlConfig)
         {
-            var result = dbContext.DelegateTransaction((g) =>
+            var result = dbContext.CommonDbContext.DelegateTransaction((g) =>
             {
                 var list = sharedRepository.GetCommonSelect(sqlConfig);
                 var count = sharedRepository.GetCommonSelectCount(sqlConfig);
@@ -46,7 +46,15 @@ namespace VL.Research.Services
 
         internal ServiceResult<DataTable> GetCommonSelect(ExportSource sourceConfig)
         {
-            var result = dbContext.DelegateTransaction((g) =>
+            var result = dbContext.CommonDbContext.DelegateTransaction((g) =>
+            {
+                return sharedRepository.GetCommonSelect(sourceConfig);
+            });
+            return result;
+        }
+        internal ServiceResult<DataTable> GetCommonSelectForFYPT(ExportSource sourceConfig)
+        {
+            var result = dbContext.FYPTDbContext.DelegateTransaction((g) =>
             {
                 return sharedRepository.GetCommonSelect(sourceConfig);
             });

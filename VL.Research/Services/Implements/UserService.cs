@@ -22,7 +22,7 @@ namespace VL.Research.Services
     /// </summary>
     public class UserService : BaseService, IAuthenticationService, IUserService
     {
-        DbContext dbContext { set; get; }
+        APIContext dbContext { set; get; }
         public IAuthenticationSchemeProvider Schemes { get; }
         public IAuthenticationHandlerProvider Handlers { get; }
         public IClaimsTransformation Transform { get; }
@@ -46,12 +46,12 @@ namespace VL.Research.Services
             this.Schemes = Schemes;
             this.Handlers = Handlers;
             this.Transform = Transform;
-            userRepository = new UserRepository(dbContext);
-            userAuthorityRepository = new UserAuthorityRepository(dbContext);
-            userRoleRepository = new UserRoleRepository(dbContext);
-            roleRepository = new RoleRepository(dbContext);
-            roleAuthorityRepository = new RoleAuthorityRepository(dbContext);
-            userMenuRepository = new UserMenuRepository(dbContext);
+            userRepository = new UserRepository(dbContext.CommonDbContext);
+            userAuthorityRepository = new UserAuthorityRepository(dbContext.CommonDbContext);
+            userRoleRepository = new UserRoleRepository(dbContext.CommonDbContext);
+            roleRepository = new RoleRepository(dbContext.CommonDbContext);
+            roleAuthorityRepository = new RoleAuthorityRepository(dbContext.CommonDbContext);
+            userMenuRepository = new UserMenuRepository(dbContext.CommonDbContext);
         }
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace VL.Research.Services
         /// <returns></returns>
         internal ServiceResult<bool> EditRoleAuthorities(long roleId, List<long>  authorityIds)
         {
-            return dbContext.DelegateTransaction((g) =>
+            return dbContext.CommonDbContext.DelegateTransaction((g) =>
             {
                 roleAuthorityRepository.DeleteBy(roleId);
                 var roleAuthorities = authorityIds.Select(c => new RoleAuthority() { RoleId = roleId, AuthorityId = c }).ToArray();
@@ -128,7 +128,7 @@ namespace VL.Research.Services
         /// <returns></returns>
         public ServiceResult<bool> EditUserRoles(long userId, IEnumerable<long> roleIds)
         {
-            return dbContext.DelegateTransaction((g) =>
+            return dbContext.CommonDbContext.DelegateTransaction((g) =>
             {
                 userRoleRepository.DeleteBy(userId);
                 var userRoles = roleIds.Select(c => new UserRole() { UserId = userId, RoleId = c }).ToArray();

@@ -9,5 +9,9 @@
         /// 
         /// </summary>
         public string ConnectionString { set; get; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string FYPTConnectionString { set; get; }
     }
 }

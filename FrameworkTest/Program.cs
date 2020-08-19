@@ -10,7 +10,6 @@ using FrameworkTest.Common.HttpSolution;
 using FrameworkTest.Common.ValuesSolution;
 using FrameworkTest.Common.XMLSolution;
 using FrameworkTest.ConfigurableEntity;
-using FrameworkTest.ExcelGenerator;
 using FrameworkTest.Kettle;
 using NPOI.XSSF.UserModel;
 using System;

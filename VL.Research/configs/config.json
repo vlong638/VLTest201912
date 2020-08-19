@@ -6,7 +6,8 @@
     }
   },
   "DB": {
-    "ConnectionString": "Data Source=127.0.0.1,1433;Initial Catalog=VLTest;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sa;Password=123"
+    "ConnectionString": "Data Source=127.0.0.1,1433;Initial Catalog=VLTest;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sa;Password=123",
+    "FYPTConnectionString": "Data Source=192.168.50.102,1433;Initial Catalog=fypt-dev;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=HZFYUSER;Password=HZFYPWD"
   },
   "Redis": {
     "LogLevel": {

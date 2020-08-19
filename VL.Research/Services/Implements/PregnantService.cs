@@ -17,7 +17,7 @@ namespace VL.Research.Services
     /// </summary>
     public class PregnantService : BaseService
     {
-        DbContext dbContext;
+        APIContext dbContext;
         PregnantInfoRepository pregnantInfoRepository;
         VisitRecordRepository visitRecordRepository;
         LabOrderRepository labOrderRepository;
@@ -30,10 +30,10 @@ namespace VL.Research.Services
         public PregnantService(APIContext dbContext)
         {
             this.dbContext = dbContext;
-            pregnantInfoRepository = new PregnantInfoRepository(dbContext);
-            visitRecordRepository = new VisitRecordRepository(dbContext);
-            labOrderRepository = new LabOrderRepository(dbContext);
-            labCheckRepository = new LabCheckRepository(dbContext);
+            pregnantInfoRepository = new PregnantInfoRepository(dbContext.CommonDbContext);
+            visitRecordRepository = new VisitRecordRepository(dbContext.CommonDbContext);
+            labOrderRepository = new LabOrderRepository(dbContext.CommonDbContext);
+            labCheckRepository = new LabCheckRepository(dbContext.CommonDbContext);
         }
 
         ///// <summary>
@@ -59,7 +59,7 @@ namespace VL.Research.Services
         /// <returns></returns>
         public ServiceResult<VLPagerResult<PagedListOfPregnantInfoModel>> GetPagedListOfPregnantInfo(GetPagedListOfPregnantInfoRequest request)
         {
-            var result = dbContext.DelegateTransaction((g) =>
+            var result = dbContext.CommonDbContext.DelegateTransaction((g) =>
             {
                 var list = pregnantInfoRepository.GetPregnantInfoPagedList(request);
                 var count = pregnantInfoRepository.GetPregnantInfoPagedListCount(request);
@@ -75,7 +75,7 @@ namespace VL.Research.Services
         /// <returns></returns>
         public ServiceResult<VLPagerTableResult<List<Dictionary<string, object>>>> GetConfigurablePagedListOfPregnantInfo(GetPagedListOfPregnantInfoRequest request)
         {
-            var result = dbContext.DelegateTransaction((g) =>
+            var result = dbContext.CommonDbContext.DelegateTransaction((g) =>
             {
                 var list = pregnantInfoRepository.GetConfigurablePregnantInfoPagedList(request);
                 var count = pregnantInfoRepository.GetPregnantInfoPagedListCount(request);
@@ -91,7 +91,7 @@ namespace VL.Research.Services
         /// <returns></returns>
         public ServiceResult<PregnantInfo> GetPregnantInfoByPregnantInfoId(long pregnantInfoId)
         {
-            var result = dbContext.DelegateTransaction((g) =>
+            var result = dbContext.CommonDbContext.DelegateTransaction((g) =>
             {
                 var pregnantInfo = pregnantInfoRepository.GetPregnantInfoById(pregnantInfoId);
                 return pregnantInfo;
@@ -106,7 +106,7 @@ namespace VL.Research.Services
         /// <returns></returns>
         public ServiceResult<VLPagerResult<PagedListOfVisitRecordModel>> GetPagedListOfVisitRecord(GetPagedListOfVisitRecordRequest request)
         {
-            var result = dbContext.DelegateTransaction((g) =>
+            var result = dbContext.CommonDbContext.DelegateTransaction((g) =>
             {
                 var list = visitRecordRepository.GetVisitRecordPagedList(request);
                 var count = visitRecordRepository.GetVisitRecordPagedListCount(request);
@@ -122,7 +122,7 @@ namespace VL.Research.Services
         /// <returns></returns>
         public ServiceResult<VLPagerResult<PagedListOfLabOrderModel>> GetPagedListOfLabOrder(GetPagedListOfLabOrderRequest request)
         {
-            var result = dbContext.DelegateTransaction((g) =>
+            var result = dbContext.CommonDbContext.DelegateTransaction((g) =>
             {
                 var list = labOrderRepository.GetLabOrderPagedList(request);
                 var count = labOrderRepository.GetLabOrderPagedListCount(request);

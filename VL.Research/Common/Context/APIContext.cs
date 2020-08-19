@@ -9,7 +9,7 @@ namespace VL.Research.Common
     /// <summary>
     /// 
     /// </summary>
-    public class APIContext:DbContext
+    public class APIContext
     {
         /// <summary>
         /// 
@@ -23,12 +23,20 @@ namespace VL.Research.Common
         /// <summary>
         /// 
         /// </summary>
+        public DbContext CommonDbContext { set; get; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public DbContext FYPTDbContext { set; get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public APIContext(IHttpContextAccessor httpContext, IOptions<DBConfig> loggingConfig) : base()
         {
             HttpContextAccessor = httpContext;
-
-            var connectingStr = DBHelper.GetDbConnection(loggingConfig.Value.ConnectionString);
-            DbGroup = new DbGroup(connectingStr);
+            CommonDbContext = new DbContext(DBHelper.GetDbConnection(loggingConfig.Value.ConnectionString));
+            FYPTDbContext = new DbContext(DBHelper.GetDbConnection(loggingConfig.Value.FYPTConnectionString));
         }
 
         #region Auth
