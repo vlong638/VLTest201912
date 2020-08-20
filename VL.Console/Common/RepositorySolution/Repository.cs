@@ -7,14 +7,17 @@ namespace VL.Consolo_Core.Common.RepositorySolution
     public class Repository<TEntity> : IRepository<TEntity>
         where TEntity : class
     {
-        protected DbContext _context;
-        protected IDbConnection _connection { get { return _context.DbGroup.Connection; } }
-        protected IDbCommand _command { get { return _context.DbGroup.Command; } }
+        public void UpdateDbContext (DbContext context){
+            this.context = context;
+        }
+        protected DbContext context;
+        protected IDbConnection _connection { get { return context.DbGroup.Connection; } }
+        protected IDbCommand _command { get { return context.DbGroup.Command; } }
         protected IDbTransaction _transaction { get { return _command.Transaction; } }
 
         public Repository(DbContext context)
         {
-            this._context = context;
+            this.context = context;
         }
 
         public long Insert(TEntity entity)

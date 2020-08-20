@@ -90,6 +90,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="XMLConfig\FYPT_PregnantInfo\ListConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLConfig\FYPT_PregnantInfo\SQLConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="XMLConfig\User\ListConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

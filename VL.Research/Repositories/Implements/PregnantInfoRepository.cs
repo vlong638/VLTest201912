@@ -17,7 +17,7 @@ namespace VL.Research.Repositories
 
         public IEnumerable<PregnantInfo> GetAll()
         {
-            return _context.DbGroup.Connection.Query<PregnantInfo>($"select * from [{PregnantInfo.TableName}] order by Id desc;", transaction: _transaction);
+            return context.DbGroup.Connection.Query<PregnantInfo>($"select * from [{PregnantInfo.TableName}] order by Id desc;", transaction: _transaction);
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace VL.Research.Repositories
         /// <returns></returns>
         public PregnantInfo GetPregnantInfoById(long pregnantInfoId)
         {
-            return _context.DbGroup.Connection.Query<PregnantInfo>($"select * from [{PregnantInfo.TableName}] where Id = @PregnantInfoId;", new { pregnantInfoId }, transaction: _transaction).FirstOrDefault();
+            return context.DbGroup.Connection.Query<PregnantInfo>($"select * from [{PregnantInfo.TableName}] where Id = @PregnantInfoId;", new { pregnantInfoId }, transaction: _transaction).FirstOrDefault();
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace VL.Research.Repositories
         {
             var sql = request.ToListSQL();
             var pars = request.GetParams();
-            return _context.DbGroup.Connection.Query<PagedListOfPregnantInfoModel>(sql, pars, transaction: _transaction).ToList();
+            return context.DbGroup.Connection.Query<PagedListOfPregnantInfoModel>(sql, pars, transaction: _transaction).ToList();
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace VL.Research.Repositories
             var sql = request.ToListSQL();
             var pars = request.GetParams();
             DataTable table = new DataTable("MyTable");
-            var reader = _context.DbGroup.Connection.ExecuteReader(sql, pars, transaction: _transaction);
+            var reader = context.DbGroup.Connection.ExecuteReader(sql, pars, transaction: _transaction);
             table.Load(reader);
             return table;
 
@@ -67,7 +67,7 @@ namespace VL.Research.Repositories
         {
             var sql = request.ToCountSQL();
             var pars = request.GetParams();
-            return _context.DbGroup.Connection.ExecuteScalar<int>(sql, pars, transaction: _transaction);
+            return context.DbGroup.Connection.ExecuteScalar<int>(sql, pars, transaction: _transaction);
         }
     }
 }

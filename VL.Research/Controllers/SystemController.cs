@@ -378,8 +378,30 @@ namespace VL.Research.Controllers
 
         #endregion
 
-        #region CommonList
+        #region CommonListForFYPT
 
+        /// <summary>
+        /// 获取 通用分页列表
+        /// </summary>
+        [HttpPost]
+        //[VLAuthentication(Authority.查看孕妇档案列表)]
+        //[Authorize]
+        public APIResult<List<Dictionary<string, object>>, int> GetCommonSelectForFYPT([FromServices] SharedService sharedService, GetCommonSelectRequest request)
+        {
+            var ListConfig = GetListConfigByDirectoryName(request.target);
+            var sqlConfig = GetSQLConfigByDirectoryName(request.target);
+            sqlConfig.PageIndex = request.page;
+            sqlConfig.PageSize = request.limit;
+            sqlConfig.UpdateWheres(request.search);
+            sqlConfig.UpdateOrderBy(request.field, request.order);
+            //获取数据
+            var serviceResult = sharedService.GetCommonSelectForFYPT(sqlConfig);
+            if (!serviceResult.IsSuccess)
+                return Error<List<Dictionary<string, object>>, int>(null, 0, messages: serviceResult.Messages);
+            //更新显示映射(枚举,函数,脱敏)
+            ListConfig.UpdateValues(serviceResult.Data.SourceData);
+            return Success(serviceResult.Data.SourceData, serviceResult.Data.Count, serviceResult.Messages);
+        }
 
         /// <summary>
         /// 获取 列表配置
@@ -396,7 +418,7 @@ namespace VL.Research.Controllers
             XDocument doc = XDocument.Load(path);
             var viewElements = doc.Descendants(ListConfig.NodeElementName);
             var listConfigs = viewElements.Select(c => new ListConfig(c));
-            var listConfig = listConfigs.FirstOrDefault(c => c.ViewName == request.ViewName);
+            var listConfig = listConfigs.FirstOrDefault();
             listConfig.Properties.RemoveAll(c => !c.IsNeedOnPage);
             var result = new GetListConfigModel()
             {
@@ -509,6 +531,29 @@ namespace VL.Research.Controllers
             sqlConfig.UpdateOrderBy(request.field, request.order);
             //获取数据
             var serviceResult = sharedService.GetCommonSelect(sqlConfig);
+            if (!serviceResult.IsSuccess)
+                return Error<List<Dictionary<string, object>>, int>(null, 0, messages: serviceResult.Messages);
+            //更新显示映射(枚举,函数,脱敏)
+            ListConfig.UpdateValues(serviceResult.Data.SourceData);
+            return Success(serviceResult.Data.SourceData, serviceResult.Data.Count, serviceResult.Messages);
+        }
+
+        /// <summary>
+        /// 获取 通用分页列表
+        /// </summary>
+        [HttpPost]
+        //[VLAuthentication(Authority.查看孕妇档案列表)]
+        //[Authorize]
+        public APIResult<List<Dictionary<string, object>>, int> GetCommonListForFYPT([FromServices] SharedService sharedService, GetCommonSelectRequest request)
+        {
+            var ListConfig = GetListConfigByDirectoryName(request.target);
+            var sqlConfig = GetSQLConfigByDirectoryName(request.target);
+            sqlConfig.PageIndex = request.page;
+            sqlConfig.PageSize = request.limit;
+            sqlConfig.UpdateWheres(request.search);
+            sqlConfig.UpdateOrderBy(request.field, request.order);
+            //获取数据
+            var serviceResult = sharedService.GetCommonSelectForFYPT(sqlConfig);
             if (!serviceResult.IsSuccess)
                 return Error<List<Dictionary<string, object>>, int>(null, 0, messages: serviceResult.Messages);
             //更新显示映射(枚举,函数,脱敏)

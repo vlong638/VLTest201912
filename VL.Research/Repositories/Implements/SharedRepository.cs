@@ -34,7 +34,7 @@ namespace VL.Research.Repositories
             var sql = sqlConfig.GetListSQL();
             var pars = sqlConfig.GetParams();
             DataTable table = new DataTable("MyTable");
-            var reader = _context.DbGroup.Connection.ExecuteReader(sql, pars, transaction: _transaction);
+            var reader = context.DbGroup.Connection.ExecuteReader(sql, pars, transaction: _transaction);
             table.Load(reader);
             return table;
         }
@@ -46,7 +46,7 @@ namespace VL.Research.Repositories
         {
             var sql = sqlConfig.GetCountSQL();
             var pars = sqlConfig.GetParams();
-            return _context.DbGroup.Connection.ExecuteScalar<int>(sql, pars, transaction: _transaction);
+            return context.DbGroup.Connection.ExecuteScalar<int>(sql, pars, transaction: _transaction);
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace VL.Research.Repositories
             var sql = config.GetListSQL();
             var pars = config.GetParams();
             DataTable table = new DataTable("MyTable");
-            var reader = _context.DbGroup.Connection.ExecuteReader(sql, pars, transaction: _transaction);
+            var reader = context.DbGroup.Connection.ExecuteReader(sql, pars, transaction: _transaction);
             table.Load(reader);
             return table;
         }

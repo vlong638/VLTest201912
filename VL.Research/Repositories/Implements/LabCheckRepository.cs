@@ -16,7 +16,7 @@ namespace VL.Research.Repositories
 
         public IEnumerable<LabCheck> GetAll()
         {
-            return _context.DbGroup.Connection.Query<LabCheck>($"select * from [{TableName}] order by Id desc;", transaction: _transaction);
+            return context.DbGroup.Connection.Query<LabCheck>($"select * from [{TableName}] order by Id desc;", transaction: _transaction);
         }
 
         //internal IEnumerable<PagedListOfLabCheckModel> GetLabCheckPagedList(GetPagedListOfLabCheckRequest request)
