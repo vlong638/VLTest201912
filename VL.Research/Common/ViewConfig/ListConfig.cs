@@ -314,7 +314,7 @@ namespace VL.Research.Common
         //"yesFun": "<弹窗确认调用函数>",
         public string YesFun { set; get; }
         //"defaultParam": [ "<固定参数>" ]
-        public string DefaultParams { set; get; }
+        public List<string> DefaultParams { set; get; }
 
         /// <summary>
         /// 
@@ -328,7 +328,7 @@ namespace VL.Research.Common
             Params = new List<string>();
             Area = new List<string>();
             YesFun = "";
-            DefaultParams = "";
+            DefaultParams = new List<string>();
         }
         /// <summary>
         /// 
@@ -343,7 +343,7 @@ namespace VL.Research.Common
             Params = element.Attribute(nameof(Params))?.Value?.Split(',').ToList();
             Area = element.Attribute(nameof(Area))?.Value.Split(',').ToList();
             YesFun = element.Attribute(nameof(YesFun))?.Value;
-            DefaultParams = element.Attribute(nameof(DefaultParams))?.Value;
+            DefaultParams = element.Attribute(nameof(DefaultParams))?.Value?.Split(',').ToList();
         }
     }
     /// <summary>

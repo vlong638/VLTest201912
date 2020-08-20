@@ -71,6 +71,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
         util = _layui.util,
         admin = _layui.admin;
     let html = ``;
+    let dataFieldSearch = [];
     _this.html("")
     html = `
         <div class="layui-card">
@@ -112,11 +113,15 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                 html += `</select></div></div>`
             }
             if (item.type === 5) {
+                if (typeof item.name === 'string') {
+                    alert("日期搜索参数必须以[\"开始日期参数名\",\"结束日期参数名\"]格式！")
+                    return;
+                }
                 html += `
                 <div class="layui-inline">
                     <label class="layui-form-label">` + item.text + `:</label>
                     <div class="layui-input-inline">
-                        <input name="` + item.name + `" class="layui-input icon-date datepicker" value="` + item.value + `"/>
+                        <input data-param="` + item.name.join('|') + `" name="` + item.name.join('|') + `" class="layui-input icon-date datepicker" value="` + item.value + `"/>
                     </div>
                 </div>`
             }
@@ -130,20 +135,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
         html += `</div>`
 
     }
-    html += `
-        <div style="flex: 1 0 100px;">
-            <div class="layui-inline" style="border: 1px solid #ccc;width: 26px;height: 26px;text-align: center;position: fixed;right: 55px;top: 35px;"
-                title="编辑并保存" id="MODEL_SAVE">
-                <i class="layui-icon layui-icon-edit"></i>
-            </div>`
 
-    if (!isBlank(_data.modelId)) {
-        html += `
-            <div class="layui-inline" style="border: 1px solid #ccc;width: 26px;height: 26px;text-align: center;position: fixed;right: 20px;top: 35px;"
-                title="删除" id="MODEL_DELETE">
-                <i class="layui-icon layui-icon-delete"></i>
-            </div>`
-    }
     html += `</div>`
 
     html += `</div></form>`
@@ -168,17 +160,27 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
             switch (item.type) {
                 case 'window': {
                     scriptObject += `<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="window"
-                        ` + (isBlank(item.defaultParam) ? '' : 'data-default="' + item.defaultParam.join('&') + '"') + ` data-url="` + item.url + `" data-params="` + item.params.join('|') + `" data-area='` + JSON.stringify(item.area) + `' data-yesFun="` + item.yesFun + `">` + item.text + `</a>`;
+                        ` + (isBlank(item.defaultParam) ? '' : 'data-default="' + item.defaultParam.join('&') + '"') + ` 
+                         data-url="` + item.url + `" 
+                         data-params="` + (isBlank(item.params) ? '' : item.params.join('|')) + `" 
+                         data-area='` + JSON.stringify(isBlank(item.area) ? ['500px', '500px'] : item.area) + `' 
+                         data-yesFun="` + (isBlank(item.yesFun) ? '' : item.yesFun) + `" 
+                         data-title="` + (isBlank(item.title) ? item.text : item.title) + `">` + item.text + `</a>`;
                     break;
                 }
                 case 'newPage': {
                     scriptObject += `<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="newPage"
-                        ` + (isBlank(item.defaultParam) ? '' : 'data-default="' + item.defaultParam.join('&') + '"') + ` data-url="` + item.url + `" data-params="` + item.params.join('|') + `">` + item.text + `</a>`;
+                        ` + (isBlank(item.defaultParam) ? '' : 'data-default="' + item.defaultParam.join('&') + '"') + ` 
+                         data-url="` + item.url + `" 
+                         data-params="` + item.params.join('|') + `">` + item.text + `</a>`;
                     break;
                 }
                 case 'confirm': {
                     scriptObject += `<a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="confirm"
-                        data-desc="` + item.desc + `" ` + (isBlank(item.defaultParam) ? '' : 'data-default="' + item.defaultParam.join('&') + '"') + ` data-url="` + item.url + `" data-params="` + item.params.join('|') + `">` + item.text + `</a>`;
+                        data-desc="` + item.desc + `" 
+                        data-url="` + item.url + `" 
+                        ` + (isBlank(item.defaultParam) ? '' : 'data-default="' + item.defaultParam.join('&') + '"') + `
+                        data-params="` + item.params.join('|') + `">` + item.text + `</a>`;
                     break;
                 }
             }
@@ -203,7 +205,13 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
 
     let THToolbar = ['<p>']
     if (!isBlank(_data.table.add_btn)) {
-        THToolbar.push('<button lay-event="add" ' + (isBlank(_data.table.add_btn.defaultParam) ? '' : 'data-default="' + _data.table.add_btn.defaultParam.join('&') + '"') + ' data-url="' + _data.table.add_btn.url + '" data-area=\'' + JSON.stringify(_data.table.add_btn.area) + '\' data-type="' + _data.table.add_btn.type + '" class="layui-btn layui-btn-sm icon-btn"><i class="layui-icon">&#xe654;</i>' + _data.table.add_btn.text + '</button>&nbsp;')
+        THToolbar.push(`<button lay-event="add" 
+             ` + (isBlank(_data.table.add_btn.defaultParam) ? '' : 'data-default="' + _data.table.add_btn.defaultParam.join('&') + '"') + ` 
+             data-url="` + _data.table.add_btn.url + `" 
+             data-area='` + JSON.stringify(_data.table.add_btn.area) + `' 
+             data-type="` + (isBlank(_data.table.add_btn.type) ? 'window' : _data.table.add_btn.type) + `" 
+             data-title="` + (isBlank(_data.table.add_btn.title) ? _data.table.add_btn.text : _data.table.add_btn.title) + `" 
+             class="layui-btn layui-btn-sm icon-btn"><i class="layui-icon">&#xe654;</i>` + _data.table.add_btn.text + `</button>&nbsp;`);
     }
     THToolbar.push('</p>')
     /*['<p>',
@@ -211,6 +219,27 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
     // '<button lay-event="del" class="layui-btn layui-btn-sm layui-btn-danger icon-btn"><i class="layui-icon">&#xe640;</i>删除</button>',
     '</p>']*/
     // 表格渲染
+
+    let DTB = [{
+        title: '编辑并保存当前页面', //标题
+        layEvent: 'MODEL_SAVE', //事件名，用于 toolbar 事件中使用
+        icon: 'layui-icon-edit' //图标类名
+    }];
+    if (!isBlank(_data.modelId)) {
+        DTB.push({
+            title: '删除当前页面', //标题
+            layEvent: 'MODEL_DELETE', //事件名，用于 toolbar 事件中使用
+            icon: 'layui-icon-delete' //图标类名
+        })
+    }
+    if (!isBlank(_data.exportUrl)) {
+        DTB.push({
+            title: '导出', //标题
+            layEvent: 'TABLE_EXPORTS', //事件名，用于 toolbar 事件中使用
+            icon: 'layui-icon-export' //图标类名
+        })
+    }
+
     let dataTable = _layui.table.render({
         elem: '#dataTable',
         url: _data.table.url,
@@ -219,6 +248,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
         contentType: "application/json",
         page: _data.table.page,
         toolbar: THToolbar.join(''),
+        defaultToolbar: DTB,
         cellMinWidth: 100,
         limit: _data.table.limit,
         initSort: isBlank(_data.table.initSort) ? {} : _data.table.initSort,
@@ -250,64 +280,46 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
     /* 表格搜索 */
     form.on('submit(tbSearch)', function (data) {
         data.field.search = [];
+        let needSplit = [];
+        $('.datepicker').each(function () {
+            needSplit.push($(this).attr('data-param'))
+        })
         for (let i in data.field) {
             if (i !== 'search') {
+                //此处是为了保存每次搜索的参数
                 $.each(_data.search, function (index, item) {
-                    if (item.name === i) {
-                        if (item.type === 3 || item.type === 4) {
-                            $.each(item.options, function (_index, _item) {
-                                _item.checked = _item.value === data.field[i];
-                            })
+                    if (typeof item.name === 'string') {
+                        if (item.name === i) {
+                            if (item.type === 3 || item.type === 4) {
+                                $.each(item.options, function (_index, _item) {
+                                    _item.checked = _item.value === data.field[i];
+                                })
+                            } else {
+                                item.value = data.field[i];
+                            }
+                        }
+                    } else {
+                        if (item.name.join('|') === i) {
+                            item.value = data.field[i];
                         }
                     }
                 })
-                data.field.search.push({ key: i, value: data.field[i] })
+                // 此处是为了把格式转换成key,value型
+                if (needSplit.indexOf(i) !== -1) {
+                    // 日期特殊处理
+                    let param = i.split('|');
+                    let value = data.field[i].split(' - ');
+                    data.field.search.push({ key: param[0], value: value[0] })
+                    data.field.search.push({ key: param[1], value: value[1] })
+                } else {
+                    data.field.search.push({ key: i, value: data.field[i] })
+                }
             }
         }
+        dataFieldSearch = data.field.search;
+        console.log(dataFieldSearch);
         dataTable.reload({ where: data.field, page: { curr: 1 } });
-        return false;
-    });
 
-    $('#MODEL_SAVE').on('click', function () {
-        layer.prompt({
-            formType: 0,
-            value: isBlank(_data.modelName) ? '' : _data.modelName,
-            title: '请输入模版名称',
-            area: ['800px', '350px'], //自定义文本域宽高
-            btn: ['保存', '取消']
-        }, function (value, index, elem) {
-            _data.modelId = isBlank(_data.modelId) ? "" : _data.modelId
-            _data.modelName = value
-            $.post(_data.saveModelUrl, JSON.stringify(_data), function (res) {
-                layer.close(loadIndex);
-                if (res.code === 200) {
-                    layer.msg(res.msg, { icon: 1 });
-                } else {
-                    layer.msg(res.msg, { icon: 2 });
-                }
-            }, 'json');
-            layer.close(index);
-        });
-        return false;
-    });
-
-    $('#MODEL_DELETE').on('click', function () {
-        layer.confirm("确认删除此模版？", {
-            skin: 'layui-layer-admin',
-            shade: .1
-        }, function (i) {
-            console.log("_data.deleteModelUrl = " + _data.deleteModelUrl);
-            $.get(_data.deleteModelUrl, { modelId: _data.modelId }, function (res) {
-                layer.close(loadIndex);
-                if (res.code === 200) {
-                    layer.msg(res.msg, { icon: 1 });
-                    _parent.location.reload();
-                    _parent.admin.events.closeThisTabs();
-                } else {
-                    layer.msg(res.msg, { icon: 2 });
-                }
-            }, 'json');
-        });
         return false;
     });
 
@@ -336,6 +348,54 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                 })
             }
         }
+        if (!isBlank(_data.exportUrl) && obj.event === 'TABLE_EXPORTS') {
+            sendAjax('post', _data.exportUrl, JSON.stringify({ search: dataFieldSearch }), function (res) {
+                layer.msg("导出成功", { icon: 1 });
+            }, "application/json", "json", function (res) {
+                layer.msg("导出失败", { icon: 2 });
+            })
+        }
+        if (obj.event === 'MODEL_DELETE') {
+            layer.confirm("确认删除此模版？", {
+                skin: 'layui-layer-admin',
+                shade: .1
+            }, function (i) {
+                console.log("_data.deleteModelUrl = " + _data.deleteModelUrl);
+                $.get(_data.deleteModelUrl, { modelId: _data.modelId }, function (res) {
+                    layer.close(loadIndex);
+                    if (res.code === 200) {
+                        layer.msg(res.msg, { icon: 1 });
+                        _parent.location.reload();
+                        _parent.admin.events.closeThisTabs();
+                    } else {
+                        layer.msg(res.msg, { icon: 2 });
+                    }
+                }, 'json');
+            });
+            return false;
+        }
+        if (obj.event === 'MODEL_SAVE') {
+            layer.prompt({
+                formType: 0,
+                value: isBlank(_data.modelName) ? '' : _data.modelName,
+                title: '请输入模版名称',
+                area: ['800px', '350px'], //自定义文本域宽高
+                btn: ['保存', '取消']
+            }, function (value, index, elem) {
+                _data.modelId = isBlank(_data.modelId) ? "" : _data.modelId
+                _data.modelName = value
+                $.post(_data.saveModelUrl, JSON.stringify(_data), function (res) {
+                    layer.close(loadIndex);
+                    if (res.code === 200) {
+                        layer.msg(res.msg, { icon: 1 });
+                    } else {
+                        layer.msg(res.msg, { icon: 2 });
+                    }
+                }, 'json');
+                layer.close(index);
+            });
+            return false;
+        }
     });
 
     /* 表格工具条点击事件 */
@@ -351,7 +411,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
             admin.open({
                 type: 2,
                 area: JSON.parse(_this.attr('data-area')),
-                title: 'a',
+                title: _this.attr('data-title'),
                 content: [url],
                 btn: ['确认', '取消'],
                 success: function (layero, dIndex) {
@@ -367,9 +427,13 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                 }
             });
         } else if (obj.event === 'newPage') { // 新标签页
-            newTab(url, _this.text(), function () {
-                dataTable.reload({ page: { curr: 1 } });
-            })
+            if (index === undefined) {
+                window.open(url);
+            } else {
+                newTab(url, _this.text(), function () {
+                    dataTable.reload({ page: { curr: 1 } });
+                })
+            }
         } else if (obj.event === 'confirm') { // 提示框
             url = _this.attr('data-url')
             if (!isBlank(_this.attr('data-default'))) {
@@ -457,7 +521,7 @@ jQuery.prototype.renderForm = function (_data, _layui, _parent) {
         } else {
             console.log(!card.isTextArea);
             html += `
-                <div class="layui-form-item layui-row">
+                <div data-name="` + '' + `" class="layui-form-item layui-row">
                     <div class="layui-inline layui-col-md12">
                         <label class="layui-form-label` + (card.areaRequired ? ' layui-form-required' : '') + `">` + card.areaText + `:</label>
                         <div class="layui-input-block">
@@ -471,8 +535,6 @@ jQuery.prototype.renderForm = function (_data, _layui, _parent) {
                 </div>
             </div>`
     })
-
-    console.log(html);
 
     _this.append(html);
 
@@ -489,6 +551,8 @@ jQuery.prototype.renderForm = function (_data, _layui, _parent) {
     }
 
     function setDefaultValue() {
+        // let url = isBlank(_data.getUrl_param) ? _data.getUrl : _data.getUrl + '?' + _data.getUrl_param.join('&');
+        console.log(_data.getUrl + location.search);
         let url = _data.getUrl + location.search;
         sendAjax('get', url, {}, function (res) {
             form.val('formAdvForm', res.data);
@@ -499,8 +563,8 @@ jQuery.prototype.renderForm = function (_data, _layui, _parent) {
 
     // 表单提交事件
     form.on('submit(formAdvSubmit)', function (data) {
-        data.field = getValue(data.field);
         console.log(data.field);
+        data.field = getValue(data.field);
         let loadIndex = layer.load(2);
         sendAjax('post', _data.saveUrl
             , JSON.stringify(data.field)
@@ -534,6 +598,20 @@ jQuery.prototype.renderForm = function (_data, _layui, _parent) {
             trigger: 'click'
         });
     })
+
+    $('.multipleSelect').each(function () {
+        let _this = $(this);
+        let data = JSON.parse($(this).attr("data-selectData"));
+        xmSelect.render({
+            el: '#demo1',
+            data: [
+                { name: '张三', value: 1 },
+                { name: '李四', value: 2 },
+                { name: '王五', value: 3 },
+            ]
+        })
+    })
+
 
     function getValue(data) {
         $('.rangeDate').each(function () {
@@ -571,11 +649,12 @@ jQuery.prototype.renderForm = function (_data, _layui, _parent) {
         })
 
         return html;
+    }
 
-        function getElement(html, element) {
-            switch (element.attr.type) {
-                case 1: {
-                    html += `
+    function getElement(html, element) {
+        switch (element.attr.type) {
+            case 1: {
+                html += `
                     <div class="layui-inline layui-col-md` + element.width + `">
                         <label class="layui-form-label` + (element.attr.required ? ' layui-form-required' : '') + `">` + element.attr.text + `:</label>
                         <div class="layui-input-block">
@@ -583,11 +662,11 @@ jQuery.prototype.renderForm = function (_data, _layui, _parent) {
                                 value="` + (isBlank(element.attr.value) ? "" : element.attr.value) + `" placeholder="请输入"/>
                         </div>
                     </div>`;
-                    break;
-                }
-                case 2: {
-                    if (element.attr.range) {
-                        html += `
+                break;
+            }
+            case 2: {
+                if (element.attr.range) {
+                    html += `
                         <div class="layui-inline layui-col-md` + element.width + `">
                             <label class="layui-form-label` + (element.attr.required ? ' layui-form-required' : '') + `">` + element.attr.text + `:</label>
                             <div class="layui-input-block" style="text-align: center;line-height: 36px">
@@ -598,8 +677,8 @@ jQuery.prototype.renderForm = function (_data, _layui, _parent) {
                                 ` + (element.attr.required ? ' lay-verify="required" required' : '') + `value="` + element.attr.value[1] + `" placeholder="请输入"/>
                             </div>
                         </div>`;
-                    } else {
-                        html += `
+                } else {
+                    html += `
                         <div class="layui-inline layui-col-md` + element.width + `">
                             <label class="layui-form-label` + (element.attr.required ? ' layui-form-required' : '') + `">` + element.attr.text + `:</label>
                             <div class="layui-input-block">
@@ -607,59 +686,59 @@ jQuery.prototype.renderForm = function (_data, _layui, _parent) {
                                     ` + (element.attr.required ? ' lay-verify="required" required' : '') + ` placeholder="请输入"/>
                             </div>
                         </div>`;
-                    }
-                    break;
                 }
-                case 3: {
-                    html += `
+                break;
+            }
+            case 3: {
+                html += `
                     <div class="layui-inline layui-col-md` + element.width + `">
                         <label class="layui-form-label` + (element.attr.required ? ' layui-form-required' : '') + `">` + element.attr.text + `:</label>
                         <div class="layui-input-block">
                             <select name="` + element.attr.param + `" ` + (element.attr.required ? ' lay-verify="required" required' : '') + `>
                                 <option value="">请选择</option>`;
-                    $.each(element.attr.options, function (index, option) {
-                        html += `<option value="` + option.value + `" ` + (option.checked ? 'selected' : '') + `>` + option.text + `</option>`
-                    })
-                    html += `
+                $.each(element.attr.options, function (index, option) {
+                    html += `<option value="` + option.value + `" ` + (option.checked ? 'selected' : '') + `>` + option.text + `</option>`
+                })
+                html += `
                             </select>
                         </div>
                     </div>`;
-                    break;
-                }
-                case 4: {
-                    html += `
+                break;
+            }
+            case 4: {
+                html += `
                     <div class="layui-inline layui-col-md` + element.width + `">
                         <label class="layui-form-label` + (element.attr.required ? ' layui-form-required' : '') + `">` + element.attr.text + `:</label>
                         <div class="layui-input-block">`;
-                    $.each(element.attr.options, function (index, option) {
-                        html += `<input type="radio" name="` + element.attr.param + `" value="` + option.value + `" lay-skin="primary" title="` + option.text + `"` + (option.checked ? 'checked=""' : '') + `>`
-                    })
-                    html += `</div></div>`;
-                    break;
-                }
-                case 5: {
-                    html += `
+                $.each(element.attr.options, function (index, option) {
+                    html += `<input type="radio" name="` + element.attr.param + `" value="` + option.value + `" lay-skin="primary" title="` + option.text + `"` + (option.checked ? 'checked=""' : '') + `>`
+                })
+                html += `</div></div>`;
+                break;
+            }
+            case 5: {
+                html += `
                     <div class="layui-inline layui-col-md` + element.width + `">
                         <label class="layui-form-label` + (element.attr.required ? ' layui-form-required' : '') + `">` + element.attr.text + `:</label>
                         <div class="layui-input-block">`;
-                    $.each(element.attr.options, function (index, option) {
-                        html += `<input data-type="checkbox" type="checkbox" name="` + element.attr.param + `" value="` + option.value + `" lay-skin="primary" title="` + option.text + `"` + (option.checked ? ' checked=""' : '') + `>`
-                    })
-                    html += `</div></div>`;
-                    break;
-                }
-                case 6: {
-                    html += `
+                $.each(element.attr.options, function (index, option) {
+                    html += `<input data-type="checkbox" type="checkbox" name="` + element.attr.param + `" value="` + option.value + `" lay-skin="primary" title="` + option.text + `"` + (option.checked ? ' checked=""' : '') + `>`
+                })
+                html += `</div></div>`;
+                break;
+            }
+            case 6: {
+                html += `
                     <div class="layui-inline layui-col-md` + element.width + `">
                         <label class="layui-form-label` + (element.attr.required ? ' layui-form-required' : '') + `">` + element.attr.text + `:</label>
                         <div class="layui-input-block">
                             <input type="checkbox" name="` + element.attr.param + `" lay-skin="switch" lay-text="是|否"` + (element.attr.value ? ' checked=""' : '') + `>
                         </div>
                     </div>`;
-                    break;
-                }
-                case 7: {
-                    html += `
+                break;
+            }
+            case 7: {
+                html += `
                     <div class="layui-inline layui-col-md` + element.width + `">
                         <label class="layui-form-label` + (element.attr.required ? ' layui-form-required' : '') + `">` + element.attr.text + `:</label>
                         <div class="layui-input-block">
@@ -667,10 +746,10 @@ jQuery.prototype.renderForm = function (_data, _layui, _parent) {
                                    ` + (element.attr.required ? ' lay-verify="required" required' : '') + ` value="` + (isBlank(element.attr.value) ? "" : element.attr.value) + `" placeholder="请输入"/>
                         </div>
                     </div>`;
-                    break;
-                }
-                case 8: {
-                    html += `
+                break;
+            }
+            case 8: {
+                html += `
                     <div class="layui-inline layui-col-md` + element.width + `">
                         <label class="layui-form-label` + (element.attr.required ? ' layui-form-required' : '') + `">` + element.attr.text + `:</label>
                         <div class="layui-input-block">
@@ -679,15 +758,14 @@ jQuery.prototype.renderForm = function (_data, _layui, _parent) {
                                 data-defaultValue="` + (isBlank(element.attr.value) ? "" : element.attr.value) + `" placeholder="请输入"></textarea>
                         </div>
                     </div>`;
-                    break;
-                }
-                case 9: {
-                    html += `<input style="display: none" name="` + element.attr.param + `" value="` + (isBlank(element.attr.value) ? "" : element.attr.value) + `"/>`;
-                    break;
-                }
+                break;
             }
-            return html;
+            case 9: {
+                html += `<input style="display: none" name="` + element.attr.param + `" value="` + (isBlank(element.attr.value) ? "" : element.attr.value) + `"/>`;
+                break;
+            }
         }
+        return html;
     }
 
 }

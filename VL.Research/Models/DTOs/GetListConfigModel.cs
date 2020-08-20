@@ -209,7 +209,7 @@ namespace VL.Research.Models
         /// <summary>
         /// 默认参数
         /// </summary>
-        public string defaultParam { set; get; }
+        public List<string> defaultParam { set; get; }
         /// <summary>
         /// 显示文本
         /// </summary>

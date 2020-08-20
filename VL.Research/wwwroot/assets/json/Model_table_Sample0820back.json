@@ -1,0 +1,187 @@
+{
+  "code": 200,
+  "msg": "",
+  "data": {
+    "modelId": "<模版ID>",
+    "modelName": "<模版名称>",
+    "saveModelUrl": "<保存模版URL>",
+    "deleteModelUrl": "<删除模版URL>",
+    "search": [
+      {
+        "name": "name",
+        "text": "姓名",
+        "type": 1,
+        "value": "姓名"
+      },
+      {
+        "name": "age",
+        "text": "年龄",
+        "type": 2,
+        "value": "20"
+      },
+      {
+        "name": "sex",
+        "text": "性别",
+        "type": 3,
+        "options": [
+          {
+            "name": "男",
+            "value": "1",
+            "checked": true
+          },
+          {
+            "name": "女",
+            "value": "2",
+            "checked": false
+          }
+        ]
+      },
+      {
+        "name": "createTime",
+        "text": "创建时间",
+        "type": 5,
+        "value": "2020-07-30 - 2020-07-30"
+      }
+    ],
+    "table": {
+      "url": "../assets/json/user.json",
+      "add_btn": {
+        "text": "添加",
+        "type": "newPage",
+        "url": "add",
+        "defaultParam": []
+      },
+      "line_toolbar": [
+        {
+          "text": "更多",
+          "type": "window",
+          "url": "/window",
+          "params": [ "userId", "username" ],
+          "defaultParam": [ "a=1" ]
+        },
+        {
+          "text": "修改",
+          "type": "newPage",
+          "url": "/newPage",
+          "params": [ "userId" ],
+          "defaultParam": [ "a=1" ]
+        },
+        {
+          "text": "删除",
+          "type": "confirm",
+          "desc": "是否删除",
+          "url": "/confirm",
+          "params": [ "userId" ],
+          "defaultParam": [ "a=1" ]
+        }
+      ],
+      "toolbar_viewModel": {
+        "model": [
+          {
+            "text": "账号",
+            "type": "1",
+            "param": "username",
+            "value": ""
+          },
+          {
+            "text": "用户名",
+            "type": "1",
+            "param": "nickName",
+            "value": ""
+          },
+          {
+            "text": "性别",
+            "type": "4",
+            "param": "sex",
+            "value": "1"
+          },
+          {
+            "text": "性别",
+            "type": "3",
+            "param": "sex",
+            "value": "1"
+          },
+          {
+            "text": "手机号",
+            "type": "1",
+            "param": "phone",
+            "value": ""
+          },
+          {
+            "text": "创建时间",
+            "type": "5",
+            "param": "createTime",
+            "value": ""
+          }
+        ],
+        "save_url": "/save_url",
+        "get_url": "/get_url",
+        "params": [ "id" ]
+      },
+      "page": true,
+      "limit": 10,
+      "initSort": {
+        "field": "<需要排序的字段名>",
+        "type": "<排序方式[desc|asc]>"
+      },
+      "cols": [
+        [
+          {
+            "field": "id",
+            "title": "编号",
+            "align": "center",
+            "templet": "",
+            "width": "100",
+            "type": null,
+            "fixed": "",
+            "sort": true,
+            "colspan": "",
+            "rowspan": ""
+          },
+          {
+            "field": "personname",
+            "title": "孕妇姓名",
+            "align": "center",
+            "templet": "",
+            "width": "100",
+            "type": null,
+            "fixed": "",
+            "sort": true,
+            "colspan": "",
+            "rowspan": ""
+          },
+          {
+            "field": "sexcode",
+            "title": "性别",
+            "align": "center",
+            "templet": "",
+            "width": "100",
+            "type": null,
+            "fixed": "",
+            "sort": true,
+            "colspan": "",
+            "rowspan": ""
+          },
+          {
+            "field": "idcard",
+            "title": "身份证号",
+            "align": "center",
+            "templet": "",
+            "width": "100",
+            "type": null,
+            "fixed": "",
+            "sort": false,
+            "colspan": "",
+            "rowspan": ""
+          }
+        ]
+      ],
+      "where": [
+        {
+          "name": "sex",
+          "value": "男"
+        }
+      ]
+    }
+  }
+}

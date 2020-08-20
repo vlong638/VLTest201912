@@ -6,120 +6,53 @@
     "modelName": "<模版名称>",
     "saveModelUrl": "<保存模版URL>",
     "deleteModelUrl": "<删除模版URL>",
+    "exportUrl": "<导出URL>",
     "search": [
       {
-        "name": "name",
-        "text": "姓名",
-        "type": 1,
-        "value": "姓名"
-      },
-      {
-        "name": "age",
-        "text": "年龄",
-        "type": 2,
-        "value": "20"
-      },
-      {
-        "name": "sex",
-        "text": "性别",
-        "type": 3,
-        "options": [
-          {
-            "name": "男",
-            "value": "1",
-            "checked": true
-          },
-          {
-            "name": "女",
-            "value": "2",
-            "checked": false
-          }
-        ]
-      },
-      {
-        "name": "createTime",
-        "text": "创建时间",
-        "type": 5,
-        "value": "2020-07-30 - 2020-07-30"
+        "name": "<用于搜索的参数名1[日期要传[\"startDateParam\",\"endDateParam\"]]>",
+        "type": "<类型[1-文本框|2-数字框|3-单选下拉框|4-树状下拉框|5-日期选择框][默认:1]>",
+        "value": "<默认值内容>",
+        "options": "<下拉框内容>"
       }
     ],
     "table": {
-      "url": "../assets/json/user.json",
+      "url": "<getList接口>",
       "add_btn": {
-        "text": "添加",
-        "type": "newPage",
-        "url": "add",
-        "defaultParam": []
+        "text": "<新增按钮文本>",
+        "type": "<[window-弹窗|newPage-新页面]>",
+        "title": "<弹窗标题>",
+        "url": "",
+        "area": [ "<弹窗宽高>" ],
+        "defaultParam": [ "<固定参数>" ]
       },
       "line_toolbar": [
         {
-          "text": "更多",
-          "type": "window",
-          "url": "/window",
-          "params": [ "userId", "username" ],
-          "defaultParam": [ "a=1" ]
-        },
-        {
-          "text": "修改",
-          "type": "newPage",
-          "url": "/newPage",
-          "params": [ "userId" ],
-          "defaultParam": [ "a=1" ]
-        },
-        {
-          "text": "删除",
-          "type": "confirm",
-          "desc": "是否删除",
-          "url": "/confirm",
-          "params": [ "userId" ],
-          "defaultParam": [ "a=1" ]
+          "text": "<行工具栏文本>",
+          "type": "<[window-弹窗|newPage-新页面|confirm-提示]>",
+          "title": "<弹窗标题>",
+          "desc": "<提示文本>",
+          "url": "<操作URL>",
+          "param": [ "<用于url的参数>" ],
+          "area": [ "<弹窗宽高>" ],
+          "yesFun": "<弹窗确认调用函数>",
+          "defaultParam": [ "<固定参数>" ]
         }
       ],
       "toolbar_viewModel": {
         "model": [
           {
-            "text": "账号",
-            "type": "1",
-            "param": "username",
-            "value": ""
-          },
-          {
-            "text": "用户名",
-            "type": "1",
-            "param": "nickName",
-            "value": ""
-          },
-          {
-            "text": "性别",
-            "type": "4",
-            "param": "sex",
-            "value": "1"
-          },
-          {
-            "text": "性别",
-            "type": "3",
-            "param": "sex",
-            "value": "1"
-          },
-          {
-            "text": "手机号",
-            "type": "1",
-            "param": "phone",
-            "value": ""
-          },
-          {
-            "text": "创建时间",
-            "type": "5",
-            "param": "createTime",
-            "value": ""
+            "text": "<字段中文名>",
+            "type": "<类型[1-文本框|2-文本域|3-下拉框|4-单选框|5-日期选择框]>",
+            "param": "<字段名>",
+            "value": "<默认值|下拉框内容>"
           }
         ],
-        "save_url": "/save_url",
-        "get_url": "/get_url",
-        "params": [ "id" ]
+        "get_url": "<用于 详情|编辑 时的查询接口>",
+        "save_url": "<用于 保存|编辑 时的保存接口>",
+        "param": [ "<用于查询接口的参数>" ]
       },
-      "page": true,
-      "limit": 10,
+      "page": "<是否分页[true|false][默认:true]>",
+      "limit": "<每页显示的条数[默认:10]>",
       "initSort": {
         "field": "<需要排序的字段名>",
         "type": "<排序方式[desc|asc]>"
@@ -127,61 +60,32 @@
       "cols": [
         [
           {
-            "field": "id",
-            "title": "编号",
-            "align": "center",
-            "templet": "",
-            "width": "100",
-            "type": null,
-            "fixed": "",
-            "sort": true,
-            "colspan": "",
-            "rowspan": ""
+            "field": "<参数名1>",
+            "title": "<参数中文名>",
+            "align": "<内容对齐方式[center|right|left][默认:center]>",
+            "templet": "<模版[就是这里写什么,就显示什么]>",
+            "width": "<单元格宽度[数字|百分比][默认:自动]>",
+            "type": "<列类型[normal-常规列|radio-单选框列|numbers-序号列][默认:normal]>",
+            "fixed": "<固定列[left|true-固定在左|right-固定在右][注意：如果是固定在左，该列必须放在表头最前面；如果是固定在右，该列必须放在表头最后面]>",
+            "sort": "<是否允许排序[true|false][默认:false]>",
+            "colspan": "单元格所占列数[用于多级表头][这种情况下不用设置field和width]",
+            "rowspan": "单元格所占行数[用于多级表头]"
           },
           {
-            "field": "personname",
-            "title": "孕妇姓名",
-            "align": "center",
-            "templet": "",
-            "width": "100",
-            "type": null,
-            "fixed": "",
-            "sort": true,
-            "colspan": "",
-            "rowspan": ""
-          },
-          {
-            "field": "sexcode",
-            "title": "性别",
-            "align": "center",
-            "templet": "",
-            "width": "100",
-            "type": null,
-            "fixed": "",
-            "sort": true,
-            "colspan": "",
-            "rowspan": ""
-          },
-          {
-            "field": "idcard",
-            "title": "身份证号",
-            "align": "center",
-            "templet": "",
-            "width": "100",
-            "type": null,
-            "fixed": "",
-            "sort": false,
-            "colspan": "",
-            "rowspan": ""
+            "field": "<参数名2>"
           }
+        ],
+        [
+          "如存在多级表头，则以此写法。不存在则忽略"
         ]
       ],
       "where": [
         {
-          "name": "sex",
-          "value": "男"
+          "name": "<初始参数名>",
+          "value": "<值>"
         }
       ]
     }
   }
 }
+

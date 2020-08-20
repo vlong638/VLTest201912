@@ -11,6 +11,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using VL.Consolo_Core.Common.ExcelExportSolution;
+using VL.Consolo_Core.Common.ServiceSolution;
 using VL.Consolo_Core.Common.ValuesSolution;
 using VL.Research.Common;
 using VL.Research.Models;
@@ -26,6 +27,11 @@ namespace VL.Research.Controllers
         }
 
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult Index2()
         {
             return View();
         }
@@ -158,7 +164,7 @@ namespace VL.Research.Controllers
         {
             return View();
         }
-        
+
         /// <summary>
         /// 编辑角色权限
         /// </summary>
@@ -363,7 +369,68 @@ namespace VL.Research.Controllers
                         sheetConfig.DataSources = new Dictionary<string, DataTable>();
                         foreach (var sourceConfig in sheetConfig.Sources)
                         {
-                            var result = service.GetCommonSelect(sourceConfig);
+                            var result = service.GetCommonSelectByExportConfig(sourceConfig);
+                            if (result.Data == null)
+                            {
+                                throw new NotImplementedException("无效的数据源:" + sourceConfig.SourceName);
+                            }
+                            sheetConfig.DataSources[sourceConfig.SourceName] = result.Data;
+                        }
+                        sheetConfig.Render(sheet);
+                    }
+                }
+                using (System.IO.Stream stream = System.IO.File.OpenWrite(outputPath))
+                {
+                    workbook.Write(stream);
+                }
+            }
+            var ss = System.IO.File.OpenRead(outputPath);
+            return File(ss, "application/vnd.android.package-archive", outputPath);
+        }
+
+        /// <summary>
+        /// 通用导出方案
+        /// </summary>
+        /// <param name="service"></param>
+        /// <param name="moduleName"></param>
+        /// <param name="exportName"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult CommonExportForFYPT([FromServices] SharedService service, string moduleName, string exportName)
+        {
+            exportName = "高危妊娠表";
+            var search = new List<VLKeyValue>() { new VLKeyValue("personname", "贾婷婷") };
+            var path = System.IO.Path.Combine(AppContext.BaseDirectory, @"XMLConfig", moduleName, exportName + ".xml");
+
+            XDocument doc = XDocument.Load(path);
+            var tableElements = doc.Descendants(ExportConfig.NodeElementName);
+            var configs = tableElements.Select(c => new ExportConfig(c));
+            var config = configs.FirstOrDefault();
+            if (config == null)
+            {
+                throw new NotImplementedException("无效的导出配置");
+            }
+            var modelPath = System.IO.Path.Combine(AppContext.BaseDirectory, @"Common\ExcelExportSolution", config.FileName);
+            var filename = DateTime.Now.ToString("yyyyMMdd_HHmmss") + config.FileName;
+            var outputPath = System.IO.Path.Combine(AppContext.BaseDirectory, @"Common\ExcelExportSolution", filename);
+            if (!System.IO.File.Exists(modelPath))
+            {
+                throw new NotImplementedException("模板文件不存在");
+            }
+            using (System.IO.FileStream s = System.IO.File.OpenRead(modelPath))
+            {
+                var workbook = new XSSFWorkbook(s);
+                foreach (var sheetConfig in config.Sheets)
+                {
+                    sheetConfig.UpdateWheres(search);
+                    var sheet = workbook.GetSheet(sheetConfig.SheetName);
+                    if (sheet != null)
+                    {
+                        sheetConfig.DataSources = new Dictionary<string, DataTable>();
+                        foreach (var sourceConfig in sheetConfig.Sources)
+                        {
+                            var result = service.GetCommonSelectByExportConfigForFYPT(sourceConfig);
                             if (result.Data == null)
                             {
                                 throw new NotImplementedException("无效的数据源:" + sourceConfig.SourceName);

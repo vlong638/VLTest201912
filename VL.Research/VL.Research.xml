@@ -1822,6 +1822,15 @@
             <param name="exportName"></param>
             <returns></returns>
         </member>
+        <member name="M:VL.Research.Controllers.HomeController.CommonExportForFYPT(VL.Research.Services.SharedService,System.String,System.String)">
+            <summary>
+            通用导出方案
+            </summary>
+            <param name="service"></param>
+            <param name="moduleName"></param>
+            <param name="exportName"></param>
+            <returns></returns>
+        </member>
         <member name="T:VL.Research.Controllers.PregnantController">
             <summary>
             控制器 孕妇信息
@@ -2272,12 +2281,12 @@
             </summary>
             <param name="dbContext"></param>
         </member>
-        <member name="M:VL.Research.Services.SharedService.GetCommonSelect(VL.Research.Common.SQLConfig)">
+        <member name="M:VL.Research.Services.SharedService.GetCommonSelectBySQLConfig(VL.Research.Common.SQLConfig)">
             <summary>
             通用查询模型
             </summary>
         </member>
-        <member name="M:VL.Research.Services.SharedService.GetCommonSelectForFYPT(VL.Research.Common.SQLConfig)">
+        <member name="M:VL.Research.Services.SharedService.GetCommonSelectBySQLConfigForFYPT(VL.Research.Common.SQLConfig)">
             <summary>
             通用查询模型
             </summary>

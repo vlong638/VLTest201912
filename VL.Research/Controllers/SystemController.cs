@@ -368,7 +368,7 @@ namespace VL.Research.Controllers
             sqlConfig.UpdateWheres(request.search);
             sqlConfig.UpdateOrderBy(request.field, request.order);
             //获取数据
-            var serviceResult = sharedService.GetCommonSelect(sqlConfig);
+            var serviceResult = sharedService.GetCommonSelectBySQLConfig(sqlConfig);
             if (!serviceResult.IsSuccess)
                 return Error<List<Dictionary<string, object>>,int>( null, 0, messages: serviceResult.Messages);
             //更新显示映射(枚举,函数,脱敏)
@@ -395,7 +395,7 @@ namespace VL.Research.Controllers
             sqlConfig.UpdateWheres(request.search);
             sqlConfig.UpdateOrderBy(request.field, request.order);
             //获取数据
-            var serviceResult = sharedService.GetCommonSelectForFYPT(sqlConfig);
+            var serviceResult = sharedService.GetCommonSelectBySQLConfigForFYPT(sqlConfig);
             if (!serviceResult.IsSuccess)
                 return Error<List<Dictionary<string, object>>, int>(null, 0, messages: serviceResult.Messages);
             //更新显示映射(枚举,函数,脱敏)
@@ -530,7 +530,7 @@ namespace VL.Research.Controllers
             sqlConfig.UpdateWheres(request.search);
             sqlConfig.UpdateOrderBy(request.field, request.order);
             //获取数据
-            var serviceResult = sharedService.GetCommonSelect(sqlConfig);
+            var serviceResult = sharedService.GetCommonSelectBySQLConfig(sqlConfig);
             if (!serviceResult.IsSuccess)
                 return Error<List<Dictionary<string, object>>, int>(null, 0, messages: serviceResult.Messages);
             //更新显示映射(枚举,函数,脱敏)
@@ -546,18 +546,18 @@ namespace VL.Research.Controllers
         //[Authorize]
         public APIResult<List<Dictionary<string, object>>, int> GetCommonListForFYPT([FromServices] SharedService sharedService, GetCommonSelectRequest request)
         {
-            var ListConfig = GetListConfigByDirectoryName(request.target);
+            var listConfig = GetListConfigByDirectoryName(request.target);
             var sqlConfig = GetSQLConfigByDirectoryName(request.target);
             sqlConfig.PageIndex = request.page;
             sqlConfig.PageSize = request.limit;
             sqlConfig.UpdateWheres(request.search);
             sqlConfig.UpdateOrderBy(request.field, request.order);
             //获取数据
-            var serviceResult = sharedService.GetCommonSelectForFYPT(sqlConfig);
+            var serviceResult = sharedService.GetCommonSelectBySQLConfigForFYPT(sqlConfig);
             if (!serviceResult.IsSuccess)
                 return Error<List<Dictionary<string, object>>, int>(null, 0, messages: serviceResult.Messages);
             //更新显示映射(枚举,函数,脱敏)
-            ListConfig.UpdateValues(serviceResult.Data.SourceData);
+            listConfig.UpdateValues(serviceResult.Data.SourceData);
             return Success(serviceResult.Data.SourceData, serviceResult.Data.Count, serviceResult.Messages);
         }
 

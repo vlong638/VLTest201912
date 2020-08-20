@@ -33,7 +33,7 @@ namespace VL.Research.Services
         /// <summary>
         /// 通用查询模型
         /// </summary>
-        public ServiceResult<VLPagerTableResult<List<Dictionary<string, object>>>> GetCommonSelect(SQLConfig sqlConfig)
+        public ServiceResult<VLPagerTableResult<List<Dictionary<string, object>>>> GetCommonSelectBySQLConfig(SQLConfig sqlConfig)
         {
             var result = dbContext.CommonDbContext.DelegateTransaction((g) =>
             {
@@ -47,7 +47,7 @@ namespace VL.Research.Services
         /// <summary>
         /// 通用查询模型
         /// </summary>
-        public ServiceResult<VLPagerTableResult<List<Dictionary<string, object>>>> GetCommonSelectForFYPT(SQLConfig sqlConfig)
+        public ServiceResult<VLPagerTableResult<List<Dictionary<string, object>>>> GetCommonSelectBySQLConfigForFYPT(SQLConfig sqlConfig)
         {
             var result = dbContext.FYPTDbContext.DelegateTransaction((g) =>
             {
@@ -59,9 +59,18 @@ namespace VL.Research.Services
             return result;
         }
 
-        internal ServiceResult<DataTable> GetCommonSelect(ExportSource sourceConfig)
+        internal ServiceResult<DataTable> GetCommonSelectByExportConfig(ExportSource sourceConfig)
         {
             var result = dbContext.CommonDbContext.DelegateTransaction((g) =>
+            {
+                return sharedRepository.GetCommonSelect(sourceConfig);
+            });
+            return result;
+        }
+
+        internal ServiceResult<DataTable> GetCommonSelectByExportConfigForFYPT(ExportSource sourceConfig)
+        {
+            var result = dbContext.FYPTDbContext.DelegateTransaction((g) =>
             {
                 return sharedRepository.GetCommonSelect(sourceConfig);
             });
