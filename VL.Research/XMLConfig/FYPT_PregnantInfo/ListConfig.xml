@@ -19,9 +19,8 @@
 			<Where ComponentName="!createdate" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="!建档日期" DisplayType="5"/>
 		</Wheres>
 		<OrderBy DefaultName ="createdate" DefaultValue ="desc"/>
-		<!--<AddButton text="导出" type="newPage" url="../../Home/GetCommonListForFYPT" area="400px,400px" defaultParam="" />-->
 		<ToolBars>
-			<ToolBar URL ="../Home/GetCommonListForFYPT" Params ="rowindex" DefaultParams="" Text="导出" Type = "newPage" Description = "" Area = "300px,400px" YesFun = "yesFun"/>
+			<ToolBar URL ="../Home/CommonExportForFYPT" Params ="idcard" DefaultParams="moduleName=FYPT_PregnantInfo,exportName=ExportConfig_List" Text="导出" Type = "newPage" Description = "" Area = "300px,400px" YesFun = "yesFun"/>
 		</ToolBars>
 		<Property IsNeedOnPage="true" DisplayName="行号" ColumnName="rowindex" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="bigint" Description="-" />
 		<Property IsNeedOnPage="true" DisplayName="保健册号" ColumnName="pregnantbookid" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="bigint" Description="-" />

@@ -139,6 +139,8 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
                 foreach (var where in wheres)
                 {
                     var whereConfig = sourceConfig.Wheres.FirstOrDefault(c => c.ComponentName.ToLower() == where.Key.ToLower());
+                    if (whereConfig == null)
+                        continue;
                     if (!where.Value.IsNullOrEmpty())
                     {
                         whereConfig.IsOn = true;

@@ -12,7 +12,7 @@
     <None Remove="VL.Research.xml" />
     <None Remove="XMLConfig\CustomConfig.xml" />
     <None Remove="XMLConfig\DetailConfig.xml" />
-    <None Remove="XMLConfig\FYPT_PregnantInfo\ExportConfig_List.xml" />
+    <None Remove="XMLConfig\FYPT_PregnantInfo\ExportConfig_高危妊娠表.xml" />
     <None Remove="XMLConfig\LIstConfig.xml" />
     <None Remove="XMLConfig\MenuConfig.xml" />
     <None Remove="XMLConfig\PregnantInfo\ListConfig.xml" />
@@ -27,7 +27,7 @@
     <Content Include="XMLConfig\DetailConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="XMLConfig\FYPT_PregnantInfo\ExportConfig_List.xml">
+    <Content Include="XMLConfig\FYPT_PregnantInfo\ExportConfig_高危妊娠表.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="XMLConfig\PregnantInfo\ListConfig.xml">
@@ -98,6 +98,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="XMLConfig\FYPT_PregnantInfo\SQLConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLConfig\FYPT_PregnantInfo\高危妊娠管理个案登记表.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="XMLConfig\User\ListConfig.xml">

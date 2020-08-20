@@ -400,8 +400,8 @@ namespace VL.Research.Controllers
         public IActionResult CommonExportForFYPT([FromServices] SharedService service, string moduleName, string exportName)
         {
             exportName = "高危妊娠表";
-            var search = new List<VLKeyValue>() { new VLKeyValue("personname", "贾婷婷") };
-            var path = System.IO.Path.Combine(AppContext.BaseDirectory, @"XMLConfig", moduleName, exportName + ".xml");
+            var search = new List<VLKeyValue>() { new VLKeyValue("idcard", "110101199003072025") };
+            var path = System.IO.Path.Combine(AppContext.BaseDirectory, @"XMLConfig", moduleName, "ExportConfig_" + exportName + ".xml");
 
             XDocument doc = XDocument.Load(path);
             var tableElements = doc.Descendants(ExportConfig.NodeElementName);
@@ -411,9 +411,9 @@ namespace VL.Research.Controllers
             {
                 throw new NotImplementedException("无效的导出配置");
             }
-            var modelPath = System.IO.Path.Combine(AppContext.BaseDirectory, @"Common\ExcelExportSolution", config.FileName);
+            var modelPath = System.IO.Path.Combine(AppContext.BaseDirectory, @"XMLConfig", moduleName, config.FileName);
             var filename = DateTime.Now.ToString("yyyyMMdd_HHmmss") + config.FileName;
-            var outputPath = System.IO.Path.Combine(AppContext.BaseDirectory, @"Common\ExcelExportSolution", filename);
+            var outputPath = System.IO.Path.Combine(AppContext.BaseDirectory, @"XMLConfig", moduleName, filename);
             if (!System.IO.File.Exists(modelPath))
             {
                 throw new NotImplementedException("模板文件不存在");
@@ -431,9 +431,9 @@ namespace VL.Research.Controllers
                         foreach (var sourceConfig in sheetConfig.Sources)
                         {
                             var result = service.GetCommonSelectByExportConfigForFYPT(sourceConfig);
-                            if (result.Data == null)
+                            if (!result.IsSuccess)
                             {
-                                throw new NotImplementedException("无效的数据源:" + sourceConfig.SourceName);
+                                throw new NotImplementedException("数据源存在异常:" + result.Message);
                             }
                             sheetConfig.DataSources[sourceConfig.SourceName] = result.Data;
                         }

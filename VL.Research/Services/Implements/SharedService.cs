@@ -72,6 +72,7 @@ namespace VL.Research.Services
         {
             var result = dbContext.FYPTDbContext.DelegateTransaction((g) =>
             {
+                sharedRepository = new SharedRepository(dbContext.FYPTDbContext);
                 return sharedRepository.GetCommonSelect(sourceConfig);
             });
             return result;
