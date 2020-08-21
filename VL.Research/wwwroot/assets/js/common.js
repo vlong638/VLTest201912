@@ -46,6 +46,7 @@ function sendAjax(type, url, data, successCallback, contentType = "application/j
         data: data,
         contentType: contentType,
         dataType: dataType,
+
         success: successCallback === null || typeof successCallback !== 'function' ? function (res) {
             console.log(res);
         } : successCallback,

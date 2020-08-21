@@ -10,14 +10,17 @@ namespace VL.Consolo_Core.Common.ExcelSolution
         /// 设置Cell的数据
         /// </summary>
         /// <param name="sheet"></param>
-        /// <param name="row"></param>
-        /// <param name="column"></param>
+        /// <param name="rowNum"></param>
+        /// <param name="columnNum"></param>
         /// <returns></returns>
-        public static void VLSetCellValue(this ISheet sheet, int row, int column, string value)
+        public static void VLSetCellValue(this ISheet sheet, int rowNum, int columnNum, string value)
         {
-            var cell = sheet.GetRow(row).GetCell(column);
+            var row = sheet.GetRow(rowNum);
+            if (row==null)
+                row = sheet.CreateRow(rowNum);
+            var cell = row.GetCell(columnNum);
             if (cell == null)
-                cell = sheet.GetRow(row).CreateCell(column);
+                cell = row.CreateCell(columnNum);
             cell.SetCellValue(value);
         }
         /// <summary>

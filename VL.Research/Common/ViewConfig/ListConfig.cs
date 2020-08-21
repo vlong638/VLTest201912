@@ -23,7 +23,10 @@ namespace VL.Research.Common
         /// 页面数据URL
         /// </summary>
         public string ViewURL { set; get; }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        public ListConfigExport Export { set; get; }
         /// <summary>
         /// 页面字段
         /// </summary>
@@ -60,6 +63,7 @@ namespace VL.Research.Common
         {
             ViewName = element.Attribute(nameof(ViewName)).Value;
             ViewURL = element.Attribute(nameof(ViewURL))?.Value;
+            Export = element.Descendants(ListConfigExport.ElementName).Select(c => new ListConfigExport(c)).FirstOrDefault() ?? new ListConfigExport();
             Properties = element.Descendants(ListConfigProperty.ElementName).Select(c => new ListConfigProperty(c)).ToList();
             Wheres = element.Descendants(ListConfigWhere.ElementName).Select(c => new ListConfigWhere(c)).ToList();
             OrderBys = element.Descendants(ListConfigOrderBy.ElementName).Select(c => new ListConfigOrderBy(c)).FirstOrDefault() ?? new ListConfigOrderBy();
@@ -171,6 +175,39 @@ namespace VL.Research.Common
         None = 0,
         And = 1,
         Or = 2,
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public class ListConfigExport
+    {
+        public const string ElementName = "Export";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ListConfigExport()
+        {
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="element"></param>
+        public ListConfigExport(XElement element)
+        {
+            URL = element.Attribute(nameof(URL))?.Value;
+            DefaultParams = element.Attribute(nameof(DefaultParams))?.Value?.Split(',').ToList();
+        }
+
+        /// <summary>
+        /// 项目名称
+        /// </summary>
+        public string URL { set; get; }
+        /// <summary>
+        /// 比较操作符
+        /// </summary>
+        public List<string> DefaultParams { set; get; }
     }
 
     /// <summary>

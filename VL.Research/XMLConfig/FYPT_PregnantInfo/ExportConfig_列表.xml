@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Exports>
+	<!--注意 保留字  ColumnName="target"-->
+	<Export ExportName="" FileName="列表.xlsx">
+		<Sheet SheetName="列表">
+			<Source SourceName="Data">
+				<Properties>
+					<Property IsOn="true" ColumnName="*" Alias ="row_number() over (@OrderBy) as rowindex
+					,p.id
+					,p.pregnantbookid
+					,p.personname 
+					,p.age as 孕妇年龄
+					,p.idcard as 身份证号
+					,p.realregioncode 
+					,hr.highrisklv as 高危等级
+					,p.dateofprenatal as 预产期
+					,p.mobilenumber as 联系电话
+					,p.createdate as 建档日期	
+					,p.gestationalweeks as 当前孕周
+					,p.husbandname as 丈夫姓名
+					,p.husbandmobile as 丈夫电话
+					,p.realregion_text as 现住地
+					,p.sourceunit as 建册机构
+					,p.manaunitid as 管理机构
+					,p.status as 结案
+					, p.createdate,hr.infectionflag
+					,p.mobilenumber, p.createtime, p.pregnantid
+					,(case when b.book_no is not null then 1 else 0 end) as mzscbindstatus"/>
+				</Properties>
+				<Wheres>
+					<Where ComponentName="personname" Formatter="%@personname%">personname like @personname</Where>
+					<Where ComponentName="idcard" Formatter="%@idcard%">idcard like @idcard</Where>
+					<Where ComponentName="pregnantbookid">pregnantbookid = @pregnantbookid</Where>
+					<Where ComponentName="istmp">istmp = @istmp</Where>
+					<Where ComponentName="status">status = @status</Where>
+				</Wheres>
+				<OrderBys>
+					<OrderBy ComponentName="createdate" Alias ="p.createdate"/>
+				</OrderBys>
+				<SQL>
+			select @Fields
+			from pregnantinfo p
+			left join (
+			select distinct book_no from mzsc_bind_info where type = 'pregnant'
+			) b on b.book_no = p.pregnantid
+			left join gy_fuwujg gy on p.createunitcode = gy.fuwujgbh
+			left join (
+			select
+			v.pregnantinfoid, max(v.highrisklevel) as highrisklv,max(v.infectionflag) as infectionflag
+			from v_all_visitrecord v
+			inner join(
+			select
+			a.pregnantinfoid as pregnantinfoid, max(a.visitdate) as visitdate
+			from
+			v_all_visitrecord a group by a.pregnantinfoid
+			) b on b.pregnantinfoid = v.pregnantinfoid and b.visitdate = v.visitdate
+			group by v.pregnantinfoid
+			) hr on hr.pregnantinfoid = p.id
+			@Wheres
+				</SQL>
+			</Source>
+		</Sheet>
+	</Export>
+</Exports>

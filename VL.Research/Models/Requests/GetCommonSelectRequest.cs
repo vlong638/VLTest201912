@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using VL.Consolo_Core.Common.ValuesSolution;
 
 namespace VL.Research.Models
 {
@@ -53,6 +54,6 @@ namespace VL.Research.Models
         /// <summary>
         /// 
         /// </summary>
-        public List<KeyValue> search { set; get; }
+        public List<VLKeyValue> search { set; get; }
     }
 }

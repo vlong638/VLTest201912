@@ -430,6 +430,11 @@
             页面数据URL
             </summary>
         </member>
+        <member name="P:VL.Research.Common.ListConfig.Export">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:VL.Research.Common.ListConfig.Properties">
             <summary>
             页面字段
@@ -494,6 +499,32 @@
         <member name="T:VL.Research.Common.LinkOperator">
             <summary>
             组合操作
+            </summary>
+        </member>
+        <member name="T:VL.Research.Common.ListConfigExport">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VL.Research.Common.ListConfigExport.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VL.Research.Common.ListConfigExport.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            
+            </summary>
+            <param name="element"></param>
+        </member>
+        <member name="P:VL.Research.Common.ListConfigExport.URL">
+            <summary>
+            项目名称
+            </summary>
+        </member>
+        <member name="P:VL.Research.Common.ListConfigExport.DefaultParams">
+            <summary>
+            比较操作符
             </summary>
         </member>
         <member name="T:VL.Research.Common.ListConfigWhere">
@@ -932,6 +963,26 @@
             列表控件配置
             </summary>
         </member>
+        <member name="P:VL.Research.Models.GetListConfigModel.export">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:VL.Research.Models.GetListConfigModel_Export">
+            <summary>
+            页面配置 模型子项
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.GetListConfigModel_Export.url">
+            <summary>
+            接口
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.GetListConfigModel_Export.defaultParam">
+            <summary>
+            默认参数
+            </summary>
+        </member>
         <member name="T:VL.Research.Models.GetListConfigModel_Search">
             <summary>
             页面配置 模型子项
@@ -1238,17 +1289,17 @@
             "rowspan": "单元格所占行数[用于多级表头]"
             </summary>
         </member>
-        <member name="T:VL.Research.Models.GetListConfigModel_TableConfg_Where">
+        <member name="T:VL.Research.Models.VLNameValue">
             <summary>
             页面配置 模型子项
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_Where.name">
+        <member name="P:VL.Research.Models.VLNameValue.name">
             <summary>
             字段名
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_Where.value">
+        <member name="P:VL.Research.Models.VLNameValue.value">
             <summary>
             默认值
             </summary>
@@ -1822,14 +1873,19 @@
             <param name="exportName"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.HomeController.CommonExportForFYPT(VL.Research.Services.SharedService,System.String,System.String)">
+        <member name="M:VL.Research.Controllers.HomeController.CommonExportForFYPT_Inline(VL.Research.Services.SharedService,System.String,System.String)">
             <summary>
             通用导出方案
             </summary>
-            <param name="service"></param>
+            <param name="sharedService"></param>
             <param name="moduleName"></param>
             <param name="exportName"></param>
             <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.HomeController.CommonExportForFYPT_All(VL.Research.Common.APIContext,VL.Research.Services.SharedService,VL.Research.Models.GetCommonSelectRequest)">
+            <summary>
+            获取 通用分页列表
+            </summary>
         </member>
         <member name="T:VL.Research.Controllers.PregnantController">
             <summary>
@@ -2006,7 +2062,7 @@
             获取 通用分页列表
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.SystemController.GetCommonSelectForFYPT(VL.Research.Services.SharedService,VL.Research.Models.GetCommonSelectRequest)">
+        <member name="M:VL.Research.Controllers.SystemController.GetCommonSelectForFYPT(VL.Research.Common.APIContext,VL.Research.Services.SharedService,VL.Research.Models.GetCommonSelectRequest)">
             <summary>
             获取 通用分页列表
             </summary>

@@ -92,7 +92,7 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
         {
             List<string> contentsToDeal = new List<string>();
             var rowsCount = sheet.LastRowNum;
-            for (int i = 0; i < rowsCount; i++)
+            for (int i = 0; i <= rowsCount; i++)
             {
                 var row = sheet.GetRow(i);
                 var columnsCount = row.LastCellNum;
@@ -214,7 +214,7 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
             var fields = propertiesIsOn.Count() == 0 ? "*" : string.Join(",", propertiesIsOn);
             sql = sql.Replace("@Fields", fields);
             var wheresIsOn = Wheres.Where(c => c.IsOn).Select(c => c.SQL);
-            var wheres = wheresIsOn.Count() == 0 ? "" : $"where {string.Join(",", wheresIsOn)}";
+            var wheres = wheresIsOn.Count() == 0 ? "" : $"where {string.Join(" and ", wheresIsOn)}";
             sql = sql.Replace("@Wheres", wheres);
             var orderByIsOn = OrderBys.FirstOrDefault(c => c.IsOn) ?? OrderBys.First();
             var orderBy = orderByIsOn.Alias;

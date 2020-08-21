@@ -3,6 +3,7 @@
 	<!--IsNeedOnPage="false" DisplayName="" (.+) Description="(\w+)"(.+)\r\n
 	IsNeedOnPage="true" DisplayName="$2" $1 Description="$2"$3\r\n-->
 	<View ViewName="PregnantInfo" ViewURL="../../api/System/GetCommonSelectForFYPT">
+		<Export URL="../../Home/CommonExportForFYPT_All"/>
 		<Wheres>
 			<!--"DisplayType <类型[1-文本框|2-数字框|3-单选下拉框|4-树状下拉框|5-日期选择框][默认:1]>",-->
 			<Where ComponentName="pregnantbookid" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="保健册号" DisplayType="1"/>
@@ -20,18 +21,18 @@
 		</Wheres>
 		<OrderBy DefaultName ="createdate" DefaultValue ="desc"/>
 		<ToolBars>
-			<ToolBar URL ="../Home/CommonExportForFYPT" Params ="idcard" DefaultParams="moduleName=FYPT_PregnantInfo,exportName=ExportConfig_List" Text="导出" Type = "newPage" Description = "" Area = "300px,400px" YesFun = "yesFun"/>
+			<ToolBar URL ="../Home/CommonExportForFYPT_Inline" Params ="idcard" DefaultParams="moduleName=FYPT_PregnantInfo,exportName=ExportConfig_List" Text="导出" Type = "newPage" Description = "" Area = "300px,400px" YesFun = "yesFun"/>
 		</ToolBars>
 		<Property IsNeedOnPage="true" DisplayName="行号" ColumnName="rowindex" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="bigint" Description="-" />
-		<Property IsNeedOnPage="true" DisplayName="保健册号" ColumnName="pregnantbookid" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="bigint" Description="-" />
+		<Property IsNeedOnPage="true" DisplayName="保健册号" ColumnName="pregnantbookid" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
 		<Property IsNeedOnPage="true" DisplayName="孕妇姓名" ColumnName="personname" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
-		<Property IsNeedOnPage="true" DisplayName="孕妇年龄" ColumnName="age" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="-" />
+		<Property IsNeedOnPage="true" DisplayName="孕妇年龄" ColumnName="age" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
 		<Property IsNeedOnPage="true" DisplayName="身份证号" ColumnName="idcard" DisplayType="None" DisplayWidth="200" IsSortable="False" DataType="varchar" Description="-" />
-		<Property IsNeedOnPage="true" DisplayName="高危等级" ColumnName="highrisklv" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="-" />
+		<Property IsNeedOnPage="true" DisplayName="高危等级" ColumnName="highrisklv" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
 		<Property IsNeedOnPage="true" DisplayName="预产期" ColumnName="dateofprenatal" DisplayType="None" DisplayWidth="200" IsSortable="False" DataType="varchar" Description="-" />
 		<Property IsNeedOnPage="true" DisplayName="联系电话" ColumnName="mobilenumber" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
 		<Property IsNeedOnPage="true" DisplayName="建档日期" ColumnName="createdate" DisplayType="None" DisplayWidth="200" IsSortable="False" DataType="varchar" Description="-" />
-		<Property IsNeedOnPage="true" DisplayName="当前孕周" ColumnName="gestationalweeks" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="-" />
+		<Property IsNeedOnPage="true" DisplayName="当前孕周" ColumnName="gestationalweeks" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
 		<Property IsNeedOnPage="true" DisplayName="丈夫姓名" ColumnName="husbandname" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
 		<Property IsNeedOnPage="true" DisplayName="丈夫电话" ColumnName="husbandmobile" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
 		<Property IsNeedOnPage="true" DisplayName="现住地" ColumnName="realregiontext" DisplayType="None" DisplayWidth="300" IsSortable="False" DataType="varchar" Description="-" />

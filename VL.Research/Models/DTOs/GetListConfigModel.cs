@@ -43,7 +43,26 @@ namespace VL.Research.Models
         /// 列表控件配置
         /// </summary>
         public GetListConfigModel_TableConfg table { set; get; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public GetListConfigModel_Export export { set; get; }
     }
+    /// <summary>
+    /// 页面配置 模型子项
+    /// </summary>
+    public class GetListConfigModel_Export
+    {
+        /// <summary>
+        /// 接口
+        /// </summary>
+        public string url { set; get; }
+        /// <summary>
+        /// 默认参数
+        /// </summary>
+        public List<VLKeyValue> defaultParam { set; get; }
+    }
+
     /// <summary>
     /// 页面配置 模型子项
     /// </summary>
@@ -164,7 +183,7 @@ namespace VL.Research.Models
         /// <summary>
         /// 列表 查询条件初始值
         /// </summary>
-        public List<GetListConfigModel_TableConfg_Where> where { set; get; }
+        public List<VLNameValue> where { set; get; }
     }
     /// <summary>
     /// 页面配置 模型子项
@@ -338,7 +357,7 @@ namespace VL.Research.Models
     /// <summary>
     /// 页面配置 模型子项
     /// </summary>
-    public class GetListConfigModel_TableConfg_Where
+    public class VLNameValue
     {
         /// <summary>
         /// 字段名

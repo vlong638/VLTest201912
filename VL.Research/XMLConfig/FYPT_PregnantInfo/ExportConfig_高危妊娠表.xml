@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Exports>
-	<Export ExportName="高危妊娠表" FileName="高危妊娠管理个案登记表.xlsx">
+	<!--注意 保留字  ColumnName="target"-->
+	<Export ExportName="" FileName="高危妊娠管理个案登记表.xlsx">
 		<Sheet SheetName="高危妊娠管理个案登记表">
 			<Source SourceName="PIData">
 				<Properties>

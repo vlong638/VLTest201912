@@ -71,7 +71,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
         util = _layui.util,
         admin = _layui.admin;
     let html = ``;
-    let dataFieldSearch = [];
+    let search = [];
     _this.html("")
     html = `
         <div class="layui-card">
@@ -128,7 +128,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
         })
         html += `
             <div class="layui-inline" style="flex: 1 0 0;">&emsp;
-                <button class="layui-btn icon-btn" lay-filter="tbSearch" lay-submit>
+                <button class="layui-btn icon-btn tbSearch" lay-filter="tbSearch" lay-submit>
                     <i class="layui-icon">&#xe615;</i>搜索
                 </button>
             </div>`
@@ -232,7 +232,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
             icon: 'layui-icon-delete' //图标类名
         })
     }
-    if (!isBlank(_data.exportUrl)) {
+    if (!isBlank(_data.export)) {
         DTB.push({
             title: '导出', //标题
             layEvent: 'TABLE_EXPORTS', //事件名，用于 toolbar 事件中使用
@@ -240,6 +240,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
         })
     }
 
+    let firstSearch = true;
     let dataTable = _layui.table.render({
         elem: '#dataTable',
         url: _data.table.url,
@@ -259,7 +260,10 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
         },
         cols: _data.table.cols,
         done: function (res, curr, count) {
-
+            if (firstSearch) {
+                firstSearch = !firstSearch;
+                $(".tbSearch").click();
+            }
         },
     });
 
@@ -316,8 +320,8 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                 }
             }
         }
-        dataFieldSearch = data.field.search;
-        console.log(dataFieldSearch);
+        search = data.field.search;
+        console.log(search);
         dataTable.reload({ where: data.field, page: { curr: 1 } });
 
         return false;
@@ -348,12 +352,24 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                 })
             }
         }
-        if (!isBlank(_data.exportUrl) && obj.event === 'TABLE_EXPORTS') {
-            sendAjax('post', _data.exportUrl, JSON.stringify({ search: dataFieldSearch }), function (res) {
-                layer.msg("导出成功", { icon: 1 });
-            }, "application/json", "json", function (res) {
-                layer.msg("导出失败", { icon: 2 });
+        if (!isBlank(_data.export) && obj.event === 'TABLE_EXPORTS') {
+            layer.msg("将使用上次搜索的内容进行导出");
+            if (isBlank(search)) {
+
+            }
+            $.each(_data.export.defaultParam, (index, item) => {
+                search.push(item);
             })
+            sendAjax('post', _data.export.url, JSON.stringify({ search })
+                , function (res) {
+                    layer.msg("导出成功", { icon: 1 });
+                }
+                , "application/json"
+                , "json"
+                , function (res) {
+                    layer.msg("导出失败", { icon: 2 });
+                }
+            )
         }
         if (obj.event === 'MODEL_DELETE') {
             layer.confirm("确认删除此模版？", {

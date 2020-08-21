@@ -92,7 +92,7 @@ namespace VL.Research.Common
                 }
             }
         }
-        internal void UpdateWheres(List<KeyValue> wheres)
+        internal void UpdateWheres(List<VLKeyValue> wheres)
         {
             if (wheres == null)
                 return;

@@ -11,7 +11,6 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using VL.Consolo_Core.Common.ExcelExportSolution;
-using VL.Consolo_Core.Common.ServiceSolution;
 using VL.Consolo_Core.Common.ValuesSolution;
 using VL.Research.Common;
 using VL.Research.Models;
@@ -391,13 +390,13 @@ namespace VL.Research.Controllers
         /// <summary>
         /// 通用导出方案
         /// </summary>
-        /// <param name="service"></param>
+        /// <param name="sharedService"></param>
         /// <param name="moduleName"></param>
         /// <param name="exportName"></param>
         /// <returns></returns>
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult CommonExportForFYPT([FromServices] SharedService service, string moduleName, string exportName)
+        public IActionResult CommonExportForFYPT_Inline([FromServices] SharedService sharedService, string moduleName, string exportName)
         {
             exportName = "高危妊娠表";
             var search = new List<VLKeyValue>() { new VLKeyValue("idcard", "110101199003072025") };
@@ -430,7 +429,7 @@ namespace VL.Research.Controllers
                         sheetConfig.DataSources = new Dictionary<string, DataTable>();
                         foreach (var sourceConfig in sheetConfig.Sources)
                         {
-                            var result = service.GetCommonSelectByExportConfigForFYPT(sourceConfig);
+                            var result = sharedService.GetCommonSelectByExportConfigForFYPT(sourceConfig);
                             if (!result.IsSuccess)
                             {
                                 throw new NotImplementedException("数据源存在异常:" + result.Message);
@@ -449,6 +448,83 @@ namespace VL.Research.Controllers
             return File(ss, "application/vnd.android.package-archive", outputPath);
         }
 
+        /// <summary>
+        /// 获取 通用分页列表
+        /// </summary>
+        [HttpPost]
+        //[AllowAnonymous]
+        public IActionResult CommonExportForFYPT_All([FromServices] APIContext apiContext, [FromServices] SharedService sharedService, [FromBody] GetCommonSelectRequest request)
+        {
+            var target = request.search.FirstOrDefault(c => c.Key == "target").Value;
+            var search = request.search;
+            var path = System.IO.Path.Combine(AppContext.BaseDirectory, @"XMLConfig", target, "ExportConfig_列表.xml");
+
+            XDocument doc = XDocument.Load(path);
+            var tableElements = doc.Descendants(ExportConfig.NodeElementName);
+            var configs = tableElements.Select(c => new ExportConfig(c));
+            var config = configs.FirstOrDefault();
+            if (config == null)
+            {
+                throw new NotImplementedException("无效的导出配置");
+            }
+            var modelPath = System.IO.Path.Combine(AppContext.BaseDirectory, @"XMLConfig", target, config.FileName);
+            var filename = DateTime.Now.ToString("yyyyMMdd_HHmmss") + config.FileName;
+            var outputPath = System.IO.Path.Combine(AppContext.BaseDirectory, @"XMLConfig", target, filename);
+            if (!System.IO.File.Exists(modelPath))
+            {
+                throw new NotImplementedException("模板文件不存在");
+            }
+            using (System.IO.FileStream s = System.IO.File.OpenRead(modelPath))
+            {
+                var workbook = new XSSFWorkbook(s);
+                foreach (var sheetConfig in config.Sheets)
+                {
+                    sheetConfig.UpdateWheres(search);
+                    var sheet = workbook.GetSheet(sheetConfig.SheetName);
+                    if (sheet != null)
+                    {
+                        sheetConfig.DataSources = new Dictionary<string, DataTable>();
+                        foreach (var sourceConfig in sheetConfig.Sources)
+                        {
+                            var result = sharedService.GetCommonSelectByExportConfigForFYPT(sourceConfig);
+                            if (!result.IsSuccess)
+                            {
+                                throw new NotImplementedException("数据源存在异常:" + result.Message);
+                            }
+                            sheetConfig.DataSources[sourceConfig.SourceName] = result.Data;
+                        }
+                        sheetConfig.Render(sheet);
+                    }
+                }
+                using (System.IO.Stream stream = System.IO.File.OpenWrite(outputPath))
+                {
+                    workbook.Write(stream);
+                }
+            }
+            var ss = System.IO.File.OpenRead(outputPath);
+            return File(ss, "application/vnd.android.package-archive", outputPath);
+
+
+
+
+            //var ss = System.IO.File.OpenRead(@"C:\Users\vlong\Desktop\sql\O_LabOrder.sql");
+            //return File(ss, "application/vnd.android.package-archive", "");
+
+            //var target = request.search.FirstOrDefault(c => c.Key == "target").Value;
+            //var listConfig = SystemController.GetListConfigByDirectoryName(target);
+            //var sqlConfig = SystemController.GetSQLConfigByDirectoryName(target);
+            //sqlConfig.PageIndex = request.page;
+            //sqlConfig.PageSize = request.limit;
+            //sqlConfig.UpdateWheres(request.search);
+            //sqlConfig.UpdateOrderBy(request.field, request.order);
+            ////获取数据
+            //var serviceResult = sharedService.GetCommonSelectBySQLConfigForFYPT(sqlConfig);
+            //if (!serviceResult.IsSuccess)
+            //    return Error<List<Dictionary<string, object>>, int>(null, 0, messages: serviceResult.Messages);
+            ////更新显示映射(枚举,函数,脱敏)
+            //listConfig.UpdateValues(serviceResult.Data.SourceData);
+            //return Success(serviceResult.Data.SourceData, serviceResult.Data.Count, serviceResult.Messages);
+        }
         #endregion
     }
 }

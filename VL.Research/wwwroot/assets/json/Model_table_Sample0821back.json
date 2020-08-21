@@ -6,19 +6,7 @@
     "modelName": "<模版名称>",
     "saveModelUrl": "<保存模版URL>",
     "deleteModelUrl": "<删除模版URL>",
-    "export": {
-      "url": "<导出URL>",
-      "defaultParam": [
-        {
-          "key": "参数名1",
-          "value": "参数值1"
-        },
-        {
-          "key": "参数名2",
-          "value": "参数值2"
-        }
-      ]
-    },
+    "exportUrl": "<导出URL>",
     "search": [
       {
         "name": "<用于搜索的参数名1[日期要传[\"startDateParam\",\"endDateParam\"]]>",

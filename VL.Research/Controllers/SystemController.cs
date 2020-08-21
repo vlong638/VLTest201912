@@ -264,12 +264,20 @@ namespace VL.Research.Controllers
                             rowspan="",
                         }).ToList()
                     },
-                    where = new List<GetListConfigModel_TableConfg_Where>()
+                    where = new List<VLNameValue>()
                     {
-                        new GetListConfigModel_TableConfg_Where(){
+                        new VLNameValue(){
                             name = "target",
                             value = request.ViewName,
                         }
+                    },
+                },
+                export = new GetListConfigModel_Export()
+                {
+                    url = listConfig.Export.URL,
+                    defaultParam = new List<VLKeyValue>()
+                    {
+                        new VLKeyValue("target",request.ViewName)
                     },
                 },
             };
@@ -386,7 +394,7 @@ namespace VL.Research.Controllers
         [HttpPost]
         //[VLAuthentication(Authority.查看孕妇档案列表)]
         //[Authorize]
-        public APIResult<List<Dictionary<string, object>>, int> GetCommonSelectForFYPT([FromServices] SharedService sharedService, GetCommonSelectRequest request)
+        public APIResult<List<Dictionary<string, object>>, int> GetCommonSelectForFYPT([FromServices] APIContext apiContext, [FromServices] SharedService sharedService, GetCommonSelectRequest request)
         {
             var ListConfig = GetListConfigByDirectoryName(request.target);
             var sqlConfig = GetSQLConfigByDirectoryName(request.target);
@@ -473,12 +481,20 @@ namespace VL.Research.Controllers
                             rowspan="",
                         }).ToList()
                     },
-                    where = new List<GetListConfigModel_TableConfg_Where>()
+                    where = new List<VLNameValue>()
                     {
-                        new GetListConfigModel_TableConfg_Where(){
+                        new VLNameValue(){
                             name = "target",
                             value = request.ViewName,
                         }
+                    },
+                },
+                export = new GetListConfigModel_Export()
+                {
+                    url = listConfig.Export.URL,
+                    defaultParam = new List<VLKeyValue>()
+                    {
+                        new VLKeyValue( "target",request.ViewName)
                     },
                 },
             };

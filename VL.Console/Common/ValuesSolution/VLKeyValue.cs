@@ -9,6 +9,11 @@ namespace VL.Consolo_Core.Common.ValuesSolution
     /// </summary>
     public class VLKeyValue
     {
+        public VLKeyValue()
+        {
+            Key = "";
+            Value = "";
+        }
         public VLKeyValue(string key, string value)
         {
             Key = key;

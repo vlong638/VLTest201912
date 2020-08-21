@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Views>
-	<View ViewName="User">
+	<View ViewName="">
 		<Properties>
 			<Property IsOn="true" ColumnName="*" Alias ="row_number() over (@OrderBy) as rowindex
 			,p.id
@@ -30,14 +30,6 @@
 			<Where ComponentName="pregnantbookid">pregnantbookid = @pregnantbookid</Where>
 			<Where ComponentName="istmp">istmp = @istmp</Where>
 			<Where ComponentName="status">status = @status</Where>
-			<!--<Where ComponentName="realregiontext" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="休养地址" DisplayType="1"/>-->
-			<!--<Where ComponentName="id1" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="!建册机构" DisplayType="1"/>
-			<Where ComponentName="id2" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="!管辖机构" DisplayType="1"/>
-			<Where ComponentName="id3" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="!户籍地址" DisplayType="1"/>
-			<Where ComponentName="id4" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="!居住地址" DisplayType="1"/>
-			<Where ComponentName="id5" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="建档医生" DisplayType="1"/-->>
-			<!--<Where ComponentName="createdate" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="建档日期" DisplayType="5"/>-->
-
 		</Wheres>
 		<OrderBys>
 			<OrderBy ComponentName="createdate" Alias ="p.createdate"/>
