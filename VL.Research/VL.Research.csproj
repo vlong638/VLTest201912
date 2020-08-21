@@ -14,6 +14,7 @@
     <None Remove="XMLConfig\DetailConfig.xml" />
     <None Remove="XMLConfig\FYPT_PregnantInfo\ExportConfig_列表.xml" />
     <None Remove="XMLConfig\FYPT_PregnantInfo\ExportConfig_高危妊娠表.xml" />
+    <None Remove="XMLConfig\FYPT_PregnantInfo\~%24列表.xlsx" />
     <None Remove="XMLConfig\LIstConfig.xml" />
     <None Remove="XMLConfig\MenuConfig.xml" />
     <None Remove="XMLConfig\PregnantInfo\ListConfig.xml" />
