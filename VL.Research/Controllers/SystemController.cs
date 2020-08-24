@@ -624,21 +624,11 @@ namespace VL.Research.Controllers
                     workbook.Write(stream);
                 }
             }
-            var webPath = $@"{GetWebPath(apiContext)}/Home/CommonExportForFYPT_All?outputPath={outputPath}";
+            var webPath = $@"{apiContext.GetWebPath()}/Home/CommonExportForFYPT_All?outputPath={outputPath}";
             return Success(webPath);
             //D:\WorkSpace\Repository\VLTest201912\VL.Research\bin\Debug\netcoreapp3.1\XMLConfig\FYPT_PregnantInfo\20200824_170507列表.xlsx
         }
 
-        private static string GetWebPath(APIContext apiContext)
-        {
-            var request = apiContext.HttpContext.Request;
-            return new StringBuilder()
-                .Append(request.Scheme)
-                .Append("://")
-                .Append(request.Host)
-                .Append(request.PathBase)
-                .ToString();
-        }
         #endregion
     }
 }

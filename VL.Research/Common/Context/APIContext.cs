@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using System;
+using System.Text;
 using VL.Consolo_Core.Common.DBSolution;
 using VL.Research.Common.Configuration;
 
@@ -51,6 +52,25 @@ namespace VL.Research.Common
         //    var httpContext = HttpContext;
         //    return CurrentUser.GetCurrentUser(httpContext);
         //}
+        #endregion
+
+        #region Common
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public string GetWebPath()
+        {
+            var request = HttpContext.Request;
+            return new StringBuilder()
+                .Append(request.Scheme)
+                .Append("://")
+                .Append(request.Host)
+                .Append(request.PathBase)
+                .ToString();
+        }
+
         #endregion
     }
 }
