@@ -246,6 +246,7 @@ namespace VL.Research.Common
             DisplayType = element.Attribute(nameof(DisplayType))?.Value;
             DisplayValues = element.Attribute(nameof(DisplayValues))?.Value;
             Options = element.Attribute(nameof(Options))?.Value;
+            TreeOptions = element.Attribute(nameof(TreeOptions))?.Value;
         }
 
         /// <summary>
@@ -280,6 +281,10 @@ namespace VL.Research.Common
         /// 页面 下拉项选项
         /// </summary>
         public string Options { set; get; }
+        /// <summary>
+        /// 页面 下拉项选项
+        /// </summary>
+        public string TreeOptions { set; get; }
 
         /// <summary>
         /// 
@@ -296,6 +301,7 @@ namespace VL.Research.Common
             property.SetAttributeValue(nameof(DisplayType), DisplayType);
             property.SetAttributeValue(nameof(DisplayValues), DisplayValues);
             property.SetAttributeValue(nameof(Options), Options);
+            property.SetAttributeValue(nameof(TreeOptions), TreeOptions);
             return property;
         }
     }

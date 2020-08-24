@@ -107,7 +107,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                         <label class="layui-form-label">` + item.text + `:</label>
                         <div class="layui-input-inline">
                             <div class="multiple_select" id="` + item.name + `" data-name="` + item.name + `" data-value="` + item.value + `"
-                                data-options='` + JSON.stringify(item.MultipleOptions) + `'></div>
+                                data-options='` + JSON.stringify(item.options) + `'></div>
                         </div>
                     </div>`
                 } else {
@@ -117,7 +117,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                         <div class="layui-input-inline">
                             <select name="` + item.name + `">
                                 <option value="">请选择</option>`;
-                    $.each(item.SingleOptions, function (_index, _item) {
+                    $.each(item.options, function (_index, _item) {
                         html += `<option value="` + _item.value + `" ` + (_item.checked ? 'selected' : '') + `>` + _item.name + `</option>`
                     });
                     html += `</select></div></div>`
@@ -129,7 +129,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                     <label class="layui-form-label">` + item.text + `:</label>
                     <div class="layui-input-inline">
                         <input type="text" id="` + item.name + `" name="` + item.name + `" class="layui-input tree-select" value="` + item.value + `"
-                            data-options='` + JSON.stringify(item.options) + `' data-value='` + JSON.stringify(item.value) + `'/>
+                            data-options='` + JSON.stringify(item.treeOptions) + `' data-value='` + JSON.stringify(item.value) + `'/>
                     </div>
                 </div>`
             }
@@ -746,43 +746,38 @@ jQuery.prototype.renderForm = function (_data, _layui, _parent) {
                 }
                 break;
             }
-            case 3: {
-                if (element.attr.multiple) {
+            if (item.type === 3) {
+                if (item.multiple) {
                     html += `
-                        <div class="layui-inline layui-col-md` + element.width + `">
-                            <label class="layui-form-label` + (element.attr.required ? ' layui-form-required' : '') + `">` + element.attr.text + `:</label>
-                            <div class="layui-input-block">
-                                <div class="multiple_select" data-name="` + element.attr.param + `" data-value="` + (isBlank(element.attr.value) ? "" : element.attr.value) + `"
-                                    data-options='` + JSON.stringify(element.attr.MultipleOptions) + `'></div>
-                            </div>
-                        </div>`;
+                <div class="layui-inline">
+                    <label class="layui-form-label">` + item.text + `:</label>
+                    <div class="layui-input-inline">
+                        <div class="multiple_select" id="` + item.name + `" data-name="` + item.name + `" data-value="` + item.value + `"
+                            data-options='` + JSON.stringify(item.options) + `'></div>
+                    </div>
+                </div>`
                 } else {
                     html += `
-                        <div class="layui-inline layui-col-md` + element.width + `">
-                            <label class="layui-form-label` + (element.attr.required ? ' layui-form-required' : '') + `">` + element.attr.text + `:</label>
-                            <div class="layui-input-block">
-                                <select name="` + element.attr.param + `"` + (element.attr.required ? ' lay-verify="required" required' : '') + `>
-                                    <option value="">请选择</option>`;
-                    $.each(element.attr.SingleOptions, function (index, option) {
-                        html += `<option value="` + option.value + `" ` + (option.checked ? 'selected' : '') + `>` + option.name + `</option>`
-                    })
-                    html += `
-                                </select>
-                            </div>
-                        </div>`;
+                <div class="layui-inline">
+                    <label class="layui-form-label">` + item.text + `:</label>
+                    <div class="layui-input-inline">
+                        <select name="` + item.name + `">
+                            <option value="">请选择</option>`;
+                    $.each(item.options, function (_index, _item) {
+                        html += `<option value="` + _item.value + `" ` + (_item.checked ? 'selected' : '') + `>` + _item.name + `</option>`
+                    });
+                    html += `</select></div></div>`
                 }
-                break;
             }
-            case 4: {
+            if (item.type === 4) {
                 html += `
-                    <div class="layui-inline layui-col-md` + element.width + `">
-                        <label class="layui-form-label` + (element.attr.required ? ' layui-form-required' : '') + `">` + element.attr.text + `:</label>
-                        <div class="layui-input-block">`;
-                $.each(element.attr.options, function (index, option) {
-                    html += `<input type="radio" name="` + element.attr.param + `" value="` + option.value + `" lay-skin="primary" title="` + option.text + `"` + (option.checked ? 'checked=""' : '') + `>`
-                })
-                html += `</div></div>`;
-                break;
+            <div class="layui-inline">
+                <label class="layui-form-label">` + item.text + `:</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="` + item.name + `" name="` + item.name + `" class="layui-input tree-select" value="` + item.value + `"
+                        data-options='` + JSON.stringify(item.treeOptions) + `' data-value='` + JSON.stringify(item.value) + `'/>
+                </div>
+            </div>`
             }
             case 5: {
                 html += `

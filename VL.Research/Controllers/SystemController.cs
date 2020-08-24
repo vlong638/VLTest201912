@@ -1,12 +1,15 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NPOI.XSSF.UserModel;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Xml.Linq;
 using VL.Consolo_Core.Common.ControllerSolution;
+using VL.Consolo_Core.Common.ExcelExportSolution;
 using VL.Consolo_Core.Common.ValuesSolution;
 using VL.Research.Common;
 using VL.Research.Models;
@@ -488,7 +491,7 @@ namespace VL.Research.Controllers
         }
 
         /// <summary>
-        /// 
+        /// 获取 列表配置
         /// </summary>
         /// <param name="viewName"></param>
         /// <returns></returns>
@@ -504,7 +507,7 @@ namespace VL.Research.Controllers
         }
 
         /// <summary>
-        /// 
+        /// 获取 列表sql配置
         /// </summary>
         /// <param name="viewName"></param>
         /// <returns></returns>
@@ -563,6 +566,79 @@ namespace VL.Research.Controllers
             return Success(serviceResult.Data.SourceData, serviceResult.Data.Count, serviceResult.Messages);
         }
 
+        /// <summary>
+        /// 通用导出
+        /// </summary>
+        [HttpPost]
+        //[AllowAnonymous]
+        public APIResult<string> CommonExportForFYPT_All([FromServices] APIContext apiContext, [FromServices] SharedService sharedService, [FromBody] GetCommonSelectRequest request)
+        {
+            //var path1 = System.IO.Path.Combine(AppContext.BaseDirectory, @"XMLConfig", request.search.FirstOrDefault(c => c.Key == "target").Value, "20200824_164036列表.xlsx");
+            //return Success($@"http://localhost:14314/Home/CommonExportForFYPT_All?outputPath={path1}");
+            ////D:\WorkSpace\Repository\VLTest201912\VL.Research\bin\Debug\netcoreapp3.1\XMLConfig\FYPT_PregnantInfo\20200824_164036列表.xlsx
+            ////D:\WorkSpace\Repository\VLTest201912\VL.Research\bin\Debug\netcoreapp3.1\XMLConfig\FYPT_PregnantInfo\20200824_170507列表.xlsx
+
+            var target = request.search.FirstOrDefault(c => c.Key == "target").Value;
+            var search = request.search;
+            var path = System.IO.Path.Combine(AppContext.BaseDirectory, @"XMLConfig", target, "ExportConfig_列表.xml");
+
+            XDocument doc = XDocument.Load(path);
+            var tableElements = doc.Descendants(ExportConfig.NodeElementName);
+            var configs = tableElements.Select(c => new ExportConfig(c));
+            var config = configs.FirstOrDefault();
+            if (config == null)
+            {
+                throw new NotImplementedException("无效的导出配置");
+            }
+            var modelPath = System.IO.Path.Combine(AppContext.BaseDirectory, @"XMLConfig", target, config.FileName);
+            var filename = DateTime.Now.ToString("yyyyMMdd_HHmmss") + config.FileName;
+            var outputPath = System.IO.Path.Combine(AppContext.BaseDirectory, @"XMLConfig", target, filename);
+            if (!System.IO.File.Exists(modelPath))
+            {
+                throw new NotImplementedException("模板文件不存在");
+            }
+            using (System.IO.FileStream s = System.IO.File.OpenRead(modelPath))
+            {
+                var workbook = new XSSFWorkbook(s);
+                foreach (var sheetConfig in config.Sheets)
+                {
+                    sheetConfig.UpdateWheres(search);
+                    var sheet = workbook.GetSheet(sheetConfig.SheetName);
+                    if (sheet != null)
+                    {
+                        sheetConfig.DataSources = new Dictionary<string, DataTable>();
+                        foreach (var sourceConfig in sheetConfig.Sources)
+                        {
+                            var result = sharedService.GetCommonSelectByExportConfigForFYPT(sourceConfig);
+                            if (!result.IsSuccess)
+                            {
+                                throw new NotImplementedException("数据源存在异常:" + result.Message);
+                            }
+                            sheetConfig.DataSources[sourceConfig.SourceName] = result.Data;
+                        }
+                        sheetConfig.Render(sheet);
+                    }
+                }
+                using (System.IO.Stream stream = System.IO.File.OpenWrite(outputPath))
+                {
+                    workbook.Write(stream);
+                }
+            }
+            var webPath = $@"{GetWebPath(apiContext)}/Home/CommonExportForFYPT_All?outputPath={outputPath}";
+            return Success(webPath);
+            //D:\WorkSpace\Repository\VLTest201912\VL.Research\bin\Debug\netcoreapp3.1\XMLConfig\FYPT_PregnantInfo\20200824_170507列表.xlsx
+        }
+
+        private static string GetWebPath(APIContext apiContext)
+        {
+            var request = apiContext.HttpContext.Request;
+            return new StringBuilder()
+                .Append(request.Scheme)
+                .Append("://")
+                .Append(request.Host)
+                .Append(request.PathBase)
+                .ToString();
+        }
         #endregion
     }
 }

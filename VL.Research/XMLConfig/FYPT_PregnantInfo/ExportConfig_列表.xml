@@ -5,10 +5,10 @@
 		<Sheet SheetName="列表">
 			<Source SourceName="Data">
 				<Properties>
-					<Property IsOn="true" ColumnName="*" Alias ="row_number() over (@OrderBy) as rowindex
+					<Property IsOn="true" ColumnName="*" Alias ="row_number() over (@OrderBy) as 行号
 					,p.id
-					,p.pregnantbookid
-					,p.personname 
+					,p.pregnantbookid as 保健册号
+					,p.personname as 孕妇姓名
 					,p.age as 孕妇年龄
 					,p.idcard as 身份证号
 					,p.realregioncode 

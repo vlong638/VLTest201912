@@ -25,14 +25,14 @@
         "type": "<类型[1-文本框|2-数字框|3-下拉框|4-树状下拉框|5-日期选择框][默认:1]>",
         "multiple": "<是否多选[适用于下拉框]>",
         "value": "<默认值内容[如果是树状下拉框则格式为:{id:111,title:'西湖区'}]>",
-        "SingleOptions ": [
+        "options ": [
           {
             "name": "<选项名>",
             "value": "<选项值>",
             "checked": "<是否选中>"
           }
         ],
-        "MultipleOptions ": [
+        "treeOptions ": [
           {
             "id": "<选项id/选项值>",
             "title": "<选项名>",

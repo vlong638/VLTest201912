@@ -451,60 +451,13 @@ namespace VL.Research.Controllers
         /// <summary>
         /// 获取 通用分页列表
         /// </summary>
-        [HttpPost]
-        //[AllowAnonymous]
-        public IActionResult CommonExportForFYPT_All([FromServices] APIContext apiContext, [FromServices] SharedService sharedService, [FromBody] GetCommonSelectRequest request)
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult CommonExportForFYPT_All([FromServices] APIContext apiContext,string outputPath)
         {
-            var target = request.search.FirstOrDefault(c => c.Key == "target").Value;
-            var search = request.search;
-            var path = System.IO.Path.Combine(AppContext.BaseDirectory, @"XMLConfig", target, "ExportConfig_列表.xml");
-
-            XDocument doc = XDocument.Load(path);
-            var tableElements = doc.Descendants(ExportConfig.NodeElementName);
-            var configs = tableElements.Select(c => new ExportConfig(c));
-            var config = configs.FirstOrDefault();
-            if (config == null)
-            {
-                throw new NotImplementedException("无效的导出配置");
-            }
-            var modelPath = System.IO.Path.Combine(AppContext.BaseDirectory, @"XMLConfig", target, config.FileName);
-            var filename = DateTime.Now.ToString("yyyyMMdd_HHmmss") + config.FileName;
-            var outputPath = System.IO.Path.Combine(AppContext.BaseDirectory, @"XMLConfig", target, filename);
-            if (!System.IO.File.Exists(modelPath))
-            {
-                throw new NotImplementedException("模板文件不存在");
-            }
-            using (System.IO.FileStream s = System.IO.File.OpenRead(modelPath))
-            {
-                var workbook = new XSSFWorkbook(s);
-                foreach (var sheetConfig in config.Sheets)
-                {
-                    sheetConfig.UpdateWheres(search);
-                    var sheet = workbook.GetSheet(sheetConfig.SheetName);
-                    if (sheet != null)
-                    {
-                        sheetConfig.DataSources = new Dictionary<string, DataTable>();
-                        foreach (var sourceConfig in sheetConfig.Sources)
-                        {
-                            var result = sharedService.GetCommonSelectByExportConfigForFYPT(sourceConfig);
-                            if (!result.IsSuccess)
-                            {
-                                throw new NotImplementedException("数据源存在异常:" + result.Message);
-                            }
-                            sheetConfig.DataSources[sourceConfig.SourceName] = result.Data;
-                        }
-                        sheetConfig.Render(sheet);
-                    }
-                }
-                using (System.IO.Stream stream = System.IO.File.OpenWrite(outputPath))
-                {
-                    workbook.Write(stream);
-                }
-            }
-            var ss = System.IO.File.OpenRead(outputPath);
-            return File(ss, "application/vnd.android.package-archive", outputPath);
-
-
+            var path = System.IO.Path.Combine(AppContext.BaseDirectory, @"XMLConfig", outputPath);
+            var stream = System.IO.File.OpenRead(outputPath);
+            return File(stream, "application/vnd.android.package-archive", outputPath);
 
 
             //var ss = System.IO.File.OpenRead(@"C:\Users\vlong\Desktop\sql\O_LabOrder.sql");

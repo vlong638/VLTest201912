@@ -583,6 +583,11 @@
             页面 下拉项选项
             </summary>
         </member>
+        <member name="P:VL.Research.Common.ListConfigWhere.TreeOptions">
+            <summary>
+            页面 下拉项选项
+            </summary>
+        </member>
         <member name="M:VL.Research.Common.ListConfigWhere.ToXElement">
             <summary>
             
@@ -1024,6 +1029,11 @@
             下拉项的下拉项
             </summary>
         </member>
+        <member name="P:VL.Research.Models.GetListConfigModel_Search.treeOptions">
+            <summary>
+            下拉项的下拉项
+            </summary>
+        </member>
         <member name="T:VL.Research.Models.Config_Option">
             <summary>
             页面配置 模型子项
@@ -1044,12 +1054,53 @@
             是否选中
             </summary>
         </member>
+        <member name="T:VL.Research.Models.TreeConfig_Option">
+            <summary>
+            页面配置 模型子项
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.TreeConfig_Option.id">
+            <summary>
+            id
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.TreeConfig_Option.parentId">
+            <summary>
+            上级Id
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.TreeConfig_Option.title">
+            <summary>
+            值
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.TreeConfig_Option.spread">
+            <summary>
+            是否展开
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.TreeConfig_Option.children">
+            <summary>
+            子项
+            </summary>
+        </member>
         <member name="T:VL.Research.Models.GetListConfigModel_Search_Options">
             <summary>
             
             </summary>
         </member>
         <member name="M:VL.Research.Models.GetListConfigModel_Search_Options.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="options"></param>
+        </member>
+        <member name="T:VL.Research.Models.GetListConfigModel_Search_TreeOptions">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VL.Research.Models.GetListConfigModel_Search_TreeOptions.#ctor(System.String)">
             <summary>
             
             </summary>
@@ -1893,7 +1944,7 @@
             <param name="exportName"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.HomeController.CommonExportForFYPT_All(VL.Research.Common.APIContext,VL.Research.Services.SharedService,VL.Research.Models.GetCommonSelectRequest)">
+        <member name="M:VL.Research.Controllers.HomeController.CommonExportForFYPT_All(VL.Research.Common.APIContext,System.String)">
             <summary>
             获取 通用分页列表
             </summary>
@@ -2088,14 +2139,14 @@
         </member>
         <member name="M:VL.Research.Controllers.SystemController.GetListConfigByDirectoryName(System.String)">
             <summary>
-            
+            获取 列表配置
             </summary>
             <param name="viewName"></param>
             <returns></returns>
         </member>
         <member name="M:VL.Research.Controllers.SystemController.GetSQLConfigByDirectoryName(System.String)">
             <summary>
-            
+            获取 列表sql配置
             </summary>
             <param name="viewName"></param>
             <returns></returns>
@@ -2108,6 +2159,11 @@
         <member name="M:VL.Research.Controllers.SystemController.GetCommonListForFYPT(VL.Research.Services.SharedService,VL.Research.Models.GetCommonSelectRequest)">
             <summary>
             获取 通用分页列表
+            </summary>
+        </member>
+        <member name="M:VL.Research.Controllers.SystemController.CommonExportForFYPT_All(VL.Research.Common.APIContext,VL.Research.Services.SharedService,VL.Research.Models.GetCommonSelectRequest)">
+            <summary>
+            通用导出
             </summary>
         </member>
         <member name="T:VL.Research.Controllers.SignInStatus">

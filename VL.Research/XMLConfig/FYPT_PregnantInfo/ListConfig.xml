@@ -3,20 +3,20 @@
 	<!--IsNeedOnPage="false" DisplayName="" (.+) Description="(\w+)"(.+)\r\n
 	IsNeedOnPage="true" DisplayName="$2" $1 Description="$2"$3\r\n-->
 	<View ViewName="PregnantInfo" ViewURL="../../api/System/GetCommonSelectForFYPT">
-		<Export URL="../../Home/CommonExportForFYPT_All"/>
+		<Export URL="../../api/System/CommonExportForFYPT_All"/>
 		<Wheres>
 			<!--"DisplayType <类型[1-文本框|2-数字框|3-单选下拉框|4-树状下拉框|5-日期选择框][默认:1]>",-->
 			<Where ComponentName="pregnantbookid" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="保健册号" DisplayType="1"/>
 			<Where ComponentName="idcard" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="身份证号码" DisplayType="1"/>
-			<Where ComponentName="id1" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="!建册机构" DisplayType="1"/>
-			<Where ComponentName="id2" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="!管辖机构" DisplayType="1"/>
+			<Where ComponentName="id1" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="建册机构" DisplayType="4" TreeOptions="1,非本市医院,0,false|2,湖州市,0,false|3,吴兴区,2,false|4,安吉县,2,false"/>
+			<Where ComponentName="id2" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="管辖机构" DisplayType="4" TreeOptions="1,非本市医院,0,false|2,湖州市,0,false|3,吴兴区,2,false|4,安吉县,2,false"/>
 			<Where ComponentName="personname" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="姓名" DisplayType="1"/>
 			<Where ComponentName="!realregiontext" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="!休养地址" DisplayType="1"/>
 			<Where ComponentName="id3" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="!户籍地址" DisplayType="1"/>
 			<Where ComponentName="id4" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="!居住地址" DisplayType="1"/>
 			<Where ComponentName="id5" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="建档医生" DisplayType="1"/>
-			<Where ComponentName="istmp" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="是否流动" DisplayType="3" Options="|0:非流动孕产妇,1:流动孕产妇"/>
-			<Where ComponentName="status" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="结案状态" DisplayType="3" Options="|0:未结案,1:已结案"/>
+			<Where ComponentName="istmp" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="是否流动" DisplayType="3" Options="0|0:非流动孕产妇,1:流动孕产妇"/>
+			<Where ComponentName="status" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="结案状态" DisplayType="3" Options="0|0:未结案,1:已结案"/>
 			<Where ComponentName="createdate" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="建档日期" DisplayType="5"/>
 		</Wheres>
 		<OrderBy DefaultName ="createdate" DefaultValue ="desc"/>

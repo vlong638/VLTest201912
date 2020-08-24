@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using NPOI.SS.Formula.Atp;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using VL.Consolo_Core.Common.ValuesSolution;
 using VL.Research.Common;
 
@@ -48,6 +51,7 @@ namespace VL.Research.Models
         /// </summary>
         public GetListConfigModel_Export export { set; get; }
     }
+
     /// <summary>
     /// 页面配置 模型子项
     /// </summary>
@@ -83,6 +87,7 @@ namespace VL.Research.Models
             }
             value = c.DisplayValues ?? "";
             options = new GetListConfigModel_Search_Options(c.Options);
+            treeOptions = new GetListConfigModel_Search_TreeOptions(c.TreeOptions);
         }
 
         /// <summary>
@@ -109,7 +114,12 @@ namespace VL.Research.Models
         /// 下拉项的下拉项
         /// </summary>
         public List<Config_Option> options { set; get; }
+        /// <summary>
+        /// 下拉项的下拉项
+        /// </summary>
+        public List<TreeConfig_Option> treeOptions { set; get; }
     }
+
     /// <summary>
     /// 页面配置 模型子项
     /// </summary>
@@ -128,6 +138,34 @@ namespace VL.Research.Models
         /// </summary>
         public bool @checked { set; get; }
     }
+
+    /// <summary>
+    /// 页面配置 模型子项
+    /// </summary>
+    public class TreeConfig_Option
+    {
+        /// <summary>
+        /// id
+        /// </summary>
+        public string id { set; get; }
+        /// <summary>
+        /// 上级Id
+        /// </summary>
+        public string parentId { set; get; }
+        /// <summary>
+        /// 值
+        /// </summary>
+        public string title { set; get; }
+        /// <summary>
+        /// 是否展开
+        /// </summary>
+        public bool spread { set; get; }
+        /// <summary>
+        /// 子项
+        /// </summary>
+        public List<TreeConfig_Option> children { set; get; }
+    }
+
 
     /// <summary>
     /// 
@@ -150,7 +188,8 @@ namespace VL.Research.Models
             foreach (var splitOption in splitOptions)
             {
                 var keyValue = splitOption.Split(":");
-
+                if (keyValue.Count() != 2)
+                    throw new NotImplementedException("错误的 Options 配置");
                 var key = keyValue[0];
                 var value = keyValue[1];
                 var isDefaultValue = key == defaultValue;
@@ -161,6 +200,40 @@ namespace VL.Research.Models
                     @checked = isDefaultValue,
                 });
             }
+        }
+    }
+    /// <summary>
+    /// 
+    /// </summary>
+    public class GetListConfigModel_Search_TreeOptions : List<TreeConfig_Option>
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="options"></param>
+        public GetListConfigModel_Search_TreeOptions(string options)
+        {
+            if (options.IsNullOrEmpty())
+                return;
+
+            var splitItems = options.Split("|");
+            List<TreeConfig_Option> optionsTemp = new List<TreeConfig_Option>();
+            foreach (var splitItem in splitItems)
+            {
+                var values = splitItem.Split(",");
+                if (values.Count() != 4)
+                    throw new NotImplementedException("错误的 TreeOptions 配置");
+
+                optionsTemp.Add(new TreeConfig_Option()
+                {
+                    id  = values[0],
+                    title= values[1],
+                    parentId= values[2],
+                    spread = values[3].ToBool().Value,
+                });
+            }
+            //TODO 父子关系处理
+            this.AddRange(optionsTemp);
         }
     }
 
