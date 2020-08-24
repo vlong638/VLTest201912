@@ -101,19 +101,40 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                 </div>`
             }
             if (item.type === 3) {
+                if (item.multiple) {
+                    html += `
+                    <div class="layui-inline">
+                        <label class="layui-form-label">` + item.text + `:</label>
+                        <div class="layui-input-inline">
+                            <div class="multiple_select" id="` + item.name + `" data-name="` + item.name + `" data-value="` + item.value + `"
+                                data-options='` + JSON.stringify(item.MultipleOptions) + `'></div>
+                        </div>
+                    </div>`
+                } else {
+                    html += `
+                    <div class="layui-inline">
+                        <label class="layui-form-label">` + item.text + `:</label>
+                        <div class="layui-input-inline">
+                            <select name="` + item.name + `">
+                                <option value="">请选择</option>`;
+                    $.each(item.SingleOptions, function (_index, _item) {
+                        html += `<option value="` + _item.value + `" ` + (_item.checked ? 'selected' : '') + `>` + _item.name + `</option>`
+                    });
+                    html += `</select></div></div>`
+                }
+            }
+            if (item.type === 4) {
                 html += `
                 <div class="layui-inline">
                     <label class="layui-form-label">` + item.text + `:</label>
                     <div class="layui-input-inline">
-                        <select name="` + item.name + `">
-                            <option value="">请选择</option>`;
-                $.each(item.options, function (_index, _item) {
-                    html += `<option value="` + _item.value + `" ` + (_item.checked ? 'selected' : '') + `>` + _item.name + `</option>`
-                });
-                html += `</select></div></div>`
+                        <input type="text" id="` + item.name + `" name="` + item.name + `" class="layui-input tree-select" value="` + item.value + `"
+                            data-options='` + JSON.stringify(item.options) + `' data-value='` + JSON.stringify(item.value) + `'/>
+                    </div>
+                </div>`
             }
             if (item.type === 5) {
-                if (typeof item.name === 'string') {
+                if (typeof item.names === 'string') {
                     alert("日期搜索参数必须以[\"开始日期参数名\",\"结束日期参数名\"]格式！")
                     return;
                 }
@@ -121,7 +142,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                 <div class="layui-inline">
                     <label class="layui-form-label">` + item.text + `:</label>
                     <div class="layui-input-inline">
-                        <input data-param="` + item.name.join('|') + `" name="` + item.name.join('|') + `" class="layui-input icon-date datepicker" value="` + item.value + `"/>
+                        <input data-param="` + item.names.join('|') + `" name="` + item.names.join('|') + `" class="layui-input icon-date datepicker" value="` + item.value + `"/>
                     </div>
                 </div>`
             }
@@ -360,16 +381,14 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
             $.each(_data.export.defaultParam, (index, item) => {
                 search.push(item);
             })
-            sendAjax('post', _data.export.url, JSON.stringify({ search })
-                , function (res) {
+            sendAjax('post', _data.export.url, JSON.stringify({ search: search }), function (res) {
+                if (res.code === 200) {
                     layer.msg("导出成功", { icon: 1 });
+                    window.open(res.data)
                 }
-                , "application/json"
-                , "json"
-                , function (res) {
-                    layer.msg("导出失败", { icon: 2 });
-                }
-            )
+            }, "application/json", "json", function (res) {
+                layer.msg("导出失败", { icon: 2 });
+            })
         }
         if (obj.event === 'MODEL_DELETE') {
             layer.confirm("确认删除此模版？", {
@@ -498,6 +517,24 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
         });
     })
 
+    $('.tree-select').each(function () {
+        $(this).renderTreeSelect(_layui, JSON.parse($(this).attr('data-options')))
+        if (!isBlank($(this).attr('data-value'))) {
+            $(this).setTreeVal(_layui, JSON.parse($(this).attr('data-value')))
+        }
+    })
+
+    $('.multiple_select').each(function () {
+        let options = JSON.parse($(this).attr('data-options').replace(/checked/g, "selected"))
+
+        _layui.xmSelect.render({
+            el: this,
+            name: $(this).attr('data-name'),
+            language: 'zn',
+            data: options
+        })
+    })
+
 
     //在新标签页中 打开页面
     function newTab(url, tit, endFn) {
@@ -615,19 +652,23 @@ jQuery.prototype.renderForm = function (_data, _layui, _parent) {
         });
     })
 
-    $('.multipleSelect').each(function () {
-        let _this = $(this);
-        let data = JSON.parse($(this).attr("data-selectData"));
-        xmSelect.render({
-            el: '#demo1',
-            data: [
-                { name: '张三', value: 1 },
-                { name: '李四', value: 2 },
-                { name: '王五', value: 3 },
-            ]
+    $('.multiple_select').each(function () {
+        let options = JSON.parse($(this).attr('data-options').replace(/checked/g, "selected"))
+
+        _layui.xmSelect.render({
+            el: this,
+            name: $(this).attr('data-name'),
+            language: 'zn',
+            data: options
         })
     })
 
+    $('.tree-select').each(function () {
+        $(this).renderTreeSelect(_layui, JSON.parse($(this).attr('data-options')))
+        if (!isBlank($(this).attr('data-value'))) {
+            $(this).setTreeVal(_layui, JSON.parse($(this).attr('data-value')))
+        }
+    })
 
     function getValue(data) {
         $('.rangeDate').each(function () {
@@ -706,19 +747,30 @@ jQuery.prototype.renderForm = function (_data, _layui, _parent) {
                 break;
             }
             case 3: {
-                html += `
-                    <div class="layui-inline layui-col-md` + element.width + `">
-                        <label class="layui-form-label` + (element.attr.required ? ' layui-form-required' : '') + `">` + element.attr.text + `:</label>
-                        <div class="layui-input-block">
-                            <select name="` + element.attr.param + `" ` + (element.attr.required ? ' lay-verify="required" required' : '') + `>
-                                <option value="">请选择</option>`;
-                $.each(element.attr.options, function (index, option) {
-                    html += `<option value="` + option.value + `" ` + (option.checked ? 'selected' : '') + `>` + option.text + `</option>`
-                })
-                html += `
-                            </select>
-                        </div>
-                    </div>`;
+                if (element.attr.multiple) {
+                    html += `
+                        <div class="layui-inline layui-col-md` + element.width + `">
+                            <label class="layui-form-label` + (element.attr.required ? ' layui-form-required' : '') + `">` + element.attr.text + `:</label>
+                            <div class="layui-input-block">
+                                <div class="multiple_select" data-name="` + element.attr.param + `" data-value="` + (isBlank(element.attr.value) ? "" : element.attr.value) + `"
+                                    data-options='` + JSON.stringify(element.attr.MultipleOptions) + `'></div>
+                            </div>
+                        </div>`;
+                } else {
+                    html += `
+                        <div class="layui-inline layui-col-md` + element.width + `">
+                            <label class="layui-form-label` + (element.attr.required ? ' layui-form-required' : '') + `">` + element.attr.text + `:</label>
+                            <div class="layui-input-block">
+                                <select name="` + element.attr.param + `"` + (element.attr.required ? ' lay-verify="required" required' : '') + `>
+                                    <option value="">请选择</option>`;
+                    $.each(element.attr.SingleOptions, function (index, option) {
+                        html += `<option value="` + option.value + `" ` + (option.checked ? 'selected' : '') + `>` + option.name + `</option>`
+                    })
+                    html += `
+                                </select>
+                            </div>
+                        </div>`;
+                }
                 break;
             }
             case 4: {
@@ -778,6 +830,17 @@ jQuery.prototype.renderForm = function (_data, _layui, _parent) {
             }
             case 9: {
                 html += `<input style="display: none" name="` + element.attr.param + `" value="` + (isBlank(element.attr.value) ? "" : element.attr.value) + `"/>`;
+                break;
+            }
+            case 10: {
+                html += `
+                <div class="layui-inline layui-col-md` + element.width + `">
+                    <label class="layui-form-label` + (element.attr.required ? ' layui-form-required' : '') + `">` + element.attr.text + `:</label>
+                    <div class="layui-input-block">
+                        <input type="text" id="` + element.attr.param + `" name="` + element.param + `" class="layui-input tree-select` + (element.attr.required ? ' lay-verify="required" required' : '') + `" 
+                        data-options='` + JSON.stringify(element.attr.options) + `' data-value='` + JSON.stringify(element.attr.value) + `'/>
+                    </div>
+                </div>`
                 break;
             }
         }

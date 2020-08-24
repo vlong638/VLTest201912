@@ -1,4 +1,44 @@
 {
+  "data": {
+    "viewName": "Role",
+    "cards": [
+      {
+        "text": "分组",
+        "content": [
+          {
+            "width": 12,
+            "child": [
+              {
+                "width": 12,
+                "attr": {
+                  "text": "角色名",
+                  "type": 1,
+                  "range": false,
+                  "lineNum": 0,
+                  "multiple": false,
+                  "required": true,
+                  "param": "name",
+                  "value": "",
+                  "options": []
+                }
+              }
+            ]
+          }
+        ],
+        "isTextArea": false
+      }
+    ],
+    "getUrl": "",
+    "getUrl_param": "",
+    "saveUrl": ""
+  },
+  "msg": null,
+  "code": 200,
+  "isValidated": false
+}
+
+
+{
   "code": 200,
   "msg": "",
   "data": {
@@ -14,84 +54,16 @@
                   "width": "6",
                   "attr": {
                     "text": "a1",
-                    "type": 3,
-                    "param": "a1",
-                    "multiple": true,
-                    "MultipleOptions": [
-                      {
-                        "name": "男",
-                        "value": "1",
-                        "checked": true
-                      },
-                      {
-                        "name": "女",
-                        "value": "2",
-                        "checked": false
-                      }
-                    ]
+                    "type": 1,
+                    "param": "a1"
                   }
                 },
                 {
                   "width": "6",
                   "attr": {
                     "text": "a2",
-                    "type": 10,
-                    "param": "a2",
-                    "value": {
-                      "id": 111,
-                      "title": "西湖区"
-                    },
-                    "options": [
-                      {
-                        "id": 1,
-                        "title": "浙江",
-                        "children": [
-                          {
-                            "id": 11,
-                            "title": "杭州",
-                            "children": [
-                              {
-                                "id": 111,
-                                "title": "西湖区",
-                                "spread": true
-                              },
-                              {
-                                "id": 112,
-                                "title": "拱墅区"
-                              }
-                            ]
-                          },
-                          {
-                            "id": 12,
-                            "title": "温州",
-                            "children": [
-                              {
-                                "id": 121,
-                                "title": "鹿城区"
-                              },
-                              {
-                                "id": 122,
-                                "title": "瓯海区"
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "id": 2,
-                        "title": "广东",
-                        "children": [
-                          {
-                            "id": 21,
-                            "title": "广州"
-                          },
-                          {
-                            "id": 22,
-                            "title": "深圳"
-                          }
-                        ]
-                      }
-                    ]
+                    "type": 1,
+                    "param": "a2"
                   }
                 },
                 {
@@ -229,7 +201,8 @@
                     "type": 1,
                     "param": "a2"
                   }
-                },
+                }
+              ,
                 {
                   "width": "4",
                   "attr": {
@@ -292,27 +265,10 @@
         "areaParam": "areaParam",
         "areaValue": "q-w-e-r-t-y-u-i-o-p\na-s-d-f-g-h-j-k-l\nz-x-c-v-b-n-m",
         "areaRequired": true
-      },
-      {
-        "text": "标题1-文本域",
-        "content": [
-          [
-            {
-              "width": "12",
-              "attr": {
-                "text": "a5",
-                "type": 8,
-                "lineNum": 2,
-                "param": "a5"
-              }
-            }
-          ]
-        ],
-        "isTextArea": false
       }
     ],
     "getUrl": "/getUrl",
-    "getUrl_param": [ "a=1" ],
+    "getUrl_param": ["a=1"],
     "saveUrl": "../assets/json/ok.json"
   }
 }

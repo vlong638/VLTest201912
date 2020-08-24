@@ -17,7 +17,7 @@
 			<Where ComponentName="id5" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="建档医生" DisplayType="1"/>
 			<Where ComponentName="istmp" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="是否流动" DisplayType="3" Options="|0:非流动孕产妇,1:流动孕产妇"/>
 			<Where ComponentName="status" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="结案状态" DisplayType="3" Options="|0:未结案,1:已结案"/>
-			<Where ComponentName="!createdate" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="!建档日期" DisplayType="5"/>
+			<Where ComponentName="createdate" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="建档日期" DisplayType="5"/>
 		</Wheres>
 		<OrderBy DefaultName ="createdate" DefaultValue ="desc"/>
 		<ToolBars>

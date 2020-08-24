@@ -215,14 +215,7 @@ namespace VL.Research.Controllers
             {
                 CustomConfigId = request.CustomConfigId,
                 ListConfig = listConfig,
-                search = listConfig.Wheres.Select(c => new GetListConfigModel_Search()
-                {
-                    name = c.ComponentName,
-                    text = c.DisplayName,
-                    type = c.DisplayType.ToInt().Value,
-                    value = c.DisplayValues ?? "",
-                    options = new GetListConfigModel_Search_Options(c.Options),
-                }).ToList(),
+                search = listConfig.Wheres.Select(c => new GetListConfigModel_Search(c)).ToList(),
                 table = new GetListConfigModel_TableConfg()
                 {
                     url = listConfig.ViewURL,
@@ -432,14 +425,7 @@ namespace VL.Research.Controllers
             {
                 CustomConfigId = request.CustomConfigId,
                 ListConfig = listConfig,
-                search = listConfig.Wheres.Select(c => new GetListConfigModel_Search()
-                {
-                    name = c.ComponentName,
-                    text = c.DisplayName,
-                    type = c.DisplayType.ToInt().Value,
-                    value = c.DisplayValues ?? "",
-                    options = new GetListConfigModel_Search_Options(c.Options),
-                }).ToList(),
+                search = listConfig.Wheres.Select(c => new GetListConfigModel_Search(c)).ToList(),
                 table = new GetListConfigModel_TableConfg()
                 {
                     url = listConfig.ViewURL,

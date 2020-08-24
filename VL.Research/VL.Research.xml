@@ -988,7 +988,18 @@
             页面配置 模型子项
             </summary>
         </member>
+        <member name="M:VL.Research.Models.GetListConfigModel_Search.#ctor(VL.Research.Common.ListConfigWhere)">
+            <summary>
+            
+            </summary>
+            <param name="c"></param>
+        </member>
         <member name="P:VL.Research.Models.GetListConfigModel_Search.name">
+            <summary>
+            字段名称
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.GetListConfigModel_Search.names">
             <summary>
             字段名称
             </summary>

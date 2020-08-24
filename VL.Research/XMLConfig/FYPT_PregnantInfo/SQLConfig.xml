@@ -30,6 +30,8 @@
 			<Where ComponentName="pregnantbookid">pregnantbookid = @pregnantbookid</Where>
 			<Where ComponentName="istmp">istmp = @istmp</Where>
 			<Where ComponentName="status">status = @status</Where>
+			<Where ComponentName="createdateStart">p.createdate &gt;= @createdateStart</Where>
+			<Where ComponentName="createdateEnd">p.createdate &lt;= @createdateEnd</Where>
 		</Wheres>
 		<OrderBys>
 			<OrderBy ComponentName="createdate" Alias ="p.createdate"/>

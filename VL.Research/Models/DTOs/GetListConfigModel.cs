@@ -69,9 +69,30 @@ namespace VL.Research.Models
     public class GetListConfigModel_Search
     {
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="c"></param>
+        public GetListConfigModel_Search(ListConfigWhere c)
+        {
+            name = c.ComponentName;
+            text = c.DisplayName;
+            type = c.DisplayType.ToInt().Value;
+            if (type == 5)
+            {
+                names = new List<string>() { c.ComponentName + "Start", c.ComponentName + "End" };
+            }
+            value = c.DisplayValues ?? "";
+            options = new GetListConfigModel_Search_Options(c.Options);
+        }
+
+        /// <summary>
         /// 字段名称
         /// </summary>
         public string name { set; get; }
+        /// <summary>
+        /// 字段名称
+        /// </summary>
+        public List<string> names { set; get; }
         /// <summary>
         /// 显示文本
         /// </summary>
