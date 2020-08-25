@@ -75,7 +75,7 @@ namespace VL.Research.Common
         /// 
         /// </summary>
         /// <param name="list"></param>
-        public void UpdateValues(IEnumerable<Dictionary<string, object>> list)
+        public void UpdateValues(List<Dictionary<string, object>> list)
         {
             if (list == null)
                 return;

@@ -398,9 +398,8 @@ namespace VL.Research.Controllers
         [AllowAnonymous]
         public IActionResult CommonExportForFYPT_Inline([FromServices] SharedService sharedService, string moduleName, string exportName)
         {
-            exportName = "高危妊娠表";
             var search = new List<VLKeyValue>() { new VLKeyValue("idcard", "110101199003072025") };
-            var path = System.IO.Path.Combine(AppContext.BaseDirectory, @"XMLConfig", moduleName, "ExportConfig_" + exportName + ".xml");
+            var path = System.IO.Path.Combine(AppContext.BaseDirectory, @"XMLConfig", moduleName,exportName + ".xml");
 
             XDocument doc = XDocument.Load(path);
             var tableElements = doc.Descendants(ExportConfig.NodeElementName);

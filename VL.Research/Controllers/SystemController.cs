@@ -392,7 +392,7 @@ namespace VL.Research.Controllers
         //[Authorize]
         public APIResult<List<Dictionary<string, object>>, int> GetCommonSelectForFYPT([FromServices] APIContext apiContext, [FromServices] SharedService sharedService, GetCommonSelectRequest request)
         {
-            var ListConfig = GetListConfigByDirectoryName(request.target);
+            var listConfig = GetListConfigByDirectoryName(request.target);
             var sqlConfig = GetSQLConfigByDirectoryName(request.target);
             sqlConfig.PageIndex = request.page;
             sqlConfig.PageSize = request.limit;
@@ -403,7 +403,7 @@ namespace VL.Research.Controllers
             if (!serviceResult.IsSuccess)
                 return Error<List<Dictionary<string, object>>, int>(null, 0, messages: serviceResult.Messages);
             //更新显示映射(枚举,函数,脱敏)
-            ListConfig.UpdateValues(serviceResult.Data.SourceData);
+            listConfig.UpdateValues(serviceResult.Data.SourceData);
             return Success(serviceResult.Data.SourceData, serviceResult.Data.Count, serviceResult.Messages);
         }
 
@@ -432,7 +432,7 @@ namespace VL.Research.Controllers
                 table = new GetListConfigModel_TableConfg()
                 {
                     url = listConfig.ViewURL,
-                    add_btn = new GetListConfigModel_TableConfg_AddButton()
+                    add_btn = listConfig.AddButton.url.IsNullOrEmpty() ? null : new GetListConfigModel_TableConfg_AddButton()
                     {
                         text = listConfig.AddButton.text,
                         type = listConfig.AddButton.type,

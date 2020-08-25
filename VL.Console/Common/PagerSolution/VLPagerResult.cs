@@ -36,6 +36,6 @@ namespace VL.Consolo_Core.Common.PagerSolution
         /// <summary>
         /// 列表数据
         /// </summary>
-        public T SourceData { set; get; }
+        public T SourceData;
     }
 }

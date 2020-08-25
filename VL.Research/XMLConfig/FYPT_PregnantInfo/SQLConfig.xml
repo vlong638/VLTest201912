@@ -19,7 +19,8 @@
 			,p.realregion_text as realregiontext
 			,p.sourceunit
 			,p.manaunitid
-			,p.status
+			,p.status as settlestatus
+			,p.status as deliverystatus
 			, p.createdate,hr.infectionflag
 			,p.mobilenumber, p.createtime, p.pregnantid
 			,(case when b.book_no is not null then 1 else 0 end) as mzscbindstatus"/>
@@ -29,15 +30,20 @@
 			<Where ComponentName="idcard" Formatter="%@idcard%">idcard like @idcard</Where>
 			<Where ComponentName="pregnantbookid">pregnantbookid = @pregnantbookid</Where>
 			<Where ComponentName="istmp">istmp = @istmp</Where>
-			<Where ComponentName="status">status = @status</Where>
+			<Where ComponentName="settlestatus">status = @settlestatus</Where>
+			<Where ComponentName="deliverystatus">status = @deliverystatus</Where>
+			<Where ComponentName="gestationalweeks">gestationalweeks = @gestationalweeks</Where>
+			<Where ComponentName="deliverystatus">status = @deliverystatus</Where>
 			<Where ComponentName="createdateStart">p.createdate &gt;= @createdateStart</Where>
 			<Where ComponentName="createdateEnd">p.createdate &lt;= @createdateEnd</Where>
+			<Where ComponentName="dateofprenatalStart">p.dateofprenatal &gt;= @dateofprenatalStart</Where>
+			<Where ComponentName="dateofprenatalEnd">p.dateofprenatal &lt;= @dateofprenatalEnd</Where>
 		</Wheres>
 		<OrderBys>
 			<OrderBy ComponentName="createdate" Alias ="p.createdate"/>
 		</OrderBys>
 		<SQL>
-			select @Fields
+			select @Properties
 			from pregnantinfo p
 			left join (
 			select distinct book_no from mzsc_bind_info where type = 'pregnant'

@@ -96,6 +96,12 @@
             
             </summary>
         </member>
+        <member name="M:VL.Research.Common.APIContext.GetWebPath">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:VL.Research.Common.MenuConfig">
             <summary>
             查询sql配置
@@ -471,7 +477,7 @@
             </summary>
             <param name="element"></param>
         </member>
-        <member name="M:VL.Research.Common.ListConfig.UpdateValues(System.Collections.Generic.IEnumerable{System.Collections.Generic.Dictionary{System.String,System.Object}})">
+        <member name="M:VL.Research.Common.ListConfig.UpdateValues(System.Collections.Generic.List{System.Collections.Generic.Dictionary{System.String,System.Object}})">
             <summary>
             
             </summary>
@@ -1624,6 +1630,46 @@
         <member name="P:VL.Research.Models.PregnantInfo.FileStatus">
             <summary>
             档案状态:(结案标识)
+            </summary>
+        </member>
+        <member name="T:VL.Research.Models.Enums.DeliveryStatus">
+            <summary>
+            分娩状态
+            </summary>
+        </member>
+        <member name="F:VL.Research.Models.Enums.DeliveryStatus.None">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:VL.Research.Models.Enums.DeliveryStatus.Undone">
+            <summary>
+            未分娩
+            </summary>
+        </member>
+        <member name="F:VL.Research.Models.Enums.DeliveryStatus.Done">
+            <summary>
+            已分娩
+            </summary>
+        </member>
+        <member name="T:VL.Research.Models.Enums.SettleStatus">
+            <summary>
+            结案 状态
+            </summary>
+        </member>
+        <member name="F:VL.Research.Models.Enums.SettleStatus.None">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:VL.Research.Models.Enums.SettleStatus.Undone">
+            <summary>
+            未结案
+            </summary>
+        </member>
+        <member name="F:VL.Research.Models.Enums.SettleStatus.Done">
+            <summary>
+            已结案
             </summary>
         </member>
         <member name="T:VL.Research.Models.Enums.Sex">

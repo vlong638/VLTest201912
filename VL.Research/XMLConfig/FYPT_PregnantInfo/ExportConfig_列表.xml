@@ -22,8 +22,8 @@
 					,p.realregion_text as 现住地
 					,p.sourceunit as 建册机构
 					,p.manaunitid as 管理机构
-					,p.status as 结案
-					, p.createdate,hr.infectionflag
+					,p.status as 结案状态
+					,p.createdate,hr.infectionflag
 					,p.mobilenumber, p.createtime, p.pregnantid
 					,(case when b.book_no is not null then 1 else 0 end) as mzscbindstatus"/>
 				</Properties>
@@ -32,7 +32,14 @@
 					<Where ComponentName="idcard" Formatter="%@idcard%">idcard like @idcard</Where>
 					<Where ComponentName="pregnantbookid">pregnantbookid = @pregnantbookid</Where>
 					<Where ComponentName="istmp">istmp = @istmp</Where>
-					<Where ComponentName="status">status = @status</Where>
+					<Where ComponentName="settlestatus">status = @settlestatus</Where>
+					<Where ComponentName="deliverystatus">status = @deliverystatus</Where>
+					<Where ComponentName="gestationalweeks">gestationalweeks = @gestationalweeks</Where>
+					<Where ComponentName="deliverystatus">status = @deliverystatus</Where>
+					<Where ComponentName="createdateStart">p.createdate &gt;= @createdateStart</Where>
+					<Where ComponentName="createdateEnd">p.createdate &lt;= @createdateEnd</Where>
+					<Where ComponentName="dateofprenatalStart">p.dateofprenatal &gt;= @dateofprenatalStart</Where>
+					<Where ComponentName="dateofprenatalEnd">p.dateofprenatal &lt;= @dateofprenatalEnd</Where>
 				</Wheres>
 				<OrderBys>
 					<OrderBy ComponentName="createdate" Alias ="p.createdate"/>

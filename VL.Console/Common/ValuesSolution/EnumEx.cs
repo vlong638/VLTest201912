@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 
 namespace VL.Consolo_Core.Common.ValuesSolution
 {
@@ -43,25 +44,33 @@ namespace VL.Consolo_Core.Common.ValuesSolution
                 return null;
             int i;
             string name;
+            FieldInfo fieldInfo = null;
             if (int.TryParse(value.ToString(), out i))
             {
-                name = t.GetEnumName(i);
+                var fields = t.GetFields();
+                foreach (var field in fields)
+                {
+                    if (field.FieldType.BaseType != typeof(Enum))
+                        continue;
+
+                    if ((int)field.GetValue(null) == i)
+                    {
+                        fieldInfo = field;
+                        break;
+                    }
+                }
             }
             else
             {
                 name = value.ToString();
+                if (name == null)
+                    return null;
+                fieldInfo = t.GetField(name);
             }
-            if (name == null)
-            {
+            if (fieldInfo == null)
                 return null;
-            }
-            var field = t.GetField(name);
-            if (field == null)
-            {
-                return null;
-            }
-            var att = Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute), false);
-            return att == null ? field.Name : ((DescriptionAttribute)att).Description;
+            var att = Attribute.GetCustomAttribute(fieldInfo, typeof(DescriptionAttribute), false);
+            return att == null ? fieldInfo.Name : ((DescriptionAttribute)att).Description;
         }
     }
 }

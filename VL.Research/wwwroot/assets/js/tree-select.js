@@ -1,5 +1,5 @@
 jQuery.fn.extend({
-    renderTreeSelect: function(_layui, treeData,_setting) {
+    renderTreeSelect: function (_layui, treeData, _setting) {
         const $ = _layui.jquery;
         const _this = $(this);
         const class_name = _this.attr('id') + '_select'
@@ -23,8 +23,9 @@ jQuery.fn.extend({
             data: treeData,
             showCheckbox: false,
             accordion: false,
-            click: function(obj){
-                if (obj.data.children !== undefined){
+            click: function (obj) {
+                console.log(obj)
+                if (obj.data.children !== null && obj.data.children !== undefined && obj.data.children.length !== 0) {
                     //当前节点下是否有子节点
                     return false;
                 } else {
@@ -32,19 +33,20 @@ jQuery.fn.extend({
                     $("dl." + class_name).hide();
                     $("input." + class_name).val(obj.data.title);
                     _this.val(obj.data.id)
+                    console.log(_this.val());
                 }
                 // console.log(obj.data); //得到当前点击的节点数据
                 // console.log(obj.state); //得到当前节点的展开状态：open、close、normal
                 // console.log(obj.elem); //得到当前节点元素
             }
         });
-        $(".layui-anim .layui-anim-upbit").on("click",function () {
+        $(".layui-anim .layui-anim-upbit").on("click", function () {
             console.log("11")
         })
 
         $("div." + class_name).on('click', function () {
             // console.log($(".layui-unselect.layui-form-select." + class_name));
-            if ($(".layui-unselect.layui-form-select." + class_name).hasClass("layui-form-selected")){
+            if ($(".layui-unselect.layui-form-select." + class_name).hasClass("layui-form-selected")) {
                 $(".layui-unselect.layui-form-select." + class_name).removeClass("layui-form-selected");
                 $("dl." + class_name).hide();
             } else {
@@ -53,7 +55,7 @@ jQuery.fn.extend({
             }
         })
 
-        $("dl." + class_name).on('click',function () {
+        $("dl." + class_name).on('click', function () {
             return false;
         })
 

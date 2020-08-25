@@ -163,7 +163,7 @@ namespace VL.Research.Models
         /// <summary>
         /// 子项
         /// </summary>
-        public List<TreeConfig_Option> children { set; get; }
+        public List<TreeConfig_Option> children { set; get; } = new List<TreeConfig_Option>();
     }
 
 
@@ -232,8 +232,32 @@ namespace VL.Research.Models
                     spread = values[3].ToBool().Value,
                 });
             }
-            //TODO 父子关系处理
-            this.AddRange(optionsTemp);
+            //父子关系处理
+            var treeOptions =BuildTree(optionsTemp);
+            this.AddRange(treeOptions);
+        }
+
+        private List<TreeConfig_Option> BuildTree(List<TreeConfig_Option> optionsTemp)
+        {
+            List<TreeConfig_Option> treeOptions = new List<TreeConfig_Option>();
+            foreach (var option in optionsTemp.Where(c => string.IsNullOrEmpty(c.parentId) || c.parentId == "0"))
+            {
+                BuildTree(option, optionsTemp);
+                treeOptions.Add(option);
+            }
+            return treeOptions;
+        }
+
+        private void BuildTree(TreeConfig_Option rootOption, List<TreeConfig_Option> optionsTemp)
+        {
+            foreach (var option in optionsTemp)
+            {
+                if (option.parentId ==rootOption.id)
+                {
+                    BuildTree(option, optionsTemp);
+                    rootOption.children.Add(option);
+                }
+            }
         }
     }
 
