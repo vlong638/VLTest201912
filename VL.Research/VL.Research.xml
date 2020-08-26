@@ -66,6 +66,11 @@
             
             </summary>
         </member>
+        <member name="P:VL.Research.Common.Configuration.DBConfig.SZXTConnectionString">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:VL.Research.Common.APIContext">
             <summary>
             
@@ -91,6 +96,11 @@
             
             </summary>
         </member>
+        <member name="P:VL.Research.Common.APIContext.SZXTDbContext">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="M:VL.Research.Common.APIContext.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Microsoft.Extensions.Options.IOptions{VL.Research.Common.Configuration.DBConfig})">
             <summary>
             
@@ -101,6 +111,33 @@
             
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:VL.Research.Common.APIContext.GetDBContext(VL.Research.Common.DBSourceType)">
+            <summary>
+            
+            </summary>
+            <param name="source"></param>
+            <returns></returns>
+        </member>
+        <member name="T:VL.Research.Common.DBSourceType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:VL.Research.Common.DBSourceType.Pregnant">
+            <summary>
+            电子病历(Pregnant)
+            </summary>
+        </member>
+        <member name="F:VL.Research.Common.DBSourceType.FYPT">
+            <summary>
+            妇幼平台
+            </summary>
+        </member>
+        <member name="F:VL.Research.Common.DBSourceType.SZXT">
+            <summary>
+            生殖系统
+            </summary>
         </member>
         <member name="T:VL.Research.Common.MenuConfig">
             <summary>
@@ -1981,7 +2018,7 @@
             <param name="exportName"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.HomeController.CommonExportForFYPT_Inline(VL.Research.Services.SharedService,System.String,System.String)">
+        <member name="M:VL.Research.Controllers.HomeController.CommonExportInlineForFYPT(VL.Research.Services.SharedService,System.String,System.String)">
             <summary>
             通用导出方案
             </summary>
@@ -1990,7 +2027,7 @@
             <param name="exportName"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.HomeController.CommonExportForFYPT_All(VL.Research.Common.APIContext,System.String)">
+        <member name="M:VL.Research.Controllers.HomeController.CommonExportAll(VL.Research.Common.APIContext,System.String)">
             <summary>
             获取 通用分页列表
             </summary>
@@ -2170,10 +2207,19 @@
             获取 通用分页列表
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.SystemController.GetCommonSelectForFYPT(VL.Research.Common.APIContext,VL.Research.Services.SharedService,VL.Research.Models.GetCommonSelectRequest)">
+        <member name="M:VL.Research.Controllers.SystemController.getListConfigByDirectoryName(System.String)">
             <summary>
-            获取 通用分页列表
+            获取 列表配置
             </summary>
+            <param name="viewName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Controllers.SystemController.getSQLConfigByDirectoryName(System.String)">
+            <summary>
+            获取 列表sql配置
+            </summary>
+            <param name="viewName"></param>
+            <returns></returns>
         </member>
         <member name="M:VL.Research.Controllers.SystemController.GetListConfig_LayUIByDirectoryName(VL.Research.Services.UserService,VL.Research.Models.GetListConfigRequest)">
             <summary>
@@ -2183,31 +2229,22 @@
             <param name="request">请求参数实体</param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.SystemController.GetListConfigByDirectoryName(System.String)">
+        <member name="M:VL.Research.Controllers.SystemController.GetCommonSelectForFYPT(VL.Research.Common.APIContext,VL.Research.Services.SharedService,VL.Research.Models.GetCommonSelectRequest)">
             <summary>
-            获取 列表配置
-            </summary>
-            <param name="viewName"></param>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Research.Controllers.SystemController.GetSQLConfigByDirectoryName(System.String)">
-            <summary>
-            获取 列表sql配置
-            </summary>
-            <param name="viewName"></param>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Research.Controllers.SystemController.GetCommonList(VL.Research.Services.SharedService,VL.Research.Models.GetCommonSelectRequest)">
-            <summary>
-            获取 通用分页列表
+            获取 通用查询 分页列表
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.SystemController.GetCommonListForFYPT(VL.Research.Services.SharedService,VL.Research.Models.GetCommonSelectRequest)">
+        <member name="M:VL.Research.Controllers.SystemController.CommonExportAllForFYPT(VL.Research.Common.APIContext,VL.Research.Services.SharedService,VL.Research.Models.GetCommonSelectRequest)">
             <summary>
-            获取 通用分页列表
+            通用导出
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.SystemController.CommonExportForFYPT_All(VL.Research.Common.APIContext,VL.Research.Services.SharedService,VL.Research.Models.GetCommonSelectRequest)">
+        <member name="M:VL.Research.Controllers.SystemController.GetCommonSelectForSZXT(VL.Research.Common.APIContext,VL.Research.Services.SharedService,VL.Research.Models.GetCommonSelectRequest)">
+            <summary>
+            获取 通用查询 分页列表
+            </summary>
+        </member>
+        <member name="M:VL.Research.Controllers.SystemController.CommonExportAllForSZXT(VL.Research.Common.APIContext,VL.Research.Services.SharedService,VL.Research.Models.GetCommonSelectRequest)">
             <summary>
             通用导出
             </summary>
@@ -2455,7 +2492,7 @@
             通用查询模型
             </summary>
         </member>
-        <member name="M:VL.Research.Services.SharedService.GetCommonSelectBySQLConfigForFYPT(VL.Research.Common.SQLConfig)">
+        <member name="M:VL.Research.Services.SharedService.GetCommonSelectBySQLConfig(VL.Research.Common.SQLConfig,VL.Research.Common.DBSourceType)">
             <summary>
             通用查询模型
             </summary>

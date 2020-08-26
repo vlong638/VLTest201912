@@ -396,7 +396,7 @@ namespace VL.Research.Controllers
         /// <returns></returns>
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult CommonExportForFYPT_Inline([FromServices] SharedService sharedService, string moduleName, string exportName)
+        public IActionResult CommonExportInlineForFYPT([FromServices] SharedService sharedService, string moduleName, string exportName)
         {
             var search = new List<VLKeyValue>() { new VLKeyValue("idcard", "110101199003072025") };
             var path = System.IO.Path.Combine(AppContext.BaseDirectory, @"XMLConfig", moduleName,exportName + ".xml");
@@ -428,7 +428,7 @@ namespace VL.Research.Controllers
                         sheetConfig.DataSources = new Dictionary<string, DataTable>();
                         foreach (var sourceConfig in sheetConfig.Sources)
                         {
-                            var result = sharedService.GetCommonSelectByExportConfigForFYPT(sourceConfig);
+                            var result = sharedService.GetCommonSelectByExportConfig(sourceConfig,DBSourceType.FYPT);
                             if (!result.IsSuccess)
                             {
                                 throw new NotImplementedException("数据源存在异常:" + result.Message);
@@ -452,30 +452,11 @@ namespace VL.Research.Controllers
         /// </summary>
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult CommonExportForFYPT_All([FromServices] APIContext apiContext,string outputPath)
+        public IActionResult CommonExportAll([FromServices] APIContext apiContext,string outputPath)
         {
             var path = System.IO.Path.Combine(AppContext.BaseDirectory, @"XMLConfig", outputPath);
             var stream = System.IO.File.OpenRead(outputPath);
             return File(stream, "application/vnd.android.package-archive", outputPath);
-
-
-            //var ss = System.IO.File.OpenRead(@"C:\Users\vlong\Desktop\sql\O_LabOrder.sql");
-            //return File(ss, "application/vnd.android.package-archive", "");
-
-            //var target = request.search.FirstOrDefault(c => c.Key == "target").Value;
-            //var listConfig = SystemController.GetListConfigByDirectoryName(target);
-            //var sqlConfig = SystemController.GetSQLConfigByDirectoryName(target);
-            //sqlConfig.PageIndex = request.page;
-            //sqlConfig.PageSize = request.limit;
-            //sqlConfig.UpdateWheres(request.search);
-            //sqlConfig.UpdateOrderBy(request.field, request.order);
-            ////获取数据
-            //var serviceResult = sharedService.GetCommonSelectBySQLConfigForFYPT(sqlConfig);
-            //if (!serviceResult.IsSuccess)
-            //    return Error<List<Dictionary<string, object>>, int>(null, 0, messages: serviceResult.Messages);
-            ////更新显示映射(枚举,函数,脱敏)
-            //listConfig.UpdateValues(serviceResult.Data.SourceData);
-            //return Success(serviceResult.Data.SourceData, serviceResult.Data.Count, serviceResult.Messages);
         }
         #endregion
     }

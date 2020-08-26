@@ -12,6 +12,8 @@
     <None Remove="VL.Research.xml" />
     <None Remove="XMLConfig\CustomConfig.xml" />
     <None Remove="XMLConfig\DetailConfig.xml" />
+    <None Remove="XMLConfig\Sample_YPF\ExportConfig_列表.xml" />
+    <None Remove="XMLConfig\Sample_YPF\ExportConfig_高危妊娠表.xml" />
     <None Remove="XMLConfig\FYPT_PregnantInfo\ExportConfig_列表.xml" />
     <None Remove="XMLConfig\FYPT_PregnantInfo\ExportConfig_高危妊娠表.xml" />
     <None Remove="XMLConfig\FYPT_PregnantInfo\~%24列表.xlsx" />
@@ -27,6 +29,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="XMLConfig\DetailConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="XMLConfig\Sample_YPF\ExportConfig_列表.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="XMLConfig\Sample_YPF\ExportConfig_高危妊娠表.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="XMLConfig\FYPT_PregnantInfo\ExportConfig_列表.xml">
@@ -99,6 +107,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="XMLConfig\Sample_YPF\ListConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLConfig\Sample_YPF\SQLConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLConfig\Sample_YPF\列表.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLConfig\Sample_YPF\高危妊娠管理个案登记表.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="XMLConfig\FYPT_PregnantInfo\ListConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

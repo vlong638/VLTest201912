@@ -15,42 +15,43 @@ namespace VL.Consolo_Core.Common.ExcelSolution
         /// <returns></returns>
         public static void VLSetCellValue(this ISheet sheet, int rowNum, int columnNum, string value)
         {
+            ICell cell = GetCell(sheet, rowNum, columnNum);
+            cell.SetCellValue(value);
+        }
+
+        private static ICell GetCell(ISheet sheet, int rowNum, int columnNum)
+        {
             var row = sheet.GetRow(rowNum);
-            if (row==null)
+            if (row == null)
                 row = sheet.CreateRow(rowNum);
             var cell = row.GetCell(columnNum);
             if (cell == null)
                 cell = row.CreateCell(columnNum);
+            return cell;
+        }
+
+        /// <summary>
+        /// 设置Cell的数据
+        /// </summary>
+        public static void VLSetCellValue(this ISheet sheet, int rowNum, int columnNum, DateTime value)
+        {
+            ICell cell = GetCell(sheet, rowNum, columnNum);
             cell.SetCellValue(value);
         }
         /// <summary>
         /// 设置Cell的数据
         /// </summary>
-        public static void VLSetCellValue(this ISheet sheet, int row, int column, DateTime value)
+        public static void VLSetCellValue(this ISheet sheet, int rowNum, int columnNum, bool value)
         {
-            var cell = sheet.GetRow(row).GetCell(column);
-            if (cell == null || cell.CellType == CellType.Blank)
-                return;
+            ICell cell = GetCell(sheet, rowNum, columnNum);
             cell.SetCellValue(value);
         }
         /// <summary>
         /// 设置Cell的数据
         /// </summary>
-        public static void VLSetCellValue(this ISheet sheet, int row, int column, bool value)
+        public static void VLSetCellValue(this ISheet sheet, int rowNum, int columnNum, double value)
         {
-            var cell = sheet.GetRow(row).GetCell(column);
-            if (cell == null || cell.CellType == CellType.Blank)
-                return;
-            cell.SetCellValue(value);
-        }
-        /// <summary>
-        /// 设置Cell的数据
-        /// </summary>
-        public static void VLSetCellValue(this ISheet sheet, int row, int column, double value)
-        {
-            var cell = sheet.GetRow(row).GetCell(column);
-            if (cell == null || cell.CellType == CellType.Blank)
-                return;
+            ICell cell = GetCell(sheet, rowNum, columnNum);
             cell.SetCellValue(value);
         }
 
@@ -58,14 +59,12 @@ namespace VL.Consolo_Core.Common.ExcelSolution
         /// 获取Cell的数据
         /// </summary>
         /// <param name="sheet"></param>
-        /// <param name="row"></param>
-        /// <param name="column"></param>
+        /// <param name="rowNum"></param>
+        /// <param name="columnNum"></param>
         /// <returns></returns>
-        public static string VLGetCellValueAsString(this ISheet sheet, int row, int column)
+        public static string VLGetCellValueAsString(this ISheet sheet, int rowNum, int columnNum)
         {
-            var cell = sheet.GetRow(row).GetCell(column);
-            if (cell == null || cell.CellType == CellType.Blank)
-                return null;
+            ICell cell = GetCell(sheet, rowNum, columnNum);
             if (cell.CellType == CellType.Numeric)
             {
                 if (DateUtil.IsCellDateFormatted(cell))
@@ -94,8 +93,10 @@ namespace VL.Consolo_Core.Common.ExcelSolution
                         throw new NotImplementedException("未支持该类型的公式取值");
                 }
             }
+            else if (cell.CellType == CellType.Blank)
+                return cell.StringCellValue;
             else if (cell.CellType != CellType.String)
-                throw new NotImplementedException(GetLocation(row, column) + CellTypeInvalid);
+                throw new NotImplementedException(GetLocation(rowNum, columnNum) + CellTypeInvalid);
             return cell.StringCellValue;
         }
 

@@ -20,6 +20,16 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
                 Source = values[1];
                 Field = values[2];
             }
+            else if (text.StartsWith("@Sum"))
+            {
+                var ss = text.TrimStart("@Sum_");
+                var values = ss.Split('_');
+                if (values.Count() != 3)
+                    return;
+                Func = values[0];
+                Source = values[1];
+                Field = values[2];
+            }
             else
             {
                 var ss = text.TrimStart("@");
@@ -34,5 +44,6 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
         public string Source { set; get; } = "";
         public string Field { set; get; } = "";
         public int Loop { set; get; }
+        public string Func { set; get; }
     }
 }

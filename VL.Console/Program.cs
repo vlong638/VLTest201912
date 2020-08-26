@@ -16,6 +16,8 @@ using System.Xml.Linq;
 using VL.Consoling.Entities;
 using VL.Consoling.RabitMQUtils;
 using VL.Consoling.Utils;
+using System.Data;
+using System.Collections;
 
 namespace VL.Consoling
 {
@@ -27,9 +29,69 @@ namespace VL.Consoling
         static string LocalMSSQL = "Data Source=127.0.0.1,1433;Initial Catalog=VLTest;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sa;Password=123";
         static string HeleOuterMSSQL = "Data Source=heletech.asuscomm.com,8082;Initial Catalog=HELEESB;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=ESBUSER;Password=ESBPWD";
         static string HeleInnerMSSQL = "Data Source=192.168.50.102,8082;Initial Catalog=HELEESB;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=ESBUSER;Password=ESBPWD";
-        
+
+        /// <summary>
+        /// Json 字符串 转换为 DataTable数据集合
+        /// </summary>
+        /// <param name="json"></param>
+        /// <returns></returns>
+        public static DataTable ToDataTable(string json)
+        {
+            DataTable dataTable = new DataTable();  //实例化
+            DataTable result;
+            try
+            {
+                ArrayList arrayList = json.FromJson<ArrayList>();
+                if (arrayList.Count > 0)
+                {
+                    foreach (Dictionary<string, object> dictionary in arrayList)
+                    {
+                        if (dictionary.Keys.Count<string>() == 0)
+                        {
+                            result = dataTable;
+                            return result;
+                        }
+                        if (dataTable.Columns.Count == 0)
+                        {
+                            foreach (string current in dictionary.Keys)
+                            {
+                                dataTable.Columns.Add(current, dictionary[current].GetType());
+                            }
+                        }
+                        DataRow dataRow = dataTable.NewRow();
+                        foreach (string current in dictionary.Keys)
+                        {
+                            dataRow[current] = dictionary[current];
+                        }
+
+                        dataTable.Rows.Add(dataRow); //循环添加行到DataTable中
+                    }
+                }
+            }
+            catch(Exception e)
+            {
+                var ex = e.ToString();
+            }
+            result = dataTable;
+            return result;
+        }
+
         static void Main(string[] args)
         {
+            //0826 newtonsoft支持json直接转datatable
+            var t0826 = @"[{""yizhirq"":"""",""shuhouts"":"""",""hcg"":""123"",""yindaolx"":"""",""fuzhang"":""""},{""yizhirq"":"""",""shuhouts"":"""",""hcg"":""321"",""yindaolx"":"""",""fuzhang"":""""}]";
+            var t0826Json = t0826.FromJson<dynamic>();
+            var t0826DataTable = t0826.FromJson<DataTable>();
+            var sumhcgValue = t0826DataTable.AsEnumerable().Sum(c => {
+                var text = c.Field<string>("hcg");
+                return text?.ToInt().Value ?? 0;
+            });
+            var sumyizhirqValue = t0826DataTable.AsEnumerable().Sum(c => {
+                var text = c.Field<string>("yizhirq");
+                var value = text?.ToInt();
+                return value.HasValue ? value.Value : 0;
+            });
+
             ///命令对象有助于代码的版本控制,集体非方法的形式堆在一起不利于
             CommandCollection cmds = new CommandCollection();
             cmds.Add(new Command("ls", () =>

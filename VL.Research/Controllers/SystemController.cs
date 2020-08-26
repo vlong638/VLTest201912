@@ -382,30 +382,110 @@ namespace VL.Research.Controllers
 
         #endregion
 
-        #region CommonListForFYPT
+        #region CommonList
 
         /// <summary>
-        /// 获取 通用分页列表
+        /// 获取 列表配置
         /// </summary>
-        [HttpPost]
-        //[VLAuthentication(Authority.查看孕妇档案列表)]
-        //[Authorize]
-        public APIResult<List<Dictionary<string, object>>, int> GetCommonSelectForFYPT([FromServices] APIContext apiContext, [FromServices] SharedService sharedService, GetCommonSelectRequest request)
+        /// <param name="viewName"></param>
+        /// <returns></returns>
+        private static ListConfig getListConfigByDirectoryName(string viewName)
         {
-            var listConfig = GetListConfigByDirectoryName(request.target);
-            var sqlConfig = GetSQLConfigByDirectoryName(request.target);
+            ListConfig tableConfig;
+            var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", viewName, "ListConfig.xml");
+            XDocument doc = XDocument.Load(path);
+            var tableElements = doc.Descendants(ListConfig.NodeElementName);
+            var tableConfigs = tableElements.Select(c => new ListConfig(c));
+            tableConfig = tableConfigs.FirstOrDefault();
+            return tableConfig;
+        }
+
+        /// <summary>
+        /// 获取 列表sql配置
+        /// </summary>
+        /// <param name="viewName"></param>
+        /// <returns></returns>
+        private static SQLConfig getSQLConfigByDirectoryName(string viewName)
+        {
+            var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", viewName, "SQLConfig.xml");
+            XDocument doc = XDocument.Load(path);
+            var tableElements = doc.Descendants(SQLConfig.NodeElementName);
+            var tableConfigs = tableElements.Select(c => new SQLConfig(c));
+            return tableConfigs.FirstOrDefault();
+        }
+
+        private APIResult<List<Dictionary<string, object>>, int> getCommonSelect(SharedService sharedService, GetCommonSelectRequest request, DBSourceType dbSourceType)
+        {
+            var listConfig = getListConfigByDirectoryName(request.target);
+            var sqlConfig = getSQLConfigByDirectoryName(request.target);
             sqlConfig.PageIndex = request.page;
             sqlConfig.PageSize = request.limit;
             sqlConfig.UpdateWheres(request.search);
             sqlConfig.UpdateOrderBy(request.field, request.order);
             //获取数据
-            var serviceResult = sharedService.GetCommonSelectBySQLConfigForFYPT(sqlConfig);
+            var serviceResult = sharedService.GetCommonSelectBySQLConfig(sqlConfig, dbSourceType);
             if (!serviceResult.IsSuccess)
                 return Error<List<Dictionary<string, object>>, int>(null, 0, messages: serviceResult.Messages);
             //更新显示映射(枚举,函数,脱敏)
             listConfig.UpdateValues(serviceResult.Data.SourceData);
             return Success(serviceResult.Data.SourceData, serviceResult.Data.Count, serviceResult.Messages);
         }
+
+        private APIResult<string> commonExport(APIContext apiContext, SharedService sharedService, GetCommonSelectRequest request, DBSourceType sourceType)
+        {
+            var target = request.search.FirstOrDefault(c => c.Key == "target").Value;
+            var search = request.search;
+            var path = System.IO.Path.Combine(AppContext.BaseDirectory, @"XMLConfig", target, "ExportConfig_列表.xml");
+
+            XDocument doc = XDocument.Load(path);
+            var tableElements = doc.Descendants(ExportConfig.NodeElementName);
+            var configs = tableElements.Select(c => new ExportConfig(c));
+            var config = configs.FirstOrDefault();
+            if (config == null)
+            {
+                throw new NotImplementedException("无效的导出配置");
+            }
+            var modelPath = System.IO.Path.Combine(AppContext.BaseDirectory, @"XMLConfig", target, config.FileName);
+            var filename = DateTime.Now.ToString("yyyyMMdd_HHmmss") + config.FileName;
+            var outputPath = System.IO.Path.Combine(AppContext.BaseDirectory, @"XMLConfig", target, filename);
+            if (!System.IO.File.Exists(modelPath))
+            {
+                throw new NotImplementedException("模板文件不存在");
+            }
+            using (System.IO.FileStream s = System.IO.File.OpenRead(modelPath))
+            {
+                var workbook = new XSSFWorkbook(s);
+                foreach (var sheetConfig in config.Sheets)
+                {
+                    sheetConfig.UpdateWheres(search);
+                    var sheet = workbook.GetSheet(sheetConfig.SheetName);
+                    if (sheet != null)
+                    {
+                        sheetConfig.DataSources = new Dictionary<string, DataTable>();
+                        foreach (var sourceConfig in sheetConfig.Sources)
+                        {
+                            var result = sharedService.GetCommonSelectByExportConfig(sourceConfig, sourceType);
+                            if (!result.IsSuccess)
+                            {
+                                throw new NotImplementedException("数据源存在异常:" + result.Message);
+                            }
+                            sheetConfig.DataSources[sourceConfig.SourceName] = result.Data;
+                        }
+                        sheetConfig.Render(sheet);
+                    }
+                }
+                using (System.IO.Stream stream = System.IO.File.OpenWrite(outputPath))
+                {
+                    workbook.Write(stream);
+                }
+            }
+            var webPath = $@"{apiContext.GetWebPath()}/Home/CommonExportAll?outputPath={outputPath}";
+            return Success(webPath);
+        }
+
+        #endregion
+
+        #region CommonListForFYPT
 
         /// <summary>
         /// 获取 列表配置
@@ -491,79 +571,15 @@ namespace VL.Research.Controllers
         }
 
         /// <summary>
-        /// 获取 列表配置
-        /// </summary>
-        /// <param name="viewName"></param>
-        /// <returns></returns>
-        public static ListConfig GetListConfigByDirectoryName(string viewName)
-        {
-            ListConfig tableConfig;
-            var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", viewName, "ListConfig.xml");
-            XDocument doc = XDocument.Load(path);
-            var tableElements = doc.Descendants(ListConfig.NodeElementName);
-            var tableConfigs = tableElements.Select(c => new ListConfig(c));
-            tableConfig = tableConfigs.FirstOrDefault();
-            return tableConfig;
-        }
-
-        /// <summary>
-        /// 获取 列表sql配置
-        /// </summary>
-        /// <param name="viewName"></param>
-        /// <returns></returns>
-        public static SQLConfig GetSQLConfigByDirectoryName(string viewName)
-        {
-            var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", viewName, "SQLConfig.xml");
-            XDocument doc = XDocument.Load(path);
-            var tableElements = doc.Descendants(SQLConfig.NodeElementName);
-            var tableConfigs = tableElements.Select(c => new SQLConfig(c));
-            return tableConfigs.FirstOrDefault();
-        }
-
-        /// <summary>
-        /// 获取 通用分页列表
+        /// 获取 通用查询 分页列表
         /// </summary>
         [HttpPost]
         //[VLAuthentication(Authority.查看孕妇档案列表)]
         //[Authorize]
-        public APIResult<List<Dictionary<string, object>>, int> GetCommonList([FromServices] SharedService sharedService, GetCommonSelectRequest request)
+        public APIResult<List<Dictionary<string, object>>, int> GetCommonSelectForFYPT([FromServices] APIContext apiContext, [FromServices] SharedService sharedService, GetCommonSelectRequest request)
         {
-            var ListConfig = GetListConfigByDirectoryName(request.target);
-            var sqlConfig = GetSQLConfigByDirectoryName(request.target);
-            sqlConfig.PageIndex = request.page;
-            sqlConfig.PageSize = request.limit;
-            sqlConfig.UpdateWheres(request.search);
-            sqlConfig.UpdateOrderBy(request.field, request.order);
-            //获取数据
-            var serviceResult = sharedService.GetCommonSelectBySQLConfig(sqlConfig);
-            if (!serviceResult.IsSuccess)
-                return Error<List<Dictionary<string, object>>, int>(null, 0, messages: serviceResult.Messages);
-            //更新显示映射(枚举,函数,脱敏)
-            ListConfig.UpdateValues(serviceResult.Data.SourceData);
-            return Success(serviceResult.Data.SourceData, serviceResult.Data.Count, serviceResult.Messages);
-        }
-
-        /// <summary>
-        /// 获取 通用分页列表
-        /// </summary>
-        [HttpPost]
-        //[VLAuthentication(Authority.查看孕妇档案列表)]
-        //[Authorize]
-        public APIResult<List<Dictionary<string, object>>, int> GetCommonListForFYPT([FromServices] SharedService sharedService, GetCommonSelectRequest request)
-        {
-            var listConfig = GetListConfigByDirectoryName(request.target);
-            var sqlConfig = GetSQLConfigByDirectoryName(request.target);
-            sqlConfig.PageIndex = request.page;
-            sqlConfig.PageSize = request.limit;
-            sqlConfig.UpdateWheres(request.search);
-            sqlConfig.UpdateOrderBy(request.field, request.order);
-            //获取数据
-            var serviceResult = sharedService.GetCommonSelectBySQLConfigForFYPT(sqlConfig);
-            if (!serviceResult.IsSuccess)
-                return Error<List<Dictionary<string, object>>, int>(null, 0, messages: serviceResult.Messages);
-            //更新显示映射(枚举,函数,脱敏)
-            listConfig.UpdateValues(serviceResult.Data.SourceData);
-            return Success(serviceResult.Data.SourceData, serviceResult.Data.Count, serviceResult.Messages);
+            var dbSourceType = DBSourceType.FYPT;
+            return getCommonSelect(sharedService, request, dbSourceType);
         }
 
         /// <summary>
@@ -571,62 +587,33 @@ namespace VL.Research.Controllers
         /// </summary>
         [HttpPost]
         //[AllowAnonymous]
-        public APIResult<string> CommonExportForFYPT_All([FromServices] APIContext apiContext, [FromServices] SharedService sharedService, [FromBody] GetCommonSelectRequest request)
+        public APIResult<string> CommonExportAllForFYPT([FromServices] APIContext apiContext, [FromServices] SharedService sharedService, [FromBody] GetCommonSelectRequest request)
         {
-            //var path1 = System.IO.Path.Combine(AppContext.BaseDirectory, @"XMLConfig", request.search.FirstOrDefault(c => c.Key == "target").Value, "20200824_164036列表.xlsx");
-            //return Success($@"http://localhost:14314/Home/CommonExportForFYPT_All?outputPath={path1}");
-            ////D:\WorkSpace\Repository\VLTest201912\VL.Research\bin\Debug\netcoreapp3.1\XMLConfig\FYPT_PregnantInfo\20200824_164036列表.xlsx
-            ////D:\WorkSpace\Repository\VLTest201912\VL.Research\bin\Debug\netcoreapp3.1\XMLConfig\FYPT_PregnantInfo\20200824_170507列表.xlsx
+            var sourceType = DBSourceType.FYPT;
+            return commonExport(apiContext, sharedService, request, sourceType);
+        }
 
-            var target = request.search.FirstOrDefault(c => c.Key == "target").Value;
-            var search = request.search;
-            var path = System.IO.Path.Combine(AppContext.BaseDirectory, @"XMLConfig", target, "ExportConfig_列表.xml");
+        /// <summary>
+        /// 获取 通用查询 分页列表
+        /// </summary>
+        [HttpPost]
+        //[VLAuthentication(Authority.查看孕妇档案列表)]
+        //[Authorize]
+        public APIResult<List<Dictionary<string, object>>, int> GetCommonSelectForSZXT([FromServices] APIContext apiContext, [FromServices] SharedService sharedService, GetCommonSelectRequest request)
+        {
+            var dbSourceType = DBSourceType.SZXT;
+            return getCommonSelect(sharedService, request, dbSourceType);
+        }
 
-            XDocument doc = XDocument.Load(path);
-            var tableElements = doc.Descendants(ExportConfig.NodeElementName);
-            var configs = tableElements.Select(c => new ExportConfig(c));
-            var config = configs.FirstOrDefault();
-            if (config == null)
-            {
-                throw new NotImplementedException("无效的导出配置");
-            }
-            var modelPath = System.IO.Path.Combine(AppContext.BaseDirectory, @"XMLConfig", target, config.FileName);
-            var filename = DateTime.Now.ToString("yyyyMMdd_HHmmss") + config.FileName;
-            var outputPath = System.IO.Path.Combine(AppContext.BaseDirectory, @"XMLConfig", target, filename);
-            if (!System.IO.File.Exists(modelPath))
-            {
-                throw new NotImplementedException("模板文件不存在");
-            }
-            using (System.IO.FileStream s = System.IO.File.OpenRead(modelPath))
-            {
-                var workbook = new XSSFWorkbook(s);
-                foreach (var sheetConfig in config.Sheets)
-                {
-                    sheetConfig.UpdateWheres(search);
-                    var sheet = workbook.GetSheet(sheetConfig.SheetName);
-                    if (sheet != null)
-                    {
-                        sheetConfig.DataSources = new Dictionary<string, DataTable>();
-                        foreach (var sourceConfig in sheetConfig.Sources)
-                        {
-                            var result = sharedService.GetCommonSelectByExportConfigForFYPT(sourceConfig);
-                            if (!result.IsSuccess)
-                            {
-                                throw new NotImplementedException("数据源存在异常:" + result.Message);
-                            }
-                            sheetConfig.DataSources[sourceConfig.SourceName] = result.Data;
-                        }
-                        sheetConfig.Render(sheet);
-                    }
-                }
-                using (System.IO.Stream stream = System.IO.File.OpenWrite(outputPath))
-                {
-                    workbook.Write(stream);
-                }
-            }
-            var webPath = $@"{apiContext.GetWebPath()}/Home/CommonExportForFYPT_All?outputPath={outputPath}";
-            return Success(webPath);
-            //D:\WorkSpace\Repository\VLTest201912\VL.Research\bin\Debug\netcoreapp3.1\XMLConfig\FYPT_PregnantInfo\20200824_170507列表.xlsx
+        /// <summary>
+        /// 通用导出
+        /// </summary>
+        [HttpPost]
+        //[AllowAnonymous]
+        public APIResult<string> CommonExportAllForSZXT([FromServices] APIContext apiContext, [FromServices] SharedService sharedService, [FromBody] GetCommonSelectRequest request)
+        {
+            var sourceType = DBSourceType.SZXT;
+            return commonExport(apiContext, sharedService, request, sourceType);
         }
 
         #endregion

@@ -29,6 +29,10 @@ namespace VL.Research.Common
         /// 
         /// </summary>
         public DbContext FYPTDbContext { set; get; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public DbContext SZXTDbContext { set; get; }
 
         /// <summary>
         /// 
@@ -38,6 +42,7 @@ namespace VL.Research.Common
             HttpContextAccessor = httpContext;
             CommonDbContext = new DbContext(DBHelper.GetDbConnection(loggingConfig.Value.ConnectionString));
             FYPTDbContext = new DbContext(DBHelper.GetDbConnection(loggingConfig.Value.FYPTConnectionString));
+            SZXTDbContext = new DbContext(DBHelper.GetDbConnection(loggingConfig.Value.SZXTConnectionString));
         }
 
         #region Auth
@@ -71,6 +76,45 @@ namespace VL.Research.Common
                 .ToString();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public DbContext GetDBContext(DBSourceType source)
+        {
+            switch (source)
+            {
+                case DBSourceType.Pregnant:
+                    return CommonDbContext;
+                case DBSourceType.FYPT:
+                    return FYPTDbContext;
+                case DBSourceType.SZXT:
+                    return SZXTDbContext;
+                default:
+                    throw new NotImplementedException("尚未支持该类型的dbContext构建");
+            }
+        }
+
         #endregion
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public enum DBSourceType
+    {
+        /// <summary>
+        /// 电子病历(Pregnant)
+        /// </summary>
+        Pregnant,
+        /// <summary>
+        /// 妇幼平台
+        /// </summary>
+        FYPT,
+        /// <summary>
+        /// 生殖系统
+        /// </summary>
+        SZXT,
     }
 }

@@ -95,6 +95,8 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
             for (int i = 0; i <= rowsCount; i++)
             {
                 var row = sheet.GetRow(i);
+                if (row == null)
+                    row = sheet.CreateRow(i);
                 var columnsCount = row.LastCellNum;
                 for (int j = 0; j < columnsCount; j++)
                 {
@@ -119,10 +121,26 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
                                 sheet.VLSetCellValue(i + n, j, value);
                             }
                         }
-                        else
+                        else if (holder.Func.IsNullOrEmpty())
                         {
                             var value = talbe.Rows[0][holder.Field]?.ToString();
                             sheet.VLSetCellValue(i, j, value);
+                        }
+                        else
+                        {
+                            switch (holder.Func.ToLower())
+                            {
+                                case "@sumint":
+                                    int sumValue = 0;
+                                    for (int n = 0; n < talbe.Rows.Count; n++)
+                                    {
+                                        sumValue += talbe.Rows[n][holder.Field]?.ToString().ToInt() ?? 0;
+                                    }
+                                    sheet.VLSetCellValue(i, j, sumValue.ToString());
+                                    break;
+                                default:
+                                    break;
+                            }
                         }
                     }
                 }
@@ -166,6 +184,42 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
         //    }
         //}
     }
+
+    public class ExportSourceTransform
+    {
+        public static string ElementName = "Transform";
+
+        /// <summary>
+        /// 来源列名
+        /// </summary>
+        public string SourceColumnName { set; get; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string FieldName { set; get; }
+        /// <summary>
+        /// 来源类型
+        /// </summary>
+        public string SourceType { set; get; }
+        /// <summary>
+        /// 转换类型
+        /// </summary>
+        public string FunctionType { set; get; }
+        /// <summary>
+        /// 目标列名
+        /// </summary>
+        public string TargetColumnName { set; get; }
+
+        public ExportSourceTransform(XElement element)
+        {
+            SourceColumnName = element.Attribute(nameof(SourceColumnName))?.Value;
+            FieldName = element.Attribute(nameof(FieldName))?.Value;
+            SourceType = element.Attribute(nameof(SourceType))?.Value;
+            FunctionType = element.Attribute(nameof(FunctionType))?.Value;
+            TargetColumnName = element.Attribute(nameof(TargetColumnName))?.Value;
+        }
+    }
+
     /// <summary>
     /// 数据源
     /// </summary>
@@ -185,6 +239,10 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
         /// </summary>
         public List<ExportSourceProperty> Properties { set; get; }
         /// <summary>
+        /// 页面字段
+        /// </summary>
+        public List<ExportSourceTransform> Transforms { set; get; }
+        /// <summary>
         /// 页面条件项
         /// </summary>
         public List<ExportSourceWhere> Wheres { set; get; }
@@ -203,6 +261,7 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
             SourceName = element.Attribute(nameof(SourceName))?.Value;
             SQL = element.Descendants("SQL").First().Value;
             Properties = element.Descendants(ExportSourceProperty.NodeElementName).Select(c => new ExportSourceProperty(c)).ToList();
+            Transforms = element.Descendants(ExportSourceTransform.ElementName).Select(c => new ExportSourceTransform(c)).ToList();
             Wheres = element.Descendants(ExportSourceWhere.NodeElementName).Select(c => new ExportSourceWhere(c)).ToList();
             OrderBys = element.Descendants(ExportSourceOrderBy.NodeElementName).Select(c => new ExportSourceOrderBy(c)).ToList();
         }
@@ -234,6 +293,40 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
                 }
             }
             return args;
+        }
+
+        public void DoTransforms(ref DataTable datatable)
+        {
+            foreach (var transform in Transforms)
+            {
+                switch (transform.SourceType.ToLower())
+                {
+                    case "jsonlist":
+                        datatable.Columns.Add(new DataColumn(transform.TargetColumnName));
+                        for (int i = 0; i < datatable.Rows.Count; i++)
+                        {
+                            var jsonTable = datatable.Rows[i][transform.SourceColumnName].ToString()?.FromJson<DataTable>();
+                            if (jsonTable == null)
+                                continue;
+                            switch (transform.FunctionType.ToLower())
+                            {
+                                case "sumint":
+                                    var sumValue = jsonTable.AsEnumerable().Sum(c => {
+                                        var text = c.Field<string>(transform.FieldName);
+                                        var value = text?.ToInt();
+                                        return value.HasValue ? value.Value : 0;
+                                    });
+                                    datatable.Rows[i][transform.TargetColumnName] = sumValue;
+                                    break;
+                                default:
+                                    throw new NotImplementedException("未支持该`FunctionType` ");
+                            }
+                        }
+                        break;
+                    default:
+                        throw new NotImplementedException("未支持该`SourceType` ");
+                }
+            }
         }
     }
     /// <summary>

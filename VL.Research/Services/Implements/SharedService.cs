@@ -47,11 +47,12 @@ namespace VL.Research.Services
         /// <summary>
         /// 通用查询模型
         /// </summary>
-        public ServiceResult<VLPagerTableResult<List<Dictionary<string, object>>>> GetCommonSelectBySQLConfigForFYPT(SQLConfig sqlConfig)
+        public ServiceResult<VLPagerTableResult<List<Dictionary<string, object>>>> GetCommonSelectBySQLConfig(SQLConfig sqlConfig, DBSourceType source)
         {
-            var result = dbContext.FYPTDbContext.DelegateTransaction((g) =>
+            var adbContext = dbContext.GetDBContext(source);
+            var result = adbContext.DelegateTransaction((g) =>
             {
-                sharedRepository = new SharedRepository(dbContext.FYPTDbContext);
+                sharedRepository = new SharedRepository(adbContext);
                 var list = sharedRepository.GetCommonSelect(sqlConfig);
                 var count = sharedRepository.GetCommonSelectCount(sqlConfig);
                 return new VLPagerTableResult<List<Dictionary<string, object>>>() { SourceData = list.ToList(), Count = count, CurrentIndex = sqlConfig.PageIndex };
@@ -68,12 +69,15 @@ namespace VL.Research.Services
             return result;
         }
 
-        internal ServiceResult<DataTable> GetCommonSelectByExportConfigForFYPT(ExportSource sourceConfig)
+        internal ServiceResult<DataTable> GetCommonSelectByExportConfig(ExportSource sourceConfig, DBSourceType source)
         {
-            var result = dbContext.FYPTDbContext.DelegateTransaction((g) =>
+            var adbContext = dbContext.GetDBContext(source);
+            var result = adbContext.DelegateTransaction((g) =>
             {
-                sharedRepository = new SharedRepository(dbContext.FYPTDbContext);
-                return sharedRepository.GetCommonSelect(sourceConfig);
+                sharedRepository = new SharedRepository(adbContext);
+                var datatable = sharedRepository.GetCommonSelect(sourceConfig);
+                sourceConfig.DoTransforms(ref datatable);
+                return datatable;
             });
             return result;
         }

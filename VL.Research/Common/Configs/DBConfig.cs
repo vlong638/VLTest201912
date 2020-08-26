@@ -13,5 +13,9 @@
         /// 
         /// </summary>
         public string FYPTConnectionString { set; get; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string SZXTConnectionString { set; get; }
     }
 }
