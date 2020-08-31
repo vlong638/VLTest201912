@@ -185,6 +185,76 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
         //}
     }
 
+    public enum CaseType { 
+        None = 0,
+        Default = 1,
+        String = 2,
+        Int = 3,
+        DateTime = 4,
+    }
+
+    public enum OperatorType
+    {
+        None = 0,
+        eq,// =        
+        neq,
+        gt,// >
+        lt,// <
+    }
+
+    public class ExportSourceTransformCase
+    {
+        public static string ElementName = "Case";
+
+        /// <summary>
+        /// 来源列名
+        /// </summary>
+        public string SourceColumnName { set; get; }
+        /// <summary>
+        /// 来源列名
+        /// </summary>
+        public CaseType Type { set; get; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string When { set; get; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Then { set; get; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public OperatorType Operator { set; get; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Value { set; get; }
+
+        public ExportSourceTransformCase(XElement element)
+        {
+            SourceColumnName = element.Attribute(nameof(SourceColumnName))?.Value;
+            Type = element.Attribute(nameof(Type))?.Value.ToEnum<CaseType>() ?? CaseType.None;
+            When = element.Attribute(nameof(When))?.Value;
+            Then = element.Attribute(nameof(Then))?.Value;
+            Operator = element.Attribute(nameof(Operator))?.Value.ToEnum<OperatorType>() ?? OperatorType.None;
+            Value = element.Attribute(nameof(Value))?.Value;
+        }
+    }
+    public enum SourceType
+    {
+        None = 0,
+        Field,
+        JsonList,
+    }
+    public enum FunctionType
+    {
+        None = 0,
+        Case,
+        SumInt,
+        SumCase,
+    }
+
     public class ExportSourceTransform
     {
         public static string ElementName = "Transform";
@@ -196,27 +266,29 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
         /// <summary>
         /// 
         /// </summary>
-        public string FieldName { set; get; }
+        public string SubFieldName { set; get; }
         /// <summary>
         /// 来源类型
         /// </summary>
-        public string SourceType { set; get; }
+        public SourceType SourceType { set; get; }
         /// <summary>
         /// 转换类型
         /// </summary>
-        public string FunctionType { set; get; }
+        public FunctionType FunctionType { set; get; }
         /// <summary>
         /// 目标列名
         /// </summary>
         public string TargetColumnName { set; get; }
+        public List<ExportSourceTransformCase>  Cases { set; get; }
 
         public ExportSourceTransform(XElement element)
         {
             SourceColumnName = element.Attribute(nameof(SourceColumnName))?.Value;
-            FieldName = element.Attribute(nameof(FieldName))?.Value;
-            SourceType = element.Attribute(nameof(SourceType))?.Value;
-            FunctionType = element.Attribute(nameof(FunctionType))?.Value;
+            SubFieldName = element.Attribute(nameof(SubFieldName))?.Value;
+            SourceType = element.Attribute(nameof(SourceType))?.Value.ToEnum<SourceType>() ?? SourceType.None;
+            FunctionType = element.Attribute(nameof(FunctionType))?.Value.ToEnum<FunctionType>() ?? FunctionType.None;
             TargetColumnName = element.Attribute(nameof(TargetColumnName))?.Value;
+            Cases = element.Descendants(ExportSourceTransformCase.ElementName).Select(c => new ExportSourceTransformCase(c)).ToList();
         }
     }
 
@@ -299,34 +371,148 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
         {
             foreach (var transform in Transforms)
             {
-                switch (transform.SourceType.ToLower())
+                switch (transform.SourceType)
                 {
-                    case "jsonlist":
-                        datatable.Columns.Add(new DataColumn(transform.TargetColumnName));
-                        for (int i = 0; i < datatable.Rows.Count; i++)
+                    case SourceType.Field:
+                        #region Field
+                        switch (transform.FunctionType)
                         {
-                            var jsonTable = datatable.Rows[i][transform.SourceColumnName].ToString()?.FromJson<DataTable>();
-                            if (jsonTable == null)
-                                continue;
-                            switch (transform.FunctionType.ToLower())
-                            {
-                                case "sumint":
-                                    var sumValue = jsonTable.AsEnumerable().Sum(c => {
-                                        var text = c.Field<string>(transform.FieldName);
+                            case FunctionType.Case:
+                                #region Case
+                                datatable.Columns.Add(new DataColumn(transform.TargetColumnName));
+                                for (int i = 0; i < datatable.Rows.Count; i++)
+                                {
+                                    var value = GetValue(datatable.Rows[i], transform.Cases);
+                                    datatable.Rows[i][transform.TargetColumnName] = value;
+                                }
+                                #endregion
+                                break;
+                            default:
+                                throw new NotImplementedException("SourceType.Field未支持该`FunctionType` ");
+                        } 
+                        #endregion
+                        break;
+                    case SourceType.JsonList:
+                        #region JsonList
+                        switch (transform.FunctionType)
+                        {
+                            case FunctionType.None:
+                                break;
+                            case FunctionType.Case:
+                                break;
+                            case FunctionType.SumInt:
+                                #region SumInt
+                                datatable.Columns.Add(new DataColumn(transform.TargetColumnName));
+                                for (int i = 0; i < datatable.Rows.Count; i++)
+                                {
+                                    var jsonTable = datatable.Rows[i][transform.SourceColumnName].ToString()?.FromJson<DataTable>();
+                                    if (jsonTable == null)
+                                        continue;
+                                    var sumValue = jsonTable.AsEnumerable().Sum(c =>
+                                    {
+                                        var text = c.Field<string>(transform.SubFieldName);
                                         var value = text?.ToInt();
                                         return value.HasValue ? value.Value : 0;
                                     });
                                     datatable.Rows[i][transform.TargetColumnName] = sumValue;
-                                    break;
-                                default:
-                                    throw new NotImplementedException("未支持该`FunctionType` ");
-                            }
+                                }
+                                #endregion
+                                break;
+                            case FunctionType.SumCase:
+                                break;
+                            default:
+                                throw new NotImplementedException("未支持该`FunctionType` ");
+                        } 
+                        #endregion
+                        break;
+                    default:
+                        throw new NotImplementedException("SumInt下未支持该`SourceType` ");
+                }
+
+
+
+
+            }
+        }
+
+        private string GetValue(DataRow row, List<ExportSourceTransformCase> cases)
+        {
+            foreach (var @case in cases)
+            {
+                string text = "";
+                if (@case.Type != CaseType.Default)
+                    text = row[@case.SourceColumnName].ToString();
+                switch (@case.Type)
+                {
+                    case CaseType.Default:
+                        return @case.Then;
+                    case CaseType.String:
+                        if (text == @case.Value)
+                            return @case.Then;
+                        break;
+                    case CaseType.Int:
+                        var sourceValueInt = text.ToInt();
+                        if (!sourceValueInt.HasValue)
+                            return "";
+                        var compareValueInt = @case.Value.ToInt();
+                        if (!compareValueInt.HasValue)
+                            return "";
+                        switch (@case.Operator)
+                        {
+                            case OperatorType.eq:
+                                if (sourceValueInt== compareValueInt)
+                                    return @case.Then;
+                                break;
+                            case OperatorType.neq:
+                                if (sourceValueInt != compareValueInt)
+                                    return @case.Then;
+                                break;
+                            case OperatorType.gt:
+                                if (sourceValueInt > compareValueInt)
+                                    return @case.Then;
+                                break;
+                            case OperatorType.lt:
+                                if (sourceValueInt < compareValueInt)
+                                    return @case.Then;
+                                break;
+                            default:
+                                throw new NotImplementedException("未支持该`Operator` locator:471");
+                        }
+                        break;
+                    case CaseType.DateTime:
+                        var sourceValueTime = text.ToDateTime();
+                        if (!sourceValueTime.HasValue)
+                            return "";
+                        var compareValueTime = @case.Value.ToDateTime();
+                        if (!compareValueTime.HasValue)
+                            return "";
+                        switch (@case.Operator)
+                        {
+                            case OperatorType.eq:
+                                if (sourceValueTime.Value == compareValueTime.Value)
+                                    return @case.Then;
+                                break;
+                            case OperatorType.neq:
+                                if (sourceValueTime.Value != compareValueTime.Value)
+                                    return @case.Then;
+                                break;
+                            case OperatorType.gt:
+                                if (sourceValueTime.Value > compareValueTime.Value)
+                                    return @case.Then;
+                                break;
+                            case OperatorType.lt:
+                                if (sourceValueTime.Value < compareValueTime.Value)
+                                    return @case.Then;
+                                break;
+                            default:
+                                throw new NotImplementedException("未支持该`Operator` locator:500");
                         }
                         break;
                     default:
-                        throw new NotImplementedException("未支持该`SourceType` ");
+                        throw new NotImplementedException("未支持该`CaseType` locator:466");
                 }
             }
+            return "";
         }
     }
     /// <summary>

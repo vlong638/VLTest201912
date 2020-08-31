@@ -45,25 +45,25 @@
 					<OrderBy ComponentName="createdate" Alias ="p.createdate"/>
 				</OrderBys>
 				<SQL>
-			select @Fields
-			from pregnantinfo p
-			left join (
-			select distinct book_no from mzsc_bind_info where type = 'pregnant'
-			) b on b.book_no = p.pregnantid
-			left join gy_fuwujg gy on p.createunitcode = gy.fuwujgbh
-			left join (
-			select
-			v.pregnantinfoid, max(v.highrisklevel) as highrisklv,max(v.infectionflag) as infectionflag
-			from v_all_visitrecord v
-			inner join(
-			select
-			a.pregnantinfoid as pregnantinfoid, max(a.visitdate) as visitdate
-			from
-			v_all_visitrecord a group by a.pregnantinfoid
-			) b on b.pregnantinfoid = v.pregnantinfoid and b.visitdate = v.visitdate
-			group by v.pregnantinfoid
-			) hr on hr.pregnantinfoid = p.id
-			@Wheres
+					select @Fields
+					from pregnantinfo p
+					left join (
+					select distinct book_no from mzsc_bind_info where type = 'pregnant'
+					) b on b.book_no = p.pregnantid
+					left join gy_fuwujg gy on p.createunitcode = gy.fuwujgbh
+					left join (
+					select
+					v.pregnantinfoid, max(v.highrisklevel) as highrisklv,max(v.infectionflag) as infectionflag
+					from v_all_visitrecord v
+					inner join(
+					select
+					a.pregnantinfoid as pregnantinfoid, max(a.visitdate) as visitdate
+					from
+					v_all_visitrecord a group by a.pregnantinfoid
+					) b on b.pregnantinfoid = v.pregnantinfoid and b.visitdate = v.visitdate
+					group by v.pregnantinfoid
+					) hr on hr.pregnantinfoid = p.id
+					@Wheres
 				</SQL>
 			</Source>
 		</Sheet>

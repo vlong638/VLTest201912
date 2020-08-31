@@ -71,8 +71,31 @@
 					@OrderBy
 				</SQL>
 				<Transforms>
-					<Transform SourceColumnName="shenhua_table" FieldName="hcg" SourceType="JsonList" FunctionType="SumInt" TargetColumnName ="hcgSum"/>
+					<Transform SourceType="Field" FunctionType="Case" TargetType="Source"  TargetColumnName ="周期总结分类">
+						<Case SourceColumnName="周期总结" Type="String" Operator="eq" Value ="授精" Then="3" />
+						<Case SourceColumnName="周期总结" Type="String" Operator="eq" Value ="移植" Then="2" />
+						<Case SourceColumnName="周期总结" Type="String" Operator="eq" Value ="未移植" Then="2" />
+						<Case Type="Default" Then="1" />
+					</Transform>
+					<Transform SourceType="Field" FunctionType="Case" TargetType="Source"  TargetColumnName ="2PN个数分类">
+						<Case SourceColumnName="2PN个数" Type="Int" Operator="gt" Value ="6" Then="3" />
+						<Case SourceColumnName="2PN个数" Type="Int" Operator="gt" Value ="3" Then="2" />
+						<Case Type="Default" Then="1" />
+					</Transform>
+					<Transform SourceType="JsonList" SourceColumnName="shenhua_table" SubFieldName="hcg" FunctionType="SumInt" TargetType="Source" TargetColumnName ="hcgSumInt"/>
+					<Transform SourceType="JsonList" SourceColumnName="shenhua_table" SubFieldName="hcg" FunctionType="SumCase" TargetType="Source" TargetColumnName ="hcgSumCase">
+						<Case SourceColumnName="hcg" Type="Int" Operator="gt" Value ="6" Then="3" />
+						<Case SourceColumnName="hcg" Type="Int" Operator="gt" Value ="3" Then="2" />
+						<Case Type="Default" Then="1" />
+					</Transform>
+					<Transform SourceType="Field" FunctionType="Case" TargetType="Source" TargetColumnName ="取卵日期分类">
+						<Case SourceColumnName="取卵日期" Type="DateTime" Operator="gt" Value ="2019-06-01" Then="3" />
+						<Case SourceColumnName="取卵日期" Type="DateTime" Operator="gt" Value ="2018-06-01" Then="2" />
+						<Case Type="Default" Then="1" />
+					</Transform>
 				</Transforms>
+			</Source>
+			<Source SourceName="Data2">
 			</Source>
 		</Sheet>
 	</Export>
