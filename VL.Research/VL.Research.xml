@@ -2497,6 +2497,14 @@
             通用查询模型
             </summary>
         </member>
+        <member name="M:VL.Research.Services.SharedService.GetCommonSelectByExportConfig(VL.Consolo_Core.Common.ExcelExportSolution.ExportSource,VL.Research.Common.DBSourceType)">
+            <summary>
+            获取通用的导出数据
+            </summary>
+            <param name="sourceConfig"></param>
+            <param name="source"></param>
+            <returns></returns>
+        </member>
         <member name="T:VL.Research.Services.UserService">
             <summary>
             

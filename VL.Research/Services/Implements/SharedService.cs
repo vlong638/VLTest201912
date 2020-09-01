@@ -82,8 +82,6 @@ namespace VL.Research.Services
             {
                 sharedRepository = new SharedRepository(adbContext);
                 var datatable = sharedRepository.GetCommonSelect(sourceConfig);
-                sourceConfig.DoTransforms(ref datatable);
-                sourceConfig.DoMappings(ref datatable);
                 return datatable;
             });
             return result;

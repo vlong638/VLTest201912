@@ -70,10 +70,17 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
             var wheresIsOn = Wheres.Where(c => c.IsOn).Select(c => c.SQL);
             var wheres = wheresIsOn.Count() == 0 ? "" : $"where {string.Join(" and ", wheresIsOn)}";
             sql = sql.Replace("@Wheres", wheres);
-            var orderByIsOn = OrderBys.FirstOrDefault(c => c.IsOn) ?? OrderBys.First();
-            var orderBy = orderByIsOn.Alias;
-            var order = orderByIsOn.IsAsc ? "asc" : "desc";
-            sql = sql.Replace("@OrderBy", $"order by {orderBy} {order}");
+            if (OrderBys != null && OrderBys.Count > 0)
+            {
+                var orderByIsOn = OrderBys.FirstOrDefault(c => c.IsOn) ?? OrderBys.First();
+                var orderBy = orderByIsOn.Alias;
+                var order = orderByIsOn.IsAsc ? "asc" : "desc";
+                sql = sql.Replace("@OrderBy", $"order by {orderBy} {order}");
+            }
+            else
+            {
+                sql = sql.Replace("@OrderBy", "");
+            }
             return sql;
         }
 
@@ -192,10 +199,10 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
                                 switch (where.Operator)
                                 {
                                     case OperatorType.eq:
-                                        temp = temp.Where(c => c.Field<string>(mapping.FieldName) == compareString);
+                                        temp = temp.Where(c => c.Field<string>(where.ColumnName) == compareString);
                                         break;
                                     case OperatorType.neq:
-                                        temp = temp.Where(c => c.Field<string>(mapping.FieldName) != compareString);
+                                        temp = temp.Where(c => c.Field<string>(where.ColumnName) != compareString);
                                         break;
                                     default:
                                         throw new NotImplementedException("未支持该`OperatorType` 201");
@@ -206,16 +213,16 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
                                 switch (where.Operator)
                                 {
                                     case OperatorType.eq:
-                                        temp = temp.Where(c => c.Field<int>(mapping.FieldName) == compareInt);
+                                        temp = temp.Where(c => c.Field<int>(where.ColumnName) == compareInt);
                                         break;
                                     case OperatorType.neq:
-                                        temp = temp.Where(c => c.Field<int>(mapping.FieldName) != compareInt);
+                                        temp = temp.Where(c => c.Field<int>(where.ColumnName) != compareInt);
                                         break;
                                     case OperatorType.gt:
-                                        temp = temp.Where(c => c.Field<int>(mapping.FieldName) > compareInt);
+                                        temp = temp.Where(c => c.Field<int>(where.ColumnName) > compareInt);
                                         break;
                                     case OperatorType.lt:
-                                        temp = temp.Where(c => c.Field<int>(mapping.FieldName) < compareInt);
+                                        temp = temp.Where(c => c.Field<int>(where.ColumnName) < compareInt);
                                         break;
                                     default:
                                         throw new NotImplementedException("未支持该`OperatorType` 220");
@@ -226,16 +233,16 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
                                 switch (where.Operator)
                                 {
                                     case OperatorType.eq:
-                                        temp = temp.Where(c => c.Field<DateTime>(mapping.FieldName) == compareDateTime);
+                                        temp = temp.Where(c => c.Field<DateTime?>(where.ColumnName) == compareDateTime);
                                         break;
                                     case OperatorType.neq:
-                                        temp = temp.Where(c => c.Field<DateTime>(mapping.FieldName) != compareDateTime);
+                                        temp = temp.Where(c => c.Field<DateTime?>(where.ColumnName) != compareDateTime);
                                         break;
                                     case OperatorType.gt:
-                                        temp = temp.Where(c => c.Field<DateTime>(mapping.FieldName) > compareDateTime);
+                                        temp = temp.Where(c => c.Field<DateTime?>(where.ColumnName) > compareDateTime);
                                         break;
                                     case OperatorType.lt:
-                                        temp = temp.Where(c => c.Field<DateTime>(mapping.FieldName) < compareDateTime);
+                                        temp = temp.Where(c => c.Field<DateTime?>(where.ColumnName) < compareDateTime);
                                         break;
                                     default:
                                         throw new NotImplementedException("未支持该`OperatorType` 241");
@@ -255,6 +262,8 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
                         temp = temp.OrderByDescending(c => c[mapping.OrderBy.ColumnName]);
                     }
                     //求值
+                    if (temp == null || temp.Count() == 0)
+                        continue;
                     switch (mapping.FunctionType)
                     {
                         case MappingFunctionType.None:
@@ -263,7 +272,7 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
                             row[mapping.TargetColumnName] = temp.First().Field<string>(mapping.FieldName);
                             break;
                         case MappingFunctionType.SumInt:
-                            row[mapping.TargetColumnName] = temp.Sum(c=>c.Field<int>(mapping.FieldName));
+                            row[mapping.TargetColumnName] = temp.Sum(c => c.Field<string>(mapping.FieldName)?.ToInt() ?? 0);
                             break;
                         default:
                             throw new NotImplementedException("未支持该`FunctionType` 269");

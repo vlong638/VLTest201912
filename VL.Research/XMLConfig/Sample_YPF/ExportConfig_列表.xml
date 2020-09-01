@@ -17,7 +17,7 @@
 				</OrderBys>
 				<SQL>
 					select * from(
-					select ROW_NUMBER() over (order by A.quluanrq asc)as 序号,convert(varchar(20),A.quluanrq,23) as 取卵日期,B.nvfangxm as 女方姓名,B.nanfangxm as 男方姓名,
+					select A.binglih,ROW_NUMBER() over (order by A.quluanrq asc)as 序号,convert(varchar(20),A.quluanrq,23) as 取卵日期,B.nvfangxm as 女方姓名,B.nanfangxm as 男方姓名,
 					dbo.SplitString(B.binglih,'_',1) as 女方病历号,dbo.SplitString(B.binglih,'_',2) as 男方病历号,B.zhouqixh as 周期序号,C.zhouqijj as 周期总结,
 					H.shoujingfs as 授精方式,
 					(select count(*) from embrycul_record where yuanhes1='1PN' and binglih=A.binglih and zhouqixh=A.zhouqixh and zhouqilx=A.zhouqilx)as '1PN个数',
@@ -93,19 +93,26 @@
 						<Case ColumnName="取卵日期" DataType="DateTime" Operator="gt" Value ="2018-06-01" Then="2" />
 						<Case DataType="Default" Then="1" />
 					</Transform>
-				</Transforms>
+				</Transforms>				
 				<Mappings>
-					<Mapping SourceName="Data2" FieldName="hcg" TargetColumnName ="取卵日期分类" FunctionType="SumInt">
-						<MappingRelatedBy ColumnName="binglih" DataType="string" RelatedColomnName ="binglih"/>
-						<MappingWhere ColumnName="2PN个数" DataType="Int" Operator="gt" Value ="6"/>
-						<MappingWhere ColumnName="2PN个数" DataType="Int" Operator="lt" Value ="9"/>
-						<MappingOrderBy ColumnName="id" IsAsc="true"/>
+					<Mapping SourceName="Data2" FieldName="PN分类" TargetColumnName ="最近一次PN分类" FunctionType="First">
+						<MappingRelatedBy ColumnName="binglih" DataType="String" RelatedColumnName ="binglih"/>
+						<MappingWhere ColumnName="shijian0" DataType="DateTime" Operator="gt" Value ="2020-07-01"/>
+						<MappingWhere ColumnName="shijian0" DataType="DateTime" Operator="lt" Value ="2020-10-01"/>
+						<MappingOrderBy ColumnName="shijian0" IsAsc="true"/>
 					</Mapping>
-					<Mapping SourceName="Data2" FieldName="hcg" TargetColumnName ="取卵日期分类" FunctionType="First">
-						<MappingWhere ColumnName="2PN个数" DataType="Int" Operator="gt" Value ="6"/>
-						<MappingWhere ColumnName="2PN个数" DataType="Int" Operator="lt" Value ="9"/>
-						<MappingOrderBy ColumnName="id" IsAsc="true"/>
-					</Mapping>			
+					<Mapping SourceName="Data2" FieldName="PN分类" TargetColumnName ="最早一次PN分类" FunctionType="First">
+						<MappingRelatedBy ColumnName="binglih" DataType="String" RelatedColumnName ="binglih"/>
+						<MappingWhere ColumnName="shijian0" DataType="DateTime" Operator="gt" Value ="2020-07-01"/>
+						<MappingWhere ColumnName="shijian0" DataType="DateTime" Operator="lt" Value ="2020-10-01"/>
+						<MappingOrderBy ColumnName="shijian0" IsAsc="false"/>
+					</Mapping>
+					<Mapping SourceName="Data2" FieldName="PN分类" TargetColumnName ="PN分类求和" FunctionType="SumInt">
+						<MappingRelatedBy ColumnName="binglih" DataType="String" RelatedColumnName ="binglih"/>
+						<MappingWhere ColumnName="shijian0" DataType="DateTime" Operator="gt" Value ="2020-07-01"/>
+						<MappingWhere ColumnName="shijian0" DataType="DateTime" Operator="lt" Value ="2020-10-01"/>
+						<MappingOrderBy ColumnName="shijian0" IsAsc="false"/>
+					</Mapping>
 				</Mappings>
 			</Source>
 			<Source SourceName="Data2">
@@ -120,6 +127,14 @@
 					left join embrycul_record B on A.binglih = B.binglih
 					@Wheres
 				</SQL>
+				<Transforms>
+					<Transform SourceType="Field" FunctionType="Case" TargetType="Source"  TargetColumnName ="PN分类">
+						<Case ColumnName="yuanhes1" DataType="String" Operator="eq" Value ="1PN" Then="1" />
+						<Case ColumnName="yuanhes1" DataType="String" Operator="eq" Value ="2PN" Then="2" />
+						<Case ColumnName="yuanhes1" DataType="String" Operator="eq" Value ="3PN" Then="3" />
+						<Case DataType="Default" Then="0" />
+					</Transform>
+				</Transforms>
 			</Source>
 		</Sheet>
 	</Export>
