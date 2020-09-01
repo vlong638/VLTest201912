@@ -69,6 +69,12 @@ namespace VL.Research.Services
             return result;
         }
 
+        /// <summary>
+        /// 获取通用的导出数据
+        /// </summary>
+        /// <param name="sourceConfig"></param>
+        /// <param name="source"></param>
+        /// <returns></returns>
         internal ServiceResult<DataTable> GetCommonSelectByExportConfig(ExportSource sourceConfig, DBSourceType source)
         {
             var adbContext = dbContext.GetDBContext(source);
@@ -77,6 +83,7 @@ namespace VL.Research.Services
                 sharedRepository = new SharedRepository(adbContext);
                 var datatable = sharedRepository.GetCommonSelect(sourceConfig);
                 sourceConfig.DoTransforms(ref datatable);
+                sourceConfig.DoMappings(ref datatable);
                 return datatable;
             });
             return result;

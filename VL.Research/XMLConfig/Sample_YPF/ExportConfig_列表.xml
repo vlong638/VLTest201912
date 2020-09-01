@@ -72,30 +72,54 @@
 				</SQL>
 				<Transforms>
 					<Transform SourceType="Field" FunctionType="Case" TargetType="Source"  TargetColumnName ="周期总结分类">
-						<Case SourceColumnName="周期总结" Type="String" Operator="eq" Value ="授精" Then="3" />
-						<Case SourceColumnName="周期总结" Type="String" Operator="eq" Value ="移植" Then="2" />
-						<Case SourceColumnName="周期总结" Type="String" Operator="eq" Value ="未移植" Then="2" />
-						<Case Type="Default" Then="1" />
+						<Case ColumnName="周期总结" DataType="String" Operator="eq" Value ="授精" Then="3" />
+						<Case ColumnName="周期总结" DataType="String" Operator="eq" Value ="移植" Then="2" />
+						<Case ColumnName="周期总结" DataType="String" Operator="eq" Value ="未移植" Then="2" />
+						<Case DataType="Default" Then="1" />
 					</Transform>
 					<Transform SourceType="Field" FunctionType="Case" TargetType="Source"  TargetColumnName ="2PN个数分类">
-						<Case SourceColumnName="2PN个数" Type="Int" Operator="gt" Value ="6" Then="3" />
-						<Case SourceColumnName="2PN个数" Type="Int" Operator="gt" Value ="3" Then="2" />
-						<Case Type="Default" Then="1" />
+						<Case ColumnName="2PN个数" DataType="Int" Operator="gt" Value ="6" Then="3" />
+						<Case ColumnName="2PN个数" DataType="Int" Operator="gt" Value ="3" Then="2" />
+						<Case DataType="Default" Then="1" />
 					</Transform>
-					<Transform SourceType="JsonList" SourceColumnName="shenhua_table" SubFieldName="hcg" FunctionType="SumInt" TargetType="Source" TargetColumnName ="hcgSumInt"/>
-					<Transform SourceType="JsonList" SourceColumnName="shenhua_table" SubFieldName="hcg" FunctionType="SumCase" TargetType="Source" TargetColumnName ="hcgSumCase">
-						<Case SourceColumnName="hcg" Type="Int" Operator="gt" Value ="6" Then="3" />
-						<Case SourceColumnName="hcg" Type="Int" Operator="gt" Value ="3" Then="2" />
-						<Case Type="Default" Then="1" />
+					<Transform SourceType="JsonList" ColumnName="shenhua_table" SubFieldName="hcg" FunctionType="SumInt" TargetType="Source" TargetColumnName ="hcgSumInt"/>
+					<Transform SourceType="JsonList" ColumnName="shenhua_table" SubFieldName="hcg" FunctionType="SumCase" TargetType="Source" TargetColumnName ="hcgSumCase">
+						<Case ColumnName="hcg" DataType="Int" Operator="gt" Value ="6" Then="3" />
+						<Case ColumnName="hcg" DataType="Int" Operator="gt" Value ="3" Then="2" />
+						<Case DataType="Default" Then="1" />
 					</Transform>
 					<Transform SourceType="Field" FunctionType="Case" TargetType="Source" TargetColumnName ="取卵日期分类">
-						<Case SourceColumnName="取卵日期" Type="DateTime" Operator="gt" Value ="2019-06-01" Then="3" />
-						<Case SourceColumnName="取卵日期" Type="DateTime" Operator="gt" Value ="2018-06-01" Then="2" />
-						<Case Type="Default" Then="1" />
+						<Case ColumnName="取卵日期" DataType="DateTime" Operator="gt" Value ="2019-06-01" Then="3" />
+						<Case ColumnName="取卵日期" DataType="DateTime" Operator="gt" Value ="2018-06-01" Then="2" />
+						<Case DataType="Default" Then="1" />
 					</Transform>
 				</Transforms>
+				<Mappings>
+					<Mapping SourceName="Data2" FieldName="hcg" TargetColumnName ="取卵日期分类" FunctionType="SumInt">
+						<MappingRelatedBy ColumnName="binglih" DataType="string" RelatedColomnName ="binglih"/>
+						<MappingWhere ColumnName="2PN个数" DataType="Int" Operator="gt" Value ="6"/>
+						<MappingWhere ColumnName="2PN个数" DataType="Int" Operator="lt" Value ="9"/>
+						<MappingOrderBy ColumnName="id" IsAsc="true"/>
+					</Mapping>
+					<Mapping SourceName="Data2" FieldName="hcg" TargetColumnName ="取卵日期分类" FunctionType="First">
+						<MappingWhere ColumnName="2PN个数" DataType="Int" Operator="gt" Value ="6"/>
+						<MappingWhere ColumnName="2PN个数" DataType="Int" Operator="lt" Value ="9"/>
+						<MappingOrderBy ColumnName="id" IsAsc="true"/>
+					</Mapping>			
+				</Mappings>
 			</Source>
 			<Source SourceName="Data2">
+				<Wheres>
+					<Where ComponentName="序号">A.序号 = @序号</Where>
+					<Where ComponentName="取卵日期Start">A.取卵日期 &gt;= @取卵日期Start</Where>
+					<Where ComponentName="取卵日期End">A.取卵日期 &lt;= @取卵日期End</Where>
+				</Wheres>
+				<SQL>
+					select *
+					from takeegg_record as A
+					left join embrycul_record B on A.binglih = B.binglih
+					@Wheres
+				</SQL>
 			</Source>
 		</Sheet>
 	</Export>

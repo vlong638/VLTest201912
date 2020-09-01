@@ -6,11 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Common\ExcelExportSolution\ExportConfig.xml" />
+    <None Remove="Common\ExcelExportSolution\Sample_ExportConfig.xml" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Common\ExcelExportSolution\ExportConfig.xml">
+    <Content Include="Common\ExcelExportSolution\Sample_ExportConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Common\ExcelExportSolution\高危妊娠管理个案登记表.xlsx">
+    <None Update="Common\ExcelExportSolution\Sample_高危妊娠管理个案登记表.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="za\Configuration\appsettings.json">

@@ -462,6 +462,7 @@ namespace VL.Research.Controllers
                     if (sheet != null)
                     {
                         sheetConfig.DataSources = new Dictionary<string, DataTable>();
+                        //获取数据
                         foreach (var sourceConfig in sheetConfig.Sources)
                         {
                             var result = sharedService.GetCommonSelectByExportConfig(sourceConfig, sourceType);
@@ -469,8 +470,24 @@ namespace VL.Research.Controllers
                             {
                                 throw new NotImplementedException("数据源存在异常:" + result.Message);
                             }
-                            sheetConfig.DataSources[sourceConfig.SourceName] = result.Data;
+                            var data = result.Data;
+                            sheetConfig.DataSources[sourceConfig.SourceName] = data;
                         }
+                        //Transform
+                        foreach (var sourceConfig in sheetConfig.Sources)
+                        {
+                            var data = sheetConfig.DataSources[sourceConfig.SourceName];
+                            sourceConfig.DoTransforms(ref data);
+                            sheetConfig.DataSources[sourceConfig.SourceName] = data;
+                        }
+                        //Mapping
+                        foreach (var sourceConfig in sheetConfig.Sources)
+                        {
+                            var data = sheetConfig.DataSources[sourceConfig.SourceName];
+                            sourceConfig.DoMappings(ref data, sheetConfig.DataSources);
+                            sheetConfig.DataSources[sourceConfig.SourceName] = data;
+                        }
+                        //Render
                         sheetConfig.Render(sheet);
                     }
                 }
