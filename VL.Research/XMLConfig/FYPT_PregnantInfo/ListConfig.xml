@@ -6,42 +6,44 @@
 		<Export URL="../../api/System/CommonExportAllForFYPT"/>
 		<Wheres>
 			<!--"DisplayType <类型[1-文本框|2-数字框|3-单选下拉框|4-树状下拉框|5-日期选择框][默认:1]>",-->
-			<Where ComponentName="pregnantbookid" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="保健册号" DisplayType="1"/>
-			<Where ComponentName="idcard" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="身份证号码" DisplayType="1"/>
-			<Where ComponentName="id1" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="建册机构" DisplayType="4" TreeOptions="1,非本市医院,0,false|2,湖州市,0,false|3,吴兴区,2,false|4,安吉县,2,false"/>
-			<Where ComponentName="id2" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="管辖机构" DisplayType="4" TreeOptions="1,非本市医院,0,false|2,湖州市,0,false|3,吴兴区,2,false|4,安吉县,2,false"/>
-			<Where ComponentName="personname" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="姓名" DisplayType="1"/>
-			<Where ComponentName="!realregiontext" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="!休养地址" DisplayType="1"/>
-			<Where ComponentName="id3" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="!户籍地址" DisplayType="1"/>
-			<Where ComponentName="id4" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="!居住地址" DisplayType="1"/>
-			<Where ComponentName="id5" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="!建档医生" DisplayType="1"/>
-			<Where ComponentName="istmp" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="是否流动" DisplayType="3" Options="0:非流动孕产妇,1:流动孕产妇"/>
-			<Where ComponentName="settlestatus" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="结案状态" DisplayType="3" Options="|0:未结案,1:已结案"/>
-			<Where ComponentName="gestationalweeks" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="建册孕周" DisplayType="2"/>
-			<Where ComponentName="deliverystatus" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="	分娩状态" DisplayType="3" Options="0|0:未分娩,1:已分娩"/>
-			<Where ComponentName="dateofprenatal" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="	预产期" DisplayType="5"/>
-			<Where ComponentName="id6" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="	!末次月经" DisplayType="5"/>
+			<Where ComponentName="pregnantbookid" DisplayName="保健册号" DisplayType="1"/>
+			<Where ComponentName="idcard" DisplayName="身份证号码" DisplayType="1"/>
+			<Where ComponentName="id1" DisplayName="建册机构" DisplayType="4" TreeOptions="1,非本市医院,0,false|2,湖州市,0,false|3,吴兴区,2,false|4,安吉县,2,false"/>
+			<Where ComponentName="id2" DisplayName="管辖机构" DisplayType="4" TreeOptions="1,非本市医院,0,false|2,湖州市,0,false|3,吴兴区,2,false|4,安吉县,2,false"/>
+			<Where ComponentName="personname" DisplayName="姓名" DisplayType="1"/>
+			<Where ComponentName="!realregiontext" DisplayName="!休养地址" DisplayType="1"/>
+			<Where ComponentName="id3" DisplayName="!户籍地址" DisplayType="1"/>
+			<Where ComponentName="id4" DisplayName="!居住地址" DisplayType="1"/>
+			<Where ComponentName="id5" DisplayName="!建档医生" DisplayType="1"/>
+			<Where ComponentName="istmp" DisplayName="是否流动" DisplayType="3" Options="0:非流动孕产妇,1:流动孕产妇"/>
+			<Where ComponentName="settlestatus" DisplayName="结案状态" DisplayType="3" Options="|0:未结案,1:已结案"/>
+			<Where ComponentName="gestationalweeks" DisplayName="建册孕周" DisplayType="2"/>
+			<Where ComponentName="deliverystatus" DisplayName="	分娩状态" DisplayType="3" Options="0|0:未分娩,1:已分娩"/>
+			<Where ComponentName="dateofprenatal" DisplayName="	预产期" DisplayType="5"/>
+			<Where ComponentName="id6" DisplayName="	!末次月经" DisplayType="5"/>
 		</Wheres>
 		<OrderBy DefaultName ="createdate" DefaultValue ="desc"/>
 		<ToolBars>
 			<ToolBar URL ="../Home/CommonExportInlineForFYPT" Params ="idcard" DefaultParams="moduleName=FYPT_PregnantInfo,exportName=ExportConfig_高危妊娠表" Text="导出" Type = "newPage" Description = "" Area = "300px,400px" YesFun = "yesFun"/>
 		</ToolBars>
-		<Property IsNeedOnPage="true" DisplayName="行号" ColumnName="rowindex" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="bigint" Description="-" />
-		<Property IsNeedOnPage="true" DisplayName="保健册号" ColumnName="pregnantbookid" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
-		<Property IsNeedOnPage="true" DisplayName="孕妇姓名" ColumnName="personname" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
-		<Property IsNeedOnPage="true" DisplayName="孕妇年龄" ColumnName="age" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
-		<Property IsNeedOnPage="true" DisplayName="身份证号" ColumnName="idcard" DisplayType="None" DisplayWidth="200" IsSortable="False" DataType="varchar" Description="-" />
-		<Property IsNeedOnPage="true" DisplayName="分娩状态" ColumnName="deliverystatus" DisplayType="Enum" EnumType="DeliveryStatus" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
-		<Property IsNeedOnPage="true" DisplayName="高危等级" ColumnName="highrisklv" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
-		<Property IsNeedOnPage="true" DisplayName="预产期" ColumnName="dateofprenatal" DisplayType="Date" DisplayWidth="200" IsSortable="False" DataType="varchar" Description="-" />
-		<Property IsNeedOnPage="true" DisplayName="联系电话" ColumnName="mobilenumber" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
-		<Property IsNeedOnPage="true" DisplayName="建档日期" ColumnName="createdate" DisplayType="None" DisplayWidth="200" IsSortable="False" DataType="varchar" Description="-" />
-		<Property IsNeedOnPage="true" DisplayName="当前孕周" ColumnName="gestationalweeks" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
-		<Property IsNeedOnPage="true" DisplayName="丈夫姓名" ColumnName="husbandname" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
-		<Property IsNeedOnPage="true" DisplayName="丈夫电话" ColumnName="husbandmobile" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
-		<Property IsNeedOnPage="true" DisplayName="现住地" ColumnName="realregiontext" DisplayType="None" DisplayWidth="300" IsSortable="False" DataType="varchar" Description="-" />
-		<Property IsNeedOnPage="true" DisplayName="建册机构" ColumnName="sourceunit" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
-		<Property IsNeedOnPage="true" DisplayName="管理机构" ColumnName="manaunitid" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
-		<Property IsNeedOnPage="true" DisplayName="结案" ColumnName="settlestatus" DisplayType="Enum" EnumType="SettleStatus" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="-" />
+		<Properties>
+			<Property IsNeedOnPage="true" DisplayName="行号" ColumnName="rowindex" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="bigint" Description="-" />
+			<Property IsNeedOnPage="true" DisplayName="保健册号" ColumnName="pregnantbookid" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
+			<Property IsNeedOnPage="true" DisplayName="孕妇姓名" ColumnName="personname" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property IsNeedOnPage="true" DisplayName="孕妇年龄" ColumnName="age" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property IsNeedOnPage="true" DisplayName="身份证号" ColumnName="idcard" DisplayType="None" DisplayWidth="200" IsSortable="False" DataType="varchar" Description="-" />
+			<Property IsNeedOnPage="true" DisplayName="分娩状态" ColumnName="deliverystatus" DisplayType="Enum" EnumType="DeliveryStatus" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property IsNeedOnPage="true" DisplayName="高危等级" ColumnName="highrisklv" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property IsNeedOnPage="true" DisplayName="预产期" ColumnName="dateofprenatal" DisplayType="Date" DisplayWidth="200" IsSortable="False" DataType="varchar" Description="-" />
+			<Property IsNeedOnPage="true" DisplayName="联系电话" ColumnName="mobilenumber" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property IsNeedOnPage="true" DisplayName="建档日期" ColumnName="createdate" DisplayType="None" DisplayWidth="200" IsSortable="False" DataType="varchar" Description="-" />
+			<Property IsNeedOnPage="true" DisplayName="当前孕周" ColumnName="gestationalweeks" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property IsNeedOnPage="true" DisplayName="丈夫姓名" ColumnName="husbandname" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property IsNeedOnPage="true" DisplayName="丈夫电话" ColumnName="husbandmobile" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property IsNeedOnPage="true" DisplayName="现住地" ColumnName="realregiontext" DisplayType="None" DisplayWidth="300" IsSortable="False" DataType="varchar" Description="-" />
+			<Property IsNeedOnPage="true" DisplayName="建册机构" ColumnName="sourceunit" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property IsNeedOnPage="true" DisplayName="管理机构" ColumnName="manaunitid" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property IsNeedOnPage="true" DisplayName="结案" ColumnName="settlestatus" DisplayType="Enum" EnumType="SettleStatus" DisplayWidth="60" IsSortable="False" DataType="varchar" Description="-" />
+		</Properties>
 	</View>
 </Views>

@@ -111,28 +111,6 @@ namespace FrameworkTest.ConfigurableEntity
         }
     }
 
-    /// <summary>
-    /// 比较操作
-    /// </summary>
-    public enum CompareOperator
-    {
-        None = 0,
-        Equal = 1,
-        GreaterThan = 2,
-        LessThan = 3,
-        Like = 4,
-    }
-
-    /// <summary>
-    /// 组合操作
-    /// </summary>
-    public enum LinkOperator
-    {
-        None = 0,
-        And = 1,
-        Or = 2,
-    }
-
     public class ViewConfigWhere
     {
         public const string RootElementName = "Wheres";
@@ -146,7 +124,6 @@ namespace FrameworkTest.ConfigurableEntity
         public ViewConfigWhere(XElement element)
         {
             ComponentName = element.Attribute(nameof(ComponentName))?.Value;
-            CompareOperator = element.Attribute(nameof(CompareOperator))?.Value.ToEnum<CompareOperator>() ?? CompareOperator.None;
             Value = element.Attribute(nameof(Value))?.Value;
             #region 函数支持
             if (Value == "$GetDate()")
@@ -154,21 +131,16 @@ namespace FrameworkTest.ConfigurableEntity
                 Value = DateTime.Now.ToString("yyyy-MM-dd");
             } 
             #endregion
-            LinkOperator = element.Attribute(nameof(LinkOperator))?.Value.ToEnum<LinkOperator>() ?? LinkOperator.None;
         }
 
         public string ComponentName { set; get; }
-        public CompareOperator CompareOperator { set; get; }
         public string Value { set; get; }
-        public LinkOperator LinkOperator { set; get; }
 
         public XElement ToXElement()
         {
             var property = new XElement(ElementName);
             property.SetAttributeValue(nameof(ComponentName), ComponentName);
-            property.SetAttributeValue(nameof(CompareOperator), CompareOperator.ToString());
             property.SetAttributeValue(nameof(Value), Value);
-            property.SetAttributeValue(nameof(LinkOperator), LinkOperator.ToString());
             return property;
         }
     }
