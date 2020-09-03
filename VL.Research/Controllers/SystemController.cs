@@ -253,9 +253,9 @@ namespace VL.Research.Controllers
                             title = c.DisplayName,
                             align = "center",
                             templet ="",
-                            width=c.DisplayWidth,
+                            width= c.DisplayWidth,
                             @fixed="",
-                            sort=c.IsSortable,
+                            sort= c.IsSortable,
                             colspan="",
                             rowspan="",
                         }).ToList()
@@ -271,9 +271,9 @@ namespace VL.Research.Controllers
                 export = new GetListConfigModel_Export()
                 {
                     url = listConfig.Export.URL,
-                    defaultParam = new List<VLKeyValue>()
+                    defaultParam = new List<Consolo_Core.Common.ValuesSolution.VLKeyValue>()
                     {
-                        new VLKeyValue("target",request.ViewName)
+                        new Consolo_Core.Common.ValuesSolution.VLKeyValue("target",request.ViewName)
                     },
                 },
             };
@@ -521,6 +521,13 @@ namespace VL.Research.Controllers
             var listConfigs = viewElements.Select(c => new ListConfig(c));
             var listConfig = listConfigs.FirstOrDefault();
             listConfig.Properties.RemoveAll(c => !c.IsNeedOnPage);
+            var defaultParams = GetKeyValue(request.DefaultParams);
+            foreach (var defaultParam in defaultParams)
+            {
+                var where = listConfig.Wheres.FirstOrDefault(c => c.ComponentName == defaultParam.Key);
+                if (where != null)
+                    where.Value = defaultParam.Value;
+            }
             var result = new GetListConfigModel()
             {
                 CustomConfigId = request.CustomConfigId,
@@ -560,9 +567,9 @@ namespace VL.Research.Controllers
                             title = c.DisplayName,
                             align = "center",
                             templet ="",
-                            width=c.DisplayWidth,
+                            width= c.DisplayWidth,
                             @fixed="",
-                            sort=c.IsSortable,
+                            sort= c.IsSortable,
                             colspan="",
                             rowspan="",
                         }).ToList()
@@ -580,11 +587,29 @@ namespace VL.Research.Controllers
                     url = listConfig.Export.URL,
                     defaultParam = new List<VLKeyValue>()
                     {
-                        new VLKeyValue( "target",request.ViewName)
+                        new Consolo_Core.Common.ValuesSolution.VLKeyValue( "target",request.ViewName)
                     },
                 },
             };
             return Success(result);
+        }
+
+        private List<VLKeyValue> GetKeyValue(string defaultParams)
+        {
+            List<VLKeyValue> result = new List<VLKeyValue>();
+            if (defaultParams.IsNullOrEmpty())
+                return result;
+            //A_111|B_222
+            var pairs = defaultParams.Split("|");
+            foreach (var pair in pairs)
+            {
+                var keyValue = pair.Split("_");
+                if (keyValue.Count() == 2)
+                {
+                    result.Add(new VLKeyValue(keyValue[0], keyValue[1]));
+                }
+            }
+            return result;
         }
 
         /// <summary>

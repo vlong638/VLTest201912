@@ -114,9 +114,10 @@ namespace VL.Research.Controllers
         /// <returns></returns>
         [HttpGet]
         //[VLAuthentication(Authority.查看孕妇档案列表)]
-        public ActionResult CommonList(string viewName)
+        public ActionResult CommonList(string viewName, string defaultParams)
         {
             ViewBag.ViewName = viewName;
+            ViewBag.DefaultParams = defaultParams; //支持格式 &defaultParams=A_111|B_222 
             return View();
         }
 

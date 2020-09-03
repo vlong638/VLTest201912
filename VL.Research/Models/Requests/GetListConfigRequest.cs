@@ -13,5 +13,9 @@
         /// 自定义配置Id
         /// </summary>
         public long CustomConfigId { set; get; }
+        /// <summary>
+        /// 默认参数
+        /// </summary>
+        public string DefaultParams { set; get; }
     }
 }

@@ -1729,21 +1729,6 @@
             女性
             </summary>
         </member>
-        <member name="T:VL.Research.Models.KeyValue">
-            <summary>
-            键值对
-            </summary>
-        </member>
-        <member name="P:VL.Research.Models.KeyValue.Key">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:VL.Research.Models.KeyValue.Value">
-            <summary>
-            /
-            </summary>
-        </member>
         <member name="T:VL.Research.Models.GetCommonSelectRequest">
             <summary>
             统一查询入参结构
@@ -1792,6 +1777,11 @@
         <member name="P:VL.Research.Models.GetListConfigRequest.CustomConfigId">
             <summary>
             自定义配置Id
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.GetListConfigRequest.DefaultParams">
+            <summary>
+            默认参数
             </summary>
         </member>
         <member name="T:VL.Research.Models.GetPagedListOfLabOrderRequest">
@@ -1929,7 +1919,7 @@
             <param name="returnUrl"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.HomeController.CommonList(System.String)">
+        <member name="M:VL.Research.Controllers.HomeController.CommonList(System.String,System.String)">
             <summary>
             
             </summary>

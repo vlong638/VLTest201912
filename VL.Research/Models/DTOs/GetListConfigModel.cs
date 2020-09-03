@@ -85,7 +85,7 @@ namespace VL.Research.Models
             {
                 names = new List<string>() { c.ComponentName + "Start", c.ComponentName + "End" };
             }
-            value = c.DisplayValues ?? "";
+            value = c.Value ?? "";
             options = new GetListConfigModel_Search_Options(c.Options);
             treeOptions = new GetListConfigModel_Search_TreeOptions(c.TreeOptions);
         }

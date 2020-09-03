@@ -4,29 +4,6 @@ using VL.Consolo_Core.Common.ValuesSolution;
 namespace VL.Research.Models
 {
     /// <summary>
-    /// 键值对
-    /// </summary>
-    public class KeyValue
-    {
-        public KeyValue()
-        {
-        }
-        public KeyValue(string key, string value)
-        {
-            this.Key = key;
-            this.Value = value;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Key { set; get; }
-        /// <summary>
-        /// /
-        /// </summary>
-        public string Value { set; get; }
-    }
-    /// <summary>
     /// 统一查询入参结构
     /// </summary>
     public class GetCommonSelectRequest

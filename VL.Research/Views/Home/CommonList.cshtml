@@ -4,13 +4,15 @@
 }
 <div id="root" class="layui-fluid" style="padding: 15px;width: 100%;"></div>
 <input id="viewName" type="hidden" value="@(ViewBag.ViewName)" />
+<input id="defaultParams" type="hidden" value="@(ViewBag.DefaultParams)" />
 @section Scripts
 {
     <script type="text/javascript">
-        layui.use(['layer', 'form', 'table', 'util', 'laydate','tree'], function () {
+        layui.use(['layer', 'form', 'table', 'util', 'laydate', 'tree'], function () {
             const $ = layui.jquery;
             var viewName = $("#viewName").val();
-            sendAjax('post', '../../api/System/GetListConfig_LayUIByDirectoryName', JSON.stringify({ ViewName: viewName, CustomConfigId: 0 }), function (res) {
+            var defaultParams = $("#defaultParams").val();
+            sendAjax('post', '../../api/System/GetListConfig_LayUIByDirectoryName', JSON.stringify({ ViewName: viewName, CustomConfigId: 0, DefaultParams: defaultParams}), function (res) {
                 if (res.code === 200) {
                     $('#root').renderTable(res.data, layui, parent.layui);
                 }
