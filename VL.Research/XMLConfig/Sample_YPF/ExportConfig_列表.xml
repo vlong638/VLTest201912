@@ -117,14 +117,18 @@
 			</Source>
 			<Source SourceName="Data2">
 				<Wheres>
-					<Where ComponentName="序号">A.序号 = @序号</Where>
-					<Where ComponentName="取卵日期Start">A.取卵日期 &gt;= @取卵日期Start</Where>
-					<Where ComponentName="取卵日期End">A.取卵日期 &lt;= @取卵日期End</Where>
+					<Where ComponentName="序号">tb.序号 = @序号</Where>
+					<Where ComponentName="取卵日期Start">convert(varchar(20),tb.quluanrq,23) &gt;= @取卵日期Start</Where>
+					<Where ComponentName="取卵日期End">convert(varchar(20),tb.quluanrq,23) &lt;= @取卵日期End</Where>
 				</Wheres>
 				<SQL>
-					select *
-					from takeegg_record as A
-					left join embrycul_record B on A.binglih = B.binglih
+					select * from (
+						select ROW_NUMBER() over (order by A.quluanrq asc)as 序号
+						,A.*
+						,B.yuanhes1
+						from takeegg_record as A
+						left join embrycul_record B on A.binglih = B.binglih
+					) as tb
 					@Wheres
 				</SQL>
 				<Transforms>
