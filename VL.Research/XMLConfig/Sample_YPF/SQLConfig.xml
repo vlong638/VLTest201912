@@ -69,17 +69,3 @@
 		</SQL>
 	</View>
 </Views>
-
-
-
-<!--1.多源
-2.函数扩展
-3.大文件下载
-4.控件化
--->
-
-
-<!--select @Properties
-@Wheres
-@OrderBy
-@Pager-->

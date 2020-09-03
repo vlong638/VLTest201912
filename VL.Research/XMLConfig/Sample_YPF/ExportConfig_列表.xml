@@ -48,7 +48,7 @@
 					(select count(*) from embrycul_record where youpei3='1' and binglih=A.binglih and zhouqixh=A.zhouqixh and zhouqilx=A.zhouqilx)as 优胚,
 					(select count(*) from embrycul_record where quxiang3='YZ' and binglih=A.binglih and zhouqixh=A.zhouqixh and zhouqilx=A.zhouqilx)as D3胚胎移植个数,
 					(select count(*) from embrycul_record where quxiang3='YN' and binglih=A.binglih and zhouqixh=A.zhouqixh and zhouqilx=A.zhouqilx)as D3胚胎养囊个数,
-					G.rc_renshen as 临床妊娠,G.shenhua_table,convert(varchar(20),F.yizhirq,23) as 移植日期1,CONVERT(varchar(20),F1.yizhirq,23) as 移植日期2,
+					G.rc_renshen as 临床妊娠,G.shenhua_table,G.shenhua_table as shenhuatable,convert(varchar(20),F.yizhirq,23) as 移植日期1,CONVERT(varchar(20),F1.yizhirq,23) as 移植日期2,
 					(select count(*) from blastula_record where (quxiang7='YZ' or quxiang5='YZ' or quxiang6='YZ') and binglih=A.binglih and zhouqixh=A.zhouqixh and zhouqilx=A.zhouqilx)as 囊胚移植个数,
 					(select count(*) from blastula_record where (quxiang7='YZ' or quxiang5='YZ' or quxiang6='YZ' or quxiang5 like 'F%' or quxiang6 like 'F%' or quxiang7 like 'F%') and binglih=A.binglih and zhouqixh=A.zhouqixh and zhouqilx=A.zhouqilx)as 囊胚利用个数,
 					(select count(*) from blastula_record where (quxiang7='YZ' or quxiang5='YZ' or quxiang6='YZ' or quxiang5 like 'F%' or quxiang6 like 'F%' or quxiang7 like 'F%' or (quxiang5='DQ' and weichengn5&lt;&gt;'1') or (quxiang6='DQ' and weichengn6&lt;&gt;'1') or (quxiang7='DQ' and weichengn7&lt;&gt;'1')) and binglih=A.binglih and zhouqixh=A.zhouqixh and zhouqilx=A.zhouqilx)as 囊胚个数,
@@ -71,26 +71,26 @@
 					@OrderBy
 				</SQL>
 				<Transforms>
-					<Transform SourceType="Field" FunctionType="Case" TargetType="Source"  TargetColumnName ="周期总结分类">
+					<Transform SourceType="Field" FunctionType="Case" TargetColumnName ="周期总结分类">
 						<Case ColumnName="周期总结" DataType="String" Operator="eq" Value ="授精" Then="3" />
 						<Case ColumnName="周期总结" DataType="String" Operator="eq" Value ="移植" Then="2" />
 						<Case ColumnName="周期总结" DataType="String" Operator="eq" Value ="未移植" Then="2" />
 						<Case DataType="Default" Then="1" />
 					</Transform>
-					<Transform SourceType="Field" FunctionType="Case" TargetType="Source"  TargetColumnName ="2PN个数分类">
+					<Transform SourceType="Field" FunctionType="Case" TargetColumnName ="2PN个数分类">
 						<Case ColumnName="2PN个数" DataType="Int" Operator="gt" Value ="6" Then="3" />
 						<Case ColumnName="2PN个数" DataType="Int" Operator="gt" Value ="3" Then="2" />
 						<Case DataType="Default" Then="1" />
 					</Transform>
-					<Transform SourceType="JsonList" ColumnName="shenhua_table" SubFieldName="hcg" FunctionType="SumInt" TargetType="Source" TargetColumnName ="hcgSumInt"/>
-					<Transform SourceType="JsonList" ColumnName="shenhua_table" SubFieldName="hcg" FunctionType="SumCase" TargetType="Source" TargetColumnName ="hcgSumCase">
-						<Case ColumnName="hcg" DataType="Int" Operator="gt" Value ="6" Then="3" />
-						<Case ColumnName="hcg" DataType="Int" Operator="gt" Value ="3" Then="2" />
-						<Case DataType="Default" Then="1" />
-					</Transform>
-					<Transform SourceType="Field" FunctionType="Case" TargetType="Source" TargetColumnName ="取卵日期分类">
+					<Transform SourceType="Field" FunctionType="Case" TargetColumnName ="取卵日期分类">
 						<Case ColumnName="取卵日期" DataType="DateTime" Operator="gt" Value ="2019-06-01" Then="3" />
 						<Case ColumnName="取卵日期" DataType="DateTime" Operator="gt" Value ="2018-06-01" Then="2" />
+						<Case DataType="Default" Then="1" />
+					</Transform>
+					<Transform SourceType="JsonList" ColumnName="shenhua_table" SubFieldName="hcg" FunctionType="SumInt" TargetColumnName ="hcgSumInt"/>
+					<Transform SourceType="JsonList" ColumnName="shenhua_table" SubFieldName="hcg" FunctionType="SumCase" TargetColumnName ="hcgSumCase">
+						<Case ColumnName="hcg" DataType="Int" Operator="gt" Value ="6" Then="3" />
+						<Case ColumnName="hcg" DataType="Int" Operator="gt" Value ="3" Then="2" />
 						<Case DataType="Default" Then="1" />
 					</Transform>
 				</Transforms>				
@@ -128,7 +128,7 @@
 					@Wheres
 				</SQL>
 				<Transforms>
-					<Transform SourceType="Field" FunctionType="Case" TargetType="Source"  TargetColumnName ="PN分类">
+					<Transform SourceType="Field" FunctionType="Case" TargetColumnName ="PN分类">
 						<Case ColumnName="yuanhes1" DataType="String" Operator="eq" Value ="1PN" Then="1" />
 						<Case ColumnName="yuanhes1" DataType="String" Operator="eq" Value ="2PN" Then="2" />
 						<Case ColumnName="yuanhes1" DataType="String" Operator="eq" Value ="3PN" Then="3" />

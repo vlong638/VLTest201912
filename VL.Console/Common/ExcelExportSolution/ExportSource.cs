@@ -149,6 +149,22 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
                                 #endregion
                                 break;
                             case TransfromFunctionType.SumCase:
+                                #region SumCase
+                                datatable.Columns.Add(new DataColumn(transform.TargetColumnName));
+                                for (int i = 0; i < datatable.Rows.Count; i++)
+                                {
+                                    var jsonTable = datatable.Rows[i][transform.ColumnName].ToString()?.FromJson<DataTable>();
+                                    if (jsonTable == null)
+                                        continue;
+
+                                    var sumValue = 0;
+                                    foreach (var row in jsonTable.AsEnumerable())
+                                    {
+                                        sumValue += GetValue(row, transform.Cases).ToInt() ?? 0;
+                                    }
+                                    datatable.Rows[i][transform.TargetColumnName] = sumValue;
+                                }
+                                #endregion
                                 break;
                             default:
                                 throw new NotImplementedException("未支持该`FunctionType` ");
@@ -299,10 +315,10 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
                     case DataType.Int:
                         var sourceValueInt = text.ToInt();
                         if (!sourceValueInt.HasValue)
-                            return "";
+                            continue;
                         var compareValueInt = @case.Value.ToInt();
                         if (!compareValueInt.HasValue)
-                            return "";
+                            throw new NotImplementedException("无效的值配置");
                         switch (@case.Operator)
                         {
                             case OperatorType.eq:
@@ -328,10 +344,10 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
                     case DataType.DateTime:
                         var sourceValueTime = text.ToDateTime();
                         if (!sourceValueTime.HasValue)
-                            return "";
+                            continue;
                         var compareValueTime = @case.Value.ToDateTime();
                         if (!compareValueTime.HasValue)
-                            return "";
+                            throw new NotImplementedException("无效的值配置");
                         switch (@case.Operator)
                         {
                             case OperatorType.eq:
