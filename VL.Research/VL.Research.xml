@@ -4,6 +4,12 @@
         <name>VL.Research</name>
     </assembly>
     <members>
+        <member name="M:VL.Research.Common.VLAuthorizeFilter.OnAuthorizationAsync(Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext)">
+            <summary>
+             请求验证，当前验证部分不要抛出异常，ExceptionFilter不会处理
+            </summary>
+            <param name="context">请求内容信息</param>
+        </member>
         <member name="T:VL.Research.Common.Authority">
             <summary>
             权限 
@@ -1399,6 +1405,18 @@
             页面配置 模型子项
             </summary>
         </member>
+        <member name="M:VL.Research.Models.VLNameValue.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VL.Research.Models.VLNameValue.#ctor(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+        </member>
         <member name="P:VL.Research.Models.VLNameValue.name">
             <summary>
             字段名
@@ -1784,6 +1802,11 @@
             默认参数
             </summary>
         </member>
+        <member name="P:VL.Research.Models.GetListConfigRequest.HiddenParams">
+            <summary>
+            默认参数
+            </summary>
+        </member>
         <member name="T:VL.Research.Models.GetPagedListOfLabOrderRequest">
             <summary>
             
@@ -1919,7 +1942,7 @@
             <param name="returnUrl"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.HomeController.CommonList(System.String,System.String)">
+        <member name="M:VL.Research.Controllers.HomeController.CommonList(System.String,System.String,System.String)">
             <summary>
             
             </summary>

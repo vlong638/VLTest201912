@@ -5,6 +5,7 @@
 <div id="root" class="layui-fluid" style="padding: 15px;width: 100%;"></div>
 <input id="viewName" type="hidden" value="@(ViewBag.ViewName)" />
 <input id="defaultParams" type="hidden" value="@(ViewBag.DefaultParams)" />
+<input id="hiddenParams" type="hidden" value="@(ViewBag.HiddenParams)" />
 @section Scripts
 {
     <script type="text/javascript">
@@ -12,7 +13,9 @@
             const $ = layui.jquery;
             var viewName = $("#viewName").val();
             var defaultParams = $("#defaultParams").val();
-            sendAjax('post', '../../api/System/GetListConfig_LayUIByDirectoryName', JSON.stringify({ ViewName: viewName, CustomConfigId: 0, DefaultParams: defaultParams}), function (res) {
+            var hiddenParams = $("#hiddenParams").val();
+            //http://localhost:14314/Home/CommonList?viewName=Sample_YPF&defaultParams=%E5%BA%8F%E5%8F%B7_2&hiddenParams=%E5%A7%93%E5%90%8D_2
+            sendAjax('post', '../../api/System/GetListConfig_LayUIByDirectoryName', JSON.stringify({ ViewName: viewName, CustomConfigId: 0, DefaultParams: defaultParams, HiddenParams: hiddenParams }), function (res) {
                 if (res.code === 200) {
                     $('#root').renderTable(res.data, layui, parent.layui);
                 }

@@ -49,9 +49,15 @@ namespace VL.Research
 
             //Controller
             services.AddControllersWithViews();
+            ////Filters
+            //services.AddMvc(options =>
+            //{
+            //    options.Filters.Add<VLAuthorizeFilter>(); // 添加身份验证过滤器
+            //    options.Filters.Add<VLActionFilterAttribute>(); // 添加身份验证过滤器 -- 菜单操作权限
+            //});
 
             //基础设施
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+           services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<APIContext>();
 
             //服务设施
@@ -89,7 +95,6 @@ namespace VL.Research
                 b.ExpireTimeSpan = new TimeSpan(0, 0, 30);
             });
 
-            services.AddAuthenticationCore(options => options.AddScheme<VLAuthenticationHandler>(VLAuthenticationHandler.ShemeName, "VL Scheme"));
             services.AddDataProtection();
             services.AddWebEncoders();
             services.AddScoped<IAuthenticationService, UserService>();//核心对象一 认证服务
@@ -181,7 +186,7 @@ namespace VL.Research
                 var user = context.User;
                 if (user?.Identity?.IsAuthenticated ?? false)
                 {
-                    if (user.Identity.Name != "jim") await context.ForbidAsync(VLAuthenticationHandler.ShemeName);
+                    if (user.Identity.Name == "") await context.ForbidAsync(VLAuthenticationHandler.ShemeName);
                     else await next();
                 }
                 else

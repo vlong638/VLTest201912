@@ -17,5 +17,9 @@
         /// 默认参数
         /// </summary>
         public string DefaultParams { set; get; }
+        /// <summary>
+        /// 默认参数
+        /// </summary>
+        public string HiddenParams { set; get; }
     }
 }

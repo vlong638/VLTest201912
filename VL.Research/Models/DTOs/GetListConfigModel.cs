@@ -478,6 +478,23 @@ namespace VL.Research.Models
     public class VLNameValue
     {
         /// <summary>
+        /// 
+        /// </summary>
+        public VLNameValue()
+        {
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
+        public VLNameValue(string name, string value)
+        {
+            this.name = name;
+            this.value = value;
+        }
+
+        /// <summary>
         /// 字段名
         /// </summary>
         public string name { set; get; }

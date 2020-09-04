@@ -8,6 +8,7 @@
 			<Where ComponentName="序号">tb.序号 = @序号</Where>
 			<Where ComponentName="取卵日期Start">tb.取卵日期 &gt;= @取卵日期Start</Where>
 			<Where ComponentName="取卵日期End">tb.取卵日期 &lt;= @取卵日期End</Where>
+			<Where ComponentName="女方姓名" Formatter="%@女方姓名%">tb.女方姓名 like @女方姓名</Where>
 		</Wheres>
 		<OrderBys>
 			<OrderBy ComponentName="id" Alias ="tb.序号"/>

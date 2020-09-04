@@ -20,6 +20,7 @@ namespace VL.Research.Controllers
     /// <summary>
     /// 
     /// </summary>
+    //[Authorize]
     [ApiController]
     [Route("api/[controller]/[action]")]
     public class SystemController : APIBaseController
@@ -521,13 +522,14 @@ namespace VL.Research.Controllers
             var listConfigs = viewElements.Select(c => new ListConfig(c));
             var listConfig = listConfigs.FirstOrDefault();
             listConfig.Properties.RemoveAll(c => !c.IsNeedOnPage);
-            var defaultParams = GetKeyValue(request.DefaultParams);
+            var defaultParams = GetNameValue(request.DefaultParams);
             foreach (var defaultParam in defaultParams)
             {
-                var where = listConfig.Wheres.FirstOrDefault(c => c.ComponentName == defaultParam.Key);
+                var where = listConfig.Wheres.FirstOrDefault(c => c.ComponentName == defaultParam.name);
                 if (where != null)
-                    where.Value = defaultParam.Value;
+                    where.Value = defaultParam.value;
             }
+            var hiddenParams = GetNameValue(request.HiddenParams);
             var result = new GetListConfigModel()
             {
                 CustomConfigId = request.CustomConfigId,
@@ -591,12 +593,14 @@ namespace VL.Research.Controllers
                     },
                 },
             };
+            result.table.where.AddRange(hiddenParams);
+
             return Success(result);
         }
 
-        private List<VLKeyValue> GetKeyValue(string defaultParams)
+        private List<VLNameValue> GetNameValue(string defaultParams)
         {
-            List<VLKeyValue> result = new List<VLKeyValue>();
+            List<VLNameValue> result = new List<VLNameValue>();
             if (defaultParams.IsNullOrEmpty())
                 return result;
             //A_111|B_222
@@ -606,7 +610,7 @@ namespace VL.Research.Controllers
                 var keyValue = pair.Split("_");
                 if (keyValue.Count() == 2)
                 {
-                    result.Add(new VLKeyValue(keyValue[0], keyValue[1]));
+                    result.Add(new VLNameValue(keyValue[0], keyValue[1]));
                 }
             }
             return result;

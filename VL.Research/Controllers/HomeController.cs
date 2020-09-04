@@ -86,9 +86,9 @@ namespace VL.Research.Controllers
                 #region 登录缓存处理
 
                 var claimIdentity = new ClaimsIdentity();
-                claimIdentity.AddClaim(new Claim(ClaimTypes.Name, "jim"));
+                claimIdentity.AddClaim(new Claim(ClaimTypes.Name, model.UserName));
                 await apiContext.HttpContext.SignInAsync(UserService.ShemeName, new ClaimsPrincipal(claimIdentity));
-                return RedirectToLocal(returnUrl);
+                return RedirectToLocal(returnUrl.IsNullOrEmpty() ? "Home/Index" : returnUrl);
 
                 #endregion
             }
@@ -114,10 +114,11 @@ namespace VL.Research.Controllers
         /// <returns></returns>
         [HttpGet]
         //[VLAuthentication(Authority.查看孕妇档案列表)]
-        public ActionResult CommonList(string viewName, string defaultParams)
+        public ActionResult CommonList(string viewName, string defaultParams, string hiddenParams)
         {
             ViewBag.ViewName = viewName;
             ViewBag.DefaultParams = defaultParams; //支持格式 &defaultParams=A_111|B_222 
+            ViewBag.HiddenParams = hiddenParams; //支持格式 &hiddenParams=A_111|B_222 
             return View();
         }
 
