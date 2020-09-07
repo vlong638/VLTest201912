@@ -341,6 +341,14 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                 }
             }
         }
+
+        if (!isBlank(_data.table.where)) {
+            // 加载表格初始参数到data.field.search
+            $.each(_data.table.where, function (index, item) {
+                data.field.search.push({ key: item.name, value: item.value })
+            })
+        }
+
         search = data.field.search;
         console.log(search);
         dataTable.reload({ where: data.field, page: { curr: 1 } });
