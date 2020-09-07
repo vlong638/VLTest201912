@@ -14,10 +14,10 @@
 
 syntax = "proto3";
 
-package VLservice;
+package VLService;
 
 // The greeting service definition.
-service VLservice01 {
+service VLService01 {
   // Sends a greeting
   rpc SayHello (HelloRequest) returns (HelloReply) {}
 }
@@ -31,3 +31,5 @@ message HelloRequest {
 message HelloReply {
   string message = 1;
 }
+
+
