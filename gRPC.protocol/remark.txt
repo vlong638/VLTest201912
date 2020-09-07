@@ -1,0 +1,1 @@
+﻿C:\Users\vlong\.nuget\packages\grpc.tools\2.31.0\tools\windows_x86\protoc.exe --csharp_out=D:\WorkSpace\Repository\VLTest201912\gRPC.protocol\CSharp--grpc_out=D:\WorkSpace\Repository\VLTest201912\gRPC.protocol\gRPC--plugin=protoc-gen-grpc=C:\Users\vlong\.nuget\packages\grpc.tools\2.31.0\tools\windows_x86\grpc_csharp_plugin.exe  vlservice.proto
