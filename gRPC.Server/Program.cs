@@ -23,6 +23,11 @@ namespace gRPC.VLServer
 
         static void Main(string[] args)
         {
+            SimpleRPCText();
+        }
+
+        private static void SimpleRPCText()
+        {
             Server server = new Server
             {
                 Services = { VLservice01.BindService(new VLservice01Impl()) },
