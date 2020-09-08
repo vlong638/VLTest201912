@@ -42,9 +42,9 @@ namespace VL.Consolo_Core.AuthenticationSolution
             return Task.CompletedTask;
         }
 
-        public Task SignInAsync(ClaimsPrincipal user, AuthenticationProperties properties)
+        public Task SignInAsync(ClaimsPrincipal claims, AuthenticationProperties properties)
         {
-            var ticket = new AuthenticationTicket(user, properties, Scheme.Name);
+            var ticket = new AuthenticationTicket(claims, properties, Scheme.Name);
             Context.Response.Cookies.Append(Cookie_AuthName, VLAuthenticationTicketHelper.Encrypt(ticket));
             return Task.CompletedTask;
         }
