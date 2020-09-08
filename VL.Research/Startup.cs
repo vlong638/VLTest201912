@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using System;
 using System.Security.Claims;
 using VL.Consolo_Core.AuthenticationSolution;
@@ -47,8 +49,54 @@ namespace VL.Research
 
             #region 接口及服务
 
+            //认证
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, b =>
+            {
+                //登陆地址
+                b.LoginPath = "/Home/Login";
+                b.Cookie.Name = "My_SessionId";
+                // b.Cookie.Domain = "shenniu.core.com";
+                b.Cookie.Path = "/";
+                b.Cookie.HttpOnly = true;
+                b.Cookie.Expiration = new TimeSpan(0, 0, 30);
+                b.ExpireTimeSpan = new TimeSpan(0, 0, 30);
+            });
+
             //Controller
             services.AddControllersWithViews();
+
+            //services.Configure<IdentityOptions>(options =>
+            //{
+            //    // Password settings.
+            //    options.Password.RequireDigit = true;
+            //    options.Password.RequireLowercase = true;
+            //    options.Password.RequireNonAlphanumeric = true;
+            //    options.Password.RequireUppercase = true;
+            //    options.Password.RequiredLength = 6;
+            //    options.Password.RequiredUniqueChars = 1;
+
+            //    // Lockout settings.
+            //    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+            //    options.Lockout.MaxFailedAccessAttempts = 5;
+            //    options.Lockout.AllowedForNewUsers = true;
+
+            //    // User settings.
+            //    options.User.AllowedUserNameCharacters =
+            //    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+            //    options.User.RequireUniqueEmail = false;
+            //});
+
+            //services.ConfigureApplicationCookie(options =>
+            //{
+            //    // Cookie settings
+            //    options.Cookie.HttpOnly = true;
+            //    options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+            //    options.LoginPath = "/Identity/Account/Login";
+            //    options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+            //    options.SlidingExpiration = true;
+            //});
+
             ////Filters
             //services.AddMvc(options =>
             //{
@@ -57,7 +105,7 @@ namespace VL.Research
             //});
 
             //基础设施
-           services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<APIContext>();
 
             //服务设施
@@ -77,30 +125,30 @@ namespace VL.Research
 
             #region 认证
 
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
-            })
-            .AddCookie(b =>
-            {
-                //登陆地址
-                b.LoginPath = "/Home/Login";
-                b.Cookie.Name = "My_SessionId";
-                // b.Cookie.Domain = "shenniu.core.com";
-                b.Cookie.Path = "/";
-                b.Cookie.HttpOnly = true;
-                b.Cookie.Expiration = new TimeSpan(0, 0, 30);
-                b.ExpireTimeSpan = new TimeSpan(0, 0, 30);
-            });
+            //services.AddAuthentication(options =>
+            //{
+            //    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            //    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            //    options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+            //})
+            //.AddCookie(b =>
+            //{
+            //    //登陆地址
+            //    b.LoginPath = "/Home/Login";
+            //    b.Cookie.Name = "My_SessionId";
+            //    // b.Cookie.Domain = "shenniu.core.com";
+            //    b.Cookie.Path = "/";
+            //    b.Cookie.HttpOnly = true;
+            //    b.Cookie.Expiration = new TimeSpan(0, 0, 30);
+            //    b.ExpireTimeSpan = new TimeSpan(0, 0, 30);
+            //});
 
-            services.AddDataProtection();
-            services.AddWebEncoders();
-            services.AddScoped<IAuthenticationService, UserService>();//核心对象一 认证服务
-            services.AddSingleton<IClaimsTransformation, NoopClaimsTransformation>();
-            services.AddSingleton<IAuthenticationSchemeProvider, AuthenticationSchemeProvider>();//核心对象二 认证模式
-            services.AddSingleton<IAuthenticationHandlerProvider, AuthenticationHandlerProvider>();//核心对象三 认证代理
+            //services.AddDataProtection();
+            //services.AddWebEncoders();
+            //services.AddScoped<IAuthenticationService, UserService>();//核心对象一 认证服务
+            //services.AddSingleton<IClaimsTransformation, NoopClaimsTransformation>();
+            //services.AddSingleton<IAuthenticationSchemeProvider, AuthenticationSchemeProvider>();//核心对象二 认证模式
+            //services.AddSingleton<IAuthenticationHandlerProvider, AuthenticationHandlerProvider>();//核心对象三 认证代理
 
             #endregion
         }
@@ -129,6 +177,8 @@ namespace VL.Research
             //注册路由中间件
             app.UseRouting();
             //注册认证中间件
+            app.UseAuthentication();
+            //注册鉴权中间件
             app.UseAuthorization();
             //注册路由配置
             app.UseEndpoints(endpoints =>
@@ -145,7 +195,6 @@ namespace VL.Research
             {
                 p.SwaggerEndpoint("/swagger/v1/swagger.json", "VL API");
             });
-
 
             #region 认证代理
 
@@ -169,31 +218,31 @@ namespace VL.Research
             //    };
             //}));
 
-            // 认证
-            app.Use(next =>
-            {
-                return async (context) =>
-                {
-                    var result = await context.AuthenticateAsync(VLAuthenticationHandler.ShemeName);
-                    if (result?.Principal != null) context.User = result.Principal;
-                    await next(context);
-                };
-            });
+            //// 认证
+            //app.Use(next =>
+            //{
+            //    return async (context) =>
+            //    {
+            //        var result = await context.AuthenticateAsync(VLAuthenticationHandler.ShemeName);
+            //        if (result?.Principal != null) context.User = result.Principal;
+            //        await next(context);
+            //    };
+            //});
 
-            // 授权
-            app.Use(async (context, next) =>
-            {
-                var user = context.User;
-                if (user?.Identity?.IsAuthenticated ?? false)
-                {
-                    if (user.Identity.Name == "") await context.ForbidAsync(VLAuthenticationHandler.ShemeName);
-                    else await next();
-                }
-                else
-                {
-                    await context.ChallengeAsync(VLAuthenticationHandler.ShemeName);
-                }
-            });
+            //// 授权
+            //app.Use(async (context, next) =>
+            //{
+            //    var user = context.User;
+            //    if (user?.Identity?.IsAuthenticated ?? false)
+            //    {
+            //        if (user.Identity.Name == "") await context.ForbidAsync(VLAuthenticationHandler.ShemeName);
+            //        else await next();
+            //    }
+            //    else
+            //    {
+            //        await context.ChallengeAsync(VLAuthenticationHandler.ShemeName);
+            //    }
+            //});
 
             // 访问受保护资源
             app.Map("/resource", builder => builder.Run(async (context) => await context.Response.WriteAsync("Hello, ASP.NET Core!")));

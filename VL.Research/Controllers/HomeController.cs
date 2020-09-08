@@ -70,6 +70,8 @@ namespace VL.Research.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> Login([FromServices] APIContext apiContext, [FromServices] UserService userService, LoginViewModel model, string returnUrl)
         {
+            returnUrl = returnUrl ?? Url.Content("~/");
+
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -87,10 +89,11 @@ namespace VL.Research.Controllers
 
                 var claimIdentity = new ClaimsIdentity();
                 claimIdentity.AddClaim(new Claim(ClaimTypes.Name, model.UserName));
-                await apiContext.HttpContext.SignInAsync(UserService.ShemeName, new ClaimsPrincipal(claimIdentity));
-                return RedirectToLocal(returnUrl.IsNullOrEmpty() ? "Home/Index" : returnUrl);
+                await userService.SignInAsync(apiContext.HttpContext, UserService.SchemeName, new ClaimsPrincipal(claimIdentity),new AuthenticationProperties ());
 
                 #endregion
+
+                return RedirectToLocal(returnUrl.IsNullOrEmpty() ? "Home/Index" : returnUrl);
             }
             else
             {

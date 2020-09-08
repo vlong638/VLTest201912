@@ -278,7 +278,7 @@ namespace VL.Research.Services
         #region IAuthenticationService
 
         public const string AuthCookieName = "vlcookie";
-        public const string ShemeName = "vlsheme";
+        public const string SchemeName = Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme;
 
         /// <summary>
         /// 
