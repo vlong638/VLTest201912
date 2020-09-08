@@ -20,7 +20,7 @@ namespace VL.Research.Services
     /// <summary>
     /// 
     /// </summary>
-    public class UserService : BaseService, IAuthenticationService, IUserService
+    public class UserService : BaseService, IUserService
     {
         APIContext dbContext { set; get; }
         public IAuthenticationSchemeProvider Schemes { get; }
@@ -84,7 +84,7 @@ namespace VL.Research.Services
         /// <param name="password"></param>
         /// <param name="shouldLockout"></param>
         /// <returns></returns>
-        public ServiceResult<User> PasswordSignIn(string userName, string password, bool shouldLockout)
+        public ServiceResult<User> PasswordSignIn(APIContext apiContext, string userName, string password, bool shouldLockout)
         {
             var hashPassword = MD5Helper.GetHashValue(password);
             User user = new User()
@@ -95,8 +95,16 @@ namespace VL.Research.Services
             var result = userRepository.GetBy(user.Name, user.Password);
             if (result == null)
             {
-                return Error<User>("用户名不存在或与密码不匹配");
+                return Error<User>("用户名不存在或密码不匹配");
             }
+
+            var authorityIds = GetAllUserAuthorityIds(result.Id).Data;
+            var claims = new List<Claim>();
+            claims.Add(new Claim(ClaimTypes.Name, user.Name));
+            var claimsIdentity = new ClaimsIdentity(claims, "CustomApiKeyAuth");
+            var userPrincipal = new ClaimsPrincipal(claimsIdentity);
+            apiContext.HttpContext.SignInAsync(SchemeName, userPrincipal, new AuthenticationProperties());
+
             return Success(result);
         }
 
@@ -277,8 +285,14 @@ namespace VL.Research.Services
 
         #region IAuthenticationService
 
-        public const string AuthCookieName = "vlcookie";
-        public const string SchemeName = Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme;
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string AuthCookieName = VLAuthenticationHandler.Cookie_AuthName;
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string SchemeName = VLAuthenticationHandler.ShemeName;
 
         /// <summary>
         /// 
@@ -330,13 +344,8 @@ namespace VL.Research.Services
         /// <param name="principal"></param>
         /// <param name="properties"></param>
         /// <returns></returns>
-        public Task SignInAsync(HttpContext context, string scheme, ClaimsPrincipal principal, AuthenticationProperties properties)
-        {
-            var ticket = new AuthenticationTicket(principal, properties, scheme);
-            string cookieStr = VLAuthenticationTicketHelper.Encrypt(ticket);
-            context.Response.Cookies.Append(AuthCookieName, cookieStr);
-            return Task.CompletedTask;
-        }
+        public Task SignInAsync(HttpContext context, string scheme, ClaimsPrincipal principal, AuthenticationProperties properties) =>
+            context.RequestServices.GetRequiredService<IAuthenticationService>().SignInAsync(context, scheme, principal, properties);
 
         /// <summary>
         /// 

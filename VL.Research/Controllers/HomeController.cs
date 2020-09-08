@@ -79,20 +79,9 @@ namespace VL.Research.Controllers
 
             // 这不会计入到为执行帐户锁定而统计的登录失败次数中
             // 若要在多次输入错误密码的情况下触发帐户锁定，请更改为 shouldLockout: true
-            var result = userService.PasswordSignIn(model.UserName, model.Password, false);
+            var result = userService.PasswordSignIn(apiContext, model.UserName, model.Password, false);
             if (result.IsSuccess)
             {
-                var user = result.Data;
-                var authorityIds = userService.GetAllUserAuthorityIds(result.Data.Id).Data;
-
-                #region 登录缓存处理
-
-                var claimIdentity = new ClaimsIdentity();
-                claimIdentity.AddClaim(new Claim(ClaimTypes.Name, model.UserName));
-                await userService.SignInAsync(apiContext.HttpContext, UserService.SchemeName, new ClaimsPrincipal(claimIdentity),new AuthenticationProperties ());
-
-                #endregion
-
                 return RedirectToLocal(returnUrl.IsNullOrEmpty() ? "Home/Index" : returnUrl);
             }
             else

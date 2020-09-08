@@ -82,7 +82,7 @@ namespace VL.Research.Common
             }
             if (isAllowAllowAnonymous) return;
 
-            var cookieValue = filterContext.HttpContext.Request.Cookies[VL.Consolo_Core.AuthenticationSolution.VLAuthenticationHandler.AuthCookieName];
+            var cookieValue = filterContext.HttpContext.Request.Cookies[VL.Consolo_Core.AuthenticationSolution.VLAuthenticationHandler.Cookie_AuthName];
             //if (string.IsNullOrEmpty(cookieValue))
             //{
             //    return AuthenticateResult.NoResult();

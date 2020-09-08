@@ -2536,7 +2536,7 @@
             <param name="password"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Services.UserService.PasswordSignIn(System.String,System.String,System.Boolean)">
+        <member name="M:VL.Research.Services.UserService.PasswordSignIn(VL.Research.Common.APIContext,System.String,System.String,System.Boolean)">
             <summary>
             密码登录
             </summary>
@@ -2575,6 +2575,16 @@
             <param name="id"></param>
             <param name="roleName"></param>
             <returns></returns>
+        </member>
+        <member name="F:VL.Research.Services.UserService.AuthCookieName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:VL.Research.Services.UserService.SchemeName">
+            <summary>
+            
+            </summary>
         </member>
         <member name="M:VL.Research.Services.UserService.AuthenticateAsync(Microsoft.AspNetCore.Http.HttpContext,System.String)">
             <summary>
