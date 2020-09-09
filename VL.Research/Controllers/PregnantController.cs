@@ -37,7 +37,7 @@ namespace VL.Research.Controllers
         /// <param name="name">参数(姓名)</param>
         /// <returns></returns>
         [HttpPost]
-        [VLAuthentication(Authority.查看孕妇档案列表)]
+        //[VLActionFilter(Authority.查看孕妇档案列表)]
         public APIResult<VLPagerResult<PagedListOfPregnantInfoModel>> GetPagedListOfPregnantInfo([FromServices] PregnantService pregnantService, int page, int rows, string name)
         {
             var pars = new GetPagedListOfPregnantInfoRequest()
@@ -63,7 +63,7 @@ namespace VL.Research.Controllers
         /// <param name="order">参数(排序顺序:asc|desc)</param>
         /// <returns></returns>
         [HttpGet]
-        //[VLAuthentication(Authority.查看孕妇档案列表)]
+        //[VLActionFilter(Authority.查看孕妇档案列表)]
         public APIResult<List<Dictionary<string, object>>, int> GetConfigurablePagedListOfPregnantInfo([FromServices] PregnantService pregnantService, int page, int limit, string field, string order, string personname)
         {
             ListConfig ListConfig = SystemController.GetListConfigByTagName("PregnantInfo");
@@ -95,7 +95,7 @@ namespace VL.Research.Controllers
         /// <param name="pregnantInfoId">孕妇档案Id</param>
         /// <returns></returns>
         [HttpPost]
-        [VLAuthentication(Authority.查看孕妇档案详情)]
+        //[VLActionFilter(Authority.查看孕妇档案详情)]
         public APIResult<PregnantInfo> GetPregnantInfo([FromServices] PregnantService pregnantService, long pregnantInfoId)
         {
             if (pregnantInfoId == 0)
@@ -117,7 +117,7 @@ namespace VL.Research.Controllers
         /// <param name="pregnantInfoId">参数(孕妇档案Id)</param>
         /// <returns></returns>
         [HttpPost]
-        [VLAuthentication(Authority.查看产检列表)]
+        //[VLActionFilter(Authority.查看产检列表)]
         public APIResult<VLPagerResult<PagedListOfVisitRecordModel>> GetPagedListOfVisitRecord([FromServices] PregnantService pregnantService, int page, int rows, long pregnantInfoId)
         {
             var pars = new GetPagedListOfVisitRecordRequest()
@@ -141,7 +141,7 @@ namespace VL.Research.Controllers
         /// <param name="pregnantInfoId">参数(孕妇档案Id)</param>
         /// <returns></returns>
         [HttpPost]
-        [VLAuthentication(Authority.查看检查列表)]
+        //[VLActionFilter(Authority.查看检查列表)]
         public APIResult<VLPagerResult<PagedListOfLabOrderModel>> GetPagedListOfLabOrder([FromServices] PregnantService pregnantService, int page, int rows, long pregnantInfoId)
         {
             var pars = new GetPagedListOfLabOrderRequest()

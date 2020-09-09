@@ -311,8 +311,14 @@ namespace VL.Research.Controllers
 
 
         [HttpGet]
-        [VLAuthentication]
         public ActionResult AllStatistics()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [VLActionFilter(Authority.创建角色)]
+        public ActionResult VLActionFilterTest()
         {
             return View();
         }

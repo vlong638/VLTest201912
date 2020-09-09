@@ -4,11 +4,20 @@
         <name>VL.Research</name>
     </assembly>
     <members>
-        <member name="M:VL.Research.Common.VLAuthorizeFilter.OnAuthorizationAsync(Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext)">
+        <member name="T:VL.Research.Common.VLActionFilterAttribute">
             <summary>
-             请求验证，当前验证部分不要抛出异常，ExceptionFilter不会处理
+            
             </summary>
-            <param name="context">请求内容信息</param>
+        </member>
+        <member name="M:VL.Research.Common.VLActionFilterAttribute.#ctor(VL.Research.Common.Authority[])">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:VL.Research.Common.VLActionFilterAttribute.Authorities">
+            <summary>
+            
+            </summary>
         </member>
         <member name="T:VL.Research.Common.Authority">
             <summary>
