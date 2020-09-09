@@ -362,8 +362,7 @@ namespace VL.Research.Controllers
         /// 获取 通用分页列表
         /// </summary>
         [HttpPost]
-        //[VLAuthentication(Authority.查看孕妇档案列表)]
-        [Authorize]
+        [VLActionFilter(Authority.查看孕妇档案列表)]
         public APIResult<List<Dictionary<string, object>>, int> GetCommonSelect([FromServices] SharedService sharedService, GetCommonSelectRequest request)
         {
             var ListConfig = GetListConfigByTagName(request.target);

@@ -4,27 +4,6 @@
         <name>VL.Research</name>
     </assembly>
     <members>
-        <member name="T:VL.Research.Common.VLActionFilterAttribute">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:VL.Research.Common.VLActionFilterAttribute.#ctor(VL.Research.Common.Authority[])">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:VL.Research.Common.VLActionFilterAttribute.Authorities">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:VL.Research.Common.VLActionFilterAttribute.OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
-            <summary>
-            
-            </summary>
-            <param name="context"></param>
-        </member>
         <member name="T:VL.Research.Common.Authority">
             <summary>
             权限 
@@ -76,6 +55,27 @@
             <summary>
             当前用户
             </summary>
+        </member>
+        <member name="T:VL.Research.Common.VLActionFilterAttribute">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VL.Research.Common.VLActionFilterAttribute.#ctor(VL.Research.Common.Authority[])">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:VL.Research.Common.VLActionFilterAttribute.Authorities">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VL.Research.Common.VLActionFilterAttribute.OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
         </member>
         <member name="T:VL.Research.Common.Configuration.DBConfig">
             <summary>

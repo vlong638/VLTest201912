@@ -52,10 +52,6 @@ namespace VL.Research
 
             //Controller
             services.AddMvc();
-            //services.AddMvc(o=>
-            //{
-            //    o.Filters.Add<VLAuthorizeFilter>();
-            //});
 
             //»ù´¡ÉèÊ©
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

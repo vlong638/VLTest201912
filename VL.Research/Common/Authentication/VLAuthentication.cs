@@ -50,10 +50,12 @@ namespace VL.Research.Common
             if (userAuthorities == null || userAuthorities.Count == 0)//权限异常
             {
                 context.Result = new RedirectResult("/Home/Login");
+                return;
             }
             if (userAuthorities.FirstOrDefault(c => Authorities.Contains(c)) == Authority.None)//缺少访问权限
             {
                 context.Result = new RedirectResult("/Home/NoAccess");
+                return;
             }
             base.OnActionExecuting(context);
         }
