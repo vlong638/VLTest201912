@@ -80,10 +80,6 @@ namespace VL.Research.Services
         /// <summary>
         /// 密码登录
         /// </summary>
-        /// <param name="userName"></param>
-        /// <param name="password"></param>
-        /// <param name="shouldLockout"></param>
-        /// <returns></returns>
         public ServiceResult<User> PasswordSignIn(APIContext apiContext, string userName, string password, bool shouldLockout)
         {
             var hashPassword = MD5Helper.GetHashValue(password);
@@ -98,12 +94,15 @@ namespace VL.Research.Services
                 return Error<User>("用户名不存在或密码不匹配");
             }
 
-            var authorityIds = GetAllUserAuthorityIds(result.Id).Data;
             var claims = new List<Claim>();
-            claims.Add(new Claim(ClaimTypes.Name, user.Name));
+            var sessionId = user.Name.GetHashCode().ToString();
+            claims.Add(new Claim(ClaimTypes.Name, sessionId));
             var claimsIdentity = new ClaimsIdentity(claims, "CustomApiKeyAuth");
             var userPrincipal = new ClaimsPrincipal(claimsIdentity);
             apiContext.HttpContext.SignInAsync(SchemeName, userPrincipal, new AuthenticationProperties());
+
+            var authorities = GetAllUserAuthorityIds(result.Id).Data.Select(c=>c.ToEnum<Authority>()).ToList();
+            apiContext.RedisCache.Set(sessionId, authorities, DateTime.Now.AddMinutes(5));
 
             return Success(result);
         }

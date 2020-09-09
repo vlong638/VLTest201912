@@ -12,6 +12,7 @@ using Microsoft.Extensions.Options;
 using System;
 using System.Security.Claims;
 using VL.Consolo_Core.AuthenticationSolution;
+using VL.Consolo_Core.Common.RedisSolution;
 using VL.Research.Common;
 using VL.Research.Common.Configuration;
 using VL.Research.Services;
@@ -64,6 +65,7 @@ namespace VL.Research
             services.AddScoped<PregnantService>();
             services.AddScoped<SharedService>();
             services.AddScoped<UserService>();
+            services.AddSingleton(p => new RedisCache(Configuration["Redis:ConnectionString"], Configuration["Redis:Prefix"]));
 
             //服务接口管理
             services.AddSwaggerGen(p =>

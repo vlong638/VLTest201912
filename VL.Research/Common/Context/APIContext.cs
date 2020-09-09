@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using System;
 using System.Text;
 using VL.Consolo_Core.Common.DBSolution;
+using VL.Consolo_Core.Common.RedisSolution;
 using VL.Research.Common.Configuration;
 
 namespace VL.Research.Common
@@ -33,16 +34,23 @@ namespace VL.Research.Common
         /// 
         /// </summary>
         public DbContext SZXTDbContext { set; get; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public RedisCache RedisCache { set; get; }
 
         /// <summary>
         /// 
         /// </summary>
-        public APIContext(IHttpContextAccessor httpContext, IOptions<DBConfig> loggingConfig) : base()
+        public APIContext(IHttpContextAccessor httpContext, IOptions<DBConfig> loggingConfig, RedisCache redisCache) : base()
         {
             HttpContextAccessor = httpContext;
+
             CommonDbContext = new DbContext(DBHelper.GetDbConnection(loggingConfig.Value.ConnectionString));
             FYPTDbContext = new DbContext(DBHelper.GetDbConnection(loggingConfig.Value.FYPTConnectionString));
             SZXTDbContext = new DbContext(DBHelper.GetDbConnection(loggingConfig.Value.SZXTConnectionString));
+
+            RedisCache = redisCache;
         }
 
         #region Auth

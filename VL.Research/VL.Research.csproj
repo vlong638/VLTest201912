@@ -13,6 +13,8 @@
     <None Remove="VL.Research.xml" />
     <None Remove="XMLConfig\CustomConfig.xml" />
     <None Remove="XMLConfig\DetailConfig.xml" />
+    <None Remove="XMLConfig\FYPT_PregnantInfo.rar" />
+    <None Remove="XMLConfig\Sample_YPF.rar" />
     <None Remove="XMLConfig\Sample_YPF\ExportConfig_列表.xml" />
     <None Remove="XMLConfig\Sample_YPF\ExportConfig_高危妊娠表.xml" />
     <None Remove="XMLConfig\FYPT_PregnantInfo\ExportConfig_列表.xml" />

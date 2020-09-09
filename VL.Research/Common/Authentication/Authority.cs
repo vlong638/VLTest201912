@@ -13,6 +13,11 @@ namespace VL.Research.Common
     /// </summary>
     public enum Authority
     {
+        /// <summary>
+        /// 无效权限
+        /// </summary>
+        None =  0,
+
         #region 分娩管理系统 101
 
         #region 分娩信息浏览模块 101

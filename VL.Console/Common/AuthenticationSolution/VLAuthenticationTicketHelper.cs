@@ -8,7 +8,7 @@ namespace VL.Consolo_Core.AuthenticationSolution
     {
         public static string Encrypt(AuthenticationTicket ticket)
         {
-            return ticket.Principal.Claims.First().Value;
+            return ticket.Principal.Claims.First(c => c.Type == ClaimTypes.Name).Value;
         }
         public static AuthenticationTicket Decrypt(string ticketStr)
         {

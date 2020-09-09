@@ -38,6 +38,13 @@ namespace VL.Consolo_Core.Common.ValuesSolution
             return t;
         }
 
+        public static T ToEnum<T>(this long value) where T : struct
+        {
+            T t;
+            Enum.TryParse<T>(value.ToString(), out t);
+            return t;
+        }
+
         public static string ToEnumDescription(this object value, Type t)
         {
             if (value == null || t == null)

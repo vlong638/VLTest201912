@@ -19,11 +19,22 @@
             
             </summary>
         </member>
+        <member name="M:VL.Research.Common.VLActionFilterAttribute.OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+        </member>
         <member name="T:VL.Research.Common.Authority">
             <summary>
             权限 
             前三位代表业务系统,后三位表示模块内功能模块,后三位表示功能模块内细分功能
             通用功能为000
+            </summary>
+        </member>
+        <member name="F:VL.Research.Common.Authority.None">
+            <summary>
+            无效权限
             </summary>
         </member>
         <member name="F:VL.Research.Common.Authority.查看用户分娩信息">
@@ -116,7 +127,12 @@
             
             </summary>
         </member>
-        <member name="M:VL.Research.Common.APIContext.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Microsoft.Extensions.Options.IOptions{VL.Research.Common.Configuration.DBConfig})">
+        <member name="P:VL.Research.Common.APIContext.RedisCache">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VL.Research.Common.APIContext.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Microsoft.Extensions.Options.IOptions{VL.Research.Common.Configuration.DBConfig},VL.Consolo_Core.Common.RedisSolution.RedisCache)">
             <summary>
             
             </summary>
@@ -2549,10 +2565,6 @@
             <summary>
             密码登录
             </summary>
-            <param name="userName"></param>
-            <param name="password"></param>
-            <param name="shouldLockout"></param>
-            <returns></returns>
         </member>
         <member name="M:VL.Research.Services.UserService.EditRoleAuthorities(System.Int64,System.Collections.Generic.List{System.Int64})">
             <summary>

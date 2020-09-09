@@ -309,7 +309,6 @@ namespace VL.Research.Controllers
             //return Download(filePath, fileName);
         }
 
-
         [HttpGet]
         public ActionResult AllStatistics()
         {
@@ -322,7 +321,6 @@ namespace VL.Research.Controllers
         {
             return View();
         }
-
 
         #region ExcelExport
 
