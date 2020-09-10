@@ -171,6 +171,17 @@
             
             </summary>
         </member>
+        <member name="P:VL.Research.Common.APIContext.RedisCache">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VL.Research.Common.APIContext.GetCurrentUser">
+            <summary>
+            获取当前用户信息
+            </summary>
+            <returns></returns>
+        </member>
         <member name="P:VL.Research.Common.APIContext.CommonDbContext">
             <summary>
             
@@ -182,11 +193,6 @@
             </summary>
         </member>
         <member name="P:VL.Research.Common.APIContext.SZXTDbContext">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:VL.Research.Common.APIContext.RedisCache">
             <summary>
             
             </summary>

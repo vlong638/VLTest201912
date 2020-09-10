@@ -63,6 +63,7 @@ namespace VL.Research.Controllers
         /// </summary>
         public ActionResult Logout([FromServices] APIContext apiContext, [FromServices] UserService userService)
         {
+            //var userName = apiContext.GetCurrentUser().UserName;
             userService.Logout(apiContext);
             return RedirectToAction("Login", "Home");
         }
