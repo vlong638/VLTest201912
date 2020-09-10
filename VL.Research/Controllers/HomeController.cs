@@ -59,16 +59,20 @@ namespace VL.Research.Controllers
         }
 
         /// <summary>
-        /// 
+        /// 登出
         /// </summary>
-        /// <param name="apiContext"></param>
-        /// <param name="userService"></param>
-        /// <param name="model"></param>
-        /// <param name="returnUrl"></param>
-        /// <returns></returns>
+        public ActionResult Logout([FromServices] APIContext apiContext, [FromServices] UserService userService)
+        {
+            userService.Logout(apiContext);
+            return RedirectToAction("Login", "Home");
+        }
+
+        /// <summary>
+        /// 登录
+        /// </summary>
         [HttpPost]
         [AllowAnonymous]
-        public async Task<ActionResult> Login([FromServices] APIContext apiContext, [FromServices] UserService userService, LoginViewModel model, string returnUrl)
+        public ActionResult Login([FromServices] APIContext apiContext, [FromServices] UserService userService, LoginViewModel model, string returnUrl)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
 

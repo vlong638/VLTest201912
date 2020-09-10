@@ -1852,10 +1852,12 @@ order by Table_Name,Column_Name;
                 //BubbleSort：4.3723
                 //InsertionSort：0.9022
                 //QuickSort：0.592
+
                 //数据总数：10000
                 //BubbleSort：277.8679
                 //InsertionSort：77.777
                 //QuickSort：1.4341
+
                 //数据总数：100000
                 //BubbleSort：30267.2289
                 //InsertionSort：7307.5606

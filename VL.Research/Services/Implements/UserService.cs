@@ -78,6 +78,15 @@ namespace VL.Research.Services
         }
 
         /// <summary>
+        /// 登出
+        /// </summary>
+        public ServiceResult<bool> Logout(APIContext apiContext)
+        {
+            apiContext.HttpContext.SignOutAsync(SchemeName, new AuthenticationProperties());
+            return Success(true);
+        }
+
+        /// <summary>
         /// 密码登录
         /// </summary>
         public ServiceResult<User> PasswordSignIn(APIContext apiContext, string userName, string password, bool shouldLockout)
@@ -93,14 +102,17 @@ namespace VL.Research.Services
             {
                 return Error<User>("用户名不存在或密码不匹配");
             }
-            var claims = new List<Claim>();
+
             var sessionId = user.Name.GetHashCode().ToString();
-            claims.Add(new Claim(ClaimTypes.Name, sessionId));
-            var claimsIdentity = new ClaimsIdentity(claims, "CustomApiKeyAuth");
-            var userPrincipal = new ClaimsPrincipal(claimsIdentity);
-            apiContext.HttpContext.SignInAsync(SchemeName, userPrincipal, new AuthenticationProperties());
             var authorities = GetAllUserAuthorityIds(result.Id).Data.Select(c=>c.ToEnum<Authority>()).ToList();
-            apiContext.RedisCache.Set(sessionId, authorities, DateTime.Now.AddMinutes(5));
+            var currentUser = new CurrentUser()
+            {
+                UserId = user.Id,
+                UserName = user.Name,
+                Authorities = authorities,
+            };
+            CurrentUser.SetSessionId(apiContext.HttpContext, sessionId);
+            CurrentUser.SetCurrentUser(apiContext.RedisCache, sessionId, currentUser);
 
             return Success(result);
         }

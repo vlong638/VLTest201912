@@ -56,6 +56,51 @@
             当前用户
             </summary>
         </member>
+        <member name="P:VL.Research.Common.CurrentUser.UserId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:VL.Research.Common.CurrentUser.UserName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:VL.Research.Common.CurrentUser.Authorities">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VL.Research.Common.CurrentUser.SetCurrentUser(VL.Consolo_Core.Common.RedisSolution.RedisCache,System.String,VL.Research.Common.CurrentUser)">
+            <summary>
+            缓存当前用户信息
+            </summary>
+            <param name="redisCache"></param>
+            <param name="sessionId"></param>
+            <param name="currentUser"></param>
+        </member>
+        <member name="M:VL.Research.Common.CurrentUser.GetCurrentUser(VL.Consolo_Core.Common.RedisSolution.RedisCache,System.String)">
+            <summary>
+            从缓存获取当前用户信息
+            </summary>
+            <param name="redisCache"></param>
+            <param name="sessionId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Common.CurrentUser.SetSessionId(Microsoft.AspNetCore.Http.HttpContext,System.String)">
+            <summary>
+            设置SessionId到Cookie
+            </summary>
+            <param name="httpContext"></param>
+            <param name="sessionId"></param>
+        </member>
+        <member name="M:VL.Research.Common.CurrentUser.GetSessionId(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            从Cookie获取SessionId
+            </summary>
+            <param name="httpContext"></param>
+            <returns></returns>
+        </member>
         <member name="T:VL.Research.Common.VLActionFilterAttribute">
             <summary>
             
@@ -76,6 +121,20 @@
             
             </summary>
             <param name="context"></param>
+        </member>
+        <member name="M:VL.Research.Common.VLAuthenticationTicketHelper.Encrypt(Microsoft.AspNetCore.Authentication.AuthenticationTicket)">
+            <summary>
+            
+            </summary>
+            <param name="ticket"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Common.VLAuthenticationTicketHelper.Decrypt(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="sessionId"></param>
+            <returns></returns>
         </member>
         <member name="T:VL.Research.Common.Configuration.DBConfig">
             <summary>
@@ -1957,15 +2016,15 @@
             <param name="returnUrl"></param>
             <returns></returns>
         </member>
+        <member name="M:VL.Research.Controllers.HomeController.Logout(VL.Research.Common.APIContext,VL.Research.Services.UserService)">
+            <summary>
+            登出
+            </summary>
+        </member>
         <member name="M:VL.Research.Controllers.HomeController.Login(VL.Research.Common.APIContext,VL.Research.Services.UserService,VL.Research.Models.LoginViewModel,System.String)">
             <summary>
-            
+            登录
             </summary>
-            <param name="apiContext"></param>
-            <param name="userService"></param>
-            <param name="model"></param>
-            <param name="returnUrl"></param>
-            <returns></returns>
         </member>
         <member name="M:VL.Research.Controllers.HomeController.CommonList(System.String,System.String,System.String)">
             <summary>
@@ -2560,6 +2619,11 @@
             <param name="userName"></param>
             <param name="password"></param>
             <returns></returns>
+        </member>
+        <member name="M:VL.Research.Services.UserService.Logout(VL.Research.Common.APIContext)">
+            <summary>
+            登出
+            </summary>
         </member>
         <member name="M:VL.Research.Services.UserService.PasswordSignIn(VL.Research.Common.APIContext,System.String,System.String,System.Boolean)">
             <summary>

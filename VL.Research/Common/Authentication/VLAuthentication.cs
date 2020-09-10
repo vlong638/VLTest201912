@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Routing;
+using RabbitMQ.Client.Impl;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -38,15 +39,15 @@ namespace VL.Research.Common
         /// <param name="context"></param>
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            var sessionId = context.HttpContext.Request.Cookies[VLAuthenticationHandler.Cookie_AuthName];
+            var sessionId = CurrentUser.GetSessionId(context.HttpContext);
             if (sessionId.IsNullOrEmpty())//登录状态失效
             {
                 context.Result = new RedirectResult("/Home/Login");
                 return;
             }
             RedisCache redis = (RedisCache)context.HttpContext.RequestServices.GetService(typeof(RedisCache));
-            List<Authority> userAuthorities;
-            redis.TryGet(sessionId, out userAuthorities);
+            CurrentUser user = CurrentUser.GetCurrentUser(redis, sessionId);
+            var userAuthorities = user?.Authorities;
             if (userAuthorities == null || userAuthorities.Count == 0)//权限异常
             {
                 context.Result = new RedirectResult("/Home/Login");

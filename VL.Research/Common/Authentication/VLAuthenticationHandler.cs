@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace VL.Consolo_Core.AuthenticationSolution
+namespace VL.Research.Common
 {
     public class VLAuthenticationHandler : IAuthenticationHandler, IAuthenticationSignInHandler, IAuthenticationSignOutHandler
     {
@@ -22,12 +22,12 @@ namespace VL.Consolo_Core.AuthenticationSolution
 
         public async Task<AuthenticateResult> AuthenticateAsync()
         {
-            var cookieValue = Context.Request.Cookies[Cookie_AuthName];
-            if (string.IsNullOrEmpty(cookieValue))
+            var ticketValue = Context.Request.Cookies[Cookie_AuthName];
+            if (string.IsNullOrEmpty(ticketValue))
             {
                 return AuthenticateResult.NoResult();
             }
-            return AuthenticateResult.Success(VLAuthenticationTicketHelper.Decrypt(cookieValue));
+            return AuthenticateResult.Success(VLAuthenticationTicketHelper.Decrypt(ticketValue));
         }
 
         public Task ChallengeAsync(AuthenticationProperties properties)
