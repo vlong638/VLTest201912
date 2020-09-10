@@ -1747,7 +1747,7 @@ order by Table_Name,Column_Name;
             #endregion
             #region Algorithm,算法
             cmds.Add(new Command("---------------------Algorithm,算法-------------------", () => { }));
-            cmds.Add(new Command("a1,冒泡", () =>
+            cmds.Add(new Command("a1,冒泡排序", () =>
             {
                 //内容很少,就两个for循环,一个变量交换
                 //核心就是第二个for的边界 -i
@@ -1768,8 +1768,9 @@ order by Table_Name,Column_Name;
                 }
                 Console.WriteLine();
                 Console.ReadKey();
+
             }));
-            cmds.Add(new Command("a2,快排", () =>
+            cmds.Add(new Command("a2,快速排序", () =>
             {
                 //时间复杂度
                 //在a取数组的第一项时候，是最糟的情况，完成每层需要的时间是n，栈的高度是n，时间复杂度就是n²
@@ -1791,6 +1792,61 @@ order by Table_Name,Column_Name;
                 Console.WriteLine();
                 Console.ReadKey();
             }));
+            cmds.Add(new Command("a3,插入排序", () =>
+            {
+                //内容很少,就两个for循环,一个变量交换
+                //核心就是第二个for的边界 -i
+                //基本思想就是:~
+
+                int[] arr = { 23, 44, 66, 76, 98, 11, 3, 9, 7, 23, 44, 66, 98, 11, 3, 9, 7, 23, 44, 66, 76, 98, 11, 3, 9, 7 };
+                Console.WriteLine("排序前的数组：");
+                foreach (int item in arr)
+                {
+                    Console.Write(item + ",");
+                }
+                Console.WriteLine();
+                arr.InsertionSort();
+                Console.WriteLine("排序后的数组：");
+                foreach (int item in arr)
+                {
+                    Console.Write(item + ",");
+                }
+                Console.WriteLine();
+                Console.ReadKey();
+            }));
+            cmds.Add(new Command("a999,对比性能", () =>
+            {
+                int[] arr = new int[1000];
+                Random r = new Random();
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    arr[i] = r.Next(10000);
+                }
+                int[] arr1 = new int[arr.Length];
+                int[] arr2 = new int[arr.Length];
+                int[] arr3 = new int[arr.Length];
+                arr.CopyTo(arr1, 0);
+                arr.CopyTo(arr2, 0);
+                arr.CopyTo(arr3, 0);
+                Console.WriteLine($"数据总数：{arr.Length}");
+                var t1 = TimeSpanHelper.GetTimeSpan(() =>
+                {
+                    arr1.BubbleSort();
+                });
+                Console.WriteLine($"BubbleSort：{t1.TotalMilliseconds}");
+                var t2 = TimeSpanHelper.GetTimeSpan(() =>
+                {
+                    arr2.InsertionSort();
+                });
+                Console.WriteLine($"InsertionSort：{t2.TotalMilliseconds}");
+                var t3 = TimeSpanHelper.GetTimeSpan(() =>
+                {
+                    arr3.QuickSort();
+                });
+                Console.WriteLine($"QuickSort：{t3.TotalMilliseconds}");
+            }));
+
+
             #endregion
             #region Gang Of 4 Patterns,21种设计模式
             #region Creational

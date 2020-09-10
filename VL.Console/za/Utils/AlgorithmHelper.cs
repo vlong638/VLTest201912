@@ -6,7 +6,7 @@ namespace VL.Consoling.Utils
 {
     public static class AlgorithmHelper
     {
-        #region 冒泡
+        #region 冒泡排序
         public static void BubbleSort(this int[] arr)
         {
             for (int i = 0; i < arr.Length - 1; i++)//双for结构,一次解决一个数的排位 所以-i
@@ -24,7 +24,7 @@ namespace VL.Consoling.Utils
         }
         #endregion
 
-        #region 快排
+        #region 快速排序
         internal static int[] QuickSort(this int[] array)
         {
             if (array == null || array.Length == 0)
@@ -62,6 +62,36 @@ namespace VL.Consoling.Utils
             }
             array[leftIndex] = keyValue;
             return leftIndex;
+        }
+        #endregion
+
+        #region 插入排序
+        /// <summary>
+        /// 插入排序
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="n"></param>
+        public static void InsertionSort(this int[] a)
+        {
+            int n = a.Length;
+            if (n <= 1) return;
+            for (int i = 1; i < n; ++i)
+            {
+                // 查找插入的位置 
+                int value = a[i];
+                int j;
+                for (j = i - 1; j >= 0; --j)
+                {
+                    if (a[j] > value)
+                    {
+                        // 数据移动
+                        a[j + 1] = a[j];
+                    }
+                    else { break; }
+                }
+                // 插入数据 
+                a[j + 1] = value;
+            }
         }
         #endregion
     }
