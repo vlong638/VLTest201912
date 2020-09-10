@@ -1816,7 +1816,10 @@ order by Table_Name,Column_Name;
             }));
             cmds.Add(new Command("a999,对比性能", () =>
             {
-                int[] arr = new int[1000];
+                Console.WriteLine($"请输入模拟的数量");
+                var s = Console.ReadLine();
+                int count = s.ToInt().Value;
+                int[] arr = new int[count];
                 Random r = new Random();
                 for (int i = 0; i < arr.Length; i++)
                 {
@@ -1844,6 +1847,19 @@ order by Table_Name,Column_Name;
                     arr3.QuickSort();
                 });
                 Console.WriteLine($"QuickSort：{t3.TotalMilliseconds}");
+
+                //数据总数：1000
+                //BubbleSort：4.3723
+                //InsertionSort：0.9022
+                //QuickSort：0.592
+                //数据总数：10000
+                //BubbleSort：277.8679
+                //InsertionSort：77.777
+                //QuickSort：1.4341
+                //数据总数：100000
+                //BubbleSort：30267.2289
+                //InsertionSort：7307.5606
+                //QuickSort：13.502
             }));
 
 

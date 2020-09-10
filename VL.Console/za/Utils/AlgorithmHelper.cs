@@ -38,7 +38,7 @@ namespace VL.Consoling.Utils
             if (leftIndex<rightIndex)//考点1 结构分层
             {
                 var keyIndex = DoSort(array, leftIndex, rightIndex);
-                QuickSortStructure(array, 0, keyIndex);
+                QuickSortStructure(array, leftIndex, keyIndex);
                 QuickSortStructure(array, keyIndex + 1, rightIndex);
             }
         }
