@@ -21,6 +21,18 @@ namespace VL.Research.Common
         /// 
         /// </summary>
         public HttpContext HttpContext { set { HttpContextAccessor.HttpContext = value; } get { return HttpContextAccessor.HttpContext; } }
+        /// <summary>
+        /// 
+        /// </summary>
+        public RedisCache RedisCache { set; get; }
+        /// <summary>
+        /// 获取当前用户信息
+        /// </summary>
+        /// <returns></returns>
+        public CurrentUser GetCurrentUser() {
+            var sessionId = CurrentUser.GetSessionId(HttpContext);
+            return CurrentUser.GetCurrentUser(RedisCache,sessionId);
+        }
 
         /// <summary>
         /// 
@@ -34,10 +46,6 @@ namespace VL.Research.Common
         /// 
         /// </summary>
         public DbContext SZXTDbContext { set; get; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public RedisCache RedisCache { set; get; }
 
         /// <summary>
         /// 
@@ -52,20 +60,6 @@ namespace VL.Research.Common
 
             RedisCache = redisCache;
         }
-
-        #region Auth
-        //public void SetCurrentUser(CurrentUser currentUser, bool isRemeberMe = false)
-        //{
-        //    CurrentUser.SetCurrentUser(currentUser, isRemeberMe, HttpContext);
-        //}
-
-
-        //public CurrentUser GetCurrentUser()
-        //{
-        //    var httpContext = HttpContext;
-        //    return CurrentUser.GetCurrentUser(httpContext);
-        //}
-        #endregion
 
         #region Common
 
