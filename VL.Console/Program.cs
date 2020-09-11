@@ -78,6 +78,12 @@ namespace VL.Consoling
 
         static void Main(string[] args)
         {
+            //注意在数值较大的情况下 int和可能会溢出
+            int im1 = int.MaxValue - 3;
+            int im2 = int.MaxValue - 1;
+            int imb = im1 + (im2 - im1) / 2;
+
+
             //0826 newtonsoft支持json直接转datatable
             var t0826 = @"[{""yizhirq"":"""",""shuhouts"":"""",""hcg"":""123"",""yindaolx"":"""",""fuzhang"":""""},{""yizhirq"":"""",""shuhouts"":"""",""hcg"":""321"",""yindaolx"":"""",""fuzhang"":""""}]";
             var t0826Json = t0826.FromJson<dynamic>();

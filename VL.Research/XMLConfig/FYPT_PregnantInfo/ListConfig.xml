@@ -2,8 +2,8 @@
 <Views>
 	<!--IsNeedOnPage="false" DisplayName="" (.+) Description="(\w+)"(.+)\r\n
 	IsNeedOnPage="true" DisplayName="$2" $1 Description="$2"$3\r\n-->
-	<View ViewName="PregnantInfo" ViewURL="../../api/System/GetCommonSelectForFYPT">
-		<Export URL="../../api/System/CommonExportAllForFYPT"/>
+	<View ViewName="PregnantInfo" ViewURL="../../api/System/CommonSelect">
+		<Export URL="../../api/System/CommonExportAll"/>
 		<Wheres>
 			<!--"DisplayType <类型[1-文本框|2-数字框|3-单选下拉框|4-树状下拉框|5-日期选择框][默认:1]>",-->
 			<Where ComponentName="pregnantbookid" DisplayName="保健册号" DisplayType="1"/>

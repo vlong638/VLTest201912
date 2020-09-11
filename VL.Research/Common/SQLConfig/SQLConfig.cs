@@ -28,29 +28,9 @@ namespace VL.Research.Common
         public string ViewName { set; get; }
 
         /// <summary>
-        /// 页面字段
+        /// 
         /// </summary>
-        public List<SQLConfigProperty> Properties { set; get; }
-        /// <summary>
-        /// 页面条件项
-        /// </summary>
-        public List<SQLConfigWhere> Wheres { set; get; }
-        /// <summary>
-        /// 页面排序项
-        /// </summary>
-        public List<SQLConfigOrderBy> OrderBys { set; get; }
-        /// <summary>
-        /// 默认排序项
-        /// </summary>
-        public string DefaultComponentName { get; private set; }
-        /// <summary>
-        /// 默认排序项
-        /// </summary>
-        public string DefaultOrder { get; private set; }
-        /// <summary>
-        /// 预设SQL
-        /// </summary>
-        public string SQL { set; get; }
+        public SQLConfigSource Source { set; get; }
 
         /// <summary>
         /// 
@@ -66,22 +46,16 @@ namespace VL.Research.Common
         public SQLConfig(XElement element)
         {
             ViewName = element.Attribute(nameof(ViewName)).Value;
-            Properties = element.Descendants(SQLConfigProperty.ElementName).Select(c => new SQLConfigProperty(c)).ToList();
-            Wheres = element.Descendants(SQLConfigWhere.ElementName).Select(c => new SQLConfigWhere(c)).ToList();
-            OrderBys = element.Descendants(SQLConfigOrderBy.ElementName).Select(c => new SQLConfigOrderBy(c)).ToList();
-            SQL = element.Descendants("SQL").First().Value;
-            var OrderBysRoot = element.Descendants(SQLConfigOrderBy.RootElementName).First();
-            DefaultComponentName = OrderBysRoot.Attribute(nameof(DefaultComponentName))?.Value ?? "";
-            DefaultOrder = OrderBysRoot.Attribute(nameof(DefaultOrder))?.Value ?? "";
+            Source = element.Descendants(SQLConfigSource.ElementName).Select(c => new SQLConfigSource(c)).First();
         }
         #endregion
 
         #region 动态更新
         internal void UpdateOrderBy(string field, string order)
         {
-            var tempField = field.IsNullOrEmpty() ? DefaultComponentName : field;
-            var tempOrder = field.IsNullOrEmpty() ? DefaultOrder : order;
-            foreach (var OrderBy in OrderBys)
+            var tempField = field.IsNullOrEmpty() ? Source.DefaultComponentName : field;
+            var tempOrder = field.IsNullOrEmpty() ? Source.DefaultOrder : order;
+            foreach (var OrderBy in Source.OrderBys)
             {
                 OrderBy.IsOn = false;
 
@@ -99,7 +73,7 @@ namespace VL.Research.Common
 
             foreach (var where in wheres)
             {
-                var whereConfig = Wheres.FirstOrDefault(c => c.ComponentName.ToLower() == where.Key.ToLower());
+                var whereConfig = Source.Wheres.FirstOrDefault(c => c.ComponentName.ToLower() == where.Key.ToLower());
                 if (where != null && !where.Value.IsNullOrEmpty() && whereConfig != null)
                 {
                     whereConfig.IsOn = true;
@@ -131,14 +105,14 @@ namespace VL.Research.Common
 
         internal string GetListSQL()
         {
-            var sql = SQL;
-            var propertiesIsOn = Properties.Where(c => c.IsOn).Select(c => c.Alias);
+            var sql = Source.SQL;
+            var propertiesIsOn = Source.Properties.Where(c => c.IsOn).Select(c => c.Alias);
             var fields = propertiesIsOn.Count() == 0 ? "*" : string.Join(",", propertiesIsOn);
             sql = sql.Replace("@Properties", fields);
-            var wheresIsOn = Wheres.Where(c => c.IsOn).Select(c => c.SQL);
+            var wheresIsOn = Source.Wheres.Where(c => c.IsOn).Select(c => c.SQL);
             var wheres = wheresIsOn.Count() == 0 ? "" : $"where {string.Join(" and ", wheresIsOn)}";
             sql = sql.Replace("@Wheres", wheres);
-            var orderByIsOn = OrderBys.FirstOrDefault(c => c.IsOn) ?? OrderBys.First();
+            var orderByIsOn = Source.OrderBys.FirstOrDefault(c => c.IsOn) ?? Source.OrderBys.First();
             var orderBy = orderByIsOn.Alias;
             var order = orderByIsOn.IsAsc ? "asc" : "desc";
             sql = sql.Replace("@OrderBy", $"order by {orderBy} {order}");
@@ -148,9 +122,9 @@ namespace VL.Research.Common
 
         internal string GetCountSQL()
         {
-            var sql = SQL;
+            var sql = Source.SQL;
             sql = sql.Replace("@Properties", "count(*)");
-            var wheresIsOn = Wheres.Where(c => c.IsOn).Select(c => c.SQL);
+            var wheresIsOn = Source.Wheres.Where(c => c.IsOn).Select(c => c.SQL);
             var wheres = wheresIsOn.Count() == 0 ? "" : $"where {string.Join(" and ", wheresIsOn)}";
             sql = sql.Replace("@Wheres", wheres);
             sql = sql.Replace("@OrderBy", $"");
@@ -161,7 +135,7 @@ namespace VL.Research.Common
         internal Dictionary<string, object> GetParams()
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
-            foreach (var where in Wheres)
+            foreach (var where in Source.Wheres)
             {
                 if (where.IsOn)
                 {
@@ -178,6 +152,75 @@ namespace VL.Research.Common
 
         #endregion
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public class SQLConfigSource
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string ElementName = "Source";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string SourceName { set; get; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public DBSourceType DBSourceType { set; get; }
+        /// <summary>
+        /// 页面字段
+        /// </summary>
+        public List<SQLConfigProperty> Properties { set; get; }
+        /// <summary>
+        /// 页面条件项
+        /// </summary>
+        public List<SQLConfigWhere> Wheres { set; get; }
+        /// <summary>
+        /// 页面排序项
+        /// </summary>
+        public List<SQLConfigOrderBy> OrderBys { set; get; }
+        /// <summary>
+        /// 默认排序项
+        /// </summary>
+        public string DefaultComponentName { get; private set; }
+        /// <summary>
+        /// 默认排序项
+        /// </summary>
+        public string DefaultOrder { get; private set; }
+        /// <summary>
+        /// 预设SQL
+        /// </summary>
+        public string SQL { set; get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public SQLConfigSource()
+        {
+
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="element"></param>
+        public SQLConfigSource(XElement element)
+        {
+            SourceName = element.Attribute(nameof(SourceName))?.Value ?? "";
+            DBSourceType = element.Attribute(nameof(DBSourceType))?.Value.ToEnum<DBSourceType>()??DBSourceType.None;
+            Properties = element.Descendants(SQLConfigProperty.ElementName).Select(c => new SQLConfigProperty(c)).ToList();
+            Wheres = element.Descendants(SQLConfigWhere.ElementName).Select(c => new SQLConfigWhere(c)).ToList();
+            OrderBys = element.Descendants(SQLConfigOrderBy.ElementName).Select(c => new SQLConfigOrderBy(c)).ToList();
+            SQL = element.Descendants("SQL").First().Value;
+            var OrderBysRoot = element.Descendants(SQLConfigOrderBy.RootElementName).First();
+            DefaultComponentName = OrderBysRoot.Attribute(nameof(DefaultComponentName))?.Value ?? "";
+            DefaultOrder = OrderBysRoot.Attribute(nameof(DefaultOrder))?.Value ?? "";
+        }
+    }
+
     /// <summary>
     /// 
     /// </summary>

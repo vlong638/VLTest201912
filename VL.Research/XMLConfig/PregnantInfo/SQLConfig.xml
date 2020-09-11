@@ -19,7 +19,7 @@
 			<OrderBy ComponentName="sexcode" Alias ="pi.sexcode"/>
 		</OrderBys>
 		<SQL>
-			select @Fields
+			select @Properties
 			from PregnantInfo pi
 			@Wheres
 			@OrderBy

@@ -1,0 +1,24 @@
+﻿@{
+    Layout = "../Shared/_Layout_ListFull.cshtml";
+    ViewBag.Title = "列表";
+}
+<div id="root" class="layui-fluid" style="padding: 15px;width: 100%;"></div>
+<input id="viewName" type="hidden" value="@(ViewBag.ViewName)" />
+<input id="defaultParams" type="hidden" value="@(ViewBag.DefaultParams)" />
+<input id="hiddenParams" type="hidden" value="@(ViewBag.HiddenParams)" />
+@section Scripts
+{
+    <script type="text/javascript">
+        layui.use(['layer', 'form', 'table', 'util', 'laydate', 'tree'], function () {
+            const $ = layui.jquery;
+            var viewName = $("#viewName").val();
+            var defaultParams = $("#defaultParams").val();
+            var hiddenParams = $("#hiddenParams").val();
+            sendAjax('post', '../../api/System/GetListConfigByViewName', JSON.stringify({ ViewName: viewName, CustomConfigId: 0, DefaultParams: defaultParams, HiddenParams: hiddenParams }), function (res) {
+                if (res.code === 200) {
+                    $('#root').renderTable(res.data, layui, parent.layui);
+                }
+            });
+        });
+    </script>
+}

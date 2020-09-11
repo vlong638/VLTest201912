@@ -211,7 +211,7 @@ namespace FrameworkTest.Business.ExcelGenerator
             var sql = SQL;
             var propertiesIsOn = Properties.Select(c => c.Alias);
             var fields = propertiesIsOn.Count() == 0 ? "*" : string.Join(",", propertiesIsOn);
-            sql = sql.Replace("@Fields", fields);
+            sql = sql.Replace("@Properties", fields);
             var wheresIsOn = Wheres.Where(c => c.IsOn).Select(c => c.SQL);
             var wheres = wheresIsOn.Count() == 0 ? "" : $"where {string.Join(" and ", wheresIsOn)}";
             sql = sql.Replace("@Wheres", wheres);

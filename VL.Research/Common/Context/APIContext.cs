@@ -54,7 +54,7 @@ namespace VL.Research.Common
         {
             HttpContextAccessor = httpContext;
 
-            CommonDbContext = new DbContext(DBHelper.GetDbConnection(loggingConfig.Value.ConnectionString));
+            CommonDbContext = new DbContext(DBHelper.GetDbConnection(loggingConfig.Value.DefaultConnectionString));
             FYPTDbContext = new DbContext(DBHelper.GetDbConnection(loggingConfig.Value.FYPTConnectionString));
             SZXTDbContext = new DbContext(DBHelper.GetDbConnection(loggingConfig.Value.SZXTConnectionString));
 
@@ -87,11 +87,11 @@ namespace VL.Research.Common
         {
             switch (source)
             {
-                case DBSourceType.Pregnant:
+                case DBSourceType.DefaultConnectionString:
                     return CommonDbContext;
-                case DBSourceType.FYPT:
+                case DBSourceType.FYPTConnectionString:
                     return FYPTDbContext;
-                case DBSourceType.SZXT:
+                case DBSourceType.SZXTConnectionString:
                     return SZXTDbContext;
                 default:
                     throw new NotImplementedException("尚未支持该类型的dbContext构建");
@@ -107,16 +107,20 @@ namespace VL.Research.Common
     public enum DBSourceType
     {
         /// <summary>
+        /// 
+        /// </summary>
+        None,
+        /// <summary>
         /// 电子病历(Pregnant)
         /// </summary>
-        Pregnant,
+        DefaultConnectionString,
         /// <summary>
         /// 妇幼平台
         /// </summary>
-        FYPT,
+        FYPTConnectionString,
         /// <summary>
         /// 生殖系统
         /// </summary>
-        SZXT,
+        SZXTConnectionString,
     }
 }

@@ -111,7 +111,21 @@ namespace VL.Research.Controllers
         /// <returns></returns>
         [HttpGet]
         //[VLAuthentication(Authority.查看孕妇档案列表)]
-        public ActionResult CommonList(string viewName, string defaultParams, string hiddenParams)
+        public ActionResult CommonListByViewName(string viewName, string defaultParams, string hiddenParams)
+        {
+            ViewBag.ViewName = viewName;
+            ViewBag.DefaultParams = defaultParams; //支持格式 &defaultParams=A_111|B_222 
+            ViewBag.HiddenParams = hiddenParams; //支持格式 &hiddenParams=A_111|B_222 
+            return View();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        //[VLAuthentication(Authority.查看孕妇档案列表)]
+        public ActionResult CommonListByDirectoryName(string viewName, string defaultParams, string hiddenParams)
         {
             ViewBag.ViewName = viewName;
             ViewBag.DefaultParams = defaultParams; //支持格式 &defaultParams=A_111|B_222 
@@ -431,7 +445,7 @@ namespace VL.Research.Controllers
                         //获取数据
                         foreach (var sourceConfig in sheetConfig.Sources)
                         {
-                            var result = sharedService.GetCommonSelectByExportConfig(sourceConfig, DBSourceType.FYPT);
+                            var result = sharedService.GetCommonSelectByExportConfig(sourceConfig, DBSourceType.FYPTConnectionString);
                             if (!result.IsSuccess)
                             {
                                 throw new NotImplementedException("数据源存在异常:" + result.Message);
@@ -477,6 +491,7 @@ namespace VL.Research.Controllers
             var stream = System.IO.File.OpenRead(outputPath);
             return File(stream, "application/vnd.android.package-archive", outputPath);
         }
+
         #endregion
     }
 }

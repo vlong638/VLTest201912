@@ -1,69 +1,71 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Views>
 	<View ViewName="">
-		<Properties>
-			<Property IsOn="true" ColumnName="*" Alias ="row_number() over (@OrderBy) as rowindex
-			,p.id
-			,p.pregnantbookid
-			,p.personname
-			,p.age
-			,p.idcard
-			,p.realregioncode
-			,hr.highrisklv
-			,p.dateofprenatal
-			,p.mobilenumber
-			,p.createdate
-			,p.gestationalweeks
-			,p.husbandname
-			,p.husbandmobile
-			,p.realregion_text as realregiontext
-			,p.sourceunit
-			,p.manaunitid
-			,p.status as settlestatus
-			,p.status as deliverystatus
-			, p.createdate,hr.infectionflag
-			,p.mobilenumber, p.createtime, p.pregnantid
-			,(case when b.book_no is not null then 1 else 0 end) as mzscbindstatus"/>
-		</Properties>
-		<Wheres>
-			<Where ComponentName="personname" Formatter="%@personname%">personname like @personname</Where>
-			<Where ComponentName="idcard" Formatter="%@idcard%">idcard like @idcard</Where>
-			<Where ComponentName="pregnantbookid">pregnantbookid = @pregnantbookid</Where>
-			<Where ComponentName="istmp">istmp = @istmp</Where>
-			<Where ComponentName="settlestatus">status = @settlestatus</Where>
-			<Where ComponentName="deliverystatus">status = @deliverystatus</Where>
-			<Where ComponentName="gestationalweeks">gestationalweeks = @gestationalweeks</Where>
-			<Where ComponentName="deliverystatus">status = @deliverystatus</Where>
-			<Where ComponentName="createdateStart">p.createdate &gt;= @createdateStart</Where>
-			<Where ComponentName="createdateEnd">p.createdate &lt;= @createdateEnd</Where>
-			<Where ComponentName="dateofprenatalStart">p.dateofprenatal &gt;= @dateofprenatalStart</Where>
-			<Where ComponentName="dateofprenatalEnd">p.dateofprenatal &lt;= @dateofprenatalEnd</Where>
-		</Wheres>
-		<OrderBys>
-			<OrderBy ComponentName="createdate" Alias ="p.createdate"/>
-		</OrderBys>
-		<SQL>
-			select @Properties
-			from pregnantinfo p
-			left join (
-			select distinct book_no from mzsc_bind_info where type = 'pregnant'
-			) b on b.book_no = p.pregnantid
-			left join gy_fuwujg gy on p.createunitcode = gy.fuwujgbh
-			left join (
-			select
-			v.pregnantinfoid, max(v.highrisklevel) as highrisklv,max(v.infectionflag) as infectionflag
-			from v_all_visitrecord v
-			inner join(
-			select
-			a.pregnantinfoid as pregnantinfoid, max(a.visitdate) as visitdate
-			from
-			v_all_visitrecord a group by a.pregnantinfoid
-			) b on b.pregnantinfoid = v.pregnantinfoid and b.visitdate = v.visitdate
-			group by v.pregnantinfoid
-			) hr on hr.pregnantinfoid = p.id
-			@Wheres
-			@OrderBy
-			@Pager
-		</SQL>
+		<Source SourceName="Data" ConnectionType="ConnectionString">
+			<Properties>
+				<Property IsOn="true" ColumnName="*" Alias ="row_number() over (@OrderBy) as rowindex
+				,p.id
+				,p.pregnantbookid
+				,p.personname
+				,p.age
+				,p.idcard
+				,p.realregioncode
+				,hr.highrisklv
+				,p.dateofprenatal
+				,p.mobilenumber
+				,p.createdate
+				,p.gestationalweeks
+				,p.husbandname
+				,p.husbandmobile
+				,p.realregion_text as realregiontext
+				,p.sourceunit
+				,p.manaunitid
+				,p.status as settlestatus
+				,p.status as deliverystatus
+				, p.createdate,hr.infectionflag
+				,p.mobilenumber, p.createtime, p.pregnantid
+				,(case when b.book_no is not null then 1 else 0 end) as mzscbindstatus"/>
+			</Properties>
+			<Wheres>
+				<Where ComponentName="personname" Formatter="%@personname%">personname like @personname</Where>
+				<Where ComponentName="idcard" Formatter="%@idcard%">idcard like @idcard</Where>
+				<Where ComponentName="pregnantbookid">pregnantbookid = @pregnantbookid</Where>
+				<Where ComponentName="istmp">istmp = @istmp</Where>
+				<Where ComponentName="settlestatus">status = @settlestatus</Where>
+				<Where ComponentName="deliverystatus">status = @deliverystatus</Where>
+				<Where ComponentName="gestationalweeks">gestationalweeks = @gestationalweeks</Where>
+				<Where ComponentName="deliverystatus">status = @deliverystatus</Where>
+				<Where ComponentName="createdateStart">p.createdate &gt;= @createdateStart</Where>
+				<Where ComponentName="createdateEnd">p.createdate &lt;= @createdateEnd</Where>
+				<Where ComponentName="dateofprenatalStart">p.dateofprenatal &gt;= @dateofprenatalStart</Where>
+				<Where ComponentName="dateofprenatalEnd">p.dateofprenatal &lt;= @dateofprenatalEnd</Where>
+			</Wheres>
+			<OrderBys>
+				<OrderBy ComponentName="createdate" Alias ="p.createdate"/>
+			</OrderBys>
+			<SQL>
+				select @Properties
+				from pregnantinfo p
+				left join (
+				select distinct book_no from mzsc_bind_info where type = 'pregnant'
+				) b on b.book_no = p.pregnantid
+				left join gy_fuwujg gy on p.createunitcode = gy.fuwujgbh
+				left join (
+				select
+				v.pregnantinfoid, max(v.highrisklevel) as highrisklv,max(v.infectionflag) as infectionflag
+				from v_all_visitrecord v
+				inner join(
+				select
+				a.pregnantinfoid as pregnantinfoid, max(a.visitdate) as visitdate
+				from
+				v_all_visitrecord a group by a.pregnantinfoid
+				) b on b.pregnantinfoid = v.pregnantinfoid and b.visitdate = v.visitdate
+				group by v.pregnantinfoid
+				) hr on hr.pregnantinfoid = p.id
+				@Wheres
+				@OrderBy
+				@Pager
+			</SQL>
+		</Source>
 	</View>
 </Views>

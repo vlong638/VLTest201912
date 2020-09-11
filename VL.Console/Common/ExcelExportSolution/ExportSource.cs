@@ -22,6 +22,11 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
         /// </summary>
         public string SourceName { set; get; }
         /// <summary>
+        /// 
+        /// </summary>
+        public string DBSourceType { set; get; }
+
+        /// <summary>
         /// 页面字段
         /// </summary>
         public List<ExportSourceProperty> Properties { set; get; }
@@ -53,6 +58,7 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
         public ExportSource(XElement element)
         {
             SourceName = element.Attribute(nameof(SourceName))?.Value;
+            DBSourceType = element.Attribute(nameof(DBSourceType))?.Value;
             SQL = element.Descendants("SQL").First().Value;
             Properties = element.Descendants(ExportSourceProperty.NodeElementName).Select(c => new ExportSourceProperty(c)).ToList();
             Transforms = element.Descendants(ExportSourceTransform.ElementName).Select(c => new ExportSourceTransform(c)).ToList();
@@ -66,7 +72,7 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
             var sql = SQL;
             var propertiesIsOn = Properties.Select(c => c.Alias);
             var fields = propertiesIsOn.Count() == 0 ? "*" : string.Join(",", propertiesIsOn);
-            sql = sql.Replace("@Fields", fields);
+            sql = sql.Replace("@Properties", fields);
             var wheresIsOn = Wheres.Where(c => c.IsOn).Select(c => c.SQL);
             var wheres = wheresIsOn.Count() == 0 ? "" : $"where {string.Join(" and ", wheresIsOn)}";
             sql = sql.Replace("@Wheres", wheres);

@@ -20,7 +20,7 @@ for xml path('')) as rolenames
 			<OrderBy ComponentName="name" Alias ="u.name"/>
 		</OrderBys>
 		<SQL>
-			select @Fields
+			select @Properties
 			from A_User u
 			@Wheres
 			@OrderBy

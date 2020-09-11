@@ -8,7 +8,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public string ConnectionString { set; get; }
+        public string DefaultConnectionString { set; get; }
         /// <summary>
         /// 
         /// </summary>

@@ -35,21 +35,7 @@ namespace VL.Research.Services
         /// </summary>
         public ServiceResult<VLPagerTableResult<List<Dictionary<string, object>>>> GetCommonSelectBySQLConfig(SQLConfig sqlConfig)
         {
-            var result = dbContext.CommonDbContext.DelegateTransaction((g) =>
-            {
-                var list = sharedRepository.GetCommonSelect(sqlConfig);
-                var count = sharedRepository.GetCommonSelectCount(sqlConfig);
-                return new VLPagerTableResult<List<Dictionary<string, object>>>() { SourceData = list.ToList(), Count = count, CurrentIndex = sqlConfig.PageIndex };
-            });
-            return result;
-        }
-
-        /// <summary>
-        /// 通用查询模型
-        /// </summary>
-        public ServiceResult<VLPagerTableResult<List<Dictionary<string, object>>>> GetCommonSelectBySQLConfig(SQLConfig sqlConfig, DBSourceType source)
-        {
-            var adbContext = dbContext.GetDBContext(source);
+            var adbContext = dbContext.GetDBContext(sqlConfig.Source.DBSourceType);
             var result = adbContext.DelegateTransaction((g) =>
             {
                 sharedRepository = new SharedRepository(adbContext);

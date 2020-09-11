@@ -1,132 +1,143 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Views>
 	<View ViewName="PregnantInfo">
-		<Properties>
-			<Property IsOn="true" ColumnName="id" Alias ="pi.id"/>
-			<Property IsOn="true" ColumnName="personname" Alias ="pi.personname"/>
-			<Property IsOn="true" ColumnName="sexcode" Alias ="pi.sexcode"/>
-			<Property IsOn="true" ColumnName="idcard" Alias ="pi.idcard"/>
-			<Property IsOn="true" ColumnName="create_localuser" Alias ="pi.create_localuser"/>
-		</Properties>
-		<Wheres>
-			<Where ComponentName="personname" Formatter="%@personname%">pi.PersonName like @personname</Where>
-			<Where ComponentName="sexcode"> pi.sexcode = @sexcode</Where>
-			<Where ComponentName="idcard"> pi.idcard = @idcard</Where>
-		</Wheres>
-		<OrderBys>
-			<OrderBy ComponentName="id" Alias ="pi.id"/>
-			<OrderBy ComponentName="personname" Alias ="pi.personname"/>
-			<OrderBy ComponentName="sexcode" Alias ="pi.sexcode"/>
-		</OrderBys>
-		<SQL>
-			select @Fields
-			from PregnantInfo pi
-			@Wheres
-			@OrderBy
-			@Pager
-		</SQL>
+		<Source SourceName="Data" DBSourceType="DefaultConnectionString">
+			<Properties>
+				<Property IsOn="true" ColumnName="id" Alias ="pi.id"/>
+				<Property IsOn="true" ColumnName="personname" Alias ="pi.personname"/>
+				<Property IsOn="true" ColumnName="sexcode" Alias ="pi.sexcode"/>
+				<Property IsOn="true" ColumnName="idcard" Alias ="pi.idcard"/>
+				<Property IsOn="true" ColumnName="create_localuser" Alias ="pi.create_localuser"/>
+				<Property IsOn="true" ColumnName="dateofprenatal" Alias ="pi.dateofprenatal"/>
+			</Properties>
+			<Wheres>
+				<Where ComponentName="personname" Formatter="%@personname%">pi.PersonName like @personname</Where>
+				<Where ComponentName="sexcode"> pi.sexcode = @sexcode</Where>
+				<Where ComponentName="idcard"> pi.idcard = @idcard</Where>
+			</Wheres>
+			<OrderBys>
+				<OrderBy ComponentName="id" Alias ="pi.id"/>
+				<OrderBy ComponentName="personname" Alias ="pi.personname"/>
+				<OrderBy ComponentName="sexcode" Alias ="pi.sexcode"/>
+			</OrderBys>
+			<SQL>
+				select @Properties
+				from PregnantInfo pi
+				@Wheres
+				@OrderBy
+				@Pager
+			</SQL>
+		</Source>
 	</View>
 	<View ViewName="VisitRecord">
-		<Properties>
-			<Property IsOn="true" ColumnName="personname" Alias ="pi.personname"/>
-			<Property IsOn="true" ColumnName="visitdate" Alias ="vr.visitdate"/>
-			<Property IsOn="true" ColumnName="id" Alias ="vr.id"/>
-			<Property IsOn="true" ColumnName="idcard" Alias ="vr.idcard"/>
-			<Property IsOn="true" ColumnName="weight" Alias ="vr.weight"/>
-			<Property IsOn="true" ColumnName="dbp" Alias ="vr.dbp"/>
-			<Property IsOn="true" ColumnName="sbp" Alias ="vr.sbp"/>
-			<Property IsOn="true" ColumnName="doctorname" Alias ="vr.doctorname"/>
-		</Properties>
-		<Wheres>
-			<Where ComponentName="personname" Formatter="%@personname%">pi.PersonName like @personname</Where>
-			<Where ComponentName="visitdateStart"> vr.visitdate &lt;= @visitdateStart</Where>
-			<Where ComponentName="visitdateEnd"> vr.visitdate &gt;= @visitdateEnd</Where>
-		</Wheres>
-		<OrderBys>
-			<OrderBy ComponentName="id" Alias ="pi.id"/>
-			<OrderBy ComponentName="personname" Alias ="pi.personname"/>
-			<OrderBy ComponentName="sexcode" Alias ="pi.sexcode"/>
-		</OrderBys>
-		<SQL>
-			select @Fields
-			from VisitRecord vr
-			left join PregnantInfo pi on pi.idcard = vr.idcard
-			@Wheres
-			@OrderBy
-			@Pager
-		</SQL>
+		<Source SourceName="Data" DBSourceType="DefaultConnectionString">
+			<Properties>
+				<Property IsOn="true" ColumnName="personname" Alias ="pi.personname"/>
+				<Property IsOn="true" ColumnName="visitdate" Alias ="vr.visitdate"/>
+				<Property IsOn="true" ColumnName="id" Alias ="vr.id"/>
+				<Property IsOn="true" ColumnName="idcard" Alias ="vr.idcard"/>
+				<Property IsOn="true" ColumnName="weight" Alias ="vr.weight"/>
+				<Property IsOn="true" ColumnName="dbp" Alias ="vr.dbp"/>
+				<Property IsOn="true" ColumnName="sbp" Alias ="vr.sbp"/>
+				<Property IsOn="true" ColumnName="doctorname" Alias ="vr.doctorname"/>
+			</Properties>
+			<Wheres>
+				<Where ComponentName="personname" Formatter="%@personname%">pi.PersonName like @personname</Where>
+				<Where ComponentName="visitdateStart"> vr.visitdate &lt;= @visitdateStart</Where>
+				<Where ComponentName="visitdateEnd"> vr.visitdate &gt;= @visitdateEnd</Where>
+			</Wheres>
+			<OrderBys>
+				<OrderBy ComponentName="id" Alias ="pi.id"/>
+				<OrderBy ComponentName="personname" Alias ="pi.personname"/>
+				<OrderBy ComponentName="sexcode" Alias ="pi.sexcode"/>
+			</OrderBys>
+			<SQL>
+				select @Properties
+				from VisitRecord vr
+				left join PregnantInfo pi on pi.idcard = vr.idcard
+				@Wheres
+				@OrderBy
+				@Pager
+			</SQL>
+		</Source>
 	</View>
 	<View ViewName="LabOrder">
-		<Properties>
-			<Property IsOn="true" ColumnName="id" Alias ="lo.id"/>
-			<Property IsOn="true" ColumnName="idcard" Alias ="lo.idcard"/>
-			<Property IsOn="true" ColumnName="name" Alias ="lo.name"/>
-			<Property IsOn="true" ColumnName="examname" Alias ="lo.examname"/>
-			<Property IsOn="true" ColumnName="ordertime" Alias ="lo.ordertime"/>
-			<Property IsOn="true" ColumnName="orderdocid" Alias ="lo.orderdocid"/>
-		</Properties>
-		<Wheres>
-			<Where ComponentName="name" Formatter="%@name%">lo.name like @name</Where>
-			<Where ComponentName="idcard"> lo.idcard = @idcard</Where>
-		</Wheres>
-		<OrderBys>
-			<OrderBy ComponentName="id" Alias ="lo.id"/>
-			<OrderBy ComponentName="name" Alias ="lo.name"/>
-			<OrderBy ComponentName="ordertime" Alias ="lo.ordertime"/>
-		</OrderBys>
-		<SQL>
-			select @Fields
-			from LabOrder lo
-			@Wheres
-			@OrderBy
-			@Pager
-		</SQL>
+		<Source SourceName="Data" DBSourceType="DefaultConnectionString">
+			<Properties>
+				<Property IsOn="true" ColumnName="id" Alias ="lo.id"/>
+				<Property IsOn="true" ColumnName="idcard" Alias ="lo.idcard"/>
+				<Property IsOn="true" ColumnName="name" Alias ="lo.name"/>
+				<Property IsOn="true" ColumnName="examname" Alias ="lo.examname"/>
+				<Property IsOn="true" ColumnName="ordertime" Alias ="lo.ordertime"/>
+				<Property IsOn="true" ColumnName="orderdocid" Alias ="lo.orderdocid"/>
+			</Properties>
+			<Wheres>
+				<Where ComponentName="name" Formatter="%@name%">lo.name like @name</Where>
+				<Where ComponentName="idcard"> lo.idcard = @idcard</Where>
+			</Wheres>
+			<OrderBys>
+				<OrderBy ComponentName="id" Alias ="lo.id"/>
+				<OrderBy ComponentName="name" Alias ="lo.name"/>
+				<OrderBy ComponentName="ordertime" Alias ="lo.ordertime"/>
+			</OrderBys>
+			<SQL>
+				select @Properties
+				from LabOrder lo
+				@Wheres
+				@OrderBy
+				@Pager
+			</SQL>
+		</Source>
 	</View>
 	<View ViewName="User">
-		<Properties>
-			<Property IsOn="true" ColumnName="id" Alias ="u.id"/>
-			<Property IsOn="true" ColumnName="name" Alias ="u.name"/>
-			<Property IsOn="true" ColumnName="rolenames" Alias ="
+		<Source SourceName="Data" DBSourceType="DefaultConnectionString">
+			<Properties>
+				<Property IsOn="true" ColumnName="id" Alias ="u.id"/>
+				<Property IsOn="true" ColumnName="name" Alias ="u.name"/>
+				<Property IsOn="true" ColumnName="rolenames" Alias ="
 (select r.Name+ ','
 from A_User u 
 left join A_UserRole ur on u.id = ur.userid
 left join A_Role r on ur.roleid = r.id
 for xml path('')) as rolenames
 "/>
-		</Properties>
-		<Wheres>
-			<Where ComponentName="name" Formatter="%@name%">u.name like @name</Where>
-		</Wheres>
-		<OrderBys>
-			<OrderBy ComponentName="id" Alias ="u.id"/>
-			<OrderBy ComponentName="name" Alias ="u.name"/>
-		</OrderBys>
-		<SQL>
-			select @Fields
-			from A_User u
-			@Wheres
-			@OrderBy
-			@Pager
-		</SQL>
+			</Properties>
+			<Wheres>
+				<Where ComponentName="name" Formatter="%@name%">u.name like @name</Where>
+			</Wheres>
+			<OrderBys>
+				<OrderBy ComponentName="id" Alias ="u.id"/>
+				<OrderBy ComponentName="name" Alias ="u.name"/>
+			</OrderBys>
+			<SQL>
+				select @Properties
+				from A_User u
+				@Wheres
+				@OrderBy
+				@Pager
+			</SQL>
+		</Source>
 	</View>
 	<View ViewName="Role">
-		<Properties>
-			<Property IsOn="true" ColumnName="id" Alias ="r.id"/>
-			<Property IsOn="true" ColumnName="name" Alias ="r.name"/>
-		</Properties>
-		<Wheres>
-			<Where ComponentName="name" Formatter="%@name%">r.name like @name</Where>
-		</Wheres>
-		<OrderBys DefaultComponentName="id" DefaultOrder="asc">
-			<OrderBy ComponentName="id" Alias ="r.id"/>
-			<OrderBy ComponentName="name" Alias ="r.name"/>
-		</OrderBys>
-		<SQL>
-			select @Fields
-			from A_Role r
-			@Wheres
-			@OrderBy
-			@Pager
-		</SQL>
+		<Source SourceName="Data" DBSourceType="DefaultConnectionString">
+			<Properties>
+				<Property IsOn="true" ColumnName="id" Alias ="r.id"/>
+				<Property IsOn="true" ColumnName="name" Alias ="r.name"/>
+			</Properties>
+			<Wheres>
+				<Where ComponentName="name" Formatter="%@name%">r.name like @name</Where>
+			</Wheres>
+			<OrderBys DefaultComponentName="id" DefaultOrder="asc">
+				<OrderBy ComponentName="id" Alias ="r.id"/>
+				<OrderBy ComponentName="name" Alias ="r.name"/>
+			</OrderBys>
+			<SQL>
+				select @Properties
+				from A_Role r
+				@Wheres
+				@OrderBy
+				@Pager
+			</SQL>
+		</Source>
 	</View>
 </Views>
