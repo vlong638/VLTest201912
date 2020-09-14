@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Views>
+	<View ViewName="">
+		<Source SourceName="Data" DBSourceType="SZXTConnectionString">
+			<Properties>
+				<Property IsOn="true" ColumnName="*" Alias =""/>
+			</Properties>
+			<Wheres>
+				<Where ComponentName="序号">tb.序号 = @序号</Where>
+				<Where ComponentName="取卵日期Start">tb.取卵日期 &gt;= @取卵日期Start</Where>
+				<Where ComponentName="取卵日期End">tb.取卵日期 &lt;= @取卵日期End</Where>
+				<Where ComponentName="女方姓名" Formatter="%@女方姓名%">tb.女方姓名 like @女方姓名</Where>
+			</Wheres>
+			<OrderBys>
+				<OrderBy ComponentName="id" Alias ="tb.序号"/>
+			</OrderBys>
+			<SQL>
+				select * from(
+				select ROW_NUMBER() over (order by A.quluanrq asc)as 序号,convert(varchar(20),A.quluanrq,23) as 取卵日期,B.nvfangxm as 女方姓名,B.nanfangxm as 男方姓名,
+				dbo.SplitString(B.binglih,'_',1) as 女方病历号,dbo.SplitString(B.binglih,'_',2) as 男方病历号,B.zhouqixh as 周期序号,C.zhouqijj as 周期总结,
+				H.shoujingfs as 授精方式,
+				(select count(*) from embrycul_record where yuanhes1='1PN' and binglih=A.binglih and zhouqixh=A.zhouqixh and zhouqilx=A.zhouqilx)as '1PN个数',
+				(select count(*) from embrycul_record where yuanhes1='2PN' and binglih=A.binglih and zhouqixh=A.zhouqixh and zhouqilx=A.zhouqilx)as '2PN个数',
+				(select count(*) from embrycul_record where yuanhes1='3PN' and binglih=A.binglih and zhouqixh=A.zhouqixh and zhouqilx=A.zhouqilx)as '3PN个数',
+				(select count(*) from embrycul_record where chengshud0='MII' and binglih=A.binglih and zhouqixh=A.zhouqixh and zhouqilx=A.zhouqilx)as 'MII卵数',
+				case when gonghuols is null then 0 when gonghuols='' then 0 else convert(int,D.gonghuols) end as 获卵数,
+				(select count(*) from embrycul_record where yuanhes1='2PN' and CONVERT(int,case xibaos3 when '融' then 3 when '融合' then 4 else xibaos3 end)&gt;=2 and binglih=A.binglih and zhouqixh=A.zhouqixh and zhouqilx=A.zhouqilx)as 卵裂个数,
+				(select count(*) from embrycul_record aa
+				left join blastula_record bb on aa.binglih=bb.binglih and aa.zhouqilx=bb.zhouqilx and aa.zhouqixh=bb.zhouqixh and aa.lineid=bb.lineid
+				where aa.yuanhes1='2PN' and CONVERT(int,case aa.xibaos3 when '融' then 3 when '融合' then 4 else aa.xibaos3 end)&gt;=2 and aa.binglih=A.binglih and aa.zhouqixh=A.zhouqixh and aa.zhouqilx=A.zhouqilx
+				and (aa.quxiang3='YZ' or bb.quxiang4='YZ' or bb.quxiang5='YZ' or bb.quxiang6='YZ' or bb.quxiang7='YZ'
+				or aa.quxiang3 like 'F%' or bb.quxiang4 like 'F%' or bb.quxiang5 like 'F%' or bb.quxiang6 like 'F%' or bb.quxiang7 like 'F%'))as 卵裂利用个数,
+				(select count(*) from embrycul_record aa
+				left join blastula_record bb on aa.binglih=bb.binglih and aa.zhouqilx=bb.zhouqilx and aa.zhouqixh=bb.zhouqixh and aa.lineid=bb.lineid
+				where aa.yuanhes1='2PN' and CONVERT(int,case aa.xibaos3 when '融' then 3 when '融合' then 4 else aa.xibaos3 end)&gt;=2 and aa.binglih=A.binglih and aa.zhouqixh=A.zhouqixh and aa.zhouqilx=A.zhouqilx
+				and (aa.quxiang3='YZ' or aa.quxiang3 like 'F%'))as 卵裂胚胎D3利用个数,
+				(select count(*) from embrycul_record aa
+				left join blastula_record bb on aa.binglih=bb.binglih and aa.zhouqilx=bb.zhouqilx and aa.zhouqixh=bb.zhouqixh and aa.lineid=bb.lineid
+				where aa.yuanhes1='2PN' and CONVERT(int,case aa.xibaos3 when '融' then 3 when '融合' then 4 else aa.xibaos3 end)&gt;=2 and aa.binglih=A.binglih and aa.zhouqixh=A.zhouqixh and aa.zhouqilx=A.zhouqilx
+				and (bb.quxiang5='YZ' or bb.quxiang6='YZ' or bb.quxiang7='YZ' or bb.quxiang5 like 'F%' or bb.quxiang6 like 'F%' or bb.quxiang7 like 'F%'))as 卵裂囊胚利用个数,
+				(select count(*) from embrycul_record aa
+				left join blastula_record bb on aa.binglih=bb.binglih and aa.zhouqilx=bb.zhouqilx and aa.zhouqixh=bb.zhouqixh and aa.lineid=bb.lineid
+				where aa.binglih=A.binglih and aa.zhouqixh=A.zhouqixh and aa.zhouqilx=A.zhouqilx
+				and (aa.quxiang3='YZ' or bb.quxiang4='YZ' or bb.quxiang5='YZ' or bb.quxiang6='YZ' or bb.quxiang7='YZ'
+				or aa.quxiang3 like 'F%' or bb.quxiang4 like 'F%' or bb.quxiang5 like 'F%' or bb.quxiang6 like 'F%' or bb.quxiang7 like 'F%'))as 胚胎利用个数,
+				(select count(*) from embrycul_record where youpei3='1' and binglih=A.binglih and zhouqixh=A.zhouqixh and zhouqilx=A.zhouqilx)as 优胚,
+				(select count(*) from embrycul_record where quxiang3='YZ' and binglih=A.binglih and zhouqixh=A.zhouqixh and zhouqilx=A.zhouqilx)as D3胚胎移植个数,
+				(select count(*) from embrycul_record where quxiang3='YN' and binglih=A.binglih and zhouqixh=A.zhouqixh and zhouqilx=A.zhouqilx)as D3胚胎养囊个数,
+				G.rc_renshen as 临床妊娠,G.shenhua_table,convert(varchar(20),F.yizhirq,23) as 移植日期1,CONVERT(varchar(20),F1.yizhirq,23) as 移植日期2,
+				(select count(*) from blastula_record where (quxiang7='YZ' or quxiang5='YZ' or quxiang6='YZ') and binglih=A.binglih and zhouqixh=A.zhouqixh and zhouqilx=A.zhouqilx)as 囊胚移植个数,
+				(select count(*) from blastula_record where (quxiang7='YZ' or quxiang5='YZ' or quxiang6='YZ' or quxiang5 like 'F%' or quxiang6 like 'F%' or quxiang7 like 'F%') and binglih=A.binglih and zhouqixh=A.zhouqixh and zhouqilx=A.zhouqilx)as 囊胚利用个数,
+				(select count(*) from blastula_record where (quxiang7='YZ' or quxiang5='YZ' or quxiang6='YZ' or quxiang5 like 'F%' or quxiang6 like 'F%' or quxiang7 like 'F%' or (quxiang5='DQ' and weichengn5&lt;&gt;'1') or (quxiang6='DQ' and weichengn6&lt;&gt;'1') or (quxiang7='DQ' and weichengn7&lt;&gt;'1')) and binglih=A.binglih and zhouqixh=A.zhouqixh and zhouqilx=A.zhouqilx)as 囊胚个数,
+				case when G.rc_yunnangs is null then 0 when G.rc_yunnangs='' then 0 else convert(int,G.rc_yunnangs) end as 孕囊数,
+				(select count(*) from embrycul_record where quxiang3='YZ' and binglih=A.binglih and zhouqixh=A.zhouqixh and zhouqilx=A.zhouqilx)
+				+(select count(*) from blastula_record where (quxiang4='YZ' or quxiang5='YZ' or quxiang6='YZ') and binglih=A.binglih and zhouqixh=A.zhouqixh and zhouqilx=A.zhouqilx) as 总移植个数,G.xinshenger_table
+				from
+				takeegg_record as A
+				left join zhouqi as B on A.binglih=B.binglih and A.zhouqilx=B.zhouqilx and A.zhouqixh=B.zhouqixh
+				left join discuss_cycle as C on A.binglih=C.binglih and A.zhouqilx=C.zhouqilx and A.zhouqixh=C.zhouqixh
+				left join eggdeal_record as D on A.binglih=D.binglih and A.zhouqilx=D.zhouqilx and A.zhouqixh=D.zhouqixh
+				left join insemination_record as E on A.binglih=E.binglih and A.zhouqilx=E.zhouqilx and A.zhouqixh=E.zhouqixh
+				left join embryo_transfer as F on A.binglih=F.binglih and A.zhouqilx=F.zhouqilx and A.zhouqixh=F.zhouqixh and f.zaiciss=0
+				left join embryo_transfer as F1 on A.binglih=F1.binglih and A.zhouqilx=F1.zhouqilx and A.zhouqixh=F1.zhouqixh and F1.zaiciss=1
+				left join followUp_record as G on A.binglih=G.binglih and A.zhouqilx=G.zhouqilx and A.zhouqixh=G.zhouqixh
+				left join insemination_record as H on A.binglih=H.binglih and A.zhouqilx=H.zhouqilx and A.zhouqixh=H.zhouqixh
+				where A.quluanrq&gt;='2010-01-01' and A.quluanrq&lt;='2020-08-25' and A.zaiciqlbsf=0 and C.zhouqijj&lt;&gt;'取消取卵'  and C.zhouqijj&lt;&gt;'未取卵'
+				)tb
+				@Wheres
+				@OrderBy
+				@Pager
+			</SQL>
+		</Source>
+	</View>
+</Views>

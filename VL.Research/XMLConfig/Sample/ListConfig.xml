@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Views>
+	<!--IsNeedOnPage="false" DisplayName="" (.+) Description="(\w+)"(.+)\r\n
+	IsNeedOnPage="true" DisplayName="$2" $1 Description="$2"$3\r\n-->
+	<View ViewName="PregnantInfo" ViewURL="../../api/System/GetCommonSelectByDirectoryName">
+		<Export URL="../../api/System/CommonExportAll"/>
+		<Wheres>
+			<!--"DisplayType <类型[1-文本框|2-数字框|3-单选下拉框|4-树状下拉框|5-日期选择框][默认:1]>",-->
+			<Where ComponentName="序号" Value="" DisplayName="序号" DisplayType="1"/>
+			<Where ComponentName="取卵日期" Value="" DisplayName="取卵日期" DisplayType="5"/>
+		</Wheres>
+		<OrderBy DefaultName ="createdate" DefaultValue ="desc"/>
+		<ToolBars>
+			<!--<ToolBar URL ="../Home/CommonExportInlineForFYPT" Params ="idcard" DefaultParams="moduleName=FYPT_PregnantInfo,exportName=ExportConfig_高危妊娠表" Text="导出" Type = "newPage" Description = "" Area = "300px,400px" YesFun = "yesFun"/>-->
+		</ToolBars>
+		<Properties>
+			<Property IsNeedOnPage="true" DisplayName="序号" ColumnName="序号" DisplayType="None" DisplayWidth="60" IsSortable="False" DataType="bigint" Description="-" />
+			<Property IsNeedOnPage="true" DisplayName="取卵日期" ColumnName="取卵日期" DisplayType="Date" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
+			<Property IsNeedOnPage="true" DisplayName="男方姓名" ColumnName="男方姓名" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property IsNeedOnPage="true" DisplayName="女方病历号" ColumnName="女方病历号" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property IsNeedOnPage="true" DisplayName="男方病历号" ColumnName="男方病历号" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+		</Properties>
+	</View>
+</Views>

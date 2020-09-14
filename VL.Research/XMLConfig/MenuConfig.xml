@@ -4,6 +4,7 @@
 	<Menu id="11" parentId="1" text="孕妇档案" icon="" url="../Home/CommonListByViewName?viewName=PregnantInfo"/>
 	<Menu id="11" parentId="1" text="孕妇产检" icon="" url="../Home/CommonListByViewName?viewName=VisitRecord"/>
 	<Menu id="11" parentId="1" text="孕妇检验单" icon="" url="../Home/CommonListByViewName?viewName=LabOrder"/>
+	<Menu id="11" parentId="1" text="功能包样例" icon="" url="../Home/CommonListByDirectoryName?viewName=Sample"/>
 	<Menu id="2" parentId="" text="自定义查询" icon="" url=""/>
 	<Menu id="3" parentId="" text="账户管理" icon="" url=""/>
 	<Menu id="31" parentId="3" text="用户管理" icon="" url="../Home/CommonListByViewName?viewName=User"/>
