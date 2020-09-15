@@ -2449,6 +2449,11 @@
             
             </summary>
         </member>
+        <member name="M:VL.Research.Controllers.SystemController.GlobalException">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:VL.Research.Controllers.SignInStatus">
             <summary>
             登录状态枚举

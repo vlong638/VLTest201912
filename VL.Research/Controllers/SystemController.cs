@@ -651,6 +651,15 @@ namespace VL.Research.Controllers
             return;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public void GlobalException()
+        {
+            throw new NotImplementedException("GlobalException");
+            return;
+        }
+
         #endregion
     }
 }

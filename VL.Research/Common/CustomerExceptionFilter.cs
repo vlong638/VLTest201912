@@ -56,8 +56,9 @@ namespace VL.Research.Common
                 }
                 //集成ExceptionLess
                 //context.Exception.ToExceptionless().Submit();
-                
+
                 //集成Log4Net
+                Log4NetLogger.Error("Global Exception", context.Exception);
 
                 context.ExceptionHandled = true;//异常已处理
             }
