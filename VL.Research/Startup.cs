@@ -12,6 +12,7 @@ using Microsoft.Extensions.Options;
 using System;
 using System.Security.Claims;
 using VL.Consolo_Core.AuthenticationSolution;
+using VL.Consolo_Core.Common.LogSolution;
 using VL.Consolo_Core.Common.RedisSolution;
 using VL.Research.Common;
 using VL.Research.Common.Configuration;
@@ -44,6 +45,8 @@ namespace VL.Research
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
+            //注册业务层配置
+            services.AddOptions();
             //配置文件
             services.Configure<DBConfig>(Configuration.GetSection("DB"));
             services.Configure<AuthenticationOptions>(Configuration.GetSection("Authentication"));
@@ -51,12 +54,17 @@ namespace VL.Research
             #region 接口及服务
 
             //Controller
-            services.AddMvc();
+            services.AddMvc(option =>
+            {
+                option.Filters.Add<CustomerExceptionFilter>();
+            });
 
             //基础设施
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<APIContext>();
+            services.AddSingleton<ILoggerHelper, ExceptionlessLogger>();
 
+            
             //服务设施
             services.AddScoped<PregnantService>();
             services.AddScoped<SharedService>();

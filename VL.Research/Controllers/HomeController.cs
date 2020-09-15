@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using NPOI.XSSF.UserModel;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ using System.Xml.Linq;
 using VL.Consolo_Core.Common.ExcelExportSolution;
 using VL.Consolo_Core.Common.ValuesSolution;
 using VL.Research.Common;
+using VL.Research.Common.Configuration;
 using VL.Research.Models;
 using VL.Research.Services;
 
@@ -25,6 +27,16 @@ namespace VL.Research.Controllers
         {
         }
 
+        /// <summary>
+        /// 测试业务层调用注册的配置
+        /// </summary>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        public IActionResult Options([FromServices]IOptions<DBConfig> options)
+        {
+            return View();
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -32,6 +44,7 @@ namespace VL.Research.Controllers
 
         public IActionResult Index2()
         {
+            throw new NotImplementedException("111");
             return View();
         }
 

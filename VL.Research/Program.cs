@@ -1,3 +1,4 @@
+using log4net;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -42,8 +43,8 @@ namespace VL.Research
                 //JsonÅäÖÃ
                 builder.AddJsonFile("configs/config.json", optional: false, reloadOnChange: false);
 
-                //XMLÅäÖÃ
-                //builder.AddXmlFile("configs/config.xml", optional: false, reloadOnChange: false);
+                ////XMLÅäÖÃ
+                //builder.AddXmlFile("configs/log4net.config", optional: false, reloadOnChange: false);
             })
             .ConfigureWebHostDefaults(webBuilder =>
             {

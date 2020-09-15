@@ -639,5 +639,18 @@ namespace VL.Research.Controllers
         //}
 
         #endregion
+
+        #region Test
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Log4Net()
+        {
+            Log4NetLogger.Info("Message From Log4Net()");
+            return;
+        }
+
+        #endregion
     }
 }

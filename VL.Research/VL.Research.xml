@@ -273,6 +273,50 @@
             生殖系统
             </summary>
         </member>
+        <member name="T:VL.Research.Common.CustomerExceptionFilter">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VL.Research.Common.CustomerExceptionFilter.#ctor(Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.AspNetCore.Mvc.ModelBinding.IModelMetadataProvider)">
+            <summary>
+            
+            </summary>
+            <param name="hostingEnvironment"></param>
+            <param name="modelMetadataProvider"></param>
+        </member>
+        <member name="M:VL.Research.Common.CustomerExceptionFilter.OnException(Microsoft.AspNetCore.Mvc.Filters.ExceptionContext)">
+            <summary>
+            发生异常进入
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="T:VL.Research.Common.Log4NetLogger">
+            <summary>
+            Log4Net Logger
+            </summary>
+        </member>
+        <member name="M:VL.Research.Common.Log4NetLogger.Info(System.String,System.Exception)">
+            <summary>
+            普通日志
+            </summary>
+            <param name="message"></param>
+            <param name="exception"></param>
+        </member>
+        <member name="M:VL.Research.Common.Log4NetLogger.Warn(System.String,System.Exception)">
+            <summary>
+            告警日志
+            </summary>
+            <param name="message"></param>
+            <param name="exception"></param>
+        </member>
+        <member name="M:VL.Research.Common.Log4NetLogger.Error(System.String,System.Exception)">
+            <summary>
+            错误日志
+            </summary>
+            <param name="message"></param>
+            <param name="exception"></param>
+        </member>
         <member name="T:VL.Research.Common.MenuConfig">
             <summary>
             查询sql配置
@@ -2089,6 +2133,13 @@
             <param name="fileName"></param>
             <returns></returns>
         </member>
+        <member name="M:VL.Research.Controllers.HomeController.Options(Microsoft.Extensions.Options.IOptions{VL.Research.Common.Configuration.DBConfig})">
+            <summary>
+            测试业务层调用注册的配置
+            </summary>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
         <member name="M:VL.Research.Controllers.HomeController.Login(System.String)">
             <summary>
             
@@ -2391,6 +2442,11 @@
         <member name="M:VL.Research.Controllers.SystemController.GetCommonSelectByDirectoryName(VL.Research.Services.SharedService,VL.Research.Models.GetCommonSelectRequest)">
             <summary>
             获取 通用查询 分页列表
+            </summary>
+        </member>
+        <member name="M:VL.Research.Controllers.SystemController.Log4Net">
+            <summary>
+            
             </summary>
         </member>
         <member name="T:VL.Research.Controllers.SignInStatus">
