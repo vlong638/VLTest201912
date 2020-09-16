@@ -42,7 +42,7 @@ where Id = @Id
             return dbGroup.Connection.ExecuteScalar<int>(@"
 update V_FWPT_GY_BINGRENXXZY 
 set chuyuanrqfixed = convert(datetime,concat(substring(chuyuanrq,1,4),'-',substring(chuyuanrq,5,2),'-',substring(chuyuanrq,7,2),' ',substring(chuyuanrq,9,2),':',substring(chuyuanrq,11,2),':',substring(chuyuanrq,13,2)))
-where chuyuanrq is not null and chuyuanrqfixed is null
+where chuyuanrq is not null and chuyuanrq!='' and chuyuanrqfixed is null
 ", transaction: dbGroup.Transaction);
         }
 
