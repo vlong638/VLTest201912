@@ -19,3 +19,5 @@
         public string SZXTConnectionString { set; get; }
     }
 }
+
+

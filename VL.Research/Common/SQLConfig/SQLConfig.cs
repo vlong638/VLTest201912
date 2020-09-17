@@ -122,14 +122,25 @@ namespace VL.Research.Common
 
         internal string GetCountSQL()
         {
-            var sql = Source.SQL;
-            sql = sql.Replace("@Properties", "count(*)");
-            var wheresIsOn = Source.Wheres.Where(c => c.IsOn).Select(c => c.SQL);
-            var wheres = wheresIsOn.Count() == 0 ? "" : $"where {string.Join(" and ", wheresIsOn)}";
-            sql = sql.Replace("@Wheres", wheres);
-            sql = sql.Replace("@OrderBy", $"");
-            sql = sql.Replace("@Pager", $"");
-            return sql;
+            if (!Source.CountSQL.IsNullOrEmpty())
+            {
+                var sql = Source.CountSQL;
+                var wheresIsOn = Source.Wheres.Where(c => c.IsOn).Select(c => c.SQL);
+                var wheres = wheresIsOn.Count() == 0 ? "" : $"where {string.Join(" and ", wheresIsOn)}";
+                sql = sql.Replace("@Wheres", wheres);
+                return sql;
+            }
+            else
+            {
+                var sql = Source.SQL;
+                sql = sql.Replace("@Properties", "count(*)");
+                var wheresIsOn = Source.Wheres.Where(c => c.IsOn).Select(c => c.SQL);
+                var wheres = wheresIsOn.Count() == 0 ? "" : $"where {string.Join(" and ", wheresIsOn)}";
+                sql = sql.Replace("@Wheres", wheres);
+                sql = sql.Replace("@OrderBy", $"");
+                sql = sql.Replace("@Pager", $"");
+                return sql;
+            }
         }
 
         internal Dictionary<string, object> GetParams()
@@ -195,6 +206,10 @@ namespace VL.Research.Common
         /// 预设SQL
         /// </summary>
         public string SQL { set; get; }
+        /// <summary>
+        /// 预设CountSQL
+        /// </summary>
+        public string CountSQL { set; get; }
 
         /// <summary>
         /// 
@@ -214,7 +229,8 @@ namespace VL.Research.Common
             Properties = element.Descendants(SQLConfigProperty.ElementName).Select(c => new SQLConfigProperty(c)).ToList();
             Wheres = element.Descendants(SQLConfigWhere.ElementName).Select(c => new SQLConfigWhere(c)).ToList();
             OrderBys = element.Descendants(SQLConfigOrderBy.ElementName).Select(c => new SQLConfigOrderBy(c)).ToList();
-            SQL = element.Descendants("SQL").First().Value;
+            SQL = element.Descendants(nameof(SQL))?.FirstOrDefault()?.Value;
+            CountSQL = element.Descendants(nameof(CountSQL))?.FirstOrDefault()?.Value;
             var OrderBysRoot = element.Descendants(SQLConfigOrderBy.RootElementName).First();
             DefaultComponentName = OrderBysRoot.Attribute(nameof(DefaultComponentName))?.Value ?? "";
             DefaultOrder = OrderBysRoot.Attribute(nameof(DefaultOrder))?.Value ?? "";

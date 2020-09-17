@@ -78,6 +78,86 @@ namespace VL.Consoling
 
         static void Main(string[] args)
         {
+
+
+            var sql = $@"
+select 
+jg.fuwujgmc 单位名称
+,hc.huochans 活产数
+,info.* 
+,za.*
+from (
+	select fuwujgbh,fuwujgmc
+	from GY_FUWUJG
+	WHERE fuwujgjb != '6'
+	order by fuwujgbh asc
+	offset 0 rows fetch next 20 rows only
+) jg
+left join (
+	select
+	g.manaunitid fuwujgbh,
+	sum(case when (h.highrisktype like concat('%',01,'%') or h.highrisktype like concat('%',18,'%'))then 1 else 0 end) 早产	,
+	sum(case when g.birthWeight< '1500' then 1 else 0 end) 极低出生体重儿,
+	sum(case when h.highrisktype like concat('%',02,'%')then 1 else 0 end) 足月小样儿,
+	sum(case when h.highrisktype like concat('%',06,'%')then 1 else 0 end) HIE,
+	sum(case when h.highrisktype like concat('%',07,'%')then 1 else 0 end) 颅内出血,
+	sum(case when (h.highrisktype like concat('%',09,'%') or h.highrisktype like concat('%',10,'%'))then 1 else 0 end) 其他惊厥,
+	sum(case when h.highrisktype like concat('%',04,'%')then 1 else 0 end) 呼吸系统RDS,
+	sum(case when h.highrisktype like concat('%',03,'%')then 1 else 0 end) 高胆红素血症,
+	sum(case when h.highrisktype like concat('%',17,'%')then 1 else 0 end) 其它,
+	count(*) 本季总数,
+	sum(case when h.endmanage = 1 then 1 else 0 end) 管理率
+	from cc_highrisk h
+	left join cc_generalinfo g on h.childid = g.childid
+	where h.status = 1
+	and h.registerdate >= @取卵日期Start
+	and h.registerdate <= @取卵日期End
+	and g.manaunitid in
+		(select fuwujgbh
+		from GY_FUWUJG
+		WHERE fuwujgjb != '6'
+		order by fuwujgbh asc
+		offset 0 rows fetch next 20 rows only)
+	group by g.manaunitid
+) info on jg.fuwujgbh = info.fuwujgbh
+left join (
+	select
+	dr.visitunitcode fuwujgbh,
+	count(*) huochans
+	from cdh_newbornrecord nr
+	left join cdh_deliveryrecord dr on nr.chanshibh = dr.chanshibh
+	where nr.outcomeofbirth = 1
+	and nr.tianbiaosj >= @取卵日期Start
+	and nr.tianbiaosj <= @取卵日期End
+	and dr.visitunitcode in
+		(select fuwujgbh
+		from GY_FUWUJG
+		WHERE fuwujgjb != '6'
+		order by fuwujgbh asc
+		offset 0 rows fetch next 20 rows only)
+	group by dr.visitunitcode
+) hc on jg.fuwujgbh = hc.fuwujgbh
+left join (
+	select
+	g.manaunitid fuwujgbh,
+	count(*) 应管人数,
+	sum(case when h.endmanage = 1 then 1 else 0 end) 总管理人数	
+	from cc_highrisk h
+	left join cc_generalinfo g on h.childid = g.childid
+	where h.status = 1
+	and h.registerdate >= @取卵日期Start
+	and h.registerdate <= @取卵日期End
+	and g.manaunitid in
+		(select fuwujgbh
+		from GY_FUWUJG
+		WHERE fuwujgjb != '6'
+		order by fuwujgbh asc
+		offset 0 rows FETCH NEXT 15 ROWS ONLY)
+	group by g.manaunitid
+) za on jg.fuwujgbh = za.fuwujgbh
+";
+			
+
             //注意在数值较大的情况下 int和可能会溢出
             int im1 = int.MaxValue - 3;
             int im2 = int.MaxValue - 1;

@@ -291,6 +291,16 @@
             </summary>
             <param name="context"></param>
         </member>
+        <member name="T:VL.Research.Common.DbContextEX">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VL.Research.Common.DbContextEX.DelegateTransaction``1(VL.Consolo_Core.Common.DBSolution.DbContext,System.Func{VL.Consolo_Core.Common.DBSolution.DbGroup,``0})">
+            <summary>
+            扩展事务(服务层)通用处理
+            </summary>
+        </member>
         <member name="T:VL.Research.Common.Log4NetLogger">
             <summary>
             Log4Net Logger
@@ -478,6 +488,11 @@
         <member name="P:VL.Research.Common.SQLConfigSource.SQL">
             <summary>
             预设SQL
+            </summary>
+        </member>
+        <member name="P:VL.Research.Common.SQLConfigSource.CountSQL">
+            <summary>
+            预设CountSQL
             </summary>
         </member>
         <member name="M:VL.Research.Common.SQLConfigSource.#ctor">
