@@ -15,7 +15,7 @@ namespace FrameworkTest.Common.DBSolution
         /// 创建数据库连接
         /// </summary>
         /// <returns></returns>
-        public static DbConnection GetDbConnection(string connectingString)
+        public static DbConnection GetSqlDbConnection(string connectingString)
         {
             return new SqlConnection(connectingString);
         }
@@ -26,7 +26,7 @@ namespace FrameworkTest.Common.DBSolution
         /// <returns></returns>
         public static DbContext GetDbContext(string connectingString)
         {
-            var connection = GetDbConnection(connectingString);
+            var connection = GetSqlDbConnection(connectingString);
             return new DbContext(connection);
         }
     }

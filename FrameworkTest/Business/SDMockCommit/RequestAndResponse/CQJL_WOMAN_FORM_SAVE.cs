@@ -169,9 +169,9 @@ namespace FrameworkTest.Business.SDMockCommit
                     break;
             }
             this.D20 = "1";//"2",          //味  //默认`无异味`
-            this.D21 = "1";//"2",           //妊娠合并症
-            this.D22 = "1";//"3,8",         //产后并发症
-            this.D45 = "1";//"5,14"         //妊娠并发症
+            this.D21 = VLConstraints.GetPregnancyComplicationsA(diagnosis);//"2",           //妊娠合并症
+            this.D22 = VLConstraints.GetPostnatalComplications(diagnosis);//"3,8",         //产后并发症
+            this.D45 = VLConstraints.GetPregnancyComplicationsB(diagnosis);//"5,14"         //妊娠并发症
             this.D23 = highRisks.Count() > 0 ? "1" : "2";//"2",           //高危妊娠
             this.D24 = string.Join(",", highRisks.Select(c => c.T));      //"",  //高危因素
             this.D25 = "1";//"",           //高危因素是否纠正 //默认`是`

@@ -4,6 +4,28 @@ using System.Collections.Generic;
 
 namespace FrameworkTest.Business.SDMockCommit
 {
+    public class HISService
+    {
+        public static string ConntectingString = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=201.201.201.81)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=MyOracleSID)));User Id=jhmz;Password=jhmz;";
+        private DbContext DBContext;
+
+        public HISService(DbContext context)
+        {
+            this.DBContext = context;
+        }
+
+
+        #region BirthDefect
+
+        internal List<BirthDefect> GetBirthDefects(string patientId)
+        {
+            return HISDAL.GetBirthDefects(DBContext.DbGroup, patientId);
+        }
+
+        #endregion
+    }
+
+
     public class ESBService
     {
         public static string ConntectingString = "Data Source=201.201.201.89;Initial Catalog=HELEESB;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sdfy;Password=sdfy123456";
@@ -69,7 +91,6 @@ namespace FrameworkTest.Business.SDMockCommit
 
         #endregion
 
-
         #region Diagnosis
 
         internal IEnumerable<Diagnosis> GetDiagnosisByPatientIdAndINPNo(string patientId, string visitId)
@@ -96,6 +117,5 @@ namespace FrameworkTest.Business.SDMockCommit
         }
 
         #endregion
-
     }
 }

@@ -323,8 +323,8 @@ namespace FrameworkTest
             }));
             cmds.Add(new Command("s12_0000,数据库连接测试", () =>
             {
-                var context = DBHelper.GetDbContext(LocalMSSQL);
-                var serviceResult = context.DelegateTransaction((group) =>
+                var dbContext = DBHelper.GetDbContext(LocalMSSQL);
+                var serviceResult = dbContext.DelegateTransaction((group) =>
                 {
                     var id = group.Connection.ExecuteScalar<long>(@"select max(id) from O_LabResult", transaction: group.Transaction);
                     return id;
@@ -581,8 +581,8 @@ namespace FrameworkTest
             #region ConfigurableEntity,配置化对象
             cmds.Add(new Command("c2_0526,数据库表结构配置", () =>
             {
-                var context = DBHelper.GetDbContext(LocalMSSQL);
-                var serviceResult = context.DelegateTransaction((group) =>
+                var dbContext = DBHelper.GetDbContext(LocalMSSQL);
+                var serviceResult = dbContext.DelegateTransaction((group) =>
                 {
                     var sql = $@"
 select 
@@ -626,8 +626,8 @@ order by def.[TableName],def.Id
             cmds.Add(new Command("c3_0526,List应用配置,保存XML", () =>
             {
                 //读取数据
-                var context = DBHelper.GetDbContext(LocalMSSQL);
-                var serviceResult = context.DelegateTransaction((group) =>
+                var dbContext = DBHelper.GetDbContext(LocalMSSQL);
+                var serviceResult = dbContext.DelegateTransaction((group) =>
                 {
                     var sql = $@"
 select 
@@ -2598,7 +2598,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             {
                 var testOne = false;
                 var conntectingStringSD = "Data Source=201.201.201.89;Initial Catalog=HL_Pregnant;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sdfy;Password=sdfy123456";
-                var context = DBHelper.GetDbContext(conntectingStringSD);
+                var dbContext = DBHelper.GetDbContext(conntectingStringSD);
                 foreach (var pregnantInfo in SDBLL.TempPregnantInfos)
                 {
                     if (testOne)
@@ -2633,7 +2633,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                             SyncStatus = SyncStatus.Error,
                             ErrorMessage = message,
                         };
-                        var serviceResultTemp = context.DelegateTransaction((group) =>
+                        var serviceResultTemp = dbContext.DelegateTransaction((group) =>
                         {
                             return group.Connection.Insert(syncForFSTemp, transaction: group.Transaction);
                         });
@@ -2657,7 +2657,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                             SyncStatus = SyncStatus.Error,
                             ErrorMessage = message,
                         };
-                        var serviceResultTemp = context.DelegateTransaction((group) =>
+                        var serviceResultTemp = dbContext.DelegateTransaction((group) =>
                         {
                             return group.Connection.Insert(syncForFSTemp, transaction: group.Transaction);
                         });
@@ -2822,7 +2822,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             cmds.Add(new Command("m26,0618,模拟-筛选待新增的孕妇", () =>
             {
                 SDBLL.TempPregnantInfos = SDBLL.GetPregnantInfoForCreateBefore0630();
-                var context = DBHelper.GetDbContext(SDBLL.ConntectingStringSD);
+                var dbContext = DBHelper.GetDbContext(SDBLL.ConntectingStringSD);
                 foreach (var pregnantInfo in SDBLL.TempPregnantInfos)
                 {
                     Console.WriteLine($"当前孕妇{pregnantInfo.personname}");
@@ -2903,11 +2903,11 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
 
 
                 var userInfo = SDBLL.UserInfo;
-                var context = DBHelper.GetDbContext(SDBLL.ConntectingStringSD);
+                var dbContext = DBHelper.GetDbContext(SDBLL.ConntectingStringSD);
                 foreach (var pregnantInfo in SDBLL.TempPregnantInfos)
                 {
                     StringBuilder sb = new StringBuilder();
-                    var serviceResult = context.DelegateTransaction((Func<DbGroup, bool>)((group) =>
+                    var serviceResult = dbContext.DelegateTransaction((Func<DbGroup, bool>)((group) =>
                     {
                         var syncForFS = new SyncOrder()
                         {
@@ -2923,7 +2923,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                             {
                                 syncForFS.SyncStatus = SyncStatus.Error;
                                 syncForFS.ErrorMessage = "No Base8 Data";
-                                SDBLL.SaveSyncOrder(context.DbGroup, syncForFS);
+                                SDBLL.SaveSyncOrder(dbContext.DbGroup, syncForFS);
                                 return (bool)true;
                             }
                             var enquiryResponse = SDBLL.GetEnquiry(userInfo, base8, ref sb);
@@ -2990,7 +2990,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                             syncForFS.SyncStatus = SyncStatus.Error;
                             syncForFS.ErrorMessage = ex.ToString();
                         }
-                        syncForFS.Id = SDBLL.SaveSyncOrder(context.DbGroup, syncForFS);
+                        syncForFS.Id = SDBLL.SaveSyncOrder(dbContext.DbGroup, syncForFS);
                         sb.AppendLine((string)syncForFS.ToJson());
                         return (bool)(syncForFS.SyncStatus != SyncStatus.Error);
                     }));
@@ -3006,11 +3006,11 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             cmds.Add(new Command("m32,0623,模拟-更新`问询病史`", () =>
             {
                 var userInfo = SDBLL.UserInfo;
-                var context = DBHelper.GetDbContext(SDBLL.ConntectingStringSD);
+                var dbContext = DBHelper.GetDbContext(SDBLL.ConntectingStringSD);
                 foreach (var pregnantInfo in SDBLL.TempPregnantInfos)
                 {
                     StringBuilder sb = new StringBuilder();
-                    var serviceResult = context.DelegateTransaction((Func<DbGroup, bool>)((group) =>
+                    var serviceResult = dbContext.DelegateTransaction((Func<DbGroup, bool>)((group) =>
                     {
                         var syncForFS = SDBLL.GetSyncOrderBySource(group, TargetType.HistoryEnquiry, pregnantInfo.Id.ToString()).First();
                         try
@@ -3021,7 +3021,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                             {
                                 syncForFS.SyncStatus = SyncStatus.Error;
                                 syncForFS.ErrorMessage = "No Base8 Data";
-                                SDBLL.SaveSyncOrder(context.DbGroup, syncForFS);
+                                SDBLL.SaveSyncOrder(dbContext.DbGroup, syncForFS);
                                 return (bool)true;
                             }
                             var enquiryResponse = SDBLL.GetEnquiry(userInfo, base8, ref sb);
@@ -3082,7 +3082,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                             syncForFS.SyncStatus = SyncStatus.Error;
                             syncForFS.ErrorMessage = ex.ToString();
                         }
-                        SDBLL.SaveSyncOrder(context.DbGroup, syncForFS);
+                        SDBLL.SaveSyncOrder(dbContext.DbGroup, syncForFS);
                         sb.AppendLine((string)syncForFS.ToJson());
                         return (bool)(syncForFS.SyncStatus != SyncStatus.Error);
                     }));
@@ -3139,7 +3139,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             //cmds.Add(new Command("m41,0628,模拟-新增`体格检查`", () =>
             //{
             //    var userInfo = SDBLL.UserInfo;
-            //    var context = DBHelper.GetDbContext(SDBLL.ConntectingStringSD);
+            //    var dbContext = DBHelper.GetDbContext(SDBLL.ConntectingStringSD);
             //    foreach (var examination in examinations)
             //    {
             //        StringBuilder sb = new StringBuilder();
@@ -3206,7 +3206,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             //cmds.Add(new Command("m42,0628,模拟-更新`体格检查`", () =>
             //{
             //    var userInfo = SDBLL.UserInfo;
-            //    var context = DBHelper.GetDbContext(SDBLL.ConntectingStringSD);
+            //    var dbContext = DBHelper.GetDbContext(SDBLL.ConntectingStringSD);
             //    foreach (var examination in examinations)
             //    {
             //        StringBuilder sb = new StringBuilder();
@@ -3353,7 +3353,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             }));
             cmds.Add(new Command("m91,0622,自动同步-新增`孕妇档案`", () =>
             {
-                var context = new ServiceContext();
+                var dbContext = new ServiceContext();
                 var syncTask = new PregnantInfo_SyncTask_Create(context);
                 syncTask.DoLogOnGetSource = (sourceData) =>
                 {
@@ -3373,7 +3373,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             }));
             cmds.Add(new Command("m92,0623,自动同步-更新`孕妇档案`", () =>
             {
-                var context = new ServiceContext();
+                var dbContext = new ServiceContext();
                 var syncTask = new PregnantInfo_SyncTask_Update(context);
                 syncTask.DoLogOnGetSource = (sourceData) =>
                 {
@@ -3393,7 +3393,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             }));
             cmds.Add(new Command("m93,0628,自动同步-新增`问询病史`", () =>
             {
-                var context = new ServiceContext();
+                var dbContext = new ServiceContext();
                 var syncTask = new Enquiry_SyncTask_Create(context);
                 syncTask.DoLogOnGetSource = (sourceData) =>
                 {
@@ -3413,7 +3413,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             }));
             cmds.Add(new Command("m94,0629,自动同步-更新`问询病史`", () =>
             {
-                var context = new ServiceContext();
+                var dbContext = new ServiceContext();
                 var syncTask = new Enquiry_SyncTask_Update(context);
                 syncTask.DoLogOnGetSource = (sourceData) =>
                 {
@@ -3433,7 +3433,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             }));
             cmds.Add(new Command("m95,0630,自动同步-新增`体格检查`", () =>
             {
-                var context = new ServiceContext();
+                var dbContext = new ServiceContext();
                 var syncTask = new PhysicalExaminationModel_SyncTask_Create(context);
                 syncTask.DoLogOnGetSource = (sourceData) =>
                 {
@@ -3453,7 +3453,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             }));
             cmds.Add(new Command("m96,0630,自动同步-更新`体格检查`", () =>
             {
-                var context = new ServiceContext();
+                var dbContext = new ServiceContext();
                 var syncTask = new PhysicalExaminationModel_SyncTask_Update(context);
                 syncTask.DoLogOnGetSource = (sourceData) =>
                 {
@@ -3473,7 +3473,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             }));
             cmds.Add(new Command("m97,0630,自动同步-新增`专科检查`", () =>
             {
-                var context = new ServiceContext();
+                var dbContext = new ServiceContext();
                 var syncTask = new ProfessionalExaminationModel_SyncTask_Create(context);
                 syncTask.DoLogOnGetSource = (sourceData) =>
                 {
@@ -3493,7 +3493,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             }));
             cmds.Add(new Command("m98,0703,自动同步-更新`专科检查`", () =>
             {
-                var context = new ServiceContext();
+                var dbContext = new ServiceContext();
                 var syncTask = new ProfessionalExaminationModel_SyncTask_Update(context);
                 syncTask.DoLogOnGetSource = (sourceData) =>
                 {

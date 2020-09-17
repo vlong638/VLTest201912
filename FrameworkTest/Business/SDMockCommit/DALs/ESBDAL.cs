@@ -190,7 +190,7 @@ where sq.bingrenid = @patientId
             return dbGroup.Connection.Query<Advice>($@"
 select yizhumc from V_FWPT_MZ_YIJI where bingrenid = @patientId
 ", new { patientId }, transaction: dbGroup.Transaction).ToList();
-        } 
+        }
         #endregion
     }
 }

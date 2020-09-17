@@ -49,6 +49,8 @@ namespace FrameworkTest.Business.SDMockCommit
                     syncOrder.Id = context.ESBService.SaveSyncOrder(syncOrder);
                     return;
                 }
+                //获得新生儿出生缺陷信息
+                var birthDefects = Context.ESBService.GetBirthDefects(sourceData.SourceData.inp_no, sourceData.SourceData.visit_id);
                 //获取住院数据
                 var childDischargeData = Context.FSService.GetChildDischarge(userInfo, listData.FMMainId, ref logger);
                 //数据更新

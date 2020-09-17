@@ -155,7 +155,7 @@ namespace FrameworkTest.Business.ExcelGenerator
             DataSources = new Dictionary<string, DataTable>();
             foreach (var sourceConfig in Sources)
             {
-                var dbContext = new DbContext(DBHelper.GetDbConnection("Data Source=192.168.50.102;Initial Catalog=HL_Pregnant;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=HZFYUSER;Password=HZFYPWD"));
+                var dbContext = new DbContext(DBHelper.GetSqlDbConnection("Data Source=192.168.50.102;Initial Catalog=HL_Pregnant;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=HZFYUSER;Password=HZFYPWD"));
                 var sampleRespository = new SampleRespository(dbContext);
                 var result = dbContext.DelegateTransaction((g) =>
                 {

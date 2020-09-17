@@ -170,6 +170,7 @@
     <Compile Include="Business\ExcelGenerator\PlaceHolder.cs" />
     <Compile Include="Business\GJPredeliveryAsync\PreDelivery.cs" />
     <Compile Include="Business\SDMockCommit\DALs\ESBDAL.cs" />
+    <Compile Include="Business\SDMockCommit\DALs\HISDAL.cs" />
     <Compile Include="Business\SDMockCommit\Dics\Apnea.cs" />
     <Compile Include="Business\SDMockCommit\Dics\BreastStatus.cs" />
     <Compile Include="Business\SDMockCommit\Dics\Diagnosis.cs" />
@@ -179,6 +180,9 @@
     <Compile Include="Business\SDMockCommit\Dics\Common.cs" />
     <Compile Include="Business\SDMockCommit\Dics\AmnioticFluidCharacter.cs" />
     <Compile Include="Business\SDMockCommit\Dics\DeliveryManner.cs" />
+    <Compile Include="Business\SDMockCommit\Dics\PostnatalComplications.cs" />
+    <Compile Include="Business\SDMockCommit\Dics\PregnancyComplicationsB.cs" />
+    <Compile Include="Business\SDMockCommit\Dics\PregnancyComplicationsA.cs" />
     <Compile Include="Business\SDMockCommit\Dics\UterineContraction.cs" />
     <Compile Include="Business\SDMockCommit\Dics\VaginalDeliveryType.cs" />
     <Compile Include="Business\SDMockCommit\Dics\0.Sample.cs" />
