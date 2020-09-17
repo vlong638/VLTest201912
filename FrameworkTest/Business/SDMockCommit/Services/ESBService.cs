@@ -14,17 +14,15 @@ namespace FrameworkTest.Business.SDMockCommit
             this.DBContext = context;
         }
 
-
         #region BirthDefect
 
-        internal List<BirthDefect> GetBirthDefects(string patientId)
+        internal List<BirthDefect> GetBirthDefects(string idcard)
         {
-            return HISDAL.GetBirthDefects(DBContext.DbGroup, patientId);
+            return HISDAL.GetBirthDefects(DBContext.DbGroup, idcard);
         }
 
         #endregion
     }
-
 
     public class ESBService
     {

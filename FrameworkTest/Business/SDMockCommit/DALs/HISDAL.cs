@@ -18,11 +18,11 @@ namespace FrameworkTest.Business.SDMockCommit
         /// <param name="dbGroup"></param>
         /// <param name="patientId"></param>
         /// <returns></returns>
-        internal static List<BirthDefect> GetBirthDefects(DbGroup dbGroup, string patientId)
+        internal static List<BirthDefect> GetBirthDefects(DbGroup dbGroup, string idcard)
         {
             return dbGroup.Connection.Query<BirthDefect>($@"
---select bingrenid from V_FWPT_MZ_YIJI where bingrenid = @patientId
-", new { patientId }, transaction: dbGroup.Transaction).ToList();
+select * from XSECSQX2  where 身份证号 = :idcard
+", new { idcard }, transaction: dbGroup.Transaction).ToList();
         }
 
         #endregion
