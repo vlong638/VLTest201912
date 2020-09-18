@@ -21,6 +21,7 @@ using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Encodings.Web;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
@@ -39,6 +40,18 @@ namespace FrameworkTest
 
         static void Main(string[] args)
         {
+            var yss = @") 管理率
+	from cc_highrisk h";
+            foreach (var c in yss)
+            {
+                Console.WriteLine(c);
+            }
+            var yssen = WebUtility.HtmlDecode(yss);
+            foreach (var c in yssen)
+            {
+                Console.WriteLine(c);
+            }
+
             //var ycc = "1/2";
             //var ycc2 = ycc.GetSubStringOrEmpty((ycc?.Length ?? 0) - 1) ?? "";//:"1", 本次胎次
 

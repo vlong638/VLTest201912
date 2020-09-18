@@ -73,6 +73,11 @@ namespace FrameworkTest.Business.SDMockCommit
             return ESBDAL.GetPregnantDischargesToUpdate(DBContext.DbGroup);
         }
 
+        internal object GetBirthDefects(string inp_no, string visit_id)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
 
         #region ChildDischarge

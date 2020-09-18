@@ -42,8 +42,8 @@ left join (
 	from cc_highrisk h
 	left join cc_generalinfo g on h.childid = g.childid
 	where h.status = 1
-	and h.registerdate &gt;= @取卵日期Start
-	and h.registerdate &lt;= @取卵日期End
+	<If Operator="NotEmpty" ComponentName ="取卵日期Start"> and h.registerdate &gt;= @取卵日期Start </If>
+	<If Operator="NotEmpty" ComponentName ="取卵日期End"> and h.registerdate &gt;= @取卵日期End </If>
 	and g.manaunitid in
 		(select fuwujgbh
 		from GY_FUWUJG
@@ -59,8 +59,8 @@ left join (
 	from cdh_newbornrecord nr
 	left join cdh_deliveryrecord dr on nr.chanshibh = dr.chanshibh
 	where nr.outcomeofbirth = 1
-	and nr.tianbiaosj &gt;= @取卵日期Start
-	and nr.tianbiaosj &lt;= @取卵日期End
+	<If Operator="NotEmpty" ComponentName ="取卵日期Start"> and nr.tianbiaosj &gt;= @取卵日期Start </If>
+	<If Operator="NotEmpty" ComponentName ="取卵日期End"> and nr.tianbiaosj &gt;= @取卵日期End </If>
 	and dr.visitunitcode in
 		(select fuwujgbh
 		from GY_FUWUJG
@@ -77,8 +77,8 @@ left join (
 	from cc_highrisk h
 	left join cc_generalinfo g on h.childid = g.childid
 	where h.status = 1
-	and h.registerdate &gt;= @取卵日期Start
-	and h.registerdate &lt;= @取卵日期End
+	<If Operator="NotEmpty" ComponentName ="取卵日期Start"> and h.registerdate &gt;= @取卵日期Start </If>
+	<If Operator="NotEmpty" ComponentName ="取卵日期End"> and h.registerdate &gt;= @取卵日期End </If>
 	and g.manaunitid in
 		(select fuwujgbh
 		from GY_FUWUJG

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace VL.Consolo_Core.Common.ValuesSolution
@@ -19,6 +20,65 @@ namespace VL.Consolo_Core.Common.ValuesSolution
         #endregion
 
         #region string
+
+        public static List<string> GetMatches(this string str, string start, string end)
+        {
+            List<string> result = new List<string>();
+            var temp = "";//临时字符串,用以判断起止
+            var cStart = start.ToCharArray();
+            var cEnd = end.ToCharArray();
+            var isStart = false;
+            var current = "";//当前内容项
+            foreach (var c in str)
+            {
+                if (!isStart && cStart.Contains(c))
+                {
+                    if (start[temp.Length] != c)
+                    {
+                        temp = start[0] == c ? c.ToString() : "";
+
+                    }
+                    else
+                    {
+                        temp += c;
+                        if (temp == start)
+                        {
+                            isStart = true;
+                            temp = "";
+                            current = start;
+                        }
+                    }
+                    continue;
+                }
+                else if (isStart && cEnd.Contains(c))
+                {
+                    current += c;
+                    if (end[temp.Length] != c)
+                    {
+                        temp = end[0] == c ? c.ToString() : "";
+
+                    }
+                    else
+                    {
+                        temp += c;
+                        if (temp == end)
+                        {
+                            isStart = false;
+                            temp = "";
+                            result.Add(current);
+                            current = "";
+                        }
+                    }
+                }
+                else
+                {
+                    current += c;
+                    temp = "";
+                }
+            }
+            return result;
+        }
+
         public static bool IsNullOrEmpty(this string str)
         {
             return string.IsNullOrEmpty(str);

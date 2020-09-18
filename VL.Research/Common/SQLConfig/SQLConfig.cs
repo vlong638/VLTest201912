@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Xml.Linq;
 using VL.Consolo_Core.Common.ValuesSolution;
 using VL.Research.Models;
@@ -106,6 +107,7 @@ namespace VL.Research.Common
         internal string GetListSQL()
         {
             var sql = Source.SQL;
+            UpdateIf(ref sql, Source.Wheres);
             var propertiesIsOn = Source.Properties.Where(c => c.IsOn).Select(c => c.Alias);
             var fields = propertiesIsOn.Count() == 0 ? "*" : string.Join(",", propertiesIsOn);
             sql = sql.Replace("@Properties", fields);
@@ -118,6 +120,50 @@ namespace VL.Research.Common
             sql = sql.Replace("@OrderBy", $"order by {orderBy} {order}");
             sql = sql.Replace("@Pager", $"offset {Skip} rows fetch next {Limit} rows only");
             return sql;
+        }
+
+        private void UpdateIf(ref string sql, List<SQLConfigWhere> wheres)
+        {
+            var ifItems = sql.GetMatches("<If", "</If>");
+            foreach (var ifItem in ifItems)
+            {
+                var xItem = new XDocument(new XElement("root", XElement.Parse(ifItem)));
+                var ifEntity = xItem.Descendants(IfCondition.ElementName).Select(c => new IfCondition(c)).First();
+                sql = sql.Replace(ifItem, ifEntity.GetSQL(wheres));
+            }
+        }
+
+        class IfCondition
+        {
+            public static string ElementName = "If";
+
+            public string Operator { set; get; }
+            public string ComponentName { set; get; }
+            public string Text { set; get; }
+
+            public IfCondition(XElement element)
+            {
+                Operator = element.Attribute(nameof(Operator)).Value;
+                ComponentName = element.Attribute(nameof(ComponentName))?.Value;
+                Text = element.Value;
+            }
+
+            internal string GetSQL(List<SQLConfigWhere> wheres)
+            {
+                switch (Operator)
+                {
+                    case "NotEmpty":
+                        var where = wheres.FirstOrDefault(c => c.ComponentName == ComponentName);
+                        if (where != null && !where.Value.IsNullOrEmpty())
+                        {
+                            return Text;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                return "";
+            }
         }
 
         internal string GetCountSQL()
@@ -225,11 +271,12 @@ namespace VL.Research.Common
         public SQLConfigSource(XElement element)
         {
             SourceName = element.Attribute(nameof(SourceName))?.Value ?? "";
-            DBSourceType = element.Attribute(nameof(DBSourceType))?.Value.ToEnum<DBSourceType>()??DBSourceType.None;
+            DBSourceType = element.Attribute(nameof(DBSourceType))?.Value.ToEnum<DBSourceType>() ?? DBSourceType.None;
             Properties = element.Descendants(SQLConfigProperty.ElementName).Select(c => new SQLConfigProperty(c)).ToList();
             Wheres = element.Descendants(SQLConfigWhere.ElementName).Select(c => new SQLConfigWhere(c)).ToList();
             OrderBys = element.Descendants(SQLConfigOrderBy.ElementName).Select(c => new SQLConfigOrderBy(c)).ToList();
-            SQL = element.Descendants(nameof(SQL))?.FirstOrDefault()?.Value;
+            SQL = element.Descendants(nameof(SQL))?.FirstOrDefault()?.ToString().TrimStart("<SQL>").TrimEnd("</SQL>");
+            SQL = WebUtility.HtmlDecode(SQL);
             CountSQL = element.Descendants(nameof(CountSQL))?.FirstOrDefault()?.Value;
             var OrderBysRoot = element.Descendants(SQLConfigOrderBy.RootElementName).First();
             DefaultComponentName = OrderBysRoot.Attribute(nameof(DefaultComponentName))?.Value ?? "";
@@ -312,7 +359,7 @@ namespace VL.Research.Common
         /// <summary>
         /// 值
         /// </summary>
-        public object Value { set; get; }
+        public string Value { set; get; }
         /// <summary>
         /// 项目名称
         /// </summary>
