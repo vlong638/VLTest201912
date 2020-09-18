@@ -53,7 +53,7 @@ namespace VL.Research.Repositories
         /// 
         /// </summary>
         /// <returns></returns>
-        public DataTable GetCommonSelect(ExportSource config)
+        public DataTable GetCommonSelect(Consolo_Core.Common.ExcelExportSolution.SQLConfigSource config)
         {
             var sql = config.GetListSQL();
             var pars = config.GetParams();

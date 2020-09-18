@@ -10,7 +10,17 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
     {
         public PlaceHolder(string text)
         {
-            if (text.StartsWith("@Loop"))
+            if (text.StartsWith("@LoopAuto"))
+            {
+                var ss = text.TrimStart("@LoopAuto");
+                var values = ss.Split('_');
+                if (values.Count() != 3)
+                    return;
+                LoopAuto = true;
+                Source = values[1];
+                Field = values[2];
+            }
+            else if (text.StartsWith("@Loop"))
             {
                 var ss = text.TrimStart("@Loop");
                 var values = ss.Split('_');
@@ -20,9 +30,9 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
                 Source = values[1];
                 Field = values[2];
             }
-            else if (text.StartsWith("@Sum"))
+            else if (text.StartsWith("@SumInt"))
             {
-                var ss = text.TrimStart("@Sum_");
+                var ss = text;
                 var values = ss.Split('_');
                 if (values.Count() != 3)
                     return;
@@ -44,6 +54,7 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
         public string Source { set; get; } = "";
         public string Field { set; get; } = "";
         public int Loop { set; get; }
+        public bool LoopAuto { set; get; }
         public string Func { set; get; }
     }
 }

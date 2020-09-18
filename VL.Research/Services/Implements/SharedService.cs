@@ -35,7 +35,7 @@ namespace VL.Research.Services
         /// </summary>
         public ServiceResult<VLPagerTableResult<List<Dictionary<string, object>>>> GetCommonSelectBySQLConfig(SQLConfig sqlConfig)
         {
-            var adbContext = dbContext.GetDBContext(sqlConfig.Source.DBSourceType);
+            var adbContext = dbContext.GetDBContext(sqlConfig.Source.DBSourceType.ToEnum<DBSourceType>());
             var result = adbContext.DelegateTransaction((g) =>
             {
                 sharedRepository = new SharedRepository(adbContext);
@@ -46,7 +46,7 @@ namespace VL.Research.Services
             return result;
         }
 
-        internal ServiceResult<DataTable> GetCommonSelectByExportConfig(ExportSource sourceConfig)
+        internal ServiceResult<DataTable> GetCommonSelectByExportConfig(Consolo_Core.Common.ExcelExportSolution.SQLConfigSource sourceConfig)
         {
             var result = dbContext.CommonDbContext.DelegateTransaction((g) =>
             {
@@ -61,7 +61,7 @@ namespace VL.Research.Services
         /// <param name="sourceConfig"></param>
         /// <param name="source"></param>
         /// <returns></returns>
-        internal ServiceResult<DataTable> GetCommonSelectByExportConfig(ExportSource sourceConfig, DBSourceType source)
+        internal ServiceResult<DataTable> GetCommonSelectByExportConfig(Consolo_Core.Common.ExcelExportSolution.SQLConfigSource sourceConfig, DBSourceType source)
         {
             var adbContext = dbContext.GetDBContext(source);
             var result = adbContext.DelegateTransaction((g) =>

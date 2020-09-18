@@ -131,7 +131,7 @@ namespace VL.Research.Services
             return result;
         }
 
-        public void GetCommonSelect(ExportSource sourceConfig)
+        public void GetCommonSelect(Consolo_Core.Common.ExcelExportSolution.SQLConfigSource sourceConfig)
         {
             throw new NotImplementedException();
         }

@@ -5,12 +5,15 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
     /// <summary>
     /// 
     /// </summary>
-    public class ExportSourceOrderBy
+    public class SQLConfigOrderBy
     {
+        /// 
+        /// </summary>
+        public const string RootElementName = "OrderBys";
         /// <summary>
         /// 
         /// </summary>
-        public const string NodeElementName = "OrderBy";
+        public const string ElementName = "OrderBy";
 
         /// <summary>
         /// 是否启用
@@ -33,7 +36,7 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
         /// 
         /// </summary>
         /// <param name="element"></param>
-        public ExportSourceOrderBy(XElement element)
+        public SQLConfigOrderBy(XElement element)
         {
             ComponentName = element.Attribute(nameof(ComponentName))?.Value;
             Alias = element.Attribute(nameof(Alias))?.Value;
@@ -45,7 +48,7 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
         /// <returns></returns>
         public XElement ToXElement()
         {
-            var property = new XElement(NodeElementName);
+            var property = new XElement(ElementName);
             property.SetAttributeValue(nameof(ComponentName), ComponentName);
             property.SetAttributeValue(nameof(Alias), Alias);
             return property;

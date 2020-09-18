@@ -3,21 +3,20 @@
 	<View ViewName="">
 		<Source SourceName="Data" DBSourceType="FYPTConnectionString">
 			<Properties>
-				<Property IsOn="true" ColumnName="*" Alias ="jg.fuwujgmc 单位名称
-,hc.*
-,info.* 
-,za.*
-"/>
+				<Property IsOn="true" ColumnName="*" Alias =""/>
 			</Properties>
 			<Wheres>
-				<Where ComponentName="取卵日期Start">tb.取卵日期 &gt;= @取卵日期Start</Where>
-				<Where ComponentName="取卵日期End">tb.取卵日期 &lt;= @取卵日期End</Where>
+				<Where ComponentName="登记日期Start">tb.登记日期 &gt;= @登记日期Start</Where>
+				<Where ComponentName="登记日期End">tb.登记日期 &lt;= @登记日期End</Where>
 			</Wheres>
 			<OrderBys>
 				<OrderBy ComponentName="id" Alias ="tb.序号"/>
 			</OrderBys>
 			<SQL>
-select @Properties
+select jg.fuwujgmc 单位名称
+,hc.*
+,info.* 
+,za.*
 from (
 	select fuwujgbh,fuwujgmc
 	from GY_FUWUJG
@@ -42,8 +41,8 @@ left join (
 	from cc_highrisk h
 	left join cc_generalinfo g on h.childid = g.childid
 	where h.status = 1
-	<If Operator="NotEmpty" ComponentName ="取卵日期Start"> and h.registerdate &gt;= @取卵日期Start </If>
-	<If Operator="NotEmpty" ComponentName ="取卵日期End"> and h.registerdate &gt;= @取卵日期End </If>
+	<If Operator="NotEmpty" ComponentName ="登记日期Start"> and h.registerdate &gt;= @登记日期Start </If>
+	<If Operator="NotEmpty" ComponentName ="登记日期End"> and h.registerdate &gt;= @登记日期End </If>
 	and g.manaunitid in
 		(select fuwujgbh
 		from GY_FUWUJG
@@ -59,8 +58,8 @@ left join (
 	from cdh_newbornrecord nr
 	left join cdh_deliveryrecord dr on nr.chanshibh = dr.chanshibh
 	where nr.outcomeofbirth = 1
-	<If Operator="NotEmpty" ComponentName ="取卵日期Start"> and nr.tianbiaosj &gt;= @取卵日期Start </If>
-	<If Operator="NotEmpty" ComponentName ="取卵日期End"> and nr.tianbiaosj &gt;= @取卵日期End </If>
+	<If Operator="NotEmpty" ComponentName ="登记日期Start"> and nr.tianbiaosj &gt;= @登记日期Start </If>
+	<If Operator="NotEmpty" ComponentName ="登记日期End"> and nr.tianbiaosj &gt;= @登记日期End </If>
 	and dr.visitunitcode in
 		(select fuwujgbh
 		from GY_FUWUJG
@@ -77,8 +76,8 @@ left join (
 	from cc_highrisk h
 	left join cc_generalinfo g on h.childid = g.childid
 	where h.status = 1
-	<If Operator="NotEmpty" ComponentName ="取卵日期Start"> and h.registerdate &gt;= @取卵日期Start </If>
-	<If Operator="NotEmpty" ComponentName ="取卵日期End"> and h.registerdate &gt;= @取卵日期End </If>
+	<If Operator="NotEmpty" ComponentName ="登记日期Start"> and h.registerdate &gt;= @登记日期Start </If>
+	<If Operator="NotEmpty" ComponentName ="登记日期End"> and h.registerdate &gt;= @登记日期End </If>
 	and g.manaunitid in
 		(select fuwujgbh
 		from GY_FUWUJG

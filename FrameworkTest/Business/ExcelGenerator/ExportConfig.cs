@@ -3,6 +3,7 @@ using FrameworkTest.Common.DALSolution;
 using FrameworkTest.Common.DBSolution;
 using FrameworkTest.Common.ExcelSolution;
 using FrameworkTest.Common.ValuesSolution;
+using NPOI.SS.Formula;
 using NPOI.SS.UserModel;
 using System;
 using System.Collections.Generic;
@@ -109,7 +110,22 @@ namespace FrameworkTest.Business.ExcelGenerator
                         var talbe = (DataSources[holder.Source]);
                         if (talbe == null || !talbe.Columns.Contains(holder.Field))
                             continue;
-                        if (holder.Loop > 1)
+                        if (holder.LoopAuto)
+                        {
+                            if (j == 0)
+                            {
+                                for (int n = 0; n < talbe.Rows.Count; n++)
+                                {
+                                    sheet.CreateRow(i + 1);
+                                }
+                            }
+                            for (int n = 0; n < talbe.Rows.Count; n++)
+                            {
+                                var value = talbe.Rows[n][holder.Field]?.ToString();
+                                sheet.VLSetCellValue(i + n, j, value);
+                            }
+                        }
+                        else if (holder.Loop > 1)
                         {
                             for (int n = 0; n < holder.Loop; n++)
                             {

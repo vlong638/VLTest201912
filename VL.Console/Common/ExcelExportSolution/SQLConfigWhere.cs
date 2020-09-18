@@ -6,18 +6,18 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
     /// <summary>
     /// 
     /// </summary>
-    public class ExportSourceWhere
+    public class SQLConfigWhere
     {
         /// <summary>
         /// 
         /// </summary>
-        public const string NodeElementName = "Where";
+        public const string ElementName = "Where";
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="element"></param>
-        public ExportSourceWhere(XElement element)
+        public SQLConfigWhere(XElement element)
         {
             ComponentName = element.Attribute(nameof(ComponentName))?.Value;
             Formatter = element.Attribute(nameof(Formatter))?.Value;
@@ -25,6 +25,14 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
             SQL = element.Value;
         }
 
+        /// <summary>
+        /// 是否启用
+        /// </summary>
+        public bool IsOn { set; get; }
+        /// <summary>
+        /// 值
+        /// </summary>
+        public string Value { set; get; }
         /// <summary>
         /// 项目名称
         /// </summary>
@@ -38,24 +46,13 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
         /// </summary>
         public string Formatter { get; set; }
 
-        #region compute
-        /// <summary>
-        /// 是否启用
-        /// </summary>
-        public bool IsOn { set; get; }
-        /// <summary>
-        /// 值
-        /// </summary>
-        public object Value { set; get; }
-        #endregion
-
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
         public XElement ToXElement()
         {
-            var property = new XElement(NodeElementName);
+            var property = new XElement(ElementName);
             property.SetAttributeValue(nameof(ComponentName), ComponentName);
             property.SetAttributeValue(nameof(Formatter), Formatter);
             property.SetValue(SQL);

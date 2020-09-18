@@ -8,7 +8,17 @@ namespace FrameworkTest.Business.ExcelGenerator
     {
         public PlaceHolder(string text)
         {
-            if (text.StartsWith("@Loop"))
+            if (text.StartsWith("@LoopAuto"))
+            {
+                var ss = text.TrimStart("@LoopAuto");
+                var values = ss.Split('_');
+                if (values.Count() != 3)
+                    return;
+                LoopAuto = true;
+                Source = values[1];
+                Field = values[2];
+            }
+            else if (text.StartsWith("@Loop"))
             {
                 var ss = text.TrimStart("@Loop");
                 var values = ss.Split('_');
@@ -32,5 +42,6 @@ namespace FrameworkTest.Business.ExcelGenerator
         public string Source { set; get; } = "";
         public string Field { set; get; } = "";
         public int Loop { set; get; }
+        public bool LoopAuto { set; get; }
     }
 }

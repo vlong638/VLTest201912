@@ -440,203 +440,6 @@
             </summary>
             <param name="element"></param>
         </member>
-        <member name="T:VL.Research.Common.SQLConfigSource">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="F:VL.Research.Common.SQLConfigSource.ElementName">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:VL.Research.Common.SQLConfigSource.SourceName">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:VL.Research.Common.SQLConfigSource.DBSourceType">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:VL.Research.Common.SQLConfigSource.Properties">
-            <summary>
-            页面字段
-            </summary>
-        </member>
-        <member name="P:VL.Research.Common.SQLConfigSource.Wheres">
-            <summary>
-            页面条件项
-            </summary>
-        </member>
-        <member name="P:VL.Research.Common.SQLConfigSource.OrderBys">
-            <summary>
-            页面排序项
-            </summary>
-        </member>
-        <member name="P:VL.Research.Common.SQLConfigSource.DefaultComponentName">
-            <summary>
-            默认排序项
-            </summary>
-        </member>
-        <member name="P:VL.Research.Common.SQLConfigSource.DefaultOrder">
-            <summary>
-            默认排序项
-            </summary>
-        </member>
-        <member name="P:VL.Research.Common.SQLConfigSource.SQL">
-            <summary>
-            预设SQL
-            </summary>
-        </member>
-        <member name="P:VL.Research.Common.SQLConfigSource.CountSQL">
-            <summary>
-            预设CountSQL
-            </summary>
-        </member>
-        <member name="M:VL.Research.Common.SQLConfigSource.#ctor">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:VL.Research.Common.SQLConfigSource.#ctor(System.Xml.Linq.XElement)">
-            <summary>
-            
-            </summary>
-            <param name="element"></param>
-        </member>
-        <member name="T:VL.Research.Common.SQLConfigProperty">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="F:VL.Research.Common.SQLConfigProperty.ElementName">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:VL.Research.Common.SQLConfigProperty.#ctor(System.Xml.Linq.XElement)">
-            <summary>
-            
-            </summary>
-            <param name="element"></param>
-        </member>
-        <member name="P:VL.Research.Common.SQLConfigProperty.IsOn">
-            <summary>
-            是否启用
-            </summary>
-        </member>
-        <member name="P:VL.Research.Common.SQLConfigProperty.ColumnName">
-            <summary>
-            字段名称
-            </summary>
-        </member>
-        <member name="P:VL.Research.Common.SQLConfigProperty.Alias">
-            <summary>
-            查询用名称
-            </summary>
-        </member>
-        <member name="M:VL.Research.Common.SQLConfigProperty.ToXElement">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:VL.Research.Common.SQLConfigWhere">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="F:VL.Research.Common.SQLConfigWhere.ElementName">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:VL.Research.Common.SQLConfigWhere.#ctor(System.Xml.Linq.XElement)">
-            <summary>
-            
-            </summary>
-            <param name="element"></param>
-        </member>
-        <member name="P:VL.Research.Common.SQLConfigWhere.IsOn">
-            <summary>
-            是否启用
-            </summary>
-        </member>
-        <member name="P:VL.Research.Common.SQLConfigWhere.Value">
-            <summary>
-            值
-            </summary>
-        </member>
-        <member name="P:VL.Research.Common.SQLConfigWhere.ComponentName">
-            <summary>
-            项目名称
-            </summary>
-        </member>
-        <member name="P:VL.Research.Common.SQLConfigWhere.SQL">
-            <summary>
-            值
-            </summary>
-        </member>
-        <member name="P:VL.Research.Common.SQLConfigWhere.Formatter">
-            <summary>
-            格式化
-            </summary>
-        </member>
-        <member name="M:VL.Research.Common.SQLConfigWhere.ToXElement">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:VL.Research.Common.SQLConfigOrderBy">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="F:VL.Research.Common.SQLConfigOrderBy.RootElementName">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="F:VL.Research.Common.SQLConfigOrderBy.ElementName">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:VL.Research.Common.SQLConfigOrderBy.IsOn">
-            <summary>
-            是否启用
-            </summary>
-        </member>
-        <member name="P:VL.Research.Common.SQLConfigOrderBy.IsAsc">
-            <summary>
-            是否正序
-            </summary>
-        </member>
-        <member name="P:VL.Research.Common.SQLConfigOrderBy.ComponentName">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:VL.Research.Common.SQLConfigOrderBy.Alias">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:VL.Research.Common.SQLConfigOrderBy.#ctor(System.Xml.Linq.XElement)">
-            <summary>
-            
-            </summary>
-            <param name="element"></param>
-        </member>
-        <member name="M:VL.Research.Common.SQLConfigOrderBy.ToXElement">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
         <member name="P:VL.Research.Common.DBListConfig.TableName">
             <summary>
             表名
@@ -2644,7 +2447,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Repositories.SharedRepository.GetCommonSelect(VL.Consolo_Core.Common.ExcelExportSolution.ExportSource)">
+        <member name="M:VL.Research.Repositories.SharedRepository.GetCommonSelect(VL.Consolo_Core.Common.ExcelExportSolution.SQLConfigSource)">
             <summary>
             
             </summary>
@@ -2712,7 +2515,7 @@
             通用查询模型
             </summary>
         </member>
-        <member name="M:VL.Research.Services.SharedService.GetCommonSelectByExportConfig(VL.Consolo_Core.Common.ExcelExportSolution.ExportSource,VL.Research.Common.DBSourceType)">
+        <member name="M:VL.Research.Services.SharedService.GetCommonSelectByExportConfig(VL.Consolo_Core.Common.ExcelExportSolution.SQLConfigSource,VL.Research.Common.DBSourceType)">
             <summary>
             获取通用的导出数据
             </summary>

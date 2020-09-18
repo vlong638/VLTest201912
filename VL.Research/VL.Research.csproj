@@ -116,10 +116,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="XMLConfig\GWE\ExportConfig_列表.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="XMLConfig\GWE\ListConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="XMLConfig\GWE\SQLConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLConfig\GWE\列表.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="XMLConfig\PregnantInfo\列表.xlsx">

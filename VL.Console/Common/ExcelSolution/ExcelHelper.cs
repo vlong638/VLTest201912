@@ -85,10 +85,11 @@ namespace VL.Consolo_Core.Common.ExcelSolution
                     case CellType.String:
                         return cell.StringCellValue.ToString();
                     case CellType.Formula:
+                    case CellType.Error:
+                        return "";
                     case CellType.Unknown:
                     case CellType.Blank:
                     case CellType.Boolean:
-                    case CellType.Error:
                     default:
                         throw new NotImplementedException("未支持该类型的公式取值");
                 }

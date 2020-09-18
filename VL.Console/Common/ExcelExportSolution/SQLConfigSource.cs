@@ -2,20 +2,53 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net;
 using System.Xml.Linq;
 using VL.Consolo_Core.Common.ValuesSolution;
 
 namespace VL.Consolo_Core.Common.ExcelExportSolution
 {
+    class IfCondition
+    {
+        public static string ElementName = "If";
+        public string Operator { set; get; }
+        public string ComponentName { set; get; }
+        public string Text { set; get; }
+
+        public IfCondition(XElement element)
+        {
+            Operator = element.Attribute(nameof(Operator)).Value;
+            ComponentName = element.Attribute(nameof(ComponentName))?.Value;
+            Text = element.Value;
+        }
+
+        internal string GetSQL(List<SQLConfigWhere> wheres)
+        {
+            switch (Operator)
+            {
+                case "NotEmpty":
+                    var where = wheres.FirstOrDefault(c => c.ComponentName == ComponentName);
+                    if (where != null && !where.Value.IsNullOrEmpty())
+                    {
+                        return Text;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            return "";
+        }
+    }
+
     /// <summary>
     /// 数据源
     /// </summary>
-    public class ExportSource
+    public class SQLConfigSource
     {
         /// <summary>
         /// 
         /// </summary>
-        public const string NodeElementName = "Source";
+        public const string ElementName = "Source";
 
         /// <summary>
         /// 数据源名称
@@ -29,7 +62,7 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
         /// <summary>
         /// 页面字段
         /// </summary>
-        public List<ExportSourceProperty> Properties { set; get; }
+        public List<SQLConfigProperty> Properties { set; get; }
         /// <summary>
         /// 
         /// </summary>
@@ -41,53 +74,93 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
         /// <summary>
         /// 页面条件项
         /// </summary>
-        public List<ExportSourceWhere> Wheres { set; get; }
+        public List<SQLConfigWhere> Wheres { set; get; }
         /// <summary>
         /// 页面排序项
         /// </summary>
-        public List<ExportSourceOrderBy> OrderBys { set; get; }
+        public List<SQLConfigOrderBy> OrderBys { set; get; }
         /// <summary>
-        /// 
+        /// 默认排序项
+        /// </summary>
+        public string DefaultComponentName { get; private set; }
+        /// <summary>
+        /// 默认排序项
+        /// </summary>
+        public string DefaultOrder { get; private set; }
+        /// <summary>
+        /// 预设SQL
         /// </summary>
         public string SQL { set; get; }
+        /// <summary>
+        /// 预设CountSQL
+        /// </summary>
+        public string CountSQL { set; get; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="element"></param>
-        public ExportSource(XElement element)
+        public SQLConfigSource(XElement element)
         {
-            SourceName = element.Attribute(nameof(SourceName))?.Value;
-            DBSourceType = element.Attribute(nameof(DBSourceType))?.Value;
-            SQL = element.Descendants("SQL").First().Value;
-            Properties = element.Descendants(ExportSourceProperty.NodeElementName).Select(c => new ExportSourceProperty(c)).ToList();
+            SourceName = element.Attribute(nameof(SourceName))?.Value ?? "";
+            DBSourceType = element.Attribute(nameof(DBSourceType))?.Value ?? "";
+            Properties = element.Descendants(SQLConfigProperty.ElementName).Select(c => new SQLConfigProperty(c)).ToList();
+            Wheres = element.Descendants(SQLConfigWhere.ElementName).Select(c => new SQLConfigWhere(c)).ToList();
+            OrderBys = element.Descendants(SQLConfigOrderBy.ElementName).Select(c => new SQLConfigOrderBy(c)).ToList();
+            SQL = element.Descendants(nameof(SQL))?.FirstOrDefault()?.ToString().TrimStart("<SQL>").TrimEnd("</SQL>");
+            SQL = WebUtility.HtmlDecode(SQL);
+            CountSQL = element.Descendants(nameof(CountSQL))?.FirstOrDefault()?.Value;
+            var OrderBysRoot = element.Descendants(SQLConfigOrderBy.RootElementName).First();
+            DefaultComponentName = OrderBysRoot.Attribute(nameof(DefaultComponentName))?.Value ?? "";
+            DefaultOrder = OrderBysRoot.Attribute(nameof(DefaultOrder))?.Value ?? "";
             Transforms = element.Descendants(ExportSourceTransform.ElementName).Select(c => new ExportSourceTransform(c)).ToList();
             Mappings = element.Descendants(ExportSourceMapping.ElementName).Select(c => new ExportSourceMapping(c)).ToList();
-            Wheres = element.Descendants(ExportSourceWhere.NodeElementName).Select(c => new ExportSourceWhere(c)).ToList();
-            OrderBys = element.Descendants(ExportSourceOrderBy.NodeElementName).Select(c => new ExportSourceOrderBy(c)).ToList();
+
+
+            //SourceName = element.Attribute(nameof(SourceName))?.Value;
+            //DBSourceType = element.Attribute(nameof(DBSourceType))?.Value;
+            //SQL = element.Descendants("SQL").First().Value;
+            //Properties = element.Descendants(SQLConfigProperty.ElementName).Select(c => new SQLConfigProperty(c)).ToList();
+            //Transforms = element.Descendants(ExportSourceTransform.ElementName).Select(c => new ExportSourceTransform(c)).ToList();
+            //Mappings = element.Descendants(ExportSourceMapping.ElementName).Select(c => new ExportSourceMapping(c)).ToList();
+            //Wheres = element.Descendants(SQLConfigWhere.ElementName).Select(c => new SQLConfigWhere(c)).ToList();
+            //OrderBys = element.Descendants(SQLConfigOrderBy.ElementName).Select(c => new SQLConfigOrderBy(c)).ToList();
         }
 
-        public string GetListSQL()
+        public string GetListSQL(int skip = 0,int limit = 0)
         {
             var sql = SQL;
+            UpdateIf(ref sql, Wheres);
             var propertiesIsOn = Properties.Select(c => c.Alias);
             var fields = propertiesIsOn.Count() == 0 ? "*" : string.Join(",", propertiesIsOn);
             sql = sql.Replace("@Properties", fields);
             var wheresIsOn = Wheres.Where(c => c.IsOn).Select(c => c.SQL);
             var wheres = wheresIsOn.Count() == 0 ? "" : $"where {string.Join(" and ", wheresIsOn)}";
             sql = sql.Replace("@Wheres", wheres);
-            if (OrderBys != null && OrderBys.Count > 0)
+
+            var orderByIsOn = OrderBys.FirstOrDefault(c => c.IsOn) ?? OrderBys.First();
+            var orderBy = orderByIsOn.Alias;
+            var order = orderByIsOn.IsAsc ? "asc" : "desc";
+            sql = sql.Replace("@OrderBy", $"order by {orderBy} {order}");
+            if (limit==0)
             {
-                var orderByIsOn = OrderBys.FirstOrDefault(c => c.IsOn) ?? OrderBys.First();
-                var orderBy = orderByIsOn.Alias;
-                var order = orderByIsOn.IsAsc ? "asc" : "desc";
-                sql = sql.Replace("@OrderBy", $"order by {orderBy} {order}");
+                sql = sql.Replace("@Pager", $"");
             }
             else
             {
-                sql = sql.Replace("@OrderBy", "");
+                sql = sql.Replace("@Pager", $"offset {skip} rows fetch next {limit} rows only");
             }
             return sql;
+        }
+        private void UpdateIf(ref string sql, List<SQLConfigWhere> wheres)
+        {
+            var ifItems = sql.GetMatches("<If", "</If>");
+            foreach (var ifItem in ifItems)
+            {
+                var xItem = new XDocument(new XElement("root", XElement.Parse(ifItem)));
+                var ifEntity = xItem.Descendants(IfCondition.ElementName).Select(c => new IfCondition(c)).First();
+                sql = sql.Replace(ifItem, ifEntity.GetSQL(wheres));
+            }
         }
 
         public Dictionary<string, object> GetParams()
