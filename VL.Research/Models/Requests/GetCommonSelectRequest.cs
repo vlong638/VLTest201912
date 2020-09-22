@@ -9,10 +9,6 @@ namespace VL.Research.Models
     public class GetCommonSelectRequest
     {
         /// <summary>
-        /// 目标视图
-        /// </summary>
-        public string target { set; get; }
-        /// <summary>
         /// 
         /// </summary>
         public int page { set; get; }

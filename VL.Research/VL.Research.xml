@@ -1778,11 +1778,6 @@
             统一查询入参结构
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetCommonSelectRequest.target">
-            <summary>
-            目标视图
-            </summary>
-        </member>
         <member name="P:VL.Research.Models.GetCommonSelectRequest.page">
             <summary>
             

@@ -552,8 +552,9 @@ namespace VL.Research.Controllers
         //[VLActionFilter(Authority.查看孕妇档案列表)]
         public APIResult<List<Dictionary<string, object>>, int> GetCommonSelectByViewName([FromServices] SharedService sharedService, GetCommonSelectRequest request)
         {
-            var listConfig = ConfigHelper.GetListConfigByTagName(request.target);
-            var sqlConfig = ConfigHelper.GetSQLConfigByTagName(request.target);
+            var viewName = request.search.First(c => c.Key.ToLower() == "viewname").Value;
+            var listConfig = ConfigHelper.GetListConfigByTagName(viewName);
+            var sqlConfig = ConfigHelper.GetSQLConfigByTagName(viewName);
             sqlConfig.PageIndex = request.page;
             sqlConfig.PageSize = request.limit;
             sqlConfig.UpdateWheres(request.search);
@@ -568,8 +569,9 @@ namespace VL.Research.Controllers
         //[VLActionFilter(Authority.查看孕妇档案列表)]
         public APIResult<List<Dictionary<string, object>>, int> GetCommonSelectByDirectoryName([FromServices] SharedService sharedService, GetCommonSelectRequest request)
         {
-            var listConfig = ConfigHelper.GetListConfigByDirectoryName(request.target);
-            var sqlConfig = ConfigHelper.GetSQLConfigByDirectoryName(request.target);
+            var viewName = request.search.First(c => c.Key.ToLower() == "viewname").Value;
+            var listConfig = ConfigHelper.GetListConfigByDirectoryName(viewName);
+            var sqlConfig = ConfigHelper.GetSQLConfigByDirectoryName(viewName);
             sqlConfig.PageIndex = request.page;
             sqlConfig.PageSize = request.limit;
             sqlConfig.UpdateWheres(request.search);

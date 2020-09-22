@@ -223,7 +223,8 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
     if (!isBlank(_data.table.where)) {
         // 处理加载表格初始参数
         $.each(_data.table.where, function (index, item) {
-            where[item.name] = item.value;
+            where.search.push({ key: item.name, value: item.value });
+            // where[item.name] = item.value;
         })
     }
     if (!isBlank(_data.table.where)) {
@@ -241,7 +242,6 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                     }
                 }
             }
-
         })
     }
 
