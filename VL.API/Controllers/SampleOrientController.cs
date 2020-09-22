@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
+using VLService;
 
 namespace VL.API.Controllers
 {
@@ -190,6 +192,18 @@ a41d38c6a93215025c658587f4aa7ceaa9ed08c2ced8873254c417a77403aff9a0abb3bc1d2ff42f
         {
             CommonId += value;
             return CommonId;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="hello"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [AllowAnonymous]
+        public Task<HelloReply> SayHello(HelloRequest hello)
+        {
+            return Task.FromResult(new HelloReply { Message = "Hello " + hello.Name });
         }
     }
 

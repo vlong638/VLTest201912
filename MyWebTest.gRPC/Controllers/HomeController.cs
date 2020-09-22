@@ -1,4 +1,5 @@
-﻿using FrameworkTest.Common.TimeSpanSolution;
+﻿using FrameworkTest.Common.HttpSolution;
+using FrameworkTest.Common.TimeSpanSolution;
 using Grpc.Core;
 using System;
 using System.Collections.Generic;
@@ -35,25 +36,49 @@ namespace MyWebTest.gRPC.Controllers
         const int Port = 30051;
         public ActionResult Compare01()
         {
+            //local
+            var localService = new SampleService();
+            var tLocal = TimeSpanHelper.GetTimeSpan(() =>
+            {
+                for (int i = 0; i < 10000; i++)
+                {
+                   var result = localService.SayHello(new HelloRequest() { Name = i.ToString() });
+                }
+            });
+            //webAPI
+            var container = new System.Net.CookieContainer();
+            var tWebAPI = TimeSpanHelper.GetTimeSpan(() =>
+            {
+                for (int i = 0; i < 10000; i++)
+                {
+                    var result = HttpHelper.Get("https://localhost:44327/api/values", "", ref container);
+                }
+            });
+            //gRPC
             Channel channel = new Channel($"{Server}:{Port}", ChannelCredentials.Insecure);
             var client = new VLService01.VLService01Client(channel);
-            var t1 = TimeSpanHelper.GetTimeSpan(() =>
+            var tRPC = TimeSpanHelper.GetTimeSpan(() =>
             {
                 for (int i = 0; i < 10000; i++)
                 {
-                    client.SayHello(new HelloRequest { Name = i.ToString() });
+                    var result = client.SayHello(new HelloRequest { Name = i.ToString() });
                 }
             });
-            var localService = new SampleService();
-            var t2 = TimeSpanHelper.GetTimeSpan(() =>
-            {
-                for (int i = 0; i < 10000; i++)
-                {
-                }
-            });
-            //万次
-            // grpc  {00:00:07.8723112}
-            // local {00:00:00.0010067}
+
+            var summary = $@"local:{tLocal.TotalMilliseconds}
+webAPI:{tWebAPI.TotalMilliseconds}
+tRPC:{tRPC.TotalMilliseconds}
+";
+            //万次 毫秒数 数据量极小值
+            //local: 0
+            //webAPI: 17123.4465
+            //tRPC: 8004.4685
+
+            //万次 毫秒数 数据量10kb
+
+            //万次 毫秒数 数据量100kb
+
+
             return View();
         }
 
