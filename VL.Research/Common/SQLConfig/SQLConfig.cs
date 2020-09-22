@@ -112,25 +112,7 @@ namespace VL.Research.Common
 
         internal string GetCountSQL()
         {
-            if (!Source.CountSQL.IsNullOrEmpty())
-            {
-                var sql = Source.CountSQL;
-                var wheresIsOn = Source.Wheres.Where(c => c.IsOn).Select(c => c.SQL);
-                var wheres = wheresIsOn.Count() == 0 ? "" : $"where {string.Join(" and ", wheresIsOn)}";
-                sql = sql.Replace("@Wheres", wheres);
-                return sql;
-            }
-            else
-            {
-                var sql = Source.SQL;
-                sql = sql.Replace("@Properties", "count(*)");
-                var wheresIsOn = Source.Wheres.Where(c => c.IsOn).Select(c => c.SQL);
-                var wheres = wheresIsOn.Count() == 0 ? "" : $"where {string.Join(" and ", wheresIsOn)}";
-                sql = sql.Replace("@Wheres", wheres);
-                sql = sql.Replace("@OrderBy", $"");
-                sql = sql.Replace("@Pager", $"");
-                return sql;
-            }
+            return Source.GetCountSQL();
         }
 
         internal Dictionary<string, object> GetParams()

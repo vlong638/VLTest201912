@@ -124,10 +124,14 @@ namespace VL.Research.Controllers
         /// <returns></returns>
         [HttpGet]
         //[VLAuthentication(Authority.查看孕妇档案列表)]
-        public ActionResult CommonListByViewName(string viewName, string defaultParams, string hiddenParams)
+        public ActionResult CommonListByViewName([FromServices] APIContext apiContext, string viewName, string defaultParams, string hiddenParams)
         {
             ViewBag.ViewName = viewName;
+            if (defaultParams == null)
+                defaultParams = GetParams(apiContext);
             ViewBag.DefaultParams = defaultParams; //支持格式 &defaultParams=A_111|B_222 
+            if (hiddenParams == null)
+                hiddenParams = GetParams(apiContext);
             ViewBag.HiddenParams = hiddenParams; //支持格式 &hiddenParams=A_111|B_222 
             return View();
         }
@@ -138,12 +142,21 @@ namespace VL.Research.Controllers
         /// <returns></returns>
         [HttpGet]
         //[VLAuthentication(Authority.查看孕妇档案列表)]
-        public ActionResult CommonListByDirectoryName(string viewName, string defaultParams, string hiddenParams)
+        public ActionResult CommonListByDirectoryName([FromServices] APIContext apiContext, string viewName, string defaultParams, string hiddenParams)
         {
             ViewBag.ViewName = viewName;
+            if (defaultParams == null)
+                defaultParams = GetParams(apiContext);
             ViewBag.DefaultParams = defaultParams; //支持格式 &defaultParams=A_111|B_222 
+            if (hiddenParams == null)
+                hiddenParams = GetParams(apiContext);
             ViewBag.HiddenParams = hiddenParams; //支持格式 &hiddenParams=A_111|B_222 
             return View();
+        }
+
+        private string GetParams(APIContext apiContext)
+        {
+            return System.Web.HttpUtility.UrlDecode(apiContext.HttpContext.Request.QueryString.Value.TrimStart("?")).Replace('=', '_').Replace('&','|');
         }
 
         /// <summary>

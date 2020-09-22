@@ -109,7 +109,8 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
             OrderBys = element.Descendants(SQLConfigOrderBy.ElementName).Select(c => new SQLConfigOrderBy(c)).ToList();
             SQL = element.Descendants(nameof(SQL))?.FirstOrDefault()?.ToString().TrimStart("<SQL>").TrimEnd("</SQL>");
             SQL = WebUtility.HtmlDecode(SQL);
-            CountSQL = element.Descendants(nameof(CountSQL))?.FirstOrDefault()?.Value;
+            CountSQL = element.Descendants(nameof(CountSQL))?.FirstOrDefault()?.ToString().TrimStart("<CountSQL>").TrimEnd("</CountSQL>");
+            CountSQL = WebUtility.HtmlDecode(CountSQL);
             var OrderBysRoot = element.Descendants(SQLConfigOrderBy.RootElementName).First();
             DefaultComponentName = OrderBysRoot.Attribute(nameof(DefaultComponentName))?.Value ?? "";
             DefaultOrder = OrderBysRoot.Attribute(nameof(DefaultOrder))?.Value ?? "";
@@ -125,6 +126,31 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
             //Mappings = element.Descendants(ExportSourceMapping.ElementName).Select(c => new ExportSourceMapping(c)).ToList();
             //Wheres = element.Descendants(SQLConfigWhere.ElementName).Select(c => new SQLConfigWhere(c)).ToList();
             //OrderBys = element.Descendants(SQLConfigOrderBy.ElementName).Select(c => new SQLConfigOrderBy(c)).ToList();
+        }
+
+        public string GetCountSQL()
+        {
+            if (!CountSQL.IsNullOrEmpty())
+            {
+                var sql = CountSQL;
+                UpdateIf(ref sql, Wheres);
+                var wheresIsOn = Wheres.Where(c => c.IsOn).Select(c => c.SQL);
+                var wheres = wheresIsOn.Count() == 0 ? "" : $"where {string.Join(" and ", wheresIsOn)}";
+                sql = sql.Replace("@Wheres", wheres);
+                return sql;
+            }
+            else
+            {
+                var sql = SQL;
+                UpdateIf(ref sql, Wheres);
+                sql = sql.Replace("@Properties", "count(*)");
+                var wheresIsOn = Wheres.Where(c => c.IsOn).Select(c => c.SQL);
+                var wheres = wheresIsOn.Count() == 0 ? "" : $"where {string.Join(" and ", wheresIsOn)}";
+                sql = sql.Replace("@Wheres", wheres);
+                sql = sql.Replace("@OrderBy", $"");
+                sql = sql.Replace("@Pager", $"");
+                return sql;
+            }
         }
 
         public string GetListSQL(int skip = 0,int limit = 0)

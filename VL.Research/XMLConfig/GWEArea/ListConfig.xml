@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Views>
+	<!--IsNeedOnPage="false" DisplayName="" (.+) Description="(\w+)"(.+)\r\n
+	IsNeedOnPage="true" DisplayName="$2" $1 Description="$2"$3\r\n-->
+	<View ViewName="GWE" ViewURL="../../api/System/GetCommonSelectByDirectoryName">
+		<Export URL="../../api/System/CommonExportAll"/>
+		<Wheres>
+			<Where ComponentName="登记日期" Value="" DisplayName="登记日期" DisplayType="5"/>
+			<!--"DisplayType <类型[1-文本框|2-数字框|3-单选下拉框|4-树状下拉框|5-日期选择框][默认:1]>",-->
+			<!--<Where ComponentName="序号" Value="" DisplayName="序号" DisplayType="1"/>-->
+		</Wheres>
+		<OrderBy DefaultName ="createdate" DefaultValue ="desc"/>
+		<ToolBars>
+			<ToolBar URL ="../Home/CommonListByDirectoryName" Params ="地区编码" DefaultParams="viewName=GWEOrganization" Text="查看地区机构" Type = "newPage" Description = "" Area = "300px,400px" YesFun = "yesFun"/>
+		</ToolBars>
+		<Properties>
+			<Property IsNeedOnPage="true" DisplayName="地区名称" ColumnName="地区名称" DisplayType="None" DisplayWidth="180" IsSortable="False" DataType="bigint" Description="-" />
+			<Property IsNeedOnPage="true" DisplayName="地区编码" ColumnName="地区编码" DisplayType="Hidden" DisplayWidth="180" IsSortable="False" DataType="bigint" Description="-" />
+			<Property IsNeedOnPage="true" DisplayName="活产数" ColumnName="活产数" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
+			<Property IsNeedOnPage="true" DisplayName="早产	" ColumnName="早产	" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property IsNeedOnPage="true" DisplayName="极低出生体重儿☆" ColumnName="极低出生体重儿" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property IsNeedOnPage="true" DisplayName="足月小样儿" ColumnName="足月小样儿" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property IsNeedOnPage="true" DisplayName="HIE" ColumnName="HIE" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property IsNeedOnPage="true" DisplayName="颅内出血" ColumnName="颅内出血" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property IsNeedOnPage="true" DisplayName="其他惊厥" ColumnName="其他惊厥" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property IsNeedOnPage="true" DisplayName="呼吸系统RDS" ColumnName="呼吸系统RDS" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property IsNeedOnPage="true" DisplayName="高胆红素血症" ColumnName="高胆红素血症" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property IsNeedOnPage="true" DisplayName="其它" ColumnName="其它" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property IsNeedOnPage="true" DisplayName="本季总数" ColumnName="本季总数" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property IsNeedOnPage="true" DisplayName="应管人数" ColumnName="应管人数" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property IsNeedOnPage="true" DisplayName="总管理人数	" ColumnName="总管理人数	" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property IsNeedOnPage="true" DisplayName="管理率%" ColumnName="管理率" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property IsNeedOnPage="true" DisplayName="当季结案数" ColumnName="本季总数" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+		</Properties>
+	</View>
+</Views>

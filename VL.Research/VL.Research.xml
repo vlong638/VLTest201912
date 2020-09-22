@@ -1975,13 +1975,13 @@
             登录
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.HomeController.CommonListByViewName(System.String,System.String,System.String)">
+        <member name="M:VL.Research.Controllers.HomeController.CommonListByViewName(VL.Research.Common.APIContext,System.String,System.String,System.String)">
             <summary>
             
             </summary>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.HomeController.CommonListByDirectoryName(System.String,System.String,System.String)">
+        <member name="M:VL.Research.Controllers.HomeController.CommonListByDirectoryName(VL.Research.Common.APIContext,System.String,System.String,System.String)">
             <summary>
             
             </summary>
@@ -2218,7 +2218,7 @@
             自定义配置Id
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.SystemController.GetDetailConfig(VL.Research.Services.UserService,System.String)">
+        <member name="M:VL.Research.Controllers.SystemController.GetDetailConfig(VL.Research.Common.APIContext,VL.Research.Services.UserService,System.String)">
             <summary>
             获取 列表配置
             </summary>
@@ -2229,21 +2229,15 @@
             通用导出
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.SystemController.GetListConfigByDirectoryName(VL.Research.Services.UserService,VL.Research.Models.GetListConfigRequest)">
+        <member name="M:VL.Research.Controllers.SystemController.GetListConfigByDirectoryName(VL.Research.Common.APIContext,VL.Research.Services.UserService,VL.Research.Models.GetListConfigRequest)">
             <summary>
             获取 列表配置
             </summary>
-            <param name="userService"></param>
-            <param name="request">请求参数实体</param>
-            <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.SystemController.GetListConfigByViewName(VL.Research.Services.UserService,VL.Research.Models.GetListConfigRequest)">
+        <member name="M:VL.Research.Controllers.SystemController.GetListConfigByViewName(VL.Research.Common.APIContext,VL.Research.Services.UserService,VL.Research.Models.GetListConfigRequest)">
             <summary>
             获取 列表配置
             </summary>
-            <param name="userService"></param>
-            <param name="request">请求参数实体</param>
-            <returns></returns>
         </member>
         <member name="M:VL.Research.Controllers.SystemController.GetNameValue(System.String)">
             <summary>

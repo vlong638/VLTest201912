@@ -138,6 +138,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                     alert("日期搜索参数必须以[\"开始日期参数名\",\"结束日期参数名\"]格式！")
                     return;
                 }
+                console.log(item);
                 html += `
                 <div class="layui-inline">
                     <label class="layui-form-label">` + item.text + `:</label>
@@ -216,11 +217,31 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
 
     /*---↑页面渲染↑-----------------↓事件绑定↓---*/
 
-    let where = {};
+    let where = {
+        search: []
+    };
     if (!isBlank(_data.table.where)) {
         // 处理加载表格初始参数
         $.each(_data.table.where, function (index, item) {
             where[item.name] = item.value;
+        })
+    }
+    if (!isBlank(_data.table.where)) {
+        // 处理加载表格初始参数
+        $.each(_data.search, function (index, item) {
+            if (!isBlank(item.value)) {
+                if (isBlank(item.name)) {
+                    where.search.push({ key: item.names[0], value: item.value.split(' - ')[0] });
+                    where.search.push({ key: item.names[1], value: item.value.split(' - ')[1] });
+                } else {
+                    if (!isBlank(item.value.id)) {
+                        where.search.push({ key: item.name, value: item.value.id });
+                    } else {
+                        where.search.push({ key: item.name, value: item.value });
+                    }
+                }
+            }
+
         })
     }
 
@@ -241,17 +262,20 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
     '</p>']*/
     // 表格渲染
 
-    let DTB = [{
-        title: '编辑并保存当前页面', //标题
-        layEvent: 'MODEL_SAVE', //事件名，用于 toolbar 事件中使用
-        icon: 'layui-icon-edit' //图标类名
-    }];
-    if (!isBlank(_data.modelId)) {
+    let DTB = [];
+    if (_data.isModel) {
         DTB.push({
-            title: '删除当前页面', //标题
-            layEvent: 'MODEL_DELETE', //事件名，用于 toolbar 事件中使用
-            icon: 'layui-icon-delete' //图标类名
+            title: '编辑并保存当前页面', //标题
+            layEvent: 'MODEL_SAVE', //事件名，用于 toolbar 事件中使用
+            icon: 'layui-icon-edit' //图标类名
         })
+        if (!isBlank(_data.modelId)) {
+            DTB.push({
+                title: '删除当前页面', //标题
+                layEvent: 'MODEL_DELETE', //事件名，用于 toolbar 事件中使用
+                icon: 'layui-icon-delete' //图标类名
+            })
+        }
     }
     if (!isBlank(_data.export)) {
         DTB.push({
@@ -281,9 +305,12 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
         },
         cols: _data.table.cols,
         done: function (res, curr, count) {
-            if (firstSearch) {
-                firstSearch = !firstSearch;
-                $(".tbSearch").click();
+            where = {};
+            if (!isBlank(_data.table.where)) {
+                // 处理加载表格初始参数
+                $.each(_data.table.where, function (index, item) {
+                    where[item.name] = item.value;
+                })
             }
         },
     });
@@ -309,11 +336,12 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
         $('.datepicker').each(function () {
             needSplit.push($(this).attr('data-param'))
         })
+        console.log(data)
         for (let i in data.field) {
             if (i !== 'search') {
                 //此处是为了保存每次搜索的参数
                 $.each(_data.search, function (index, item) {
-                    if (typeof item.name === 'string') {
+                    if (item.name !== undefined) {
                         if (item.name === i) {
                             if (item.type === 3 || item.type === 4) {
                                 $.each(item.options, function (_index, _item) {
@@ -324,7 +352,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                             }
                         }
                     } else {
-                        if (item.name.join('|') === i) {
+                        if (item.names.join('|') === i) {
                             item.value = data.field[i];
                         }
                     }

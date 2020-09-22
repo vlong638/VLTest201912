@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NPOI.XSSF.UserModel;
 using System;
@@ -302,7 +303,7 @@ namespace VL.Research.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public APIResult<DetailConfig> GetDetailConfig([FromServices] UserService userService, string viewName)
+        public APIResult<DetailConfig> GetDetailConfig([FromServices] APIContext apiContext, [FromServices] UserService userService, string viewName)
         {
             return Success(LoadDefaultDetailConfig(viewName));
         }
@@ -408,11 +409,8 @@ namespace VL.Research.Controllers
         /// <summary>
         /// 获取 列表配置
         /// </summary>
-        /// <param name="userService"></param>
-        /// <param name="request">请求参数实体</param>
-        /// <returns></returns>
         [HttpPost]
-        public APIResult<GetListConfigModel> GetListConfigByDirectoryName([FromServices] UserService userService, GetListConfigRequest request)
+        public APIResult<GetListConfigModel> GetListConfigByDirectoryName([FromServices]APIContext apiContext, [FromServices] UserService userService, GetListConfigRequest request)
         {
             if (request.ViewName.IsNullOrEmpty())
                 return null;
@@ -421,8 +419,7 @@ namespace VL.Research.Controllers
             var viewElements = doc.Descendants(ListConfig.NodeElementName);
             var listConfigs = viewElements.Select(c => new ListConfig(c));
             var listConfig = listConfigs.FirstOrDefault();
-
-            GetListConfigModel result = ToGetListConfigModel(request, listConfig);
+            GetListConfigModel result = ToGetListConfigModel(apiContext, request, listConfig);
 
             return Success(result);
         }
@@ -430,11 +427,8 @@ namespace VL.Research.Controllers
         /// <summary>
         /// 获取 列表配置
         /// </summary>
-        /// <param name="userService"></param>
-        /// <param name="request">请求参数实体</param>
-        /// <returns></returns>
         [HttpPost]
-        public APIResult<GetListConfigModel> GetListConfigByViewName([FromServices] UserService userService, GetListConfigRequest request)
+        public APIResult<GetListConfigModel> GetListConfigByViewName([FromServices] APIContext apiContext, [FromServices] UserService userService, GetListConfigRequest request)
         {
             if (request.ViewName.IsNullOrEmpty())
                 return null;
@@ -443,13 +437,11 @@ namespace VL.Research.Controllers
             var viewElements = doc.Descendants(ListConfig.NodeElementName);
             var listConfigs = viewElements.Select(c => new ListConfig(c));
             var listConfig = listConfigs.FirstOrDefault(c => c.ViewName == request.ViewName);
-
-            GetListConfigModel result = ToGetListConfigModel(request, listConfig);
-
+            GetListConfigModel result = ToGetListConfigModel(apiContext,request, listConfig);
             return Success(result);
         }
 
-        private static GetListConfigModel ToGetListConfigModel(GetListConfigRequest request, ListConfig listConfig)
+        private static GetListConfigModel ToGetListConfigModel(APIContext apiContext, GetListConfigRequest request, ListConfig listConfig)
         {
             listConfig.Properties.RemoveAll(c => !c.IsNeedOnPage);
             var defaultParams = GetNameValue(request.DefaultParams);
@@ -522,7 +514,6 @@ namespace VL.Research.Controllers
                     },
                 },
             };
-
             var hiddenParams = GetNameValue(request.HiddenParams);
             model.table.where.AddRange(hiddenParams);
             return model;
