@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
 
-namespace VL.Consolo_Core.Common.TimeSpanSolution
+namespace FrameworkTest.Common.TimeSpanSolution
 {
     public static class TimeSpanHelper
     {

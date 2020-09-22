@@ -1,8 +1,11 @@
-﻿using System;
+﻿using FrameworkTest.Common.TimeSpanSolution;
+using Grpc.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using VLService;
 
 namespace MyWebTest.gRPC.Controllers
 {
@@ -28,11 +31,29 @@ namespace MyWebTest.gRPC.Controllers
         }
 
 
+        const string Server = "localhost";
+        const int Port = 30051;
         public ActionResult Compare01()
         {
-
-
-
+            Channel channel = new Channel($"{Server}:{Port}", ChannelCredentials.Insecure);
+            var client = new VLService01.VLService01Client(channel);
+            var t1 = TimeSpanHelper.GetTimeSpan(() =>
+            {
+                for (int i = 0; i < 10000; i++)
+                {
+                    client.SayHello(new HelloRequest { Name = i.ToString() });
+                }
+            });
+            var localService = new SampleService();
+            var t2 = TimeSpanHelper.GetTimeSpan(() =>
+            {
+                for (int i = 0; i < 10000; i++)
+                {
+                }
+            });
+            //万次
+            // grpc  {00:00:07.8723112}
+            // local {00:00:00.0010067}
             return View();
         }
 

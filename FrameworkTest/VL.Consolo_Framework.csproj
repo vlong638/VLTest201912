@@ -295,6 +295,7 @@
     <Compile Include="Common\RSASolution\RSAHelper.cs" />
     <Compile Include="Common\ServiceSolution\BaseService.cs" />
     <Compile Include="Common\ServiceSolution\ServiceResult.cs" />
+    <Compile Include="Common\TimeSpanSolution\TimeSpanHelper.cs" />
     <Compile Include="Common\ValuesSolution\JsonEx.cs" />
     <Compile Include="Common\ValuesSolution\EnumEx.cs" />
     <Compile Include="Common\ValuesSolution\DataTableEx.cs" />

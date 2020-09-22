@@ -18,6 +18,7 @@ using VL.Consoling.RabitMQUtils;
 using VL.Consoling.Utils;
 using System.Data;
 using System.Collections;
+using VL.Consolo_Core.Common.TimeSpanSolution;
 
 namespace VL.Consoling
 {
