@@ -206,13 +206,13 @@
       <Project>{975342C6-A3C5-4AC6-AACE-109F01C5AA93}</Project>
       <Name>VL.Consolo_Framework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\gRPC.protocol\gRPC.protocol.csproj">
+    <ProjectReference Include="..\gRPC.protocol\gRPC.protocol.Standard20.csproj">
       <Project>{8ADF197F-D533-487A-9021-9A9393DAF722}</Project>
-      <Name>gRPC.protocol</Name>
+      <Name>gRPC.protocol.Standard20</Name>
     </ProjectReference>
-    <ProjectReference Include="..\gRPC.VLClient.Framework\gRPC.VLClient.Framework.csproj">
+    <ProjectReference Include="..\gRPC.VLClient.Framework\gRPC.VLClient.Framework472.csproj">
       <Project>{1a3a9d6b-e6f9-42ae-bf16-fe3890b67dd3}</Project>
-      <Name>gRPC.VLClient.Framework</Name>
+      <Name>gRPC.VLClient.Framework472</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

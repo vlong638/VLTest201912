@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VL.RabbitMQConsumer", "VL.R
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VL.RabbitMQProducer", "VL.RabbitMQProducer\VL.RabbitMQProducer.csproj", "{0E73551E-4CB0-4B1E-BD5C-0A60E4704545}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI.VLServer.Core", "VL.API\WebAPI.VLServer.Core.csproj", "{4773F251-1808-47BD-AC7C-C0CD96106689}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI.VLServer.Core31", "VL.API\WebAPI.VLServer.Core31.csproj", "{4773F251-1808-47BD-AC7C-C0CD96106689}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VL.WebApplication", "VL.WebApplication\VL.WebApplication.csproj", "{820048BF-9A93-49F7-80CD-89E779278D2E}"
 EndProject
@@ -47,11 +47,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookieSample", "CookieSampl
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RPC", "RPC", "{15C1C0F0-61BE-4A6F-8674-387CA86AC04B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gRPC.protocol", "gRPC.protocol\gRPC.protocol.csproj", "{8ADF197F-D533-487A-9021-9A9393DAF722}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gRPC.protocol.Standard20", "gRPC.protocol\gRPC.protocol.Standard20.csproj", "{8ADF197F-D533-487A-9021-9A9393DAF722}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gRPC.VLServer.Core", "gRPC.Server\gRPC.VLServer.Core.csproj", "{524C9D24-204B-44AC-BBE5-6A72AE20CB54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gRPC.VLServer.Core31", "gRPC.Server\gRPC.VLServer.Core31.csproj", "{524C9D24-204B-44AC-BBE5-6A72AE20CB54}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gRPC.VLClient.Core", "gRPC.Client\gRPC.VLClient.Core.csproj", "{C69E23A2-DD04-4083-BB71-DF67DD2345ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gRPC.VLClient.Core31", "gRPC.Client\gRPC.VLClient.Core31.csproj", "{C69E23A2-DD04-4083-BB71-DF67DD2345ED}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Learning", "Learning", "{89D348DF-C4B5-46E1-B14F-C8C969A8E653}"
 EndProject
@@ -67,13 +67,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Logger", "Logger", "{570D75
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyThrift", "Framework4\MyThrift.csproj", "{8BCF5BD3-0188-4635-A47E-C5B220684D0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyWebTest", "MyWebTest.gRPC\MyWebTest.csproj", "{46E37A23-D92B-49EE-9066-277D4C23D09D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "0.MyWebTest", "MyWebTest.gRPC\0.MyWebTest.csproj", "{46E37A23-D92B-49EE-9066-277D4C23D09D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gRPC.VLServer.Framework", "gRPC.VLService.Framework\gRPC.VLServer.Framework.csproj", "{76AB46C0-5B1B-498F-AD76-73567D9F8A18}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gRPC.VLServer.Framework472", "gRPC.VLService.Framework\gRPC.VLServer.Framework472.csproj", "{76AB46C0-5B1B-498F-AD76-73567D9F8A18}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gRPC.VLClient.Framework", "gRPC.VLClient.Framework\gRPC.VLClient.Framework.csproj", "{1A3A9D6B-E6F9-42AE-BF16-FE3890B67DD3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gRPC.VLClient.Framework472", "gRPC.VLClient.Framework\gRPC.VLClient.Framework472.csproj", "{1A3A9D6B-E6F9-42AE-BF16-FE3890B67DD3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebService.VLServer", "WebService.VLServer\WebService.VLServer.csproj", "{17DFDB12-B3F0-461E-B38B-3C98CA943192}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebService.VLServer.Framework4", "WebService.VLServer\WebService.VLServer.Framework4.csproj", "{17DFDB12-B3F0-461E-B38B-3C98CA943192}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI.VLServer.Framework452", "WebAPI.VLServer.Framework452\WebAPI.VLServer.Framework452.csproj", "{0038D11F-EBEF-4AF7-AAA7-F8893A4062BC}"
 EndProject

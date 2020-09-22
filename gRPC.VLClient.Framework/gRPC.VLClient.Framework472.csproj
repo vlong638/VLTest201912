@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{76AB46C0-5B1B-498F-AD76-73567D9F8A18}</ProjectGuid>
+    <ProjectGuid>{1A3A9D6B-E6F9-42AE-BF16-FE3890B67DD3}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>gRPC.VLService.Framework</RootNamespace>
-    <AssemblyName>gRPC.VLService.Framework</AssemblyName>
+    <RootNamespace>gRPC.VLClient.Framework</RootNamespace>
+    <AssemblyName>gRPC.VLClient.Framework</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -79,9 +79,9 @@
       <Project>{975342C6-A3C5-4AC6-AACE-109F01C5AA93}</Project>
       <Name>VL.Consolo_Framework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\gRPC.protocol\gRPC.protocol.csproj">
+    <ProjectReference Include="..\gRPC.protocol\gRPC.protocol.Standard20.csproj">
       <Project>{8adf197f-d533-487a-9021-9a9393daf722}</Project>
-      <Name>gRPC.protocol</Name>
+      <Name>gRPC.protocol.Standard20</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
