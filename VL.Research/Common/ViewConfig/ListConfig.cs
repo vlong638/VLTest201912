@@ -385,7 +385,7 @@ namespace VL.Research.Common
             Type = element.Attribute(nameof(Type))?.Value;
             Description = element.Attribute(nameof(Description))?.Value;
             URL = element.Attribute(nameof(URL))?.Value;
-            InlineParams = element.Attribute(nameof(InlineParams))?.Value?.Split(',').ToList();
+            InlineParams = element.Attribute(nameof(InlineParams))?.Value?.Split(',').ToList() ?? new List<string>();
             Area = element.Attribute(nameof(Area))?.Value.Split(',').ToList();
             YesFun = element.Attribute(nameof(YesFun))?.Value;
             DefaultParams = element.Attribute(nameof(DefaultParams))?.Value?.Split(',').ToList();
