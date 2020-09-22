@@ -599,7 +599,7 @@
         </member>
         <member name="P:VL.Research.Common.ListConfigExport.DefaultParams">
             <summary>
-            比较操作符
+            默认参数
             </summary>
         </member>
         <member name="T:VL.Research.Common.ListConfigWhere">
@@ -1304,6 +1304,11 @@
         <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_ToolBar.yesFun">
             <summary>
             弹窗确认调用函数
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_ToolBar.bringParam">
+            <summary>
+            弹窗传递的搜索参数
             </summary>
         </member>
         <member name="T:VL.Research.Models.GetListConfigModel_TableConfg_ViewModel_Model">

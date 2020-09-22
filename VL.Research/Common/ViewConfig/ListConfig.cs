@@ -205,7 +205,7 @@ namespace VL.Research.Common
         /// </summary>
         public string URL { set; get; }
         /// <summary>
-        /// 比较操作符
+        /// 默认参数
         /// </summary>
         public List<string> DefaultParams { set; get; }
     }
@@ -351,13 +351,14 @@ namespace VL.Research.Common
         //"url": "<操作URL>",
         public string URL { set; get; }
         //"params": [ "<用于url的参数>" ],
-        public List<string> Params { set; get; }
+        public List<string> InlineParams { set; get; }
         //"area": [ "<弹窗宽高> 100 or 100px" ],
         public List<string> Area { set; get; }
         //"yesFun": "<弹窗确认调用函数>",
         public string YesFun { set; get; }
         //"defaultParam": [ "<固定参数>" ]
         public List<string> DefaultParams { set; get; }
+        public List<string> WhereParams { set; get; }
 
         /// <summary>
         /// 
@@ -368,10 +369,11 @@ namespace VL.Research.Common
             Type = "";
             Description = "";
             URL = "";
-            Params = new List<string>();
+            InlineParams = new List<string>();
             Area = new List<string>();
             YesFun = "";
             DefaultParams = new List<string>();
+            WhereParams = new List<string>();
         }
         /// <summary>
         /// 
@@ -383,10 +385,11 @@ namespace VL.Research.Common
             Type = element.Attribute(nameof(Type))?.Value;
             Description = element.Attribute(nameof(Description))?.Value;
             URL = element.Attribute(nameof(URL))?.Value;
-            Params = element.Attribute(nameof(Params))?.Value?.Split(',').ToList();
+            InlineParams = element.Attribute(nameof(InlineParams))?.Value?.Split(',').ToList();
             Area = element.Attribute(nameof(Area))?.Value.Split(',').ToList();
             YesFun = element.Attribute(nameof(YesFun))?.Value;
             DefaultParams = element.Attribute(nameof(DefaultParams))?.Value?.Split(',').ToList();
+            WhereParams = element.Attribute(nameof(WhereParams))?.Value?.Split(',').ToList();
         }
     }
     /// <summary>

@@ -187,14 +187,16 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                          data-params="` + (isBlank(item.params) ? '' : item.params.join('|')) + `" 
                          data-area='` + JSON.stringify(isBlank(item.area) ? ['500px', '500px'] : item.area) + `' 
                          data-yesFun="` + (isBlank(item.yesFun) ? '' : item.yesFun) + `" 
-                         data-title="` + (isBlank(item.title) ? item.text : item.title) + `">` + item.text + `</a>`;
+                         data-title="` + (isBlank(item.title) ? item.text : item.title) + `"
+                         data-bringParam='` + (isBlank(item.bringParam) ? 'null' : JSON.stringify(item.bringParam)) + `'>` + item.text + `</a>`;
                     break;
                 }
                 case 'newPage': {
                     scriptObject += `<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="newPage"
                         ` + (isBlank(item.defaultParam) ? '' : 'data-default="' + item.defaultParam.join('&') + '"') + ` 
                          data-url="` + item.url + `" 
-                         data-params="` + item.params.join('|') + `">` + item.text + `</a>`;
+                         data-params="` + item.params.join('|') + `"
+                         data-bringParam='` + (isBlank(item.bringParam) ? 'null' : JSON.stringify(item.bringParam)) + `'>` + item.text + `</a>`;
                     break;
                 }
                 case 'confirm': {
@@ -246,7 +248,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
     }
 
     let THToolbar = ['<p>']
-    if (!isBlank(_data.table.add_btn)) {
+    if (!isBlank(_data.table.add_btn) && !isBlank(_data.table.add_btn.text)) {
         THToolbar.push(`<button lay-event="add" 
              ` + (isBlank(_data.table.add_btn.defaultParam) ? '' : 'data-default="' + _data.table.add_btn.defaultParam.join('&') + '"') + ` 
              data-url="` + _data.table.add_btn.url + `" 
@@ -473,7 +475,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
     table.on('tool(dataTable)', function (obj) {
         let _this = $(this);
         let params = _this.attr('data-params').split("|");
-        let url = _this.attr('data-url') + buildUrlParam(obj.data, params);
+        let url = _this.attr('data-url') + buildUrlParam(obj.data, params, _this.attr('data-bringParam'));
         if (!isBlank(_this.attr('data-default'))) {
             url += '&' + _this.attr('data-default')
         }
@@ -533,11 +535,21 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
         }
     });
 
-    function buildUrlParam(data, params) {
+    function buildUrlParam(data, params, bringParam) {
         let urlParam = [];
         $.each(params, function (index, item) {
             urlParam.push(item + '=' + data[item])
         })
+        if (bringParam !== 'null') {
+            bringParam = JSON.parse(bringParam);
+            $.each(bringParam, function (index, item) {
+                $.each(_data.search, function (_index, _item) {
+                    if (_item.name === item) {
+                        urlParam.push(item + '=' + _item.value)
+                    }
+                })
+            })
+        }
         if (urlParam.length !== 0) {
             return '?' + urlParam.join('&');
         }

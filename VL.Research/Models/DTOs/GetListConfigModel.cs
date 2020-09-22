@@ -367,6 +367,10 @@ namespace VL.Research.Models
         /// 弹窗确认调用函数
         /// </summary>
         public string yesFun { get;  set; }
+        /// <summary>
+        /// 弹窗传递的搜索参数
+        /// </summary>
+        public List<string> bringParam { get; set; }
     }
     /// <summary>
     /// 页面配置 模型子项
