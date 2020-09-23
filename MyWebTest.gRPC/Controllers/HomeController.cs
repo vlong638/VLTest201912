@@ -50,7 +50,14 @@ namespace MyWebTest.gRPC.Controllers
             {
                 for (int i = 0; i < 1000; i++)
                 {
-                    var result = webService.HelloWorld(new ServiceReference2.HelloRequest() { Name = i.ToString() });
+                    try
+                    {
+                        var result = webService.HelloWorld(); // new ServiceReference2.HelloRequest() { Name = i.ToString() });
+                    }
+                    catch (Exception ex)
+                    {
+                        var error = ex.ToString();
+                    }
                 }
             });
             //WebAPI

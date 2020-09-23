@@ -19,7 +19,7 @@ namespace WebService.VLServer.Framework4
         [WebMethod]
         public string HelloWorld(HelloRequest hello)
         {
-            return "Hello World";
+            return hello.Name;
         }
 
         [WebMethod]

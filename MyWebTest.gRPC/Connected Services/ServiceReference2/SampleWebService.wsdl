@@ -3,17 +3,8 @@
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/webservices/">
       <s:element name="HelloWorld">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="hello" type="tns:HelloRequest" />
-          </s:sequence>
-        </s:complexType>
+        <s:complexType />
       </s:element>
-      <s:complexType name="HelloRequest">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="HelloWorldResponse">
         <s:complexType>
           <s:sequence>
@@ -28,6 +19,11 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:complexType name="HelloRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="TransTest10kbResponse">
         <s:complexType>
           <s:sequence>

@@ -62,7 +62,7 @@ namespace MyWebTest.gRPC.ServiceReference2 {
     [System.ServiceModel.ServiceContractAttribute(Namespace="http://microsoft.com/webservices/", ConfigurationName="ServiceReference2.SampleWebServiceSoap")]
     public interface SampleWebServiceSoap {
         
-        // CODEGEN: 命名空间 http://microsoft.com/webservices/ 的元素名称 hello 以后生成的消息协定未标记为 nillable
+        // CODEGEN: 命名空间 http://microsoft.com/webservices/ 的元素名称 HelloWorldResult 以后生成的消息协定未标记为 nillable
         [System.ServiceModel.OperationContractAttribute(Action="http://microsoft.com/webservices/HelloWorld", ReplyAction="*")]
         MyWebTest.gRPC.ServiceReference2.HelloWorldResponse HelloWorld(MyWebTest.gRPC.ServiceReference2.HelloWorldRequest request);
         
@@ -97,17 +97,10 @@ namespace MyWebTest.gRPC.ServiceReference2 {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://microsoft.com/webservices/")]
+    [System.Runtime.Serialization.DataContractAttribute()]
     public partial class HelloWorldRequestBody {
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
-        public MyWebTest.gRPC.ServiceReference2.HelloRequest hello;
-        
         public HelloWorldRequestBody() {
-        }
-        
-        public HelloWorldRequestBody(MyWebTest.gRPC.ServiceReference2.HelloRequest hello) {
-            this.hello = hello;
         }
     }
     
@@ -245,10 +238,9 @@ namespace MyWebTest.gRPC.ServiceReference2 {
             return base.Channel.HelloWorld(request);
         }
         
-        public string HelloWorld(MyWebTest.gRPC.ServiceReference2.HelloRequest hello) {
+        public string HelloWorld() {
             MyWebTest.gRPC.ServiceReference2.HelloWorldRequest inValue = new MyWebTest.gRPC.ServiceReference2.HelloWorldRequest();
             inValue.Body = new MyWebTest.gRPC.ServiceReference2.HelloWorldRequestBody();
-            inValue.Body.hello = hello;
             MyWebTest.gRPC.ServiceReference2.HelloWorldResponse retVal = ((MyWebTest.gRPC.ServiceReference2.SampleWebServiceSoap)(this)).HelloWorld(inValue);
             return retVal.Body.HelloWorldResult;
         }
@@ -258,10 +250,9 @@ namespace MyWebTest.gRPC.ServiceReference2 {
             return base.Channel.HelloWorldAsync(request);
         }
         
-        public System.Threading.Tasks.Task<MyWebTest.gRPC.ServiceReference2.HelloWorldResponse> HelloWorldAsync(MyWebTest.gRPC.ServiceReference2.HelloRequest hello) {
+        public System.Threading.Tasks.Task<MyWebTest.gRPC.ServiceReference2.HelloWorldResponse> HelloWorldAsync() {
             MyWebTest.gRPC.ServiceReference2.HelloWorldRequest inValue = new MyWebTest.gRPC.ServiceReference2.HelloWorldRequest();
             inValue.Body = new MyWebTest.gRPC.ServiceReference2.HelloWorldRequestBody();
-            inValue.Body.hello = hello;
             return ((MyWebTest.gRPC.ServiceReference2.SampleWebServiceSoap)(this)).HelloWorldAsync(inValue);
         }
         
