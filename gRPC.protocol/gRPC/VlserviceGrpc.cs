@@ -40,6 +40,13 @@ namespace VLService {
         __Marshaller_VLService_HelloRequest,
         __Marshaller_VLService_HelloReply);
 
+    static readonly grpc::Method<global::VLService.HelloRequest, global::VLService.HelloReply> __Method_TransTest10kb = new grpc::Method<global::VLService.HelloRequest, global::VLService.HelloReply>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "TransTest10kb",
+        __Marshaller_VLService_HelloRequest,
+        __Marshaller_VLService_HelloReply);
+
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
     {
@@ -57,6 +64,17 @@ namespace VLService {
       /// <param name="context">The context of the server-side call handler being invoked.</param>
       /// <returns>The response to send back to the client (wrapped by a task).</returns>
       public virtual global::System.Threading.Tasks.Task<global::VLService.HelloReply> SayHello(global::VLService.HelloRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      /// <summary>
+      /// Sends a greeting
+      /// </summary>
+      /// <param name="request">The request received from the client.</param>
+      /// <param name="context">The context of the server-side call handler being invoked.</param>
+      /// <returns>The response to send back to the client (wrapped by a task).</returns>
+      public virtual global::System.Threading.Tasks.Task<global::VLService.HelloReply> TransTest10kb(global::VLService.HelloRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -130,6 +148,50 @@ namespace VLService {
       {
         return CallInvoker.AsyncUnaryCall(__Method_SayHello, null, options, request);
       }
+      /// <summary>
+      /// Sends a greeting
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The response received from the server.</returns>
+      public virtual global::VLService.HelloReply TransTest10kb(global::VLService.HelloRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return TransTest10kb(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      /// <summary>
+      /// Sends a greeting
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The response received from the server.</returns>
+      public virtual global::VLService.HelloReply TransTest10kb(global::VLService.HelloRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_TransTest10kb, null, options, request);
+      }
+      /// <summary>
+      /// Sends a greeting
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The call object.</returns>
+      public virtual grpc::AsyncUnaryCall<global::VLService.HelloReply> TransTest10kbAsync(global::VLService.HelloRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return TransTest10kbAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      /// <summary>
+      /// Sends a greeting
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The call object.</returns>
+      public virtual grpc::AsyncUnaryCall<global::VLService.HelloReply> TransTest10kbAsync(global::VLService.HelloRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_TransTest10kb, null, options, request);
+      }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       protected override VLService01Client NewInstance(ClientBaseConfiguration configuration)
       {
@@ -142,7 +204,8 @@ namespace VLService {
     public static grpc::ServerServiceDefinition BindService(VLService01Base serviceImpl)
     {
       return grpc::ServerServiceDefinition.CreateBuilder()
-          .AddMethod(__Method_SayHello, serviceImpl.SayHello).Build();
+          .AddMethod(__Method_SayHello, serviceImpl.SayHello)
+          .AddMethod(__Method_TransTest10kb, serviceImpl.TransTest10kb).Build();
     }
 
     /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the  service binding logic.
@@ -152,6 +215,7 @@ namespace VLService {
     public static void BindService(grpc::ServiceBinderBase serviceBinder, VLService01Base serviceImpl)
     {
       serviceBinder.AddMethod(__Method_SayHello, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::VLService.HelloRequest, global::VLService.HelloReply>(serviceImpl.SayHello));
+      serviceBinder.AddMethod(__Method_TransTest10kb, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::VLService.HelloRequest, global::VLService.HelloReply>(serviceImpl.TransTest10kb));
     }
 
   }

@@ -20,6 +20,8 @@ package VLService;
 service VLService01 {
   // Sends a greeting
   rpc SayHello (HelloRequest) returns (HelloReply) {}
+  // Sends a greeting
+  rpc TransTest10kb (HelloRequest) returns (HelloReply) {}
 }
 
 // The request message containing the user's name.

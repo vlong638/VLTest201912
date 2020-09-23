@@ -26,8 +26,10 @@ namespace VLService {
           string.Concat(
             "Cg9WTFNlcnZpY2UucHJvdG8SCVZMU2VydmljZSIcCgxIZWxsb1JlcXVlc3QS",
             "DAoEbmFtZRgBIAEoCSIdCgpIZWxsb1JlcGx5Eg8KB21lc3NhZ2UYASABKAky",
-            "SwoLVkxTZXJ2aWNlMDESPAoIU2F5SGVsbG8SFy5WTFNlcnZpY2UuSGVsbG9S",
-            "ZXF1ZXN0GhUuVkxTZXJ2aWNlLkhlbGxvUmVwbHkiAGIGcHJvdG8z"));
+            "jgEKC1ZMU2VydmljZTAxEjwKCFNheUhlbGxvEhcuVkxTZXJ2aWNlLkhlbGxv",
+            "UmVxdWVzdBoVLlZMU2VydmljZS5IZWxsb1JlcGx5IgASQQoNVHJhbnNUZXN0",
+            "MTBrYhIXLlZMU2VydmljZS5IZWxsb1JlcXVlc3QaFS5WTFNlcnZpY2UuSGVs",
+            "bG9SZXBseSIAYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {

@@ -1,18 +1,31 @@
-﻿using System.Threading.Tasks;
-using VLService;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Services;
 
-namespace MyWebTest.gRPC.Controllers
+namespace WebService.VLServer.Framework4
 {
-    public class SampleService
+    /// <summary>
+    /// SampleWebService 的摘要说明
+    /// </summary>
+    [WebService(Namespace = "http://microsoft.com/webservices/")]
+    [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
+    [System.ComponentModel.ToolboxItem(false)]
+    // 若要允许使用 ASP.NET AJAX 从脚本中调用此 Web 服务，请取消注释以下行。 
+    // [System.Web.Script.Services.ScriptService]
+    public class SampleWebService : System.Web.Services.WebService
     {
-        public Task<HelloReply> SayHello(HelloRequest hello)
+        [WebMethod]
+        public string HelloWorld(HelloRequest hello)
         {
-            return Task.FromResult(new HelloReply { Message = "Hello " + hello.Name });
+            return "Hello World";
         }
 
-        public Task<HelloReply> TransTest10kb(HelloRequest hello)
+        [WebMethod]
+        public string TransTest10kb(HelloRequest hello)
         {
-            return Task.FromResult(new HelloReply { Message = @"
+            return @"
 			set identity_insert fm_daichan on
 	
 INSERT INTO fm_daichan(create_time,update_time,[id], [chanfu_id], [daichan_date], [daichan_time], [tai_fangwei], [tai_xin], [gongsuo_qd], [chixu], [jiange], [xianlu], [FetalPresentation], [Capacity], [gongkou], [gongjing], [tai_mo], [jiancha_type], [xueya1], [xueya2], [maibo], [jiancha_ren], [yaowu], [qita], [yangshuixz], [tiwen], [xueyang], [status], [OperatorId]) values(GETDATE(),GETDATE(),10229,5412,'2020-09-22','2020-09-22 08:35:00','','140','中等','20','8','-3',1,'100','2','','','内诊'
@@ -38,7 +51,12 @@ INSERT INTO fm_daichan(create_time,update_time,[id], [chanfu_id], [daichan_date]
 INSERT INTO fm_daichan(create_time,update_time,[id], [chanfu_id], [daichan_date], [daichan_time], [tai_fangwei], [tai_xin], [gongsuo_qd], [chixu], [jiange], [xianlu], [FetalPresentation], [Capacity], [gongkou], [gongjing], [tai_mo], [jiancha_type], [xueya1], [xueya2], [maibo], [jiancha_ren], [yaowu], [qita], [yangshuixz], [tiwen], [xueyang], [status], [OperatorId]) values(GETDATE(),GETDATE(),10323,5412,'2020-09-22','2020-09-22 15:40:00','','128','中等','30','3','','','','','','','','','','','张美贤','','胎心监护图出现减速，遵医嘱停止缩宫素静点，给予面罩吸调整体位','','','',0,13);
 INSERT INTO fm_daichan(create_time,update_time,[id], [chanfu_id], [daichan_date], [daichan_time], [tai_fangwei], [tai_xin], [gongsuo_qd], [chixu], [jiange], [xianlu], [FetalPresentation], [Capacity], [gongkou], [gongjing], [tai_mo], [jiancha_type], [xueya1], [xueya2], [maibo], [jiancha_ren], [yaowu], [qita], [yangshuixz], [tiwen], [xueyang], [status], [OperatorId]) values(GETDATE(),GETDATE(),10325,5412,'2020-09-22','2020-09-22 15:50:00','','136','中等','30','3','','','','','','','','','','','张美贤','','遵医嘱静点5%糖加维生素c','','','',0,13);
 set identity_insert fm_daichan off
-" });
+";
         }
+    }
+
+    public class HelloRequest
+    {
+        public string Name { set; get; }
     }
 }
