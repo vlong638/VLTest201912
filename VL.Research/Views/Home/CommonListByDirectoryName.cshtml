@@ -14,7 +14,7 @@
             var viewName = $("#viewName").val();
             var defaultParams = $("#defaultParams").val();
             var hiddenParams = $("#hiddenParams").val();
-            sendAjax('post', '../../api/System/GetListConfigByDirectoryName', JSON.stringify({ ViewName: viewName, CustomConfigId: 0, DefaultParams: defaultParams, HiddenParams: hiddenParams }), function (res) {
+            sendAjax('post', '../api/System/GetListConfigByDirectoryName', JSON.stringify({ ViewName: viewName, CustomConfigId: 0, DefaultParams: defaultParams, HiddenParams: hiddenParams }), function (res) {
                 if (res.code === 200) {
                     $('#root').renderTable(res.data, layui, parent.layui);
                 }

@@ -79,10 +79,6 @@
       <Project>{975342C6-A3C5-4AC6-AACE-109F01C5AA93}</Project>
       <Name>VL.Consolo_Framework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\gRPC.protocol\gRPC.protocol.Standard20.csproj">
-      <Project>{8adf197f-d533-487a-9021-9a9393daf722}</Project>
-      <Name>gRPC.protocol.Standard20</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Grpc.Core.2.32.0\build\net45\Grpc.Core.targets" Condition="Exists('..\packages\Grpc.Core.2.32.0\build\net45\Grpc.Core.targets')" />
