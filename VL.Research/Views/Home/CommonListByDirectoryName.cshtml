@@ -9,7 +9,8 @@
 @section Scripts
 {
     <script type="text/javascript">
-        document.domain = '127.0.0.1';
+        //通过改动document.domain可以使得父子页面在域名相同的情况下共享Cookie和DOM的访问
+        //document.domain = '127.0.0.1';
 
         layui.use(['layer', 'form', 'table', 'util', 'laydate', 'tree'], function () {
             const $ = layui.jquery;
