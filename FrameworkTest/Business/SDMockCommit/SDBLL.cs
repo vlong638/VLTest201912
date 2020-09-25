@@ -18,7 +18,7 @@ namespace FrameworkTest.Business.SDMockCommit
     public class SDBLL
     {
         public static string ConntectingStringSD = "Data Source=201.201.201.89;Initial Catalog=HL_Pregnant;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sdfy;Password=sdfy123456";
-        public static DbContext GetDBContext { get { return DBHelper.GetDbContext(SDBLL.ConntectingStringSD); } }
+        public static DbContext GetDBContext { get { return DBHelper.GetSqlDbContext(SDBLL.ConntectingStringSD); } }
         public static List<PregnantInfo> TempPregnantInfos = new List<PregnantInfo>();
         //BaseInfo baseInfo = new BaseInfo()
         //{
@@ -47,7 +47,7 @@ namespace FrameworkTest.Business.SDMockCommit
         {
             var isExecuteOne = false;
             var conntectingStringSD = "Data Source=201.201.201.89;Initial Catalog=HL_Pregnant;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sdfy;Password=sdfy123456";
-            var context = DBHelper.GetDbContext(conntectingStringSD);
+            var context = DBHelper.GetSqlDbContext(conntectingStringSD);
             foreach (var pregnantInfo in TempPregnantInfos)
             {
                 StringBuilder sb = new StringBuilder();
@@ -161,7 +161,7 @@ namespace FrameworkTest.Business.SDMockCommit
         {
             List<PregnantInfo> tempPregnantInfos;
             var conntectingStringSD = "Data Source=201.201.201.89;Initial Catalog=HL_Pregnant;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sdfy;Password=sdfy123456";
-            var context = DBHelper.GetDbContext(conntectingStringSD);
+            var context = DBHelper.GetSqlDbContext(conntectingStringSD);
             var serviceResult = context.DelegateTransaction((group) =>
             {
                 return group.Connection.Query<PregnantInfo>(@"
@@ -193,7 +193,7 @@ where s.id is not null and s.SyncStatus = 2 ", transaction: group.Transaction).T
         {
             List<PregnantInfo> tempPregnantInfos;
             var conntectingStringSD = "Data Source=201.201.201.89;Initial Catalog=HL_Pregnant;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sdfy;Password=sdfy123456";
-            var context = DBHelper.GetDbContext(conntectingStringSD);
+            var context = DBHelper.GetSqlDbContext(conntectingStringSD);
             var serviceResult = context.DelegateTransaction((group) =>
             {
                 return group.Connection.Query<PregnantInfo>(@"
@@ -222,7 +222,7 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
         {
             var isExecuteOne = false;
             var conntectingStringSD = "Data Source=201.201.201.89;Initial Catalog=HL_Pregnant;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sdfy;Password=sdfy123456";
-            var context = DBHelper.GetDbContext(conntectingStringSD);
+            var context = DBHelper.GetSqlDbContext(conntectingStringSD);
             foreach (var pregnantInfo in TempPregnantInfos)
             {
                 StringBuilder sb = new StringBuilder();
@@ -382,7 +382,7 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
         public static void MockCommitCreatePregnantInfo(List<PregnantInfo> tempPregnantInfos)
         {
             var conntectingStringSD = "Data Source=201.201.201.89;Initial Catalog=HL_Pregnant;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sdfy;Password=sdfy123456";
-            var context = DBHelper.GetDbContext(conntectingStringSD);
+            var context = DBHelper.GetSqlDbContext(conntectingStringSD);
             foreach (var pregnantInfo in tempPregnantInfos)
             {
                 StringBuilder sb = new StringBuilder();
@@ -566,7 +566,7 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
         {
             List<PregnantInfo> tempPregnantInfos;
             var conntectingStringSD = "Data Source=201.201.201.89;Initial Catalog=HL_Pregnant;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sdfy;Password=sdfy123456";
-            var context = DBHelper.GetDbContext(conntectingStringSD);
+            var context = DBHelper.GetSqlDbContext(conntectingStringSD);
             var serviceResult = context.DelegateTransaction((group) =>
             {
                 //                return group.Connection.Query<PregnantInfo>(@"
@@ -591,7 +591,7 @@ order by pi.createtime ", transaction: group.Transaction).ToList();
         {
             List<PregnantInfo> tempPregnantInfos;
             var conntectingStringSD = "Data Source=201.201.201.89;Initial Catalog=HL_Pregnant;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sdfy;Password=sdfy123456";
-            var context = DBHelper.GetDbContext(conntectingStringSD);
+            var context = DBHelper.GetSqlDbContext(conntectingStringSD);
             var serviceResult = context.DelegateTransaction((group) =>
             {
                 //                return group.Connection.Query<PregnantInfo>(@"
@@ -614,7 +614,7 @@ order by pi.createtime ", transaction: group.Transaction).ToList();
 
         internal static List<PregnantInfo> GetPregnantInfosToCreateEnquiries()
         {
-            var context = DBHelper.GetDbContext(ConntectingStringSD);
+            var context = DBHelper.GetSqlDbContext(ConntectingStringSD);
             var serviceResult = context.DelegateTransaction((group) =>
             {
                 return group.Connection.Query<PregnantInfo>(@"
@@ -632,7 +632,7 @@ and se.id is null
         }
         internal static List<PregnantInfo> GetPregnantInfosToUpdateEnquiries()
         {
-            var context = DBHelper.GetDbContext(ConntectingStringSD);
+            var context = DBHelper.GetSqlDbContext(ConntectingStringSD);
             var serviceResult = context.DelegateTransaction((group) =>
             {
                 return group.Connection.Query<PregnantInfo>(@"
@@ -649,7 +649,7 @@ and se.id is null
 
         internal static List<PregnantInfo> GetPregnantInfosForTest()
         {
-            var context = DBHelper.GetDbContext(ConntectingStringSD);
+            var context = DBHelper.GetSqlDbContext(ConntectingStringSD);
             var serviceResult = context.DelegateTransaction((group) =>
             {
                 return group.Connection.Query<PregnantInfo>(@"
@@ -802,7 +802,7 @@ and se.id is null
 
         internal static List<PhysicalExaminationModel> GetPhysicalExaminationDatasForCreatePhysicalExaminations()
         {
-            var context = DBHelper.GetDbContext(ConntectingStringSD);
+            var context = DBHelper.GetSqlDbContext(ConntectingStringSD);
             var serviceResult = context.DelegateTransaction((group) =>
             {
                 return group.Connection.Query<PhysicalExaminationModel>($@"
@@ -853,7 +853,7 @@ and vr_data.id = T1.Id
 
         internal static List<PhysicalExaminationModel> GetPhysicalExaminationDatasForUpdatePhysicalExaminations()
         {
-            var context = DBHelper.GetDbContext(ConntectingStringSD);
+            var context = DBHelper.GetSqlDbContext(ConntectingStringSD);
             var serviceResult = context.DelegateTransaction((group) =>
             {
                 return group.Connection.Query<PhysicalExaminationModel>($@"
@@ -951,7 +951,7 @@ and vr_data.id = T1.Id
 
         internal static List<PhysicalExaminationModel> GetSourceDataForCreateProfessionalExaminations()
         {
-            var context = DBHelper.GetDbContext(ConntectingStringSD);
+            var context = DBHelper.GetSqlDbContext(ConntectingStringSD);
             var serviceResult = context.DelegateTransaction((group) =>
             {
                 return group.Connection.Query<PhysicalExaminationModel>($@"
@@ -997,7 +997,7 @@ left join MHC_VisitRecord vr_data on vr_data.idcard = T1.idcard and vr_data.visi
         internal static void MockCommitCreateOrUpdatePregnantInfo(List<PregnantInfo> tempPregnantInfos)
         {
             var conntectingStringSD = "Data Source=201.201.201.89;Initial Catalog=HL_Pregnant;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sdfy;Password=sdfy123456";
-            var context = DBHelper.GetDbContext(conntectingStringSD);
+            var context = DBHelper.GetSqlDbContext(conntectingStringSD);
             foreach (var pregnantInfo in tempPregnantInfos)
             {
                 StringBuilder sb = new StringBuilder();

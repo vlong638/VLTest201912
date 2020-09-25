@@ -25,7 +25,7 @@ namespace FrameworkTest.Business.SDMockCommit
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 }
-                var context = DBHelper.GetDbContext(SDBLL.ConntectingStringSD);
+                var context = DBHelper.GetSqlDbContext(SDBLL.ConntectingStringSD);
                 foreach (var pregnantInfo in tempPregnantInfos)
                 {
                     StringBuilder sb = new StringBuilder();

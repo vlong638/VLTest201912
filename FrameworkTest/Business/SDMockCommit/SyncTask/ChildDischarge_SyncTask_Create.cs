@@ -50,7 +50,7 @@ namespace FrameworkTest.Business.SDMockCommit
                     return;
                 }
                 //获得新生儿出生缺陷信息
-                var birthDefects = Context.ESBService.GetBirthDefects(sourceData.SourceData.inp_no, sourceData.SourceData.visit_id);
+                var birthDefects = Context.HISService.GetBirthDefects(sourceData.SourceData.shenfenzh);
                 //获取住院数据
                 var childDischargeData = Context.FSService.GetChildDischarge(userInfo, listData.FMMainId, ref logger);
                 //数据更新
@@ -67,7 +67,7 @@ namespace FrameworkTest.Business.SDMockCommit
                 {
                     childDischargeToCreate.Init(userInfo);
                 }
-                childDischargeToCreate.Update(sourceData, diagnosis);
+                childDischargeToCreate.Update(sourceData, diagnosis, birthDefects);
                 //创建住院数据
                 var result = Context.FSService.SaveChildDischarge(userInfo, childDischargeToCreate, listData.FMMainId, ref logger);
                 //保存同步记录

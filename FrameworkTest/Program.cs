@@ -40,17 +40,19 @@ namespace FrameworkTest
 
         static void Main(string[] args)
         {
-            var yss = @") 管理率
-	from cc_highrisk h";
-            foreach (var c in yss)
-            {
-                Console.WriteLine(c);
-            }
-            var yssen = WebUtility.HtmlDecode(yss);
-            foreach (var c in yssen)
-            {
-                Console.WriteLine(c);
-            }
+            #region tests
+
+            //           var yss = @") 管理率
+            //from cc_highrisk h";
+            //           foreach (var c in yss)
+            //           {
+            //               Console.WriteLine(c);
+            //           }
+            //           var yssen = WebUtility.HtmlDecode(yss);
+            //           foreach (var c in yssen)
+            //           {
+            //               Console.WriteLine(c);
+            //           }
 
             //var ycc = "1/2";
             //var ycc2 = ycc.GetSubStringOrEmpty((ycc?.Length ?? 0) - 1) ?? "";//:"1", 本次胎次
@@ -259,6 +261,7 @@ namespace FrameworkTest
             //var r1 = "{ id:\"A83E21BEE34915FDE05355FE80133FE6\"}";
             //var r3 = new { id = "" };
             //var r2 = r1.FromJsonToAnonymousType(r3); 
+            #endregion 
             #endregion
 
             ///命令对象有助于代码的版本控制,集体非方法的形式堆在一起不利于
@@ -336,7 +339,7 @@ namespace FrameworkTest
             }));
             cmds.Add(new Command("s12_0000,数据库连接测试", () =>
             {
-                var dbContext = DBHelper.GetDbContext(LocalMSSQL);
+                var dbContext = DBHelper.GetSqlDbContext(LocalMSSQL);
                 var serviceResult = dbContext.DelegateTransaction((group) =>
                 {
                     var id = group.Connection.ExecuteScalar<long>(@"select max(id) from O_LabResult", transaction: group.Transaction);
@@ -594,7 +597,7 @@ namespace FrameworkTest
             #region ConfigurableEntity,配置化对象
             cmds.Add(new Command("c2_0526,数据库表结构配置", () =>
             {
-                var dbContext = DBHelper.GetDbContext(LocalMSSQL);
+                var dbContext = DBHelper.GetSqlDbContext(LocalMSSQL);
                 var serviceResult = dbContext.DelegateTransaction((group) =>
                 {
                     var sql = $@"
@@ -639,7 +642,7 @@ order by def.[TableName],def.Id
             cmds.Add(new Command("c3_0526,List应用配置,保存XML", () =>
             {
                 //读取数据
-                var dbContext = DBHelper.GetDbContext(LocalMSSQL);
+                var dbContext = DBHelper.GetSqlDbContext(LocalMSSQL);
                 var serviceResult = dbContext.DelegateTransaction((group) =>
                 {
                     var sql = $@"
@@ -2611,7 +2614,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             {
                 var testOne = false;
                 var conntectingStringSD = "Data Source=201.201.201.89;Initial Catalog=HL_Pregnant;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sdfy;Password=sdfy123456";
-                var dbContext = DBHelper.GetDbContext(conntectingStringSD);
+                var dbContext = DBHelper.GetSqlDbContext(conntectingStringSD);
                 foreach (var pregnantInfo in SDBLL.TempPregnantInfos)
                 {
                     if (testOne)
@@ -2835,7 +2838,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             cmds.Add(new Command("m26,0618,模拟-筛选待新增的孕妇", () =>
             {
                 SDBLL.TempPregnantInfos = SDBLL.GetPregnantInfoForCreateBefore0630();
-                var dbContext = DBHelper.GetDbContext(SDBLL.ConntectingStringSD);
+                var dbContext = DBHelper.GetSqlDbContext(SDBLL.ConntectingStringSD);
                 foreach (var pregnantInfo in SDBLL.TempPregnantInfos)
                 {
                     Console.WriteLine($"当前孕妇{pregnantInfo.personname}");
@@ -2916,7 +2919,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
 
 
                 var userInfo = SDBLL.UserInfo;
-                var dbContext = DBHelper.GetDbContext(SDBLL.ConntectingStringSD);
+                var dbContext = DBHelper.GetSqlDbContext(SDBLL.ConntectingStringSD);
                 foreach (var pregnantInfo in SDBLL.TempPregnantInfos)
                 {
                     StringBuilder sb = new StringBuilder();
@@ -3019,7 +3022,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             cmds.Add(new Command("m32,0623,模拟-更新`问询病史`", () =>
             {
                 var userInfo = SDBLL.UserInfo;
-                var dbContext = DBHelper.GetDbContext(SDBLL.ConntectingStringSD);
+                var dbContext = DBHelper.GetSqlDbContext(SDBLL.ConntectingStringSD);
                 foreach (var pregnantInfo in SDBLL.TempPregnantInfos)
                 {
                     StringBuilder sb = new StringBuilder();

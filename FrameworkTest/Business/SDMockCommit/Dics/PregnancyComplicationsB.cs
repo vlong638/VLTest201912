@@ -61,18 +61,17 @@ namespace FrameworkTest.Business.SDMockCommit
             {"O10.900","4"},
             {"O11.x00","4"},
             {"O11.x01","4"},
-            {"O11.x02","4"},
+            //{"O11.x02","4"},
             {"O13.x00","4"},
             {"O13.x01","4"},
             {"O16.x00","4"},
             //轻度子痫前期  
-            {"O14.901","5"},
+            //{"O14.901","5"},
             //重度子痫前期  
             {"O14.100","6"},
             {"O14.000","6"},
-            {"O14.100","6"},
             {"O14.900","6"},
-            {"O14.901","6"},
+            //{"O14.901","6"},
             {"O15.000","6"},
             {"O15.001","6"},
             {"O15.100","6"},
@@ -81,7 +80,7 @@ namespace FrameworkTest.Business.SDMockCommit
             {"O15.201","6"},
             {"O15.900","6"},
             //慢性高血压合并子痫前期 
-            {"O11.x02","7"},
+            //{"O11.x02","7"},
             //HELLP综合征    
             {"O14.101","8"},
             //胆汁淤积综合征 
@@ -190,6 +189,17 @@ namespace FrameworkTest.Business.SDMockCommit
                     continue;
                 pregnancyComplications.Add(fsCode);
             }
+            if (diagnosises.FirstOrDefault(c=>c.diag_code == "O11.x02")!=null )
+            {
+                pregnancyComplications.Add("4");
+                pregnancyComplications.Add("7");
+            }
+            if (diagnosises.FirstOrDefault(c => c.diag_code == "O14.901") != null)
+            {
+                pregnancyComplications.Add("5");
+                pregnancyComplications.Add("6");
+            }
+            
             if (pregnancyComplications.Count==0)
             {
                 pregnancyComplications.Add("1");

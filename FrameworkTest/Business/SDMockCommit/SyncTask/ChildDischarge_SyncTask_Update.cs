@@ -35,6 +35,8 @@ namespace FrameworkTest.Business.SDMockCommit
                     syncOrder.Id = context.ESBService.SaveSyncOrder(syncOrder);
                     return;
                 }
+                //获得新生儿出生缺陷信息
+                var birthDefects = Context.HISService.GetBirthDefects(sourceData.SourceData.shenfenzh);
                 //获得诊断信息
                 var diagnosis = Context.ESBService.GetDiagnosisByPatientIdAndINPNo(sourceData.SourceData.inp_no, sourceData.SourceData.visit_id);
                 //有死亡风险的不作上传
@@ -60,7 +62,7 @@ namespace FrameworkTest.Business.SDMockCommit
                 {
                     ChildDischargeToCreate.Update(ChildDischargeData);
                 }
-                ChildDischargeToCreate.Update(sourceData, diagnosis);
+                ChildDischargeToCreate.Update(sourceData, diagnosis, birthDefects);
                 //创建住院数据
                 var result = Context.FSService.SaveChildDischarge(userInfo, ChildDischargeToCreate, listData.FMMainId, ref logger);
                 //保存同步记录

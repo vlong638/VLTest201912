@@ -28,6 +28,10 @@ namespace FrameworkTest.Common.ValuesSolution
         {
             return string.IsNullOrEmpty(str);
         }
+        public static bool IsNotNullOrEmpty(this string str)
+        {
+            return !string.IsNullOrEmpty(str);
+        }
         public static string TrimStart(this string str, string strToTrim)
         {
             while (str.StartsWith(strToTrim))

@@ -65,10 +65,10 @@ namespace FrameworkTest.Business.SDMockCommit
             {"O99.418" ,"6"},
             {"O99.419" ,"6"},
             {"O99.420" ,"6"},
-            {"O99.421" ,"6"},
+            //{"O99.421" ,"6"},
             {"O99.216" ,"7"},
             {"O99.215" ,"8"},
-            {"O99.421" ,"9"},
+            //{"O99.421" ,"9"},
             {"O26.608" ,"10"},
             {"B24.x01" ,"11"},
             {"O98.100" ,"12"},
@@ -88,6 +88,11 @@ namespace FrameworkTest.Business.SDMockCommit
                 if (pregnancyComplications.Contains(fsCode))
                     continue;
                 pregnancyComplications.Add(fsCode);
+            }
+            if (diagnosises.FirstOrDefault(c => c.diag_code == "O99.421") != null)
+            {
+                pregnancyComplications.Add("6");
+                pregnancyComplications.Add("9");
             }
             if (pregnancyComplications.Count==0)
             {

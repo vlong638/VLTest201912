@@ -81,7 +81,7 @@ namespace FrameworkTest.Business.SDMockCommit
             this.D31 = data.D31;
         }
 
-        public void Update(ChildDischarge_SourceData sourceData, IEnumerable<Diagnosis> diagnosis)
+        public void Update(ChildDischarge_SourceData sourceData, IEnumerable<Diagnosis> diagnosis, List<BirthDefect> birthDefects)
         {
             this.D1 = sourceData.inp_no;//:"0000265533", 住院号
             this.D5 = sourceData.SourceData.PATNAME ?? "";//:"蓝艳云", 产妇姓名
@@ -104,10 +104,16 @@ namespace FrameworkTest.Business.SDMockCommit
             this.D10 = "";//:"", 总胆红素
             this.D11 = "无高危因素";//:"无高危因素,颅内出血", 高危因素文本集     //默认`无高危因素`
             this.D24 = "";//:"1", 高危因素值集    //默认`无高危因素`
-            //未说明字段对接需求
-            this.D12 = "";//:"1", 出生缺陷
-            //未说明字段对接需求
-            this.D13 = "";//:"", 类型
+            if (birthDefects.Count > 0)
+            {
+                this.D12 = "2" ;//:"1", 出生缺陷
+                this.D13 = string.Join(",", birthDefects.Select(c => c.GetRemark()).Where(c => c.IsNotNullOrEmpty()));//:"", 类型
+            }
+            else
+            {
+                this.D12 = "1";
+                this.D13 = "";
+            }
             this.D14 = "";//:"2", 窒息抢救是否成功 默认``
             this.D15 = "";//:"1", 疾病转归 默认``
             this.D16 = "";//:"777", 死亡原因 默认``

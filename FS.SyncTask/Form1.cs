@@ -45,7 +45,7 @@ namespace FS.SyncTask
                 {
                     1,()=>{
                         CookieContainer container =new CookieContainer();
-                        var context = DBHelper.GetDbContext(ConnectingString);
+                        var context = DBHelper.GetSqlDbContext(ConnectingString);
                         var serviceResult = context.DelegateTransaction((group) =>
                         {
                             List<PregnantInfo> pregnantInfos = GetPregnantInfo(group);

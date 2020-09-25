@@ -19,8 +19,9 @@ namespace FrameworkTest.Business.SDMockCommit
     {
         public string ConnectingString_Pregnant = "Data Source=201.201.201.89;Initial Catalog=HL_Pregnant;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sdfy;Password=sdfy123456";
 
-        public DbContext DBContext_Pregnant { get { return DBHelper.GetDbContext(PregnantService.ConntectingString); } }
-        public DbContext DBContext_ESB { get { return DBHelper.GetDbContext(ESBService.ConntectingString); } }
+        public DbContext DBContext_Pregnant { get { return DBHelper.GetSqlDbContext(PregnantService.ConntectingString); } }
+        public DbContext DBContext_ESB { get { return DBHelper.GetSqlDbContext(ESBService.ConntectingString); } }
+        public DbContext DBContext_HIS { get { return DBHelper.GetOracleDbContext(HISService.ConntectingString); } }
 
         public PregnantService PregnantService
         {
@@ -30,6 +31,16 @@ namespace FrameworkTest.Business.SDMockCommit
                 return new PregnantService(context);
             }
         }
+
+        public HISService HISService
+        {
+            get
+            {
+                var context = DBContext_HIS;
+                return new HISService(context);
+            }
+        }
+
 
         public ESBService ESBService
         {
