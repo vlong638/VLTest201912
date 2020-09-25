@@ -84,7 +84,6 @@ namespace VL.Research.Models
             if (type == 5)
             {
                 names = new List<string>() { c.ComponentName + "Start", c.ComponentName + "End" };
-                name = "";
             }
             value = c.Value ?? "";
             options = new GetListConfigModel_Search_Options(c.Options);

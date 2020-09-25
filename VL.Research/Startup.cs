@@ -81,11 +81,11 @@ namespace VL.Research
 
             #endregion
 
-            #region ÈÏÖ¤
-
             services.AddAuthenticationCore(options => options.AddScheme<VLAuthenticationHandler>(VLAuthenticationHandler.ShemeName, "demo scheme"));
 
-            #endregion
+            //ÔÊÐí¿çÓò
+            services.AddCors(option => option.AddPolicy("cors", policy => policy.AllowAnyHeader().AllowAnyMethod().AllowCredentials().AllowAnyOrigin()));
+
         }
 
         /// <summary>

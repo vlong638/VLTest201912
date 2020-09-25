@@ -9,6 +9,8 @@
 @section Scripts
 {
     <script type="text/javascript">
+        document.domain = '127.0.0.1';
+
         layui.use(['layer', 'form', 'table', 'util', 'laydate', 'tree'], function () {
             const $ = layui.jquery;
             var viewName = $("#viewName").val();
@@ -16,7 +18,7 @@
             var hiddenParams = $("#hiddenParams").val();
             sendAjax('post', '../api/System/GetListConfigByDirectoryName', JSON.stringify({ ViewName: viewName, CustomConfigId: 0, DefaultParams: defaultParams, HiddenParams: hiddenParams }), function (res) {
                 if (res.code === 200) {
-                    $('#root').renderTable(res.data, layui, parent.layui);
+                    $('#root').renderTable(res.data, layui, undefined);
                 }
             });
         });

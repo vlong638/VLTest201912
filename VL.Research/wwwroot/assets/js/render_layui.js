@@ -67,7 +67,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
         form = _layui.form,
         table = _layui.table,
         laydate = _layui.laydate,
-        //index = _parent.index,
+        index = _parent === undefined ? null : _parent.index,
         util = _layui.util,
         admin = _layui.admin;
     let html = ``;
@@ -143,7 +143,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                 <div class="layui-inline">
                     <label class="layui-form-label">` + item.text + `:</label>
                     <div class="layui-input-inline">
-                        <input data-param="` + item.names.join('|') + `" name="` + item.names.join('|') + `" class="layui-input icon-date datepicker" value="` + item.value + `"/>
+                        <input data-param="` + item.names.join('|') + `" name="` + item.name + `" class="layui-input icon-date datepicker" value="` + item.value + `"/>
                     </div>
                 </div>`
             }
@@ -216,9 +216,6 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
         _data.table.cols[0].push({ title: '操作', toolbar: '#tbBar', align: 'center', minWidth: 200 })
     }
 
-
-    /*---↑页面渲染↑-----------------↓事件绑定↓---*/
-
     let where = {
         search: []
     };
@@ -233,7 +230,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
         // 处理加载表格初始参数
         $.each(_data.search, function (index, item) {
             if (!isBlank(item.value)) {
-                if (isBlank(item.name)) {
+                if (item.type === 5) {
                     where.search.push({ key: item.names[0], value: item.value.split(' - ')[0] });
                     where.search.push({ key: item.names[1], value: item.value.split(' - ')[1] });
                 } else {
@@ -262,7 +259,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
     '<button lay-event="add" class="layui-btn layui-btn-sm icon-btn"><i class="layui-icon">&#xe654;</i>添加</button>&nbsp;',
     // '<button lay-event="del" class="layui-btn layui-btn-sm layui-btn-danger icon-btn"><i class="layui-icon">&#xe640;</i>删除</button>',
     '</p>']*/
-    // 表格渲染
+
 
     let DTB = [];
     if (_data.isModel) {
@@ -287,7 +284,9 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
         })
     }
 
-    let firstSearch = true;
+    /*---↑页面渲染↑-----------------↓事件绑定↓---*/
+
+    // 表格渲染
     let dataTable = _layui.table.render({
         elem: '#dataTable',
         url: _data.table.url,
@@ -544,8 +543,10 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
             bringParam = JSON.parse(bringParam);
             $.each(bringParam, function (index, item) {
                 $.each(_data.search, function (_index, _item) {
-                    if (_item.name === item) {
+                    if (!isBlank(_item.name) && _item.name === item) {
                         urlParam.push(item + '=' + _item.value)
+                    } else if (isBlank(_item.name) && !isBlank(_item.names) && _item.names.indexOf(item) !== -1) {
+                        urlParam.push(_item.names.join('|') + '=' + _item.value.split(' - ').join('|'))
                     }
                 })
             })
@@ -586,11 +587,15 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
 
     //在新标签页中 打开页面
     function newTab(url, tit, endFn) {
-        index.openTab({
-            title: tit,
-            url: url,
-            end: endFn
-        })
+        if (index == null) {
+            window.open(url, tit);
+        } else {
+            index.openTab({
+                title: tit,
+                url: url,
+                end: endFn
+            })
+        }
     }
 }
 
@@ -601,7 +606,7 @@ jQuery.prototype.renderForm = function (_data, _layui, _parent) {
         form = _layui.form,
         table = _layui.table,
         laydate = _layui.laydate,
-        index = _parent.index,
+        index = _parent === undefined ? null : _parent.index,
         util = _layui.util,
         admin = _layui.admin,
         xmSelect = _layui.xmSelect;
