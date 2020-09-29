@@ -191,7 +191,7 @@ namespace FrameworkTest.Business.SDMockCommit
             this.D37 = userInfo.OrgId;
 
             this.D1 = DateTime.Now.ToString("yyyy-MM-dd");//检查日期
-            this.D2 = VLConstraints.GetGestationalWeeksByPrenatalDate(sourceDataModel.SourceData.dateofprenatal?.ToDateTime(), DateTime.Now);//D2.孕周   
+            this.D2 = VLConstraints.GetGestationalWeeksByPrenatalDate(sourceDataModel.SourceData.dateofprenatal?.ToDateTime(), DateTime.Now,out int week,out int day);//D2.孕周   
             this.D3 = sourceDataModel.SourceData.lastmenstrualperiod?.ToDateTime()?.ToString("yyyy-MM-dd") ?? "";//D3 矫正末次月经 = 孕妇档案.末次月经
             this.D4 = sourceDataModel.SourceData.dateofprenatal?.ToDateTime()?.ToString("yyyy-MM-dd") ?? "";//D4 矫正预产期 = 孕妇档案.预产期
             //D26,处理 = 处理意见

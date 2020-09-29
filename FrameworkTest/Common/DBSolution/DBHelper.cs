@@ -1,6 +1,7 @@
 ﻿using Oracle.ManagedDataAccess.Client;
 using System.Data.Common;
 using System.Data.SqlClient;
+using System.Text;
 
 namespace FrameworkTest.Common.DBSolution
 {
@@ -44,5 +45,24 @@ namespace FrameworkTest.Common.DBSolution
             return new DbContext(connection);
         }
 
+        public static string GetCreateTableSQL(string tableName,string fields, char splitter)
+        { 
+            StringBuilder sb = new StringBuilder();
+            sb.Append($@"            
+CREATE TABLE [{tableName}](
+	[Id] [bigint] IDENTITY(1,2) NOT NULL");
+            foreach (var field in fields.Split(splitter))
+            {
+                sb.Append($",[{field}] nvarchar(20) NULL");
+            }
+            sb.Append($@"            
+ CONSTRAINT [PK_{tableName}] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+");
+            return sb.ToString();
+        }
     }
 }

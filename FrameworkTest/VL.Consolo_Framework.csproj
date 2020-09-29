@@ -173,6 +173,13 @@
     <Compile Include="Business\ExcelGenerator\ExportConfig.cs" />
     <Compile Include="Business\ExcelGenerator\PlaceHolder.cs" />
     <Compile Include="Business\GJPredeliveryAsync\PreDelivery.cs" />
+    <Compile Include="Business\Research\Entities\Patient.cs" />
+    <Compile Include="Business\Research\Entities\Check.cs" />
+    <Compile Include="Business\Research\CommonRepository.cs" />
+    <Compile Include="Business\Research\BCheckRepository.cs" />
+    <Compile Include="Business\Research\DeliveryRepository.cs" />
+    <Compile Include="Business\Research\TransformType.cs" />
+    <Compile Include="Business\Research\SimpleTransfrom .cs" />
     <Compile Include="Business\SDMockCommit\DALs\ESBDAL.cs" />
     <Compile Include="Business\SDMockCommit\DALs\HISDAL.cs" />
     <Compile Include="Business\SDMockCommit\Dics\Apnea.cs" />
@@ -282,6 +289,8 @@
     <Compile Include="Common\DBSolution\ServiceResult.cs" />
     <Compile Include="Business\SDMockCommit\Entities\PregnantInfo\SyncOrder.cs" />
     <Compile Include="Business\SDMockCommit\SDBLL.cs" />
+    <Compile Include="Common\ValuesSolution\DataRowEx.cs" />
+    <Compile Include="Business\Research\TransformInfo.cs" />
     <Content Include="Business\ConfigurableEntity\Output\ListPages.xml" />
     <Content Include="Business\ConfigurableEntity\Output\tables.xml" />
     <Content Include="Business\ConfigurableEntity\sql.txt" />
@@ -296,11 +305,14 @@
     <Compile Include="Common\PagerSolution\IQueriablePagedList.cs" />
     <Compile Include="Common\PagerSolution\VLPageRequest.cs" />
     <Compile Include="Common\PagerSolution\VLPageResult.cs" />
+    <Compile Include="Common\RegexSolution\RegexConstraints.cs" />
     <Compile Include="Common\RSASolution\RSASample.cs" />
     <Compile Include="Common\RSASolution\RSAHelper.cs" />
     <Compile Include="Common\ServiceSolution\BaseService.cs" />
     <Compile Include="Common\ServiceSolution\ServiceResult.cs" />
     <Compile Include="Common\TimeSpanSolution\TimeSpanHelper.cs" />
+    <Compile Include="Common\ValuesSolution\PregnantCalculator.cs" />
+    <Compile Include="Common\ValuesSolution\SQLEx.cs" />
     <Compile Include="Common\ValuesSolution\JsonEx.cs" />
     <Compile Include="Common\ValuesSolution\EnumEx.cs" />
     <Compile Include="Common\ValuesSolution\DataTableEx.cs" />

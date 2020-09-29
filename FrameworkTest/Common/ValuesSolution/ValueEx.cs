@@ -1,10 +1,13 @@
-﻿using System;
+﻿using NPOI.OpenXmlFormats.Dml;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Web.SessionState;
 
 namespace FrameworkTest.Common.ValuesSolution
 {
@@ -70,6 +73,14 @@ namespace FrameworkTest.Common.ValuesSolution
             }
         }
 
+        #endregion
+
+        #region IEnumerable<string>
+
+        public static string Join(this IEnumerable<string> items, string separator)
+        {
+            return string.Join(separator, items);
+        }
 
         #endregion
 
@@ -138,15 +149,56 @@ namespace FrameworkTest.Common.ValuesSolution
 
         #endregion
 
+        #region Date
+
+        public static DateTime? ToDate(this object item)
+        {
+            if (item == null)
+                return null;
+            var text = item.ToString();
+            if (text.IsNullOrEmpty())
+                return null;
+            DateTime dt;
+            if (DateTime.TryParse(text, out dt))
+                return dt;
+            Regex regex = new Regex(@"(\w{1,2})/(\w{1,2})/(\w{4})");
+            var match = regex.Match(text);
+            if (match.Groups.Count == 4)
+            {
+                var year = match.Groups[3].ToInt().Value;
+                var month = match.Groups[2].ToInt().Value;
+                var day = match.Groups[1].ToInt().Value;
+                return new DateTime(year, month, day);
+            }
+            return null;
+        }
+
+        #endregion
+
         #region DateTime
 
         public static DateTime? ToDateTime(this object item)
         {
             if (item == null)
                 return null;
+            var text = item.ToString();
+            if (text.IsNullOrEmpty())
+                return null;
             DateTime dt;
-            if (DateTime.TryParse(item.ToString(), out dt))
+            if (DateTime.TryParse(text, out dt))
                 return dt;
+            Regex regex = new Regex(@"(\w{1,2})/(\w{1,2})/(\w{4}) (\w{2}):(\w{2}):(\w{2})");
+            var match  = regex.Match(text);
+            if (match.Groups.Count==7)
+            {
+                var year = match.Groups[3].ToInt().Value;
+                var month= match.Groups[2].ToInt().Value;
+                var day = match.Groups[1].ToInt().Value;
+                var hour = match.Groups[4].ToInt().Value;
+                var minite = match.Groups[5].ToInt().Value;
+                var second = match.Groups[6].ToInt().Value;
+                return new DateTime(year,month, day, hour, minite, second);
+            }
             return null;
         }
 

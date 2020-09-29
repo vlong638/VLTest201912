@@ -146,7 +146,7 @@ namespace FrameworkTest.Business.ExcelGenerator
             }
         }
 
-        internal void UpdateWheres(List<KeyValue> wheres)
+        internal void UpdateWheres(List<KeyValuePair<string, string>> wheres)
         {
             if (wheres == null)
                 return;

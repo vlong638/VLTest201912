@@ -58,7 +58,8 @@ namespace FrameworkTest.Common.DBSolution
                 VLLogger.Log(ex.ToString());
                 DbGroup.Transaction.Rollback();
                 DbGroup.Connection.Close();
-                return new ServiceResult<T>(default(T), ex.Message);
+                //return new ServiceResult<T>(default(T), ex.Message);
+                throw ex;
             }
         }
     }

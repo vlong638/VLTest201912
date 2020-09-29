@@ -2,6 +2,7 @@
 using Dapper.Contrib.Extensions;
 using FrameworkTest.Business.ExcelGenerator;
 using FrameworkTest.Business.GJPredeliveryAsync;
+using FrameworkTest.Business.Research;
 using FrameworkTest.Business.SDMockCommit;
 using FrameworkTest.Business.TaskScheduler;
 using FrameworkTest.Common.DBSolution;
@@ -11,6 +12,8 @@ using FrameworkTest.Common.ValuesSolution;
 using FrameworkTest.Common.XMLSolution;
 using FrameworkTest.ConfigurableEntity;
 using FrameworkTest.Kettle;
+using FrameworkTest.Research;
+using NPOI.OpenXmlFormats.Dml;
 using NPOI.XSSF.UserModel;
 using System;
 using System.Collections.Generic;
@@ -290,14 +293,14 @@ namespace FrameworkTest
                     return;
                 }
                 var modelPath = Path.Combine(AppContext.BaseDirectory, @"Business\ExcelGenerator", config.FileName);
-                var outputPath  = Path.Combine(AppContext.BaseDirectory, @"Business\ExcelGenerator", "TextExport.xlsx");
+                var outputPath = Path.Combine(AppContext.BaseDirectory, @"Business\ExcelGenerator", "TextExport.xlsx");
                 if (!File.Exists(modelPath))
                 {
                     Console.WriteLine("模板文件不存在");
                     return;
                 }
-                var search = new List<KeyValue>() { new KeyValue("personname", "贾婷婷") };
-                using (FileStream s =File.OpenRead(modelPath))
+                var search = new List<KeyValuePair<string, string>>() { new KeyValuePair<string, string>("personname", "贾婷婷") };
+                using (FileStream s = File.OpenRead(modelPath))
                 {
                     var workbook = new XSSFWorkbook(s);
                     foreach (var sheetConfig in config.Sheets)
@@ -718,7 +721,6 @@ order by def.[TableName],def.Id
                 XMLEx.TestCreate(@"D:\a.xml");
             }));
             #endregion
-            cmds.Add(new Command("---------------------顺德-------------------", () => { }));
             #region 顺德,佛山同步
             cmds.Add(new Command("m1,0602,模拟用户登录-本地实验", () =>
             {
@@ -3575,7 +3577,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                                     var pattern = $@"{intP},{intP},{intP},{intP},{intP},{varcharP},{varcharP},{varcharP},{varcharP},{varcharP},{decimalP},{decimalP}";
                                     var regex = new Regex(pattern);
                                     var match = regex.Match(text);
-                                    if (match.Groups.Count==13)
+                                    if (match.Groups.Count == 13)
                                     {
                                         datas.Add(new cnarea()
                                         {
@@ -4007,7 +4009,6 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 syncTask.Start_Auto_DoWork(context, SDBLL.UserInfo);
             }));
             #endregion
-            cmds.Add(new Command("---------------------国健-------------------", () => { }));
             #region 国健,产前记录解析
             cmds.Add(new Command("gj1,产前记录解析", () =>
             {
@@ -4016,30 +4017,313 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 PreDeliveryParser.GetPreDeliveries(str, ref sb);
             }));
             #endregion
+            #region 科研,数据初始化
+            cmds.Add(new Command("pre01,prepare01,产时信息", () =>
+            {
+                var textPattern = @"""?([\w+\.<&;>\s-：:，,=%/]*)""?";
+                var ss = "\t\t\t";
+                var mm = new Regex($"{textPattern}\t{textPattern}\t{textPattern}\t{textPattern}").Match(ss);
+                var mmCount = mm.Groups.Count;
+                var path = @"D:\WorkSpace\Docs\05.科研管理\赵毅超数据\产时信息.txt";
+                var lines = File.ReadAllLines(path);
+                Regex regex = new Regex($@"{textPattern}\t{textPattern}\t{textPattern}\t{textPattern}\t{textPattern}\t{textPattern}\t{textPattern}\t{textPattern}\t{textPattern}\t{textPattern}\t{textPattern}\t{textPattern}");
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    try
+                    {
+                        //母亲身份证	出生体重	xingbiedm	taifangwdm	fenmianfsdm	apgar5	apgar10	分娩日期	chuxuel	huiyinqkdm
+                        //"110102198302070064"    "3620"  "1" "01"    "1" "9" "0"         "4/4/2019 00:00:00" "0" "1"
+                        var line = lines[i];
+                        var match = regex.Match(line);
+                        if (match.Groups.Count == 13)
+                        {
+                            var delivery = new Delivery();
+                            var colIndex = 1;
+                            delivery.Idcard = match.Groups[colIndex].ToString(); colIndex++;
+                            delivery.WeightOnBirth = match.Groups[colIndex].ToString(); colIndex++;
+                            delivery.xingbiedm = match.Groups[colIndex].ToString(); colIndex++;
+                            delivery.taifangwdm = match.Groups[colIndex].ToString(); colIndex++;
+                            delivery.fenmianfsdm = match.Groups[colIndex].ToString(); colIndex++;
+                            delivery.apgar5 = match.Groups[colIndex].ToString(); colIndex++;
+                            delivery.apgar10 = match.Groups[colIndex].ToString(); colIndex++;
+                            colIndex++;
+                            colIndex++;
+                            delivery.DeliveryDate = match.Groups[colIndex].ToDateTime(); colIndex++;
+                            delivery.chuxuel = match.Groups[colIndex].ToString(); colIndex++;
+                            delivery.huiyinqkdm = match.Groups[colIndex].ToString(); colIndex++;
+                            if (delivery.DeliveryDate == null)
+                                continue;
+                            var dbContext = DBHelper.GetSqlDbContext(LocalMSSQL);
+                            var serviceResult = dbContext.DelegateTransaction((group) =>
+                            {
+                                DeliveryRepository repository = new DeliveryRepository(dbContext);
+                                delivery.Id = repository.Insert(delivery);
+                                return delivery.Id;
+                            });
+                        }
+                        else
+                        {
+                            var isUnmatched = false;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        var error = ex.ToString();
+                    }
+                }
+            }));
+            cmds.Add(new Command("pre02,prepare02,B超数据", () =>
+            {
+                var textPattern = @"""?([\w+\.<&;>\s-：:，,=%/]*)""?";
+                var ss = "\t\t\t";
+                var mm = new Regex($"{textPattern}\t{textPattern}\t{textPattern}\t{textPattern}").Match(ss);
+                var mmCount = mm.Groups.Count;
+                //建表
+                if (false)
+                {
+                    var fields = "idcard,chushengyz,bcheckweek,jcdate,age,height,preweight,parity,gravidity,bloodtype,rhbloodtype,education,dateofprenatal,sbp,dbp,preterm,mociyuejing,pluse,tailin,yunnanga,yunnangb,yunnangc,taiwei,taixin,gr,yangshui,jidongm,nt,dingtunc,shuangdingj,touwei,guguc,taierfw,fmfs,fmfsdm,fmdate,sex,tz";
+                    var dbContext = DBHelper.GetSqlDbContext(LocalMSSQL);
+                    var serviceResult = dbContext.DelegateTransaction((group) =>
+                    {
+                        group.Connection.Execute(DBHelper.GetCreateTableSQL("BCheck", fields, ','), transaction: group.Transaction);
+                        return true;
+                    });
+                }
+                //导数据
+                var path = @"D:\WorkSpace\Docs\05.科研管理\赵毅超数据\B超数据.txt";
+                var lines = File.ReadAllLines(path);
+                //var patten = $"\"?{textPattern}\"?";
+                //for (int i = 0; i < 38; i++)
+                //    patten += $@"\t""?{ textPattern}""?";
+                //Regex regex = new Regex(patten);
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    try
+                    {
+                        //idcard chushengyz  bcheckweek jcdate  age height  preweight parity  gravidity bloodtype   rhbloodtype education   dateofprenatal sbp dbp preterm mociyuejing pluse   tailin yunnanga    yunnangb yunnangc    taiwei taixin  gr yangshui    jidongm nt  dingtunc shuangdingj touwei guguc   taierfw fmfs    fmfsdm fmdate  sex tz
+                        //"\"110101198207073041\"\t\"40\"\t\"25\"\t\"21/11/2017\"\t\"36\"\t\"160\"\t\"60\"\t\"0\"\t\"2\"\t\"0\"\t\"2\"\t\"20\"\t\"8/3/2018\"\t\"113\"\t\"73\"\t\"0\"\t\"1/6/2017\"\t\"84\"\t\"280\"\t\t\t\t\"LSA\"\t\"143\"\t\"0级 \"\t\t\"2.8\"\t\t\t\"5.9\"\t\"22.4\"\t\"4.2\"\t\"20.2\"\t\"阴道自然分娩\"\t\"1\"\t\"11/3/2018\"\t\"1\"\t\"3490\""
+                        var line = lines[i];
+                        var match = line.Split('\t').Select(c => c.Trim("\"")).ToList();
+                        if (match.Count == 38)
+                        {
+                            var entity = new BCheck();
+                            var colIndex = 0;
+                            entity.idcard = match[colIndex].ToString(); colIndex++;
+                            entity.chushengyz = match[colIndex].ToString(); colIndex++;
+                            entity.bcheckweek = match[colIndex].ToString(); colIndex++;
+                            entity.jcdate = match[colIndex].ToString(); colIndex++;
+                            entity.age = match[colIndex].ToString(); colIndex++;
+                            entity.height = match[colIndex].ToString(); colIndex++;
+                            entity.preweight = match[colIndex].ToString(); colIndex++;
+                            entity.parity = match[colIndex].ToString(); colIndex++;
+                            entity.gravidity = match[colIndex].ToString(); colIndex++;
+                            entity.bloodtype = match[colIndex].ToString(); colIndex++;
+                            entity.rhbloodtype = match[colIndex].ToString(); colIndex++;
+                            entity.education = match[colIndex].ToString(); colIndex++;
+                            entity.dateofprenatal = match[colIndex].ToString().ToDateTime(); colIndex++;
+                            entity.sbp = match[colIndex].ToString(); colIndex++;
+                            entity.dbp = match[colIndex].ToString(); colIndex++;
+                            entity.preterm = match[colIndex].ToString(); colIndex++;
+                            entity.mociyuejing = match[colIndex].ToString(); colIndex++;
+                            entity.pluse = match[colIndex].ToString(); colIndex++;
+                            entity.tailin = match[colIndex].ToString(); colIndex++;
+                            entity.yunnanga = match[colIndex].ToString(); colIndex++;
+                            entity.yunnangb = match[colIndex].ToString(); colIndex++;
+                            entity.yunnangc = match[colIndex].ToString(); colIndex++;
+                            entity.taiwei = match[colIndex].ToString(); colIndex++;
+                            entity.taixin = match[colIndex].ToString(); colIndex++;
+                            entity.gr = match[colIndex].ToString(); colIndex++;
+                            entity.yangshui = match[colIndex].ToString(); colIndex++;
+                            entity.jidongm = match[colIndex].ToString(); colIndex++;
+                            entity.nt = match[colIndex].ToString(); colIndex++;
+                            entity.dingtunc = match[colIndex].ToString(); colIndex++;
+                            entity.shuangdingj = match[colIndex].ToString(); colIndex++;
+                            entity.touwei = match[colIndex].ToString(); colIndex++;
+                            entity.guguc = match[colIndex].ToString(); colIndex++;
+                            entity.taierfw = match[colIndex].ToString(); colIndex++;
+                            entity.fmfs = match[colIndex].ToString(); colIndex++;
+                            entity.fmfsdm = match[colIndex].ToString(); colIndex++;
+                            entity.fmdate = match[colIndex].ToString().ToDateTime(); colIndex++;
+                            entity.sex = match[colIndex].ToString(); colIndex++;
+                            entity.tz = match[colIndex].ToString(); colIndex++;
+
+                            if (entity.idcard == null)
+                                continue;
+                            var dbContext = DBHelper.GetSqlDbContext(LocalMSSQL);
+                            var serviceResult = dbContext.DelegateTransaction((group) =>
+                            {
+                                BCheckRepository repository = new BCheckRepository(dbContext);
+                                entity.Id = repository.Insert(entity);
+                                return entity.Id;
+                            });
+                        }
+                        else
+                        {
+                            var isUnmatched = false;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        var error = ex.ToString();
+                    }
+                }
+            }));
+            cmds.Add(new Command("pre03,fixData,R_Check", () =>
+            {
+                TransformInfo trans = new TransformInfo() {
+                    TableName = "R_Check"
+                };
+                trans.KeyFields = new List<string>() { 
+                    "PatientId",
+                    "CheckOrderId",
+                    "InspectionId",
+                };
+                trans.Transforms = new List<TransfromBase >() { 
+                    new SimpleTransfrom (){ 
+                        From= "IssueTime",
+                        To= "IssueTime2",
+                        Type= SimpleTransformType.DateTime,
+                    }
+                };
+                var dbContext = DBHelper.GetSqlDbContext(LocalMSSQL);
+                var repository = new CommonRepository(dbContext);
+                var data = dbContext.DelegateTransaction((group) =>
+                {
+                    return repository.GetDataTable(group, trans.GetSourceSQL());
+                }).Data;
+                //Multiple Update
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < data.Rows.Count; i++)
+                {
+                    var row = data.Rows[i];
+                    Console.WriteLine(i);
+                    if (!trans.IsParamsValid(row))
+                        continue;
+                    var sql = trans.GetSQLToUpdate(row);
+                    sb.AppendLine(sql);
+                    if (i % 100 == 0 || i == data.Rows.Count - 1)
+                    {
+                        var serviceResult = dbContext.DelegateTransaction((group) =>
+                        {
+                            group.Connection.Execute(sb.ToString(), transaction: group.Transaction);
+                            return true;
+                        });
+                        sb = new StringBuilder();
+                    }
+                }
+                //Single Update
+                //foreach (DataRow row in data.Rows)
+                //{
+                //    var pars = trans.GetParams(row);
+                //    Console.WriteLine(pars.ToJson());
+                //    if (!trans.IsParamsValid(row))
+                //        continue;
+                //    var sql = trans.GetSQLToUpdate(row);
+                //    group.Connection.Execute(sql, pars, group.Transaction);
+                //}
+            }));
+            cmds.Add(new Command("pre04,fixData,R_Patient", () =>
+            {
+                TransformInfo trans = new TransformInfo()
+                {
+                    TableName = "R_Patient"
+                };
+                trans.KeyFields = new List<string>() {
+                    "idcard",
+                    "lastmenstrualperiod",
+                };
+                trans.Transforms = new List<TransfromBase >() {
+                    new SimpleTransfrom (){
+                        From= "lastmenstrualperiod",
+                        To= "lastmenstrualperiod2",
+                        Type= SimpleTransformType.Date,
+                    }
+                };
+                var dbContext = DBHelper.GetSqlDbContext(LocalMSSQL);
+                var repository = new CommonRepository(dbContext);
+                var data = dbContext.DelegateTransaction((group) =>
+                {
+                    return repository.GetDataTable(group, trans.GetSourceSQL());
+                }).Data;
+                //Multiple Update
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < data.Rows.Count; i++)
+                {
+                    var row = data.Rows[i];
+                    Console.WriteLine(i);
+                    if (!trans.IsParamsValid(row))
+                        continue;
+                    var sql = trans.GetSQLToUpdate(row);
+                    sb.AppendLine(sql);
+                    if (i % 100 == 0 || i == data.Rows.Count - 1)
+                    {
+                        var serviceResult = dbContext.DelegateTransaction((group) =>
+                        {
+                            repository.Execute(group, sb.ToString());
+                            return true;
+                        });
+                        sb = new StringBuilder();
+                    }
+                }
+            }));
+            cmds.Add(new Command("pre05,fixData,R_CheckOrder", () =>
+            {
+                TransformInfo trans = new TransformInfo()
+                {
+                    TableName = "R_CheckOrder"
+                };
+                trans.KeyFields = new List<string>() {
+                    "patientId",
+                    "checkorderid",
+                };
+                trans.Transforms = new List<TransfromBase>() {
+                    new PregnantTransfrom (){
+                        LastMenstrualPeriod= "lastmenstrualperiod2",
+                        DateToCheck = "IssueTime",
+                        GestationalWeeks= "GestationalWeeks",
+                        GestationalDays= "GestationalDays",
+                        Type= PregnantTransformType.GestationalWeeksAndDay,
+                    }
+                };
+                trans.SourceSQL = @"
+select p.idcard,p.lastmenstrualperiod2
+,co.checkorderid,co.patientId,co.IssueTime 
+from R_Patient p
+left join R_PatientIds_Dis ids on ids.idcard = p.idcard
+left join R_CheckOrder co on co.patientId = ids.patientId and p.lastmenstrualperiod2 < co.issuetime
+where co.checkorderid is not null
+";
+                var dbContext = DBHelper.GetSqlDbContext(LocalMSSQL);
+                var repository = new CommonRepository(dbContext);
+                var data = dbContext.DelegateTransaction((group) =>
+                {
+                    return repository.GetDataTable(group, trans.GetSourceSQL());
+                }).Data;
+                //Multiple Update
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < data.Rows.Count; i++)
+                {
+                    var row = data.Rows[i];
+                    Console.WriteLine(i);
+                    if (!trans.IsParamsValid(row))
+                        continue;
+                    var sql = trans.GetSQLToUpdate(row);
+                    sb.AppendLine(sql);
+                    if (i % 100 == 0 || i == data.Rows.Count - 1)
+                    {
+                        var serviceResult = dbContext.DelegateTransaction((group) =>
+                        {
+                            repository.Execute(group, sb.ToString());
+                            return true;
+                        });
+                        sb = new StringBuilder();
+                    }
+                }
+            }));
+            #endregion
 
             cmds.Start();
         }
-    }
-
-    /// <summary>
-    /// 键值对
-    /// </summary>
-    public class KeyValue
-    {
-        public KeyValue(string key, string value)
-        {
-            Key = key;
-            Value = value;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Key { set; get; }
-        /// <summary>
-        /// /
-        /// </summary>
-        public string Value { set; get; }
     }
 
     #region CommandMode
@@ -4089,3 +4373,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
 
     #endregion
 }
+
+
+
+
