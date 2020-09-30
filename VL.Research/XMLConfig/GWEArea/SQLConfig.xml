@@ -43,7 +43,7 @@
 				left join cc_generalinfo g on h.childid = g.childid
 				left join GY_FUWUJG subjg on g.manaunitid = subjg.fuwujgbh
 				where h.status = 1
-				<If Operator="NotEmpty" ComponentName ="登记日期Start"> and h.registerdate &gt;= @登记日期Start </If>
+				<If Operator="NotEmpty" ComponentName ="登记日期Start" Value=""> and h.registerdate &gt;= @登记日期Start </If>
 				<If Operator="NotEmpty" ComponentName ="登记日期End"> and h.registerdate &gt;= @登记日期End </If>
 				and subjg.dizhibm in
 				(
