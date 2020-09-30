@@ -149,7 +149,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
             }
         })
         html += `
-            <div class="layui-inline" style="flex: 1 0 0;">&emsp;
+            <div class="layui-inline tbSearchArea">&emsp;
                 <button class="layui-btn icon-btn tbSearch" lay-filter="tbSearch" lay-submit>
                     <i class="layui-icon">&#xe615;</i>搜索
                 </button>
@@ -297,7 +297,10 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
         toolbar: THToolbar.join(''),
         defaultToolbar: DTB,
         cellMinWidth: 100,
-        limit: _data.table.limit,
+        even: true,
+        // width: 1500,
+        limit: _data.table.limit || 15,
+        limits: [10, 15, 20],
         initSort: isBlank(_data.table.initSort) ? {} : _data.table.initSort,
         response: {
             statusCode: 200,
@@ -327,7 +330,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
             }
         });
 
-        layer.msg('服务端排序。order by ' + obj.field + ' ' + obj.type);
+        // layer.msg('服务端排序。order by ' + obj.field + ' ' + obj.type);
     });
 
     /* 表格搜索 */
@@ -342,7 +345,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
             if (i !== 'search') {
                 //此处是为了保存每次搜索的参数
                 $.each(_data.search, function (index, item) {
-                    if (item.name !== undefined) {
+                    if (item.type !== 5) {
                         if (item.name === i) {
                             if (item.type === 3 || item.type === 4) {
                                 $.each(item.options, function (_index, _item) {
@@ -499,8 +502,9 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                 }
             });
         } else if (obj.event === 'newPage') { // 新标签页
+            // console.log(index,location.href)
             if (index === undefined) {
-                window.open(url);
+                location.href = url;
             } else {
                 newTab(url, _this.text(), function () {
                     dataTable.reload({ page: { curr: 1 } });
@@ -562,6 +566,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
             elem: this,
             type: 'date',
             range: true,
+            theme: '#2D5595',
             trigger: 'click'
         });
     })
@@ -580,6 +585,21 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
             el: this,
             name: $(this).attr('data-name'),
             language: 'zn',
+            model: {
+                icon: 'hidden',
+                label: {
+                    type: 'text'
+                }
+            },
+            theme: {
+                color: '#2D5595',
+            },
+            style: {
+                fontSize: '1em',
+                width: '100%',
+                height: '25px',
+                minHeight: '25px'
+            },
             data: options
         })
     })

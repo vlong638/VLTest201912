@@ -1,0 +1,212 @@
+.layui-card {
+    width: 97%;
+    padding: 0 2%;
+}
+
+.layui-card-body {
+    border: 2px solid #2D5595;
+    width: 97.5%;
+    overflow: visible;
+    background: rgb(255, 255, 255);
+    margin-right: 0;
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.layui-card-body::after {
+    content: '收起';
+    width: 30px;
+    padding: 0 15px;
+    border-radius: 0 0 4px 4px;
+    border: 1px solid #2d5595;
+    background: #2d5595;
+    color: white;
+    margin: 0 auto;
+    cursor: pointer;
+    display: block;
+    z-index: 9999;
+    position: absolute;
+    bottom: -28px;
+    left: 47%;
+}
+
+div.layui-form.layui-border-box.layui-table-view {
+    overflow-x: auto;
+}
+
+form.toolbar > div.layui-form-item > div > div.layui-inline {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 290px;
+}
+
+form.toolbar > div.layui-form-item > div > div.layui-inline.tbSearchArea {
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 290px;
+    margin-left: auto;
+}
+
+form.toolbar > div.layui-form-item > div > div.layui-inline > label.layui-form-label {
+    font-family: 'Open Sans';
+    font-size: 13px;
+    color: #393939;
+    line-height: 1.5;
+    flex: 1;
+}
+
+form.toolbar > div.layui-form-item > div > div.layui-inline > div.layui-input-inline {
+    flex: 0 0 175px;
+}
+
+form.toolbar > div.layui-form-item > div > div.layui-inline > div.layui-input-inline > input.layui-input {
+    font-size: 1em;
+    width: 100%;
+    height: 25px;
+    background: white!important;
+    max-width: 175px;
+    flex: 0 0 175px;
+}
+
+form.toolbar > div.layui-form-item > div > div.layui-inline > div.layui-input-inline > div.layui-form-select {
+    font-size: 1em;
+    width: 100%;
+    height: 25px;
+    background: white!important;
+    max-width: 175px;
+    flex: 0 0 175px;
+}
+
+form.toolbar > div.layui-form-item > div > div.layui-inline > div.layui-input-inline > div.layui-form-select > div.layui-select-title > input.layui-input {
+    font-size: 1em;
+    width: 100%;
+    height: 25px;
+    background: white!important;
+    max-width: 175px;
+    flex: 0 0 175px;
+}
+
+.layui-form-select dl {
+    top: 30px;
+}
+
+div.layui-tree-entry > div.layui-tree-main > span.layui-tree-iconClick > i.layui-icon-file {
+    display: none;
+}
+
+form.toolbar > div.layui-form-item > div > div.layui-inline > div.layui-input-inline > div.layui-form-select > div.layui-select-title {
+    font-size: 1em;
+    width: 100%;
+    height: 25px;
+    background: white!important;
+    max-width: 175px;
+    flex: 0 0 175px;
+}
+
+div.xm-label.single-row > div.scroll {
+    height: 25px;
+    min-height: 25px;
+    line-height: 25px;
+}
+
+div.xm-label.single-row > div.scroll > div.label-content {
+    height: 25px;
+    min-height: 25px;
+    line-height: 25px;
+}
+
+button.layui-btn {
+    background-color: #2D5595;
+    border: 1.5px solid #2D5595;
+    padding: 4px;
+    border-radius: 4px;
+    width: 80px;
+    text-align: center;
+    height: 30px;
+    line-height: 19px;
+}
+
+button.layui-btn > i.layui-icon {
+    display: none;
+}
+
+div[lay-id="dataTable"] {
+    border: none;
+}
+
+.layui-table-tool {
+    background-color: white !important;
+    border-width: 0;
+    display: inline-flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.layui-table-tool-temp {
+    padding-right: unset;
+}
+
+.layui-table-tool-self {
+    display: inline-flex;
+    position: unset;
+}
+
+.layui-table-tool-self > div.layui-inline {
+    background-color: #2D5595;
+    border: 1.5px solid #2D5595 !important;
+    padding: 4px !important;
+    border-radius: 4px;
+    width: 80px !important;
+    text-align: center !important;
+    height: 30px !important;
+    line-height: 19px !important;
+}
+
+.layui-table-tool-self > div.layui-inline > i {
+    color: white;
+}
+
+.layui-table-box {
+    border: 1px solid #e6e6e6;
+}
+
+thead > tr {
+    background: linear-gradient(0deg, #ECECEC, #F7F7F7) !important;
+}
+
+th > .layui-table-cell > span {
+    font-weight: bold !important;
+    color: #707070 !important;
+}
+
+td, th {
+    /*border: none !important;*/
+}
+
+.layui-this {
+    background-color: #2D5595 !important;
+}
+
+.xm-label-block {
+    background-color: #2D5595 !important;
+}
+
+.layui-laypage-em {
+    background-color: #2D5595 !important;
+}
+
+.layui-layer-btn > a.layui-layer-btn0 {
+    background-color: #2D5595 !important;
+    border-color: #2D5595 !important;
+}
+
+.layui-layer-title {
+    color: white !important;
+    background-color: #2D5595 !important;
+}
+a.layui-layer-ico.layui-layer-close {
+    color: white !important;
+}
+
