@@ -178,8 +178,9 @@
     <Compile Include="Business\Research\CommonRepository.cs" />
     <Compile Include="Business\Research\BCheckRepository.cs" />
     <Compile Include="Business\Research\DeliveryRepository.cs" />
+    <Compile Include="Business\Research\MergeInfo.cs" />
     <Compile Include="Business\Research\TransformType.cs" />
-    <Compile Include="Business\Research\SimpleTransfrom .cs" />
+    <Compile Include="Business\Research\SimpleTransfrom.cs" />
     <Compile Include="Business\SDMockCommit\DALs\ESBDAL.cs" />
     <Compile Include="Business\SDMockCommit\DALs\HISDAL.cs" />
     <Compile Include="Business\SDMockCommit\Dics\Apnea.cs" />

@@ -13,7 +13,6 @@ using FrameworkTest.Common.XMLSolution;
 using FrameworkTest.ConfigurableEntity;
 using FrameworkTest.Kettle;
 using FrameworkTest.Research;
-using NPOI.OpenXmlFormats.Dml;
 using NPOI.XSSF.UserModel;
 using System;
 using System.Collections.Generic;
@@ -24,7 +23,6 @@ using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
-using System.Text.Encodings.Web;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
@@ -37,7 +35,7 @@ namespace FrameworkTest
 
     class Program
     {
-        static string LocalMSSQL = "Data Source=127.0.0.1,1433;Initial Catalog=VLTest;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sa;Password=123";
+        static string LocalMSSQL = "Data Source=127.0.0.1,1433;Initial Catalog=VLTest02;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sa;Password=123";
         static string HeleOuterMSSQL = "Data Source=heletech.asuscomm.com,8082;Initial Catalog=HELEESB;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=ESBUSER;Password=ESBPWD";
         static string HeleInnerMSSQL = "Data Source=192.168.50.102,1433;Initial Catalog=VLTest;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=ESBUSER;Password=ESBPWD";
 
@@ -4278,7 +4276,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 };
                 trans.Transforms = new List<TransfromBase>() {
                     new PregnantTransfrom (){
-                        LastMenstrualPeriod= "lastmenstrualperiod2",
+                        LastMenstrualPeriod= "lastmenstrualperiod",
                         DateToCheck = "IssueTime",
                         GestationalWeeks= "GestationalWeeks",
                         GestationalDays= "GestationalDays",
@@ -4286,11 +4284,11 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     }
                 };
                 trans.SourceSQL = @"
-select p.idcard,p.lastmenstrualperiod2
+select p.idcard,p.lastmenstrualperiod
 ,co.checkorderid,co.patientId,co.IssueTime 
 from R_Patient p
 left join R_PatientIds_Dis ids on ids.idcard = p.idcard
-left join R_CheckOrder co on co.patientId = ids.patientId and p.lastmenstrualperiod2 < co.issuetime
+left join R_CheckOrder co on co.patientId = ids.patientId and p.lastmenstrualperiod < co.issuetime and dateadd(year,1,p.lastmenstrualperiod) > co.issuetime
 where co.checkorderid is not null
 ";
                 var dbContext = DBHelper.GetSqlDbContext(LocalMSSQL);
@@ -4320,9 +4318,181 @@ where co.checkorderid is not null
                     }
                 }
             }));
+            cmds.Add(new Command("pre06,Combine", () =>
+            {
+                MergeInfo merge = new MergeInfo();
+                merge.TableName = "R_CheckOrder_Value_Combined";
+                merge.Fields = new List<string>()
+                {
+                    "T0246",
+                    "T0150",
+                    "T0157",
+                    "T0303",
+                    "T0251",
+                    "T0307",
+                    "T0160",
+                    "T0308",
+                    "T0167",
+                    "T0170",
+                    "T0184",
+                    "T0153",
+                    "T0183",
+                    "T0266",
+                    "T0243",
+                    "T0249",
+                    "T0250",
+                    "T0195",
+                    "T0155",
+                    "T0148",
+                    "T0166",
+                    "T0149",
+                    "T0258",
+                    "T0247",
+                    "T0175",
+                    "T0272",
+                    "T0165",
+                    "T0154",
+                    "T0298",
+                    "T0186",
+                    "T0159",
+                    "T0248",
+                    "T0200",
+                    "T0296",
+                    "T0168",
+                    "T0193",
+                    "T0245",
+                    "T0174",
+                    "T0178",
+                    "T0169",
+                };
+
+                var dbContext = DBHelper.GetSqlDbContext(LocalMSSQL);
+                var repository = new CommonRepository(dbContext);
+                var data = dbContext.DelegateTransaction((group) =>
+                {
+                    return repository.GetDataTable(group, @"select distinct(idcard) from R_Patient");
+                }).Data;
+
+
+                //Multiple Update
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < data.Rows.Count; i++)
+                {
+                    var idcardRow = data.Rows[i];
+                    Console.WriteLine(i);
+                    DataRow currentOrder = null;
+                    var serviceResult = dbContext.DelegateTransaction((group) =>
+                    {
+                        var idcard = idcardRow.GetRowValue("idcard");
+                        var orders = repository.GetDataTable(group, $"select * from R_CheckOrder_Value where idcard = {idcard.ToMSSQLValue()} order by issueTime");
+                        var combinedOrders = orders.Clone();
+                        var rootOrder = combinedOrders.NewRow();
+                        if (orders.Rows.Count == 0)
+                            return true;
+                        rootOrder.ItemArray = orders.Rows[0].ItemArray;
+                        for (int j = 1; j < orders.Rows.Count; j++)
+                        {
+                            var rootDays = rootOrder.GetRowValue("GestationalTotalDays").ToInt().Value;
+                            currentOrder = orders.Rows[j];
+                            var currentDays = currentOrder.GetRowValue("GestationalTotalDays").ToInt().Value;
+                            if (Math.Abs(currentDays - rootDays) < 3)
+                            {
+                                //合并
+                                bool isMerged = false;
+                                foreach (var field in merge.Fields)
+                                {
+                                    if (rootOrder.GetRowValue(field).IsNullOrEmpty()
+                                    && !currentOrder.GetRowValue(field).IsNullOrEmpty())
+                                    {
+                                        rootOrder[field] = currentOrder[field];
+                                        isMerged = true;
+                                    }
+                                }
+                                if (isMerged)
+                                {
+                                    var checkOrderIds = rootOrder.GetRowValue("checkOrderId") + "," + currentOrder.GetRowValue("checkOrderId");
+                                    rootOrder["checkOrderId"] = checkOrderIds;
+                                }
+                            }
+                            else
+                            {
+                                //更新总计
+                                int sum = 0;
+                                foreach (var field in merge.Fields)
+                                {
+                                    if (!rootOrder.GetRowValue(field).IsNullOrEmpty())
+                                        sum++;
+                                }
+                                rootOrder["TSum"] = sum;
+                                //保存
+                                combinedOrders.Rows.Add(rootOrder);
+                                //重置
+                                if (j < orders.Rows.Count)
+                                {
+                                    rootOrder = combinedOrders.NewRow();
+                                    if (j + 1 < orders.Rows.Count)
+                                    {
+                                        rootOrder.ItemArray = orders.Rows[j + 1].ItemArray;
+                                    }
+                                }
+                            }
+                        }
+                        //repository.InsertDataTable(group, combinedOrders, merge.TableName);
+                        //取集中24-27=169-189 //30218286
+                        var rangeMin = 169;
+                        var rangeMax = 189;
+                        currentOrder = GetByConcentration(group, repository, combinedOrders, rangeMin, rangeMax);
+                        repository.InsertDataRow(group, currentOrder, "R_CheckOrder_Value_Combined_24_27");
+                        //取集中28_31=190-217 //10676071
+                        rangeMin = 190;
+                        rangeMax = 217;
+                        currentOrder = GetByConcentration(group, repository, combinedOrders, rangeMin, rangeMax);
+                        repository.InsertDataRow(group, currentOrder, "R_CheckOrder_Value_Combined_28_31");
+                        //取最晚32+ //30218286
+                        currentOrder = GetLast(group, repository, combinedOrders);
+                        repository.InsertDataRow(group, currentOrder, "R_CheckOrder_Value_Combined_32");
+
+                        return true;
+                    });
+                }
+            }));
             #endregion
 
             cmds.Start();
+        }
+
+        private static DataRow GetByConcentration(DbGroup group, CommonRepository repository, DataTable combinedOrders, int rangeMin, int rangeMax)
+        {
+            DataRow currentOrder = null;
+            var currentSum = 0;
+            for (int j = 0; j < combinedOrders.Rows.Count; j++)
+            {
+                var currentRow = combinedOrders.Rows[j];
+                var rangeValue = currentRow.GetRowValue("GestationalTotalDays").ToInt();
+                if (rangeValue < rangeMin || rangeValue > rangeMax)
+                    continue;
+                var sum = currentRow.GetRowValue("TSum").ToInt();
+                if (sum.HasValue && sum <= currentSum)
+                    continue;
+                currentSum = sum.Value;
+                currentOrder = currentRow;
+            }
+            return currentOrder;
+        }
+        private static DataRow GetLast(DbGroup group, CommonRepository repository, DataTable combinedOrders)
+        {
+            DataRow currentOrder = null;
+            var currentRange = 0;
+            for (int j = 0; j < combinedOrders.Rows.Count; j++)
+            {
+                var currentRow = combinedOrders.Rows[j];
+                var rangeValue = currentRow.GetRowValue("GestationalTotalDays").ToInt();
+                if (rangeValue <= 224 | rangeValue < currentRange)
+                    continue;
+                currentRange = rangeValue.Value;
+                currentOrder = currentRow;
+            }
+            return currentOrder;
         }
     }
 
@@ -4373,7 +4543,4 @@ where co.checkorderid is not null
 
     #endregion
 }
-
-
-
 
