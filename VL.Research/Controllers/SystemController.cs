@@ -451,6 +451,7 @@ namespace VL.Research.Controllers
                 if (where != null)
                     where.Value = defaultParam.value;
             }
+            var cols = GetMultipleColumns(listConfig.Properties);
             var model = new GetListConfigModel()
             {
                 CustomConfigId = request.CustomConfigId,
@@ -483,21 +484,7 @@ namespace VL.Research.Controllers
                     page = true,
                     limit = 20,
                     initSort = new GetListConfigModel_TableConfg_InitSort(),
-                    cols = new List<List<GetListConfigModel_TableConfg_Col>>()
-                    {
-                        listConfig.Properties.Select(c => new GetListConfigModel_TableConfg_Col()
-                        {
-                            field = c.ColumnName,
-                            title = c.DisplayName,
-                            align = "center",
-                            templet ="",
-                            width= c.DisplayWidth,
-                            @fixed="",
-                            sort= c.IsSortable,
-                            colspan="",
-                            rowspan="",
-                        }).ToList()
-                    },
+                    cols = cols,
                     where = new List<VLNameValue>()
                     {
                         new VLNameValue(){
@@ -518,6 +505,44 @@ namespace VL.Research.Controllers
             var hiddenParams = GetNameValue(request.HiddenParams);
             model.table.where.AddRange(hiddenParams);
             return model;
+        }
+
+        private static List<List<GetListConfigModel_TableConfg_Col>> GetMultipleColumns(List<ListConfigProperty> propertyConfgs)
+        {
+            List<List<GetListConfigModel_TableConfg_Col>> result = new List<List<GetListConfigModel_TableConfg_Col>>();
+            var groupedProperties = propertyConfgs.GroupBy(c => c.DisplayLevel).OrderBy(c=>c.Key);
+            foreach (var properties in groupedProperties)
+            {
+                result.Add(properties.Select(c => new GetListConfigModel_TableConfg_Col()
+                {
+                    field = c.ColumnName,
+                    title = c.DisplayName,
+                    align = "center",
+                    templet = "",
+                    width = c.DisplayWidth,
+                    @fixed = "",
+                    sort = c.IsSortable,
+                    colspan = c.ColumnSpan.ToString(),
+                    rowspan = c.RowSpan.ToString(),
+                }).ToList());
+            }
+            return result;
+
+            //return new List<List<GetListConfigModel_TableConfg_Col>>()
+            //        {
+            //            propertyConfgs.Select(c => new GetListConfigModel_TableConfg_Col()
+            //            {
+            //                field = c.ColumnName,
+            //                title = c.DisplayName,
+            //                align = "center",
+            //                templet ="",
+            //                width= c.DisplayWidth,
+            //                @fixed="",
+            //                sort= c.IsSortable,
+            //                colspan=c.ColumnSpan.ToString(),
+            //                rowspan=c.RowSpan.ToString(),
+            //            }).ToList()
+            //        };
         }
 
         /// <summary>

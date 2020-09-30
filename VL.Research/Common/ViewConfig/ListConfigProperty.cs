@@ -89,8 +89,28 @@ namespace VL.Research.Common
         //public bool IsRequired { set; get; } 
         #endregion
 
+        #region 多级结构配置
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int? DisplayLevel { set; get; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int? RowSpan { set; get; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int? ColumnSpan { set; get; }
+
+        #endregion
+
         public ListConfigProperty(DBListConfig dbConfig)
         {
+            DisplayLevel= null;
+            RowSpan = null;
+            ColumnSpan = null;
             ColumnName = dbConfig.ColumnName;
             DisplayName = "";
             DisplayType = DisplayType.None;
@@ -105,6 +125,9 @@ namespace VL.Research.Common
         }
         public ListConfigProperty(XElement element)
         {
+            DisplayLevel= element.Attribute(nameof(DisplayLevel))?.Value.ToInt();
+            RowSpan = element.Attribute(nameof(RowSpan))?.Value.ToInt();
+            ColumnSpan = element.Attribute(nameof(ColumnSpan))?.Value.ToInt();
             ColumnName = element.Attribute(nameof(ColumnName))?.Value;
             DisplayName = element.Attribute(nameof(DisplayName))?.Value;
             DisplayType = element.Attribute(nameof(DisplayType))?.Value.ToEnum<DisplayType>() ?? DisplayType.None;

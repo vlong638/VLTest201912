@@ -766,6 +766,21 @@
             数据类型(显示,校验)
             </summary>
         </member>
+        <member name="P:VL.Research.Common.ListConfigProperty.DisplayLevel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:VL.Research.Common.ListConfigProperty.RowSpan">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:VL.Research.Common.ListConfigProperty.ColumnSpan">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:VL.Research.Models.DetailConfig">
             <summary>
             页面配置
