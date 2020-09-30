@@ -13,6 +13,7 @@
     margin-bottom: 30px;
 }
 
+/*
 .layui-card-body::after {
     content: '收起';
     width: 30px;
@@ -29,6 +30,7 @@
     bottom: -28px;
     left: 47%;
 }
+*/
 
 div.layui-form.layui-border-box.layui-table-view {
     overflow-x: auto;
@@ -41,52 +43,52 @@ form.toolbar > div.layui-form-item > div > div.layui-inline {
     width: 290px;
 }
 
-form.toolbar > div.layui-form-item > div > div.layui-inline.tbSearchArea {
-    display: inline-flex;
-    justify-content: flex-start;
-    align-items: center;
-    width: 290px;
-    margin-left: auto;
-}
+    form.toolbar > div.layui-form-item > div > div.layui-inline.tbSearchArea {
+        display: inline-flex;
+        justify-content: flex-start;
+        align-items: center;
+        width: 290px;
+        margin-left: auto;
+    }
 
-form.toolbar > div.layui-form-item > div > div.layui-inline > label.layui-form-label {
-    font-family: 'Open Sans';
-    font-size: 13px;
-    color: #393939;
-    line-height: 1.5;
-    flex: 1;
-}
+    form.toolbar > div.layui-form-item > div > div.layui-inline > label.layui-form-label {
+        font-family: 'Open Sans';
+        font-size: 13px;
+        color: #393939;
+        line-height: 1.5;
+        flex: 1;
+    }
 
-form.toolbar > div.layui-form-item > div > div.layui-inline > div.layui-input-inline {
-    flex: 0 0 175px;
-}
+    form.toolbar > div.layui-form-item > div > div.layui-inline > div.layui-input-inline {
+        flex: 0 0 175px;
+    }
 
-form.toolbar > div.layui-form-item > div > div.layui-inline > div.layui-input-inline > input.layui-input {
-    font-size: 1em;
-    width: 100%;
-    height: 25px;
-    background: white!important;
-    max-width: 175px;
-    flex: 0 0 175px;
-}
+        form.toolbar > div.layui-form-item > div > div.layui-inline > div.layui-input-inline > input.layui-input {
+            font-size: 1em;
+            width: 100%;
+            height: 25px;
+            background: white !important;
+            max-width: 175px;
+            flex: 0 0 175px;
+        }
 
-form.toolbar > div.layui-form-item > div > div.layui-inline > div.layui-input-inline > div.layui-form-select {
-    font-size: 1em;
-    width: 100%;
-    height: 25px;
-    background: white!important;
-    max-width: 175px;
-    flex: 0 0 175px;
-}
+        form.toolbar > div.layui-form-item > div > div.layui-inline > div.layui-input-inline > div.layui-form-select {
+            font-size: 1em;
+            width: 100%;
+            height: 25px;
+            background: white !important;
+            max-width: 175px;
+            flex: 0 0 175px;
+        }
 
-form.toolbar > div.layui-form-item > div > div.layui-inline > div.layui-input-inline > div.layui-form-select > div.layui-select-title > input.layui-input {
-    font-size: 1em;
-    width: 100%;
-    height: 25px;
-    background: white!important;
-    max-width: 175px;
-    flex: 0 0 175px;
-}
+            form.toolbar > div.layui-form-item > div > div.layui-inline > div.layui-input-inline > div.layui-form-select > div.layui-select-title > input.layui-input {
+                font-size: 1em;
+                width: 100%;
+                height: 25px;
+                background: white !important;
+                max-width: 175px;
+                flex: 0 0 175px;
+            }
 
 .layui-form-select dl {
     top: 30px;
@@ -100,7 +102,7 @@ form.toolbar > div.layui-form-item > div > div.layui-inline > div.layui-input-in
     font-size: 1em;
     width: 100%;
     height: 25px;
-    background: white!important;
+    background: white !important;
     max-width: 175px;
     flex: 0 0 175px;
 }
@@ -111,11 +113,11 @@ div.xm-label.single-row > div.scroll {
     line-height: 25px;
 }
 
-div.xm-label.single-row > div.scroll > div.label-content {
-    height: 25px;
-    min-height: 25px;
-    line-height: 25px;
-}
+    div.xm-label.single-row > div.scroll > div.label-content {
+        height: 25px;
+        min-height: 25px;
+        line-height: 25px;
+    }
 
 button.layui-btn {
     background-color: #2D5595;
@@ -128,9 +130,9 @@ button.layui-btn {
     line-height: 19px;
 }
 
-button.layui-btn > i.layui-icon {
-    display: none;
-}
+    button.layui-btn > i.layui-icon {
+        display: none;
+    }
 
 div[lay-id="dataTable"] {
     border: none;
@@ -153,20 +155,20 @@ div[lay-id="dataTable"] {
     position: unset;
 }
 
-.layui-table-tool-self > div.layui-inline {
-    background-color: #2D5595;
-    border: 1.5px solid #2D5595 !important;
-    padding: 4px !important;
-    border-radius: 4px;
-    width: 80px !important;
-    text-align: center !important;
-    height: 30px !important;
-    line-height: 19px !important;
-}
+    .layui-table-tool-self > div.layui-inline {
+        background-color: #2D5595;
+        border: 1.5px solid #2D5595 !important;
+        padding: 4px !important;
+        border-radius: 4px;
+        width: 80px !important;
+        text-align: center !important;
+        height: 30px !important;
+        line-height: 19px !important;
+    }
 
-.layui-table-tool-self > div.layui-inline > i {
-    color: white;
-}
+        .layui-table-tool-self > div.layui-inline > i {
+            color: white;
+        }
 
 .layui-table-box {
     border: 1px solid #e6e6e6;
@@ -206,7 +208,7 @@ td, th {
     color: white !important;
     background-color: #2D5595 !important;
 }
+
 a.layui-layer-ico.layui-layer-close {
     color: white !important;
 }
-

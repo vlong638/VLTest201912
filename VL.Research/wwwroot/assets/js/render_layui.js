@@ -502,8 +502,8 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                 }
             });
         } else if (obj.event === 'newPage') { // 新标签页
-            // console.log(index,location.href)
-            if (index === undefined) {
+            // console.log(index)
+            if (index === null) {
                 location.href = url;
             } else {
                 newTab(url, _this.text(), function () {
