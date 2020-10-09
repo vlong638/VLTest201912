@@ -213,7 +213,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
 
         _this.after(scriptObject);
 
-        _data.table.cols[0].push({ title: '操作', toolbar: '#tbBar', align: 'center', minWidth: 200 })
+        _data.table.cols[0].push({ title: '操作', toolbar: '#tbBar', align: 'center', minWidth: 200, rowspan: _data.table.cols.length })
     }
 
     let where = {
