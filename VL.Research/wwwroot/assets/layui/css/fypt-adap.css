@@ -175,7 +175,7 @@ div[lay-id="dataTable"] {
 }
 
 thead > tr {
-    background: linear-gradient(0deg, #ECECEC, #F7F7F7) !important;
+    /*background: linear-gradient(0deg, #ECECEC, #F7F7F7) !important;*/
 }
 
 th > .layui-table-cell > span {
