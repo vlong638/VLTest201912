@@ -19,7 +19,7 @@
 			<Property DisplayLevel="1" Id="21" ParentId ="" IsNeedOnPage="true" DisplayName="高危儿筛出人数" RowSpan="1" ColumnSpan="10" />
 			<Property DisplayLevel="1" Id="22" ParentId ="" IsNeedOnPage="true" DisplayName="专案管理" RowSpan="1" ColumnSpan="3" />
 			<Property DisplayLevel="1" Id="17" ParentId ="" IsNeedOnPage="true" DisplayName="当季结案数" RowSpan="3" ColumnName="本季总数" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
-			<Property DisplayLevel="1" Id="2" ParentId ="" IsNeedOnPage="true" DisplayName="地区编码" RowSpan="3" ColumnName="地区编码" DisplayType="Hidden" DisplayWidth="180" IsSortable="False" DataType="bigint" Description="-" />
+			<!--<Property DisplayLevel="1" Id="2" ParentId ="" IsNeedOnPage="true" DisplayName="地区编码" RowSpan="3" ColumnName="地区编码" DisplayType="Hidden" DisplayWidth="180" IsSortable="False" DataType="bigint" Description="-" />-->
 
 			<Property DisplayLevel= "2" Id="23" ParentId ="21" IsNeedOnPage="true" DisplayName="出生体重因素" RowSpan="1" ColumnSpan="3" />
 			<Property DisplayLevel= "2" Id="24" ParentId ="21" IsNeedOnPage="true" DisplayName="神经系统因素" RowSpan="1" ColumnSpan="3" />

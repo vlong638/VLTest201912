@@ -351,18 +351,12 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
             if (i !== 'search') {
                 // 此处是为了保存每次搜索的参数
                 $.each(_data.search, function (index, item) {
-                    if (item.type !== 5) {
-                        if (item.name === i) {
-                            if (item.type === 3 || item.type === 4) {
-                                $.each(item.options, function (_index, _item) {
-                                    _item.checked = _item.value === data.field[i];
-                                })
-                            } else {
-                                item.value = data.field[i];
-                            }
-                        }
-                    } else {
-                        if (item.names.join('|') === i) {
+                    if (item.name === i) {
+                        if (item.type === 3 || item.type === 4) {
+                            $.each(item.options, function (_index, _item) {
+                                _item.checked = _item.value === data.field[i];
+                            })
+                        } else {
                             item.value = data.field[i];
                         }
                     }
