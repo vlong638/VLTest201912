@@ -52,8 +52,8 @@
 					group by dizhibm,dizhimc
 					order by dizhibm asc
 					@Pager
-				)
-				group by dizhibm
+					)
+					group by dizhibm
 				) info on jg.dizhibm = info.dizhibm
 				left join (
 					select
@@ -72,8 +72,8 @@
 					group by dizhibm,dizhimc
 					order by dizhibm asc
 					@Pager
-				)
-				group by subjg.dizhibm
+					)
+					group by subjg.dizhibm
 				) hc on jg.dizhibm = hc.dizhibm
 				left join (
 					select
@@ -93,8 +93,8 @@
 					group by dizhibm,dizhimc
 					order by dizhibm asc
 					@Pager
-				)
-				group by subjg.dizhibm
+					)
+					group by subjg.dizhibm
 				) za on jg.dizhibm = za.dizhibm
 			</SQL>
 			<CountSQL>
