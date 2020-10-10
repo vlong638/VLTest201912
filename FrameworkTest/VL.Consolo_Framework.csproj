@@ -173,6 +173,7 @@
     <Compile Include="Business\ExcelGenerator\ExportConfig.cs" />
     <Compile Include="Business\ExcelGenerator\PlaceHolder.cs" />
     <Compile Include="Business\GJPredeliveryAsync\PreDelivery.cs" />
+    <Content Include="Business\Profile\Input.txt" />
     <Compile Include="Business\Research\Entities\Patient.cs" />
     <Compile Include="Business\Research\Entities\Check.cs" />
     <Compile Include="Business\Research\CommonRepository.cs" />

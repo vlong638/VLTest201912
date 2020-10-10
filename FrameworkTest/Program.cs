@@ -4457,8 +4457,51 @@ where co.checkorderid is not null
                 }
             }));
             #endregion
+            #region Profile格式化
+
+            cmds.Add(new Command("pro01,Profile", () =>
+            {
+                var input = @"D:\WorkSpace\Repository\VLTest201912\FrameworkTest\Business\Profile\Input.txt";
+                var output = @"D:\WorkSpace\Repository\VLTest201912\FrameworkTest\Business\Profile\" + DateTime.Now.ToString("HHmmss")+ ".txt";
+                StringBuilder sb = new StringBuilder();
+                var texts = File.ReadAllLines(input);
+                for (int i = 0; i < texts.Count(); i++)
+                {
+                    var item = texts[i];
+                    var sTemp = GetValue(item);
+                    if (sTemp.StartsWith("select")
+                    || sTemp.StartsWith("from")
+                    || sTemp.StartsWith("where")
+                    || sTemp.StartsWith("group by")
+                    || sTemp.StartsWith("order by")
+                    )
+                    {
+                        sb.AppendLine(sTemp);
+                    }
+                    else
+                    {
+                        if (sTemp.StartsWith(","))
+                        {
+                            sTemp += GetValue(texts[i + 1]);
+                            i++;
+                        }
+                        if (sTemp.IsNullOrEmpty())
+                        {
+                            continue;
+                        }
+                        sb.AppendLine("\t" + sTemp);
+                    }
+                }
+                File.WriteAllText(output, sb.ToString());
+            }));
+            #endregion
 
             cmds.Start();
+        }
+
+        private static string GetValue(string item)
+        {
+            return item.Trim().Replace("''", "'");
         }
 
         private static DataRow GetByConcentration(DbGroup group, CommonRepository repository, DataTable combinedOrders, int rangeMin, int rangeMax)
@@ -4543,4 +4586,6 @@ where co.checkorderid is not null
 
     #endregion
 }
+
+
 
