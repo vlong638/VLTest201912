@@ -1,0 +1,41 @@
+﻿select
+			d.recordreportunitcode fuwujgbh,
+			count(*) pregnancydeathnum
+		from pregnantdeathcase d
+		where d.status = 1
+		 
+			and d.recordreportunitcode in
+			 (  
+				''000000''
+			 , 
+				''330502001''
+			 , 
+				''330502002''
+			 , 
+				''330502003''
+			 , 
+				''330502004''
+			 , 
+				''330502005''
+			 , 
+				''330502006''
+			 , 
+				''330502009''
+			 , 
+				''330502010''
+			 , 
+				''330502011''
+			 , 
+				''330502012''
+			 , 
+				''330502013''
+			 , 
+				''330502014''
+			 , 
+				''330502015''
+			 , 
+				''330502016''
+			 ) 
+		 
+		group by d.recordreportunitcode
+		order by d.recordreportunitcode asc
