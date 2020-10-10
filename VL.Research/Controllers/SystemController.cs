@@ -482,7 +482,7 @@ namespace VL.Research.Controllers
                     }).ToList(),
                     toolbar_viewModel = new GetListConfigModel_TableConfg_ViewModel(),
                     page = true,
-                    limit = 20,
+                    limit = 10,
                     initSort = new GetListConfigModel_TableConfg_InitSort(),
                     cols = cols,
                     where = new List<VLNameValue>()
