@@ -41,6 +41,9 @@ namespace FrameworkTest
 
         static void Main(string[] args)
         {
+            //var tster = @"<If Operator=""NotEmpty"" ComponentName=""登记日期End""> and h.registerdate <= @登记日期End </If>";
+            //var xItem = new XDocument(new XElement("root", XElement.Parse(tster)));
+
             #region tests
 
             //           var yss = @") 管理率

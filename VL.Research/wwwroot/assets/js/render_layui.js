@@ -213,20 +213,19 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
 
         _this.after(scriptObject);
 
-        _data.table.cols[0].push({ title: '操作', toolbar: '#tbBar', align: 'center', minWidth: 200, rowspan: _data.table.cols.length })
+        _data.table.cols[0].push({
+            title: '操作',
+            toolbar: '#tbBar',
+            align: 'center',
+            minWidth: 200,
+            rowspan: _data.table.cols.length
+        })
     }
 
     let where = {
         search: []
     };
-    if (!isBlank(_data.table.where)) {
-        // 处理加载表格初始参数
-        $.each(_data.table.where, function (index, item) {
-            where.search.push({ key: item.name, value: item.value });
-            // where[item.name] = item.value;
-        })
-    }
-    if (!isBlank(_data.table.where)) {
+    if (!isBlank(_data.search)) {
         // 处理加载表格初始参数
         $.each(_data.search, function (index, item) {
             if (!isBlank(item.value)) {
@@ -243,6 +242,14 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
             }
         })
     }
+    if (!isBlank(_data.table.where)) {
+        // 处理加载表格初始参数
+        $.each(_data.table.where, function (index, item) {
+            where.search.push({ key: item.name, value: item.value });
+            // where[item.name] = item.value;
+        })
+    }
+
 
     let THToolbar = ['<p>']
     if (!isBlank(_data.table.add_btn) && !isBlank(_data.table.add_btn.text)) {
@@ -340,10 +347,9 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
         $('.datepicker').each(function () {
             needSplit.push($(this).attr('data-param'))
         })
-        console.log(data)
         for (let i in data.field) {
             if (i !== 'search') {
-                //此处是为了保存每次搜索的参数
+                // 此处是为了保存每次搜索的参数
                 $.each(_data.search, function (index, item) {
                     if (item.type !== 5) {
                         if (item.name === i) {
@@ -362,9 +368,9 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                     }
                 })
                 // 此处是为了把格式转换成key,value型
-                if (needSplit.indexOf(i) !== -1) {
+                if (needSplit.indexOf($("input[name='" + i + "']").attr("data-param")) !== -1) {
                     // 日期特殊处理
-                    let param = i.split('|');
+                    let param = $("input[name='" + i + "']").attr("data-param").split('|');
                     let value = data.field[i].split(' - ');
                     data.field.search.push({ key: param[0], value: value[0] })
                     data.field.search.push({ key: param[1], value: value[1] })

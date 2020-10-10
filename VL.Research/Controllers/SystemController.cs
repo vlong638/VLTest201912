@@ -503,6 +503,7 @@ namespace VL.Research.Controllers
                 },
             };
             var hiddenParams = GetNameValue(request.HiddenParams);
+            //hiddenParams.RemoveAll(c => listConfig.Wheres.FirstOrDefault(w => w.ComponentName == c.name) != null);
             model.table.where.AddRange(hiddenParams);
             return model;
         }

@@ -21,7 +21,7 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
             Operator = element.Attribute(nameof(Operator)).Value;
             ComponentName = element.Attribute(nameof(ComponentName))?.Value;
             Value = element.Attribute(nameof(Value))?.Value;
-            Text = element.Value;
+            Text = WebUtility.HtmlDecode(element.Value);
         }
 
         internal string GetSQL(List<SQLConfigWhere> wheres)
@@ -117,9 +117,9 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
             Wheres = element.Descendants(SQLConfigWhere.ElementName).Select(c => new SQLConfigWhere(c)).ToList();
             OrderBys = element.Descendants(SQLConfigOrderBy.ElementName).Select(c => new SQLConfigOrderBy(c)).ToList();
             SQL = element.Descendants(nameof(SQL))?.FirstOrDefault()?.ToString().TrimStart("<SQL>").TrimEnd("</SQL>");
-            SQL = WebUtility.HtmlDecode(SQL);
+            //SQL = WebUtility.HtmlDecode(SQL);
             CountSQL = element.Descendants(nameof(CountSQL))?.FirstOrDefault()?.ToString().TrimStart("<CountSQL>").TrimEnd("</CountSQL>");
-            CountSQL = WebUtility.HtmlDecode(CountSQL);
+            //CountSQL = WebUtility.HtmlDecode(CountSQL);
             var OrderBysRoot = element.Descendants(SQLConfigOrderBy.RootElementName).First();
             DefaultComponentName = OrderBysRoot.Attribute(nameof(DefaultComponentName))?.Value ?? "";
             DefaultOrder = OrderBysRoot.Attribute(nameof(DefaultOrder))?.Value ?? "";
@@ -152,6 +152,7 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
             {
                 var sql = SQL;
                 UpdateIf(ref sql, Wheres);
+                sql = WebUtility.HtmlDecode(sql);
                 sql = sql.Replace("@Properties", "count(*)");
                 var wheresIsOn = Wheres.Where(c => c.IsOn).Select(c => c.SQL);
                 var wheres = wheresIsOn.Count() == 0 ? "" : $"where {string.Join(" and ", wheresIsOn)}";
@@ -166,6 +167,7 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
         {
             var sql = SQL;
             UpdateIf(ref sql, Wheres);
+            sql = WebUtility.HtmlDecode(sql);
             var propertiesIsOn = Properties.Select(c => c.Alias);
             var fields = propertiesIsOn.Count() == 0 ? "*" : string.Join(",", propertiesIsOn);
             sql = sql.Replace("@Properties", fields);

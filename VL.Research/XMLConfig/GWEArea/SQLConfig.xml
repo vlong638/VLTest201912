@@ -43,8 +43,8 @@
 					left join cc_generalinfo g on h.childid = g.childid
 					left join GY_FUWUJG subjg on g.manaunitid = subjg.fuwujgbh
 					where h.status = 1
-					<If Operator="NotEmpty" ComponentName ="登记日期Start" Value=""> and h.registerdate &gt;= @登记日期Start </If>
-					<If Operator="NotEmpty" ComponentName ="登记日期End"> and h.registerdate &gt;= @登记日期End </If>
+					<If Operator="NotEmpty" ComponentName="登记日期Start"> and h.registerdate &gt;= @登记日期Start </If>
+					<If Operator="NotEmpty" ComponentName="登记日期End"> and h.registerdate &lt;= @登记日期End </If>
 					and subjg.dizhibm in
 					(
 					select dizhibm
@@ -63,8 +63,8 @@
 					left join cdh_deliveryrecord dr on nr.chanshibh = dr.chanshibh
 					left join GY_FUWUJG subjg on dr.visitunitcode = subjg.fuwujgbh
 					where nr.outcomeofbirth = 1
-					<If Operator="NotEmpty" ComponentName ="登记日期Start"> and nr.tianbiaosj &gt;= @登记日期Start </If>
-					<If Operator="NotEmpty" ComponentName ="登记日期End"> and nr.tianbiaosj &gt;= @登记日期End </If>
+					<If Operator="NotEmpty" ComponentName="登记日期Start"> and nr.tianbiaosj &gt;= @登记日期Start </If>
+					<If Operator="NotEmpty" ComponentName="登记日期End"> and nr.tianbiaosj &lt;= @登记日期End </If>
 					and subjg.dizhibm in
 					(
 					select dizhibm
@@ -84,8 +84,8 @@
 					left join cc_generalinfo g on h.childid = g.childid
 					left join GY_FUWUJG subjg on g.manaunitid = subjg.fuwujgbh
 					where h.status = 1
-					<If Operator="NotEmpty" ComponentName ="登记日期Start"> and h.registerdate &gt;= @登记日期Start </If>
-					<If Operator="NotEmpty" ComponentName ="登记日期End"> and h.registerdate &gt;= @登记日期End </If>
+					<If Operator="NotEmpty" ComponentName="登记日期Start"> and h.registerdate &gt;= @登记日期Start </If>
+					<If Operator="NotEmpty" ComponentName="登记日期End"> and h.registerdate &lt;= @登记日期End </If>
 					and subjg.dizhibm in
 					(
 					select dizhibm
