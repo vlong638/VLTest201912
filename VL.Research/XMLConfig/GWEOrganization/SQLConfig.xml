@@ -52,8 +52,10 @@
 					and g.manaunitid in
 						(select fuwujgbh
 						from GY_FUWUJG
-						<If Operator="NotEmpty" ComponentName ="地区编码" Value="" > WHERE dizhibm = @地区编码 </If>
-						<If Operator="NotEmpty" ComponentName ="机构编码" Value="" > WHERE fuwujgbh = @机构编码 </If>
+						where 1=1
+						<If Operator="NotEmpty" ComponentName ="地区编码" Value="" > and dizhibm = @地区编码 </If>
+						<If Operator="NotEmpty" ComponentName ="机构编码" Value="" > and fuwujgbh = @机构编码 </If>
+						<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
 						order by fuwujgbh asc
 						@Pager)
 					group by g.manaunitid
@@ -70,8 +72,10 @@
 					and dr.visitunitcode in
 						(select fuwujgbh
 						from GY_FUWUJG
-						<If Operator="NotEmpty" ComponentName ="地区编码" Value="" > WHERE dizhibm = @地区编码 </If>
-						<If Operator="NotEmpty" ComponentName ="机构编码" Value="" > WHERE fuwujgbh = @机构编码 </If>
+						where 1=1
+						<If Operator="NotEmpty" ComponentName ="地区编码" Value="" > and dizhibm = @地区编码 </If>
+						<If Operator="NotEmpty" ComponentName ="机构编码" Value="" > and fuwujgbh = @机构编码 </If>
+						<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
 						order by fuwujgbh asc
 						@Pager)
 					group by dr.visitunitcode
@@ -89,8 +93,10 @@
 					and g.manaunitid in
 						(select fuwujgbh
 						from GY_FUWUJG
-						<If Operator="NotEmpty" ComponentName ="地区编码" Value="" > WHERE dizhibm = @地区编码 </If>
-						<If Operator="NotEmpty" ComponentName ="机构编码" Value="" > WHERE fuwujgbh = @机构编码 </If>
+						where 1=1
+						<If Operator="NotEmpty" ComponentName ="地区编码" Value="" > and dizhibm = @地区编码 </If>
+						<If Operator="NotEmpty" ComponentName ="机构编码" Value="" > and fuwujgbh = @机构编码 </If>
+						<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
 						order by fuwujgbh asc
 						offset 0 rows FETCH NEXT 15 ROWS ONLY)
 					group by g.manaunitid
