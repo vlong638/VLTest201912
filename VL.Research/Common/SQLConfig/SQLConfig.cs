@@ -47,7 +47,7 @@ namespace VL.Research.Common
         /// <param name="element"></param>
         public SQLConfig(XElement element)
         {
-            ViewName = element.Attribute(nameof(ViewName)).Value;
+            ViewName = element.Attribute(nameof(ViewName))?.Value;
             Source = element.Descendants(SQLConfigSource.ElementName).Select(c => new SQLConfigSource(c)).First();
         }
         #endregion

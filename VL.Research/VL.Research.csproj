@@ -143,6 +143,12 @@
     <None Update="XMLConfig\PregnantInfo\列表.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="XMLConfig\Sample1012UserRole\ListConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLConfig\Sample1012UserRole\SQLConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="XMLConfig\Sample_YPF\ListConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -167,10 +173,16 @@
     <None Update="XMLConfig\FYPT_PregnantInfo\高危妊娠管理个案登记表.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="XMLConfig\User\ListConfig.xml">
+    <None Update="XMLConfig\Sample1012Role\ListConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="XMLConfig\User\SQLConfig.xml">
+    <None Update="XMLConfig\Sample1012Role\SQLConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLConfig\Sample1012User\ListConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLConfig\Sample1012User\SQLConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

@@ -333,7 +333,7 @@ namespace VL.Research.Controllers
 
         private APIResult<string> commonExport(APIContext apiContext, SharedService sharedService, GetCommonSelectRequest request)
         {
-            var target = request.search.FirstOrDefault(c => c.Key == "target").Value;
+            var target = request.search.FirstOrDefault(c => c.Key.ToLower() == "viewname").Value;
             var search = request.search;
             var path = Path.Combine(AppContext.BaseDirectory, @"XMLConfig", target, "ExportConfig_列表.xml");
 
@@ -487,10 +487,10 @@ namespace VL.Research.Controllers
                     cols = cols,
                     where = new List<VLNameValue>()
                     {
-                        new VLNameValue(){
-                            name = "target",
-                            value = request.ViewName,
-                        }
+                        //new VLNameValue(){
+                        //    name = "target",
+                        //    value = request.ViewName,
+                        //}
                     },
                 },
                 export = new GetListConfigModel_Export()

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Views>
+	<View ViewName="">
+		<Source SourceName="Data" DBSourceType="FYPTConnectionString">
+			<Wheres>
+				<Where ComponentName="name" Formatter="%@name%"></Where>
+			</Wheres>
+			<OrderBys>
+				<OrderBy ComponentName="id" Alias ="u.id"/>
+				<OrderBy ComponentName="name" Alias ="u.name"/>
+			</OrderBys>
+			<SQL>
+				select *
+				from [User] u
+				where 1=1
+				<If Operator="NotEmpty" ComponentName="name">and u.name like @name</If>
+				@OrderBy
+				@Pager
+			</SQL>
+			<CountSQL>
+				select count(*)
+				from [User] u
+				where 1=1
+				<If Operator="NotEmpty" ComponentName="name">and u.name like @name</If>
+			</CountSQL>
+		</Source>
+	</View>
+</Views>
