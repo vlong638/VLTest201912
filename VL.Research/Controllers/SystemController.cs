@@ -488,7 +488,7 @@ namespace VL.Research.Controllers
                     where = new List<VLNameValue>()
                     {
                         //new VLNameValue(){
-                        //    name = "target",
+                        //    name = "ViewName",
                         //    value = request.ViewName,
                         //}
                     },
@@ -498,7 +498,7 @@ namespace VL.Research.Controllers
                     url = listConfig.Export.URL,
                     defaultParam = new List<VLKeyValue>()
                     {
-                        new Consolo_Core.Common.ValuesSolution.VLKeyValue( "target",request.ViewName)
+                        new Consolo_Core.Common.ValuesSolution.VLKeyValue( "ViewName",request.ViewName)
                     },
                 },
             };

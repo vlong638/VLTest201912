@@ -4,6 +4,7 @@
 		<ToolBars>
 			<ToolBar URL ="../Home/CommonListByDirectoryName" InlineParams ="code" WhereParams ="" DefaultParams="viewName=Sample1012UserRole" Text="查看角色" Type = "newPage" Description = "" Area = "300px,400px" YesFun = "yesFun"/>
 		</ToolBars>
+		<Export URL="../api/System/CommonExportAll"/>
 		<Wheres>
 			<!--"DisplayType <类型[1-文本框|2-数字框|3-单选下拉框|4-树状下拉框|5-日期选择框][默认:1]>",-->
 			<Where ComponentName="name" DisplayName="昵称" DisplayType="1"/>

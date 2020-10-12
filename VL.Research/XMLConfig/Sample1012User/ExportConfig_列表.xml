@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Exports>
+	<!--注意 保留字  ColumnName="target"-->
+	<Export ExportName="" FileName="列表.xlsx">
+		<Sheet SheetName="列表">
+			<Source SourceName="Data1" DBSourceType="FYPTConnectionString">
+				<Properties>
+					<Property IsOn="true" ColumnName="*" Alias =""/>
+				</Properties>
+				<Wheres>
+					<Where ComponentName="name" Formatter="%@name%"></Where>
+				</Wheres>
+				<OrderBys>
+					<OrderBy ComponentName="id" Alias ="u.id"/>
+					<OrderBy ComponentName="name" Alias ="u.name"/>
+				</OrderBys>
+				<SQL>
+					select *
+					from [User] u
+					where 1=1
+					<If Operator="NotEmpty" ComponentName="name">and u.name like @name</If>
+					@OrderBy
+				</SQL>			
+			</Source>
+		</Sheet>
+	</Export>
+</Exports>
