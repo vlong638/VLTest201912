@@ -23,6 +23,12 @@
 				where 1=1
 				<If Operator="NotEmpty" ComponentName="name">and u.name like @name</If>
 			</CountSQL>
+			<Transforms>
+				<Transform SourceType="Field" FunctionType="Case" TargetColumnName ="用户名分类">
+					<Case ColumnName="username" DataType="String" Operator="eq" Value ="admin" Then="2" />
+					<Case DataType="Default" Then="1" />
+				</Transform>
+			</Transforms>
 		</Source>
 	</View>
 </Views>

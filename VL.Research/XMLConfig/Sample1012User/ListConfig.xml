@@ -13,6 +13,7 @@
 		<Properties>
 			<Property IsNeedOnPage="true" DisplayName="标识号" ColumnName="id" DisplayType="None" DisplayWidth="100" IsSortable="True"/>
 			<Property IsNeedOnPage="true" DisplayName="用户名" ColumnName="username" DisplayType="None" DisplayWidth="100" IsSortable="False"/>
+			<Property IsNeedOnPage="true" DisplayName="用户名分类" ColumnName="用户名分类" DisplayType="None" DisplayWidth="100" IsSortable="False"/>
 			<Property IsNeedOnPage="true" DisplayName="昵称" ColumnName="name" DisplayType="List" DisplayWidth="300" IsSortable="False"/>
 		</Properties>
 	</View>

@@ -41,6 +41,8 @@ namespace VL.Research.Services
                 sharedRepository = new SharedRepository(adbContext);
                 var list = sharedRepository.GetCommonSelect(sqlConfig);
                 var count = sharedRepository.GetCommonSelectCount(sqlConfig);
+                //Transform
+                sqlConfig.Source.DoTransforms(ref list);
                 return new VLPagerTableResult<List<Dictionary<string, object>>>() { SourceData = list.ToList(), Count = count, CurrentIndex = sqlConfig.PageIndex };
             });
             return result;
