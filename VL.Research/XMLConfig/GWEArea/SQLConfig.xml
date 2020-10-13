@@ -12,20 +12,19 @@
 			<OrderBys>
 				<OrderBy ComponentName="id" Alias ="tb.序号"/>
 			</OrderBys>
-			<SQL>
-				select jg.dizhimc 地区名称
+			<SQLs UnitedBy="地区编码">
+				<SQL>
+					select jg.dizhimc 地区名称
 					,jg.dizhibm 地区编码
-					,hc.*
 					,info.*
-					,za.*
 					from (
 					select dizhibm,dizhimc
 					from GY_FUWUJG
 					group by dizhibm,dizhimc
 					order by dizhibm asc
 					@Pager
-				) jg
-				left join (
+					) jg
+					left join (
 					select
 					subjg.dizhibm,
 					sum(case when (h.highrisktype like concat('%',01,'%') or h.highrisktype like concat('%',18,'%'))then 1 else 0 end) 早产	,
@@ -54,11 +53,23 @@
 					@Pager
 					)
 					group by dizhibm
-				) info on jg.dizhibm = info.dizhibm
-				left join (
+					) info on jg.dizhibm = info.dizhibm
+				</SQL>
+				<SQL>
+					select jg.dizhimc 地区名称
+					,jg.dizhibm 地区编码
+					,hc.*
+					from (
+					select dizhibm,dizhimc
+					from GY_FUWUJG
+					group by dizhibm,dizhimc
+					order by dizhibm asc
+					@Pager
+					) jg
+					left join (
 					select
 					subjg.dizhibm,
-					count(*) 活产数 
+					count(*) 活产数
 					from cdh_newbornrecord nr
 					left join cdh_deliveryrecord dr on nr.chanshibh = dr.chanshibh
 					left join GY_FUWUJG subjg on dr.visitunitcode = subjg.fuwujgbh
@@ -74,12 +85,24 @@
 					@Pager
 					)
 					group by subjg.dizhibm
-				) hc on jg.dizhibm = hc.dizhibm
-				left join (
+					) hc on jg.dizhibm = hc.dizhibm
+				</SQL>
+				<SQL>
+					select jg.dizhimc 地区名称
+					,jg.dizhibm 地区编码
+					,za.*
+					from (
+					select dizhibm,dizhimc
+					from GY_FUWUJG
+					group by dizhibm,dizhimc
+					order by dizhibm asc
+					@Pager
+					) jg
+					left join (
 					select
 					subjg.dizhibm,
 					count(*) 应管人数,
-					sum(case when h.endmanage = 1 then 1 else 0 end) 总管理人数	
+					sum(case when h.endmanage = 1 then 1 else 0 end) 总管理人数
 					from cc_highrisk h
 					left join cc_generalinfo g on h.childid = g.childid
 					left join GY_FUWUJG subjg on g.manaunitid = subjg.fuwujgbh
@@ -95,8 +118,9 @@
 					@Pager
 					)
 					group by subjg.dizhibm
-				) za on jg.dizhibm = za.dizhibm
-			</SQL>
+					) za on jg.dizhibm = za.dizhibm
+				</SQL>
+			</SQLs>
 			<CountSQL>
 				select count(*)
 				from GY_FUWUJG

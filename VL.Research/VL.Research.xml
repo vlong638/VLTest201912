@@ -2444,19 +2444,13 @@
             </summary>
             <param name="context"></param>
         </member>
-        <member name="M:VL.Research.Repositories.SharedRepository.GetCommonSelect(VL.Research.Common.SQLConfig)">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:VL.Research.Repositories.SharedRepository.GetCommonSelectCount(VL.Research.Common.SQLConfig)">
             <summary>
             
             </summary>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Repositories.SharedRepository.GetCommonSelect(VL.Consolo_Core.Common.ExcelExportSolution.SQLConfigSource)">
+        <member name="M:VL.Research.Repositories.SharedRepository.GetCommonSelect(VL.Consolo_Core.Common.ExcelExportSolution.SQLConfigSource,System.Int32,System.Int32)">
             <summary>
             
             </summary>

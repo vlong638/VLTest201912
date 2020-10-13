@@ -39,7 +39,7 @@ namespace VL.Research.Services
             var result = adbContext.DelegateTransaction((g) =>
             {
                 sharedRepository = new SharedRepository(adbContext);
-                var list = sharedRepository.GetCommonSelect(sqlConfig);
+                var list = sharedRepository.GetCommonSelect(sqlConfig.Source, sqlConfig.Skip, sqlConfig.Limit);
                 var count = sharedRepository.GetCommonSelectCount(sqlConfig);
                 //Transform
                 sqlConfig.Source.DoTransforms(ref list);

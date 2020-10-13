@@ -105,10 +105,10 @@ namespace VL.Research.Common
 
         #region 结果使用
 
-        internal string GetListSQL()
-        {
-            return Source.GetListSQL(Skip, Limit);
-        }
+        //internal string GetListSQL()
+        //{
+        //    return Source.GetListSQL(Skip, Limit);
+        //}
 
         internal string GetCountSQL()
         {

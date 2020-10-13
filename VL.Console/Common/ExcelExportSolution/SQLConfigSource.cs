@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Net;
 using System.Xml.Linq;
+using System.Xml.XPath;
 using VL.Consolo_Core.Common.ValuesSolution;
 
 namespace VL.Consolo_Core.Common.ExcelExportSolution
@@ -99,7 +100,7 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
         /// <summary>
         /// 预设SQL
         /// </summary>
-        public string SQL { set; get; }
+        public SQLConfigSQLs SQLs { set; get; }
         /// <summary>
         /// 预设CountSQL
         /// </summary>
@@ -116,7 +117,9 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
             Properties = element.Descendants(SQLConfigProperty.ElementName).Select(c => new SQLConfigProperty(c)).ToList();
             Wheres = element.Descendants(SQLConfigWhere.ElementName).Select(c => new SQLConfigWhere(c)).ToList();
             OrderBys = element.Descendants(SQLConfigOrderBy.ElementName).Select(c => new SQLConfigOrderBy(c)).ToList();
-            SQL = element.Descendants(nameof(SQL))?.FirstOrDefault()?.ToString().TrimStart("<SQL>").TrimEnd("</SQL>");
+            SQLs = element.Descendants(nameof(SQLs))?.Select(c => new SQLConfigSQLs(c)).FirstOrDefault();
+            if (SQLs==null)
+                SQLs = new SQLConfigSQLs() { Texts = new List<string>() { element.Descendants("SQL")?.FirstOrDefault()?.ToString().TrimStart("<SQL>").TrimEnd("</SQL>") } };
             //SQL = WebUtility.HtmlDecode(SQL);
             CountSQL = element.Descendants(nameof(CountSQL))?.FirstOrDefault()?.ToString().TrimStart("<CountSQL>").TrimEnd("</CountSQL>");
             //CountSQL = WebUtility.HtmlDecode(CountSQL);
@@ -150,7 +153,7 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
             }
             else
             {
-                var sql = SQL;
+                var sql = SQLs.Texts.FirstOrDefault();
                 UpdateIf(ref sql, Wheres);
                 sql = WebUtility.HtmlDecode(sql);
                 sql = sql.Replace("@Properties", "count(*)");
@@ -163,9 +166,8 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
             }
         }
 
-        public string GetListSQL(int skip = 0,int limit = 0)
+        public string GetListSQL(string sql,int skip = 0,int limit = 0)
         {
-            var sql = SQL;
             UpdateIf(ref sql, Wheres);
             sql = WebUtility.HtmlDecode(sql);
             var propertiesIsOn = Properties.Select(c => c.Alias);
@@ -491,6 +493,27 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
                 }
             }
             return "";
+        }
+    }
+
+
+    public class SQLConfigSQLs
+    {
+        public List<string> Texts { set; get; }
+        public string UnitedBy { set; get; }
+
+        public SQLConfigSQLs()
+        {
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="element"></param>
+        public SQLConfigSQLs(XElement element)
+        {
+            Texts = element.Descendants("SQL").Select(c => c.ToString().TrimStart("<SQL>").TrimEnd("</SQL>")).ToList();
+            UnitedBy = element.Attribute(nameof(UnitedBy))?.Value ?? "";
         }
     }
 }
