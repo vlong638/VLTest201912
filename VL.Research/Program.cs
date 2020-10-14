@@ -2,6 +2,7 @@ using log4net;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using VL.Research.Common.Configuration;
 
 namespace VL.Research
 {
@@ -45,10 +46,28 @@ namespace VL.Research
 
                 ////XML配置
                 //builder.AddXmlFile("configs/log4net.config", optional: false, reloadOnChange: false);
+
+                var configs = builder.Build();
+                APIContraints.DHFConfig = configs.GetSection("DHF").Get<DHFConfig>();
+                APIContraints.DBConfig = configs.GetSection("DB").Get<DBConfig>();
             })
-            .ConfigureWebHostDefaults(webBuilder =>
-            {
+            .ConfigureWebHostDefaults(webBuilder =>           {
                 webBuilder.UseStartup<Startup>();
             });
+    }
+
+    /// <summary>
+    /// 静态量,常量
+    /// </summary>
+    public class APIContraints
+    {
+        /// <summary>
+        /// 大黄蜂相关配置
+        /// </summary>
+        public static DHFConfig DHFConfig { set; get; }
+        /// <summary>
+        /// 数据库配置
+        /// </summary>
+        public static DBConfig DBConfig { set; get; }
     }
 }

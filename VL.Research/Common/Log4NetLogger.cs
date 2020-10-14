@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace VL.Research.Common
@@ -14,15 +15,22 @@ namespace VL.Research.Common
     public class Log4NetLogger
     {
         private static ILog logger;
+        private static ILog sqlLogger;
 
         static Log4NetLogger()
         {
+            var repository = LogManager.CreateRepository("NETCoreRepository");
             if (logger == null)
             {
-                var repository = LogManager.CreateRepository("NETCoreRepository");
                 //log4net从log4net.config文件中读取配置信息
                 XmlConfigurator.Configure(repository, new FileInfo("configs/log4net.config"));
                 logger = LogManager.GetLogger(repository.Name, "filelogger");
+            }
+            if (sqlLogger == null)
+            {
+                //log4net从log4net.config文件中读取配置信息
+                XmlConfigurator.Configure(repository, new FileInfo("configs/log4net.config"));
+                sqlLogger = LogManager.GetLogger(repository.Name, "sqlLogger");
             }
         }
 
@@ -63,6 +71,21 @@ namespace VL.Research.Common
                 logger.Error(message);
             else
                 logger.Error(message, exception);
+        }
+
+        /// <summary>
+        /// DHF日志
+        /// </summary>
+        public static void LogSQL(string sql, Dictionary<string, object> pars)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (var par in pars)
+            {
+                sb.AppendLine($"declare @{par.Key} nvarchar(50)");
+                sb.AppendLine($" set @{par.Key} = '{par.Value}'");
+            }
+            sb.Append(sql);
+            sqlLogger.Info(sb.ToString());
         }
     }
 }

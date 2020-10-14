@@ -475,6 +475,10 @@ namespace VL.Research.Models
         /// "rowspan": "单元格所占行数[用于多级表头]"
         /// </summary>
         public string rowspan { set; get; }
+        /// <summary>
+        /// "colGroup": 用于多级表头中的多级叶节点
+        /// </summary>
+        public string colGroup { get; set; }
     }
     /// <summary>
     /// 页面配置 模型子项

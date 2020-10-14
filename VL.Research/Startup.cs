@@ -48,6 +48,7 @@ namespace VL.Research
             //注册业务层配置
             services.AddOptions();
             //配置文件
+            services.Configure<DHFConfig>(Configuration.GetSection("DHF"));
             services.Configure<DBConfig>(Configuration.GetSection("DB"));
             services.Configure<AuthenticationOptions>(Configuration.GetSection("Authentication"));
 
@@ -63,7 +64,6 @@ namespace VL.Research
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<APIContext>();
             services.AddSingleton<ILoggerHelper, ExceptionlessLogger>();
-
             
             //服务设施
             services.AddScoped<PregnantService>();

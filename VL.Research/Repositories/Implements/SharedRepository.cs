@@ -59,6 +59,7 @@ namespace VL.Research.Repositories
             {
                 var sql = config.GetListSQL(config.SQLs.Texts.First(), skip, limit);
                 var pars = config.GetParams();
+                APIContraints.DHFConfig.DoLog(sql, pars);
                 DataTable table = new DataTable("MyTable");
                 var reader = context.DbGroup.Connection.ExecuteReader(sql, pars, transaction: _transaction);
                 table.Load(reader);
@@ -71,10 +72,10 @@ namespace VL.Research.Repositories
                 {
                     var sql = config.GetListSQL(text, skip, limit);
                     var pars = config.GetParams();
+                    APIContraints.DHFConfig.DoLog(sql, pars);
                     var reader = context.DbGroup.Connection.ExecuteReader(sql, pars, transaction: _transaction);
                     DataTable temp = new DataTable("MyTable");
                     temp.Load(reader);
-
                     //总表初始化
                     if (table == null)
                     {

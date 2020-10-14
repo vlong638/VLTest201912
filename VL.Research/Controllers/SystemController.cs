@@ -525,6 +525,7 @@ namespace VL.Research.Controllers
                     sort = c.IsSortable,
                     colspan = c.ColumnSpan.ToString(),
                     rowspan = c.RowSpan.ToString(),
+                    colGroup = c.ColGroup.HasValue ? (c.ColGroup.Value ? "true" : "false") : "",
                 }).ToList());
             }
             return result;

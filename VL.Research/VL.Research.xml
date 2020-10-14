@@ -189,6 +189,16 @@
             
             </summary>
         </member>
+        <member name="T:VL.Research.Common.Configuration.DHFConfig">
+            <summary>
+            配置样例
+            </summary>
+        </member>
+        <member name="P:VL.Research.Common.Configuration.DHFConfig.IsLogSQL">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:VL.Research.Common.APIContext">
             <summary>
             
@@ -326,6 +336,11 @@
             </summary>
             <param name="message"></param>
             <param name="exception"></param>
+        </member>
+        <member name="M:VL.Research.Common.Log4NetLogger.LogSQL(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            DHF日志
+            </summary>
         </member>
         <member name="T:VL.Research.Common.MenuConfig">
             <summary>
@@ -765,6 +780,14 @@
             <summary>
             数据类型(显示,校验)
             </summary>
+        </member>
+        <member name="P:VL.Research.Common.ListConfigProperty.ColGroup">
+             <summary>
+            支持以下结构  二级叶子需要为true
+             ------
+             | ---
+             | | |
+             </summary>
         </member>
         <member name="P:VL.Research.Common.ListConfigProperty.DisplayLevel">
             <summary>
@@ -1444,6 +1467,11 @@
         <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_Col.rowspan">
             <summary>
             "rowspan": "单元格所占行数[用于多级表头]"
+            </summary>
+        </member>
+        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_Col.colGroup">
+            <summary>
+            "colGroup": 用于多级表头中的多级叶节点
             </summary>
         </member>
         <member name="T:VL.Research.Models.VLNameValue">
@@ -2404,6 +2432,21 @@
             </summary>
             <param name="args"></param>
             <returns></returns>
+        </member>
+        <member name="T:VL.Research.APIContraints">
+            <summary>
+            静态量,常量
+            </summary>
+        </member>
+        <member name="P:VL.Research.APIContraints.DHFConfig">
+            <summary>
+            大黄蜂相关配置
+            </summary>
+        </member>
+        <member name="P:VL.Research.APIContraints.DBConfig">
+            <summary>
+            数据库配置
+            </summary>
         </member>
         <member name="M:VL.Research.Repositories.PregnantInfoRepository.GetPregnantInfoById(System.Int64)">
             <summary>

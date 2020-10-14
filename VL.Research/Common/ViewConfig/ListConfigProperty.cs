@@ -90,6 +90,13 @@ namespace VL.Research.Common
         #endregion
 
         #region 多级结构配置
+        /// <summary>
+        ///支持以下结构  二级叶子需要为true
+        /// ------
+        /// | ---
+        /// | | |
+        /// </summary>
+        public bool? ColGroup { set; get; }
 
         /// <summary>
         /// 
@@ -128,6 +135,7 @@ namespace VL.Research.Common
             DisplayLevel= element.Attribute(nameof(DisplayLevel))?.Value.ToInt();
             RowSpan = element.Attribute(nameof(RowSpan))?.Value.ToInt();
             ColumnSpan = element.Attribute(nameof(ColumnSpan))?.Value.ToInt();
+            ColGroup = element.Attribute(nameof(ColGroup))?.Value.ToBool();
             ColumnName = element.Attribute(nameof(ColumnName))?.Value;
             DisplayName = element.Attribute(nameof(DisplayName))?.Value;
             DisplayType = element.Attribute(nameof(DisplayType))?.Value.ToEnum<DisplayType>() ?? DisplayType.None;

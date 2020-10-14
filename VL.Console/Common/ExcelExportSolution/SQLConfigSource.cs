@@ -168,19 +168,25 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
 
         public string GetListSQL(string sql,int skip = 0,int limit = 0)
         {
-            UpdateIf(ref sql, Wheres);
-            sql = WebUtility.HtmlDecode(sql);
+            //Properties
             var propertiesIsOn = Properties.Select(c => c.Alias);
             var fields = propertiesIsOn.Count() == 0 ? "*" : string.Join(",", propertiesIsOn);
             sql = sql.Replace("@Properties", fields);
+            //Where
+            UpdateIf(ref sql, Wheres);
+            sql = WebUtility.HtmlDecode(sql);
             var wheresIsOn = Wheres.Where(c => c.IsOn).Select(c => c.SQL);
             var wheres = wheresIsOn.Count() == 0 ? "" : $"where {string.Join(" and ", wheresIsOn)}";
             sql = sql.Replace("@Wheres", wheres);
-
-            var orderByIsOn = OrderBys.FirstOrDefault(c => c.IsOn) ?? OrderBys.First();
-            var orderBy = orderByIsOn.Alias;
-            var order = orderByIsOn.IsAsc ? "asc" : "desc";
-            sql = sql.Replace("@OrderBy", $"order by {orderBy} {order}");
+            //OrderBy
+            var orderByIsOn = OrderBys.Count() == 0 ? null : OrderBys.FirstOrDefault(c => c.IsOn);
+            if (orderByIsOn!=null)
+            {
+                var orderBy = orderByIsOn.Alias;
+                var order = orderByIsOn.IsAsc ? "asc" : "desc";
+                sql = sql.Replace("@OrderBy", $"order by {orderBy} {order}");
+            }
+            //Pager
             if (limit==0)
             {
                 sql = sql.Replace("@Pager", $"");
