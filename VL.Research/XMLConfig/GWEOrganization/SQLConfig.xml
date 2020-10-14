@@ -11,7 +11,7 @@
 				<Where ComponentName="登记日期End"></Where>
 				<Where ComponentName="dataScope"></Where>
 				<Where ComponentName="dizhibm"></Where>
-				<Where ComponentName="organization"></Where>
+				<Where ComponentName="organizationCode"></Where>
 			</Wheres>
 			<OrderBys>
 				<OrderBy ComponentName="id" Alias ="tb.序号"/>
@@ -48,17 +48,19 @@
 					from cc_highrisk h
 					left join cc_generalinfo g on h.childid = g.childid
 					where h.status = 1
-						<If Operator="NotEmpty" ComponentName ="登记日期Start"> and h.registerdate &gt;= @登记日期Start </If>
-						<If Operator="NotEmpty" ComponentName ="登记日期End"> and h.registerdate &gt;= @登记日期End </If>
-						and g.manaunitid in
-						(select fuwujgbh
+					<If Operator="NotEmpty" ComponentName ="登记日期Start"> and h.registerdate &gt;= @登记日期Start </If>
+					<If Operator="NotEmpty" ComponentName ="登记日期End"> and h.registerdate &gt;= @登记日期End </If>
+					and g.manaunitid in
+					(
+						select fuwujgbh
 						from GY_FUWUJG
 						where 1=1
 						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 						<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
 						order by fuwujgbh asc
-						@Pager)
+						@Pager
+					)
 					group by g.manaunitid
 				) info on jg.fuwujgbh = info.fuwujgbh
 				left join (
@@ -68,17 +70,19 @@
 					from cdh_newbornrecord nr
 					left join cdh_deliveryrecord dr on nr.chanshibh = dr.chanshibh
 					where nr.outcomeofbirth = 1
-						<If Operator="NotEmpty" ComponentName ="登记日期Start"> and nr.tianbiaosj &gt;= @登记日期Start </If>
-						<If Operator="NotEmpty" ComponentName ="登记日期End"> and nr.tianbiaosj &gt;= @登记日期End </If>
-						and dr.visitunitcode in
-						(select fuwujgbh
+					<If Operator="NotEmpty" ComponentName ="登记日期Start"> and nr.tianbiaosj &gt;= @登记日期Start </If>
+					<If Operator="NotEmpty" ComponentName ="登记日期End"> and nr.tianbiaosj &gt;= @登记日期End </If>
+					and dr.visitunitcode in
+					(
+						select fuwujgbh
 						from GY_FUWUJG
 						where 1=1
 						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 						<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
 						order by fuwujgbh asc
-						@Pager)
+						@Pager
+					)
 					group by dr.visitunitcode
 				) hc on jg.fuwujgbh = hc.fuwujgbh
 				left join (
@@ -91,15 +95,17 @@
 					where h.status = 1
 					<If Operator="NotEmpty" ComponentName ="登记日期Start"> and h.registerdate &gt;= @登记日期Start </If>
 					<If Operator="NotEmpty" ComponentName ="登记日期End"> and h.registerdate &gt;= @登记日期End </If>
-						and g.manaunitid in
-						(select fuwujgbh
+					and g.manaunitid in
+					(
+						select fuwujgbh
 						from GY_FUWUJG
 						where 1=1
 						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 						<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
 						order by fuwujgbh asc
-						offset 0 rows FETCH NEXT 15 ROWS ONLY)
+						@Pager
+					)
 					group by g.manaunitid
 				) za on jg.fuwujgbh = za.fuwujgbh
 			</SQL>

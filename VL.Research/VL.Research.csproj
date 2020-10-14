@@ -120,6 +120,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="XMLConfig\ChildHeathArea\ListConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLConfig\ChildHeathArea\SQLConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLConfig\ChildHeathOrganization\ListConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLConfig\ChildHeathOrganization\SQLConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="XMLConfig\GWEOrganization\ExportConfig_列表.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -192,10 +204,6 @@
     <None Update="XMLConfig\Sample1012User\SQLConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="XMLConfig\ChildHeathOrganization\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties configs_4config_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>

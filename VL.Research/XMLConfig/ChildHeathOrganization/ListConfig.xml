@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Views>
+	<!--IsNeedOnPage="false" DisplayName="" (.+) Description="(\w+)"(.+)\r\n
+	IsNeedOnPage="true" DisplayName="$2" $1 Description="$2"$3\r\n-->
+	<View ViewName="GWE" ViewURL="../api/System/GetCommonSelectByDirectoryName">
+		<Export URL="../api/System/CommonExportAll"/>
+		<Wheres>
+			<Where ComponentName="日期范围" Value="" DisplayName="日期范围" DisplayType="5"/>
+			<!--"DisplayType <类型[1-文本框|2-数字框|3-单选下拉框|4-树状下拉框|5-日期选择框][默认:1]>",-->
+			<!--<Where ComponentName="序号" Value="" DisplayName="序号" DisplayType="1"/>-->
+		</Wheres>
+		<OrderBy DefaultName ="createdate" DefaultValue ="desc"/>
+		<Properties>
+			<Property DisplayLevel="1" RowSpan="3" IsNeedOnPage="true" DisplayName="填报单位" ColumnName="fuwujgmc" DisplayWidth="180" IsSortable="False"/>
+			<Property DisplayLevel="1" RowSpan="1" ColumnSpan="4" IsNeedOnPage="true" DisplayName="活产数"/>
+			<Property DisplayLevel="1" RowSpan="1" ColumnSpan="4" IsNeedOnPage="true" DisplayName="儿童数"/>
+			<Property DisplayLevel="1" RowSpan="1" ColumnSpan="12" IsNeedOnPage="true" DisplayName="5岁以下儿童死亡情况"/>
+			<Property DisplayLevel="1" RowSpan="1" ColumnSpan="3" IsNeedOnPage="true" DisplayName="6个月内婴儿母乳喂养情况"/>
+			<Property DisplayLevel="1" RowSpan="1" ColumnSpan="3" IsNeedOnPage="true" DisplayName="7岁以下儿童保健服务"/>
+			<Property DisplayLevel="1" RowSpan="1" ColumnSpan="8" IsNeedOnPage="true" DisplayName="5岁以下儿童营养评价"/>
+			<Property DisplayLevel="1" RowSpan="1" ColumnSpan="3" IsNeedOnPage="true" DisplayName="0-6岁儿童眼保健和视力检查"/>
+			<!--活产数-->
+			<Property DisplayLevel="2" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="合计" ColumnName="huochanzs" DisplayWidth="60"/>
+			<Property DisplayLevel="2" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="男" ColumnName="huochannan" DisplayWidth="60"/>
+			<Property DisplayLevel="2" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="女" ColumnName="huochannv" DisplayWidth="60"/>
+			<Property DisplayLevel="2" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="性别不明" ColumnName="huochanbm" DisplayWidth="60"/>
+			<!--儿童数-->
+			<Property DisplayLevel="2" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="7岁以下" ColumnName="child7" DisplayWidth="60"/>
+			<Property DisplayLevel="2" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="5岁以下" ColumnName="child5" DisplayWidth="60"/>
+			<Property DisplayLevel="2" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="3岁以下" ColumnName="child3" DisplayWidth="60"/>
+
+			<Property DisplayLevel="2" RowSpan="1" ColumnSpan="4" IsNeedOnPage="true" DisplayName="5岁以下儿童死亡数"/>
+			<Property DisplayLevel="2" RowSpan="1" ColumnSpan="4" IsNeedOnPage="true" DisplayName="婴儿死亡数"/>
+			<Property DisplayLevel="2" RowSpan="1" ColumnSpan="4" IsNeedOnPage="true" DisplayName="新生儿死亡数"/>
+
+			<Property DisplayLevel="2" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="调查人数" ColumnName="muruzs" DisplayWidth="80"/>
+			<Property DisplayLevel="2" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="母乳喂养人数" ColumnName="muruwy" DisplayWidth="80"/>
+			<Property DisplayLevel="2" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="纯母乳喂养人数" ColumnName="murucwy" DisplayWidth="80"/>
+			
+			<Property DisplayLevel="2" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="新生儿访视人数" ColumnName="xinshengfs" DisplayWidth="80"/>
+			<Property DisplayLevel="2" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="7岁以下儿童保健人数" ColumnName="qisuibjs" DisplayWidth="80"/>
+			<Property DisplayLevel="2" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="3岁以下儿童健康管理人数" ColumnName="jkguanlis" DisplayWidth="80"/>
+			<Property DisplayLevel="2" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="3岁以下儿童系统管理人数" ColumnName="guanlis" DisplayWidth="80"/>
+			
+			<Property DisplayLevel="2" RowSpan="1" ColumnSpan="5" IsNeedOnPage="true" DisplayName="身高(长)体重检查"/>
+			<Property DisplayLevel="2" RowSpan="1" ColumnSpan="3" IsNeedOnPage="true" DisplayName="血红蛋白检查"/>
+			<Property DisplayLevel="2" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="0-6岁儿童眼保健和视力检查人数" ColumnName="u6sljcrs" DisplayWidth="80"/>
+			<Property DisplayLevel="2" RowSpan="1" ColumnSpan="2" IsNeedOnPage="true" DisplayName="6岁儿童视力检查"/>
+
+			<!--5岁以下儿童死亡数-->
+			<Property DisplayLevel="3" IsNeedOnPage="true" DisplayName="合计" ColumnName="wusuizs" DisplayWidth="60"/>
+			<Property DisplayLevel="3" IsNeedOnPage="true" DisplayName="男" ColumnName="wusuizsnan" DisplayWidth="60"/>
+			<Property DisplayLevel="3" IsNeedOnPage="true" DisplayName="女" ColumnName="wusuizsnv" DisplayWidth="60"/>
+			<Property DisplayLevel="3" IsNeedOnPage="true" DisplayName="性别不明" ColumnName="wusuizsbm" DisplayWidth="60"/>
+			<!--婴儿死亡数-->
+			<Property DisplayLevel="3" IsNeedOnPage="true" DisplayName="合计" ColumnName="yiners" DisplayWidth="60"/>
+			<Property DisplayLevel="3" IsNeedOnPage="true" DisplayName="男" ColumnName="yinersnan" DisplayWidth="60"/>
+			<Property DisplayLevel="3" IsNeedOnPage="true" DisplayName="女" ColumnName="yinersrnv" DisplayWidth="60"/>
+			<Property DisplayLevel="3" IsNeedOnPage="true" DisplayName="性别不明" ColumnName="yinersbm" DisplayWidth="60"/>
+			<!--新生儿死亡数-->
+			<Property DisplayLevel="3" IsNeedOnPage="true" DisplayName="合计" ColumnName="babys" DisplayWidth="60"/>
+			<Property DisplayLevel="3" IsNeedOnPage="true" DisplayName="男" ColumnName="babynans" DisplayWidth="60"/>
+			<Property DisplayLevel="3" IsNeedOnPage="true" DisplayName="女" ColumnName="babynvs" DisplayWidth="60"/>
+			<Property DisplayLevel="3" IsNeedOnPage="true" DisplayName="性别不明" ColumnName="babybms" DisplayWidth="60"/>
+			<!--身高(长)体重检查-->
+			<Property DisplayLevel="3" IsNeedOnPage="true" DisplayName="检查人数" ColumnName="tzjcrs" DisplayWidth="80"/>
+			<Property DisplayLevel="3" IsNeedOnPage="true" DisplayName="低体重人数" ColumnName="dtzrs" DisplayWidth="80"/>
+			<Property DisplayLevel="3" IsNeedOnPage="true" DisplayName="生长迟缓人数" ColumnName="szchrs" DisplayWidth="80"/>
+			<Property DisplayLevel="3" IsNeedOnPage="true" DisplayName="超重人数" ColumnName="czrs" DisplayWidth="80"/>
+			<Property DisplayLevel="3" IsNeedOnPage="true" DisplayName="肥胖人数" ColumnName="fprs" DisplayWidth="80"/>
+			<!--血红蛋白检查-->
+			<Property DisplayLevel="3" IsNeedOnPage="true" DisplayName="检查人数" ColumnName="pxjcrs" DisplayWidth="80"/>
+			<Property DisplayLevel="3" IsNeedOnPage="true" DisplayName="贫血人数" ColumnName="px1234rs" DisplayWidth="80"/>
+			<Property DisplayLevel="3" IsNeedOnPage="true" DisplayName="中重度贫血患病人数" ColumnName="px23rs" DisplayWidth="80"/>
+			<!--6岁儿童视力检查-->
+			<Property DisplayLevel="3" IsNeedOnPage="true" DisplayName="检查人数" ColumnName="jcrs" DisplayWidth="80"/>
+			<Property DisplayLevel="3" IsNeedOnPage="true" DisplayName="视力不良检出人数" ColumnName="ycrs" DisplayWidth="80"/>
+		</Properties>
+	</View>
+</Views>
