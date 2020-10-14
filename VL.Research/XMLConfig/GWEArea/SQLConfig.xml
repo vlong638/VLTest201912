@@ -12,10 +12,10 @@
 			<OrderBys>
 				<OrderBy ComponentName="id" Alias ="tb.序号"/>
 			</OrderBys>
-			<SQLs UnitedBy="地区编码">
+			<SQLs UnitedBy="dizhibm">
 				<SQL>
 					select jg.dizhimc 地区名称
-					,jg.dizhibm 地区编码
+					,jg.dizhibm
 					,info.*
 					from (
 					select dizhibm,dizhimc
@@ -57,7 +57,7 @@
 				</SQL>
 				<SQL>
 					select jg.dizhimc 地区名称
-					,jg.dizhibm 地区编码
+					,jg.dizhibm
 					,hc.*
 					from (
 					select dizhibm,dizhimc
@@ -89,7 +89,7 @@
 				</SQL>
 				<SQL>
 					select jg.dizhimc 地区名称
-					,jg.dizhibm 地区编码
+					,jg.dizhibm
 					,za.*
 					from (
 					select dizhibm,dizhimc

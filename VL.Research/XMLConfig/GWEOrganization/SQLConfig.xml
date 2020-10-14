@@ -9,8 +9,9 @@
 				<Where ComponentName="单位名称" Formatter="%@单位名称%"></Where>
 				<Where ComponentName="登记日期Start"></Where>
 				<Where ComponentName="登记日期End"></Where>
-				<Where ComponentName="地区编码"></Where>
-				<Where ComponentName="机构编码"></Where>
+				<Where ComponentName="dataScope"></Where>
+				<Where ComponentName="dizhibm"></Where>
+				<Where ComponentName="organization"></Where>
 			</Wheres>
 			<OrderBys>
 				<OrderBy ComponentName="id" Alias ="tb.序号"/>
@@ -24,8 +25,8 @@
 					select fuwujgbh,fuwujgmc
 					from GY_FUWUJG
 					where 1=1
-					<If Operator="NotEmpty" ComponentName ="地区编码" Value="" > and dizhibm = @地区编码 </If>
-					<If Operator="NotEmpty" ComponentName ="机构编码" Value="" > and fuwujgbh = @机构编码 </If>
+					<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
+					<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 					<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
 					order by fuwujgbh asc
 					@Pager
@@ -47,14 +48,14 @@
 					from cc_highrisk h
 					left join cc_generalinfo g on h.childid = g.childid
 					where h.status = 1
-					<If Operator="NotEmpty" ComponentName ="登记日期Start"> and h.registerdate &gt;= @登记日期Start </If>
-					<If Operator="NotEmpty" ComponentName ="登记日期End"> and h.registerdate &gt;= @登记日期End </If>
-					and g.manaunitid in
+						<If Operator="NotEmpty" ComponentName ="登记日期Start"> and h.registerdate &gt;= @登记日期Start </If>
+						<If Operator="NotEmpty" ComponentName ="登记日期End"> and h.registerdate &gt;= @登记日期End </If>
+						and g.manaunitid in
 						(select fuwujgbh
 						from GY_FUWUJG
 						where 1=1
-						<If Operator="NotEmpty" ComponentName ="地区编码" Value="" > and dizhibm = @地区编码 </If>
-						<If Operator="NotEmpty" ComponentName ="机构编码" Value="" > and fuwujgbh = @机构编码 </If>
+						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
+						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 						<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
 						order by fuwujgbh asc
 						@Pager)
@@ -67,14 +68,14 @@
 					from cdh_newbornrecord nr
 					left join cdh_deliveryrecord dr on nr.chanshibh = dr.chanshibh
 					where nr.outcomeofbirth = 1
-					<If Operator="NotEmpty" ComponentName ="登记日期Start"> and nr.tianbiaosj &gt;= @登记日期Start </If>
-					<If Operator="NotEmpty" ComponentName ="登记日期End"> and nr.tianbiaosj &gt;= @登记日期End </If>
-					and dr.visitunitcode in
+						<If Operator="NotEmpty" ComponentName ="登记日期Start"> and nr.tianbiaosj &gt;= @登记日期Start </If>
+						<If Operator="NotEmpty" ComponentName ="登记日期End"> and nr.tianbiaosj &gt;= @登记日期End </If>
+						and dr.visitunitcode in
 						(select fuwujgbh
 						from GY_FUWUJG
 						where 1=1
-						<If Operator="NotEmpty" ComponentName ="地区编码" Value="" > and dizhibm = @地区编码 </If>
-						<If Operator="NotEmpty" ComponentName ="机构编码" Value="" > and fuwujgbh = @机构编码 </If>
+						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
+						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 						<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
 						order by fuwujgbh asc
 						@Pager)
@@ -90,12 +91,12 @@
 					where h.status = 1
 					<If Operator="NotEmpty" ComponentName ="登记日期Start"> and h.registerdate &gt;= @登记日期Start </If>
 					<If Operator="NotEmpty" ComponentName ="登记日期End"> and h.registerdate &gt;= @登记日期End </If>
-					and g.manaunitid in
+						and g.manaunitid in
 						(select fuwujgbh
 						from GY_FUWUJG
 						where 1=1
-						<If Operator="NotEmpty" ComponentName ="地区编码" Value="" > and dizhibm = @地区编码 </If>
-						<If Operator="NotEmpty" ComponentName ="机构编码" Value="" > and fuwujgbh = @机构编码 </If>
+						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
+						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 						<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
 						order by fuwujgbh asc
 						offset 0 rows FETCH NEXT 15 ROWS ONLY)
@@ -106,8 +107,8 @@
 				select count(*)
 				from GY_FUWUJG
 				where 1=1
-				<If Operator="NotEmpty" ComponentName ="地区编码" Value="" > and dizhibm = @地区编码 </If>
-				<If Operator="NotEmpty" ComponentName ="机构编码" Value="" > and fuwujgbh = @机构编码 </If>
+				<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
+				<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 				<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
 			</CountSQL>
 		</Source>
