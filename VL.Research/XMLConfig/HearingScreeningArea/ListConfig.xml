@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Views>
+	<!--IsNeedOnPage="false" DisplayName="" (.+) Description="(\w+)"(.+)\r\n
+	IsNeedOnPage="true" DisplayName="$2" $1 Description="$2"$3\r\n-->
+	<View ViewName="GWE" ViewURL="../api/System/GetCommonSelectByDirectoryName">
+		<Export URL="../api/System/CommonExportAll"/>
+		<Wheres>
+			<Where ComponentName="日期范围" Value="" DisplayName="日期范围" DisplayType="5"/>
+			<!--"DisplayType <类型[1-文本框|2-数字框|3-单选下拉框|4-树状下拉框|5-日期选择框][默认:1]>",-->
+			<!--<Where ComponentName="序号" Value="" DisplayName="序号" DisplayType="1"/>-->
+		</Wheres>
+		<OrderBy DefaultName ="createdate" DefaultValue ="desc"/>
+		<ToolBars>
+			<ToolBar URL ="../Home/CommonListByDirectoryName" InlineParams ="dizhibm" WhereParams ="日期范围" DefaultParams="viewName=HearingScreeningOrganization,dataScope=2" Text="查看地区机构" Type = "newPage" Description = "" Area = "300px,400px" YesFun = "yesFun"/>
+		</ToolBars>
+		<Properties>
+			<Property DisplayLevel="1" RowSpan="3" IsNeedOnPage="true" DisplayName="填报单位" ColumnName="dizhimc" DisplayWidth="180" IsSortable="False"/>
+			<Property DisplayLevel="1" RowSpan="3" ColumnSpan="1" IsNeedOnPage="true" DisplayName="新生儿总数" ColumnName="allnum" DisplayWidth="160"/>
+			<Property DisplayLevel="1" RowSpan="1" ColumnSpan="6" IsNeedOnPage="true" DisplayName="初筛"/>
+			<Property DisplayLevel="1" RowSpan="1" ColumnSpan="6" IsNeedOnPage="true" DisplayName="复筛"/>
+			<Property DisplayLevel="1" RowSpan="1" ColumnSpan="6" IsNeedOnPage="true" DisplayName="确诊"/>
+			<Property DisplayLevel="2" RowSpan="1" ColumnSpan="3" IsNeedOnPage="true" DisplayName="实际初筛数"/>
+			<Property DisplayLevel="2" RowSpan="1" ColumnSpan="3" IsNeedOnPage="true" DisplayName="初筛未通过数"/>
+			<Property DisplayLevel="2" RowSpan="1" ColumnSpan="3" IsNeedOnPage="true" DisplayName="初筛未通过召回数"/>
+			<Property DisplayLevel="2" RowSpan="1" ColumnSpan="3" IsNeedOnPage="true" DisplayName="复筛未通过数"/>
+			<Property DisplayLevel="2" RowSpan="1" ColumnSpan="3" IsNeedOnPage="true" DisplayName="复筛未通过召回数"/>	
+			<Property DisplayLevel="2" RowSpan="1" ColumnSpan="3" IsNeedOnPage="true" DisplayName="最后确诊数"/>				
+			<!--实际初筛数-->
+			<Property DisplayLevel="3" RowSpan="1" ColumnSpan="1" IsNeedOnPage="true" DisplayName="0-2岁" ColumnName="yiners" DisplayWidth="100"/>
+			<Property DisplayLevel="3" RowSpan="1" ColumnSpan="1" IsNeedOnPage="true" DisplayName="其中新生儿" ColumnName="babys" DisplayWidth="120"/>
+			<Property DisplayLevel="3" RowSpan="1" ColumnSpan="1" IsNeedOnPage="true" DisplayName="3-6岁" ColumnName="childs" DisplayWidth="100"/>
+			<!--初筛未通过数-->
+			<Property DisplayLevel="3" RowSpan="1" ColumnSpan="1" IsNeedOnPage="true" DisplayName="0-2岁" ColumnName="yinersno" DisplayWidth="100"/>
+			<Property DisplayLevel="3" RowSpan="1" ColumnSpan="1" IsNeedOnPage="true" DisplayName="其中新生儿" ColumnName="babysno" DisplayWidth="120"/>
+			<Property DisplayLevel="3" RowSpan="1" ColumnSpan="1" IsNeedOnPage="true" DisplayName="3-6岁" ColumnName="childsno" DisplayWidth="100"/>
+			<!--初筛未通过召回数-->
+			<Property DisplayLevel="3" RowSpan="1" ColumnSpan="1" IsNeedOnPage="true" DisplayName="0-2岁" ColumnName="yinersback" DisplayWidth="100"/>
+			<Property DisplayLevel="3" RowSpan="1" ColumnSpan="1" IsNeedOnPage="true" DisplayName="其中新生儿" ColumnName="babysback" DisplayWidth="120"/>
+			<Property DisplayLevel="3" RowSpan="1" ColumnSpan="1" IsNeedOnPage="true" DisplayName="3-6岁" ColumnName="childsback" DisplayWidth="100"/>			
+			<!--复筛未通过数-->
+			<Property DisplayLevel="3" RowSpan="1" ColumnSpan="1" IsNeedOnPage="true" DisplayName="0-2岁" ColumnName="yinersno2" DisplayWidth="100"/>
+			<Property DisplayLevel="3" RowSpan="1" ColumnSpan="1" IsNeedOnPage="true" DisplayName="其中新生儿" ColumnName="babysno2" DisplayWidth="120"/>
+			<Property DisplayLevel="3" RowSpan="1" ColumnSpan="1" IsNeedOnPage="true" DisplayName="3-6岁" ColumnName="childsno2" DisplayWidth="100"/>	
+			<!--复筛未通过召回数-->
+			<Property DisplayLevel="3" RowSpan="1" ColumnSpan="1" IsNeedOnPage="true" DisplayName="0-2岁" ColumnName="yinersback2" DisplayWidth="100"/>
+			<Property DisplayLevel="3" RowSpan="1" ColumnSpan="1" IsNeedOnPage="true" DisplayName="其中新生儿" ColumnName="babysback2" DisplayWidth="120"/>
+			<Property DisplayLevel="3" RowSpan="1" ColumnSpan="1" IsNeedOnPage="true" DisplayName="3-6岁" ColumnName="childsback2" DisplayWidth="100"/>	
+			<!--最后确诊数-->
+			<Property DisplayLevel="3" RowSpan="1" ColumnSpan="1" IsNeedOnPage="true" DisplayName="0-2岁" ColumnName="yinersresult" DisplayWidth="100"/>
+			<Property DisplayLevel="3" RowSpan="1" ColumnSpan="1" IsNeedOnPage="true" DisplayName="其中新生儿" ColumnName="babysresult" DisplayWidth="120"/>
+			<Property DisplayLevel="3" RowSpan="1" ColumnSpan="1" IsNeedOnPage="true" DisplayName="3-6岁" ColumnName="childsresult" DisplayWidth="100"/>	
+		</Properties>
+	</View>
+</Views>

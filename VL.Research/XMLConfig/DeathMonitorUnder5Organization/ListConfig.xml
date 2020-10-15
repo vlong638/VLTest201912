@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Views>
+	<!--IsNeedOnPage="false" DisplayName="" (.+) Description="(\w+)"(.+)\r\n
+	IsNeedOnPage="true" DisplayName="$2" $1 Description="$2"$3\r\n-->
+	<View ViewName="GWE" ViewURL="../api/System/GetCommonSelectByDirectoryName">
+		<Export URL="../api/System/CommonExportAll"/>
+		<Wheres>
+			<Where ComponentName="日期范围" Value="" DisplayName="日期范围" DisplayType="5"/>
+			<!--"DisplayType <类型[1-文本框|2-数字框|3-单选下拉框|4-树状下拉框|5-日期选择框][默认:1]>",-->
+			<!--<Where ComponentName="序号" Value="" DisplayName="序号" DisplayType="1"/>-->
+		</Wheres>
+		<OrderBy DefaultName ="createdate" DefaultValue ="desc"/>
+		<Properties>
+			<Property DisplayLevel="1" RowSpan="4" IsNeedOnPage="true" DisplayName="监测街道(村、社区)" ColumnName="fuwujgmc" DisplayWidth="80" IsSortable="False"/>
+			<Property DisplayLevel="1" RowSpan="4" IsNeedOnPage="true" DisplayName="总人口数(全年)" ColumnName="fuwujgmc" DisplayWidth="80" IsSortable="False"/>
+			<Property DisplayLevel="1" RowSpan="4" IsNeedOnPage="true" DisplayName="1-4岁儿童数(全年)" ColumnName="fuwujgmc" DisplayWidth="80" IsSortable="False"/>
+			<Property DisplayLevel="1" RowSpan="1" ColumnSpan="8" IsNeedOnPage="true" DisplayName="本地户籍"/>
+			<Property DisplayLevel="1" RowSpan="1" ColumnSpan="16" IsNeedOnPage="true" DisplayName="本地户籍"/>
+			
+			<Property DisplayLevel="2" RowSpan="1" ColumnSpan="4" IsNeedOnPage="true" DisplayName="活产数"/>
+			<Property DisplayLevel="2" RowSpan="1" ColumnSpan="4" IsNeedOnPage="true" DisplayName="死亡数"/>
+			<Property DisplayLevel="2" RowSpan="1" ColumnSpan="4" IsNeedOnPage="true" DisplayName="总计"/>
+			<Property DisplayLevel="2" RowSpan="1" ColumnSpan="4" IsNeedOnPage="true" DisplayName="其中：非本地户籍居住1年及以上"/>
+
+			<!--活产数-->
+			<Property DisplayLevel="3" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="合计" ColumnName="huochanzs" DisplayWidth="60"/>
+			<Property DisplayLevel="3" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="男" ColumnName="huochannan" DisplayWidth="60"/>
+			<Property DisplayLevel="3" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="女" ColumnName="huochannv" DisplayWidth="60"/>
+			<Property DisplayLevel="3" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="性别不明" ColumnName="huochanbm" DisplayWidth="60"/>
+			<!--死亡数-->
+			<Property DisplayLevel="3" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="合计" ColumnName="huochanzs" DisplayWidth="60"/>
+			<Property DisplayLevel="3" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="男" ColumnName="huochannan" DisplayWidth="60"/>
+			<Property DisplayLevel="3" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="女" ColumnName="huochannv" DisplayWidth="60"/>
+			<Property DisplayLevel="3" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="性别不明" ColumnName="huochanbm" DisplayWidth="60"/>
+			
+			<Property DisplayLevel="3" RowSpan="1" ColumnSpan="4" IsNeedOnPage="true" DisplayName="活产数"/>
+			<Property DisplayLevel="3" RowSpan="1" ColumnSpan="4" IsNeedOnPage="true" DisplayName="死亡数"/>
+			<Property DisplayLevel="3" RowSpan="1" ColumnSpan="4" IsNeedOnPage="true" DisplayName="活产数"/>
+			<Property DisplayLevel="3" RowSpan="1" ColumnSpan="4" IsNeedOnPage="true" DisplayName="死亡数"/>
+			
+			<!--活产数-->
+			<Property DisplayLevel="4" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="合计" ColumnName="huochanzs" DisplayWidth="60"/>
+			<Property DisplayLevel="4" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="男" ColumnName="huochannan" DisplayWidth="60"/>
+			<Property DisplayLevel="4" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="女" ColumnName="huochannv" DisplayWidth="60"/>
+			<Property DisplayLevel="4" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="性别不明" ColumnName="huochanbm" DisplayWidth="60"/>
+			<!--死亡数-->
+			<Property DisplayLevel="4" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="合计" ColumnName="huochanzs" DisplayWidth="60"/>
+			<Property DisplayLevel="4" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="男" ColumnName="huochannan" DisplayWidth="60"/>
+			<Property DisplayLevel="4" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="女" ColumnName="huochannv" DisplayWidth="60"/>
+			<Property DisplayLevel="4" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="性别不明" ColumnName="huochanbm" DisplayWidth="60"/>
+		</Properties>
+	</View>
+</Views>

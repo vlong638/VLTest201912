@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Views>
+	<!--IsNeedOnPage="false" DisplayName="" (.+) Description="(\w+)"(.+)\r\n
+	IsNeedOnPage="true" DisplayName="$2" $1 Description="$2"$3\r\n-->
+	<View ViewName="GWE" ViewURL="../api/System/GetCommonSelectByDirectoryName">
+		<Export URL="../api/System/CommonExportAll"/>
+		<Wheres>
+			<Where ComponentName="登记日期" Value="" DisplayName="登记日期" DisplayType="5"/>
+			<Where ComponentName="fuwujgmc" Value="" DisplayName="机构名称" DisplayType="1"/>
+			<!--"DisplayType <类型[1-文本框|2-数字框|3-单选下拉框|4-树状下拉框|5-日期选择框][默认:1]>",-->
+			<!--<Where ComponentName="序号" Value="" DisplayName="序号" DisplayType="1"/>-->
+		</Wheres>
+		<ToolBars>
+			<!-- <ToolBar URL ="../Home/CommonListByDirectoryName" InlineParams ="dizhibm" WhereParams ="登记日期" DefaultParams="viewName=GWEOrganization" Text="查看地区机构" Type = "newPage" Description = "" Area = "300px,400px" YesFun = "yesFun"/> -->
+		</ToolBars>
+		<Properties>
+			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="机构名称" RowSpan="3" ColumnName="fuwujgmc" DisplayType="None" DisplayWidth="180" IsSortable="False" DataType="bigint" Description="-" />
+			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="活产数" ColumnSpan="4"/>
+			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="5岁以下儿童死亡情况" RowSpan="1" ColumnSpan="12"/>
+			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="围产儿情况" RowSpan="1" ColumnSpan="5" />
+			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="孕产妇死亡人数" RowSpan="3" ColumnName="pregnancydeathnum" DisplayType="None" DisplayWidth="180" IsSortable="False" DataType="bigint" Description="-" />
+
+			<Property DisplayLevel="2" RowSpan="2" IsNeedOnPage="true" DisplayName="合计" ColumnName="huochanzs" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property DisplayLevel="2" RowSpan="2" IsNeedOnPage="true" DisplayName="男" ColumnName="huochannan" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property DisplayLevel="2" RowSpan="2" IsNeedOnPage="true" DisplayName="女" ColumnName="huochannv" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property DisplayLevel="2" RowSpan="2" IsNeedOnPage="true" DisplayName="性别不明" ColumnName="huochanbm" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+
+			<Property DisplayLevel="2" IsNeedOnPage="true" DisplayName="5岁以下儿童死亡数" RowSpan="1" ColumnSpan="4" />
+			<Property DisplayLevel="2" IsNeedOnPage="true" DisplayName="婴儿死亡数" RowSpan="1" ColumnSpan="4" />
+			<Property DisplayLevel="2" IsNeedOnPage="true" DisplayName="新生儿死亡数" RowSpan="1" ColumnSpan="4" />
+			<Property DisplayLevel="2" IsNeedOnPage="true" DisplayName="死胎死产数" RowSpan="2" ColumnName="perinatals" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property DisplayLevel="2" IsNeedOnPage="true" DisplayName="0-6天死亡数" RowSpan="1" ColumnSpan="4" />
+
+			<Property DisplayLevel="3" IsNeedOnPage="true" DisplayName="合计" ColumnName="wusuizs" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property DisplayLevel="3" IsNeedOnPage="true" DisplayName="男" ColumnName="wusuizsnan" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property DisplayLevel="3" IsNeedOnPage="true" DisplayName="女" ColumnName="wusuizsnv" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property DisplayLevel="3" IsNeedOnPage="true" DisplayName="性别不明" ColumnName="wusuizsbm" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+
+			<Property DisplayLevel="3" IsNeedOnPage="true" DisplayName="合计" ColumnName="yiners" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property DisplayLevel="3" IsNeedOnPage="true" DisplayName="男" ColumnName="yinersnan" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property DisplayLevel="3" IsNeedOnPage="true" DisplayName="女" ColumnName="yinersrnv" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property DisplayLevel="3" IsNeedOnPage="true" DisplayName="性别不明" ColumnName="yinersbm" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+
+			<Property DisplayLevel="3" IsNeedOnPage="true" DisplayName="合计" ColumnName="babys" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property DisplayLevel="3" IsNeedOnPage="true" DisplayName="男" ColumnName="babynans" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property DisplayLevel="3" IsNeedOnPage="true" DisplayName="女" ColumnName="babynvs" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property DisplayLevel="3" IsNeedOnPage="true" DisplayName="性别不明" ColumnName="babybms" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+
+			<Property DisplayLevel="3" IsNeedOnPage="true" DisplayName="合计" ColumnName="perinatalall" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property DisplayLevel="3" IsNeedOnPage="true" DisplayName="男" ColumnName="perinatalnan" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property DisplayLevel="3" IsNeedOnPage="true" DisplayName="女" ColumnName="perinatalnv" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property DisplayLevel="3" IsNeedOnPage="true" DisplayName="性别不明" ColumnName="perinatalbm" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+	
+		</Properties>
+	</View>
+</Views>
