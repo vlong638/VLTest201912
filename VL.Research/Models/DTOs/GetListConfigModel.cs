@@ -51,6 +51,7 @@ namespace VL.Research.Models
         /// 
         /// </summary>
         public GetListConfigModel_Export export { set; get; }
+        public List<string> importJSFile { get; internal set; }
     }
 
     /// <summary>

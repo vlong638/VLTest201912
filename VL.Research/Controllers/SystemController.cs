@@ -457,6 +457,7 @@ namespace VL.Research.Controllers
                 CustomConfigId = request.CustomConfigId,
                 ListConfig = listConfig,
                 search = listConfig.Wheres.Select(c => new GetListConfigModel_Search(c)).ToList(),
+                importJSFile = listConfig.ImportJSFile,
                 table = new GetListConfigModel_TableConfg()
                 {
                     url = listConfig.ViewURL,

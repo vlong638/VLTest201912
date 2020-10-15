@@ -23,6 +23,7 @@ namespace VL.Research.Common
         /// 页面数据URL
         /// </summary>
         public string ViewURL { set; get; }
+        public List<string> ImportJSFile { set; get; }
         /// <summary>
         /// 
         /// </summary>
@@ -63,6 +64,7 @@ namespace VL.Research.Common
         {
             ViewName = element.Attribute(nameof(ViewName)).Value;
             ViewURL = element.Attribute(nameof(ViewURL))?.Value;
+            ImportJSFile = element.Attribute(nameof(ImportJSFile))?.Value.Split(',').ToList() ?? new List<string>();
             Export = element.Descendants(ListConfigExport.ElementName).Select(c => new ListConfigExport(c)).FirstOrDefault() ?? new ListConfigExport();
             Properties = element.Descendants(ListConfigProperty.ElementName).Select(c => new ListConfigProperty(c)).ToList();
             Wheres = element.Descendants(ListConfigWhere.ElementName).Select(c => new ListConfigWhere(c)).ToList();

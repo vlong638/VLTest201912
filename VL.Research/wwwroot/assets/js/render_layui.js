@@ -87,7 +87,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                 <div class="layui-inline">
                     <label class="layui-form-label">` + item.text + `:</label>
                     <div class="layui-input-inline">
-                        <input name="` + item.name + `" class="layui-input"  value="` + item.value + `"/>
+                        <input name="` + item.name + `" class="layui-input"  value="` + item.value + `" lay-filter="` + item.name + `"/>
                     </div>
                 </div>`
             }
@@ -96,7 +96,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                 <div class="layui-inline">
                     <label class="layui-form-label">` + item.text + `:</label>
                     <div class="layui-input-inline">
-                        <input type="number" name="` + item.name + `" class="layui-input" value="` + item.value + `"/>
+                        <input type="number" name="` + item.name + `" class="layui-input" value="` + item.value + `" lay-filter="` + item.name + `"/>
                     </div>
                 </div>`
             }
@@ -107,7 +107,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                         <label class="layui-form-label">` + item.text + `:</label>
                         <div class="layui-input-inline">
                             <div class="multiple_select" id="` + item.name + `" data-name="` + item.name + `" data-value="` + item.value + `"
-                                data-options='` + JSON.stringify(item.options) + `'></div>
+                                data-options='` + JSON.stringify(item.options) + `' lay-filter="` + item.name + `"></div>
                         </div>
                     </div>`
                 } else {
@@ -115,7 +115,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                     <div class="layui-inline">
                         <label class="layui-form-label">` + item.text + `:</label>
                         <div class="layui-input-inline">
-                            <select name="` + item.name + `">
+                            <select name="` + item.name + `" lay-filter="` + item.name + `">
                                 <option value="">请选择</option>`;
                     $.each(item.options, function (_index, _item) {
                         html += `<option value="` + _item.value + `" ` + (_item.checked ? 'selected' : '') + `>` + _item.name + `</option>`
@@ -128,7 +128,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                 <div class="layui-inline">
                     <label class="layui-form-label">` + item.text + `:</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="` + item.name + `" name="` + item.name + `" class="layui-input tree-select"
+                        <input type="text" id="` + item.name + `" name="` + item.name + `" class="layui-input tree-select" lay-filter="` + item.name + `"
                             data-options='` + JSON.stringify(item.treeOptions) + `' data-value='` + JSON.stringify(item.value) + `'/>
                     </div>
                 </div>`
@@ -142,7 +142,8 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                 <div class="layui-inline">
                     <label class="layui-form-label">` + item.text + `:</label>
                     <div class="layui-input-inline">
-                        <input data-param="` + item.names.join('|') + `" name="` + item.name + `" class="layui-input icon-date datepicker" value="` + item.value + `"/>
+                        <input data-param="` + item.names.join('|') + `" name="` + item.name + `"
+                        class="layui-input icon-date datepicker" value="` + item.value + `" lay-filter="` + item.name + `"/>
                     </div>
                 </div>`
             }
@@ -173,7 +174,11 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
     _layui.form.render();
 
     // 引入额外JS
-    // $('body').append(`<script type="text/javascript" src="a.js"></script>`)
+    if (!isBlank(_data.importJSFile)) {
+        $.each(_data.importJSFile, function (index, fileName) {
+            $('body').append(`<script type="text/javascript" src="` + fileName + `"></script>`)
+        })
+    }
 
     let scriptObject = ``;
 

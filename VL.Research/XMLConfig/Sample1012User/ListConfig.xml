@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Views>
-	<View ViewName="User" ViewURL="../../api/System/GetCommonSelectByDirectoryName">
+	<View ViewName="User" ViewURL="../../api/System/GetCommonSelectByDirectoryName" ImportJSFile="../../../assets/js/sample-a.js">
 		<ToolBars>
 			<ToolBar URL ="../Home/CommonListByDirectoryName" InlineParams ="code" WhereParams ="" DefaultParams="viewName=Sample1012UserRole" Text="查看角色" Type = "newPage" Description = "" Area = "300px,400px" YesFun = "yesFun"/>
 		</ToolBars>
