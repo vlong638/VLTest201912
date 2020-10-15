@@ -154,38 +154,6 @@ namespace VL.Research.Common
             var displayProperties = this.Properties.Where(c => c.IsNeedOnPage);
             fieldNames = displayProperties.Select(c => c.ColumnName).ToList();
         }
-
-        internal string CheckWheres(GetCommonSelectRequest request)
-        {
-            foreach (var where in Wheres)
-            {
-                if (where.Required)
-                {
-                    if (where.DisplayType == "5")
-                    {
-                        var matched = request.search.FirstOrDefault(c => c.Key == where.ComponentName + "Start");
-                        if (matched == null)
-                        {
-                            return "缺少必要的参数";
-                        }
-                        matched = request.search.FirstOrDefault(c => c.Key == where.ComponentName + "End");
-                        if (matched == null)
-                        {
-                            return "缺少必要的参数";
-                        }
-                    }
-                    else
-                    {
-                        var matched = request.search.FirstOrDefault(c => c.Key == where.ComponentName);
-                        if (matched == null)
-                        {
-                            return "缺少必要的参数";
-                        }
-                    }
-                }
-            }
-            return "";
-        }
     }
 
     /// <summary>

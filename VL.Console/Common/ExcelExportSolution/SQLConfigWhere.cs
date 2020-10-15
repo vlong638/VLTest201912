@@ -22,6 +22,7 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
             ComponentName = element.Attribute(nameof(ComponentName))?.Value;
             Formatter = element.Attribute(nameof(Formatter))?.Value;
             IsOn = element.Attribute(nameof(IsOn))?.Value.ToBool() ?? false;
+            Required = element.Attribute(nameof(Required))?.Value.ToBool() ?? false;
             SQL = element.Value;
         }
 
@@ -29,6 +30,10 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
         /// 是否启用
         /// </summary>
         public bool IsOn { set; get; }
+        /// <summary>
+        /// 是否必须
+        /// </summary>
+        public bool Required { set; get; }
         /// <summary>
         /// 值
         /// </summary>
@@ -45,18 +50,5 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
         /// 格式化
         /// </summary>
         public string Formatter { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public XElement ToXElement()
-        {
-            var property = new XElement(ElementName);
-            property.SetAttributeValue(nameof(ComponentName), ComponentName);
-            property.SetAttributeValue(nameof(Formatter), Formatter);
-            property.SetValue(SQL);
-            return property;
-        }
     }
 }

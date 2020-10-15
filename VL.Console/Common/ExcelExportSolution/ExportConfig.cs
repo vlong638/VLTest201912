@@ -51,5 +51,19 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
             FileName = element.Attribute(nameof(FileName)).Value;
             Sheets = element.Descendants(ExportSheet.NodeElementName).Select(c => new ExportSheet(c)).ToList();
         }
+
+        public string CheckWheres(List<VLKeyValue> search)
+        {
+            foreach (var sheet in Sheets)
+            {
+                foreach (var source in sheet.Sources)
+                {
+                    var error = source.CheckWheres(search);
+                    if (!error.IsNullOrEmpty())
+                        return error;
+                }
+            }
+            return "";
+        }
     }
 }

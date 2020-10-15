@@ -8,88 +8,109 @@
 					<Property IsOn="true" ColumnName="*" Alias =""/>
 				</Properties>
 				<Wheres>
-					<Where ComponentName="登记日期Start"/>
-					<Where ComponentName="登记日期End"/>
+					<Where ComponentName="登记日期Start" Required="true"/>
+					<Where ComponentName="登记日期End" Required="true"/>
 				</Wheres>
 				<OrderBys>
 					<OrderBy ComponentName="id" Alias ="tb.序号"/>
 				</OrderBys>
-				<SQL>
-					select jg.dizhimc 地区名称
-					,hc.*
-					,info.*
-					,za.*
-					from (
-					select dizhibm,dizhimc
-					from GY_FUWUJG
-					group by dizhibm,dizhimc
-					) jg
-					left join (
-					select
-					subjg.dizhibm,
-					sum(case when (h.highrisktype like concat('%',01,'%') or h.highrisktype like concat('%',18,'%'))then 1 else 0 end) 早产	,
-					sum(case when g.birthWeight&lt; '1500' then 1 else 0 end) 极低出生体重儿,
-					sum(case when h.highrisktype like concat('%',02,'%')then 1 else 0 end) 足月小样儿,
-					sum(case when h.highrisktype like concat('%',06,'%')then 1 else 0 end) HIE,
-					sum(case when h.highrisktype like concat('%',07,'%')then 1 else 0 end) 颅内出血,
-					sum(case when (h.highrisktype like concat('%',09,'%') or h.highrisktype like concat('%',10,'%'))then 1 else 0 end) 其他惊厥,
-					sum(case when h.highrisktype like concat('%',04,'%')then 1 else 0 end) 呼吸系统RDS,
-					sum(case when h.highrisktype like concat('%',03,'%')then 1 else 0 end) 高胆红素血症,
-					sum(case when h.highrisktype like concat('%',17,'%')then 1 else 0 end) 其它,
-					count(*) 本季总数,
-					sum(case when h.endmanage = 1 then 1 else 0 end) 管理率
-					from cc_highrisk h
-					left join cc_generalinfo g on h.childid = g.childid
-					left join GY_FUWUJG subjg on g.manaunitid = subjg.fuwujgbh
-					where h.status = 1
-					<If Operator="NotEmpty" ComponentName ="登记日期Start"> and h.registerdate &gt;= @登记日期Start </If>
-					<If Operator="NotEmpty" ComponentName ="登记日期End"> and h.registerdate &gt;= @登记日期End </If>
-					and subjg.dizhibm in
-					(
-					select dizhibm
-					from GY_FUWUJG
-					group by dizhibm,dizhimc
-					)
-					group by dizhibm
-					) info on jg.dizhibm = info.dizhibm
-					left join (
-					select
-					subjg.dizhibm,
-					count(*) 活产数
-					from cdh_newbornrecord nr
-					left join cdh_deliveryrecord dr on nr.chanshibh = dr.chanshibh
-					left join GY_FUWUJG subjg on dr.visitunitcode = subjg.fuwujgbh
-					where nr.outcomeofbirth = 1
-					<If Operator="NotEmpty" ComponentName ="登记日期Start"> and nr.tianbiaosj &gt;= @登记日期Start </If>
-					<If Operator="NotEmpty" ComponentName ="登记日期End"> and nr.tianbiaosj &gt;= @登记日期End </If>
-					and subjg.dizhibm in
-					(
-					select dizhibm
-					from GY_FUWUJG
-					group by dizhibm,dizhimc
-					)
-					group by subjg.dizhibm
-					) hc on jg.dizhibm = hc.dizhibm
-					left join (
-					select
-					subjg.dizhibm,
-					count(*) 应管人数,
-					sum(case when h.endmanage = 1 then 1 else 0 end) 总管理人数
-					from cc_highrisk h
-					left join cc_generalinfo g on h.childid = g.childid
-					left join GY_FUWUJG subjg on g.manaunitid = subjg.fuwujgbh
-					where h.status = 1
-					<If Operator="NotEmpty" ComponentName ="登记日期Start"> and h.registerdate &gt;= @登记日期Start </If>
-					<If Operator="NotEmpty" ComponentName ="登记日期End"> and h.registerdate &gt;= @登记日期End </If>
-					and subjg.dizhibm in
-					(
-					select dizhibm
-					from GY_FUWUJG
-					group by dizhibm,dizhimc
-					)
-					group by subjg.dizhibm
-					) za on jg.dizhibm = za.dizhibm
-				</SQL>
+				<SQLs UnitedBy="dizhibm">
+					<SQL>
+						select jg.dizhimc 地区名称
+						,jg.dizhibm
+						,info.*
+						from (
+						select dizhibm,dizhimc
+						from GY_FUWUJG
+						group by dizhibm,dizhimc
+						) jg
+						left join (
+						select
+						subjg.dizhibm,
+						sum(case when (h.highrisktype like concat('%',01,'%') or h.highrisktype like concat('%',18,'%'))then 1 else 0 end) 早产	,
+						sum(case when g.birthWeight&lt; '1500' then 1 else 0 end) 极低出生体重儿,
+						sum(case when h.highrisktype like concat('%',02,'%')then 1 else 0 end) 足月小样儿,
+						sum(case when h.highrisktype like concat('%',06,'%')then 1 else 0 end) HIE,
+						sum(case when h.highrisktype like concat('%',07,'%')then 1 else 0 end) 颅内出血,
+						sum(case when (h.highrisktype like concat('%',09,'%') or h.highrisktype like concat('%',10,'%'))then 1 else 0 end) 其他惊厥,
+						sum(case when h.highrisktype like concat('%',04,'%')then 1 else 0 end) 呼吸系统RDS,
+						sum(case when h.highrisktype like concat('%',03,'%')then 1 else 0 end) 高胆红素血症,
+						sum(case when h.highrisktype like concat('%',17,'%')then 1 else 0 end) 其它,
+						count(*) 本季总数,
+						sum(case when h.endmanage = 1 then 1 else 0 end) 管理率
+						from cc_highrisk h
+						left join cc_generalinfo g on h.childid = g.childid
+						left join GY_FUWUJG subjg on g.manaunitid = subjg.fuwujgbh
+						where h.status = 1
+						<If Operator="NotEmpty" ComponentName="登记日期Start"> and h.registerdate &gt;= @登记日期Start </If>
+						<If Operator="NotEmpty" ComponentName="登记日期End"> and h.registerdate &lt; dateadd(day,1,@登记日期End) </If>
+						and subjg.dizhibm in
+						(
+						select dizhibm
+						from GY_FUWUJG
+						group by dizhibm,dizhimc
+						)
+						group by dizhibm
+						) info on jg.dizhibm = info.dizhibm
+					</SQL>
+					<SQL>
+						select jg.dizhimc 地区名称
+						,jg.dizhibm
+						,hc.*
+						from (
+						select dizhibm,dizhimc
+						from GY_FUWUJG
+						group by dizhibm,dizhimc
+						) jg
+						left join (
+						select
+						subjg.dizhibm,
+						count(*) 活产数
+						from cdh_newbornrecord nr
+						left join cdh_deliveryrecord dr on nr.chanshibh = dr.chanshibh
+						left join GY_FUWUJG subjg on dr.visitunitcode = subjg.fuwujgbh
+						where nr.outcomeofbirth = 1
+						<If Operator="NotEmpty" ComponentName="登记日期Start"> and nr.tianbiaosj &gt;= @登记日期Start </If>
+						<If Operator="NotEmpty" ComponentName="登记日期End"> and nr.tianbiaosj &lt; dateadd(day,1,@登记日期End) </If>
+						and subjg.dizhibm in
+						(
+						select dizhibm
+						from GY_FUWUJG
+						group by dizhibm,dizhimc
+						)
+						group by subjg.dizhibm
+						) hc on jg.dizhibm = hc.dizhibm
+					</SQL>
+					<SQL>
+						select jg.dizhimc 地区名称
+						,jg.dizhibm
+						,za.*
+						from (
+						select dizhibm,dizhimc
+						from GY_FUWUJG
+						group by dizhibm,dizhimc
+						) jg
+						left join (
+						select
+						subjg.dizhibm,
+						count(*) 应管人数,
+						sum(case when h.endmanage = 1 then 1 else 0 end) 总管理人数
+						from cc_highrisk h
+						left join cc_generalinfo g on h.childid = g.childid
+						left join GY_FUWUJG subjg on g.manaunitid = subjg.fuwujgbh
+						where h.status = 1
+						<If Operator="NotEmpty" ComponentName="登记日期Start"> and h.registerdate &gt;= @登记日期Start </If>
+						<If Operator="NotEmpty" ComponentName="登记日期End"> and h.registerdate &lt; dateadd(day,1,@登记日期End) </If>
+						and subjg.dizhibm in
+						(
+						select dizhibm
+						from GY_FUWUJG
+						group by dizhibm,dizhimc
+						)
+						group by subjg.dizhibm
+						) za on jg.dizhibm = za.dizhibm
+					</SQL>
+				</SQLs>
 			</Source>
 		</Sheet>
 	</Export>

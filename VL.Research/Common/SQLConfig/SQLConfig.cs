@@ -137,6 +137,11 @@ namespace VL.Research.Common
             return where.Value.ToString();
         }
 
+        internal string CheckWheres(GetCommonSelectRequest request)
+        {
+            return Source.CheckWheres(request.search);
+        }
+
         #endregion
     }
 }

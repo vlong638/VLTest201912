@@ -31,7 +31,7 @@
 			<Property DisplayLevel= "2" IsNeedOnPage="true" DisplayName="总管理人数" RowSpan="2" ColumnName="总管理人数" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
 			<Property DisplayLevel= "2" IsNeedOnPage="true" DisplayName="管理率%" RowSpan="2" ColumnName="管理率" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
 
-			<Property DisplayLevel= "3" IsNeedOnPage="true" DisplayName="早产" ColumnName="早产	" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property DisplayLevel= "3" IsNeedOnPage="true" DisplayName="早产" ColumnName="早产" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
 			<Property DisplayLevel= "3" IsNeedOnPage="true" DisplayName="极低出生体重儿☆" ColumnName="极低出生体重儿" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
 			<Property DisplayLevel= "3" IsNeedOnPage="true" DisplayName="足月小样儿" ColumnName="足月小样儿" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
 			<Property DisplayLevel= "3" IsNeedOnPage="true" DisplayName="HIE" ColumnName="HIE" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />

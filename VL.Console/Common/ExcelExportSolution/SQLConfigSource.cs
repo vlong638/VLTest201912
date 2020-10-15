@@ -500,6 +500,22 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
             }
             return "";
         }
+
+        public string CheckWheres(List<VLKeyValue> keyValues)
+        {
+            foreach (var where in Wheres)
+            {
+                if (where.Required)
+                {
+                    var matched = keyValues.FirstOrDefault(c => c.Key == where.ComponentName);
+                    if (matched == null)
+                    {
+                        return "缺少必要的参数";
+                    }
+                }
+            }
+            return "";
+        }
     }
 
 

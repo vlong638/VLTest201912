@@ -6,8 +6,8 @@
 				<Property IsOn="true" ColumnName="*" Alias =""/>
 			</Properties>
 			<Wheres>
-				<Where ComponentName="登记日期Start"/>
-				<Where ComponentName="登记日期End"/>
+				<Where ComponentName="登记日期Start" Required="true"/>
+				<Where ComponentName="登记日期End" Required="true"/>
 			</Wheres>
 			<OrderBys>
 				<OrderBy ComponentName="id" Alias ="tb.序号"/>
@@ -27,7 +27,7 @@
 					left join (
 						select
 						subjg.dizhibm,
-						sum(case when (h.highrisktype like concat('%',01,'%') or h.highrisktype like concat('%',18,'%'))then 1 else 0 end) 早产	,
+						sum(case when (h.highrisktype like concat('%',01,'%') or h.highrisktype like concat('%',18,'%'))then 1 else 0 end) 早产,
 						sum(case when g.birthWeight&lt; '1500' then 1 else 0 end) 极低出生体重儿,
 						sum(case when h.highrisktype like concat('%',02,'%')then 1 else 0 end) 足月小样儿,
 						sum(case when h.highrisktype like concat('%',06,'%')then 1 else 0 end) HIE,
