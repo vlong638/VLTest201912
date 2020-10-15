@@ -599,6 +599,11 @@ namespace VL.Research.Controllers
         {
             var viewName = request.search.First(c => c.Key.ToLower() == "viewname").Value;
             var listConfig = ConfigHelper.GetListConfigByDirectoryName(viewName);
+            var error = listConfig.CheckWheres(request);
+            if (!error.IsNullOrEmpty())
+            {
+                return Error<List<Dictionary<string, object>>, int>(null, 0, error);
+            }
             var sqlConfig = ConfigHelper.GetSQLConfigByDirectoryName(viewName);
             sqlConfig.PageIndex = request.page;
             sqlConfig.PageSize = request.limit;

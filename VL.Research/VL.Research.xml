@@ -1142,6 +1142,11 @@
             输入项的输入值
             </summary>
         </member>
+        <member name="P:VL.Research.Models.GetListConfigModel_Search.required">
+            <summary>
+            是否必填
+            </summary>
+        </member>
         <member name="P:VL.Research.Models.GetListConfigModel_Search.options">
             <summary>
             下拉项的下拉项

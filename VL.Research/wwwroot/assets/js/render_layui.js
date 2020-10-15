@@ -138,7 +138,6 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                     alert("日期搜索参数必须以[\"开始日期参数名\",\"结束日期参数名\"]格式！")
                     return;
                 }
-                console.log(item);
                 html += `
                 <div class="layui-inline">
                     <label class="layui-form-label">` + item.text + `:</label>
@@ -172,6 +171,9 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
     _this.append(html);
 
     _layui.form.render();
+
+    // 引入额外JS
+    // $('body').append(`<script type="text/javascript" src="a.js"></script>`)
 
     let scriptObject = ``;
 
@@ -344,14 +346,23 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
     form.on('submit(tbSearch)', function (data) {
         data.field.search = [];
         let needSplit = [];
+        let requireTest = true
         $('.datepicker').each(function () {
             needSplit.push($(this).attr('data-param'))
         })
         for (let i in data.field) {
-            if (i !== 'search') {
+            if (i !== 'search' && requireTest) {
                 // 此处是为了保存每次搜索的参数
                 $.each(_data.search, function (index, item) {
+                    console.log(requireTest)
+                    if (!requireTest) return;
                     if (item.name === i) {
+                        if (!isNeed(item.required, data.field[i])) {
+                            layer.msg(item.text + ' 是必填的！');
+                            requireTest = false
+                            return;
+                        }
+                        console.log("必填测试");
                         if (item.type === 3 || item.type === 4) {
                             $.each(item.options, function (_index, _item) {
                                 _item.checked = _item.value === data.field[i];
@@ -361,18 +372,22 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                         }
                     }
                 })
-                // 此处是为了把格式转换成key,value型
-                if (needSplit.indexOf($("input[name='" + i + "']").attr("data-param")) !== -1) {
-                    // 日期特殊处理
-                    let param = $("input[name='" + i + "']").attr("data-param").split('|');
-                    let value = data.field[i].split(' - ');
-                    data.field.search.push({ key: param[0], value: value[0] })
-                    data.field.search.push({ key: param[1], value: value[1] })
-                } else {
-                    data.field.search.push({ key: i, value: data.field[i] })
+                if (requireTest) {
+                    // 此处是为了把格式转换成key,value型
+                    if (needSplit.indexOf($("input[name='" + i + "']").attr("data-param")) !== -1) {
+                        // 日期特殊处理
+                        let param = $("input[name='" + i + "']").attr("data-param").split('|');
+                        let value = data.field[i].split(' - ');
+                        data.field.search.push({ key: param[0], value: value[0] })
+                        data.field.search.push({ key: param[1], value: value[1] })
+                    } else {
+                        data.field.search.push({ key: i, value: data.field[i] })
+                    }
                 }
             }
         }
+
+        if (!requireTest) return false;
 
         if (!isBlank(_data.table.where)) {
             // 加载表格初始参数到data.field.search
@@ -594,12 +609,12 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
             theme: {
                 color: '#2D5595',
             },
-            style: {
-                fontSize: '1em',
-                width: '100%',
-                height: '25px',
-                minHeight: '25px'
-            },
+             style: {
+                 fontSize: '1em',
+                 width: '100%',
+                 height: '25px',
+                 minHeight: '25px'
+             },
             data: options
         })
     })
@@ -920,6 +935,18 @@ jQuery.prototype.renderForm = function (_data, _layui, _parent) {
         return html;
     }
 
+}
+
+function isNeed(required, value) {
+    if (!isBlank(required)) {
+        if (required) {
+            return !isBlank(value);
+        } else {
+            return true;
+        }
+    } else {
+        return true;
+    }
 }
 
 
