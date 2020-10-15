@@ -243,6 +243,7 @@ namespace VL.Research.Common
             #endregion
             LinkOperator = element.Attribute(nameof(LinkOperator))?.Value.ToEnum<LinkOperator>() ?? LinkOperator.None;
             DisplayName = element.Attribute(nameof(DisplayName))?.Value;
+            Required = element.Attribute(nameof(Required))?.Value.ToBool() ?? false;
             DisplayType = element.Attribute(nameof(DisplayType))?.Value;
             DisplayValues = element.Attribute(nameof(DisplayValues))?.Value;
             Options = element.Attribute(nameof(Options))?.Value;
@@ -261,6 +262,10 @@ namespace VL.Research.Common
         /// 值
         /// </summary>
         public string Value { set; get; }
+        /// <summary>
+        /// 是否必填
+        /// </summary>
+        public bool Required { set; get; }
         /// <summary>
         /// 链接操作符
         /// </summary>

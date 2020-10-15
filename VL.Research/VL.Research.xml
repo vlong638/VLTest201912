@@ -648,6 +648,11 @@
             值
             </summary>
         </member>
+        <member name="P:VL.Research.Common.ListConfigWhere.Required">
+            <summary>
+            是否必填
+            </summary>
+        </member>
         <member name="P:VL.Research.Common.ListConfigWhere.LinkOperator">
             <summary>
             链接操作符

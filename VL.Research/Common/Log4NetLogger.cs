@@ -85,7 +85,7 @@ namespace VL.Research.Common
                 sb.AppendLine($" set @{par.Key} = '{par.Value}'");
             }
             sb.Append(sql);
-            sqlLogger.Debug(sb.ToString());
+            sqlLogger.Error(sb.ToString());
         }
     }
 }

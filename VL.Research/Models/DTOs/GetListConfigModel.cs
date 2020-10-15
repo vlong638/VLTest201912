@@ -1,4 +1,5 @@
-﻿using NPOI.SS.Formula.Atp;
+﻿using Newtonsoft.Json;
+using NPOI.SS.Formula.Atp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -86,6 +87,7 @@ namespace VL.Research.Models
                 names = new List<string>() { c.ComponentName + "Start", c.ComponentName + "End" };
             }
             value = c.Value ?? "";
+            required = c.Required;
             options = new GetListConfigModel_Search_Options(c.Options);
             treeOptions = new GetListConfigModel_Search_TreeOptions(c.TreeOptions);
         }
@@ -110,6 +112,11 @@ namespace VL.Research.Models
         /// 输入项的输入值
         /// </summary>
         public string value { set; get; }
+        /// <summary>
+        /// 是否必填
+        /// </summary>
+        public bool required { get; set; }
+
         /// <summary>
         /// 下拉项的下拉项
         /// </summary>
