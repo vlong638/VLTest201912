@@ -398,7 +398,7 @@ namespace FrameworkTest.Business.SDMockCommit
         /// <returns></returns>
         internal bool UpdateEnquiry(UserInfo userInfo, WCQBJ_CZDH_DOCTOR_READData base8, List<Data_MQDA_XWBS_SAVE> datas, ref StringBuilder logger)
         {
-            var url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/MQDA_XWBS_SAVE&sUserID={userInfo.UserId}&sParams={base8.MainId}${userInfo.OrgId}";
+            var url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/MQDA_XWBS_SAVE&sUserID={userInfo.UserId}&sParams={base8.MainId}${userInfo.OrgId}$%E6%97%A0$%E6%97%A0$%E6%97%A0$%E6%97%A0";
             var json = datas.ToJson();
             var container = new CookieContainer();
             var postData = "data=" + HttpUtility.UrlEncode(json);
