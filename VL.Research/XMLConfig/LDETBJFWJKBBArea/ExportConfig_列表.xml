@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Exports>
+	<!--注意 保留字  ColumnName="target"-->
+	<Export ExportName="" FileName="列表.xlsx">
+		<Sheet SheetName="列表">
+			<Source SourceName="Data" DBSourceType="FYPTConnectionString">
+				<Properties>
+					<Property IsOn="true" ColumnName="*" Alias =""/>
+				</Properties>
+				<Wheres>
+					<Where ComponentName="登记日期Start"/>
+					<Where ComponentName="登记日期End"/>
+				</Wheres>
+				<OrderBys>
+					<!-- <OrderBy ComponentName="id" Alias ="tb.序号"/> -->
+				</OrderBys>
+				<SQL>
+					select 
+						jg.dizhimc diqumc,
+						jg.dizhibm dizhibm, 
+						ertongshu.*,
+						baby.*
+					from (
+						select dizhibm,dizhimc
+						from GY_FUWUJG
+						group by dizhibm,dizhimc
+					) jg
+					left join (
+						select
+							subjg.dizhibm,
+							sum(case when datediff(YEAR,cg.birthDay,getdate()) &lt; 7 then 1 else 0 end) less7,
+							sum(case when datediff(YEAR,cg.birthDay,getdate()) &lt; 5 then 1 else 0 end) less5,
+							sum(case when datediff(YEAR,cg.birthDay,getdate()) &lt; 3 then 1 else 0 end) less3,
+							sum(case when datediff(YEAR,cg.birthDay,getdate()) &lt; 1 then 1 else 0 end) less0
+						from
+							cc_generalinfo cg
+						left join GY_FUWUJG subjg on cg.manaunitid = subjg.fuwujgbh
+						where mobileflag = 1
+						<If Operator="NotEmpty" ComponentName="登记日期Start"> and CONVERT(varchar(100), cg.createDate, 23) &gt;= @登记日期Start </If>
+						<If Operator="NotEmpty" ComponentName="登记日期End"> and CONVERT(varchar(100), cg.createDate, 23) &lt; dateadd(day,1,@登记日期End) </If>
+						and subjg.dizhibm in(
+							select dizhibm
+							from GY_FUWUJG
+							group by dizhibm
+						)
+						group by subjg.dizhibm
+					) ertongshu on jg.dizhibm = ertongshu.dizhibm
+					left join (
+						select
+							subjg.dizhibm,
+							count(*) allcount,
+							sum(case when FLOOR(datediff(DY,u.birthday,u.deathdate)/365.25) &lt; 1 then 1 else 0 end) yiners,
+							sum(case when DATEDIFF(Day,u.birthday,u.deathdate) &gt;=0 and DATEDIFF(Day,u.birthday,u.deathdate) &lt;=28 then 1 else 0 end) babys,
+							sum(case when FLOOR(datediff(DY,u.birthday,u.deathdate)/365.25) &gt;=1 and FLOOR(datediff(DY,u.birthday,u.deathdate)/365.25) &lt; 4 then 1 else 0 end) childs
+						from underfiveyearsdeathcase u
+						left join GY_FUWUJG subjg on u.entryunitcode = subjg.fuwujgbh
+						where u.mobileflag = 1 and u.status = 1
+						<If Operator="NotEmpty" ComponentName="登记日期Start"> and CONVERT(varchar(100), u.createtime, 23) &gt;= @登记日期Start </If>
+						<If Operator="NotEmpty" ComponentName="登记日期End"> and CONVERT(varchar(100), u.createtime, 23) &lt; dateadd(day,1,@登记日期End) </If>
+						and subjg.dizhibm in(
+							select dizhibm
+							from GY_FUWUJG
+							group by dizhibm
+						)
+						group by subjg.dizhibm
+					) baby on jg.dizhibm = baby.dizhibm
+				</SQL>
+			</Source>
+		</Sheet>
+	</Export>
+</Exports>
