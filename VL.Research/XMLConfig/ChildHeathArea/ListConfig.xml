@@ -5,7 +5,7 @@
 	<View ViewName="GWE" ViewURL="../api/System/GetCommonSelectByDirectoryName">
 		<Export URL="../api/System/CommonExportAll"/>
 		<Wheres>
-			<Where ComponentName="日期范围" Value="" DisplayName="日期范围" DisplayType="5" Requied="true"/>
+			<Where ComponentName="日期范围" Value="" DisplayName="日期范围" DisplayType="5" Required="true"/>
 			<!--"DisplayType <类型[1-文本框|2-数字框|3-单选下拉框|4-树状下拉框|5-日期选择框][默认:1]>",-->
 			<!--<Where ComponentName="序号" Value="" DisplayName="序号" DisplayType="1"/>-->
 		</Wheres>

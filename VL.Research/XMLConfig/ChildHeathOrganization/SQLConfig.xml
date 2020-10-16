@@ -7,8 +7,8 @@
 			</Properties>
 			<Wheres>
 				<Where ComponentName="单位名称" Formatter="%@单位名称%"></Where>
-				<Where ComponentName="日期范围Start"/>
-				<Where ComponentName="日期范围End"/>
+				<Where ComponentName="日期范围Start" Required="true"/>
+				<Where ComponentName="日期范围End" Required="true"/>
 				<Where ComponentName="dataScope"></Where>
 				<Where ComponentName="dizhibm"></Where>
 				<Where ComponentName="organizationCode"></Where>
