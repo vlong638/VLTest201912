@@ -11,8 +11,9 @@
 					<Where ComponentName="fuwujgmc" Formatter="%@fuwujgmc%"></Where>
 					<Where ComponentName="登记日期Start"></Where>
 					<Where ComponentName="登记日期End"></Where>
-					<Where ComponentName="dizhibm"></Where>
-					<Where ComponentName="机构编码"></Where>
+					<Where ComponentName="dataScope"/>
+					<Where ComponentName="organization"/>
+					<Where ComponentName="dizhibm"/>
 				</Wheres>
 				<OrderBys>
 					<!-- <OrderBy ComponentName="id" Alias ="tb.序号"/> -->
@@ -37,11 +38,9 @@
 						select fuwujgbh,fuwujgmc
 						from GY_FUWUJG
 						where 1=1
-						<If Operator="NotEmpty" ComponentName ="dizhibm" Value="" > and dizhibm = @地区编码 </If>
-						<If Operator="NotEmpty" ComponentName ="机构编码" Value="" > and fuwujgbh = @机构编码 </If>
-						<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
-						order by fuwujgbh asc
-						@Pager
+						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
+						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
+						<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>
 					) jg
 					left join (
 						select
@@ -62,11 +61,9 @@
 							select fuwujgbh
 							from GY_FUWUJG
 							where 1=1
-							<If Operator="NotEmpty" ComponentName ="dizhibm" Value="" > and dizhibm = @地区编码 </If>
-							<If Operator="NotEmpty" ComponentName ="机构编码" Value="" > and fuwujgbh = @机构编码 </If>
-							<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
-							order by fuwujgbh asc
-							@Pager
+							<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
+							<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
+							<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>
 						)
 						group by subjg.fuwujgbh
 					) huochan on jg.fuwujgbh = huochan.fuwujgbh
@@ -87,11 +84,9 @@
 							select fuwujgbh
 							from GY_FUWUJG
 							where 1=1
-							<If Operator="NotEmpty" ComponentName ="dizhibm" Value="" > and dizhibm = @地区编码 </If>
-							<If Operator="NotEmpty" ComponentName ="机构编码" Value="" > and fuwujgbh = @机构编码 </If>
-							<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
-							order by fuwujgbh asc
-							@Pager
+							<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
+							<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
+							<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>
 						)
 						group by subjg.fuwujgbh
 					) baby on jg.fuwujgbh = baby.fuwujgbh
@@ -117,11 +112,9 @@
 							select fuwujgbh
 							from GY_FUWUJG
 							where 1=1
-							<If Operator="NotEmpty" ComponentName ="dizhibm" Value="" > and dizhibm = @地区编码 </If>
-							<If Operator="NotEmpty" ComponentName ="机构编码" Value="" > and fuwujgbh = @机构编码 </If>
-							<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
-							order by fuwujgbh asc
-							@Pager
+							<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
+							<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
+							<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>
 						)
 						group by subjg.fuwujgbh
 					) yiner on jg.fuwujgbh = yiner.fuwujgbh
@@ -143,11 +136,9 @@
 							select fuwujgbh
 							from GY_FUWUJG
 							where 1=1
-							<If Operator="NotEmpty" ComponentName ="dizhibm" Value="" > and dizhibm = @地区编码 </If>
-							<If Operator="NotEmpty" ComponentName ="机构编码" Value="" > and fuwujgbh = @机构编码 </If>
-							<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
-							order by fuwujgbh asc
-							@Pager
+							<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
+							<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
+							<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>
 						)
 						group by subjg.fuwujgbh
 					) perinatal on jg.fuwujgbh = perinatal.fuwujgbh
@@ -164,11 +155,9 @@
 							select fuwujgbh
 							from GY_FUWUJG
 							where 1=1
-							<If Operator="NotEmpty" ComponentName ="dizhibm" Value="" > and dizhibm = @地区编码 </If>
-							<If Operator="NotEmpty" ComponentName ="机构编码" Value="" > and fuwujgbh = @机构编码 </If>
-							<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
-							order by fuwujgbh asc
-							@Pager
+							<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
+							<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
+							<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>
 						)
 						group by subjg.fuwujgbh
 					) pregnancy on jg.fuwujgbh = pregnancy.fuwujgbh

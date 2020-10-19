@@ -8,8 +8,12 @@
 					<Property IsOn="true" ColumnName="*" Alias =""/>
 				</Properties>
 				<Wheres>
-					<Where ComponentName="登记日期Start"/>
-					<Where ComponentName="登记日期End"/>
+					<Where ComponentName="fuwujgmc" Formatter="%@fuwujgmc%"></Where>
+					<Where ComponentName="登记日期Start"></Where>
+					<Where ComponentName="登记日期End"></Where>
+					<Where ComponentName="dataScope"/>
+					<Where ComponentName="organization"/>
+					<Where ComponentName="dizhibm"/>
 				</Wheres>
 				<OrderBys>
 					<!-- <OrderBy ComponentName="id" Alias ="tb.序号"/> -->

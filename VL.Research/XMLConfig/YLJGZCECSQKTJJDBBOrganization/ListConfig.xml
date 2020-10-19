@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Views>
+	<!--IsNeedOnPage="false" DisplayName="" (.+) Description="(\w+)"(.+)\r\n
+	IsNeedOnPage="true" DisplayName="$2" $1 Description="$2"$3\r\n-->
+	<View ViewName="GWE" ViewURL="../api/System/GetCommonSelectByDirectoryName">
+		<Export URL="../api/System/CommonExportAll"/>
+		<Wheres>
+			<Where ComponentName="checkDay" Value="" DisplayName="统计时间" DisplayType="5"/>
+			<Where ComponentName="fuwujgmc" Value="" DisplayName="机构名称" DisplayType="1"/>
+			<!--"DisplayType <类型[1-文本框|2-数字框|3-单选下拉框|4-树状下拉框|5-日期选择框][默认:1]>",-->
+			<!--<Where ComponentName="序号" Value="" DisplayName="序号" DisplayType="1"/>-->
+		</Wheres>
+		<ToolBars>
+			<!-- <ToolBar URL ="../Home/CommonListByDirectoryName" InlineParams ="dizhibm" WhereParams ="登记日期" DefaultParams="viewName=LDETBJFWJKBBDetail,dataScope=2" Text="查看地区机构" Type = "newPage" Description = "" Area = "300px,400px" YesFun = "yesFun"/> -->
+		</ToolBars>
+		<Properties>
+			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="机构名称" RowSpan="2" ColumnName="fuwujgmc" DisplayType="None" DisplayWidth="180" IsSortable="False" DataType="bigint" Description="-" />
+			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="类别" RowSpan="2" ColumnName="" DisplayType="None" DisplayWidth="180" IsSortable="False" DataType="bigint" Description="-" />
+			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="活产人数" RowSpan="2" ColumnName="huochan" DisplayType="None" DisplayWidth="180" IsSortable="False" DataType="bigint" Description="-" />
+			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="早产儿人数" RowSpan="2" ColumnName="zaochanzs" DisplayType="None" DisplayWidth="180" IsSortable="False" DataType="bigint" Description="-" />
+			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="高危早产儿数" RowSpan="2" ColumnName="hrzaochan" DisplayType="None" DisplayWidth="180" IsSortable="False" DataType="bigint" Description="-" />
+			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="低危早产儿数" RowSpan="2" ColumnName="lrzaochan" DisplayType="None" DisplayWidth="180" IsSortable="False" DataType="bigint" Description="-" />
+
+			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="住院早产儿数" RowSpan="2" ColumnName="" DisplayType="None" DisplayWidth="180" IsSortable="False" DataType="bigint" Description="-" />
+
+			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="早产儿转归" ColumnSpan="4"/>
+			
+			<Property DisplayLevel="2" IsNeedOnPage="true" DisplayName="出院人数" ColumnName="zaochanqy" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property DisplayLevel="2" IsNeedOnPage="true" DisplayName="转院人数" ColumnName="zaochanzy" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property DisplayLevel="2" IsNeedOnPage="true" DisplayName="放弃人数" ColumnName="zaochanqt" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property DisplayLevel="2" IsNeedOnPage="true" DisplayName="死亡人数" ColumnName="zaochansw" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+	
+		</Properties>
+	</View>
+</Views>

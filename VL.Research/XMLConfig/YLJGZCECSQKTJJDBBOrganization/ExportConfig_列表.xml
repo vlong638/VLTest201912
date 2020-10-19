@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Exports>
+	<!--注意 保留字  ColumnName="target"-->
+	<Export ExportName="" FileName="列表.xlsx">
+		<Sheet SheetName="列表">
+			<Source SourceName="Data" DBSourceType="FYPTConnectionString">
+				<Properties>
+					<Property IsOn="true" ColumnName="*" Alias =""/>
+				</Properties>
+				<Wheres>
+				<Where ComponentName="fuwujgmc" Formatter="%@fuwujgmc%"></Where>
+				<Where ComponentName="checkDayStart"/>
+				<Where ComponentName="checkDayEnd"/>
+				<Where ComponentName="dataScope"/>
+				<Where ComponentName="organization"/>
+				<Where ComponentName="dizhibm"/>
+				</Wheres>
+				<OrderBys>
+					<!-- <OrderBy ComponentName="id" Alias ="tb.序号"/> -->
+				</OrderBys>
+				<SQL>
+					SELECT
+						jg.fuwujgbh fuwujgbh,
+						jg.fuwujgmc fuwujgmc, 
+						huochan.num as huochan,
+						zaochan.total as zaochanzs,
+						zaochan.high as hrzaochan,
+						zaochan.low as lrzaochan,
+						zaochan.qy as zaochanqy,
+						zaochan.zy as zaochanzy,
+						zaochan.qt as zaochanqt,
+						zaochan.sw as zaochansw
+					FROM (
+						select fuwujgbh,fuwujgmc
+						from GY_FUWUJG
+						where 1=1
+						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
+						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
+						<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>
+					) jg
+					left JOIN (
+						SELECT
+							jg.fuwujgbh,
+							count(*) AS num
+						FROM cdh_deliveryrecord cdr
+						LEFT JOIN GY_FUWUJG jg ON jg.FUWUJGBH = cdr.visitunitcode
+						WHERE cdr.outcomeofpregnancy = '1' AND cdr.status = '1' 
+						<If Operator="NotEmpty" ComponentName="checkDayStart"> and CONVERT(varchar(100), cdr.deliverydate, 23) &gt;= @checkDayStart </If>
+						<If Operator="NotEmpty" ComponentName="checkDayEnd"> and CONVERT(varchar(100), cdr.deliverydate, 23) &lt; dateadd(day,1,@checkDayEnd) </If>
+						AND jg.fuwujgbh in (
+							select fuwujgbh
+							from GY_FUWUJG
+							where 1=1
+							<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
+							<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
+							<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>
+						)
+						GROUP BY jg.fuwujgbh
+					) huochan ON huochan.fuwujgbh = jg.fuwujgbh
+					left JOIN (
+						SELECT
+							jg.fuwujgbh,
+							sum(case when cg.highrisktype = '18' or cg.highrisktype = '01' or ch.highrisktype = '18' or ch.highrisktype = '01' then 1 else 0 end) as total,
+							sum(case when cg.highrisktype = '18' or ch.highrisktype = '18' then 1 else 0 end) as high,
+							sum(case when cg.highrisktype = '01' or ch.highrisktype = '01' then 1 else 0 end) as low,
+							sum(case when (cg.highrisktype = '18' or cg.highrisktype = '01' or ch.highrisktype = '18' or ch.highrisktype = '01') and ch.endresult = '1' then 1 else 0 end) as qy,
+							sum(case when (cg.highrisktype = '18' or cg.highrisktype = '01' or ch.highrisktype = '18' or ch.highrisktype = '01') and ch.endresult = '6' then 1 else 0 end) as zy,
+							sum(case when (cg.highrisktype = '18' or cg.highrisktype = '01' or ch.highrisktype = '18' or ch.highrisktype = '01') and ch.endresult = '7' then 1 else 0 end) as qt,
+							sum(case when (cg.highrisktype = '18' or cg.highrisktype = '01' or ch.highrisktype = '18' or ch.highrisktype = '01') and ch.endresult = '4' then 1 else 0 end) as sw
+						FROM cc_generalinfo cg
+						LEFT JOIN cc_highrisk ch ON cg.childid = ch.childid
+						LEFT JOIN GY_FUWUJG jg ON jg.FUWUJGBH = cg.createUnit
+						WHERE 1=1
+						<If Operator="NotEmpty" ComponentName="checkDayStart"> and CONVERT(varchar(100), cg.birthDay, 23) &gt;= @checkDayStart </If>
+						<If Operator="NotEmpty" ComponentName="checkDayEnd"> and CONVERT(varchar(100), cg.birthDay, 23) &lt; dateadd(day,1,@checkDayEnd) </If>
+						jg.fuwujgbh in (
+							select fuwujgbh
+							from GY_FUWUJG
+							where 1=1
+							<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
+							<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
+							<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>
+						)
+						GROUP BY jg.fuwujgbh
+					) zaochan ON zaochan.fuwujgbh = jg.fuwujgbh
+				</SQL>
+			</Source>
+		</Sheet>
+	</Export>
+</Exports>
