@@ -132,10 +132,22 @@
     <None Update="XMLConfig\ChildHeathOrganization\SQLConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="XMLConfig\DeathMonitorUnder5AreaSeasonal\ListConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLConfig\DeathMonitorUnder5AreaSeasonal\SQLConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="XMLConfig\DeathMonitorUnder5Area\ListConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="XMLConfig\DeathMonitorUnder5Area\SQLConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLConfig\DeathMonitorUnder5OrganizationSeasonal\ListConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLConfig\DeathMonitorUnder5OrganizationSeasonal\SQLConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="XMLConfig\DeathMonitorUnder5Organization\ListConfig.xml">
