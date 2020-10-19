@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Views>
+	<!--IsNeedOnPage="false" DisplayName="" (.+) Description="(\w+)"(.+)\r\n
+	IsNeedOnPage="true" DisplayName="$2" $1 Description="$2"$3\r\n-->
+	<View ViewName="GWE" ViewURL="../api/System/GetCommonSelectByDirectoryName">
+		<Export URL="../api/System/CommonExportAll"/>
+		<Wheres>
+			<Where ComponentName="日期范围" Value="" DisplayName="日期范围" DisplayType="5" Required ="true"/>
+			<!--"DisplayType <类型[1-文本框|2-数字框|3-单选下拉框|4-树状下拉框|5-日期选择框][默认:1]>",-->
+			<!--<Where ComponentName="序号" Value="" DisplayName="序号" DisplayType="1"/>-->
+		</Wheres>
+		<ToolBars>
+			<ToolBar URL ="../Home/CommonListByDirectoryName" InlineParams ="dizhibm" WhereParams ="日期范围" DefaultParams="viewName=DeathMonitorUnder5Organization,dataScope=2" Text="查看地区机构" Type = "newPage" Description = "" Area = "300px,400px" YesFun = "yesFun"/>
+		</ToolBars>
+		<OrderBy DefaultName ="createdate" DefaultValue ="desc"/>
+		<Properties>
+			<Property DisplayLevel="1" RowSpan="2" IsNeedOnPage="true" DisplayName="机构" ColumnName="fuwujgmc" DisplayWidth="160" IsSortable="False"/>
+			<Property DisplayLevel="1" RowSpan="2" IsNeedOnPage="true" DisplayName="活产数" ColumnName="huochanzs" DisplayWidth="80" IsSortable="False"/>
+			<Property DisplayLevel="1" RowSpan="2" IsNeedOnPage="true" DisplayName="早产儿人数" ColumnName="早产儿人数" DisplayWidth="120" IsSortable="False"/>
+			<Property DisplayLevel="1" RowSpan="2" IsNeedOnPage="true" DisplayName="高危早产儿数" ColumnName="高危早产儿数" DisplayWidth="120" IsSortable="False"/>
+			<Property DisplayLevel="1" RowSpan="2" IsNeedOnPage="true" DisplayName="低危早产儿数" ColumnName="低危早产儿数" DisplayWidth="120" IsSortable="False"/>
+			<Property DisplayLevel="1" RowSpan="1" ColumnSpan="2" IsNeedOnPage="true" DisplayName="登记管理人数"/>
+			<Property DisplayLevel="1" RowSpan="1" ColumnSpan="2" IsNeedOnPage="true" DisplayName="随访人数"/>
+			<Property DisplayLevel="1" RowSpan="1" ColumnSpan="2" IsNeedOnPage="true" DisplayName="专案管理人数"/>
+
+			<Property DisplayLevel="2" RowSpan="1" IsNeedOnPage="true" DisplayName="低危" ColumnName="登记管理人数低危" DisplayWidth="60" IsSortable="False"/>
+			<Property DisplayLevel="2" RowSpan="1" IsNeedOnPage="true" DisplayName="高危" ColumnName="登记管理人数高危" DisplayWidth="60" IsSortable="False"/>
+			<Property DisplayLevel="2" RowSpan="1" IsNeedOnPage="true" DisplayName="低危" ColumnName="低危早产儿随访人数" DisplayWidth="60" IsSortable="False"/>
+			<Property DisplayLevel="2" RowSpan="1" IsNeedOnPage="true" DisplayName="高危" ColumnName="高危早产儿随访人数" DisplayWidth="60" IsSortable="False"/>
+			<Property DisplayLevel="2" RowSpan="1" IsNeedOnPage="true" DisplayName="低危" ColumnName="低危早产儿专案管理人数" DisplayWidth="60" IsSortable="False"/>
+			<Property DisplayLevel="2" RowSpan="1" IsNeedOnPage="true" DisplayName="高危" ColumnName="高危早产儿专案管理人数" DisplayWidth="60" IsSortable="False"/>
+		</Properties>
+	</View>
+</Views>

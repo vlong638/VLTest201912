@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Views>
+	<View ViewName="">
+		<Source SourceName="Data" DBSourceType="FYPTConnectionString">
+			<Properties>
+				<Property IsOn="true" ColumnName="*" Alias =""/>
+			</Properties>
+			<Wheres>
+				<Where ComponentName="日期范围Start" Required ="true"/>
+				<Where ComponentName="日期范围End" Required ="true"/>
+			</Wheres>
+			<OrderBys>
+				<!--<OrderBy ComponentName="fuwujgbh" Alias ="fuwujgbh"/>-->
+			</OrderBys>
+			<SQLs UnitedBy="dizhibm">
+				<SQL>
+					select dizhibm,dizhimc
+					from GY_FUWUJG
+					group by dizhibm,dizhimc
+					order by dizhibm asc
+					@Pager
+				</SQL>
+				<SQL>
+					select
+					subjg.dizhibm,
+					count(*) huochanzs
+					from cdh_newbornrecord nr
+					left join cdh_deliveryrecord dr on nr.chanshibh = dr.chanshibh
+					left join cdh_pregnantinfo pi on pi.chanshibh = dr.chanshibh
+					left join GY_FUWUJG subjg on dr.visitunitcode = subjg.fuwujgbh
+					where pi.realregioncode != pi.homeaddress
+					and nr.outcomeofbirth = 1 and pi.ownerarea != 1
+					<If Operator="NotEmpty" ComponentName="日期范围Start"> and dr.tianbiaosj &gt;= @日期范围Start </If>
+					<If Operator="NotEmpty" ComponentName="日期范围End"> and dr.tianbiaosj &lt; dateadd(day,1,@日期范围End) </If>
+					and subjg.dizhibm in (
+						select dizhibm
+						from GY_FUWUJG
+						order by dizhibm asc
+						@Pager
+					)
+					group by subjg.dizhibm
+				</SQL>
+				<SQL>
+					select p.*
+					,p.低危早产儿数 + p.高危早产儿数 早产儿人数
+					,p.低危早产儿数 登记管理人数低危
+					,p.高危早产儿数 登记管理人数高危
+					from (
+					select
+						subjg.dizhibm,
+						sum(case when h.highrisktype like concat('%',01,'%') then 1 else 0 end) 低危早产儿数,
+						sum(case when h.highrisktype like concat('%',18,'%') then 1 else 0 end) 高危早产儿数
+						from cc_highrisk h
+						left join cc_generalinfo g on h.childid = g.childid
+						left join GY_FUWUJG subjg on g.manaunitid = subjg.fuwujgbh
+						where h.status = 1
+						<If Operator="NotEmpty" ComponentName="日期范围Start"> and h.registerdate &gt;= @日期范围Start </If>
+						<If Operator="NotEmpty" ComponentName="日期范围End"> and h.registerdate &lt; dateadd(day,1,@日期范围End) </If>
+						and subjg.dizhibm in
+						(
+							select dizhibm
+							from GY_FUWUJG
+							group by dizhibm
+							order by dizhibm asc
+							@Pager
+						)
+						group by dizhibm
+					) as p
+				</SQL>
+				<SQL>
+					select
+					h.childid,
+					subjg.dizhibm,
+					sum(case when h.highrisktype like concat('%',01,'%') then 1 else 0 end) 低危早产儿随访人数,
+					sum(case when h.highrisktype like concat('%',18,'%') then 1 else 0 end) 高危早产儿随访人数
+					from cc_highrisk h
+					left join cc_generalinfo g on h.childid = g.childid
+					left join GY_FUWUJG subjg on g.manaunitid = subjg.fuwujgbh
+					left join cc_physicalexam_new p on h.childid = p.childid
+					where h.status = 1
+					and p.childId is not null
+					<If Operator="NotEmpty" ComponentName="日期范围Start"> and h.registerdate &gt;= @日期范围Start </If>
+					<If Operator="NotEmpty" ComponentName="日期范围End"> and h.registerdate &lt; dateadd(day,1,@日期范围End) </If>
+					and subjg.dizhibm in
+					(
+						select dizhibm
+						from GY_FUWUJG
+						group by dizhibm
+						order by dizhibm asc
+						@Pager
+					)
+					group by dizhibm,h.childid
+				</SQL>
+				<SQL>
+					select
+					subjg.dizhibm,
+					sum(case when h.highrisktype like '%01%' then 1 else 0 end) 低危早产儿专案管理人数,
+					sum(case when h.highrisktype like '%18%' then 1 else 0 end) 高危早产儿专案管理人数
+					from cc_highrisk h
+					left join cc_generalinfo g on h.childid = g.childid
+					left join GY_FUWUJG subjg on g.manaunitid = subjg.fuwujgbh
+					left join Analysis_SpecialCase p on h.childid = p.childid and (p.finishedAt is not null or getdate() &lt; dateadd(day,1,p.GeneratedAt))
+					where h.status = 1 
+					and p.childId is not null
+					and p.isValidCase = 1
+					<If Operator="NotEmpty" ComponentName="日期范围Start"> and h.registerdate &gt;= @日期范围Start </If>
+					<If Operator="NotEmpty" ComponentName="日期范围End"> and h.registerdate &lt; dateadd(day,1,@日期范围End) </If>
+					and subjg.dizhibm in
+					(
+						select dizhibm
+						from GY_FUWUJG
+						group by dizhibm,dizhimc
+					)
+					group by dizhibm
+				</SQL>
+			</SQLs>
+			<CountSQL>
+				select count(1)
+				from GY_FUWUJG
+				group by dizhibm
+			</CountSQL>
+		</Source>
+	</View>
+</Views>
