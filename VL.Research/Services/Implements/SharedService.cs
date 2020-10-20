@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
-using VL.Consolo_Core.Common.DBSolution;
-using VL.Consolo_Core.Common.ExcelExportSolution;
 using VL.Consolo_Core.Common.PagerSolution;
 using VL.Consolo_Core.Common.ServiceSolution;
 using VL.Consolo_Core.Common.ValuesSolution;
 using VL.Research.Common;
-using VL.Research.Models;
 using VL.Research.Repositories;
 
 namespace VL.Research.Services
@@ -27,7 +23,7 @@ namespace VL.Research.Services
         public SharedService(APIContext dbContext)
         {
             this.dbContext = dbContext;
-            sharedRepository = new SharedRepository(dbContext.CommonDbContext);
+            sharedRepository = new SharedRepository(dbContext.GetDBContext(DBSourceType.DefaultConnectionString));
         }
 
         /// <summary>
@@ -47,10 +43,9 @@ namespace VL.Research.Services
             });
             return result;
         }
-
         internal ServiceResult<DataTable> GetCommonSelectByExportConfig(Consolo_Core.Common.ExcelExportSolution.SQLConfigSource sourceConfig)
         {
-            var result = dbContext.CommonDbContext.DelegateTransaction((g) =>
+            var result = dbContext.GetDBContext(DBSourceType.DefaultConnectionString).DelegateTransaction((g) =>
             {
                 return sharedRepository.GetCommonSelect(sourceConfig);
             });
@@ -74,5 +69,30 @@ namespace VL.Research.Services
             });
             return result;
         }
+
+        /// <summary>
+        /// 获取通用的导出数据
+        /// </summary>
+        /// <param name="sourceConfig"></param>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        internal ServiceResult<bool> GetCommonSelectByExportConfig2(Consolo_Core.Common.ExcelExportSolution.SQLConfigSource sourceConfig, DBSourceType source)
+        {
+            var adbContext = dbContext.GetDBContext(source);
+            var result = adbContext.DelegateTransaction((g) =>
+            {
+                sharedRepository = new SharedRepository(adbContext);
+                //生成完整列表
+                var datatable = sharedRepository.GetCommonSelect(sourceConfig);
+                //更新各项指标
+
+                return true;
+            });
+            return result;
+        }
+
+        #region HuZhou
+
+        #endregion
     }
 }

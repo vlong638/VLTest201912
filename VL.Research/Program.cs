@@ -2,6 +2,7 @@ using log4net;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using System;
 using VL.Research.Common.Configuration;
 
 namespace VL.Research

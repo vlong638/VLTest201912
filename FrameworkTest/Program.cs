@@ -4460,8 +4460,7 @@ where co.checkorderid is not null
                 }
             }));
             #endregion
-            #region Profile格式化
-
+            #region 湖州,Profile格式化
             cmds.Add(new Command("pro01,Profile", () =>
             {
                 var input = @"D:\WorkSpace\Repository\VLTest201912\FrameworkTest\Business\Profile\Input.txt";
@@ -4498,7 +4497,31 @@ where co.checkorderid is not null
                 File.WriteAllText(output, sb.ToString());
             }));
             #endregion
+            #region 湖州,报表
 
+            cmds.Add(new Command("hz01,HuZhou01,数据预处理Analysis_SpecialCase", () =>
+            {
+                var dbContext = DBHelper.GetSqlDbContext("");
+                var serviceResult = dbContext.DelegateTransaction((group) =>
+                {
+                    //生成完整列表
+                    var result = group.Connection.Execute(@"
+insert into Analysis_SpecialCase ([ChildId], [GeneratedAtMonth], [IsValidCase])
+select a.* from
+(
+	select g.ChildId,null as GeneratedAtMonth,0 as IsValidCase from cc_generalinfo g
+	left join Analysis_SpecialCase a on g.childid = a.childid
+	where a.childid is null and g.childId is not null
+) as a
+", transaction: group.Transaction);
+                    //更新需要更新的数据
+
+
+                    return result;
+                });
+            }));
+
+            #endregion
             cmds.Start();
         }
 

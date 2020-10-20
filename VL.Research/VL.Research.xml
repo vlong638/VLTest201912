@@ -174,17 +174,7 @@
             配置样例
             </summary>
         </member>
-        <member name="P:VL.Research.Common.Configuration.DBConfig.DefaultConnectionString">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:VL.Research.Common.Configuration.DBConfig.FYPTConnectionString">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:VL.Research.Common.Configuration.DBConfig.SZXTConnectionString">
+        <member name="P:VL.Research.Common.Configuration.DBConfig.ConnectionStrings">
             <summary>
             
             </summary>
@@ -225,22 +215,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="P:VL.Research.Common.APIContext.CommonDbContext">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:VL.Research.Common.APIContext.FYPTDbContext">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:VL.Research.Common.APIContext.SZXTDbContext">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:VL.Research.Common.APIContext.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Microsoft.Extensions.Options.IOptions{VL.Research.Common.Configuration.DBConfig},VL.Consolo_Core.Common.RedisSolution.RedisCache)">
+        <member name="M:VL.Research.Common.APIContext.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,VL.Consolo_Core.Common.RedisSolution.RedisCache)">
             <summary>
             
             </summary>
@@ -2572,6 +2547,14 @@
             </summary>
         </member>
         <member name="M:VL.Research.Services.SharedService.GetCommonSelectByExportConfig(VL.Consolo_Core.Common.ExcelExportSolution.SQLConfigSource,VL.Research.Common.DBSourceType)">
+            <summary>
+            获取通用的导出数据
+            </summary>
+            <param name="sourceConfig"></param>
+            <param name="source"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Research.Services.SharedService.GetCommonSelectByExportConfig2(VL.Consolo_Core.Common.ExcelExportSolution.SQLConfigSource,VL.Research.Common.DBSourceType)">
             <summary>
             获取通用的导出数据
             </summary>

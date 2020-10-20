@@ -3,9 +3,24 @@
     "IsLogSQL": true
   },
   "DB": {
-    "DefaultConnectionString": "Data Source=127.0.0.1,1433;Initial Catalog=VLTest;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sa;Password=123",
-    "FYPTConnectionString": "Data Source=192.168.50.102,1433;Initial Catalog=fypt-dev;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=vl;Password=123",
-    "SZXTConnectionString": "Data Source=192.168.50.102,1433;Initial Catalog=SZXT;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=vl;Password=123"
+    "ConnectionStrings": [
+      {
+        "Key": "DefaultConnectionString",
+        "Value": "Data Source=127.0.0.1,1433;Initial Catalog=VLTest;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sa;Password=123"
+      },
+      {
+        "Key": "FYPTConnectionString",
+        "Value": "Data Source=192.168.50.102,1433;Initial Catalog=fypt-dev;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=vl;Password=123"
+      },
+      {
+        "Key": "SZXTConnectionString",
+        "Value": "Data Source=192.168.50.102,1433;Initial Catalog=SZXT;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=vl;Password=123"
+      },
+      {
+        "Key": "HZConnectionString",
+        "Value": "Data Source=122.225.118.58,7335;Initial Catalog=fypt;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=huzfypt;Password=huz3305@2018."
+      }
+    ]
   },
   "Redis": {
     "ConnectionString": "127.0.0.1:6379",

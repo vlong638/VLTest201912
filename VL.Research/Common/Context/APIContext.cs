@@ -37,27 +37,9 @@ namespace VL.Research.Common
         /// <summary>
         /// 
         /// </summary>
-        public DbContext CommonDbContext { set; get; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public DbContext FYPTDbContext { set; get; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public DbContext SZXTDbContext { set; get; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public APIContext(IHttpContextAccessor httpContext, IOptions<DBConfig> loggingConfig, RedisCache redisCache) : base()
+        public APIContext(IHttpContextAccessor httpContext, RedisCache redisCache) : base()
         {
             HttpContextAccessor = httpContext;
-
-            CommonDbContext = new DbContext(DBHelper.GetDbConnection(loggingConfig.Value.DefaultConnectionString));
-            FYPTDbContext = new DbContext(DBHelper.GetDbConnection(loggingConfig.Value.FYPTConnectionString));
-            SZXTDbContext = new DbContext(DBHelper.GetDbConnection(loggingConfig.Value.SZXTConnectionString));
-
             RedisCache = redisCache;
         }
 
@@ -88,11 +70,11 @@ namespace VL.Research.Common
             switch (source)
             {
                 case DBSourceType.DefaultConnectionString:
-                    return CommonDbContext;
+                    return new DbContext(DBHelper.GetDbConnection("DefaultConnectionString"));
                 case DBSourceType.FYPTConnectionString:
-                    return FYPTDbContext;
+                    return new DbContext(DBHelper.GetDbConnection("FYPTConnectionString"));
                 case DBSourceType.SZXTConnectionString:
-                    return SZXTDbContext;
+                    return new DbContext(DBHelper.GetDbConnection("SZXTConnectionString"));
                 default:
                     throw new NotImplementedException("尚未支持该类型的dbContext构建");
             }
