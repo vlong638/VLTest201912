@@ -30,10 +30,10 @@ namespace VL.Research.Services
         public PregnantService(APIContext dbContext)
         {
             this.dbContext = dbContext;
-            pregnantInfoRepository = new PregnantInfoRepository(dbContext.GetDBContext(DBSourceType.DefaultConnectionString));
-            visitRecordRepository = new VisitRecordRepository(dbContext.GetDBContext(DBSourceType.DefaultConnectionString));
-            labOrderRepository = new LabOrderRepository(dbContext.GetDBContext(DBSourceType.DefaultConnectionString));
-            labCheckRepository = new LabCheckRepository(dbContext.GetDBContext(DBSourceType.DefaultConnectionString));
+            pregnantInfoRepository = new PregnantInfoRepository(dbContext.GetDBContext(DBSourceType.DefaultConnectionString.ToString()));
+            visitRecordRepository = new VisitRecordRepository(dbContext.GetDBContext(DBSourceType.DefaultConnectionString.ToString()));
+            labOrderRepository = new LabOrderRepository(dbContext.GetDBContext(DBSourceType.DefaultConnectionString.ToString()));
+            labCheckRepository = new LabCheckRepository(dbContext.GetDBContext(DBSourceType.DefaultConnectionString.ToString()));
         }
 
         ///// <summary>
@@ -59,7 +59,7 @@ namespace VL.Research.Services
         /// <returns></returns>
         public ServiceResult<VLPagerResult<PagedListOfPregnantInfoModel>> GetPagedListOfPregnantInfo(GetPagedListOfPregnantInfoRequest request)
         {
-            var result = dbContext.GetDBContext(DBSourceType.DefaultConnectionString).DelegateTransaction((g) =>
+            var result = dbContext.GetDBContext(DBSourceType.DefaultConnectionString.ToString()).DelegateTransaction((g) =>
             {
                 var list = pregnantInfoRepository.GetPregnantInfoPagedList(request);
                 var count = pregnantInfoRepository.GetPregnantInfoPagedListCount(request);
@@ -75,7 +75,7 @@ namespace VL.Research.Services
         /// <returns></returns>
         public ServiceResult<VLPagerTableResult<List<Dictionary<string, object>>>> GetConfigurablePagedListOfPregnantInfo(GetPagedListOfPregnantInfoRequest request)
         {
-            var result = dbContext.GetDBContext(DBSourceType.DefaultConnectionString).DelegateTransaction((g) =>
+            var result = dbContext.GetDBContext(DBSourceType.DefaultConnectionString.ToString()).DelegateTransaction((g) =>
             {
                 var list = pregnantInfoRepository.GetConfigurablePregnantInfoPagedList(request);
                 var count = pregnantInfoRepository.GetPregnantInfoPagedListCount(request);
@@ -91,7 +91,7 @@ namespace VL.Research.Services
         /// <returns></returns>
         public ServiceResult<PregnantInfo> GetPregnantInfoByPregnantInfoId(long pregnantInfoId)
         {
-            var result = dbContext.GetDBContext(DBSourceType.DefaultConnectionString).DelegateTransaction((g) =>
+            var result = dbContext.GetDBContext(DBSourceType.DefaultConnectionString.ToString()).DelegateTransaction((g) =>
             {
                 var pregnantInfo = pregnantInfoRepository.GetPregnantInfoById(pregnantInfoId);
                 return pregnantInfo;
@@ -106,7 +106,7 @@ namespace VL.Research.Services
         /// <returns></returns>
         public ServiceResult<VLPagerResult<PagedListOfVisitRecordModel>> GetPagedListOfVisitRecord(GetPagedListOfVisitRecordRequest request)
         {
-            var result = dbContext.GetDBContext(DBSourceType.DefaultConnectionString).DelegateTransaction((g) =>
+            var result = dbContext.GetDBContext(DBSourceType.DefaultConnectionString.ToString()).DelegateTransaction((g) =>
             {
                 var list = visitRecordRepository.GetVisitRecordPagedList(request);
                 var count = visitRecordRepository.GetVisitRecordPagedListCount(request);
@@ -122,7 +122,7 @@ namespace VL.Research.Services
         /// <returns></returns>
         public ServiceResult<VLPagerResult<PagedListOfLabOrderModel>> GetPagedListOfLabOrder(GetPagedListOfLabOrderRequest request)
         {
-            var result = dbContext.GetDBContext(DBSourceType.DefaultConnectionString).DelegateTransaction((g) =>
+            var result = dbContext.GetDBContext(DBSourceType.DefaultConnectionString.ToString()).DelegateTransaction((g) =>
             {
                 var list = labOrderRepository.GetLabOrderPagedList(request);
                 var count = labOrderRepository.GetLabOrderPagedListCount(request);

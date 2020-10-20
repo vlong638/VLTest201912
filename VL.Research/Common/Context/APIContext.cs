@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using System;
+using System.Linq;
 using System.Text;
 using VL.Consolo_Core.Common.DBSolution;
 using VL.Consolo_Core.Common.RedisSolution;
@@ -65,19 +66,14 @@ namespace VL.Research.Common
         /// </summary>
         /// <param name="source"></param>
         /// <returns></returns>
-        public DbContext GetDBContext(DBSourceType source)
+        public DbContext GetDBContext(string source)
         {
-            switch (source)
+            var connectionString = APIContraints.DBConfig.ConnectionStrings.FirstOrDefault(c => c.Key == source);
+            if (connectionString==null)
             {
-                case DBSourceType.DefaultConnectionString:
-                    return new DbContext(DBHelper.GetDbConnection("DefaultConnectionString"));
-                case DBSourceType.FYPTConnectionString:
-                    return new DbContext(DBHelper.GetDbConnection("FYPTConnectionString"));
-                case DBSourceType.SZXTConnectionString:
-                    return new DbContext(DBHelper.GetDbConnection("SZXTConnectionString"));
-                default:
                     throw new NotImplementedException("尚未支持该类型的dbContext构建");
             }
+            return new DbContext(DBHelper.GetDbConnection(connectionString.Value));
         }
 
         #endregion
@@ -104,5 +100,9 @@ namespace VL.Research.Common
         /// 生殖系统
         /// </summary>
         SZXTConnectionString,
+        /// <summary>
+        /// 生殖系统
+        /// </summary>
+        HZConnectionString,
     }
 }

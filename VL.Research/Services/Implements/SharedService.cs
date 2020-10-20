@@ -23,7 +23,7 @@ namespace VL.Research.Services
         public SharedService(APIContext dbContext)
         {
             this.dbContext = dbContext;
-            sharedRepository = new SharedRepository(dbContext.GetDBContext(DBSourceType.DefaultConnectionString));
+            sharedRepository = new SharedRepository(dbContext.GetDBContext(DBSourceType.DefaultConnectionString.ToString()));
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace VL.Research.Services
         /// </summary>
         public ServiceResult<VLPagerTableResult<List<Dictionary<string, object>>>> GetCommonSelectBySQLConfig(SQLConfig sqlConfig)
         {
-            var adbContext = dbContext.GetDBContext(sqlConfig.Source.DBSourceType.ToEnum<DBSourceType>());
+            var adbContext = dbContext.GetDBContext(sqlConfig.Source.DBSourceType);
             var result = adbContext.DelegateTransaction((g) =>
             {
                 sharedRepository = new SharedRepository(adbContext);
@@ -45,7 +45,7 @@ namespace VL.Research.Services
         }
         internal ServiceResult<DataTable> GetCommonSelectByExportConfig(Consolo_Core.Common.ExcelExportSolution.SQLConfigSource sourceConfig)
         {
-            var result = dbContext.GetDBContext(DBSourceType.DefaultConnectionString).DelegateTransaction((g) =>
+            var result = dbContext.GetDBContext(DBSourceType.DefaultConnectionString.ToString()).DelegateTransaction((g) =>
             {
                 return sharedRepository.GetCommonSelect(sourceConfig);
             });
@@ -60,7 +60,7 @@ namespace VL.Research.Services
         /// <returns></returns>
         internal ServiceResult<DataTable> GetCommonSelectByExportConfig(Consolo_Core.Common.ExcelExportSolution.SQLConfigSource sourceConfig, DBSourceType source)
         {
-            var adbContext = dbContext.GetDBContext(source);
+            var adbContext = dbContext.GetDBContext(source.ToString());
             var result = adbContext.DelegateTransaction((g) =>
             {
                 sharedRepository = new SharedRepository(adbContext);
@@ -71,21 +71,20 @@ namespace VL.Research.Services
         }
 
         /// <summary>
-        /// 获取通用的导出数据
+        /// 早产儿管理情况统计报 指标更新
         /// </summary>
-        /// <param name="sourceConfig"></param>
         /// <param name="source"></param>
         /// <returns></returns>
-        internal ServiceResult<bool> GetCommonSelectByExportConfig2(Consolo_Core.Common.ExcelExportSolution.SQLConfigSource sourceConfig, DBSourceType source)
+        internal ServiceResult<bool> UpdateIndicatorsForPrematureBabyManagement(DBSourceType source)
         {
-            var adbContext = dbContext.GetDBContext(source);
+            var adbContext = dbContext.GetDBContext(source.ToString());
             var result = adbContext.DelegateTransaction((g) =>
             {
                 sharedRepository = new SharedRepository(adbContext);
                 //生成完整列表
-                var datatable = sharedRepository.GetCommonSelect(sourceConfig);
+                sharedRepository.GenerateSourceForPrematureBabyManagement();
                 //更新各项指标
-
+                sharedRepository.GenerateIndicatorsForPrematureBabyManagement();
                 return true;
             });
             return result;

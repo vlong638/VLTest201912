@@ -18,6 +18,7 @@
       },
       {
         "Key": "HZConnectionString",
+        //"Value": "Data Source=192.168.50.102,1433;Initial Catalog=fypt-dev;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=vl;Password=123"
         "Value": "Data Source=122.225.118.58,7335;Initial Catalog=fypt;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=huzfypt;Password=huz3305@2018."
       }
     ]

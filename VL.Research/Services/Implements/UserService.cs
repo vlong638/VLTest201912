@@ -46,12 +46,12 @@ namespace VL.Research.Services
             this.Schemes = Schemes;
             this.Handlers = Handlers;
             this.Transform = Transform;
-            userRepository = new UserRepository(dbContext.GetDBContext(DBSourceType.DefaultConnectionString));
-            userAuthorityRepository = new UserAuthorityRepository(dbContext.GetDBContext(DBSourceType.DefaultConnectionString));
-            userRoleRepository = new UserRoleRepository(dbContext.GetDBContext(DBSourceType.DefaultConnectionString));
-            roleRepository = new RoleRepository(dbContext.GetDBContext(DBSourceType.DefaultConnectionString));
-            roleAuthorityRepository = new RoleAuthorityRepository(dbContext.GetDBContext(DBSourceType.DefaultConnectionString));
-            userMenuRepository = new UserMenuRepository(dbContext.GetDBContext(DBSourceType.DefaultConnectionString));
+            userRepository = new UserRepository(dbContext.GetDBContext(DBSourceType.DefaultConnectionString.ToString()));
+            userAuthorityRepository = new UserAuthorityRepository(dbContext.GetDBContext(DBSourceType.DefaultConnectionString.ToString()));
+            userRoleRepository = new UserRoleRepository(dbContext.GetDBContext(DBSourceType.DefaultConnectionString.ToString()));
+            roleRepository = new RoleRepository(dbContext.GetDBContext(DBSourceType.DefaultConnectionString.ToString()));
+            roleAuthorityRepository = new RoleAuthorityRepository(dbContext.GetDBContext(DBSourceType.DefaultConnectionString.ToString()));
+            userMenuRepository = new UserMenuRepository(dbContext.GetDBContext(DBSourceType.DefaultConnectionString.ToString()));
         }
 
         /// <summary>
@@ -125,7 +125,7 @@ namespace VL.Research.Services
         /// <returns></returns>
         internal ServiceResult<bool> EditRoleAuthorities(long roleId, List<long>  authorityIds)
         {
-            return dbContext.GetDBContext(DBSourceType.DefaultConnectionString).DelegateTransaction((g) =>
+            return dbContext.GetDBContext(DBSourceType.DefaultConnectionString.ToString()).DelegateTransaction((g) =>
             {
                 roleAuthorityRepository.DeleteBy(roleId);
                 var roleAuthorities = authorityIds.Select(c => new RoleAuthority() { RoleId = roleId, AuthorityId = c }).ToArray();
@@ -145,7 +145,7 @@ namespace VL.Research.Services
         /// <returns></returns>
         public ServiceResult<bool> EditUserRoles(long userId, IEnumerable<long> roleIds)
         {
-            return dbContext.GetDBContext(DBSourceType.DefaultConnectionString).DelegateTransaction((g) =>
+            return dbContext.GetDBContext(DBSourceType.DefaultConnectionString.ToString()).DelegateTransaction((g) =>
             {
                 userRoleRepository.DeleteBy(userId);
                 var userRoles = roleIds.Select(c => new UserRole() { UserId = userId, RoleId = c }).ToArray();

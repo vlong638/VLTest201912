@@ -2,7 +2,7 @@
 <Views>
 	<!--IsNeedOnPage="false" DisplayName="" (.+) Description="(\w+)"(.+)\r\n
 	IsNeedOnPage="true" DisplayName="$2" $1 Description="$2"$3\r\n-->
-	<View ViewName="GWE" ViewURL="../api/System/GetCommonSelectByDirectoryName">
+	<View ViewName="GWE" ViewURL="../api/System/GetPrematureBabyManagementArea">
 		<Export URL="../api/System/CommonExportAll"/>
 		<Wheres>
 			<Where ComponentName="日期范围" Value="" DisplayName="日期范围" DisplayType="5" Required ="true"/>

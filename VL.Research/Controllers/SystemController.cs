@@ -693,5 +693,20 @@ namespace VL.Research.Controllers
         }
 
         #endregion
+
+        #region PrematureBabyManagementArea
+
+        /// <summary>
+        /// 获取 通用查询 分页列表
+        /// </summary>
+        [HttpPost]
+        //[VLActionFilter(Authority.查看孕妇档案列表)]
+        public APIResult<List<Dictionary<string, object>>, int> GetPrematureBabyManagementArea([FromServices] SharedService sharedService, GetCommonSelectRequest request)
+        {
+            sharedService.UpdateIndicatorsForPrematureBabyManagement(DBSourceType.HZConnectionString);
+            return GetCommonSelectByDirectoryName(sharedService, request);
+        }
+
+        #endregion
     }
 }

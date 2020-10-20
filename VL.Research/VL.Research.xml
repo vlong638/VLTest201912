@@ -226,7 +226,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Common.APIContext.GetDBContext(VL.Research.Common.DBSourceType)">
+        <member name="M:VL.Research.Common.APIContext.GetDBContext(System.String)">
             <summary>
             
             </summary>
@@ -254,6 +254,11 @@
             </summary>
         </member>
         <member name="F:VL.Research.Common.DBSourceType.SZXTConnectionString">
+            <summary>
+            生殖系统
+            </summary>
+        </member>
+        <member name="F:VL.Research.Common.DBSourceType.HZConnectionString">
             <summary>
             生殖系统
             </summary>
@@ -2294,6 +2299,11 @@
             
             </summary>
         </member>
+        <member name="M:VL.Research.Controllers.SystemController.GetPrematureBabyManagementArea(VL.Research.Services.SharedService,VL.Research.Models.GetCommonSelectRequest)">
+            <summary>
+            获取 通用查询 分页列表
+            </summary>
+        </member>
         <member name="T:VL.Research.Controllers.SignInStatus">
             <summary>
             登录状态枚举
@@ -2554,11 +2564,10 @@
             <param name="source"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Services.SharedService.GetCommonSelectByExportConfig2(VL.Consolo_Core.Common.ExcelExportSolution.SQLConfigSource,VL.Research.Common.DBSourceType)">
+        <member name="M:VL.Research.Services.SharedService.UpdateIndicatorsForPrematureBabyManagement(VL.Research.Common.DBSourceType)">
             <summary>
-            获取通用的导出数据
+            早产儿管理情况统计报 指标更新
             </summary>
-            <param name="sourceConfig"></param>
             <param name="source"></param>
             <returns></returns>
         </member>
