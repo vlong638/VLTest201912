@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Views>
 	<View ViewName="">
-		<Source SourceName="Data" ConnectionType="ConnectionString">
+		<Source SourceName="Data" ConnectionType="HZConnectionString">
 			<Properties>
 				<Property IsOn="true" ColumnName="*" Alias ="row_number() over (@OrderBy) as rowindex
 				,p.id

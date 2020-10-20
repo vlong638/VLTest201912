@@ -16,7 +16,7 @@
 		<Properties>
 			<Property DisplayLevel="1" RowSpan="3" IsNeedOnPage="true" DisplayName="地区" ColumnName="dizhimc" DisplayWidth="180" IsSortable="False"/>
 			<Property DisplayLevel="1" RowSpan="1" ColumnSpan="4" IsNeedOnPage="true" DisplayName="活产数"/>
-			<Property DisplayLevel="1" RowSpan="1" ColumnSpan="4" IsNeedOnPage="true" DisplayName="儿童数"/>
+			<Property DisplayLevel="1" RowSpan="1" ColumnSpan="3" IsNeedOnPage="true" DisplayName="儿童数"/>
 			<Property DisplayLevel="1" RowSpan="1" ColumnSpan="12" IsNeedOnPage="true" DisplayName="5岁以下儿童死亡情况"/>
 			<Property DisplayLevel="1" RowSpan="1" ColumnSpan="3" IsNeedOnPage="true" DisplayName="6个月内婴儿母乳喂养情况"/>
 			<Property DisplayLevel="1" RowSpan="1" ColumnSpan="3" IsNeedOnPage="true" DisplayName="7岁以下儿童保健服务"/>

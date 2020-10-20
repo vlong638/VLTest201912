@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Views>
 	<View ViewName="">
-		<Source SourceName="Data" DBSourceType="FYPTConnectionString">
+		<Source SourceName="Data" DBSourceType="HZConnectionString">
 			<Properties>
 				<Property IsOn="true" ColumnName="*" Alias =""/>
 			</Properties>

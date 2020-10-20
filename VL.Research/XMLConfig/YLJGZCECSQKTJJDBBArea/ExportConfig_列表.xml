@@ -3,7 +3,7 @@
 	<!--注意 保留字  ColumnName="target"-->
 	<Export ExportName="" FileName="列表.xlsx">
 		<Sheet SheetName="列表">
-			<Source SourceName="Data" DBSourceType="FYPTConnectionString">
+			<Source SourceName="Data" DBSourceType="HZConnectionString">
 				<Properties>
 					<Property IsOn="true" ColumnName="*" Alias =""/>
 				</Properties>

@@ -144,10 +144,10 @@
     <None Update="XMLConfig\PrematureBabyManagementArea\SQLConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="XMLConfig\DeathMonitorUnder5AreaQuarterly\ListConfig.xml">
+    <None Update="XMLConfig\DeathMonitorUnder5QuarterlyArea\ListConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="XMLConfig\DeathMonitorUnder5AreaQuarterly\SQLConfig.xml">
+    <None Update="XMLConfig\DeathMonitorUnder5QuarterlyArea\SQLConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="XMLConfig\DeathMonitorUnder5Area\ListConfig.xml">
@@ -156,10 +156,10 @@
     <None Update="XMLConfig\DeathMonitorUnder5Area\SQLConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="XMLConfig\DeathMonitorUnder5OrganizationSeasonal\ListConfig.xml">
+    <None Update="XMLConfig\DeathMonitorUnder5QuarterlyOrganization\ListConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="XMLConfig\DeathMonitorUnder5OrganizationSeasonal\SQLConfig.xml">
+    <None Update="XMLConfig\DeathMonitorUnder5QuarterlyOrganization\SQLConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="XMLConfig\DeathMonitorUnder5Organization\ListConfig.xml">
