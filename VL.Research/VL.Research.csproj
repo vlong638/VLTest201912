@@ -120,10 +120,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="XMLConfig\ChildHeathArea\ExportConfig_列表.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="XMLConfig\ChildHeathArea\ListConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="XMLConfig\ChildHeathArea\SQLConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLConfig\ChildHeathOrganization\ExportConfig_列表.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="XMLConfig\ChildHeathOrganization\ListConfig.xml">
@@ -131,6 +137,9 @@
     </None>
     <None Update="XMLConfig\ChildHeathOrganization\SQLConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLConfig\ChildHeathOrganization\儿童保健和健康情况表（2019年版）.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="XMLConfig\PrematureBabyManagementOrganization\ListConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
