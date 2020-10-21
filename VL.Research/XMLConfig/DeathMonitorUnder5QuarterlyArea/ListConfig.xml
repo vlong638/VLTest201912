@@ -17,12 +17,12 @@
 			<Property DisplayLevel="1" RowSpan="4" IsNeedOnPage="true" DisplayName="地区" ColumnName="dizhimc" DisplayWidth="160" IsSortable="False"/>
 			<Property DisplayLevel="1" RowSpan="1" ColumnSpan="8" IsNeedOnPage="true" DisplayName="本地户籍"/>
 			<Property DisplayLevel="1" RowSpan="1" ColumnSpan="16" IsNeedOnPage="true" DisplayName="本地户籍"/>
-			
+
 			<Property DisplayLevel="2" RowSpan="1" ColumnSpan="4" IsNeedOnPage="true" DisplayName="活产数"/>
 			<Property DisplayLevel="2" RowSpan="1" ColumnSpan="4" IsNeedOnPage="true" DisplayName="死亡数"/>
 			<Property DisplayLevel="2" RowSpan="1" ColumnSpan="8" IsNeedOnPage="true" DisplayName="总计"/>
 			<Property DisplayLevel="2" RowSpan="1" ColumnSpan="8" IsNeedOnPage="true" DisplayName="其中：非本地户籍居住1年及以上"/>
-
+			<!--本地户籍-->
 			<!--活产数-->
 			<Property DisplayLevel="3" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="合计" ColumnName="huochanzs" DisplayWidth="60"/>
 			<Property DisplayLevel="3" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="男" ColumnName="huochannan" DisplayWidth="60"/>
@@ -33,24 +33,23 @@
 			<Property DisplayLevel="3" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="婴儿" ColumnName="yiners" DisplayWidth="60"/>
 			<Property DisplayLevel="3" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="1~4岁儿童" ColumnName="wusuidy1" DisplayWidth="100"/>
 			<Property DisplayLevel="3" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="0~4岁儿童" ColumnName="wusuisw" DisplayWidth="100"/>
-			
+
 			<Property DisplayLevel="3" RowSpan="1" ColumnSpan="4" IsNeedOnPage="true" DisplayName="活产数"/>
 			<Property DisplayLevel="3" RowSpan="1" ColumnSpan="4" IsNeedOnPage="true" DisplayName="死亡数"/>
 			<Property DisplayLevel="3" RowSpan="1" ColumnSpan="4" IsNeedOnPage="true" DisplayName="活产数"/>
 			<Property DisplayLevel="3" RowSpan="1" ColumnSpan="4" IsNeedOnPage="true" DisplayName="死亡数"/>
-			
+			<!--总计-->
 			<!--活产数-->
 			<Property DisplayLevel="4" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="合计" ColumnName="huochanzsother" DisplayWidth="60"/>
 			<Property DisplayLevel="4" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="男" ColumnName="huochannanother" DisplayWidth="60"/>
 			<Property DisplayLevel="4" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="女" ColumnName="huochannvother" DisplayWidth="60"/>
 			<Property DisplayLevel="4" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="性别不明" ColumnName="huochanbmother" DisplayWidth="100"/>
-			
 			<!--死亡数-->
 			<Property DisplayLevel="4" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="新生儿" ColumnName="babysother" DisplayWidth="60"/>
 			<Property DisplayLevel="4" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="婴儿" ColumnName="yinersother" DisplayWidth="60"/>
 			<Property DisplayLevel="4" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="1~4岁儿童" ColumnName="wusuidy1other" DisplayWidth="100"/>
 			<Property DisplayLevel="4" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="0~4岁儿童" ColumnName="wusuiswother" DisplayWidth="100"/>
-			
+			<!--其中：非本地户籍居住1年及以上-->
 			<!--活产数-->
 			<Property DisplayLevel="4" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="合计" ColumnName="" DisplayWidth="60"/>
 			<Property DisplayLevel="4" RowSpan="2" ColumnSpan="1" IsNeedOnPage="true" DisplayName="男" ColumnName="" DisplayWidth="60"/>

@@ -119,13 +119,16 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
         private void MyInsertRow(ISheet sheet, int startAt, int addCount, IRow sourceRow)
         {
             #region 批量移动行
-            sheet.ShiftRows(
-            startAt,
-            sheet.LastRowNum,                            //--结束行
-            addCount,                             //--移动大小(行数)--往下移动
-            true,                                   //是否复制行高
-            false                                  //是否重置行高
-            );
+            if (addCount>0)
+            {
+                sheet.ShiftRows(
+                startAt,
+                sheet.LastRowNum,                            //--结束行
+                addCount,                             //--移动大小(行数)--往下移动
+                true,                                   //是否复制行高
+                false                                  //是否重置行高
+                );
+            }
             #endregion
 
             #region 对批量移动后空出的空行插，创建相应的行，并以插入行的上一行为格式源(即：插入行-1的那一行)

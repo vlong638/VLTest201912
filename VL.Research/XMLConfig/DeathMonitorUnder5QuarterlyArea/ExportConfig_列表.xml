@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Exports>
+	<!--注意 保留字  ColumnName="target"-->
+	<Export ExportName="" FileName="5岁以下儿童死亡监测表.xlsx">
+		<Sheet SheetName="列表">
+			<Source SourceName="Data" DBSourceType="HZConnectionString">
+				<Properties>
+					<Property IsOn="true" ColumnName="*" Alias =""/>
+				</Properties>
+				<Wheres>
+					<Where ComponentName="日期范围Start" Required ="true"/>
+					<Where ComponentName="日期范围End" Required ="true"/>
+				</Wheres>
+				<OrderBys>
+					<!--<OrderBy ComponentName="fuwujgbh" Alias ="fuwujgbh"/>-->
+				</OrderBys>
+				<SQLs UnitedBy="dizhibm">
+					<SQL>
+						select dizhibm,dizhimc
+						from GY_ZD_SHENGSHIQX_QC gz
+						left join GY_FUWUJG gf on gz.DAIMA = gf.fuwujgbh
+						where 1=1 and gf.fuwujgbh is not null
+						group by dizhibm,dizhimc
+					</SQL>
+					<SQL>
+						select
+						subjg.dizhibm,
+						count(*) huochanzs,
+						sum(case when nr.babysex=1 then 1 else 0 end) huochannan,
+						sum(case when nr.babysex=2 then 1 else 0 end) huochannv,
+						sum(case when nr.babysex!=1 and nr.babysex!=2 then 1 else 0 end)huochanbm
+						from cdh_newbornrecord nr
+						left join cdh_deliveryrecord dr on nr.chanshibh = dr.chanshibh
+						left join GY_FUWUJG subjg on dr.visitunitcode = subjg.fuwujgbh
+						where nr.outcomeofbirth = 1
+						<If Operator="NotEmpty" ComponentName="日期范围Start"> and dr.tianbiaosj &gt;= @日期范围Start </If>
+						<If Operator="NotEmpty" ComponentName="日期范围End"> and dr.tianbiaosj &lt; dateadd(day,1,@日期范围End) </If>
+						and subjg.dizhibm in
+						(
+						select dizhibm
+						from GY_ZD_SHENGSHIQX_QC gz
+						left join GY_FUWUJG gf on gz.DAIMA = gf.fuwujgbh
+						where 1=1 and gf.fuwujgbh is not null
+						group by dizhibm,dizhimc
+						)
+						group by subjg.dizhibm
+					</SQL>
+					<SQL>
+						select
+						subjg.dizhibm,
+						sum(case when DATEDIFF(Day,d.babybirth,d.deathdate)>=0 and DATEDIFF(Day,d.babybirth,d.deathdate)&lt;=28 then 1 else 0 end) babys
+						from perinataldeathcase d
+						left join GY_FUWUJG subjg on d.entryunitcode = subjg.fuwujgbh
+						where d.mobileflag = 1
+						and d.status = 1
+						<If Operator="NotEmpty" ComponentName="日期范围Start"> and d.entrydate &gt;= @日期范围Start </If>
+						<If Operator="NotEmpty" ComponentName="日期范围End"> and d.entrydate &lt; dateadd(day,1,@日期范围End) </If>
+						and subjg.dizhibm in
+						(
+						select dizhibm
+						from GY_FUWUJG
+						group by dizhibm
+						)
+						group by subjg.dizhibm
+					</SQL>
+					<SQL>
+						select
+						subjg.dizhibm,
+						sum(case when FLOOR(datediff(DY,d.birthday,d.deathdate)/365.25) &lt; 1 then 1 else 0 end) yiners,
+						sum(case when FLOOR(datediff(DY,d.birthday,d.deathdate)/365.25) &gt;= 1 then 1 else 0 end) wusuidy1,
+						count(*) wusuisw
+						from underfiveyearsdeathcase d
+						left join GY_FUWUJG subjg on d.entryunitcode = subjg.fuwujgbh
+						where d.mobileflag = 1
+						and d.status = 1
+						<If Operator="NotEmpty" ComponentName="日期范围Start"> and d.entrydate &gt;= @日期范围Start </If>
+						<If Operator="NotEmpty" ComponentName="日期范围End"> and d.entrydate &lt; dateadd(day,1,@日期范围End) </If>
+						and subjg.dizhibm in
+						(
+						select dizhibm
+						from GY_FUWUJG
+						group by dizhibm
+						)
+						group by subjg.dizhibm
+					</SQL>
+					<SQL>
+						select
+						subjg.dizhibm,
+						count(*) huochanzsother,
+						sum(case when nr.babysex=1 then 1 else 0 end) huochannanother,
+						sum(case when nr.babysex=2 then 1 else 0 end) huochannvother,
+						sum(case when nr.babysex!=1 and nr.babysex!=2 then 1 else 0 end)huochanbmother
+						from cdh_newbornrecord nr
+						left join cdh_deliveryrecord dr on nr.chanshibh = dr.chanshibh
+						left join cdh_pregnantinfo pi on pi.chanshibh = dr.chanshibh
+						left join GY_FUWUJG subjg on dr.visitunitcode = subjg.fuwujgbh
+						where nr.outcomeofbirth = 1
+						and pi.ownerarea != 1
+						<If Operator="NotEmpty" ComponentName="日期范围Start"> and dr.tianbiaosj &gt;= @日期范围Start </If>
+						<If Operator="NotEmpty" ComponentName="日期范围End"> and dr.tianbiaosj &lt; dateadd(day,1,@日期范围End) </If>
+						and subjg.dizhibm in
+						(
+						select dizhibm
+						from GY_FUWUJG
+						group by dizhibm
+						)
+						group by subjg.dizhibm
+					</SQL>
+					<SQL>
+						select
+						subjg.dizhibm,
+						sum(case when DATEDIFF(Day,d.babybirth,d.deathdate)>=0 and DATEDIFF(Day,d.babybirth,d.deathdate)&lt;=28 then 1 else 0 end) babysother
+						from perinataldeathcase d
+						left join GY_FUWUJG subjg on d.entryunitcode = subjg.fuwujgbh
+						where d.mobileflag != 1
+						and d.status = 1
+						<If Operator="NotEmpty" ComponentName="日期范围Start"> and d.entrydate &gt;= @日期范围Start </If>
+						<If Operator="NotEmpty" ComponentName="日期范围End"> and d.entrydate &lt; dateadd(day,1,@日期范围End) </If>
+						and subjg.dizhibm in
+						(
+						select dizhibm
+						from GY_FUWUJG
+						group by dizhibm
+						)
+						group by subjg.dizhibm
+					</SQL>
+					<SQL>
+						select
+						subjg.dizhibm,
+						sum(case when FLOOR(datediff(DY,d.birthday,d.deathdate)/365.25) &lt; 1 then 1 else 0 end) yinersother,
+						sum(case when FLOOR(datediff(DY,d.birthday,d.deathdate)/365.25) &gt;= 1 then 1 else 0 end) wusuidy1other,
+						count(*) wusuiswother
+						from underfiveyearsdeathcase d
+						left join GY_FUWUJG subjg on d.entryunitcode = subjg.fuwujgbh
+						where d.mobileflag != 1
+						and d.status = 1
+						<If Operator="NotEmpty" ComponentName="日期范围Start"> and d.entrydate &gt;= @日期范围Start </If>
+						<If Operator="NotEmpty" ComponentName="日期范围End"> and d.entrydate &lt; dateadd(day,1,@日期范围End) </If>
+						and subjg.dizhibm in
+						(
+						select dizhibm
+						from GY_FUWUJG
+						group by dizhibm
+						)
+						group by subjg.dizhibm
+					</SQL>
+				</SQLs>
+			</Source>
+		</Sheet>
+	</Export>
+</Exports>

@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Exports>
+	<!--注意 保留字  ColumnName="target"-->
+	<Export ExportName="" FileName="早产儿管理情况.xlsx">
+		<Sheet SheetName="列表">
+			<Source SourceName="Data" DBSourceType="HZConnectionString">
+				<Properties>
+					<Property IsOn="true" ColumnName="*" Alias =""/>
+				</Properties>
+				<Wheres>
+					<Where ComponentName="单位名称" Formatter="%@单位名称%"></Where>
+					<Where ComponentName="日期范围Start" Required ="true"/>
+					<Where ComponentName="日期范围End" Required ="true"/>
+					<Where ComponentName="dataScope"></Where>
+					<Where ComponentName="dizhibm"></Where>
+					<Where ComponentName="organizationCode"></Where>
+				</Wheres>
+				<OrderBys>
+					<!--<OrderBy ComponentName="fuwujgbh" Alias ="fuwujgbh"/>-->
+				</OrderBys>
+				<SQLs UnitedBy="fuwujgbh">
+					<SQL>
+						select fuwujgmc,fuwujgbh
+						from GY_FUWUJG
+						where 1=1
+						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
+						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
+						<If Operator="NotEmpty" ComponentName ="单位名称"> and g.fuwujgmc like @单位名称 </If>
+					</SQL>
+					<SQL>
+						select
+						dr.visitunitcode fuwujgbh,
+						count(*) huochanzs
+						from cdh_newbornrecord nr
+						left join cdh_deliveryrecord dr on nr.chanshibh = dr.chanshibh
+						left join cdh_pregnantinfo pi on pi.chanshibh = dr.chanshibh
+						where pi.realregioncode != pi.homeaddress
+						and nr.outcomeofbirth = 1 and pi.ownerarea != 1
+						<If Operator="NotEmpty" ComponentName="日期范围Start"> and dr.tianbiaosj &gt;= @日期范围Start </If>
+						<If Operator="NotEmpty" ComponentName="日期范围End"> and dr.tianbiaosj &lt; dateadd(day,1,@日期范围End) </If>
+						and dr.visitunitcode in (
+						select fuwujgbh
+						from GY_FUWUJG
+						where 1=1
+						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
+						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
+						<If Operator="NotEmpty" ComponentName ="单位名称"> and g.fuwujgmc like @单位名称 </If>
+						)
+						group by dr.visitunitcode
+					</SQL>
+					<SQL>
+						select p.*
+						,p.低危早产儿数 + p.高危早产儿数 早产儿人数
+						,p.低危早产儿数 登记管理人数低危
+						,p.高危早产儿数 登记管理人数高危
+						from (
+						select
+						g.manaunitid as fuwujgbh,
+						sum(case when h.highrisktype like concat('%',01,'%') then 1 else 0 end) 低危早产儿数,
+						sum(case when h.highrisktype like concat('%',18,'%') then 1 else 0 end) 高危早产儿数
+						from cc_highrisk h
+						left join cc_generalinfo g on h.childid = g.childid
+						left join GY_FUWUJG subjg on g.manaunitid = subjg.fuwujgbh
+						where h.status = 1
+						<If Operator="NotEmpty" ComponentName="日期范围Start"> and h.registerdate &gt;= @日期范围Start </If>
+						<If Operator="NotEmpty" ComponentName="日期范围End"> and h.registerdate &lt; dateadd(day,1,@日期范围End) </If>
+						and g.manaunitid in
+						(
+						select fuwujgbh
+						from GY_FUWUJG
+						where 1=1
+						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
+						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
+						<If Operator="NotEmpty" ComponentName ="单位名称"> and g.fuwujgmc like @单位名称 </If>
+						)
+						group by g.manaunitid
+						) as p
+					</SQL>
+					<SQL>
+						select
+						g.manaunitid as fuwujgbh,
+						sum(case when h.highrisktype like concat('%',01,'%') then 1 else 0 end) 低危早产儿随访人数,
+						sum(case when h.highrisktype like concat('%',18,'%') then 1 else 0 end) 高危早产儿随访人数
+						from cc_highrisk h
+						left join cc_generalinfo g on h.childid = g.childid
+						left join GY_FUWUJG subjg on g.manaunitid = subjg.fuwujgbh
+						left join cc_physicalexam_new p on h.childid = p.childid
+						where h.status = 1
+						and p.childId is not null
+						<If Operator="NotEmpty" ComponentName="日期范围Start"> and h.registerdate &gt;= @日期范围Start </If>
+						<If Operator="NotEmpty" ComponentName="日期范围End"> and h.registerdate &lt; dateadd(day,1,@日期范围End) </If>
+						and g.manaunitid in
+						(
+						select fuwujgbh
+						from GY_FUWUJG
+						where 1=1
+						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
+						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
+						<If Operator="NotEmpty" ComponentName ="单位名称"> and g.fuwujgmc like @单位名称 </If>
+						)
+						group by g.manaunitid
+					</SQL>
+					<SQL>
+						select
+						g.manaunitid as fuwujgbh,
+						sum(case when h.highrisktype like '%01%' then 1 else 0 end) 低危早产儿专案管理人数,
+						sum(case when h.highrisktype like '%18%' then 1 else 0 end) 高危早产儿专案管理人数
+						from cc_highrisk h
+						left join cc_generalinfo g on h.childid = g.childid
+						left join GY_FUWUJG subjg on g.manaunitid = subjg.fuwujgbh
+						left join Analysis_SpecialCase p on h.childid = p.childid and (p.finishedAt is not null or getdate() &lt; dateadd(day,1,p.GeneratedAt))
+						where h.status = 1
+						and p.childId is not null
+						and p.isValidCase = 1
+						<If Operator="NotEmpty" ComponentName="日期范围Start"> and h.registerdate &gt;= @日期范围Start </If>
+						<If Operator="NotEmpty" ComponentName="日期范围End"> and h.registerdate &lt; dateadd(day,1,@日期范围End) </If>
+						and g.manaunitid in
+						(
+						select fuwujgbh
+						from GY_FUWUJG
+						where 1=1
+						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
+						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
+						<If Operator="NotEmpty" ComponentName ="单位名称"> and g.fuwujgmc like @单位名称 </If>
+						)
+						group by g.manaunitid
+					</SQL>
+				</SQLs>
+			</Source>
+		</Sheet>
+	</Export>
+</Exports>

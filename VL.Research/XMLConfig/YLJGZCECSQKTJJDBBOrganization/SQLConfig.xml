@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Views>
 	<View ViewName="">
-		<Source SourceName="Data" DBSourceType="HZConnectionString">
+		<Source SourceName="Data" DBSourceType="FYPTConnectionString">
 			<Properties>
 				<Property IsOn="true" ColumnName="*" Alias =""/>
 			</Properties>
@@ -75,7 +75,7 @@
 					WHERE 1=1
 					<If Operator="NotEmpty" ComponentName="checkDayStart"> and CONVERT(varchar(100), cg.birthDay, 23) &gt;= @checkDayStart </If>
 					<If Operator="NotEmpty" ComponentName="checkDayEnd"> and CONVERT(varchar(100), cg.birthDay, 23) &lt; dateadd(day,1,@checkDayEnd) </If>
-					jg.fuwujgbh in (
+					and jg.fuwujgbh in (
 						select fuwujgbh
 						from GY_FUWUJG
 						where 1=1

@@ -73,7 +73,7 @@
 						WHERE 1=1
 						<If Operator="NotEmpty" ComponentName="checkDayStart"> and CONVERT(varchar(100), cg.birthDay, 23) &gt;= @checkDayStart </If>
 						<If Operator="NotEmpty" ComponentName="checkDayEnd"> and CONVERT(varchar(100), cg.birthDay, 23) &lt; dateadd(day,1,@checkDayEnd) </If>
-						jg.fuwujgbh in (
+						and jg.fuwujgbh in (
 							select fuwujgbh
 							from GY_FUWUJG
 							where 1=1
