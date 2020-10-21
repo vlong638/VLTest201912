@@ -32,7 +32,7 @@ namespace VL.Research.Services
         public ServiceResult<VLPagerTableResult<List<Dictionary<string, object>>>> GetCommonSelectBySQLConfig(SQLConfig sqlConfig)
         {
             var adbContext = dbContext.GetDBContext(sqlConfig.Source.DBSourceType);
-            var result = adbContext.DelegateTransaction((g) =>
+            var result = adbContext.DelegateNonTransaction((g) =>
             {
                 sharedRepository = new SharedRepository(adbContext);
                 var list = sharedRepository.GetCommonSelect(sqlConfig.Source, sqlConfig.Skip, sqlConfig.Limit);
@@ -61,7 +61,7 @@ namespace VL.Research.Services
         internal ServiceResult<DataTable> GetCommonSelectByExportConfig(Consolo_Core.Common.ExcelExportSolution.SQLConfigSource sourceConfig, DBSourceType source)
         {
             var adbContext = dbContext.GetDBContext(source.ToString());
-            var result = adbContext.DelegateTransaction((g) =>
+            var result = adbContext.DelegateNonTransaction((g) =>
             {
                 sharedRepository = new SharedRepository(adbContext);
                 var datatable = sharedRepository.GetCommonSelect(sourceConfig);

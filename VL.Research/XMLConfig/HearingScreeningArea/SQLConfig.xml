@@ -63,10 +63,10 @@ left join
 			)t
 			where t.rowindex = 1
 	)h
-	left join cc_generalinfo g on h.childid = g.childid
-	left join GY_FUWUJG f on h.uploadunit = f.fuwujgbh
-	group by f.dizhibm
-) p1 on jg.dizhibm = p1.dizhibm
+				left join cc_generalinfo g on h.childid = g.childid
+				left join GY_FUWUJG f on h.uploadunit = f.fuwujgbh
+				group by f.dizhibm
+				) p1 on jg.dizhibm = p1.dizhibm
 			</SQL>
 			
 			</SQLs>

@@ -291,6 +291,11 @@
             扩展事务(服务层)通用处理
             </summary>
         </member>
+        <member name="M:VL.Research.Common.DbContextEX.DelegateNonTransaction``1(VL.Consolo_Core.Common.DBSolution.DbContext,System.Func{VL.Consolo_Core.Common.DBSolution.DbGroup,``0})">
+            <summary>
+            扩展事务(服务层)通用处理
+            </summary>
+        </member>
         <member name="T:VL.Research.Common.Log4NetLogger">
             <summary>
             Log4Net Logger
@@ -2299,9 +2304,9 @@
             
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.SystemController.GetPrematureBabyManagementArea(VL.Research.Services.SharedService,VL.Research.Models.GetCommonSelectRequest)">
+        <member name="M:VL.Research.Controllers.SystemController.GetPrematureBabyManagement(VL.Consolo_Core.Common.RedisSolution.RedisCache,VL.Research.Services.SharedService,VL.Research.Models.GetCommonSelectRequest)">
             <summary>
-            获取 通用查询 分页列表
+            专案处理
             </summary>
         </member>
         <member name="T:VL.Research.Controllers.SignInStatus">

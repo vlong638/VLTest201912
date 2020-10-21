@@ -11,6 +11,7 @@ using System.Text;
 using System.Xml.Linq;
 using VL.Consolo_Core.Common.ControllerSolution;
 using VL.Consolo_Core.Common.ExcelExportSolution;
+using VL.Consolo_Core.Common.RedisSolution;
 using VL.Consolo_Core.Common.ValuesSolution;
 using VL.Research.Common;
 using VL.Research.Models;
@@ -697,13 +698,16 @@ namespace VL.Research.Controllers
         #region PrematureBabyManagementArea
 
         /// <summary>
-        /// 获取 通用查询 分页列表
+        /// 专案处理
         /// </summary>
-        [HttpPost]
-        //[VLActionFilter(Authority.查看孕妇档案列表)]
-        public APIResult<List<Dictionary<string, object>>, int> GetPrematureBabyManagementArea([FromServices] SharedService sharedService, GetCommonSelectRequest request)
+        public APIResult<List<Dictionary<string, object>>, int> GetPrematureBabyManagement([FromServices] RedisCache redis,[FromServices] SharedService sharedService, GetCommonSelectRequest request)
         {
-            sharedService.UpdateIndicatorsForPrematureBabyManagement(DBSourceType.HZConnectionString);
+            var isGenerated = redis.Get<string>("GetPrematureBabyManagement_IsGenerated");
+            if (isGenerated.IsNullOrEmpty())
+            {
+                redis.Set<string>("GetPrematureBabyManagement_IsGenerated", "true", expiry: DateTime.Now.AddMinutes(5));
+                sharedService.UpdateIndicatorsForPrematureBabyManagement(DBSourceType.HZConnectionString);
+            }
             return GetCommonSelectByDirectoryName(sharedService, request);
         }
 

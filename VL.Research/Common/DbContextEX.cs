@@ -35,5 +35,27 @@ namespace VL.Research.Common
                 return new ServiceResult<T>(default(T), ex.Message);
             }
         }
+        /// <summary>
+        /// 扩展事务(服务层)通用处理
+        /// </summary>
+        public static ServiceResult<T> DelegateNonTransaction<T>(this DbContext context, Func<DbGroup, T> exec)
+        {
+            context.DbGroup.Connection.Open();
+            try
+            {
+                var result = exec(context.DbGroup);
+                context.DbGroup.Connection.Close();
+                return new ServiceResult<T>(result);
+            }
+            catch (Exception ex)
+            {
+                context.DbGroup.Connection.Close();
+
+                //集成Log4Net
+                Log4NetLogger.Error("DelegateTransaction Exception", ex);
+
+                return new ServiceResult<T>(default(T), ex.Message);
+            }
+        }
     }
 }
