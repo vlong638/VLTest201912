@@ -269,11 +269,6 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
              class="layui-btn layui-btn-sm icon-btn"><i class="layui-icon">&#xe654;</i>` + _data.table.add_btn.text + `</button>&nbsp;`);
     }
     THToolbar.push('</p>')
-    /*['<p>',
-    '<button lay-event="add" class="layui-btn layui-btn-sm icon-btn"><i class="layui-icon">&#xe654;</i>添加</button>&nbsp;',
-    // '<button lay-event="del" class="layui-btn layui-btn-sm layui-btn-danger icon-btn"><i class="layui-icon">&#xe640;</i>删除</button>',
-    '</p>']*/
-
 
     let DTB = [];
     if (_data.isModel) {
@@ -312,7 +307,6 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
         defaultToolbar: DTB,
         cellMinWidth: 100,
         even: true,
-        // width: 1500,
         limit: _data.table.limit || 15,
         limits: [10, 15, 20],
         initSort: isBlank(_data.table.initSort) ? {} : _data.table.initSort,
@@ -322,7 +316,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
             countName: 'data2'
         },
         text: {
-            none: ''
+            none: '请输入有效条件后搜索'
         },
         cols: _data.table.cols,
         done: function (res, curr, count) {
@@ -347,7 +341,6 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
             }
         });
 
-        // layer.msg('服务端排序。order by ' + obj.field + ' ' + obj.type);
     });
 
     /* 表格搜索 */
@@ -638,8 +631,13 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                         }
                     })
                 } else if (item.type === 5) {
-                    obj.push({ key: item.names[0], value: item.value.split(' - ')[0] })
-                    obj.push({ key: item.names[1], value: item.value.split(' - ')[1] })
+                    if (item.value.split(' - ').length === 2) {
+                        obj.push({ key: item.names[0], value: item.value.split(' - ')[0] })
+                        obj.push({ key: item.names[1], value: item.value.split(' - ')[1] })
+                    } else {
+                        obj.push({ key: item.names[0], value: "" })
+                        obj.push({ key: item.names[1], value: "" })
+                    }
                 } else {
                     obj.push({ key: item.name, value: item.value })
                 }
@@ -656,6 +654,18 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
         search = obj;
 
         return obj
+    }
+
+    function isNeed(required, value) {
+        if (!isBlank(required)) {
+            if (required) {
+                return !isBlank(value);
+            } else {
+                return true;
+            }
+        } else {
+            return true;
+        }
     }
 }
 
@@ -729,7 +739,6 @@ jQuery.prototype.renderForm = function (_data, _layui, _parent) {
 
     // 表单提交事件
     form.on('submit(formAdvSubmit)', function (data) {
-        // console.log(data.field);
         data.field = getValue(data.field);
         let loadIndex = layer.load(2);
         sendAjax('post', _data.saveUrl
@@ -962,17 +971,7 @@ jQuery.prototype.renderForm = function (_data, _layui, _parent) {
 
 }
 
-function isNeed(required, value) {
-    if (!isBlank(required)) {
-        if (required) {
-            return !isBlank(value);
-        } else {
-            return true;
-        }
-    } else {
-        return true;
-    }
-}
+
 
 
 function isBlank(s) {
