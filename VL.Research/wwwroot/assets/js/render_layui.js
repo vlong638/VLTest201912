@@ -321,6 +321,9 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
             dataName: 'data1', //规定数据列表的字段名称，默认：data
             countName: 'data2'
         },
+        text: {
+            none: ''
+        },
         cols: _data.table.cols,
         done: function (res, curr, count) {
             where = {};
@@ -359,7 +362,6 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
             if (i !== 'search' && requireTest) {
                 // 此处是为了保存每次搜索的参数
                 $.each(_data.search, function (index, item) {
-                    console.log(requireTest)
                     if (!requireTest) return;
                     if (item.name === i) {
                         if (!isNeed(item.required, data.field[i])) {
@@ -367,7 +369,6 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                             requireTest = false
                             return;
                         }
-                        console.log("必填测试");
                         if (item.type === 3 || item.type === 4) {
                             $.each(item.options, function (_index, _item) {
                                 _item.checked = _item.value === data.field[i];
@@ -377,32 +378,16 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                         }
                     }
                 })
-                if (requireTest) {
-                    // 此处是为了把格式转换成key,value型
-                    if (needSplit.indexOf($("input[name='" + i + "']").attr("data-param")) !== -1) {
-                        // 日期特殊处理
-                        let param = $("input[name='" + i + "']").attr("data-param").split('|');
-                        let value = data.field[i].split(' - ');
-                        data.field.search.push({ key: param[0], value: value[0] })
-                        data.field.search.push({ key: param[1], value: value[1] })
-                    } else {
-                        data.field.search.push({ key: i, value: data.field[i] })
-                    }
-                }
             }
+        }
+
+        if (requireTest) {
+            // 此处是为了把格式转换成key,value型
+            data.field.search = buildSearch();
         }
 
         if (!requireTest) return false;
 
-        if (!isBlank(_data.table.where)) {
-            // 加载表格初始参数到data.field.search
-            $.each(_data.table.where, function (index, item) {
-                data.field.search.push({ key: item.name, value: item.value })
-            })
-        }
-
-        search = data.field.search;
-        console.log(search);
         dataTable.reload({ where: data.field, page: { curr: 1 } });
 
         return false;
@@ -436,7 +421,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
         if (!isBlank(_data.export) && obj.event === 'TABLE_EXPORTS') {
             layer.msg("将使用上次搜索的内容进行导出");
             if (isBlank(search)) {
-
+                buildSearch();
             }
             $.each(_data.export.defaultParam, (index, item) => {
                 search.push(item);
@@ -455,7 +440,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                 skin: 'layui-layer-admin',
                 shade: .1
             }, function (i) {
-                console.log("_data.deleteModelUrl = " + _data.deleteModelUrl);
+                // console.log("_data.deleteModelUrl = " + _data.deleteModelUrl);
                 $.get(_data.deleteModelUrl, { modelId: _data.modelId }, function (res) {
                     layer.close(loadIndex);
                     if (res.code === 200) {
@@ -518,11 +503,13 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                         return false;
                     } else {
                         eval("$('#layui-layer-iframe'+_index_)[0].contentWindow." + _this.attr('data-yesFun') + '()')
+                        eval("alert('aa')");
+
+                        alert('aa')
                     }
                 }
             });
         } else if (obj.event === 'newPage') { // 新标签页
-            // console.log(index)
             if (index === null) {
                 location.href = url;
             } else {
@@ -614,12 +601,12 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
             theme: {
                 color: '#2D5595',
             },
-             style: {
-                 fontSize: '1em',
-                 width: '100%',
-                 height: '25px',
-                 minHeight: '25px'
-             },
+            style: {
+                fontSize: '1em',
+                width: '100%',
+                height: '25px',
+                minHeight: '25px'
+            },
             data: options
         })
     })
@@ -636,6 +623,39 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                 end: endFn
             })
         }
+    }
+
+    function buildSearch() {
+        let obj = [];
+
+        if (!isBlank(_data.search)) {
+            // 加载表格初始参数到data.field.search
+            $.each(_data.search, function (index, item) {
+                if (item.type === 3 || item.type === 4) {
+                    $.each(item.options, function (_index, _item) {
+                        if (_item.checked) {
+                            obj.push({ key: item.name, value: _item.value })
+                        }
+                    })
+                } else if (item.type === 5) {
+                    obj.push({ key: item.names[0], value: item.value.split(' - ')[0] })
+                    obj.push({ key: item.names[1], value: item.value.split(' - ')[1] })
+                } else {
+                    obj.push({ key: item.name, value: item.value })
+                }
+            })
+        }
+
+        if (!isBlank(_data.table.where)) {
+            // 加载表格初始参数到data.field.search
+            $.each(_data.table.where, function (index, item) {
+                obj.push({ key: item.name, value: item.value })
+            })
+        }
+
+        search = obj;
+
+        return obj
     }
 }
 
@@ -665,7 +685,7 @@ jQuery.prototype.renderForm = function (_data, _layui, _parent) {
                 html += `</div>`;
             });
         } else {
-            console.log(!card.isTextArea);
+            // console.log(!card.isTextArea);
             html += `
                 <div data-name="` + '' + `" class="layui-form-item layui-row">
                     <div class="layui-inline layui-col-md12">
@@ -698,7 +718,7 @@ jQuery.prototype.renderForm = function (_data, _layui, _parent) {
 
     function setDefaultValue() {
         // let url = isBlank(_data.getUrl_param) ? _data.getUrl : _data.getUrl + '?' + _data.getUrl_param.join('&');
-        console.log(_data.getUrl + location.search);
+        // console.log(_data.getUrl + location.search);
         let url = _data.getUrl + location.search;
         sendAjax('get', url, {}, function (res) {
             form.val('formAdvForm', res.data);
@@ -709,7 +729,7 @@ jQuery.prototype.renderForm = function (_data, _layui, _parent) {
 
     // 表单提交事件
     form.on('submit(formAdvSubmit)', function (data) {
-        console.log(data.field);
+        // console.log(data.field);
         data.field = getValue(data.field);
         let loadIndex = layer.load(2);
         sendAjax('post', _data.saveUrl
