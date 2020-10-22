@@ -488,6 +488,7 @@ namespace VL.Research.Controllers
                         bringParam = c.WhereParams,
                     }).ToList(),
                     actionBar_position = listConfig.ToolBars.ActionBarPosition,
+                    actionBar_width = listConfig.ToolBars.ActionBarWidth,
                     toolbar_viewModel = new GetListConfigModel_TableConfg_ViewModel(),
                     page = true,
                     limit = 10,

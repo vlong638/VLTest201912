@@ -315,6 +315,7 @@ namespace VL.Research.Models
         /// 操作栏位置
         /// </summary>
         public string actionBar_position { get; set; }
+        public string actionBar_width { get; internal set; }
     }
     /// <summary>
     /// 页面配置 模型子项

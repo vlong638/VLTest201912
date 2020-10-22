@@ -349,6 +349,7 @@ namespace VL.Research.Common
         public const string ElementName = "ToolBars";
         
         public string ActionBarPosition { set; get; }
+        public string ActionBarWidth{ set; get; }
 
         public List<ListConfigToolBar> ToolBars { set; get; }
 
@@ -366,6 +367,7 @@ namespace VL.Research.Common
         public ListConfigToolBars(XElement element)
         {
             ActionBarPosition = element.Attribute(nameof(ActionBarPosition))?.Value;
+            ActionBarWidth = element.Attribute(nameof(ActionBarWidth))?.Value;
             ToolBars = element.Descendants(ListConfigToolBar.ElementName).Select(c => new ListConfigToolBar(c)).ToList() ?? new List<ListConfigToolBar>();
         }
     }
