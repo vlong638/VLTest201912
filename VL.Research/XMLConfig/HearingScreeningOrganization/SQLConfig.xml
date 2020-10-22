@@ -32,7 +32,7 @@
 						cdh_newbornrecord nr
 						where 1 = 1
 						<If Operator="NotEmpty" ComponentName ="日期范围Start"> and  nr.tianbiaosj &gt;= @日期范围Start </If>
-						<If Operator="NotEmpty" ComponentName ="日期范围End"> and  nr.tianbiaosj &gt;= @日期范围End </If>
+					<If Operator="NotEmpty" ComponentName="日期范围End"> and nr.tianbiaosj &lt; dateadd(day,1,@日期范围End) </If>
 						GROUP BY
 						nr.visitunitcode
 						) t
@@ -77,7 +77,7 @@
 										from cc_hearscreen
 										where status = 1 
 										<If Operator="NotEmpty" ComponentName ="日期范围Start"> and  inputdate &gt;= @日期范围Start </If>
-										<If Operator="NotEmpty" ComponentName ="日期范围End"> and  inputdate &gt;= @日期范围End </If> 
+										<If Operator="NotEmpty" ComponentName="日期范围End"> and inputdate &lt; dateadd(day,1,@日期范围End) </If>
 								)t
 								where t.rowindex = 1
 						)h
@@ -95,7 +95,7 @@
 				cdh_newbornrecord nr
 				where 1 = 1
 				<If Operator="NotEmpty" ComponentName ="日期范围Start"> and  nr.tianbiaosj &gt;= @日期范围Start </If>
-				<If Operator="NotEmpty" ComponentName ="日期范围End"> and  nr.tianbiaosj &gt;= @日期范围End </If>
+				<If Operator="NotEmpty" ComponentName="日期范围End"> and nr.tianbiaosj &lt; dateadd(day,1,@日期范围End) </If>
 				GROUP BY
 				nr.visitunitcode
 				) t

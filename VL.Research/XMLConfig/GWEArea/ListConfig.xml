@@ -14,7 +14,7 @@
 			<ToolBar URL ="../Home/CommonListByDirectoryName" InlineParams ="dizhibm" WhereParams ="登记日期" DefaultParams="viewName=GWEOrganization,dataScope=2" Text="查看" Type = "newPage" Description = "" Area = "300px,400px" YesFun = "yesFun"/>
 		</ToolBars>
 		<Properties>
-			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="地区名称" RowSpan="3" ColumnName="地区" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
+			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="地区" RowSpan="3" ColumnName="地区名称" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
 			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="活产数" RowSpan="3" ColumnName="活产数" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
 			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="高危儿筛出人数" RowSpan="1" ColumnSpan="10" />
 			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="专案管理" RowSpan="1" ColumnSpan="3" />
