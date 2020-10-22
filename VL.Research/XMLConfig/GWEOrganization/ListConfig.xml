@@ -11,7 +11,7 @@
 			<!--<Where ComponentName="序号" Value="" DisplayName="序号" DisplayType="1"/>-->
 		</Wheres>
 		<OrderBy DefaultName ="createdate" DefaultValue ="desc"/>
-		<ToolBars ActionBarPosition="1">
+		<ToolBars ActionBarPosition="1" ActionBarWidth="100">
 			<!--<ToolBar URL ="../Home/CommonExportInlineForFYPT" Params ="idcard" DefaultParams="moduleName=FYPT_PregnantInfo,exportName=ExportConfig_高危妊娠表" Text="导出" Type = "newPage" Description = "" Area = "300px,400px" YesFun = "yesFun"/>-->
 		</ToolBars>
 		<Properties>

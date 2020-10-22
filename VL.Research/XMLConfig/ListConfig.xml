@@ -24,7 +24,7 @@
 			<Where ComponentName="id6" DisplayName="!末次月经" DisplayType="5"/>
 		</Wheres>
 		<OrderBy DefaultName ="createdate" DefaultValue ="desc"/>
-		<ToolBars ActionBarPosition="1">
+		<ToolBars ActionBarPosition="1" ActionBarWidth="100">
 			<ToolBar URL ="../Home/CommonExportInlineForFYPT" Params ="idcard" DefaultParams="moduleName=FYPT_PregnantInfo,exportName=ExportConfig_高危妊娠表" Text="导出" Type = "newPage" Description = "" Area = "300px,400px" YesFun = "yesFun"/>
 		</ToolBars>
 		<Properties>
@@ -508,7 +508,7 @@
 			<Where ComponentName="name" CompareOperator="Like" Value="" LinkOperator="None" DisplayName="用户名" DisplayType="1"/>
 		</Wheres>
 		<OrderBy DefaultName ="id" DefaultValue ="desc"/>
-		<ToolBars ActionBarPosition="1">
+		<ToolBars ActionBarPosition="1" ActionBarWidth="100">
 			<ToolBar URL ="../Home/EditUserRoles" Params ="id" DefaultParams="" Text="编辑角色"
 					 Type = "window" Description = "" Area = "300px,400px" YesFun = "yesFun"/>
 		</ToolBars>
@@ -523,7 +523,7 @@
 		</Wheres>
 		<OrderBy DefaultName ="id" DefaultValue ="desc"/>
 		<AddButton text="新建角色" type="window" url="../../Home/CreateRole" area="400px,400px" defaultParam="" /> 
-		<ToolBars ActionBarPosition="1">
+		<ToolBars ActionBarPosition="1" ActionBarWidth="100">
 			<ToolBar URL ="../Home/EditRole" Params ="id" DefaultParams="" Text="编辑角色" Type = "newPage" Description = "" Area = "300px,400px" YesFun = "yesFun"/>
 			<ToolBar URL ="../Home/EditRoleAuthorities" Params ="id" DefaultParams="" Text="编辑权限" Type = "window" Description = "" Area = "300px,400px" YesFun = "yesFun"/>
 		</ToolBars>
