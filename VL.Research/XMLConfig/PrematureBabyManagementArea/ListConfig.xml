@@ -14,7 +14,7 @@
 		</ToolBars>
 		<OrderBy DefaultName ="createdate" DefaultValue ="desc"/>
 		<Properties>
-			<Property DisplayLevel="1" RowSpan="2" IsNeedOnPage="true" DisplayName="地区" ColumnName="dizhimc" DisplayWidth="160" IsSortable="False"/>
+			<Property DisplayLevel="1" RowSpan="2" IsNeedOnPage="true" DisplayName="地区" ColumnName="dizhimc" DisplayWidth="100" IsSortable="False"/>
 			<Property DisplayLevel="1" RowSpan="2" IsNeedOnPage="true" DisplayName="活产数" ColumnName="huochanzs" DisplayWidth="80" IsSortable="False"/>
 			<Property DisplayLevel="1" RowSpan="2" IsNeedOnPage="true" DisplayName="早产儿人数" ColumnName="早产儿人数" DisplayWidth="120" IsSortable="False"/>
 			<Property DisplayLevel="1" RowSpan="2" IsNeedOnPage="true" DisplayName="高危早产儿数" ColumnName="高危早产儿数" DisplayWidth="120" IsSortable="False"/>

@@ -14,7 +14,7 @@
 			<ToolBar URL ="../Home/CommonListByDirectoryName" InlineParams ="dizhibm" WhereParams ="checkDay" DefaultParams="viewName=YLJGZCECSQKTJJDBBOrganization,dataScope=2" Text="查看" Type = "newPage" Description = "" Area = "300px,400px" YesFun = "yesFun"/>
 		</ToolBars>
 		<Properties>
-			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="地区名称" RowSpan="2" ColumnName="diqumc" DisplayType="None" DisplayWidth="180" IsSortable="False" DataType="bigint" Description="-" />
+			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="地区" RowSpan="2" ColumnName="diqumc" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
 			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="类别" RowSpan="2" ColumnName="" DisplayType="None" DisplayWidth="180" IsSortable="False" DataType="bigint" Description="-" />
 			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="活产人数" RowSpan="2" ColumnName="huochan" DisplayType="None" DisplayWidth="180" IsSortable="False" DataType="bigint" Description="-" />
 			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="早产儿人数" RowSpan="2" ColumnName="zaochanzs" DisplayType="None" DisplayWidth="180" IsSortable="False" DataType="bigint" Description="-" />

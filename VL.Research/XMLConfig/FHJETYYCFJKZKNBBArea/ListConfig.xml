@@ -14,7 +14,7 @@
 			<ToolBar URL ="../Home/CommonListByDirectoryName" InlineParams ="dizhibm" WhereParams ="登记日期" DefaultParams="viewName=FHJETYYCFJKZKNBBOrganization,dataScope=2" Text="查看" Type = "newPage" Description = "" Area = "300px,400px" YesFun = "yesFun"/>
 		</ToolBars>
 		<Properties>
-			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="地区名称" RowSpan="3" ColumnName="diqumc" DisplayType="None" DisplayWidth="180" IsSortable="False" DataType="bigint" Description="-" />
+			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="地区" RowSpan="3" ColumnName="diqumc" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
 			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="活产数" ColumnSpan="4"/>
 			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="5岁以下儿童死亡情况" RowSpan="1" ColumnSpan="12"/>
 			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="围产儿情况" RowSpan="1" ColumnSpan="5" />
