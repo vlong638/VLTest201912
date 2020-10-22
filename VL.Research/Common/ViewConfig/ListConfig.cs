@@ -43,7 +43,7 @@ namespace VL.Research.Common
         /// <summary>
         /// 行内功能栏
         /// </summary>
-        public List<ListConfigToolBar> ToolBars { set; get; }
+        public ListConfigToolBars ToolBars { set; get; }
         /// <summary>
         /// 新增按钮
         /// </summary>
@@ -69,7 +69,7 @@ namespace VL.Research.Common
             Properties = element.Descendants(ListConfigProperty.ElementName).Select(c => new ListConfigProperty(c)).ToList();
             Wheres = element.Descendants(ListConfigWhere.ElementName).Select(c => new ListConfigWhere(c)).ToList();
             OrderBys = element.Descendants(ListConfigOrderBy.ElementName).Select(c => new ListConfigOrderBy(c)).FirstOrDefault() ?? new ListConfigOrderBy();
-            ToolBars = element.Descendants(ListConfigToolBar.ElementName).Select(c => new ListConfigToolBar(c)).ToList();
+            ToolBars = element.Descendants(ListConfigToolBars.ElementName).Select(c => new ListConfigToolBars(c)).FirstOrDefault() ?? new ListConfigToolBars();
             AddButton = element.Descendants(ListConfigAddButton.ElementName).Select(c => new ListConfigAddButton(c)).FirstOrDefault() ?? new ListConfigAddButton();
         }
 
@@ -339,6 +339,34 @@ namespace VL.Research.Common
             property.SetAttributeValue(nameof(DefaultName), DefaultName);
             property.SetAttributeValue(nameof(DefaultValue), DefaultValue.ToString());
             return property;
+        }
+    }
+    /// <summary>
+    /// 
+    /// </summary>
+    public class ListConfigToolBars
+    {
+        public const string ElementName = "ToolBars";
+        
+        public string ActionBarPosition { set; get; }
+
+        public List<ListConfigToolBar> ToolBars { set; get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ListConfigToolBars()
+        { 
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="element"></param>
+        public ListConfigToolBars(XElement element)
+        {
+            ActionBarPosition = element.Attribute(nameof(ActionBarPosition))?.Value;
+            ToolBars = element.Descendants(ListConfigToolBar.ElementName).Select(c => new ListConfigToolBar(c)).ToList() ?? new List<ListConfigToolBar>();
         }
     }
     /// <summary>

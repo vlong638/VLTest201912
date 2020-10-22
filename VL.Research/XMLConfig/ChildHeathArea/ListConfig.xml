@@ -10,8 +10,8 @@
 			<!--<Where ComponentName="序号" Value="" DisplayName="序号" DisplayType="1"/>-->
 		</Wheres>
 		<OrderBy DefaultName ="createdate" DefaultValue ="desc"/>
-		<ToolBars>
-			<ToolBar URL ="../Home/CommonListByDirectoryName" InlineParams ="dizhibm" WhereParams ="日期范围" DefaultParams="viewName=ChildHeathOrganization,dataScope=2" Text="查看地区机构" Type = "newPage" Description = "" Area = "300px,400px" YesFun = "yesFun"/>
+		<ToolBars ActionBarPosition="1">
+			<ToolBar URL ="../Home/CommonListByDirectoryName" InlineParams ="dizhibm" WhereParams ="日期范围" DefaultParams="viewName=ChildHeathOrganization,dataScope=2" Text="查看" Type = "newPage" Description = "" Area = "300px,400px" YesFun = "yesFun"/>
 		</ToolBars>
 		<Properties>
 			<Property DisplayLevel="1" RowSpan="3" IsNeedOnPage="true" DisplayName="地区" ColumnName="dizhimc" DisplayWidth="180" IsSortable="False"/>

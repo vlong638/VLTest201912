@@ -176,7 +176,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
     // 引入额外JS
     if (!isBlank(_data.importJSFile)) {
         $.each(_data.importJSFile, function (index, fileName) {
-            $('body').append(`<script type="text/javascript" src="` + fileName + `"></script>`)
+            $('body').append(`<script type="text/javascript" src="`+fileName+`"></script>`)
         })
     }
 
@@ -220,13 +220,23 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
 
         _this.after(scriptObject);
 
-        _data.table.cols[0].push({
-            title: '操作',
-            toolbar: '#tbBar',
-            align: 'center',
-            minWidth: 200,
-            rowspan: _data.table.cols.length
-        })
+        if (!isBlank(_data.table.actionBar_position)) {
+            _data.table.cols[0].splice(_data.table.actionBar_position, 0 , {
+                title: '操作',
+                toolbar: '#tbBar',
+                align: 'center',
+                minWidth: 200,
+                rowspan: _data.table.cols.length
+            })
+        } else {
+            _data.table.cols[0].push({
+                title: '操作',
+                toolbar: '#tbBar',
+                align: 'center',
+                minWidth: 200,
+                rowspan: _data.table.cols.length
+            })
+        }
     }
 
     let where = {
@@ -237,13 +247,13 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
         $.each(_data.search, function (index, item) {
             if (!isBlank(item.value)) {
                 if (item.type === 5) {
-                    where.search.push({ key: item.names[0], value: item.value.split(' - ')[0] });
-                    where.search.push({ key: item.names[1], value: item.value.split(' - ')[1] });
+                    where.search.push({key: item.names[0], value: item.value.split(' - ')[0]});
+                    where.search.push({key: item.names[1], value: item.value.split(' - ')[1]});
                 } else {
                     if (!isBlank(item.value.id)) {
-                        where.search.push({ key: item.name, value: item.value.id });
+                        where.search.push({key: item.name, value: item.value.id});
                     } else {
-                        where.search.push({ key: item.name, value: item.value });
+                        where.search.push({key: item.name, value: item.value});
                     }
                 }
             }
@@ -252,7 +262,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
     if (!isBlank(_data.table.where)) {
         // 处理加载表格初始参数
         $.each(_data.table.where, function (index, item) {
-            where.search.push({ key: item.name, value: item.value });
+            where.search.push({key: item.name, value: item.value});
             // where[item.name] = item.value;
         })
     }
@@ -316,7 +326,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
             countName: 'data2'
         },
         text: {
-            none: '请输入有效条件后搜索'
+            none: ''
         },
         cols: _data.table.cols,
         done: function (res, curr, count) {
@@ -357,8 +367,8 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                 $.each(_data.search, function (index, item) {
                     if (!requireTest) return;
                     if (item.name === i) {
-                        if (!isNeed(item.required, data.field[i])) {
-                            layer.msg(item.text + ' 是必填的！');
+                        if (!isNeed(item.required,data.field[i])) {
+                            layer.msg(item.text+' 是必填的！');
                             requireTest = false
                             return;
                         }
@@ -381,7 +391,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
 
         if (!requireTest) return false;
 
-        dataTable.reload({ where: data.field, page: { curr: 1 } });
+        dataTable.reload({where: data.field, page: {curr: 1}});
 
         return false;
     });
@@ -407,7 +417,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
             }
             if (_this.attr('data-type') === 'newPage') {
                 newTab(url, _this.text(), function () {
-                    dataTable.reload({ page: { curr: 1 } });
+                    dataTable.reload({page: {curr: 1}});
                 })
             }
         }
@@ -419,13 +429,13 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
             $.each(_data.export.defaultParam, (index, item) => {
                 search.push(item);
             })
-            sendAjax('post', _data.export.url, JSON.stringify({ search: search }), function (res) {
+            sendAjax('post', _data.export.url, JSON.stringify({search: search}), function (res) {
                 if (res.code === 200) {
-                    layer.msg("导出成功", { icon: 1 });
+                    layer.msg("导出成功", {icon: 1});
                     window.open(res.data)
                 }
             }, "application/json", "json", function (res) {
-                layer.msg("导出失败", { icon: 2 });
+                layer.msg("导出失败", {icon: 2});
             })
         }
         if (obj.event === 'MODEL_DELETE') {
@@ -434,14 +444,14 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                 shade: .1
             }, function (i) {
                 // console.log("_data.deleteModelUrl = " + _data.deleteModelUrl);
-                $.get(_data.deleteModelUrl, { modelId: _data.modelId }, function (res) {
+                $.get(_data.deleteModelUrl, {modelId: _data.modelId}, function (res) {
                     layer.close(loadIndex);
                     if (res.code === 200) {
-                        layer.msg(res.msg, { icon: 1 });
+                        layer.msg(res.msg, {icon: 1});
                         _parent.location.reload();
                         _parent.admin.events.closeThisTabs();
                     } else {
-                        layer.msg(res.msg, { icon: 2 });
+                        layer.msg(res.msg, {icon: 2});
                     }
                 }, 'json');
             });
@@ -460,9 +470,9 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                 $.post(_data.saveModelUrl, JSON.stringify(_data), function (res) {
                     layer.close(loadIndex);
                     if (res.code === 200) {
-                        layer.msg(res.msg, { icon: 1 });
+                        layer.msg(res.msg, {icon: 1});
                     } else {
-                        layer.msg(res.msg, { icon: 2 });
+                        layer.msg(res.msg, {icon: 2});
                     }
                 }, 'json');
                 layer.close(index);
@@ -507,7 +517,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                 location.href = url;
             } else {
                 newTab(url, _this.text(), function () {
-                    dataTable.reload({ page: { curr: 1 } });
+                    dataTable.reload({page: {curr: 1}});
                 })
             }
         } else if (obj.event === 'confirm') { // 提示框
@@ -528,10 +538,10 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                 $.get(url, param, function (res) {
                     layer.close(loadIndex);
                     if (res.code === 200) {
-                        layer.msg(res.msg, { icon: 1 });
-                        dataTable.reload({ page: { curr: 1 } });
+                        layer.msg(res.msg, {icon: 1});
+                        dataTable.reload({page: {curr: 1}});
                     } else {
-                        layer.msg(res.msg, { icon: 2 });
+                        layer.msg(res.msg, {icon: 2});
                     }
                 }, 'json');
             });
@@ -627,19 +637,19 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                 if (item.type === 3 || item.type === 4) {
                     $.each(item.options, function (_index, _item) {
                         if (_item.checked) {
-                            obj.push({ key: item.name, value: _item.value })
+                            obj.push({key: item.name, value: _item.value})
                         }
                     })
                 } else if (item.type === 5) {
                     if (item.value.split(' - ').length === 2) {
-                        obj.push({ key: item.names[0], value: item.value.split(' - ')[0] })
-                        obj.push({ key: item.names[1], value: item.value.split(' - ')[1] })
+                        obj.push({key: item.names[0], value: item.value.split(' - ')[0]})
+                        obj.push({key: item.names[1], value: item.value.split(' - ')[1]})
                     } else {
-                        obj.push({ key: item.names[0], value: "" })
-                        obj.push({ key: item.names[1], value: "" })
+                        obj.push({key: item.names[0], value: ""})
+                        obj.push({key: item.names[1], value: ""})
                     }
-                } else {
-                    obj.push({ key: item.name, value: item.value })
+                } else  {
+                    obj.push({key: item.name, value: item.value})
                 }
             })
         }
@@ -647,7 +657,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
         if (!isBlank(_data.table.where)) {
             // 加载表格初始参数到data.field.search
             $.each(_data.table.where, function (index, item) {
-                obj.push({ key: item.name, value: item.value })
+                obj.push({key: item.name, value: item.value})
             })
         }
 
@@ -733,7 +743,7 @@ jQuery.prototype.renderForm = function (_data, _layui, _parent) {
         sendAjax('get', url, {}, function (res) {
             form.val('formAdvForm', res.data);
         }, "application/json", "json", function (res) {
-            layer.msg("查询失败", { icon: 2 });
+            layer.msg("查询失败", {icon: 2});
         })
     }
 
@@ -746,10 +756,10 @@ jQuery.prototype.renderForm = function (_data, _layui, _parent) {
             , function (res) {
                 layer.close(loadIndex);
                 if (res.code === 200) {
-                    layer.msg(res.msg, { icon: 1 });
+                    layer.msg(res.msg, {icon: 1});
                     _parent.admin.events.closeThisTabs();
                 } else {
-                    layer.msg(res.msg, { icon: 2 });
+                    layer.msg(res.msg, {icon: 2});
                 }
             }
             //,"json"

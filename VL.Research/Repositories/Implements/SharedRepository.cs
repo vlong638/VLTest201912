@@ -6,6 +6,7 @@ using System.Linq;
 using VL.Consolo_Core.Common.DBSolution;
 using VL.Consolo_Core.Common.ExcelExportSolution;
 using VL.Consolo_Core.Common.RepositorySolution;
+using VL.Consolo_Core.Common.TimeSpanSolution;
 using VL.Research.Common;
 using VL.Research.Models;
 
@@ -73,9 +74,14 @@ namespace VL.Research.Repositories
                     var sql = config.GetListSQL(text, skip, limit);
                     var pars = config.GetParams();
                     APIContraints.DHFConfig.DoLog(sql, pars);
-                    var reader = context.DbGroup.Connection.ExecuteReader(sql, pars, transaction: _transaction);
-                    DataTable temp = new DataTable("MyTable");
-                    temp.Load(reader);
+                    DataTable temp = null;
+                    var ts = TimeSpanHelper.GetTimeSpan(() =>
+                    {
+                        var reader = context.DbGroup.Connection.ExecuteReader(sql, pars, transaction: _transaction);
+                        temp = new DataTable("MyTable");
+                        temp.Load(reader);
+                    });
+                    APIContraints.DHFConfig.DoLog("执行时间:" + ts.TotalMilliseconds, null);
                     //总表初始化
                     if (table == null)
                     {

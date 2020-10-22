@@ -10,7 +10,7 @@
 			<Where ComponentName="取卵日期" Value="" DisplayName="取卵日期" DisplayType="5"/>
 		</Wheres>
 		<OrderBy DefaultName ="createdate" DefaultValue ="desc"/>
-		<ToolBars>
+		<ToolBars ActionBarPosition="1">
 			<!--<ToolBar URL ="../Home/CommonExportInlineForFYPT" Params ="idcard" DefaultParams="moduleName=FYPT_PregnantInfo,exportName=ExportConfig_高危妊娠表" Text="导出" Type = "newPage" Description = "" Area = "300px,400px" YesFun = "yesFun"/>-->
 		</ToolBars>
 		<Properties>

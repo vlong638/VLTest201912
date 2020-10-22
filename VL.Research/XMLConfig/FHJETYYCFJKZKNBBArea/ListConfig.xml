@@ -10,7 +10,7 @@
 			<!--<Where ComponentName="序号" Value="" DisplayName="序号" DisplayType="1"/>-->
 		</Wheres>
 		<OrderBy DefaultName ="createdate" DefaultValue ="desc"/>
-		<ToolBars>
+		<ToolBars ActionBarPosition="1">
 			<ToolBar URL ="../Home/CommonListByDirectoryName" InlineParams ="dizhibm" WhereParams ="登记日期" DefaultParams="viewName=FHJETYYCFJKZKNBBOrganization,dataScope=2" Text="查看地区机构" Type = "newPage" Description = "" Area = "300px,400px" YesFun = "yesFun"/>
 		</ToolBars>
 		<Properties>

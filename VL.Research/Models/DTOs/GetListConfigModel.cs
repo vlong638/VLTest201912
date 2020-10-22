@@ -310,6 +310,11 @@ namespace VL.Research.Models
         /// 列表 查询条件初始值
         /// </summary>
         public List<VLNameValue> where { set; get; }
+
+        /// <summary>
+        /// 操作栏位置
+        /// </summary>
+        public string actionBar_position { get; set; }
     }
     /// <summary>
     /// 页面配置 模型子项

@@ -475,7 +475,7 @@ namespace VL.Research.Controllers
                         area = listConfig.AddButton.area,
                         defaultParam = listConfig.AddButton.defaultParam
                     },
-                    line_toolbar = listConfig.ToolBars.Select(c => new GetListConfigModel_TableConfg_ToolBar()
+                    line_toolbar = listConfig.ToolBars.ToolBars.Select(c => new GetListConfigModel_TableConfg_ToolBar()
                     {
                         text = c.Text,
                         type = c.Type,
@@ -487,6 +487,7 @@ namespace VL.Research.Controllers
                         defaultParam = c.DefaultParams,
                         bringParam = c.WhereParams,
                     }).ToList(),
+                    actionBar_position = listConfig.ToolBars.ActionBarPosition,
                     toolbar_viewModel = new GetListConfigModel_TableConfg_ViewModel(),
                     page = true,
                     limit = 10,

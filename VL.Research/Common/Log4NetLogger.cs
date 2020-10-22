@@ -79,10 +79,13 @@ namespace VL.Research.Common
         public static void LogSQL(string sql, Dictionary<string, object> pars)
         {
             StringBuilder sb = new StringBuilder();
-            foreach (var par in pars)
+            if (pars != null)
             {
-                sb.AppendLine($"declare @{par.Key} nvarchar(50)");
-                sb.AppendLine($" set @{par.Key} = '{par.Value}'");
+                foreach (var par in pars)
+                {
+                    sb.AppendLine($"declare @{par.Key} nvarchar(50)");
+                    sb.AppendLine($" set @{par.Key} = '{par.Value}'");
+                }
             }
             sb.Append(sql);
             sqlLogger.Error(sb.ToString());
