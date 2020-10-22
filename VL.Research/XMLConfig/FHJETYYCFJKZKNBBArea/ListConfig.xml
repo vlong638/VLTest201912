@@ -11,7 +11,7 @@
 		</Wheres>
 		<OrderBy DefaultName ="createdate" DefaultValue ="desc"/>
 		<ToolBars ActionBarPosition="1" ActionBarWidth="100">
-			<ToolBar URL ="../Home/CommonListByDirectoryName" InlineParams ="dizhibm" WhereParams ="登记日期" DefaultParams="viewName=FHJETYYCFJKZKNBBOrganization,dataScope=2" Text="查看地区机构" Type = "newPage" Description = "" Area = "300px,400px" YesFun = "yesFun"/>
+			<ToolBar URL ="../Home/CommonListByDirectoryName" InlineParams ="dizhibm" WhereParams ="登记日期" DefaultParams="viewName=FHJETYYCFJKZKNBBOrganization,dataScope=2" Text="查看" Type = "newPage" Description = "" Area = "300px,400px" YesFun = "yesFun"/>
 		</ToolBars>
 		<Properties>
 			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="地区名称" RowSpan="3" ColumnName="diqumc" DisplayType="None" DisplayWidth="180" IsSortable="False" DataType="bigint" Description="-" />
