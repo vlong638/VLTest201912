@@ -16,8 +16,8 @@
 				<SQL>
 					select dizhibm,dizhimc
 					from GY_FUWUJG
-					group by dizhibm,dizhimc
-					order by dizhibm asc
+					group by dizhibm,dizhimc,DiZhiBMOrder
+					order by DiZhiBMOrder asc
 					@Pager
 				</SQL>
 				<SQL>
@@ -35,7 +35,7 @@
 					and subjg.dizhibm in (
 						select dizhibm
 						from GY_FUWUJG
-						order by dizhibm asc
+						order by DiZhiBMOrder asc
 						@Pager
 					)
 					group by subjg.dizhibm
@@ -60,8 +60,8 @@
 						(
 							select dizhibm
 							from GY_FUWUJG
-							group by dizhibm
-							order by dizhibm asc
+							group by dizhibm,DiZhiBMOrder
+							order by DiZhiBMOrder asc
 							@Pager
 						)
 						group by dizhibm
@@ -85,8 +85,8 @@
 					(
 						select dizhibm
 						from GY_FUWUJG
-						group by dizhibm
-						order by dizhibm asc
+						group by dizhibm,DiZhiBMOrder
+						order by DiZhiBMOrder asc
 						@Pager
 					)
 					group by dizhibm,h.childid
@@ -109,7 +109,9 @@
 					(
 						select dizhibm
 						from GY_FUWUJG
-						group by dizhibm,dizhimc
+						group by dizhibm,dizhimc,DiZhiBMOrder
+						order by DiZhiBMOrder asc
+						@Pager
 					)
 					group by dizhibm
 				</SQL>

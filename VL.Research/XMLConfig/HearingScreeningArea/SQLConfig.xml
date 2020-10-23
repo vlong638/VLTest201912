@@ -24,8 +24,8 @@ select * from (
 		where 1 = 1
 		<If Operator="NotEmpty" ComponentName ="日期范围Start"> and  nr.tianbiaosj &gt;= @日期范围Start </If>
 		<If Operator="NotEmpty" ComponentName="日期范围End"> and nr.tianbiaosj &lt; dateadd(day,1,@日期范围End) </If>
-		GROUP BY g.dizhibm,g.dizhimc
-		order by g.dizhibm asc
+		GROUP BY g.dizhibm,g.dizhimc,DiZhiBMOrder
+		order by DiZhiBMOrder asc
 		@Pager
 ) jg
 left join 

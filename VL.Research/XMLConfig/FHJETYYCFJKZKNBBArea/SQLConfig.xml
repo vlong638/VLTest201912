@@ -31,8 +31,8 @@
 				from (
 					select dizhibm,dizhimc
 					from GY_FUWUJG
-					group by dizhibm,dizhimc
-					order by dizhibm
+					group by dizhibm,dizhimc,DiZhiBMOrder
+						order by DiZhiBMOrder asc
 					@Pager
 				) jg
 				left join (
@@ -53,8 +53,8 @@
 					and subjg.dizhibm in (
 						select dizhibm
 						from GY_FUWUJG
-						group by dizhibm
-						order by dizhibm
+						group by dizhibm,DiZhiBMOrder
+						order by DiZhiBMOrder asc
 						@Pager
 					)
 					group by subjg.dizhibm
@@ -75,8 +75,8 @@
 					and subjg.dizhibm in(
 						select dizhibm
 						from GY_FUWUJG
-						group by dizhibm
-						order by dizhibm
+						group by dizhibm,DiZhiBMOrder
+						order by DiZhiBMOrder asc
 						@Pager
 					)
 					group by subjg.dizhibm
@@ -102,8 +102,8 @@
 					and subjg.dizhibm in(
 						select dizhibm
 						from GY_FUWUJG
-						group by dizhibm
-						order by dizhibm
+						group by dizhibm,DiZhiBMOrder
+						order by DiZhiBMOrder asc
 						@Pager
 					)
 					group by subjg.dizhibm
@@ -125,8 +125,8 @@
 					and subjg.dizhibm in(
 						select dizhibm
 						from GY_FUWUJG
-						group by dizhibm
-						order by dizhibm
+						group by dizhibm,DiZhiBMOrder
+						order by DiZhiBMOrder asc
 						@Pager
 					)
 					group by subjg.dizhibm
@@ -143,8 +143,8 @@
 					and subjg.dizhibm in(
 						select dizhibm
 						from GY_FUWUJG
-						group by dizhibm
-						order by dizhibm
+						group by dizhibm,DiZhiBMOrder
+						order by DiZhiBMOrder asc
 						@Pager
 					)
 					group by subjg.dizhibm

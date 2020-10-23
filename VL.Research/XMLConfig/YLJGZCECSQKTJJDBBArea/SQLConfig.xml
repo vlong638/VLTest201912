@@ -27,8 +27,8 @@
 				FROM (
 					select dizhibm,dizhimc
 					from GY_FUWUJG
-					group by dizhibm,dizhimc
-					order by dizhibm
+					group by dizhibm,dizhimc,DiZhiBMOrder
+					order by DiZhiBMOrder asc
 					@Pager
 				) jg
 				left JOIN (
@@ -43,8 +43,8 @@
 					AND jg.dizhibm in (
 						select dizhibm
 						from GY_FUWUJG
-						group by dizhibm
-						order by dizhibm
+						group by dizhibm,DiZhiBMOrder
+						order by DiZhiBMOrder asc
 						@Pager
 					)
 					GROUP BY jg.dizhibm
@@ -68,8 +68,8 @@
 					and jg.dizhibm in (
 						select dizhibm
 						from GY_FUWUJG
-						group by dizhibm
-						order by dizhibm
+						group by dizhibm,DiZhiBMOrder
+						order by DiZhiBMOrder asc
 						@Pager
 					)
 					GROUP BY jg.dizhibm

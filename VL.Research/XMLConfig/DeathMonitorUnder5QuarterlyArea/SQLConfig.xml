@@ -18,8 +18,8 @@
 					from GY_ZD_SHENGSHIQX_QC gz
 					left join GY_FUWUJG gf on gz.DAIMA = gf.fuwujgbh
 					where 1=1 and gf.fuwujgbh is not null
-					group by dizhibm,dizhimc
-					order by dizhibm asc
+					group by dizhibm,dizhimc,DiZhiBMOrder
+					order by DiZhiBMOrder asc
 					@Pager
 				</SQL>
 				<SQL>
@@ -41,8 +41,8 @@
 						from GY_ZD_SHENGSHIQX_QC gz
 						left join GY_FUWUJG gf on gz.DAIMA = gf.fuwujgbh
 						where 1=1 and gf.fuwujgbh is not null
-						group by dizhibm,dizhimc
-						order by dizhibm asc
+						group by dizhibm,dizhimc,DiZhiBMOrder
+						order by DiZhiBMOrder asc
 						@Pager
 					)
 					group by subjg.dizhibm
@@ -61,8 +61,8 @@
 					(
 						select dizhibm
 						from GY_FUWUJG
-						group by dizhibm
-						order by dizhibm asc
+						group by dizhibm,DiZhiBMOrder
+						order by DiZhiBMOrder asc
 						@Pager
 					)
 					group by subjg.dizhibm
@@ -83,8 +83,8 @@
 					(
 						select dizhibm
 						from GY_FUWUJG
-						group by dizhibm
-						order by dizhibm asc
+						group by dizhibm,DiZhiBMOrder
+						order by DiZhiBMOrder asc
 						@Pager
 					)
 					group by subjg.dizhibm
@@ -108,8 +108,8 @@
 					(
 						select dizhibm
 						from GY_FUWUJG
-						group by dizhibm
-						order by dizhibm asc
+						group by dizhibm,DiZhiBMOrder
+						order by DiZhiBMOrder asc
 						@Pager
 					)
 					group by subjg.dizhibm
@@ -128,8 +128,8 @@
 					(
 						select dizhibm
 						from GY_FUWUJG
-						group by dizhibm
-						order by dizhibm asc
+						group by dizhibm,DiZhiBMOrder
+						order by DiZhiBMOrder asc
 						@Pager
 					)
 					group by subjg.dizhibm
@@ -150,8 +150,8 @@
 					(
 						select dizhibm
 						from GY_FUWUJG
-						group by dizhibm
-						order by dizhibm asc
+						group by dizhibm,DiZhiBMOrder
+						order by DiZhiBMOrder asc
 						@Pager
 					)
 					group by subjg.dizhibm
