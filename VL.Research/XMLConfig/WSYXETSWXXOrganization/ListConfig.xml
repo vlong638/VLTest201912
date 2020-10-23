@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Views>
+	<!--IsNeedOnPage="false" DisplayName="" (.+) Description="(\w+)"(.+)\r\n
+	IsNeedOnPage="true" DisplayName="$2" $1 Description="$2"$3\r\n-->
+	<View ViewName="GWE" ViewURL="../api/System/GetCommonSelectByDirectoryName">
+		<Export URL="../api/System/CommonExportAll"/>
+		<Wheres>
+			<Where ComponentName="checkDay" Value="" DisplayName="统计时间" DisplayType="5"/>
+			<Where ComponentName="fuwujgmc" Value="" DisplayName="机构名称" DisplayType="1"/>
+			<!--"DisplayType <类型[1-文本框|2-数字框|3-单选下拉框|4-树状下拉框|5-日期选择框][默认:1]>",-->
+			<!--<Where ComponentName="序号" Value="" DisplayName="序号" DisplayType="1"/>-->
+		</Wheres>
+		<ToolBars>
+			<!-- <ToolBar URL ="../Home/CommonListByDirectoryName" InlineParams ="dizhibm" WhereParams ="登记日期" DefaultParams="viewName=LDETBJFWJKBBDetail,dataScope=2" Text="查看地区机构" Type = "newPage" Description = "" Area = "300px,400px" YesFun = "yesFun"/> -->
+		</ToolBars>
+		<Properties>
+			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="机构名称" RowSpan="2" ColumnName="fuwujgmc" DisplayType="None" DisplayWidth="180" IsSortable="False" DataType="bigint" Description="-" />
+			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="基本信息" RowSpan="2" ColumnSpan="11" DisplayType="None" DisplayWidth="180" IsSortable="False" DataType="bigint" Description="-" />
+			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="死亡信息" RowSpan="2" ColumnSpan="5" DisplayType="None" DisplayWidth="180" IsSortable="False" DataType="bigint" Description="-" />
+			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="死前保健" RowSpan="2" ColumnSpan="5" DisplayType="None" DisplayWidth="180" IsSortable="False" DataType="bigint" Description="-" />
+			
+			<Property DisplayLevel="2" IsNeedOnPage="true" DisplayName="儿童编号" ColumnName="childbookid" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property DisplayLevel="2" IsNeedOnPage="true" DisplayName="住址（原籍）" ColumnName="homeaddresstext" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property DisplayLevel="2" IsNeedOnPage="true" DisplayName="父亲姓名" ColumnName="dadname" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property DisplayLevel="2" IsNeedOnPage="true" DisplayName="母亲姓名" ColumnName="momname" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property DisplayLevel="2" IsNeedOnPage="true" DisplayName="儿童姓名" ColumnName="childname" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property DisplayLevel="2" IsNeedOnPage="true" DisplayName="户口" ColumnName="homeaddresstext" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property DisplayLevel="2" IsNeedOnPage="true" DisplayName="性别" ColumnName="childsex" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property DisplayLevel="2" IsNeedOnPage="true" DisplayName="出生日期" ColumnName="birthday" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property DisplayLevel="2" IsNeedOnPage="true" DisplayName="出生体重" ColumnName="birthweight" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property DisplayLevel="2" IsNeedOnPage="true" DisplayName="孕周" ColumnName="gestation" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property DisplayLevel="2" IsNeedOnPage="true" DisplayName="出生地点" ColumnName="accoucheunitname" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property DisplayLevel="2" IsNeedOnPage="true" DisplayName="死亡日期" ColumnName="deathdate" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property DisplayLevel="2" IsNeedOnPage="true" DisplayName="实际年龄" ColumnName="deathage" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property DisplayLevel="2" IsNeedOnPage="true" DisplayName="年龄代码" ColumnName="" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property DisplayLevel="2" IsNeedOnPage="true" DisplayName="诊断" ColumnName="" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property DisplayLevel="2" IsNeedOnPage="true" DisplayName="分类" ColumnName="" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property DisplayLevel="2" IsNeedOnPage="true" DisplayName="地点" ColumnName="" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property DisplayLevel="2" IsNeedOnPage="true" DisplayName="治疗" ColumnName="" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property DisplayLevel="2" IsNeedOnPage="true" DisplayName="级别" ColumnName="" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property DisplayLevel="2" IsNeedOnPage="true" DisplayName="原因" ColumnName="" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+			<Property DisplayLevel="2" IsNeedOnPage="true" DisplayName="依据" ColumnName="" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
+	
+		</Properties>
+	</View>
+</Views>
