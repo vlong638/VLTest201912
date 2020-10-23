@@ -10,19 +10,16 @@
 				<Where ComponentName="日期范围Start"/>
 				<Where ComponentName="日期范围End"/>
 			</Wheres>
-			<OrderBys>
-				<!--<OrderBy ComponentName="fuwujgbh" Alias ="fuwujgbh"/>-->
-			</OrderBys>
 			<SQLs UnitedBy="dizhibm">
 				<SQL>
 					select jg.dizhimc
 					,jg.dizhibm
 					,hc.*
 					from (
-						select dizhibm,dizhimc
+						select dizhibm,dizhimc,DiZhiBMOrder
 						from GY_FUWUJG
-						group by dizhibm,dizhimc
-						order by dizhibm asc
+						group by dizhibm,dizhimc,DiZhiBMOrder
+						order by DiZhiBMOrder asc
 						@Pager
 					) jg
 					left join (
@@ -42,12 +39,13 @@
 						(
 							select dizhibm
 							from GY_FUWUJG
-							group by dizhibm
-							order by dizhibm asc
+							group by dizhibm,DiZhiBMOrder
+							order by DiZhiBMOrder asc
 							@Pager
 						)
 						group by subjg.dizhibm
 					) hc on jg.dizhibm =  hc.dizhibm
+					order by DiZhiBMOrder
 				</SQL>
 				<SQL>
 					select subjg.dizhibm,
@@ -63,8 +61,8 @@
 					(
 						select dizhibm
 						from GY_FUWUJG
-						group by dizhibm
-						order by dizhibm asc
+						group by dizhibm,DiZhiBMOrder
+						order by DiZhiBMOrder asc
 						@Pager
 					)
 					group by subjg.dizhibm
@@ -82,10 +80,10 @@
 					<If Operator="NotEmpty" ComponentName="日期范围End"> and d.entrydate &lt; dateadd(day,1,@日期范围End) </If>
 					and subjg.dizhibm in
 					(
-						select dizhibm
+					select dizhibm
 						from GY_FUWUJG
-						group by dizhibm
-						order by dizhibm asc
+						group by dizhibm,DiZhiBMOrder
+						order by DiZhiBMOrder asc
 						@Pager
 					)
 					group by subjg.dizhibm
@@ -108,11 +106,11 @@
 					<If Operator="NotEmpty" ComponentName="日期范围End"> and d.entrydate &lt; dateadd(day,1,@日期范围End) </If>
 					and subjg.dizhibm in
 					(
-						select dizhibm
-						from GY_FUWUJG
-						group by dizhibm
-						order by dizhibm asc
-						@Pager
+					select dizhibm
+					from GY_FUWUJG
+					group by dizhibm,DiZhiBMOrder
+					order by DiZhiBMOrder asc
+					@Pager
 					)
 					group by subjg.dizhibm
 				</SQL>
@@ -127,37 +125,37 @@
 					from cc_physicalexam_new d
 					left join GY_FUWUJG jg on d.followAgencyCode = jg.fuwujgbh
 					LEFT JOIN(
-						SELECT 
-						subjg.dizhibm
-						,d.childid, glb.birthDay
-						,dbo.erTongGL_CKL(glb.birthDay, convert(date, @日期范围Start,23),convert(date, @日期范围End,23),COUNT(*)) AS guanli
-						FROM cc_physicalexam_new AS d
-						left JOIN cc_generalinfo AS glb ON d.childid = glb.childid
-						left join GY_FUWUJG subjg on d.followAgencyCode = subjg.fuwujgbh
-						where d.status = 1
-						<If Operator="NotEmpty" ComponentName="日期范围Start"> and d.inputDate &gt;= @日期范围Start </If>
-						<If Operator="NotEmpty" ComponentName="日期范围End"> and d.inputDate &lt; dateadd(day,1,@日期范围End) </If>
-						and subjg.dizhibm in
-						(
-							select dizhibm
-							from GY_FUWUJG
-							group by dizhibm
-							order by dizhibm asc
-							@Pager
-						)
-						and FLOOR(datediff(DY, glb.birthDay, d.inputDate)/365.25)&lt;=3
-						GROUP BY d.childid,glb.birthDay,subjg.dizhibm
+					SELECT
+					subjg.dizhibm
+					,d.childid, glb.birthDay
+					,dbo.erTongGL_CKL(glb.birthDay, convert(date, @日期范围Start,23),convert(date, @日期范围End,23),COUNT(*)) AS guanli
+					FROM cc_physicalexam_new AS d
+					left JOIN cc_generalinfo AS glb ON d.childid = glb.childid
+					left join GY_FUWUJG subjg on d.followAgencyCode = subjg.fuwujgbh
+					where d.status = 1
+					<If Operator="NotEmpty" ComponentName="日期范围Start"> and d.inputDate &gt;= @日期范围Start </If>
+					<If Operator="NotEmpty" ComponentName="日期范围End"> and d.inputDate &lt; dateadd(day,1,@日期范围End) </If>
+					and subjg.dizhibm in
+					(
+					select dizhibm
+					from GY_FUWUJG
+					group by dizhibm,DiZhiBMOrder
+					order by DiZhiBMOrder asc
+					@Pager
+					)
+					and FLOOR(datediff(DY, glb.birthDay, d.inputDate)/365.25)&lt;=3
+					GROUP BY d.childid,glb.birthDay,subjg.dizhibm
 					) gl on gl.childid = d.childid and jg.dizhibm = gl.dizhibm
 					where d.status = 1
 					<If Operator="NotEmpty" ComponentName="日期范围Start"> and d.inputDate &gt;= @日期范围Start </If>
 					<If Operator="NotEmpty" ComponentName="日期范围End"> and d.inputDate &lt; dateadd(day,1,@日期范围End) </If>
 					and jg.dizhibm in
 					(
-						select dizhibm
-						from GY_FUWUJG
-						group by dizhibm
-						order by dizhibm asc
-						@Pager
+					select dizhibm
+					from GY_FUWUJG
+					group by dizhibm,DiZhiBMOrder
+					order by DiZhiBMOrder asc
+					@Pager
 					)
 					group by jg.dizhibm
 				</SQL>
@@ -171,11 +169,11 @@
 					<If Operator="NotEmpty" ComponentName="日期范围End"> and d.inputDate &lt; dateadd(day,1,@日期范围End) </If>
 					and jg.dizhibm in
 					(
-						select dizhibm
-						from GY_FUWUJG
-						group by dizhibm
-						order by dizhibm asc
-						@Pager
+					select dizhibm
+					from GY_FUWUJG
+					group by dizhibm,DiZhiBMOrder
+					order by DiZhiBMOrder asc
+					@Pager
 					)
 					group by jg.dizhibm
 				</SQL>
@@ -190,21 +188,21 @@
 					sum(case when cc.anemia in ('2','3') then 1 else 0 end) px23rs,
 					sum(case when cc.anemia in ('1','2''3','4') then 1 else 0 end) px1234rs
 					from(
-						select d.id, d.childid, d.nutritionStatus, subjg.dizhibm, d.anemia,
-						ROW_NUMBER() over(partition by d.childid, subjg.fuwujgbh order by d.inputDate, d.id desc) px
-						from cc_physicalexam_new d
-						left join GY_FUWUJG subjg on d.followAgencyCode = subjg.fuwujgbh
-						where d.status = 1
-						<If Operator="NotEmpty" ComponentName="日期范围Start"> and d.inputDate &gt;= @日期范围Start </If>
-						<If Operator="NotEmpty" ComponentName="日期范围End"> and d.inputDate &lt; dateadd(day,1,@日期范围End) </If>
-						and subjg.dizhibm in
-						(
-							select dizhibm
-							from GY_FUWUJG
-							group by dizhibm
-							order by dizhibm asc
-							@Pager
-						)
+					select d.id, d.childid, d.nutritionStatus, subjg.dizhibm, d.anemia,
+					ROW_NUMBER() over(partition by d.childid, subjg.fuwujgbh order by d.inputDate, d.id desc) px
+					from cc_physicalexam_new d
+					left join GY_FUWUJG subjg on d.followAgencyCode = subjg.fuwujgbh
+					where d.status = 1
+					<If Operator="NotEmpty" ComponentName="日期范围Start"> and d.inputDate &gt;= @日期范围Start </If>
+					<If Operator="NotEmpty" ComponentName="日期范围End"> and d.inputDate &lt; dateadd(day,1,@日期范围End) </If>
+					and subjg.dizhibm in
+					(
+					select dizhibm
+					from GY_FUWUJG
+					group by dizhibm,DiZhiBMOrder
+					order by DiZhiBMOrder asc
+					@Pager
+					)
 					)cc
 					where cc.px = 1
 					group by cc.dizhibm
@@ -213,8 +211,8 @@
 					select jg.dizhibm,
 					sum(case when d.pupil = '1' or d.pupil = '2' then 1 else 0 end) u6sljcrs,
 					sum(case when visitMonth &gt;= 72 AND (d.lefteye is not null or d.righteye is not null) then 1 else 0 end) jcrs,
- 					sum(case when visitMonth &gt;= 72 AND ((d.lefteye is not null and d.lefteye&lt; 1.0)
- 					or(d.righteye is not null and d.righteye&lt; 1.0)) then 1 else 0 end) ycrs
+					sum(case when visitMonth &gt;= 72 AND ((d.lefteye is not null and d.lefteye&lt; 1.0)
+					or(d.righteye is not null and d.righteye&lt; 1.0)) then 1 else 0 end) ycrs
 					from cc_physicalexam_new d
 					left join GY_FUWUJG jg on d.followAgencyCode = jg.fuwujgbh
 					where d.status = 1
@@ -222,11 +220,11 @@
 					<If Operator="NotEmpty" ComponentName="日期范围End"> and d.inputDate &lt; dateadd(day,1,@日期范围End) </If>
 					and jg.dizhibm in
 					(
-						select dizhibm
-						from GY_FUWUJG
-						group by dizhibm
-						order by dizhibm asc
-						@Pager
+					select dizhibm
+					from GY_FUWUJG
+					group by dizhibm,DiZhiBMOrder
+					order by DiZhiBMOrder asc
+					@Pager
 					)
 					group by jg.dizhibm
 				</SQL>
@@ -235,7 +233,6 @@
 				select count(*)
 				from GY_FUWUJG
 				group by dizhibm
-				order by dizhibm asc
 			</CountSQL>
 		</Source>
 	</View>

@@ -18,6 +18,7 @@
 					from GY_ZD_SHENGSHIQX_QC gz
 					left join GY_FUWUJG gf on gz.DAIMA = gf.fuwujgbh
 					where 1=1 and gf.fuwujgbh is not null
+					and gf.fuwujgbh in ()
 					group by dizhibm,dizhimc
 					order by dizhibm asc
 					@Pager

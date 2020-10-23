@@ -123,9 +123,9 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
             //SQL = WebUtility.HtmlDecode(SQL);
             CountSQL = element.Descendants(nameof(CountSQL))?.FirstOrDefault()?.ToString().TrimStart("<CountSQL>").TrimEnd("</CountSQL>");
             //CountSQL = WebUtility.HtmlDecode(CountSQL);
-            var OrderBysRoot = element.Descendants(SQLConfigOrderBy.RootElementName).First();
-            DefaultComponentName = OrderBysRoot.Attribute(nameof(DefaultComponentName))?.Value ?? "";
-            DefaultOrder = OrderBysRoot.Attribute(nameof(DefaultOrder))?.Value ?? "";
+            var OrderBysRoot = element.Descendants(SQLConfigOrderBy.RootElementName).FirstOrDefault();
+            DefaultComponentName = OrderBysRoot?.Attribute(nameof(DefaultComponentName))?.Value ?? "";
+            DefaultOrder = OrderBysRoot?.Attribute(nameof(DefaultOrder))?.Value ?? "";
             Transforms = element.Descendants(ExportSourceTransform.ElementName).Select(c => new ExportSourceTransform(c)).ToList();
             Mappings = element.Descendants(ExportSourceMapping.ElementName).Select(c => new ExportSourceMapping(c)).ToList();
 

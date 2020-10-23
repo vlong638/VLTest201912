@@ -21,9 +21,9 @@
 						,jg.dizhibm
 						,hc.*
 						from (
-						select dizhibm,dizhimc
+						select dizhibm,dizhimc,DiZhiBMOrder
 						from GY_FUWUJG
-						group by dizhibm,dizhimc
+						group by dizhibm,dizhimc,DiZhiBMOrder
 						) jg
 						left join (
 						select
@@ -42,10 +42,11 @@
 						(
 						select dizhibm
 						from GY_FUWUJG
-						group by dizhibm
+						group by dizhibm,DiZhiBMOrder
 						)
 						group by subjg.dizhibm
 						) hc on jg.dizhibm =  hc.dizhibm
+						order by DiZhiBMOrder
 					</SQL>
 					<SQL>
 						select subjg.dizhibm,
@@ -61,7 +62,7 @@
 						(
 						select dizhibm
 						from GY_FUWUJG
-						group by dizhibm
+						group by dizhibm,DiZhiBMOrder
 						)
 						group by subjg.dizhibm
 					</SQL>
@@ -80,7 +81,7 @@
 						(
 						select dizhibm
 						from GY_FUWUJG
-						group by dizhibm
+						group by dizhibm,DiZhiBMOrder
 						)
 						group by subjg.dizhibm
 					</SQL>
@@ -104,7 +105,7 @@
 						(
 						select dizhibm
 						from GY_FUWUJG
-						group by dizhibm
+						group by dizhibm,DiZhiBMOrder
 						)
 						group by subjg.dizhibm
 					</SQL>
@@ -133,7 +134,7 @@
 						(
 						select dizhibm
 						from GY_FUWUJG
-						group by dizhibm
+						group by dizhibm,DiZhiBMOrder
 						)
 						and FLOOR(datediff(DY, glb.birthDay, d.inputDate)/365.25)&lt;=3
 						GROUP BY d.childid,glb.birthDay,subjg.dizhibm
@@ -145,7 +146,7 @@
 						(
 						select dizhibm
 						from GY_FUWUJG
-						group by dizhibm
+						group by dizhibm,DiZhiBMOrder
 						)
 						group by jg.dizhibm
 					</SQL>
@@ -161,7 +162,7 @@
 						(
 						select dizhibm
 						from GY_FUWUJG
-						group by dizhibm
+						group by dizhibm,DiZhiBMOrder
 						)
 						group by jg.dizhibm
 					</SQL>
@@ -187,7 +188,7 @@
 						(
 						select dizhibm
 						from GY_FUWUJG
-						group by dizhibm
+						group by dizhibm,DiZhiBMOrder
 						)
 						)cc
 						where cc.px = 1
@@ -208,9 +209,33 @@
 						(
 						select dizhibm
 						from GY_FUWUJG
-						group by dizhibm
+						group by dizhibm,DiZhiBMOrder
 						)
 						group by jg.dizhibm
+					</SQL>
+				</SQLs>
+			</Source>
+			<Source SourceName="DataUser" DBSourceType="HZConnectionString">
+				<Properties>
+					<Property IsOn="true" ColumnName="*" Alias =""/>
+				</Properties>
+				<Wheres>
+					<Where ComponentName="jobno"/>
+				</Wheres>
+				<OrderBys>
+					<!--<OrderBy ComponentName="fuwujgbh" Alias ="fuwujgbh"/>-->
+				</OrderBys>
+				<SQLs>
+					<SQL>
+						select u.name,jg.FuWuJGMC
+						,convert(nvarchar,getdate(),111) CurrentDate --默认日期 样例
+						,datepart(yyyy,GETDATE()) CurrentYear --年月日 样例
+						,datepart(mm,GETDATE()) CurrentMonth
+						,datepart(dd,GETDATE()) CurrentDay
+						,concat(datepart(yyyy,GETDATE()),'年',datepart(mm,GETDATE()),'月',datepart(dd,GETDATE()),'日') CustomDate --自定义拼接样例
+						from [User] u
+						left join GY_FUWUJG jg on u.organization = jg.FUWUJGBH
+						where job_no = @jobno
 					</SQL>
 				</SQLs>
 			</Source>

@@ -235,6 +235,30 @@
 					</SQL>
 				</SQLs>
 			</Source>
+			<Source SourceName="DataUser" DBSourceType="HZConnectionString">
+				<Properties>
+					<Property IsOn="true" ColumnName="*" Alias =""/>
+				</Properties>
+				<Wheres>
+					<Where ComponentName="jobno"/>
+				</Wheres>
+				<OrderBys>
+					<!--<OrderBy ComponentName="fuwujgbh" Alias ="fuwujgbh"/>-->
+				</OrderBys>
+				<SQLs>
+					<SQL>
+						select u.name,jg.FuWuJGMC
+						,convert(nvarchar,getdate(),111) CurrentDate --默认日期 样例
+						,datepart(yyyy,GETDATE()) CurrentYear --年月日 样例
+						,datepart(mm,GETDATE()) CurrentMonth
+						,datepart(dd,GETDATE()) CurrentDay
+						,concat(datepart(yyyy,GETDATE()),'年',datepart(mm,GETDATE()),'月',datepart(dd,GETDATE()),'日') CustomDate --自定义拼接样例
+						from [User] u
+						left join GY_FUWUJG jg on u.organization = jg.FUWUJGBH
+						where job_no = @jobno
+					</SQL>
+				</SQLs>
+			</Source>
 		</Sheet>
 	</Export>
 </Exports>
