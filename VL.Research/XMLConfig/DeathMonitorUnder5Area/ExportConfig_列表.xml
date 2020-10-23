@@ -166,6 +166,25 @@
 					</SQL>
 				</SQLs>
 			</Source>
+			<Source SourceName="DataUser" DBSourceType="HZConnectionString">
+				<Properties>
+					<Property IsOn="true" ColumnName="*" Alias =""/>
+				</Properties>
+				<Wheres>
+					<Where ComponentName="jobno"/>
+				</Wheres>
+				<OrderBys>
+					<!--<OrderBy ComponentName="fuwujgbh" Alias ="fuwujgbh"/>-->
+				</OrderBys>
+				<SQLs>
+					<SQL>
+						select u.name,jg.FuWuJGMC
+						from [User] u
+						left join GY_FUWUJG jg on u.organization = jg.FUWUJGBH
+						where job_no = @jobno
+					</SQL>
+				</SQLs>
+			</Source>
 		</Sheet>
 	</Export>
 </Exports>

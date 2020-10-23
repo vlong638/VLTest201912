@@ -360,6 +360,18 @@
     <None Update="XMLConfig\Sample1012User\SQLConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="XMLConfig\WSYXETSWXXOrganization\ExportConfig_列表.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLConfig\WSYXETSWXXOrganization\ListConfig.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLConfig\WSYXETSWXXOrganization\SQLConfig.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLConfig\WSYXETSWXXOrganization\列表.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="XMLConfig\YLJGZCECSQKTJJDBBArea\ExportConfig_列表.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -3,7 +3,7 @@
 	<!--注意 保留字  ColumnName="target"-->
 	<Export ExportName="" FileName="列表.xlsx">
 		<Sheet SheetName="列表">
-		<Source SourceName="Data" DBSourceType="HZConnectionString">
+			<Source SourceName="Data" DBSourceType="HZConnectionString">
 			<Properties>
 				<Property IsOn="true" ColumnName="*" Alias =""/>
 			</Properties>
@@ -109,6 +109,25 @@ left join
 		<If Operator="NotEmpty" ComponentName ="单位名称"> and g.fuwujgmc like @单位名称 </If>
 			</CountSQL>
 		</Source>
+			<Source SourceName="DataUser" DBSourceType="HZConnectionString">
+				<Properties>
+					<Property IsOn="true" ColumnName="*" Alias =""/>
+				</Properties>
+				<Wheres>
+					<Where ComponentName="jobno"/>
+				</Wheres>
+				<OrderBys>
+					<!--<OrderBy ComponentName="fuwujgbh" Alias ="fuwujgbh"/>-->
+				</OrderBys>
+				<SQLs>
+					<SQL>
+						select u.name,jg.FuWuJGMC
+						from [User] u
+						left join GY_FUWUJG jg on u.organization = jg.FUWUJGBH
+						where job_no = @jobno
+					</SQL>
+				</SQLs>
+			</Source>
 		</Sheet>
 	</Export>
 </Exports>
