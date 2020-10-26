@@ -1,9 +1,9 @@
-ALTER TABLE [dbo].[GY_FUWUJG] ADD [IsOnStatistics] tinyint  NULL
+ALTER TABLE [dbo].[GY_FUWUJG] ADD HZStatisticsType tinyint  NULL
 GO
 
-CREATE NONCLUSTERED INDEX [idx_GY_FUWUJG_BusinessType]
+CREATE NONCLUSTERED INDEX [idx_GY_FUWUJG_HZStatisticsType]
 ON [dbo].[GY_FUWUJG] (
-  [IsOnStatistics] ASC
+  HZStatisticsType ASC
 )
 GO
 
@@ -11,7 +11,7 @@ EXEC sp_addextendedproperty
 'MS_Description', N'湖州统计过滤',
 'SCHEMA', N'dbo',
 'TABLE', N'GY_FUWUJG',
-'COLUMN', N'IsOnStatistics'
+'COLUMN', N'HZStatisticsType'
 
 
 

@@ -27,7 +27,7 @@
 				from (
 					select fuwujgbh,fuwujgmc
 					from GY_FUWUJG
-					where 1=1
+					where 1=1 and HZStatisticsType = 1
 					<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 					<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 					<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>
@@ -47,7 +47,7 @@
 					and subjg.fuwujgbh in(
 						select fuwujgbh
 						from GY_FUWUJG
-						where 1=1
+						where 1=1 and HZStatisticsType = 1
 						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 						<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>
@@ -69,7 +69,7 @@
 					and subjg.fuwujgbh in(
 						select fuwujgbh
 						from GY_FUWUJG
-						where 1=1
+						where 1=1 and HZStatisticsType = 1
 						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 						<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>

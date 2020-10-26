@@ -23,6 +23,7 @@
 					from (
 						select dizhibm,dizhimc
 						from GY_FUWUJG
+						where HZStatisticsType = 1
 						group by dizhibm,dizhimc,DiZhiBMOrder
 					) jg
 					left join (
@@ -41,7 +42,7 @@
 						sum(case when h.endmanage = 1 then 1 else 0 end) 管理率
 						from cc_highrisk h
 						left join cc_generalinfo g on h.childid = g.childid
-						left join GY_FUWUJG subjg on g.manaunitid = subjg.fuwujgbh
+						left join GY_FUWUJG subjg on g.manaunitid = subjg.fuwujgbh and subjg.HZStatisticsType = 1
 						where h.status = 1
 						<If Operator="NotEmpty" ComponentName="登记日期Start"> and h.registerdate &gt;= @登记日期Start </If>
 						<If Operator="NotEmpty" ComponentName="登记日期End"> and h.registerdate &lt; dateadd(day,1,@登记日期End) </If>
@@ -61,7 +62,7 @@
 					count(*) 活产数
 					from cdh_newbornrecord nr
 					left join cdh_deliveryrecord dr on nr.chanshibh = dr.chanshibh
-					left join GY_FUWUJG subjg on dr.visitunitcode = subjg.fuwujgbh
+					left join GY_FUWUJG subjg on dr.visitunitcode = subjg.fuwujgbh and subjg.HZStatisticsType = 1
 					where nr.outcomeofbirth = 1
 					<If Operator="NotEmpty" ComponentName="登记日期Start"> and nr.tianbiaosj &gt;= @登记日期Start </If>
 					<If Operator="NotEmpty" ComponentName="登记日期End"> and nr.tianbiaosj &lt; dateadd(day,1,@登记日期End) </If>
@@ -80,7 +81,7 @@
 					sum(case when h.endmanage = 1 then 1 else 0 end) 总管理人数
 					from cc_highrisk h
 					left join cc_generalinfo g on h.childid = g.childid
-					left join GY_FUWUJG subjg on g.manaunitid = subjg.fuwujgbh
+					left join GY_FUWUJG subjg on g.manaunitid = subjg.fuwujgbh and subjg.HZStatisticsType = 1
 					where h.status = 1
 					<If Operator="NotEmpty" ComponentName="登记日期Start"> and h.registerdate &gt;= @登记日期Start </If>
 					<If Operator="NotEmpty" ComponentName="登记日期End"> and h.registerdate &lt; dateadd(day,1,@登记日期End) </If>

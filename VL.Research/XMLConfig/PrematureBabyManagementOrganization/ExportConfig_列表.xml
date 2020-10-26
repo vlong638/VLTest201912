@@ -22,7 +22,7 @@
 					<SQL>
 						select fuwujgmc,fuwujgbh
 						from GY_FUWUJG
-						where 1=1
+						where 1=1 and HZStatisticsType = 1
 						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 						<If Operator="NotEmpty" ComponentName ="单位名称"> and g.fuwujgmc like @单位名称 </If>
@@ -40,12 +40,12 @@
 						<If Operator="NotEmpty" ComponentName="日期范围Start"> and dr.tianbiaosj &gt;= @日期范围Start </If>
 						<If Operator="NotEmpty" ComponentName="日期范围End"> and dr.tianbiaosj &lt; dateadd(day,1,@日期范围End) </If>
 						and dr.visitunitcode in (
-						select fuwujgbh
-						from GY_FUWUJG
-						where 1=1
-						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
-						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
-						<If Operator="NotEmpty" ComponentName ="单位名称"> and g.fuwujgmc like @单位名称 </If>
+							select fuwujgbh
+							from GY_FUWUJG
+							where 1=1 and HZStatisticsType = 1
+							<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
+							<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
+							<If Operator="NotEmpty" ComponentName ="单位名称"> and g.fuwujgmc like @单位名称 </If>
 						)
 						group by dr.visitunitcode
 					</SQL>
@@ -67,12 +67,12 @@
 						<If Operator="NotEmpty" ComponentName="日期范围End"> and h.registerdate &lt; dateadd(day,1,@日期范围End) </If>
 						and g.manaunitid in
 						(
-						select fuwujgbh
-						from GY_FUWUJG
-						where 1=1
-						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
-						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
-						<If Operator="NotEmpty" ComponentName ="单位名称"> and g.fuwujgmc like @单位名称 </If>
+							select fuwujgbh
+							from GY_FUWUJG
+							where 1=1 and HZStatisticsType = 1
+							<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
+							<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
+							<If Operator="NotEmpty" ComponentName ="单位名称"> and g.fuwujgmc like @单位名称 </If>
 						)
 						group by g.manaunitid
 						) as p
@@ -92,12 +92,12 @@
 						<If Operator="NotEmpty" ComponentName="日期范围End"> and h.registerdate &lt; dateadd(day,1,@日期范围End) </If>
 						and g.manaunitid in
 						(
-						select fuwujgbh
-						from GY_FUWUJG
-						where 1=1
-						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
-						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
-						<If Operator="NotEmpty" ComponentName ="单位名称"> and g.fuwujgmc like @单位名称 </If>
+							select fuwujgbh
+							from GY_FUWUJG
+							where 1=1 and HZStatisticsType = 1
+							<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
+							<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
+							<If Operator="NotEmpty" ComponentName ="单位名称"> and g.fuwujgmc like @单位名称 </If>
 						)
 						group by g.manaunitid
 					</SQL>
@@ -117,12 +117,12 @@
 						<If Operator="NotEmpty" ComponentName="日期范围End"> and h.registerdate &lt; dateadd(day,1,@日期范围End) </If>
 						and g.manaunitid in
 						(
-						select fuwujgbh
-						from GY_FUWUJG
-						where 1=1
-						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
-						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
-						<If Operator="NotEmpty" ComponentName ="单位名称"> and g.fuwujgmc like @单位名称 </If>
+							select fuwujgbh
+							from GY_FUWUJG
+							where 1=1 and HZStatisticsType = 1
+							<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
+							<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
+							<If Operator="NotEmpty" ComponentName ="单位名称"> and g.fuwujgmc like @单位名称 </If>
 						)
 						group by g.manaunitid
 					</SQL>

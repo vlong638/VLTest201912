@@ -38,7 +38,7 @@
 					FROM
 						underfiveyearsdeathcase u
 						LEFT JOIN cc_generalinfo cg ON cg.childbookid = u.childbookid
-						LEFT JOIN GY_FUWUJG gy ON u.recordreportunitcode = gy.FUWUJGBH 
+						LEFT JOIN GY_FUWUJG gy ON u.recordreportunitcode = gy.FUWUJGBH and gy.HZStatisticsType = 1
 					WHERE
 						u.status = 4
 						<If Operator="NotEmpty" ComponentName="checkDayStart"> and CONVERT(varchar(100), deathdate, 23) &gt;= @checkDayStart </If>
@@ -63,7 +63,7 @@
 					<SQL>
 						select u.name,jg.FuWuJGMC
 						from [User] u
-						left join GY_FUWUJG jg on u.organization = jg.FUWUJGBH
+						left join GY_FUWUJG jg on u.organization = jg.FUWUJGBH and jg.HZStatisticsType = 1
 						where job_no = @jobno
 					</SQL>
 				</SQLs>

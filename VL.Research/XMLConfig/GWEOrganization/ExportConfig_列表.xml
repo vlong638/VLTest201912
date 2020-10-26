@@ -23,7 +23,7 @@
 					from (
 						select fuwujgbh,fuwujgmc
 						from GY_FUWUJG
-						WHERE fuwujgjb != '6'
+						WHERE HZStatisticsType = 1
 					) jg
 					left join (
 						select
@@ -45,9 +45,11 @@
 						<If Operator="NotEmpty" ComponentName ="登记日期Start"> and h.registerdate &gt;= @登记日期Start </If>
 						<If Operator="NotEmpty" ComponentName ="登记日期End"> and h.registerdate &gt;= @登记日期End </If>
 						and g.manaunitid in
-						(select fuwujgbh
-						from GY_FUWUJG
-						WHERE fuwujgjb != '6')
+						(
+							select fuwujgbh
+							from GY_FUWUJG
+							WHERE HZStatisticsType = 1
+						)
 						group by g.manaunitid
 					) info on jg.fuwujgbh = info.fuwujgbh
 					left join (
@@ -60,9 +62,11 @@
 						<If Operator="NotEmpty" ComponentName ="登记日期Start"> and nr.tianbiaosj &gt;= @登记日期Start </If>
 						<If Operator="NotEmpty" ComponentName ="登记日期End"> and nr.tianbiaosj &gt;= @登记日期End </If>
 						and dr.visitunitcode in
-						(select fuwujgbh
-						from GY_FUWUJG
-						WHERE fuwujgjb != '6')
+						(
+							select fuwujgbh
+							from GY_FUWUJG
+							WHERE HZStatisticsType = 1
+						)
 						group by dr.visitunitcode
 					) hc on jg.fuwujgbh = hc.fuwujgbh
 					left join (
@@ -76,9 +80,11 @@
 						<If Operator="NotEmpty" ComponentName ="登记日期Start"> and h.registerdate &gt;= @登记日期Start </If>
 						<If Operator="NotEmpty" ComponentName ="登记日期End"> and h.registerdate &gt;= @登记日期End </If>
 						and g.manaunitid in
-						(select fuwujgbh
-						from GY_FUWUJG
-						WHERE fuwujgjb != '6')
+						(
+							select fuwujgbh
+							from GY_FUWUJG
+							WHERE HZStatisticsType = 1
+						)
 						group by g.manaunitid
 					) za on jg.fuwujgbh = za.fuwujgbh
 					order by jg.fuwujgbh

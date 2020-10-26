@@ -82,6 +82,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
     if (!isBlank(_data.search)) {
         // 处理搜索条件
         $.each(_data.search, function (index, item) {
+            if (isBlank(item.type)) item.type = 1;
             if (item.type === 1) {
                 html += `
                 <div class="layui-inline">
@@ -146,6 +147,9 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
                         class="layui-input icon-date datepicker" value="` + item.value + `" lay-filter="` + item.name + `"/>
                     </div>
                 </div>`
+            }
+            if (item.type === 0) {
+                html += `<input type="hidden" name="` + item.name + `" value="` + item.value + `" lay-filter="` + item.name + `"/>`
             }
         })
         html += `
