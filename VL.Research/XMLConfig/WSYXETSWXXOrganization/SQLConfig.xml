@@ -44,7 +44,7 @@
 					<If Operator="NotEmpty" ComponentName="fuwujgmc"> and gy.fuwujgmc like @fuwujgmc </If>
 					<If Operator="eq" ComponentName ="dataScope" Value="2" > and gy.dizhibm = @dizhibm </If>
 					<If Operator="eq" ComponentName ="dataScope" Value="3" > and gy.fuwujgbh = @organization </If>
-				ORDER BY gy.FUWUJGMC DESC
+				ORDER BY gy.FUWUJGBH DESC
 				@page
 			</SQL>
 			<CountSQL>

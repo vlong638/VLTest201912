@@ -53,7 +53,6 @@
 						@Pager
 					)
 					group by cc.manaunitid
-					order by cc.manaunitid asc
 				</SQL>
 				<SQL>
 					select dr.visitunitcode fuwujgbh,
@@ -97,8 +96,8 @@
 						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 						<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>
-					order by fuwujgbh asc
-					@Pager
+						order by fuwujgbh asc
+						@Pager
 					)
 					group by d.entryunitcode
 				</SQL>
@@ -125,7 +124,6 @@
 						@Pager
 					)
 					group by d.entryunitcode
-					order by d.entryunitcode asc
 				</SQL>
 				<SQL>
 					select
@@ -154,7 +152,6 @@
 						@Pager
 					)
 					group by dr.visitunitcode
-					order by dr.visitunitcode asc
 				</SQL>
 				<SQL>
 					select d.entryunitcode as fuwujgbh,
@@ -201,7 +198,6 @@
 						@Pager
 					)
 					group by d.entryunitcode
-					order by d.entryunitcode asc
 				</SQL>
 			</SQLs>
 			<CountSQL>

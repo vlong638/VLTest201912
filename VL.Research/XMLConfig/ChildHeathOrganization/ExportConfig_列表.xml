@@ -53,6 +53,7 @@
 							)
 							group by dr.visitunitcode
 						) p1 on jg.fuwujgbh =  p1.fuwujgbh
+						order by fuwujgbh asc
 					</SQL>
 					<SQL>
 						select cc.createUnit as fuwujgbh,

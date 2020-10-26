@@ -19,22 +19,21 @@
 			<SQLs>
 				<SQL>
 					select * from ( 
-	
 						SELECT
 						t.*, 
 						g.fuwujgmc
 						FROM
 						(
-						SELECT
-						nr.visitunitcode fuwujgbh,
-						COUNT (*) AS allnum
-						FROM
-						cdh_newbornrecord nr
-						where 1 = 1
-						<If Operator="NotEmpty" ComponentName ="日期范围Start"> and  nr.tianbiaosj &gt;= @日期范围Start </If>
-					<If Operator="NotEmpty" ComponentName="日期范围End"> and nr.tianbiaosj &lt; dateadd(day,1,@日期范围End) </If>
-						GROUP BY
-						nr.visitunitcode
+							SELECT
+							nr.visitunitcode fuwujgbh,
+							COUNT (*) AS allnum
+							FROM
+							cdh_newbornrecord nr
+							where 1 = 1
+							<If Operator="NotEmpty" ComponentName ="日期范围Start"> and  nr.tianbiaosj &gt;= @日期范围Start </If>
+							<If Operator="NotEmpty" ComponentName="日期范围End"> and nr.tianbiaosj &lt; dateadd(day,1,@日期范围End) </If>
+							GROUP BY
+							nr.visitunitcode
 						) t
 						LEFT JOIN 
 						GY_FUWUJG g ON g.FUWUJGBH = t.fuwujgbh
@@ -85,6 +84,7 @@
 						left join GY_FUWUJG f on h.uploadunit = f.fuwujgbh
 						group by h.uploadunit, f.fuwujgmc
 					) p1 on gj.fuwujgbh = p1.fuwujgbh
+					order by gj.fuwujgbh
 				</SQL>
 			</SQLs>
 			<CountSQL>

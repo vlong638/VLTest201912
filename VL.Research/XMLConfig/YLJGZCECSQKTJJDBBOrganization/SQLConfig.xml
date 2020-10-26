@@ -87,6 +87,7 @@
 					)
 					GROUP BY jg.fuwujgbh
 				) zaochan ON zaochan.fuwujgbh = jg.fuwujgbh
+				order by jg.fuwujgbh
 			</SQL>
 			<CountSQL>
 				select count(*) from (

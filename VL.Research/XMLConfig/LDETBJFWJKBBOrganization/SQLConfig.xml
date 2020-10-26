@@ -81,6 +81,7 @@
 					)
 					group by subjg.fuwujgbh
 				) baby on jg.fuwujgbh = baby.fuwujgbh
+				order by jg.fuwujgbh
 			</SQL>
 			<CountSQL>
 				select count(*) from (

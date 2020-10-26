@@ -18,7 +18,8 @@
 					<SQL>
 						select dizhibm,dizhimc
 						from GY_FUWUJG
-						group by dizhibm,dizhimc
+						group by dizhibm,dizhimc,DiZhiBMOrder
+						order by DiZhiBMOrder asc
 					</SQL>
 					<SQL>
 						select

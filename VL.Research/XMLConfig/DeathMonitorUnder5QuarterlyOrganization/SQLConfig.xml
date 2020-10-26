@@ -102,7 +102,6 @@
 						@Pager
 					)
 					group by d.entryunitcode
-					order by d.entryunitcode asc
 				</SQL>
 				<SQL>
 					select
@@ -131,7 +130,6 @@
 						@Pager
 					)
 					group by dr.visitunitcode
-					order by dr.visitunitcode asc
 				</SQL>
 				<SQL>
 					select d.entryunitcode as fuwujgbh,
@@ -178,7 +176,6 @@
 						@Pager
 					)
 					group by d.entryunitcode
-					order by d.entryunitcode asc
 				</SQL>
 			</SQLs>
 			<CountSQL>

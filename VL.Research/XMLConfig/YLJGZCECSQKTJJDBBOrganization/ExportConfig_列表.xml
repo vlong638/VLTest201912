@@ -83,6 +83,7 @@
 						)
 						GROUP BY jg.fuwujgbh
 					) zaochan ON zaochan.fuwujgbh = jg.fuwujgbh
+					order by jg.fuwujgbh
 				</SQL>
 			</Source>
 			<Source SourceName="DataUser" DBSourceType="HZConnectionString">

@@ -16,6 +16,7 @@
 				SELECT
 					jg.dizhimc diqumc,
 					jg.dizhibm dizhibm, 
+					jg.DiZhiBMOrder,
 					huochan.num as huochan,
 					zaochan.total as zaochanzs,
 					zaochan.high as hrzaochan,
@@ -74,6 +75,7 @@
 					)
 					GROUP BY jg.dizhibm
 				) zaochan ON zaochan.dizhibm = jg.dizhibm
+				order by jg.DiZhiBMOrder
 			</SQL>
 			<CountSQL>
 				select count(*) from (

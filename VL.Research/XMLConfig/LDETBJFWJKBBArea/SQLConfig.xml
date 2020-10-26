@@ -16,6 +16,7 @@
 				select 
 					jg.dizhimc diqumc,
 					jg.dizhibm dizhibm, 
+					jg.DiZhiBMOrder,
 					ertongshu.*,
 					baby.*
 				from (
@@ -32,8 +33,7 @@
 						sum(case when datediff(YEAR,cg.birthDay,getdate()) &lt; 5 then 1 else 0 end) less5,
 						sum(case when datediff(YEAR,cg.birthDay,getdate()) &lt; 3 then 1 else 0 end) less3,
 						sum(case when datediff(YEAR,cg.birthDay,getdate()) &lt; 1 then 1 else 0 end) less0
-					from
-						cc_generalinfo cg
+					from cc_generalinfo cg
 					left join GY_FUWUJG subjg on cg.manaunitid = subjg.fuwujgbh
 					where mobileflag = 1
 					<If Operator="NotEmpty" ComponentName="登记日期Start"> and CONVERT(varchar(100), cg.createDate, 23) &gt;= @登记日期Start </If>
@@ -68,6 +68,7 @@
 					)
 					group by subjg.dizhibm
 				) baby on jg.dizhibm = baby.dizhibm
+				order by jg.DiZhiBMOrder
 			</SQL>
 			<CountSQL>
 				select count(*) from (

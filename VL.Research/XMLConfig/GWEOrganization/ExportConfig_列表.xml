@@ -16,6 +16,7 @@
 				</OrderBys>
 				<SQL>
 					select jg.fuwujgmc 单位名称
+					,jg.fuwujgbh
 					,hc.*
 					,info.*
 					,za.*

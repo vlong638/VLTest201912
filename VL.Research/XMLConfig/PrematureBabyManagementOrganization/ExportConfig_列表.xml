@@ -26,6 +26,7 @@
 						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 						<If Operator="NotEmpty" ComponentName ="单位名称"> and g.fuwujgmc like @单位名称 </If>
+						order by fuwujgbh asc
 					</SQL>
 					<SQL>
 						select
