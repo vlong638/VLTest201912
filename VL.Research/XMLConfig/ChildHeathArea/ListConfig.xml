@@ -8,13 +8,13 @@
 			<Where ComponentName="日期范围" Value="" DisplayName="日期范围" DisplayType="5" Required="true"/>
 			<Where ComponentName="viewName" Value="" DisplayType="0"/>
 			<Where ComponentName="dataScope" Value="" DisplayType="0"/>
-			<Where ComponentName="userId" Value="" DisplayType="0"/>
+			<Where ComponentName="jobno" Value="" DisplayType="0"/>
 			<!--"DisplayType <类型[1-文本框|2-数字框|3-单选下拉框|4-树状下拉框|5-日期选择框][默认:1]>",-->
 			<!--<Where ComponentName="序号" Value="" DisplayName="序号" DisplayType="1"/>-->
 		</Wheres>
 		<OrderBy DefaultName ="createdate" DefaultValue ="desc"/>
 		<ToolBars ActionBarPosition="1" ActionBarWidth="100">
-			<ToolBar URL ="../Home/CommonListByDirectoryName" InlineParams ="dizhibm" WhereParams ="日期范围,userId" DefaultParams="viewName=ChildHeathOrganization,dataScope=2" Text="查看" Type = "newPage" Description = "" Area = "300px,400px" YesFun = "yesFun"/>
+			<ToolBar URL ="../Home/CommonListByDirectoryName" InlineParams ="dizhibm" WhereParams ="日期范围,jobno" DefaultParams="viewName=ChildHeathOrganization,dataScope=2" Text="查看" Type = "newPage" Description = "" Area = "300px,400px" YesFun = "yesFun"/>
 		</ToolBars>
 		<Properties>
 			<Property DisplayLevel="1" RowSpan="3" IsNeedOnPage="true" DisplayName="地区" ColumnName="dizhimc" DisplayWidth="180" IsSortable="False"/>
