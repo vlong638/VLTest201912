@@ -22,7 +22,7 @@
 						ertongshu.*,
 						baby.*
 					from (
-						select dizhibm,dizhimc
+						select dizhibm,dizhimc,DiZhiBMOrder
 						from GY_FUWUJG
 						WHERE HZStatisticsType = 1
 						group by dizhibm,dizhimc,DiZhiBMOrder

@@ -16,105 +16,107 @@
 			<OrderBys>
 				<OrderBy ComponentName="id" Alias ="tb.序号"/>
 			</OrderBys>
-			<SQL>
-				select jg.fuwujgmc 单位名称
-				,jg.fuwujgbh
-				,hc.*
-				,info.* 
-				,za.*
-				from (
-					select fuwujgbh,fuwujgmc
-					from GY_FUWUJG
-					where 1=1 and HZStatisticsType = 1
-					<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
-					<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
-					<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
-					order by fuwujgbh asc
-					@Pager
-				) jg
-				left join (
-					select
-					g.manaunitid fuwujgbh,
-					sum(case when (h.highrisktype like concat('%',01,'%') or h.highrisktype like concat('%',18,'%'))then 1 else 0 end) 早产	,
-					sum(case when g.birthWeight&lt; '1500' then 1 else 0 end) 极低出生体重儿,
-					sum(case when h.highrisktype like concat('%',02,'%')then 1 else 0 end) 足月小样儿,
-					sum(case when h.highrisktype like concat('%',06,'%')then 1 else 0 end) HIE,
-					sum(case when h.highrisktype like concat('%',07,'%')then 1 else 0 end) 颅内出血,
-					sum(case when (h.highrisktype like concat('%',09,'%') or h.highrisktype like concat('%',10,'%'))then 1 else 0 end) 其他惊厥,
-					sum(case when h.highrisktype like concat('%',04,'%')then 1 else 0 end) 呼吸系统RDS,
-					sum(case when h.highrisktype like concat('%',03,'%')then 1 else 0 end) 高胆红素血症,
-					sum(case when h.highrisktype like concat('%',17,'%')then 1 else 0 end) 其它,
-					count(*) 本季总数,
-					sum(case when h.endmanage = 1 then 1 else 0 end) 管理率
-					from cc_highrisk h
-					left join cc_generalinfo g on h.childid = g.childid 
-					where h.status = 1
-					<If Operator="NotEmpty" ComponentName ="登记日期Start"> and h.registerdate &gt;= @登记日期Start </If>
-					<If Operator="NotEmpty" ComponentName ="登记日期End"> and h.registerdate &gt;= @登记日期End </If>
-					and g.manaunitid in
-					(
-						select fuwujgbh
+			<SQLs UnitedBy="fuwujgbh">
+				<SQL>
+					select jg.fuwujgbh 
+					,jg.fuwujgmc
+					,jg.DiZhiBMOrder
+					,info.*
+					from (
+						select fuwujgbh,fuwujgmc,DiZhiBMOrder
 						from GY_FUWUJG
-						where 1=1 and HZStatisticsType = 1
+						where HZStatisticsType = 1
 						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
-						<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
-						order by fuwujgbh asc
+						<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>
+						order by DiZhiBMOrder asc
 						@Pager
-					)
-					group by g.manaunitid
-				) info on jg.fuwujgbh = info.fuwujgbh
-				left join (
+					) jg
+					left join (
+						select
+						g.manaunitid fuwujgbh,
+						sum(case when (h.highrisktype like concat('%',01,'%') or h.highrisktype like concat('%',18,'%'))then 1 else 0 end) 早产,
+						sum(case when g.birthWeight&lt; '1500' then 1 else 0 end) 极低出生体重儿,
+						sum(case when h.highrisktype like concat('%',02,'%')then 1 else 0 end) 足月小样儿,
+						sum(case when h.highrisktype like concat('%',06,'%')then 1 else 0 end) HIE,
+						sum(case when h.highrisktype like concat('%',07,'%')then 1 else 0 end) 颅内出血,
+						sum(case when (h.highrisktype like concat('%',09,'%') or h.highrisktype like concat('%',10,'%'))then 1 else 0 end) 其他惊厥,
+						sum(case when h.highrisktype like concat('%',04,'%')then 1 else 0 end) 呼吸系统RDS,
+						sum(case when h.highrisktype like concat('%',03,'%')then 1 else 0 end) 高胆红素血症,
+						sum(case when h.highrisktype like concat('%',17,'%')then 1 else 0 end) 其它,
+						count(*) 本季总数,
+						sum(case when h.endmanage = 1 then 1 else 0 end) 管理率
+						from cc_highrisk h
+						left join cc_generalinfo g on h.childid = g.childid
+						where h.status = 1
+						<If Operator="NotEmpty" ComponentName="登记日期Start"> and h.registerdate &gt;= @登记日期Start </If>
+						<If Operator="NotEmpty" ComponentName="登记日期End"> and h.registerdate &lt; dateadd(day,1,@登记日期End) </If>
+						and g.manaunitid in
+						(
+							select fuwujgbh
+							from GY_FUWUJG
+							where HZStatisticsType = 1
+							<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
+							<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
+							<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>
+							order by DiZhiBMOrder asc
+							@Pager
+						)
+						group by g.manaunitid
+					) info on jg.fuwujgbh = info.fuwujgbh
+					order by jg.DiZhiBMOrder
+				</SQL>
+				<SQL>
 					select
 					dr.visitunitcode fuwujgbh,
-					count(*) 活产数 
+					count(*) 活产数
 					from cdh_newbornrecord nr
 					left join cdh_deliveryrecord dr on nr.chanshibh = dr.chanshibh
+					left join GY_FUWUJG subjg on dr.visitunitcode = subjg.fuwujgbh
 					where nr.outcomeofbirth = 1
-					<If Operator="NotEmpty" ComponentName ="登记日期Start"> and nr.tianbiaosj &gt;= @登记日期Start </If>
-					<If Operator="NotEmpty" ComponentName ="登记日期End"> and nr.tianbiaosj &gt;= @登记日期End </If>
+					<If Operator="NotEmpty" ComponentName="登记日期Start"> and nr.tianbiaosj &gt;= @登记日期Start </If>
+					<If Operator="NotEmpty" ComponentName="登记日期End"> and nr.tianbiaosj &lt; dateadd(day,1,@登记日期End) </If>
 					and dr.visitunitcode in
 					(
 						select fuwujgbh
 						from GY_FUWUJG
-						where 1=1 and HZStatisticsType = 1
+						where HZStatisticsType = 1
 						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
-						<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
-						order by fuwujgbh asc
+						<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>
+						order by DiZhiBMOrder asc
 						@Pager
 					)
 					group by dr.visitunitcode
-				) hc on jg.fuwujgbh = hc.fuwujgbh
-				left join (
+				</SQL>
+				<SQL>
 					select
 					g.manaunitid fuwujgbh,
 					count(*) 应管人数,
-					sum(case when h.endmanage = 1 then 1 else 0 end) 总管理人数	
+					sum(case when h.endmanage = 1 then 1 else 0 end) 总管理人数
 					from cc_highrisk h
 					left join cc_generalinfo g on h.childid = g.childid
 					where h.status = 1
-					<If Operator="NotEmpty" ComponentName ="登记日期Start"> and h.registerdate &gt;= @登记日期Start </If>
-					<If Operator="NotEmpty" ComponentName ="登记日期End"> and h.registerdate &gt;= @登记日期End </If>
+					<If Operator="NotEmpty" ComponentName="登记日期Start"> and h.registerdate &gt;= @登记日期Start </If>
+					<If Operator="NotEmpty" ComponentName="登记日期End"> and h.registerdate &lt; dateadd(day,1,@登记日期End) </If>
 					and g.manaunitid in
 					(
 						select fuwujgbh
 						from GY_FUWUJG
-						where 1=1 and HZStatisticsType = 1
+						where HZStatisticsType = 1
 						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
-						<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
-						order by fuwujgbh asc
+						<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>
+						order by DiZhiBMOrder asc
 						@Pager
 					)
 					group by g.manaunitid
-				) za on jg.fuwujgbh = za.fuwujgbh
-				order by jg.fuwujgbh
-			</SQL>
+				</SQL>
+			</SQLs>
 			<CountSQL>
 				select count(*)
 				from GY_FUWUJG
-				where 1=1 and HZStatisticsType = 1
+				where HZStatisticsType = 1
 				<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 				<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 				<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>

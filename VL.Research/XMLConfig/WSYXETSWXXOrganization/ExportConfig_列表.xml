@@ -20,7 +20,7 @@
 				</OrderBys>
 				<SQL>
 					SELECT
-						gy.FUWUJGMC,
+						gy.fuwujgmc,
 						u.recordreportunitcode,
 						u.childbookid,
 						u.homeaddresstext,

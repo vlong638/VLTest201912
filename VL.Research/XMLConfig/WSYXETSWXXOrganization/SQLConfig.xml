@@ -18,7 +18,7 @@
 			</OrderBys>
 			<SQL>
 				SELECT
-				gy.FUWUJGMC,
+				gy.fuwujgmc,
 				u.recordreportunitcode,
 				u.childbookid,
 				u.homeaddresstext,
@@ -45,7 +45,7 @@
 					<If Operator="eq" ComponentName ="dataScope" Value="2" > and gy.dizhibm = @dizhibm </If>
 					<If Operator="eq" ComponentName ="dataScope" Value="3" > and gy.fuwujgbh = @organization </If>
 				ORDER BY gy.FUWUJGBH DESC
-				@page
+				@Pager
 			</SQL>
 			<CountSQL>
 				SELECT count(*) FROM underfiveyearsdeathcase u

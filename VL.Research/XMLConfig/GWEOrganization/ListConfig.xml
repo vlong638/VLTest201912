@@ -16,7 +16,7 @@
 			<!--<ToolBar URL ="../Home/CommonExportInlineForFYPT" Params ="idcard" DefaultParams="moduleName=FYPT_PregnantInfo,exportName=ExportConfig_高危妊娠表" Text="导出" Type = "newPage" Description = "" Area = "300px,400px" YesFun = "yesFun"/>-->
 		</ToolBars>
 		<Properties>
-			<Property IsNeedOnPage="true" DisplayName="单位" ColumnName="单位名称" DisplayType="None" DisplayWidth="180" IsSortable="False" DataType="bigint" Description="-" />
+			<Property IsNeedOnPage="true" DisplayName="单位名称" ColumnName="fuwujgmc" DisplayType="None" DisplayWidth="180" IsSortable="False" DataType="bigint" Description="-" />
 			<Property IsNeedOnPage="true" DisplayName="活产数" ColumnName="活产数" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
 			<Property IsNeedOnPage="true" DisplayName="早产	" ColumnName="早产	" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
 			<Property IsNeedOnPage="true" DisplayName="极低出生体重儿☆" ColumnName="极低出生体重儿" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="varchar" Description="-" />
