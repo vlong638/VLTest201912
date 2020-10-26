@@ -23,7 +23,7 @@
 					gf.fuwujgmc,
 					gz.mingcheng
 					from GY_ZD_SHENGSHIQX_QC gz
-					left join GY_FUWUJG gf on gz.DAIMA = gf.fuwujgbh
+					left join GY_FUWUJG gf on gz.DAIMA = gf.fuwujgbh and subjg.HZStatisticsType=1
 					where 1=1
 					and gf.fuwujgbh is not null
 					<If Operator="eq" ComponentName ="dataScope" Value="2" > and gf.dizhibm = @dizhibm </If>
@@ -45,7 +45,7 @@
 						select fuwujgbh
 						from GY_FUWUJG
 						where 1=1
-						and fuwujgbh is not null
+						and fuwujgbh is not null and HZStatisticsType=1
 						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 						<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>
@@ -70,7 +70,7 @@
 						select fuwujgbh
 						from GY_FUWUJG
 						where 1=1
-						and fuwujgbh is not null
+						and fuwujgbh is not null and HZStatisticsType=1
 						<If Operator="eq" ComponentName ="dataScope" Value="2"> and dizhibm = @dizhibm </If>
 						<If Operator="eq" ComponentName ="dataScope" Value="3"> and fuwujgbh = @organization </If>
 						<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
@@ -92,7 +92,7 @@
 						select fuwujgbh
 						from GY_FUWUJG
 						where 1=1
-						and fuwujgbh is not null
+						and fuwujgbh is not null and HZStatisticsType=1
 						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 						<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>
@@ -116,7 +116,7 @@
 						select fuwujgbh
 						from GY_FUWUJG
 						where 1=1
-						and fuwujgbh is not null
+						and fuwujgbh is not null and HZStatisticsType=1
 						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 						<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>
@@ -144,7 +144,7 @@
 						select fuwujgbh
 						from GY_FUWUJG
 						where 1=1
-						and fuwujgbh is not null
+						and fuwujgbh is not null and HZStatisticsType=1
 						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 						<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>
@@ -166,7 +166,7 @@
 						select fuwujgbh
 						from GY_FUWUJG
 						where 1=1
-						and fuwujgbh is not null
+						and fuwujgbh is not null and HZStatisticsType=1
 						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 						<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>
@@ -190,7 +190,7 @@
 						select fuwujgbh
 						from GY_FUWUJG
 						where 1=1
-						and fuwujgbh is not null
+						and fuwujgbh is not null and HZStatisticsType=1
 						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 						<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>
@@ -204,7 +204,7 @@
 				select count(*)
 				from GY_ZD_SHENGSHIQX_QC gz
 				left join GY_FUWUJG gf on gz.DAIMA = gf.fuwujgbh
-				where 1=1 and fuwujgbh is not null
+				where 1=1 and fuwujgbh is not null and HZStatisticsType=1 
 				<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 				<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 				<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>

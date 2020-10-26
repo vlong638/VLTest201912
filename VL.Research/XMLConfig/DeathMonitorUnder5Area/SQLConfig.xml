@@ -18,7 +18,7 @@
 					from GY_ZD_SHENGSHIQX_QC gz
 					left join GY_FUWUJG gf on gz.DAIMA = gf.fuwujgbh
 					where 1=1 and gf.fuwujgbh is not null
-					and gf.fuwujgbh in ()
+					and gf.HZStatisticsType = 1
 					group by dizhibm,dizhimc,DiZhiBMOrder
 					order by DiZhiBMOrder asc
 					@Pager
@@ -29,7 +29,7 @@
 					count(*) total,
 					sum(case when (FLOOR(datediff(DY,cc.birthDay,@日期范围Start)/365.25) &gt;= 1 and FLOOR(datediff(DY,cc.birthDay, @日期范围End)/365.25)  &lt;=5) then 1 else 0 end) as less5
 					from cc_generalinfo cc
-					left join GY_FUWUJG subjg on cc.manaunitid = subjg.fuwujgbh
+					left join GY_FUWUJG subjg on cc.manaunitid = subjg.fuwujgbh and subjg.HZStatisticsType=1
 					where  cc.status = 0
 					<If Operator="NotEmpty" ComponentName="日期范围Start"> and cc.createDate &gt;= @日期范围Start </If>
 					<If Operator="NotEmpty" ComponentName="日期范围End"> and cc.createDate &lt; dateadd(day,1,@日期范围End) </If>
@@ -54,7 +54,7 @@
 					sum(case when nr.babysex!=1 and nr.babysex!=2 then 1 else 0 end)huochanbm
 					from cdh_newbornrecord nr
 					left join cdh_deliveryrecord dr on nr.chanshibh = dr.chanshibh
-					left join GY_FUWUJG subjg on dr.visitunitcode = subjg.fuwujgbh
+					left join GY_FUWUJG subjg on dr.visitunitcode = subjg.fuwujgbh and subjg.HZStatisticsType=1
 					where nr.outcomeofbirth = 1
 					<If Operator="NotEmpty" ComponentName="日期范围Start"> and dr.tianbiaosj &gt;= @日期范围Start </If>
 					<If Operator="NotEmpty" ComponentName="日期范围End"> and dr.tianbiaosj &lt; dateadd(day,1,@日期范围End) </If>
@@ -75,7 +75,7 @@
 					subjg.dizhibm,
 					sum(case when DATEDIFF(Day,d.babybirth,d.deathdate)>=0 and DATEDIFF(Day,d.babybirth,d.deathdate)&lt;=28 then 1 else 0 end) babys
 					from perinataldeathcase d
-					left join GY_FUWUJG subjg on d.entryunitcode = subjg.fuwujgbh
+					left join GY_FUWUJG subjg on d.entryunitcode = subjg.fuwujgbh and subjg.HZStatisticsType=1
 					where d.mobileflag = 1
 					and d.status = 1
 					<If Operator="NotEmpty" ComponentName="日期范围Start"> and d.entrydate &gt;= @日期范围Start </If>
@@ -97,7 +97,7 @@
 					sum(case when FLOOR(datediff(DY,d.birthday,d.deathdate)/365.25) &gt;= 1 then 1 else 0 end) wusuidy1,
 					count(*) wusuisw
 					from underfiveyearsdeathcase d
-					left join GY_FUWUJG subjg on d.entryunitcode = subjg.fuwujgbh
+					left join GY_FUWUJG subjg on d.entryunitcode = subjg.fuwujgbh and subjg.HZStatisticsType=1
 					where d.mobileflag = 1
 					and d.status = 1
 					<If Operator="NotEmpty" ComponentName="日期范围Start"> and d.entrydate &gt;= @日期范围Start </If>
@@ -122,7 +122,7 @@
 					from cdh_newbornrecord nr
 					left join cdh_deliveryrecord dr on nr.chanshibh = dr.chanshibh
 					left join cdh_pregnantinfo pi on pi.chanshibh = dr.chanshibh
-					left join GY_FUWUJG subjg on dr.visitunitcode = subjg.fuwujgbh
+					left join GY_FUWUJG subjg on dr.visitunitcode = subjg.fuwujgbh and subjg.HZStatisticsType=1
 					where nr.outcomeofbirth = 1
 					and pi.ownerarea != 1
 					<If Operator="NotEmpty" ComponentName="日期范围Start"> and dr.tianbiaosj &gt;= @日期范围Start </If>
@@ -142,7 +142,7 @@
 					subjg.dizhibm,
 					sum(case when DATEDIFF(Day,d.babybirth,d.deathdate)>=0 and DATEDIFF(Day,d.babybirth,d.deathdate)&lt;=28 then 1 else 0 end) babysother
 					from perinataldeathcase d
-					left join GY_FUWUJG subjg on d.entryunitcode = subjg.fuwujgbh
+					left join GY_FUWUJG subjg on d.entryunitcode = subjg.fuwujgbh and subjg.HZStatisticsType=1
 					where d.mobileflag != 1
 					and d.status = 1
 					<If Operator="NotEmpty" ComponentName="日期范围Start"> and d.entrydate &gt;= @日期范围Start </If>
@@ -164,7 +164,7 @@
 					sum(case when FLOOR(datediff(DY,d.birthday,d.deathdate)/365.25) &gt;= 1 then 1 else 0 end) wusuidy1other,
 					count(*) wusuiswother
 					from underfiveyearsdeathcase d
-					left join GY_FUWUJG subjg on d.entryunitcode = subjg.fuwujgbh
+					left join GY_FUWUJG subjg on d.entryunitcode = subjg.fuwujgbh and subjg.HZStatisticsType=1
 					where d.mobileflag != 1
 					and d.status = 1
 					<If Operator="NotEmpty" ComponentName="日期范围Start"> and d.entrydate &gt;= @日期范围Start </If>
@@ -186,7 +186,7 @@
 					select 1 cc
 					from GY_ZD_SHENGSHIQX_QC gz
 					left join GY_FUWUJG gf on gz.DAIMA = gf.fuwujgbh
-					where 1=1 and gf.fuwujgbh is not null
+					where 1=1 and gf.fuwujgbh is not null and subjg.HZStatisticsType=1
 					group by gf.dizhibm
 				) a
 			</CountSQL>
