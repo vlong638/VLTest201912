@@ -19,17 +19,17 @@
 			<SQLs UnitedBy="fuwujgbh">
 				<SQL>
 					select
-					gf.fuwujgbh,
-					gf.fuwujgmc,
+					subjg.fuwujgbh,
+					subjg.fuwujgmc,
 					gz.mingcheng
 					from GY_ZD_SHENGSHIQX_QC gz
-					left join GY_FUWUJG gf on gz.DAIMA = gf.fuwujgbh and subjg.HZStatisticsType=1
+					left join GY_FUWUJG subjg on gz.DAIMA = subjg.fuwujgbh and subjg.HZStatisticsType=1
 					where 1=1
-					and gf.fuwujgbh is not null
-					<If Operator="eq" ComponentName ="dataScope" Value="2" > and gf.dizhibm = @dizhibm </If>
-					<If Operator="eq" ComponentName ="dataScope" Value="3" > and gf.fuwujgbh = @organization </If>
+					and subjg.fuwujgbh is not null
+					<If Operator="eq" ComponentName ="dataScope" Value="2" > and subjg.dizhibm = @dizhibm </If>
+					<If Operator="eq" ComponentName ="dataScope" Value="3" > and subjg.fuwujgbh = @organization </If>
 					<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
-					order by gf.fuwujgbh asc
+					order by subjg.fuwujgbh asc
 					@Pager
 				</SQL>
 				<SQL>
