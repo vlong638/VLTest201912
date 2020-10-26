@@ -6,12 +6,15 @@
 		<Export URL="../api/System/CommonExportAll"/>
 		<Wheres>
 			<Where ComponentName="登记日期" Value="" DisplayName="登记日期" DisplayType="5"/>
+			<Where ComponentName="viewName" Value="" DisplayType="0"/>
+			<Where ComponentName="dataScope" Value="" DisplayType="0"/>
+			<Where ComponentName="jobno" Value="" DisplayType="0"/>
 			<!--"DisplayType <类型[1-文本框|2-数字框|3-单选下拉框|4-树状下拉框|5-日期选择框][默认:1]>",-->
 			<!--<Where ComponentName="序号" Value="" DisplayName="序号" DisplayType="1"/>-->
 		</Wheres>
 		<OrderBy DefaultName ="createdate" DefaultValue ="desc"/>
 		<ToolBars ActionBarPosition="1" ActionBarWidth="100">
-			<ToolBar URL ="../Home/CommonListByDirectoryName" InlineParams ="dizhibm" WhereParams ="登记日期" DefaultParams="viewName=LDETBJFWJKBBOrganization,dataScope=2" Text="查看" Type = "newPage" Description = "" Area = "300px,400px" YesFun = "yesFun"/>
+			<ToolBar URL ="../Home/CommonListByDirectoryName" InlineParams ="dizhibm" WhereParams ="登记日期,jobno" DefaultParams="viewName=LDETBJFWJKBBOrganization,dataScope=2" Text="查看" Type = "newPage" Description = "" Area = "300px,400px" YesFun = "yesFun"/>
 		</ToolBars>
 		<Properties>
 			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="地区" RowSpan="2" ColumnName="diqumc" DisplayType="None" DisplayWidth="100" IsSortable="False" DataType="bigint" Description="-" />
