@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Views>
 	<View ViewName="">
-		<Source SourceName="Data" DBSourceType="FYPTConnectionString">
+		<Source SourceName="Data" DBSourceType="HZConnectionString">
 			<Properties>
 				<Property IsOn="true" ColumnName="*" Alias =""/>
 			</Properties>
@@ -26,7 +26,7 @@
 				u.momname,
 				u.childname,
 				u.homeaddresstext,
-				u.childsex,
+				CASE WHEN u.childsex == 1 THEN '男' WHEN u.childsex == 2 THEN '女' ELSE '不详' as childsex,
 				u.birthday,
 				CASE WHEN u.birthweight IS NOT NULL THEN u.birthweight WHEN cg.birthWeight IS NOT NULL THEN cg.birthweight ELSE null END as birthweight,
 				cg.gestation,
@@ -39,7 +39,7 @@
 				LEFT JOIN GY_FUWUJG gy ON u.recordreportunitcode = gy.FUWUJGBH and gy.HZStatisticsType = 1
 				WHERE
 				u.status = 4
-				<If Operator="NotEmpty" ComponentName="checkDayStart"> and CONVERT(varchar(100), deathdate, 23) &gt;= @checkDayStart </If>
+					<If Operator="NotEmpty" ComponentName="checkDayStart"> and CONVERT(varchar(100), deathdate, 23) &gt;= @checkDayStart </If>
 					<If Operator="NotEmpty" ComponentName="checkDayEnd"> and CONVERT(varchar(100), deathdate, 23) &lt; dateadd(day,1,@checkDayEnd) </If>
 					<If Operator="NotEmpty" ComponentName="fuwujgmc"> and gy.fuwujgmc like @fuwujgmc </If>
 					<If Operator="eq" ComponentName ="dataScope" Value="2" > and gy.dizhibm = @dizhibm </If>
@@ -50,7 +50,7 @@
 			<CountSQL>
 				SELECT count(*) FROM underfiveyearsdeathcase u
 				LEFT JOIN cc_generalinfo cg ON cg.childbookid = u.childbookid
-				LEFT JOIN GY_FUWUJG gy ON u.recordreportunitcode = gy.FUWUJGBH  and gy.HZStatisticsType = 1
+				LEFT JOIN GY_FUWUJG gy ON u.recordreportunitcode = gy.FUWUJGBH and gy.HZStatisticsType = 1
 				WHERE
 					u.status = 4
 					<If Operator="NotEmpty" ComponentName="checkDayStart"> and CONVERT(varchar(100), deathdate, 23) &gt;= @checkDayStart </If>

@@ -31,7 +31,7 @@
 				FROM (
 					select fuwujgbh,fuwujgmc
 					from GY_FUWUJG
-					where 1=1
+					where HZStatisticsType = 2
 					<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 					<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 					<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>
@@ -43,14 +43,14 @@
 						jg.fuwujgbh,
 						count(*) AS num
 					FROM cdh_deliveryrecord cdr
-					LEFT JOIN GY_FUWUJG jg ON jg.FUWUJGBH = cdr.visitunitcode
+					LEFT JOIN GY_FUWUJG jg ON jg.FUWUJGBH = cdr.visitunitcode and jg.HZStatisticsType = 2
 					WHERE cdr.outcomeofpregnancy = '1' AND cdr.status = '1' 
 					<If Operator="NotEmpty" ComponentName="checkDayStart"> and CONVERT(varchar(100), cdr.deliverydate, 23) &gt;= @checkDayStart </If>
 					<If Operator="NotEmpty" ComponentName="checkDayEnd"> and CONVERT(varchar(100), cdr.deliverydate, 23) &lt; dateadd(day,1,@checkDayEnd) </If>
 					AND jg.fuwujgbh in (
 						select fuwujgbh
 						from GY_FUWUJG
-						where 1=1
+						where HZStatisticsType = 2
 						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 						<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>
@@ -71,14 +71,14 @@
 						sum(case when (cg.highrisktype = '18' or cg.highrisktype = '01' or ch.highrisktype = '18' or ch.highrisktype = '01') and ch.endresult = '4' then 1 else 0 end) as sw
 					FROM cc_generalinfo cg
 					LEFT JOIN cc_highrisk ch ON cg.childid = ch.childid
-					LEFT JOIN GY_FUWUJG jg ON jg.FUWUJGBH = cg.createUnit
+					LEFT JOIN GY_FUWUJG jg ON jg.FUWUJGBH = cg.createUnit and jg.HZStatisticsType = 2
 					WHERE 1=1
 					<If Operator="NotEmpty" ComponentName="checkDayStart"> and CONVERT(varchar(100), cg.birthDay, 23) &gt;= @checkDayStart </If>
 					<If Operator="NotEmpty" ComponentName="checkDayEnd"> and CONVERT(varchar(100), cg.birthDay, 23) &lt; dateadd(day,1,@checkDayEnd) </If>
 					and jg.fuwujgbh in (
 						select fuwujgbh
 						from GY_FUWUJG
-						where 1=1
+						where HZStatisticsType = 2
 						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 						<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>
@@ -93,7 +93,7 @@
 				select count(*) from (
 					select fuwujgbh
 					from GY_FUWUJG
-					where 1=1
+					where HZStatisticsType = 2
 						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 					<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>

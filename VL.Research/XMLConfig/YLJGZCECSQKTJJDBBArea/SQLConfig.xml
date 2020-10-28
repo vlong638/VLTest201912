@@ -26,8 +26,9 @@
 					zaochan.qt as zaochanqt,
 					zaochan.sw as zaochansw
 				FROM (
-					select dizhibm,dizhimc
+					select dizhibm,dizhimc,DiZhiBMOrder
 					from GY_FUWUJG
+					where HZStatisticsType = 2
 					group by dizhibm,dizhimc,DiZhiBMOrder
 					order by DiZhiBMOrder asc
 					@Pager
@@ -37,7 +38,7 @@
 						jg.dizhibm,
 						count(*) AS num
 					FROM cdh_deliveryrecord cdr
-					LEFT JOIN GY_FUWUJG jg ON jg.FUWUJGBH = cdr.visitunitcode
+					LEFT JOIN GY_FUWUJG jg ON jg.FUWUJGBH = cdr.visitunitcode and jg.HZStatisticsType = 2
 					WHERE cdr.outcomeofpregnancy = '1' AND cdr.status = '1' 
 					<If Operator="NotEmpty" ComponentName="checkDayStart"> and CONVERT(varchar(100), cdr.deliverydate, 23) &gt;= @checkDayStart </If>
 					<If Operator="NotEmpty" ComponentName="checkDayEnd"> and CONVERT(varchar(100), cdr.deliverydate, 23) &lt; dateadd(day,1,@checkDayEnd) </If>
@@ -62,7 +63,7 @@
 						sum(case when (cg.highrisktype = '18' or cg.highrisktype = '01' or ch.highrisktype = '18' or ch.highrisktype = '01') and ch.endresult = '4' then 1 else 0 end) as sw
 					FROM cc_generalinfo cg
 					LEFT JOIN cc_highrisk ch ON cg.childid = ch.childid
-					LEFT JOIN GY_FUWUJG jg ON jg.FUWUJGBH = cg.createUnit
+					LEFT JOIN GY_FUWUJG jg ON jg.FUWUJGBH = cg.createUnit and jg.HZStatisticsType = 2
 					WHERE 1=1
 					<If Operator="NotEmpty" ComponentName="checkDayStart"> and CONVERT(varchar(100), cg.birthDay, 23) &gt;= @checkDayStart </If>
 					<If Operator="NotEmpty" ComponentName="checkDayEnd"> and CONVERT(varchar(100), cg.birthDay, 23) &lt; dateadd(day,1,@checkDayEnd) </If>
@@ -81,6 +82,7 @@
 				select count(*) from (
 					select dizhibm
 					from GY_FUWUJG
+					where HZStatisticsType = 2
 					group by dizhibm
 				)a
 			</CountSQL>

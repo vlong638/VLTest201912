@@ -18,7 +18,7 @@
 				select 
 					jg.dizhimc diqumc,
 					jg.dizhibm dizhibm, 
-					jg.DiZhiBMOrder
+					jg.DiZhiBMOrder,
 					huochan.*,
 					baby.*,
 					perinatal.*,
@@ -32,7 +32,7 @@
 					baby.babybms + yiner.wusuizsbm as wusuizsbm,
 					baby.babybms + yiner.yinersbm as yinersbm
 				from (
-					select dizhibm,dizhimc
+					select dizhibm,dizhimc,DiZhiBMOrder
 					from GY_FUWUJG
 					group by dizhibm,dizhimc,DiZhiBMOrder
 				) jg
