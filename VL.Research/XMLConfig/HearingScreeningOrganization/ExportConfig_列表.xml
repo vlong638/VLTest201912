@@ -19,95 +19,71 @@
 				<!--<OrderBy ComponentName="fuwujgbh" Alias ="fuwujgbh"/>-->
 			</OrderBys>
 			<SQLs>
-			<SQL>
-			select * from ( 
-				SELECT
-				t.*, 
-				g.fuwujgmc
-				FROM
-				(
-					SELECT
-					nr.visitunitcode fuwujgbh,
-					COUNT (*) AS allnum
-					FROM
-					cdh_newbornrecord nr
-					where 1 = 1
-					<If Operator="NotEmpty" ComponentName ="日期范围Start"> and  nr.tianbiaosj &gt;= @日期范围Start </If>
-					<If Operator="NotEmpty" ComponentName ="日期范围End"> and  nr.tianbiaosj &gt;= @日期范围End </If>
-					GROUP BY
-					nr.visitunitcode
-				) t
-				LEFT JOIN 
-				GY_FUWUJG g ON g.FUWUJGBH = t.fuwujgbh
-				where 	
-				1=1
-				<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
-				<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
-				<If Operator="NotEmpty" ComponentName ="单位名称"> and g.fuwujgmc like @单位名称 </If>
-			) gj
-			left join 
-			(
-				select
-				h.uploadunit fuwujgbh,
-				sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(yy, g.birthDay, h.screendate)&lt;3 and h.screentype = 1 then 1 else 0 end)yiners,
-				sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(d, g.birthDay, h.screendate)&lt;=28 and h.screentype = 1 then 1 else 0 end)babys,
-				sum(case when DATEDIFF(y, g.birthDay, h.screendate)&gt;=3 and DATEDIFF(y, g.birthDay, h.screendate)&lt;7 and h.screentype = 1 then 1 else 0 end)childs,
-				sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(yy, g.birthDay, h.screendate)&lt;3 and h.screentype = 1 and h.complex != 1 then 1 else 0 end)yinersno,
-				sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(d, g.birthDay, h.screendate)&lt;=28 and h.screentype = 1 and h.complex != 1 then 1 else 0 end)babysno,
-				sum(case when DATEDIFF(y, g.birthDay, h.screendate)&gt;=3 and DATEDIFF(y, g.birthDay, h.screendate)&lt;7 and h.screentype = 1 and h.complex != 1 then 1 else 0 end)childsno,
-				sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(yy, g.birthDay, h.screendate)&lt;3 and h.screentype = 1 and h.complex != 1 and h.recall = 1 then 1 else 0 end)yinersback,
-				sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(d, g.birthDay, h.screendate)&lt;=28 and h.screentype = 1 and h.complex != 1 and h.recall = 1 then 1 else 0 end)babysback,
-				sum(case when DATEDIFF(y, g.birthDay, h.screendate)&gt;=3 and DATEDIFF(y, g.birthDay, h.screendate)&lt;7 and h.screentype = 1 and h.complex != 1 and h.recall = 1 then 1 else 0 end)childsback,
-				sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(yy, g.birthDay, h.screendate)&lt;3 and h.screentype = 2 and h.complex != 1 then 1 else 0 end)yinersno2,
-				sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(d, g.birthDay, h.screendate)&lt;=28 and h.screentype = 2 and h.complex != 1 then 1 else 0 end)babysno2,
-				sum(case when DATEDIFF(y, g.birthDay, h.screendate)&gt;=3 and DATEDIFF(y, g.birthDay, h.screendate)&lt;7 and h.screentype = 2 and h.complex != 1 then 1 else 0 end)childsno2,
-				sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(yy, g.birthDay, h.screendate)&lt;3 and h.screentype = 2 and h.complex != 1 and h.recall = 1 then 1 else 0 end)yinersback2,
-				sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(d, g.birthDay, h.screendate)&lt;=28 and h.screentype = 2 and h.complex != 1 and h.recall = 1 then 1 else 0 end)babysback2,
-				sum(case when DATEDIFF(y, g.birthDay, h.screendate)&gt;=3 and DATEDIFF(y, g.birthDay, h.screendate)&lt;7 and h.screentype = 2 and h.complex != 1 and h.recall = 1 then 1 else 0 end)childsback2,
-				sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(yy, g.birthDay, h.screendate)&lt;3 and h.screentype = 2 and h.complex != 1 then 1 else 0 end)yinersresult,
-				sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(d, g.birthDay, h.screendate)&lt;=28 and h.screentype = 2 and h.complex != 1 then 1 else 0 end)babysresult,
-				sum(case when DATEDIFF(y, g.birthDay, h.screendate)&gt;=3 and DATEDIFF(y, g.birthDay, h.screendate)&lt;7 and h.screentype = 2 and h.complex != 1 then 1 else 0 end)childsresult
-				from
-				(
-						select t.* from    
+				<SQL>
+					select * from ( 
+						SELECT
+						t.*, 
+						g.fuwujgmc
+						FROM
 						(
-								select
-								*, row_number() over(partition by childid, screentype order by createtime desc) as rowindex
-								from cc_hearscreen
-								where status = 1 
-								<If Operator="NotEmpty" ComponentName ="日期范围Start"> and  inputdate &gt;= @日期范围Start </If>
-								<If Operator="NotEmpty" ComponentName ="日期范围End"> and  inputdate &gt;= @日期范围End </If> 
-						)t
-						where t.rowindex = 1
-				)h
-				left join cc_generalinfo g on h.childid = g.childid
-				left join GY_FUWUJG f on h.uploadunit = f.fuwujgbh
-				group by h.uploadunit, f.fuwujgmc
-			) p1 on gj.fuwujgbh = p1.fuwujgbh
-			order by gj.fuwujgbh
-			</SQL>
-			
+							SELECT nr.visitunitcode fuwujgbh,
+							COUNT (*) AS allnum
+							FROM cdh_newbornrecord nr
+							where 1 = 1
+							<If Operator="NotEmpty" ComponentName ="日期范围Start"> and  nr.tianbiaosj &gt;= @日期范围Start </If>
+							<If Operator="NotEmpty" ComponentName="日期范围End"> and nr.tianbiaosj &lt; dateadd(day,1,@日期范围End) </If>
+							GROUP BY nr.visitunitcode
+						) t
+						LEFT JOIN 
+						GY_FUWUJG g ON g.FUWUJGBH = t.fuwujgbh
+						where HZStatisticsType = 2
+						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
+						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
+						<If Operator="NotEmpty" ComponentName ="单位名称"> and g.fuwujgmc like @单位名称 </If>
+					) gj
+					left join 
+					(
+						select
+						h.uploadunit fuwujgbh,
+						sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(yy, g.birthDay, h.screendate)&lt;3 and h.screentype = 1 then 1 else 0 end)yiners,
+						sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(d, g.birthDay, h.screendate)&lt;=28 and h.screentype = 1 then 1 else 0 end)babys,
+						sum(case when DATEDIFF(y, g.birthDay, h.screendate)&gt;=3 and DATEDIFF(y, g.birthDay, h.screendate)&lt;7 and h.screentype = 1 then 1 else 0 end)childs,
+						sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(yy, g.birthDay, h.screendate)&lt;3 and h.screentype = 1 and h.complex != 1 then 1 else 0 end)yinersno,
+						sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(d, g.birthDay, h.screendate)&lt;=28 and h.screentype = 1 and h.complex != 1 then 1 else 0 end)babysno,
+						sum(case when DATEDIFF(y, g.birthDay, h.screendate)&gt;=3 and DATEDIFF(y, g.birthDay, h.screendate)&lt;7 and h.screentype = 1 and h.complex != 1 then 1 else 0 end)childsno,
+						sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(yy, g.birthDay, h.screendate)&lt;3 and h.screentype = 1 and h.complex != 1 and h.recall = 1 then 1 else 0 end)yinersback,
+						sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(d, g.birthDay, h.screendate)&lt;=28 and h.screentype = 1 and h.complex != 1 and h.recall = 1 then 1 else 0 end)babysback,
+						sum(case when DATEDIFF(y, g.birthDay, h.screendate)&gt;=3 and DATEDIFF(y, g.birthDay, h.screendate)&lt;7 and h.screentype = 1 and h.complex != 1 and h.recall = 1 then 1 else 0 end)childsback,
+						sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(yy, g.birthDay, h.screendate)&lt;3 and h.screentype = 2 and h.complex != 1 then 1 else 0 end)yinersno2,
+						sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(d, g.birthDay, h.screendate)&lt;=28 and h.screentype = 2 and h.complex != 1 then 1 else 0 end)babysno2,
+						sum(case when DATEDIFF(y, g.birthDay, h.screendate)&gt;=3 and DATEDIFF(y, g.birthDay, h.screendate)&lt;7 and h.screentype = 2 and h.complex != 1 then 1 else 0 end)childsno2,
+						sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(yy, g.birthDay, h.screendate)&lt;3 and h.screentype = 2 and h.complex != 1 and h.recall = 1 then 1 else 0 end)yinersback2,
+						sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(d, g.birthDay, h.screendate)&lt;=28 and h.screentype = 2 and h.complex != 1 and h.recall = 1 then 1 else 0 end)babysback2,
+						sum(case when DATEDIFF(y, g.birthDay, h.screendate)&gt;=3 and DATEDIFF(y, g.birthDay, h.screendate)&lt;7 and h.screentype = 2 and h.complex != 1 and h.recall = 1 then 1 else 0 end)childsback2,
+						sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(yy, g.birthDay, h.screendate)&lt;3 and h.screentype = 2 and h.complex != 1 then 1 else 0 end)yinersresult,
+						sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(d, g.birthDay, h.screendate)&lt;=28 and h.screentype = 2 and h.complex != 1 then 1 else 0 end)babysresult,
+						sum(case when DATEDIFF(y, g.birthDay, h.screendate)&gt;=3 and DATEDIFF(y, g.birthDay, h.screendate)&lt;7 and h.screentype = 2 and h.complex != 1 then 1 else 0 end)childsresult
+						from
+						(
+								select t.* from    
+								(
+										select
+										*, row_number() over(partition by childid, screentype order by createtime desc) as rowindex
+										from cc_hearscreen
+										where status = 1 
+										<If Operator="NotEmpty" ComponentName ="日期范围Start"> and  inputdate &gt;= @日期范围Start </If>
+										<If Operator="NotEmpty" ComponentName="日期范围End"> and inputdate &lt; dateadd(day,1,@日期范围End) </If>
+								)t
+								where t.rowindex = 1
+						)h
+						left join cc_generalinfo g on h.childid = g.childid
+						left join GY_FUWUJG f on h.uploadunit = f.fuwujgbh
+						where f.HZStatisticsType = 2
+						group by h.uploadunit, f.fuwujgmc
+					) p1 on gj.fuwujgbh = p1.fuwujgbh
+					order by gj.fuwujgbh
+				</SQL>
 			</SQLs>
-			<CountSQL>
-		select count(*) from 
-		(SELECT
-		nr.visitunitcode fuwujgbh
-		FROM
-		cdh_newbornrecord nr
-		where 1 = 1
-		<If Operator="NotEmpty" ComponentName ="日期范围Start"> and  nr.tianbiaosj &gt;= @日期范围Start </If>
-		<If Operator="NotEmpty" ComponentName ="日期范围End"> and  nr.tianbiaosj &gt;= @日期范围End </If>
-		GROUP BY
-		nr.visitunitcode
-		) t
-		LEFT JOIN 
-		GY_FUWUJG g ON g.FUWUJGBH = t.fuwujgbh
-		where 	
-		1=1
-		<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
-		<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
-		<If Operator="NotEmpty" ComponentName ="单位名称"> and g.fuwujgmc like @单位名称 </If>
-			</CountSQL>
 		</Source>
 			<Source SourceName="DataUser" DBSourceType="HZConnectionString">
 				<Properties>

@@ -35,7 +35,7 @@
 				from (
 					select fuwujgbh,fuwujgmc
 					from GY_FUWUJG
-					where 1=1
+					where HZStatisticsType = 2
 					<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 					<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 					<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>
@@ -57,10 +57,11 @@
 					and nr.outcomeofbirth = 1 and pi.ownerarea != 1
 					<If Operator="NotEmpty" ComponentName="登记日期Start"> and CONVERT(varchar(100), dr.tianbiaosj, 23) &gt;= @登记日期Start </If>
 					<If Operator="NotEmpty" ComponentName="登记日期End"> and CONVERT(varchar(100), dr.tianbiaosj, 23) &lt; dateadd(day,1,@登记日期End) </If>
+					and subjg.HZStatisticsType = 2
 					and subjg.fuwujgbh in (
 						select fuwujgbh
 						from GY_FUWUJG
-						where 1=1
+						where HZStatisticsType = 2
 						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 						<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>
@@ -82,10 +83,11 @@
 					and d.status = 1
 					<If Operator="NotEmpty" ComponentName="登记日期Start"> and CONVERT(varchar(100), d.entrydate, 23) &gt;= @登记日期Start </If>
 					<If Operator="NotEmpty" ComponentName="登记日期End"> and CONVERT(varchar(100), d.entrydate, 23) &lt; dateadd(day,1,@登记日期End) </If>
+					and subjg.HZStatisticsType = 2
 					and subjg.fuwujgbh in(
 						select fuwujgbh
 						from GY_FUWUJG
-						where 1=1
+						where HZStatisticsType = 2
 						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 						<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>
@@ -112,10 +114,11 @@
 					and d.status = 1
 					<If Operator="NotEmpty" ComponentName="登记日期Start"> and CONVERT(varchar(100), d.entrydate, 23) &gt;= @登记日期Start </If>
 					<If Operator="NotEmpty" ComponentName="登记日期End"> and CONVERT(varchar(100), d.entrydate, 23) &lt; dateadd(day,1,@登记日期End) </If>
+					and subjg.HZStatisticsType = 2
 					and subjg.fuwujgbh in(
 						select fuwujgbh
 						from GY_FUWUJG
-						where 1=1
+						where HZStatisticsType = 2
 						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 						<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>
@@ -138,10 +141,11 @@
 					and d.status = 1
 					<If Operator="NotEmpty" ComponentName="登记日期Start"> and CONVERT(varchar(100), d.entrydate, 23) &gt;= @登记日期Start </If>
 					<If Operator="NotEmpty" ComponentName="登记日期End"> and CONVERT(varchar(100), d.entrydate, 23) &lt; dateadd(day,1,@登记日期End) </If>
+					and subjg.HZStatisticsType = 2
 					and subjg.fuwujgbh in(
 						select fuwujgbh
 						from GY_FUWUJG
-						where 1=1
+						where HZStatisticsType = 2
 						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 						<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>
@@ -159,10 +163,11 @@
 					where d.status = 1
 					<If Operator="NotEmpty" ComponentName="登记日期Start"> and CONVERT(varchar(100), d.recordreportdate, 23) &gt;= @登记日期Start </If>
 					<If Operator="NotEmpty" ComponentName="登记日期End"> and CONVERT(varchar(100), d.recordreportdate, 23) &lt; dateadd(day,1,@登记日期End) </If>
+					and subjg.HZStatisticsType = 2
 					and subjg.fuwujgbh in(
 						select fuwujgbh
 						from GY_FUWUJG
-						where 1=1
+						where HZStatisticsType = 2
 						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 						<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>
@@ -177,7 +182,7 @@
 				select count(*) from (
 					select fuwujgbh
 					from GY_FUWUJG
-					where 1=1
+					where HZStatisticsType = 2
 						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 					<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>

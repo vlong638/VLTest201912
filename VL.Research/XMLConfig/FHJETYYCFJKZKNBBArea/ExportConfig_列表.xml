@@ -34,6 +34,7 @@
 				from (
 					select dizhibm,dizhimc,DiZhiBMOrder
 					from GY_FUWUJG
+					where HZStatisticsType = 2
 					group by dizhibm,dizhimc,DiZhiBMOrder
 				) jg
 				left join (
@@ -51,9 +52,11 @@
 					and nr.outcomeofbirth = 1 and pi.ownerarea != 1
 					<If Operator="NotEmpty" ComponentName="登记日期Start"> and CONVERT(varchar(100), dr.tianbiaosj, 23) &gt;= @登记日期Start </If>
 					<If Operator="NotEmpty" ComponentName="登记日期End"> and CONVERT(varchar(100), dr.tianbiaosj, 23) &lt; dateadd(day,1,@登记日期End) </If>
+					and subjg.HZStatisticsType = 2
 					and subjg.dizhibm in (
 						select dizhibm
 						from GY_FUWUJG
+						where HZStatisticsType = 2
 						group by dizhibm,DiZhiBMOrder
 					)
 					group by subjg.dizhibm
@@ -71,9 +74,11 @@
 					and d.status = 1
 					<If Operator="NotEmpty" ComponentName="登记日期Start"> and CONVERT(varchar(100), d.entrydate, 23) &gt;= @登记日期Start </If>
 					<If Operator="NotEmpty" ComponentName="登记日期End"> and CONVERT(varchar(100), d.entrydate, 23) &lt; dateadd(day,1,@登记日期End) </If>
+					and subjg.HZStatisticsType = 2
 					and subjg.dizhibm in(
 						select dizhibm
 						from GY_FUWUJG
+						where HZStatisticsType = 2
 						group by dizhibm,DiZhiBMOrder
 					)
 					group by subjg.dizhibm
@@ -96,9 +101,11 @@
 					and d.status = 1
 					<If Operator="NotEmpty" ComponentName="登记日期Start"> and CONVERT(varchar(100), d.entrydate, 23) &gt;= @登记日期Start </If>
 					<If Operator="NotEmpty" ComponentName="登记日期End"> and CONVERT(varchar(100), d.entrydate, 23) &lt; dateadd(day,1,@登记日期End) </If>
+					and subjg.HZStatisticsType = 2
 					and subjg.dizhibm in(
 						select dizhibm
 						from GY_FUWUJG
+						where HZStatisticsType = 2
 						group by dizhibm,DiZhiBMOrder
 					)
 					group by subjg.dizhibm
@@ -117,9 +124,11 @@
 					and d.status = 1
 					<If Operator="NotEmpty" ComponentName="登记日期Start"> and CONVERT(varchar(100), d.entrydate, 23) &gt;= @登记日期Start </If>
 					<If Operator="NotEmpty" ComponentName="登记日期End"> and CONVERT(varchar(100), d.entrydate, 23) &lt; dateadd(day,1,@登记日期End) </If>
+					and subjg.HZStatisticsType = 2
 					and subjg.dizhibm in(
 						select dizhibm
 						from GY_FUWUJG
+						where HZStatisticsType = 2
 						group by dizhibm,DiZhiBMOrder
 					)
 					group by subjg.dizhibm
@@ -133,9 +142,11 @@
 					where d.status = 1
 					<If Operator="NotEmpty" ComponentName="登记日期Start"> and CONVERT(varchar(100), d.recordreportdate, 23) &gt;= @登记日期Start </If>
 					<If Operator="NotEmpty" ComponentName="登记日期End"> and CONVERT(varchar(100), d.recordreportdate, 23) &lt; dateadd(day,1,@登记日期End) </If>
+					and subjg.HZStatisticsType = 2
 					and subjg.dizhibm in(
 						select dizhibm
 						from GY_FUWUJG
+						where HZStatisticsType = 2
 						group by dizhibm,DiZhiBMOrder
 					)
 					group by subjg.dizhibm

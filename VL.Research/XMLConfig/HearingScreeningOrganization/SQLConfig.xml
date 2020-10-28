@@ -37,8 +37,7 @@
 						) t
 						LEFT JOIN 
 						GY_FUWUJG g ON g.FUWUJGBH = t.fuwujgbh
-						where 	
-						1=1
+						where HZStatisticsType = 2
 						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 						<If Operator="NotEmpty" ComponentName ="单位名称"> and g.fuwujgmc like @单位名称 </If>
@@ -82,6 +81,7 @@
 						)h
 						left join cc_generalinfo g on h.childid = g.childid
 						left join GY_FUWUJG f on h.uploadunit = f.fuwujgbh
+						where f.HZStatisticsType = 2
 						group by h.uploadunit, f.fuwujgmc
 					) p1 on gj.fuwujgbh = p1.fuwujgbh
 					order by gj.fuwujgbh
@@ -89,19 +89,16 @@
 			</SQLs>
 			<CountSQL>
 				select count(*) from 
-				(SELECT
-				nr.visitunitcode fuwujgbh
-				FROM
-				cdh_newbornrecord nr
-				where 1 = 1
-				<If Operator="NotEmpty" ComponentName ="日期范围Start"> and  nr.tianbiaosj &gt;= @日期范围Start </If>
-				<If Operator="NotEmpty" ComponentName="日期范围End"> and nr.tianbiaosj &lt; dateadd(day,1,@日期范围End) </If>
-				GROUP BY
-				nr.visitunitcode
+				(
+					SELECT nr.visitunitcode fuwujgbh
+					FROM cdh_newbornrecord nr
+					where 1 = 1
+					<If Operator="NotEmpty" ComponentName ="日期范围Start"> and  nr.tianbiaosj &gt;= @日期范围Start </If>
+					<If Operator="NotEmpty" ComponentName="日期范围End"> and nr.tianbiaosj &lt; dateadd(day,1,@日期范围End) </If>
+					GROUP BY nr.visitunitcode
 				) t
-				LEFT JOIN 
-				GY_FUWUJG g ON g.FUWUJGBH = t.fuwujgbh
-				where 1=1
+				LEFT JOIN GY_FUWUJG g ON g.FUWUJGBH = t.fuwujgbh
+				where g.HZStatisticsType = 2
 				<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 				<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 				<If Operator="NotEmpty" ComponentName ="单位名称"> and g.fuwujgmc like @单位名称 </If>

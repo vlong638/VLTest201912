@@ -14,62 +14,64 @@
 			<OrderBys>
 				<!--<OrderBy ComponentName="dizhibm" Alias ="dizhibm"/>-->
 			</OrderBys>
-				<SQLs>
-					<SQL>
-						select * from (
+			<SQLs>
+				<SQL>
+					select * from (
 						SELECT
 						g.dizhimc,
 						g.dizhibm,
+						g.DiZhiBMOrder,
 						COUNT (*) AS allnum
 						FROM cdh_newbornrecord nr
 						left join GY_FUWUJG g on nr.visitunitcode = g.fuwujgbh
-						where 1 = 1
+						where HZStatisticsType = 2
 						<If Operator="NotEmpty" ComponentName ="日期范围Start"> and  nr.tianbiaosj &gt;= @日期范围Start </If>
 						<If Operator="NotEmpty" ComponentName="日期范围End"> and nr.tianbiaosj &lt; dateadd(day,1,@日期范围End) </If>
-						GROUP BY g.dizhibm,g.dizhimc,DiZhiBMOrder
-						) jg
-						left join
+						GROUP BY g.dizhibm,g.dizhimc,g.DiZhiBMOrder
+					) jg
+					left join
+					(
+						select
+						f.dizhibm,
+						sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(yy, g.birthDay, h.screendate)&lt;3 and h.screentype = 1 then 1 else 0 end)yiners,
+						sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(d, g.birthDay, h.screendate)&lt;=28 and h.screentype = 1 then 1 else 0 end)babys,
+						sum(case when DATEDIFF(y, g.birthDay, h.screendate)&gt;=3 and DATEDIFF(y, g.birthDay, h.screendate)&lt;7 and h.screentype = 1 then 1 else 0 end)childs,
+						sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(yy, g.birthDay, h.screendate)&lt;3 and h.screentype = 1 and h.complex != 1 then 1 else 0 end)yinersno,
+						sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(d, g.birthDay, h.screendate)&lt;=28 and h.screentype = 1 and h.complex != 1 then 1 else 0 end)babysno,
+						sum(case when DATEDIFF(y, g.birthDay, h.screendate)&gt;=3 and DATEDIFF(y, g.birthDay, h.screendate)&lt;7 and h.screentype = 1 and h.complex != 1 then 1 else 0 end)childsno,
+						sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(yy, g.birthDay, h.screendate)&lt;3 and h.screentype = 1 and h.complex != 1 and h.recall = 1 then 1 else 0 end)yinersback,
+						sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(d, g.birthDay, h.screendate)&lt;=28 and h.screentype = 1 and h.complex != 1 and h.recall = 1 then 1 else 0 end)babysback,
+						sum(case when DATEDIFF(y, g.birthDay, h.screendate)&gt;=3 and DATEDIFF(y, g.birthDay, h.screendate)&lt;7 and h.screentype = 1 and h.complex != 1 and h.recall = 1 then 1 else 0 end)childsback,
+						sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(yy, g.birthDay, h.screendate)&lt;3 and h.screentype = 2 and h.complex != 1 then 1 else 0 end)yinersno2,
+						sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(d, g.birthDay, h.screendate)&lt;=28 and h.screentype = 2 and h.complex != 1 then 1 else 0 end)babysno2,
+						sum(case when DATEDIFF(y, g.birthDay, h.screendate)&gt;=3 and DATEDIFF(y, g.birthDay, h.screendate)&lt;7 and h.screentype = 2 and h.complex != 1 then 1 else 0 end)childsno2,
+						sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(yy, g.birthDay, h.screendate)&lt;3 and h.screentype = 2 and h.complex != 1 and h.recall = 1 then 1 else 0 end)yinersback2,
+						sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(d, g.birthDay, h.screendate)&lt;=28 and h.screentype = 2 and h.complex != 1 and h.recall = 1 then 1 else 0 end)babysback2,
+						sum(case when DATEDIFF(y, g.birthDay, h.screendate)&gt;=3 and DATEDIFF(y, g.birthDay, h.screendate)&lt;7 and h.screentype = 2 and h.complex != 1 and h.recall = 1 then 1 else 0 end)childsback2,
+						sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(yy, g.birthDay, h.screendate)&lt;3 and h.screentype = 2 and h.complex != 1 then 1 else 0 end)yinersresult,
+						sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(d, g.birthDay, h.screendate)&lt;=28 and h.screentype = 2 and h.complex != 1 then 1 else 0 end)babysresult,
+						sum(case when DATEDIFF(y, g.birthDay, h.screendate)&gt;=3 and DATEDIFF(y, g.birthDay, h.screendate)&lt;7 and h.screentype = 2 and h.complex != 1 then 1 else 0 end)childsresult
+						from
 						(
-							select
-							f.dizhibm,
-							sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(yy, g.birthDay, h.screendate)&lt;3 and h.screentype = 1 then 1 else 0 end)yiners,
-							sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(d, g.birthDay, h.screendate)&lt;=28 and h.screentype = 1 then 1 else 0 end)babys,
-							sum(case when DATEDIFF(y, g.birthDay, h.screendate)&gt;=3 and DATEDIFF(y, g.birthDay, h.screendate)&lt;7 and h.screentype = 1 then 1 else 0 end)childs,
-							sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(yy, g.birthDay, h.screendate)&lt;3 and h.screentype = 1 and h.complex != 1 then 1 else 0 end)yinersno,
-							sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(d, g.birthDay, h.screendate)&lt;=28 and h.screentype = 1 and h.complex != 1 then 1 else 0 end)babysno,
-							sum(case when DATEDIFF(y, g.birthDay, h.screendate)&gt;=3 and DATEDIFF(y, g.birthDay, h.screendate)&lt;7 and h.screentype = 1 and h.complex != 1 then 1 else 0 end)childsno,
-							sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(yy, g.birthDay, h.screendate)&lt;3 and h.screentype = 1 and h.complex != 1 and h.recall = 1 then 1 else 0 end)yinersback,
-							sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(d, g.birthDay, h.screendate)&lt;=28 and h.screentype = 1 and h.complex != 1 and h.recall = 1 then 1 else 0 end)babysback,
-							sum(case when DATEDIFF(y, g.birthDay, h.screendate)&gt;=3 and DATEDIFF(y, g.birthDay, h.screendate)&lt;7 and h.screentype = 1 and h.complex != 1 and h.recall = 1 then 1 else 0 end)childsback,
-							sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(yy, g.birthDay, h.screendate)&lt;3 and h.screentype = 2 and h.complex != 1 then 1 else 0 end)yinersno2,
-							sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(d, g.birthDay, h.screendate)&lt;=28 and h.screentype = 2 and h.complex != 1 then 1 else 0 end)babysno2,
-							sum(case when DATEDIFF(y, g.birthDay, h.screendate)&gt;=3 and DATEDIFF(y, g.birthDay, h.screendate)&lt;7 and h.screentype = 2 and h.complex != 1 then 1 else 0 end)childsno2,
-							sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(yy, g.birthDay, h.screendate)&lt;3 and h.screentype = 2 and h.complex != 1 and h.recall = 1 then 1 else 0 end)yinersback2,
-							sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(d, g.birthDay, h.screendate)&lt;=28 and h.screentype = 2 and h.complex != 1 and h.recall = 1 then 1 else 0 end)babysback2,
-							sum(case when DATEDIFF(y, g.birthDay, h.screendate)&gt;=3 and DATEDIFF(y, g.birthDay, h.screendate)&lt;7 and h.screentype = 2 and h.complex != 1 and h.recall = 1 then 1 else 0 end)childsback2,
-							sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(yy, g.birthDay, h.screendate)&lt;3 and h.screentype = 2 and h.complex != 1 then 1 else 0 end)yinersresult,
-							sum(case when DATEDIFF(d, g.birthDay, h.screendate)&gt;=0 and DATEDIFF(d, g.birthDay, h.screendate)&lt;=28 and h.screentype = 2 and h.complex != 1 then 1 else 0 end)babysresult,
-							sum(case when DATEDIFF(y, g.birthDay, h.screendate)&gt;=3 and DATEDIFF(y, g.birthDay, h.screendate)&lt;7 and h.screentype = 2 and h.complex != 1 then 1 else 0 end)childsresult
-							from
+							select t.* from
 							(
-								select t.* from
-								(
 								select
 								*, row_number() over(partition by childid, screentype order by createtime desc) as rowindex
 								from cc_hearscreen
 								where status = 1
 								<If Operator="NotEmpty" ComponentName ="日期范围Start"> and  inputdate &gt;= @日期范围Start </If>
 								<If Operator="NotEmpty" ComponentName="日期范围End"> and inputdate &lt; dateadd(day,1,@日期范围End) </If>
-								)t
+							)t
 							where t.rowindex = 1
-							)h
-							left join cc_generalinfo g on h.childid = g.childid
-							left join GY_FUWUJG f on h.uploadunit = f.fuwujgbh
-							group by f.dizhibm
-						) p1 on jg.dizhibm = p1.dizhibm
-						order by jg.DiZhiBMOrder
-					</SQL>
-				</SQLs>
+						)h
+						left join cc_generalinfo g on h.childid = g.childid
+						left join GY_FUWUJG f on h.uploadunit = f.fuwujgbh
+						where f.HZStatisticsType = 2
+						group by f.dizhibm
+					) p1 on jg.dizhibm = p1.dizhibm
+					order by jg.DiZhiBMOrder
+				</SQL>
+			</SQLs>
 			<CountSQL>
 				select count(*) from 
 				(
