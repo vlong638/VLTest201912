@@ -46,13 +46,13 @@
 						<If Operator="NotEmpty" ComponentName="日期范围End"> and dr.tianbiaosj &lt; dateadd(day,1,@日期范围End) </If>
 						and dr.visitunitcode in
 						(
-						select fuwujgbh
-						from GY_FUWUJG
-						where 1=1
-						and fuwujgbh is not null
-						<If Operator="eq" ComponentName ="dataScope" Value="2"> and dizhibm = @dizhibm </If>
-						<If Operator="eq" ComponentName ="dataScope" Value="3"> and fuwujgbh = @organization </If>
-						<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
+							select fuwujgbh
+							from GY_FUWUJG
+							where 1=1
+							and fuwujgbh is not null and HZDMU5 = 1
+							<If Operator="eq" ComponentName ="dataScope" Value="2"> and dizhibm = @dizhibm </If>
+							<If Operator="eq" ComponentName ="dataScope" Value="3"> and fuwujgbh = @organization </If>
+							<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
 						)
 						group by dr.visitunitcode
 					</SQL>
@@ -66,13 +66,13 @@
 						<If Operator="NotEmpty" ComponentName="日期范围End"> and d.entrydate &lt; dateadd(day,1,@日期范围End) </If>
 						and d.entryunitcode in
 						(
-						select fuwujgbh
-						from GY_FUWUJG
-						where 1=1
-						and fuwujgbh is not null
-						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
-						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
-						<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>
+							select fuwujgbh
+							from GY_FUWUJG
+							where 1=1
+							and fuwujgbh is not null and HZDMU5 = 1
+							<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
+							<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
+							<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>
 						)
 						group by d.entryunitcode
 					</SQL>
@@ -88,13 +88,13 @@
 						<If Operator="NotEmpty" ComponentName="日期范围End"> and d.entrydate &lt; dateadd(day,1,@日期范围End) </If>
 						and d.entryunitcode in
 						(
-						select fuwujgbh
-						from GY_FUWUJG
-						where 1=1
-						and fuwujgbh is not null
-						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
-						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
-						<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>
+							select fuwujgbh
+							from GY_FUWUJG
+							where 1=1
+							and fuwujgbh is not null and HZDMU5 = 1
+							<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
+							<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
+							<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>
 						)
 						group by d.entryunitcode
 						order by d.entryunitcode asc
@@ -115,13 +115,13 @@
 						<If Operator="NotEmpty" ComponentName="日期范围End"> and dr.tianbiaosj &lt; dateadd(day,1,@日期范围End) </If>
 						and dr.visitunitcode in
 						(
-						select fuwujgbh
-						from GY_FUWUJG
-						where 1=1
-						and fuwujgbh is not null
-						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
-						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
-						<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>
+							select fuwujgbh
+							from GY_FUWUJG
+							where 1=1
+							and fuwujgbh is not null and HZDMU5 = 1
+							<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
+							<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
+							<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>
 						)
 						group by dr.visitunitcode
 						order by dr.visitunitcode asc
@@ -136,13 +136,13 @@
 						<If Operator="NotEmpty" ComponentName="日期范围End"> and d.entrydate &lt; dateadd(day,1,@日期范围End) </If>
 						and d.entryunitcode in
 						(
-						select fuwujgbh
-						from GY_FUWUJG
-						where 1=1
-						and fuwujgbh is not null
-						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
-						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
-						<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>
+							select fuwujgbh
+							from GY_FUWUJG
+							where 1=1
+							and fuwujgbh is not null and HZDMU5 = 1
+							<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
+							<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
+							<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>
 						)
 						group by d.entryunitcode
 					</SQL>
@@ -158,13 +158,13 @@
 						<If Operator="NotEmpty" ComponentName="日期范围End"> and d.entrydate &lt; dateadd(day,1,@日期范围End) </If>
 						and d.entryunitcode in
 						(
-						select fuwujgbh
-						from GY_FUWUJG
-						where 1=1
-						and fuwujgbh is not null
-						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
-						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
-						<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>
+							select fuwujgbh
+							from GY_FUWUJG
+							where 1=1
+							and fuwujgbh is not null and HZDMU5 = 1
+							<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
+							<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
+							<If Operator="NotEmpty" ComponentName ="fuwujgmc"> and fuwujgmc like @fuwujgmc </If>
 						)
 						group by d.entryunitcode
 						order by d.entryunitcode asc

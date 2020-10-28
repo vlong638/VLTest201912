@@ -144,28 +144,40 @@
     <None Update="XMLConfig\ChildHeathOrganization\儿童保健和健康情况表（2019年版）.xlsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="XMLConfig\DeathMonitorUnder5Area\ExportConfig_列表.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="XMLConfig\DeathMonitorUnder5Area\5岁以下儿童死亡监测表.xlsx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="XMLConfig\DeathMonitorUnder5Organization\5岁以下儿童死亡监测表.xlsx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="XMLConfig\DeathMonitorUnder5Organization\ExportConfig_列表.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="XMLConfig\DeathMonitorUnder5QuarterlyArea\5岁以下儿童死亡监测表.xlsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="XMLConfig\DeathMonitorUnder5QuarterlyArea\ExportConfig_列表.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="XMLConfig\DeathMonitorUnder5QuarterlyArea\ListConfig.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLConfig\DeathMonitorUnder5QuarterlyArea\SQLConfig.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLConfig\DeathMonitorUnder5Area\ExportConfig_列表.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLConfig\DeathMonitorUnder5Area\5岁以下儿童死亡监测表.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="XMLConfig\DeathMonitorUnder5QuarterlyOrganization\5岁以下儿童死亡监测表.xlsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="XMLConfig\DeathMonitorUnder5QuarterlyOrganization\ExportConfig_列表.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLConfig\DeathMonitorUnder5QuarterlyOrganization\ListConfig.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLConfig\DeathMonitorUnder5QuarterlyOrganization\SQLConfig.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLConfig\DeathMonitorUnder5Organization\5岁以下儿童死亡监测表.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLConfig\DeathMonitorUnder5Organization\ExportConfig_列表.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="XMLConfig\LDETBJFWJKBBArea\ExportConfig_列表.xml">
@@ -213,22 +225,10 @@
     <None Update="XMLConfig\PrematureBabyManagementArea\SQLConfig.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="XMLConfig\DeathMonitorUnder5QuarterlyArea\ListConfig.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="XMLConfig\DeathMonitorUnder5QuarterlyArea\SQLConfig.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="XMLConfig\DeathMonitorUnder5Area\ListConfig.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="XMLConfig\DeathMonitorUnder5Area\SQLConfig.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="XMLConfig\DeathMonitorUnder5QuarterlyOrganization\ListConfig.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="XMLConfig\DeathMonitorUnder5QuarterlyOrganization\SQLConfig.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="XMLConfig\DeathMonitorUnder5Organization\ListConfig.xml">
