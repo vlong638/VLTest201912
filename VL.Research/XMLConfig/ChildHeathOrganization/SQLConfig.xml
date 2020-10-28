@@ -23,7 +23,7 @@
 					from (
 						select fuwujgbh,fuwujgmc
 						from GY_FUWUJG
-						where 1=1
+						where HZStatisticsType = 1
 						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 						<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
@@ -46,7 +46,7 @@
 						(
 							select fuwujgbh
 							from GY_FUWUJG
-							where 1=1
+							where HZStatisticsType = 1
 							<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 							<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 							<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
@@ -70,7 +70,7 @@
 					(
 						select fuwujgbh
 						from GY_FUWUJG
-						where 1=1
+						where HZStatisticsType = 1
 						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 						<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
@@ -93,7 +93,7 @@
 					(
 						select fuwujgbh
 						from GY_FUWUJG
-						where 1=1
+						where HZStatisticsType = 1
 						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 						<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
@@ -121,7 +121,7 @@
 					(
 						select fuwujgbh
 						from GY_FUWUJG
-						where 1=1
+						where HZStatisticsType = 1
 						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 						<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
@@ -151,7 +151,7 @@
 						(						
 							select fuwujgbh
 							from GY_FUWUJG
-							where 1=1
+							where HZStatisticsType = 1
 							<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 							<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 							<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
@@ -168,7 +168,7 @@
 					(
 						select fuwujgbh
 						from GY_FUWUJG
-						where 1=1
+						where HZStatisticsType = 1
 						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 						<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
@@ -188,7 +188,7 @@
 					(
 						select fuwujgbh
 						from GY_FUWUJG
-						where 1=1
+						where HZStatisticsType = 1
 						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 						<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
@@ -218,7 +218,7 @@
 					(
 						select fuwujgbh
 						from GY_FUWUJG
-						where 1=1
+						where HZStatisticsType = 1
 						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 						<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
@@ -243,7 +243,7 @@
 					(
 						select fuwujgbh
 						from GY_FUWUJG
-						where 1=1
+						where HZStatisticsType = 1
 						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 						<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
@@ -256,7 +256,7 @@
 			<CountSQL>
 				select count(*)
 				from GY_FUWUJG
-				where 1=1
+				where HZStatisticsType = 1
 				<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 				<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 				<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>

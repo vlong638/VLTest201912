@@ -25,7 +25,7 @@
 						from (
 						select fuwujgbh,fuwujgmc
 						from GY_FUWUJG
-						where 1=1
+						where HZStatisticsType = 1
 						<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 						<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 						<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
@@ -46,7 +46,7 @@
 							(
 								select fuwujgbh
 								from GY_FUWUJG
-								where 1=1
+								where HZStatisticsType = 1
 								<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 								<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 								<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
@@ -68,7 +68,7 @@
 						(
 							select fuwujgbh
 							from GY_FUWUJG
-							where 1=1
+							where HZStatisticsType = 1
 							<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 							<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 							<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
@@ -89,7 +89,7 @@
 						(
 							select fuwujgbh
 							from GY_FUWUJG
-							where 1=1
+							where HZStatisticsType = 1
 							<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 							<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 							<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
@@ -115,7 +115,7 @@
 						(
 							select fuwujgbh
 							from GY_FUWUJG
-							where 1=1
+							where HZStatisticsType = 1
 							<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 							<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 							<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
@@ -143,7 +143,7 @@
 							(
 								select fuwujgbh
 								from GY_FUWUJG
-								where 1=1
+								where HZStatisticsType = 1
 								<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 								<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 								<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
@@ -158,7 +158,7 @@
 						(
 							select fuwujgbh
 							from GY_FUWUJG
-							where 1=1
+							where HZStatisticsType = 1
 							<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 							<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 							<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
@@ -176,7 +176,7 @@
 						(
 							select fuwujgbh
 							from GY_FUWUJG
-							where 1=1
+							where HZStatisticsType = 1
 							<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 							<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 							<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
@@ -204,7 +204,7 @@
 							(
 								select fuwujgbh
 								from GY_FUWUJG
-								where 1=1
+								where HZStatisticsType = 1
 								<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 								<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 								<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
@@ -227,7 +227,7 @@
 						(
 							select fuwujgbh
 							from GY_FUWUJG
-							where 1=1
+							where HZStatisticsType = 1
 							<If Operator="eq" ComponentName ="dataScope" Value="2" > and dizhibm = @dizhibm </If>
 							<If Operator="eq" ComponentName ="dataScope" Value="3" > and fuwujgbh = @organization </If>
 							<If Operator="NotEmpty" ComponentName ="单位名称"> and fuwujgmc like @单位名称 </If>
@@ -256,7 +256,7 @@
 						,concat(datepart(yyyy,GETDATE()),'年',datepart(mm,GETDATE()),'月',datepart(dd,GETDATE()),'日') CustomDate --自定义拼接样例
 						from [User] u
 						left join GY_FUWUJG jg on u.organization = jg.FUWUJGBH
-						where job_no = @jobno
+						where job_no = @jobno and jg.HZStatisticsType = 1
 					</SQL>
 				</SQLs>
 			</Source>
