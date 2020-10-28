@@ -16,32 +16,33 @@
 				</OrderBys>
 			<SQL>
 				SELECT
-				jg.dizhimc diqumc
-				jg.dizhibm dizhibm,
-				jg.DiZhiBMOrder,
-				huochan.num as huochan,
-				zaochan.total as zaochanzs,
-				zaochan.high as hrzaochan,
-				zaochan.low as lrzaochan,
-				zaochan.qy as zaochanqy,
-				zaochan.zy as zaochanzy,
-				zaochan.qt as zaochanqt,
-				zaochan.sw as zaochansw
+					jg.dizhimc diqumc,
+					jg.dizhibm dizhibm, 
+					jg.DiZhiBMOrder,
+					huochan.num as huochan,
+					zaochan.total as zaochanzs,
+					zaochan.high as hrzaochan,
+					zaochan.low as lrzaochan,
+					zaochan.qy as zaochanqy,
+					zaochan.zy as zaochanzy,
+					zaochan.qt as zaochanqt,
+					zaochan.sw as zaochansw
 				FROM (
-				select dizhibm,dizhimc,DiZhiBMOrder
-				from GY_FUWUJG
-				where HZStatisticsType = 2
-				group by dizhibm,dizhimc,DiZhiBMOrder
+					select dizhibm,dizhimc,DiZhiBMOrder
+					from GY_FUWUJG
+					where HZStatisticsType = 2
+					group by dizhibm,dizhimc,DiZhiBMOrder
 				) jg
 				left JOIN (
-				SELECT
-				jg.dizhibm,
-				count(*) AS num
-				FROM cdh_deliveryrecord cdr
-				LEFT JOIN GY_FUWUJG jg ON jg.FUWUJGBH = cdr.visitunitcode and jg.HZStatisticsType = 2
-				WHERE cdr.outcomeofpregnancy = '1' AND cdr.status = '1'
-				<If Operator="NotEmpty" ComponentName="checkDayStart"> and CONVERT(varchar(100), cdr.deliverydate, 23) &gt;= @checkDayStart </If>
+					SELECT
+						jg.dizhibm,
+						count(*) AS num
+					FROM cdh_deliveryrecord cdr
+					LEFT JOIN GY_FUWUJG jg ON jg.FUWUJGBH = cdr.visitunitcode and jg.HZStatisticsType = 2
+					WHERE cdr.outcomeofpregnancy = '1' AND cdr.status = '1' 
+					<If Operator="NotEmpty" ComponentName="checkDayStart"> and CONVERT(varchar(100), cdr.deliverydate, 23) &gt;= @checkDayStart </If>
 					<If Operator="NotEmpty" ComponentName="checkDayEnd"> and CONVERT(varchar(100), cdr.deliverydate, 23) &lt; dateadd(day,1,@checkDayEnd) </If>
+					and jg.HZStatisticsType = 2
 					AND jg.dizhibm in (
 						select dizhibm
 						from GY_FUWUJG
@@ -66,6 +67,7 @@
 					WHERE 1=1
 					<If Operator="NotEmpty" ComponentName="checkDayStart"> and CONVERT(varchar(100), cg.birthDay, 23) &gt;= @checkDayStart </If>
 					<If Operator="NotEmpty" ComponentName="checkDayEnd"> and CONVERT(varchar(100), cg.birthDay, 23) &lt; dateadd(day,1,@checkDayEnd) </If>
+					and jg.HZStatisticsType = 2
 					and jg.dizhibm in (
 						select dizhibm
 						from GY_FUWUJG

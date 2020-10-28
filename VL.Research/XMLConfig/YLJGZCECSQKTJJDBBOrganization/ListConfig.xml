@@ -16,13 +16,13 @@
 		</ToolBars>
 		<Properties>
 			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="机构名称" RowSpan="2" ColumnName="fuwujgmc" DisplayType="None" DisplayWidth="180" IsSortable="False" DataType="bigint" Description="-" />
-			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="类别" RowSpan="2" ColumnName="" DisplayType="None" DisplayWidth="180" IsSortable="False" DataType="bigint" Description="-" />
+			<!--<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="类别" RowSpan="2" ColumnName="" DisplayType="None" DisplayWidth="180" IsSortable="False" DataType="bigint" Description="-" />-->
 			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="活产人数" RowSpan="2" ColumnName="huochan" DisplayType="None" DisplayWidth="180" IsSortable="False" DataType="bigint" Description="-" />
 			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="早产儿人数" RowSpan="2" ColumnName="zaochanzs" DisplayType="None" DisplayWidth="180" IsSortable="False" DataType="bigint" Description="-" />
 			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="高危早产儿数" RowSpan="2" ColumnName="hrzaochan" DisplayType="None" DisplayWidth="180" IsSortable="False" DataType="bigint" Description="-" />
 			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="低危早产儿数" RowSpan="2" ColumnName="lrzaochan" DisplayType="None" DisplayWidth="180" IsSortable="False" DataType="bigint" Description="-" />
 
-			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="住院早产儿数" RowSpan="2" ColumnName="" DisplayType="None" DisplayWidth="180" IsSortable="False" DataType="bigint" Description="-" />
+			<!--<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="住院早产儿数" RowSpan="2" ColumnName="" DisplayType="None" DisplayWidth="180" IsSortable="False" DataType="bigint" Description="-" />-->
 
 			<Property DisplayLevel="1" IsNeedOnPage="true" DisplayName="早产儿转归" ColumnSpan="4"/>
 			

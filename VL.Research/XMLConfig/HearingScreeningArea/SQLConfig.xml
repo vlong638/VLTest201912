@@ -9,7 +9,7 @@
 				<Where ComponentName="日期范围Start"></Where>
 				<Where ComponentName="日期范围End"></Where>
 			</Wheres>
-						<OrderBys>
+			<OrderBys>
 				<!--<OrderBy ComponentName="dizhibm" Alias ="dizhibm"/>-->
 			</OrderBys>
 			<SQLs>
@@ -71,16 +71,16 @@
 				</SQL>
 			</SQLs>
 			<CountSQL>
-				select count(*) from 
+				select count(*) from
 				(
-					SELECT
-					g.dizhibm
-					FROM cdh_newbornrecord nr
-					left join GY_FUWUJG g on nr.visitunitcode = g.fuwujgbh
-					where 1 = 1
-					<If Operator="NotEmpty" ComponentName ="日期范围Start"> and  nr.tianbiaosj &gt;= @日期范围Start </If>
-					<If Operator="NotEmpty" ComponentName="日期范围End"> and nr.tianbiaosj &lt; dateadd(day,1,@日期范围End) </If>
-					GROUP BY g.dizhibm
+				SELECT
+				g.dizhibm
+				FROM cdh_newbornrecord nr
+				left join GY_FUWUJG g on nr.visitunitcode = g.fuwujgbh
+				where 1 = 1
+				<If Operator="NotEmpty" ComponentName ="日期范围Start"> and  nr.tianbiaosj &gt;= @日期范围Start </If>
+				<If Operator="NotEmpty" ComponentName="日期范围End"> and nr.tianbiaosj &lt; dateadd(day,1,@日期范围End) </If>
+				GROUP BY g.dizhibm
 				) a
 			</CountSQL>
 		</Source>
