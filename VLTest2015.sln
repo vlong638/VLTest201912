@@ -102,6 +102,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Multiple02.WebService.VLSer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultipleCommon.WebService.VLServer.Framework4", "MultipleCommon.WebService.VLServer.Framework4\MultipleCommon.WebService.VLServer.Framework4.csproj", "{72C844F7-905A-4FC8-8D68-89B0DF880F45}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample_Log4Net", "Sample_Log4Net\Sample_Log4Net.csproj", "{B914BA2F-E3FD-4C3B-872B-23060E02E5DB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -240,6 +242,10 @@ Global
 		{72C844F7-905A-4FC8-8D68-89B0DF880F45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72C844F7-905A-4FC8-8D68-89B0DF880F45}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72C844F7-905A-4FC8-8D68-89B0DF880F45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B914BA2F-E3FD-4C3B-872B-23060E02E5DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B914BA2F-E3FD-4C3B-872B-23060E02E5DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B914BA2F-E3FD-4C3B-872B-23060E02E5DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B914BA2F-E3FD-4C3B-872B-23060E02E5DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -283,6 +289,7 @@ Global
 		{56BF16A7-0FFF-45A0-8D38-6D5C628E4D45} = {15C1C0F0-61BE-4A6F-8674-387CA86AC04B}
 		{10786C3E-7F00-42FC-907B-E01FCAA54E6E} = {15C1C0F0-61BE-4A6F-8674-387CA86AC04B}
 		{72C844F7-905A-4FC8-8D68-89B0DF880F45} = {15C1C0F0-61BE-4A6F-8674-387CA86AC04B}
+		{B914BA2F-E3FD-4C3B-872B-23060E02E5DB} = {570D7597-51CE-4DAB-BE55-AB7065D7A8C7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1BEAF6BD-B42E-40E0-929E-2233182F9868}
