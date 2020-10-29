@@ -26,6 +26,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VL.WebApplication", "VL.WebApplication\VL.WebApplication.csproj", "{820048BF-9A93-49F7-80CD-89E779278D2E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VL.Consolo_Framework", "FrameworkTest\VL.Consolo_Framework.csproj", "{975342C6-A3C5-4AC6-AACE-109F01C5AA93}"
+	ProjectSection(ProjectDependencies) = postProject
+		{10786C3E-7F00-42FC-907B-E01FCAA54E6E} = {10786C3E-7F00-42FC-907B-E01FCAA54E6E}
+		{56BF16A7-0FFF-45A0-8D38-6D5C628E4D45} = {56BF16A7-0FFF-45A0-8D38-6D5C628E4D45}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VL.Scheduler", "VL.WindowsFormsApp\VL.Scheduler.csproj", "{7767A9D0-1BB6-4751-B1C2-63A785A856F5}"
 EndProject
@@ -85,6 +89,18 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IFrame", "IFrame", "{ECA70DE5-A774-4B23-9FD3-1042F8C1A096}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IFrameTest", "IFrameTest\IFrameTest.csproj", "{FEF66ABF-1F46-4962-BE04-9609FA61AC18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Multiple01.WebService.VLServer.Framework4", "Multiple01.WebService.VLServer.Framework4\Multiple01.WebService.VLServer.Framework4.csproj", "{56BF16A7-0FFF-45A0-8D38-6D5C628E4D45}"
+	ProjectSection(ProjectDependencies) = postProject
+		{72C844F7-905A-4FC8-8D68-89B0DF880F45} = {72C844F7-905A-4FC8-8D68-89B0DF880F45}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Multiple02.WebService.VLServer.Framework4", "Multiple02.WebService.VLServer.Framework4\Multiple02.WebService.VLServer.Framework4.csproj", "{10786C3E-7F00-42FC-907B-E01FCAA54E6E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{72C844F7-905A-4FC8-8D68-89B0DF880F45} = {72C844F7-905A-4FC8-8D68-89B0DF880F45}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultipleCommon.WebService.VLServer.Framework4", "MultipleCommon.WebService.VLServer.Framework4\MultipleCommon.WebService.VLServer.Framework4.csproj", "{72C844F7-905A-4FC8-8D68-89B0DF880F45}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -212,6 +228,18 @@ Global
 		{FEF66ABF-1F46-4962-BE04-9609FA61AC18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FEF66ABF-1F46-4962-BE04-9609FA61AC18}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FEF66ABF-1F46-4962-BE04-9609FA61AC18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56BF16A7-0FFF-45A0-8D38-6D5C628E4D45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56BF16A7-0FFF-45A0-8D38-6D5C628E4D45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56BF16A7-0FFF-45A0-8D38-6D5C628E4D45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56BF16A7-0FFF-45A0-8D38-6D5C628E4D45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10786C3E-7F00-42FC-907B-E01FCAA54E6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10786C3E-7F00-42FC-907B-E01FCAA54E6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10786C3E-7F00-42FC-907B-E01FCAA54E6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10786C3E-7F00-42FC-907B-E01FCAA54E6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72C844F7-905A-4FC8-8D68-89B0DF880F45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72C844F7-905A-4FC8-8D68-89B0DF880F45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72C844F7-905A-4FC8-8D68-89B0DF880F45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72C844F7-905A-4FC8-8D68-89B0DF880F45}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -252,6 +280,9 @@ Global
 		{55681817-40B8-4A47-B3C2-5C46B1B4A3D0} = {15C1C0F0-61BE-4A6F-8674-387CA86AC04B}
 		{ECA70DE5-A774-4B23-9FD3-1042F8C1A096} = {89D348DF-C4B5-46E1-B14F-C8C969A8E653}
 		{FEF66ABF-1F46-4962-BE04-9609FA61AC18} = {ECA70DE5-A774-4B23-9FD3-1042F8C1A096}
+		{56BF16A7-0FFF-45A0-8D38-6D5C628E4D45} = {15C1C0F0-61BE-4A6F-8674-387CA86AC04B}
+		{10786C3E-7F00-42FC-907B-E01FCAA54E6E} = {15C1C0F0-61BE-4A6F-8674-387CA86AC04B}
+		{72C844F7-905A-4FC8-8D68-89B0DF880F45} = {15C1C0F0-61BE-4A6F-8674-387CA86AC04B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1BEAF6BD-B42E-40E0-929E-2233182F9868}

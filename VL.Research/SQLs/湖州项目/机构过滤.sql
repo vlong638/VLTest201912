@@ -14,7 +14,14 @@ EXEC sp_addextendedproperty
 'COLUMN', N'HZStatisticsType'
 
 
-
+--行政过滤
+--A1.儿保年报表 ChildHeathArea @夏锦慧 @1014
+--A4.五岁以下死亡监测 DeathMonitorUnder5Area @夏锦慧 @1015 (街道过滤DAIMA)
+--A5.五岁以下儿童死亡信息 WSYXETSWXXOrganization @张振楠 @1022
+--A7.浙江省高危儿管理工作报表 @夏锦慧 GWEArea  @1008
+--A8.湖州市流动儿童保健服务情况报表 LDETBJFWJKBBArea @张振楠  @1015
+--new A9.早产儿管理情况统计报 @夏锦慧 PrematureBabyManagementArea @1020 专案
+--new A11.五岁以下死亡监测(季度) DeathMonitorUnder5QuarterlyArea
 
 update GY_FUWUJG set HZStatisticsType = 1 where FuWuJGBH = '330502004'
 update GY_FUWUJG set HZStatisticsType = 1 where FuWuJGBH = '330502005'
@@ -87,8 +94,11 @@ update GY_FUWUJG set HZStatisticsType = 1 where FuWuJGBH = '330522009'
 update GY_FUWUJG set HZStatisticsType = 1 where FuWuJGBH = '330522010'
 update GY_FUWUJG set HZStatisticsType = 1 where FuWuJGBH = '330522002'
 
+--业务过滤
+--A2.听力筛查报表 HearingScreeningArea @汪沄杰 @1015
+--A3.非户籍儿童与孕产妇健康状况年报表 FHJETYYCFJKZKNBBArea @张振楠  @1014
+--new A10.医疗机构早产儿出生情况统计报表 @张振楠 YLJGZCECSQKTJJDBBArea@1019
 
-------------
 update GY_FUWUJG set HZStatisticsType = 2 where FuWuJGBH = '330502001'
 update GY_FUWUJG set HZStatisticsType = 2 where FuWuJGBH = '330502002'
 update GY_FUWUJG set HZStatisticsType = 2 where FuWuJGBH = '330502011'

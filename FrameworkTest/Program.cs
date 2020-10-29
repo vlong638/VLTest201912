@@ -4522,6 +4522,31 @@ select a.* from
             }));
 
             #endregion
+            #region WebSercice
+            cmds.Add(new Command("ws01,WebSercice01,多服务测试", () =>
+            {
+                while (true)
+                {
+                    try
+                    {
+                        var service01 = new Sample01WebService.Sample01WebServiceSoapClient();
+                        var result = service01.HelloCommon();
+                        Console.WriteLine($"service01:{result}");
+
+                        var service02 = new Sample02WebService.Sample02WebServiceSoapClient();
+                        result = service02.HelloCommon();
+                        Console.WriteLine($"service02:{result}");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                    System.Threading.Thread.Sleep(3000);
+                }
+            }));
+            #endregion
+
+
             cmds.Start();
         }
 
