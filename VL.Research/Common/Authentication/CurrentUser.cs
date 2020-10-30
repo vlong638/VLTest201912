@@ -7,7 +7,7 @@ using System.Security.Claims;
 using System.Web;
 using VL.Consolo_Core.Common.RedisSolution;
 
-namespace VL.Research.Common
+namespace BBee.Common
 {
 
     /// <summary>

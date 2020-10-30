@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using VL.Consolo_Core.Common.ValuesSolution;
 
-namespace VL.Research.Models
+namespace BBee.Models
 {
     /// <summary>
     /// 统一查询入参结构

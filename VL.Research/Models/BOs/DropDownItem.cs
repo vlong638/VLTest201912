@@ -1,6 +1,6 @@
 ﻿using Dapper.Contrib.Extensions;
 
-namespace VL.Research.Models
+namespace BBee.Models
 {
     /// <summary>
     /// 下拉项

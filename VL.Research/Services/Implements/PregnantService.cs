@@ -6,11 +6,11 @@ using VL.Consolo_Core.Common.ExcelExportSolution;
 using VL.Consolo_Core.Common.PagerSolution;
 using VL.Consolo_Core.Common.ServiceSolution;
 using VL.Consolo_Core.Common.ValuesSolution;
-using VL.Research.Common;
-using VL.Research.Models;
-using VL.Research.Repositories;
+using BBee.Common;
+using BBee.Models;
+using BBee.Repositories;
 
-namespace VL.Research.Services
+namespace BBee.Services
 {
     /// <summary>
     /// 
@@ -131,7 +131,7 @@ namespace VL.Research.Services
             return result;
         }
 
-        public void GetCommonSelect(Consolo_Core.Common.ExcelExportSolution.SQLConfigSource sourceConfig)
+        public void GetCommonSelect(VL.Consolo_Core.Common.ExcelExportSolution.SQLConfigSource sourceConfig)
         {
             throw new NotImplementedException();
         }

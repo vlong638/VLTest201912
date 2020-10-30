@@ -12,7 +12,7 @@ using VL.Consolo_Core.AuthenticationSolution;
 using VL.Consolo_Core.Common.RedisSolution;
 using VL.Consolo_Core.Common.ValuesSolution;
 
-namespace VL.Research.Common
+namespace BBee.Common
 {
     /// <summary>
     /// 

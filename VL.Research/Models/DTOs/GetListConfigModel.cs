@@ -4,9 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using VL.Consolo_Core.Common.ValuesSolution;
-using VL.Research.Common;
+using BBee.Common;
 
-namespace VL.Research.Models
+namespace BBee.Models
 {
     /// <summary>
     /// 页面配置 模型

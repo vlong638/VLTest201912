@@ -5,11 +5,11 @@ using System.Data;
 using System.Linq;
 using VL.Consolo_Core.Common.ControllerSolution;
 using VL.Consolo_Core.Common.ValuesSolution;
-using VL.Research.Common;
-using VL.Research.Models;
-using VL.Research.Services;
+using BBee.Common;
+using BBee.Models;
+using BBee.Services;
 
-namespace VL.Research.Controllers
+namespace BBee.Controllers
 {
     /// <summary>
     /// 登录状态枚举

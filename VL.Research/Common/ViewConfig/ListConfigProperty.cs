@@ -1,7 +1,7 @@
 ﻿using System.Xml.Linq;
 using VL.Consolo_Core.Common.ValuesSolution;
 
-namespace VL.Research.Common
+namespace BBee.Common
 {
     /// <summary>
     /// 显示类型

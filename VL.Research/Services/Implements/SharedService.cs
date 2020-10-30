@@ -3,10 +3,10 @@ using System.Data;
 using VL.Consolo_Core.Common.PagerSolution;
 using VL.Consolo_Core.Common.ServiceSolution;
 using VL.Consolo_Core.Common.ValuesSolution;
-using VL.Research.Common;
-using VL.Research.Repositories;
+using BBee.Common;
+using BBee.Repositories;
 
-namespace VL.Research.Services
+namespace BBee.Services
 {
     /// <summary>
     /// 
@@ -43,7 +43,7 @@ namespace VL.Research.Services
             });
             return result;
         }
-        internal ServiceResult<DataTable> GetCommonSelectByExportConfig(Consolo_Core.Common.ExcelExportSolution.SQLConfigSource sourceConfig)
+        internal ServiceResult<DataTable> GetCommonSelectByExportConfig(VL.Consolo_Core.Common.ExcelExportSolution.SQLConfigSource sourceConfig)
         {
             var result = dbContext.GetDBContext(DBSourceType.DefaultConnectionString.ToString()).DelegateTransaction((g) =>
             {
@@ -58,7 +58,7 @@ namespace VL.Research.Services
         /// <param name="sourceConfig"></param>
         /// <param name="source"></param>
         /// <returns></returns>
-        internal ServiceResult<DataTable> GetCommonSelectByExportConfig(Consolo_Core.Common.ExcelExportSolution.SQLConfigSource sourceConfig, DBSourceType source)
+        internal ServiceResult<DataTable> GetCommonSelectByExportConfig(VL.Consolo_Core.Common.ExcelExportSolution.SQLConfigSource sourceConfig, DBSourceType source)
         {
             var adbContext = dbContext.GetDBContext(source.ToString());
             var result = adbContext.DelegateNonTransaction((g) =>

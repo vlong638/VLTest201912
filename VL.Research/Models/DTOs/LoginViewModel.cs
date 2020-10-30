@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace VL.Research.Models
+namespace BBee.Models
 {
     /// <summary>
     /// 

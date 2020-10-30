@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace VL.Research.Models
+namespace BBee.Models
 {
     [Table("A_Role")]
     public class Role

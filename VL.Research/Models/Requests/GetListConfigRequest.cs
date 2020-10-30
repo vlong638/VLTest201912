@@ -1,4 +1,4 @@
-﻿namespace VL.Research.Models
+﻿namespace BBee.Models
 {
     /// <summary>
     /// 请求参数实体

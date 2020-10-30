@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Hosting;
 using System;
 
-namespace VL.Research.Common
+namespace BBee.Common
 {
     /// <summary>
     /// 

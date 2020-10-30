@@ -1,4 +1,4 @@
-﻿namespace VL.Research.Common
+﻿namespace BBee.Common
 {
     public class DBListConfig
     {

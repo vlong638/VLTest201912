@@ -14,11 +14,11 @@ using System.Security.Claims;
 using VL.Consolo_Core.AuthenticationSolution;
 using VL.Consolo_Core.Common.LogSolution;
 using VL.Consolo_Core.Common.RedisSolution;
-using VL.Research.Common;
-using VL.Research.Common.Configuration;
-using VL.Research.Services;
+using BBee.Common;
+using BBee.Common.Configuration;
+using BBee.Services;
 
-namespace VL.Research
+namespace BBee
 {
     /// <summary>
     /// 
@@ -74,8 +74,8 @@ namespace VL.Research
             //服务接口管理
             services.AddSwaggerGen(p =>
             {
-                p.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "VL.Research", Version = "v1" });
-                p.IncludeXmlComments(AppDomain.CurrentDomain.BaseDirectory + "VL.Research.xml");
+                p.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "BBee", Version = "v1" });
+                p.IncludeXmlComments(AppDomain.CurrentDomain.BaseDirectory + "BBee.xml");
                 p.CustomSchemaIds(x => x.FullName);
             });
 

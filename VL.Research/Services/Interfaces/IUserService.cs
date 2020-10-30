@@ -1,9 +1,9 @@
 ﻿
 using System.Collections.Generic;
 using VL.Consolo_Core.Common.ServiceSolution;
-using VL.Research.Models;
+using BBee.Models;
 
-namespace VL.Research.Services
+namespace BBee.Services
 {
     public interface IUserService
     {

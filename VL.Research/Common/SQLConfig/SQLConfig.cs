@@ -5,9 +5,9 @@ using System.Net;
 using System.Xml.Linq;
 using VL.Consolo_Core.Common.ExcelExportSolution;
 using VL.Consolo_Core.Common.ValuesSolution;
-using VL.Research.Models;
+using BBee.Models;
 
-namespace VL.Research.Common
+namespace BBee.Common
 {
     /// <summary>
     /// 查询sql配置

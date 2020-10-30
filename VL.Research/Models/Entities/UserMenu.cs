@@ -1,7 +1,7 @@
 ﻿using Dapper.Contrib.Extensions;
 using System;
 
-namespace VL.Research.Models
+namespace BBee.Models
 {
     [Table(TableName)]
     public class UserMenu

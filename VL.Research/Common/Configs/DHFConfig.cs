@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using VL.Consolo_Core.Common.FileSolution;
 
-namespace VL.Research.Common.Configuration
+namespace BBee.Common.Configuration
 {
     /// <summary>
     /// 配置样例

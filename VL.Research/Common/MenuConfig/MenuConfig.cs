@@ -4,7 +4,7 @@ using System.Linq;
 using System.Xml.Linq;
 using VL.Consolo_Core.Common.ValuesSolution;
 
-namespace VL.Research.Common
+namespace BBee.Common
 {
     /// <summary>
     /// 查询sql配置

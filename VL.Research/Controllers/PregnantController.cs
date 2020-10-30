@@ -8,11 +8,11 @@ using System.Xml.Linq;
 using VL.Consolo_Core.Common.ControllerSolution;
 using VL.Consolo_Core.Common.PagerSolution;
 using VL.Consolo_Core.Common.ServiceSolution;
-using VL.Research.Common;
-using VL.Research.Models;
-using VL.Research.Services;
+using BBee.Common;
+using BBee.Models;
+using BBee.Services;
 
-namespace VL.Research.Controllers
+namespace BBee.Controllers
 {
     /// <summary>
     /// 控制器 孕妇信息

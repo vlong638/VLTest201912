@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "VL.Research": {
+    "BBee": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "weatherforecast",

@@ -1,6 +1,6 @@
-﻿using VL.Research.Common;
+﻿using BBee.Common;
 
-namespace VL.Research.Models
+namespace BBee.Models
 {
     public class SaveListConfigRequest
     {

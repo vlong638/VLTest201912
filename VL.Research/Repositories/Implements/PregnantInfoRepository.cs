@@ -5,9 +5,9 @@ using System.Data;
 using System.Linq;
 using VL.Consolo_Core.Common.DBSolution;
 using VL.Consolo_Core.Common.RepositorySolution;
-using VL.Research.Models;
+using BBee.Models;
 
-namespace VL.Research.Repositories
+namespace BBee.Repositories
 {
     public class PregnantInfoRepository : Repository<PregnantInfo>
     {

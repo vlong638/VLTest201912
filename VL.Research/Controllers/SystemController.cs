@@ -13,11 +13,11 @@ using VL.Consolo_Core.Common.ControllerSolution;
 using VL.Consolo_Core.Common.ExcelExportSolution;
 using VL.Consolo_Core.Common.RedisSolution;
 using VL.Consolo_Core.Common.ValuesSolution;
-using VL.Research.Common;
-using VL.Research.Models;
-using VL.Research.Services;
+using BBee.Common;
+using BBee.Models;
+using BBee.Services;
 
-namespace VL.Research.Controllers
+namespace BBee.Controllers
 {
     /// <summary>
     /// 
@@ -507,7 +507,7 @@ namespace VL.Research.Controllers
                     url = listConfig.Export.URL,
                     defaultParam = new List<VLKeyValue>()
                     {
-                        new Consolo_Core.Common.ValuesSolution.VLKeyValue( "ViewName",request.ViewName)
+                        new VL.Consolo_Core.Common.ValuesSolution.VLKeyValue( "ViewName",request.ViewName)
                     },
                 },
             };

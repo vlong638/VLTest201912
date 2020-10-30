@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Security.Claims;
 
-namespace VL.Research.Common
+namespace BBee.Common
 {
     public class VLAuthenticationTicketHelper
     {

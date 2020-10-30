@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using VL.Consolo_Core.Common.DBSolution;
 using VL.Consolo_Core.Common.RedisSolution;
-using VL.Research.Common.Configuration;
+using BBee.Common.Configuration;
 
-namespace VL.Research.Common
+namespace BBee.Common
 {
     /// <summary>
     /// 

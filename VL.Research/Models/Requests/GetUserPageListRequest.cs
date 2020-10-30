@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using VL.Consolo_Core.Common.PagerSolution;
 
-namespace VL.Research.Models
+namespace BBee.Models
 {
     public class GetUserPageListRequest : PagerRequest
     {

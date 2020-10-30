@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using VL.Consolo_Core.Common.ValuesSolution;
-using VL.Research.Models;
+using BBee.Models;
 
-namespace VL.Research.Common
+namespace BBee.Common
 {
     /// <summary>
     /// 页面配置
@@ -113,7 +113,7 @@ namespace VL.Research.Common
                         }
                         break;
                     case DisplayType.Enum:
-                        System.Reflection.Assembly assembly = System.Reflection.Assembly.Load("VL.Research");
+                        System.Reflection.Assembly assembly = System.Reflection.Assembly.Load("BBee");
                         var type = assembly.ExportedTypes.FirstOrDefault(c => c.Name == property.EnumType);
                         if (type != null)
                         {

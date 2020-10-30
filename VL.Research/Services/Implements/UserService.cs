@@ -10,12 +10,12 @@ using VL.Consolo_Core.AuthenticationSolution;
 using VL.Consolo_Core.Common.DBSolution;
 using VL.Consolo_Core.Common.ServiceSolution;
 using VL.Consolo_Core.Common.ValuesSolution;
-using VL.Research.Common;
-using VL.Research.Models;
-using VL.Research.Repositories;
+using BBee.Common;
+using BBee.Models;
+using BBee.Repositories;
 using VLTest2015.Common.MD5Solution;
 
-namespace VL.Research.Services
+namespace BBee.Services
 {
     /// <summary>
     /// 

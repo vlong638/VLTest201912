@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace VL.Research.Models.Enums
+namespace BBee.Models.Enums
 {
     /// <summary>
     /// 性别

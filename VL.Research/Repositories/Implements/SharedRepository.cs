@@ -7,10 +7,10 @@ using VL.Consolo_Core.Common.DBSolution;
 using VL.Consolo_Core.Common.ExcelExportSolution;
 using VL.Consolo_Core.Common.RepositorySolution;
 using VL.Consolo_Core.Common.TimeSpanSolution;
-using VL.Research.Common;
-using VL.Research.Models;
+using BBee.Common;
+using BBee.Models;
 
-namespace VL.Research.Repositories
+namespace BBee.Repositories
 {
     /// <summary>
     /// 
@@ -54,7 +54,7 @@ namespace VL.Research.Repositories
         /// 
         /// </summary>
         /// <returns></returns>
-        public DataTable GetCommonSelect(Consolo_Core.Common.ExcelExportSolution.SQLConfigSource config, int skip = 0, int limit = 0)
+        public DataTable GetCommonSelect(VL.Consolo_Core.Common.ExcelExportSolution.SQLConfigSource config, int skip = 0, int limit = 0)
         {
             if (config.SQLs.Texts.Count == 1)
             {

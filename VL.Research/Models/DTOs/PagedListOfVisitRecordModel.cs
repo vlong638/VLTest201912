@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VL.Research.Models
+namespace BBee.Models
 {
     public class PagedListOfVisitRecordModel
     {

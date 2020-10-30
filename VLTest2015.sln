@@ -45,7 +45,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VL.Swagger_mvc", "VL.Swagge
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business_Core", "Business_Core", "{6148F30A-8C0B-492B-884F-4E3E0C88B458}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VL.Research", "VL.Research\VL.Research.csproj", "{3532330A-D778-4C42-AF70-7B27FD77DD65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BBee", "VL.Research\BBee.csproj", "{3532330A-D778-4C42-AF70-7B27FD77DD65}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookieSample", "CookieSample\CookieSample.csproj", "{25B4004D-2765-485C-A924-CF187A9ACA65}"
 EndProject
@@ -102,7 +102,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Multiple02.WebService.VLSer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultipleCommon.WebService.VLServer.Framework4", "MultipleCommon.WebService.VLServer.Framework4\MultipleCommon.WebService.VLServer.Framework4.csproj", "{72C844F7-905A-4FC8-8D68-89B0DF880F45}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample_Log4Net", "Sample_Log4Net\Sample_Log4Net.csproj", "{B914BA2F-E3FD-4C3B-872B-23060E02E5DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample_Log4Net", "Sample_Log4Net\Sample_Log4Net.csproj", "{B914BA2F-E3FD-4C3B-872B-23060E02E5DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

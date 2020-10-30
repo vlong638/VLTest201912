@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
-using VL.Research.Common;
+using BBee.Common;
 
-namespace VL.Research.Controllers
+namespace BBee.Controllers
 {
     //[VLAuthentication]
     public class BaseController : Controller

@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Web;
 
-namespace VL.Research.Common
+namespace BBee.Common
 {
     /// <summary>
     /// 权限 

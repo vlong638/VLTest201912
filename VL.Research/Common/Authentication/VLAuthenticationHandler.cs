@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace VL.Research.Common
+namespace BBee.Common
 {
     public class VLAuthenticationHandler : IAuthenticationHandler, IAuthenticationSignInHandler, IAuthenticationSignOutHandler
     {

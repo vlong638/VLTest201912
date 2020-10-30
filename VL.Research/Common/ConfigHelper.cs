@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace VL.Research.Common
+namespace BBee.Common
 {
     /// <summary>
     /// 

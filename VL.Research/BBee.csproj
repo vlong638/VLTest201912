@@ -6,11 +6,11 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>D:\WorkSpace\Repository\VLTest201912\VL.Research\VL.Research.xml</DocumentationFile>
+    <DocumentationFile>D:\WorkSpace\Repository\VLTest201912\BBee\BBee.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="VL.Research.xml" />
+    <None Remove="BBee.xml" />
     <None Remove="XMLConfig\CustomConfig.xml" />
     <None Remove="XMLConfig\DetailConfig.xml" />
     <None Remove="XMLConfig\FYPT_PregnantInfo.rar" />

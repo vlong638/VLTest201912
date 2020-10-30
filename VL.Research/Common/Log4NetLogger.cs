@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VL.Research.Common
+namespace BBee.Common
 {
     /// <summary>
     /// Log4Net Logger

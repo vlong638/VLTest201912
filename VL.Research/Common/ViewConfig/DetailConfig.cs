@@ -3,7 +3,7 @@ using System.Linq;
 using System.Xml.Linq;
 using VL.Consolo_Core.Common.ValuesSolution;
 
-namespace VL.Research.Models
+namespace BBee.Models
 {
     /// <summary>
     /// 页面配置
