@@ -94,11 +94,18 @@
 						<Case ColumnName="取卵日期" DataType="DateTime" Operator="gt" Value ="2018-06-01" Then="2" />
 						<Case DataType="Default" Then="1" />
 					</Transform>
-					<Transform SourceType="JsonList" ColumnName="shenhua_table" SubFieldName="hcg" FunctionType="SumInt" TargetColumnName ="hcgSumInt"/>
-					<Transform SourceType="JsonList" ColumnName="shenhua_table" SubFieldName="hcg" FunctionType="SumCase" TargetColumnName ="hcgSumCase">
-						<Case ColumnName="hcg" DataType="Int" Operator="gt" Value ="6" Then="3" />
-						<Case ColumnName="hcg" DataType="Int" Operator="gt" Value ="3" Then="2" />
-						<Case DataType="Default" Then="1" />
+					<Transform SourceType="JsonList" ColumnName="shenhua_table" SubFieldName="hcg" FunctionType="SumInt" TargetColumnName ="婴儿数"/>
+					<Transform SourceType="JsonList" ColumnName="shenhua_table" FunctionType="SumCase" TargetColumnName ="婴儿存活数">
+						<Case ColumnName="存活情况" DataType="String" Operator="eq" Value ="存活" Then="1" />
+						<Case DataType="Default" Then="0" />
+					</Transform>
+					<Transform SourceType="Field" FunctionType="Case" TargetColumnName ="单胎">
+						<Case ColumnName="婴儿存活数" DataType="Int" Operator="eq" Value ="1" Then="1" />
+						<Case DataType="Default" Then="0" />
+					</Transform>
+					<Transform SourceType="Field" FunctionType="Case" TargetColumnName ="多胎">
+						<Case ColumnName="婴儿存活数" DataType="Int" Operator="gt" Value ="1" Then="1" />
+						<Case DataType="Default" Then="0" />
 					</Transform>
 				</Transforms>				
 				<Mappings>
