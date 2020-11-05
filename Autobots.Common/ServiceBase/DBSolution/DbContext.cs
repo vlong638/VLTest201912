@@ -1,13 +1,12 @@
-﻿using FrameworkTest.Common.FileSolution;
+﻿using Autobots.Common.ServiceExchange;
+using Autobots.EMRServices.FileSolution;
 using FrameworkTest.Common.LoggerSolution;
-using FrameworkTest.Common.ServiceSolution;
 using System;
 using System.Data;
-using System.IO;
-using System.Text;
 
-namespace FrameworkTest.Common.DBSolution
+namespace Autobots.EMRServices.DBSolution
 {
+
     public class DbContext
     {
         public DbGroup DbGroup { set; get; }
@@ -26,7 +25,7 @@ namespace FrameworkTest.Common.DBSolution
         /// <param name="connection"></param>
         /// <param name="exec"></param>
         /// <returns></returns>
-        public ServiceResult<T> DelegateTransaction<T>(Func<DbGroup, T> exec)
+        public APIResult<T> DelegateTransaction<T>(Func<DbGroup, T> exec)
         {
             DbGroup.Connection.Open();
             DbGroup.Transaction = DbGroup.Connection.BeginTransaction();
@@ -36,7 +35,7 @@ namespace FrameworkTest.Common.DBSolution
                 var result = exec(DbGroup);
                 DbGroup.Transaction.Commit();
                 DbGroup.Connection.Close();
-                return new ServiceResult<T>(result);
+                return new APIResult<T>(result);
             }
             catch (Exception ex)
             {

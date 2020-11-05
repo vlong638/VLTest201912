@@ -40,8 +40,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="XMLConfig\Sample1012User\ExportConfig_列表.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>    </Content>
     <Content Include="XMLConfig\Sample_YPF\ExportConfig_列表.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

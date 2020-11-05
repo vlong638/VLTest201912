@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1B1961C5-D404-41CD-AB83-9CF54257182B}</ProjectGuid>
+    <ProjectGuid>{CC72BAA3-E1C6-4B29-9FCA-F35C9C2203FC}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Autobots.Common</RootNamespace>
-    <AssemblyName>Autobots.Common</AssemblyName>
+    <RootNamespace>Autobots.BusinessCommon</RootNamespace>
+    <AssemblyName>Autobots.BusinessCommon</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -33,9 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Oracle.ManagedDataAccess, Version=4.122.19.1, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
-      <HintPath>..\packages\Oracle.ManagedDataAccess.19.9.0\lib\net40\Oracle.ManagedDataAccess.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,25 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ServiceBase\DBSolution\DbContext.cs" />
-    <Compile Include="ServiceBase\DBSolution\DbGroup.cs" />
-    <Compile Include="ServiceBase\DBSolution\DBHelper.cs" />
-    <Compile Include="ServiceBase\FileSolution\FileHelper.cs" />
-    <Compile Include="ServiceBase\LoggerSolution\VLLogger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceBase\IConfig.cs" />
-    <Compile Include="ServiceBase\ILog.cs" />
-    <Compile Include="ServiceBase\IRepository.cs" />
-    <Compile Include="ServiceCommon\IDataLog.cs" />
-    <Compile Include="ServiceCommon\IHealthCheck.cs" />
-    <Compile Include="ServiceCommon\IPager.cs" />
-    <Compile Include="ServiceExchange\APIResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

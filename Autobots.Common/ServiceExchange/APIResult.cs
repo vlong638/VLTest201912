@@ -13,6 +13,9 @@ namespace Autobots.Common.ServiceExchange
     {
         public const int SuccessCode = 200;
 
+        public APIResult()
+        {
+        }
         public APIResult(params string[] messages)
         {
             Code = SuccessCode;
@@ -42,6 +45,7 @@ namespace Autobots.Common.ServiceExchange
         /// false case: 比如服务层返回异常(如服务层校验未通过,出现事务回滚异常)
         /// </summary>
         public bool IsValidated { get { return Code == 200; } }
+
     }
     /// <summary>
     /// Controller层返回结构
@@ -49,6 +53,9 @@ namespace Autobots.Common.ServiceExchange
     /// <typeparam name="T"></typeparam>
     public class APIResult<T> : APIResult
     {
+        public APIResult():base()
+        {
+        }
         /// <summary>
         /// 
         /// </summary>

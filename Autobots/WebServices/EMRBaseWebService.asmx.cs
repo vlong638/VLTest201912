@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Autobots.Common.ServiceCommon;
+using Autobots.Common.ServiceExchange;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Services;
 
 namespace Autobots.EMRServices.Services.WebServices
@@ -16,11 +16,50 @@ namespace Autobots.EMRServices.Services.WebServices
     // [System.Web.Script.Services.ScriptService]
     public class EMRBaseWebService : System.Web.Services.WebService
     {
-
+        /// <summary>
+        /// 通用新增
+        /// </summary>
+        /// <param name="content"></param>
+        /// <returns></returns>
         [WebMethod]
-        public string HelloWorld()
+        public async Task<APIResult<string>> CommonCreate(string content)
         {
-            return "Hello World";
+            return new APIResult<string>(null);
+        }
+
+        /// <summary>
+        /// 通用更新
+        /// </summary>
+        /// <param name="content"></param>
+        /// <returns></returns>
+        [WebMethod]
+        public async Task<APIResult<string>> CommonUpdate(string content)
+        {
+            return new APIResult<string>(null);
+        }
+
+        /// <summary>
+        /// 通用删除
+        /// </summary>
+        /// <param name="content"></param>
+        /// <returns></returns>
+        [WebMethod]
+        public async Task<APIResult<string>> CommonDelete(string content)
+        {
+            return new APIResult<string>(null);
+        }
+
+        /// <summary>
+        /// 通用列表
+        /// B超,BScanMeasurement
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        /// 
+        [WebMethod]
+        public async Task<APIResult<IPager<List<Dictionary<string, object>>>>> CommonGetList()
+        {
+            return new APIResult<IPager<List<Dictionary<string, object>>>>(null);
         }
     }
 }

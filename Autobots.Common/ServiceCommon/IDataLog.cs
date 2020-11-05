@@ -33,6 +33,17 @@ namespace Autobots.Common.ServiceCommon
 
     public class DataLogChange
     {
+        public DataLogChange()
+        {
+        }
+
+        public DataLogChange(string key, string old, string @new)
+        {
+            Key = key;
+            Old = old;
+            New = @new;
+        }
+
         public string Key { set; get; }
         public string Old { set; get; }
         public string New { set; get; }

@@ -7,16 +7,16 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{FF0E7FA6-A4B1-40D4-8AA5-F232A92B20C1}</ProjectGuid>
+    <ProjectGuid>{8EDAC57D-C4DE-42FA-9817-227E12A1244A}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Autobots.EMRServices</RootNamespace>
-    <AssemblyName>Autobots.EMRServices</AssemblyName>
+    <RootNamespace>Autobots.InpatientService</RootNamespace>
+    <AssemblyName>Autobots.InpatientService</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort>44396</IISExpressSSLPort>
+    <IISExpressSSLPort>44363</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -44,6 +44,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -67,43 +69,73 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Connected Services\FileServiceReference\Autobots.InpatientService.FileServiceReference.WriteAllBytesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\FileServiceReference\Autobots.InpatientService.FileServiceReference.ReadAllBytesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\FileServiceReference\Autobots.InpatientService.FileServiceReference.APIResultOfArrayOfByte.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\FileServiceReference\Autobots.InpatientService.FileServiceReference.APIResultOfBoolean.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\FileServiceReference\Autobots.InpatientService.FileServiceReference.APIResultOfString.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\FileServiceReference\Autobots.InpatientService.FileServiceReference.ReadAllTextsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Connected Services\FileServiceReference\FileService.disco" />
+    <None Include="Connected Services\FileServiceReference\configuration91.svcinfo" />
+    <None Include="Connected Services\FileServiceReference\configuration.svcinfo" />
+    <None Include="Connected Services\FileServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Connected Services\LogServiceReference\Autobots.InpatientService.LogServiceReference.ErrorResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\LogServiceReference\Autobots.InpatientService.LogServiceReference.InfoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\LogServiceReference\Autobots.InpatientService.LogServiceReference.WarnResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\LogServiceReference\Autobots.InpatientService.LogServiceReference.APIResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Connected Services\LogServiceReference\LogService.disco" />
+    <None Include="Connected Services\LogServiceReference\configuration91.svcinfo" />
+    <None Include="Connected Services\LogServiceReference\configuration.svcinfo" />
+    <None Include="Connected Services\LogServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="InpatientService.asmx" />
     <Content Include="Web.config" />
-    <Content Include="WebServices\DataExchangeWebService.asmx" />
-    <Content Include="WebServices\DeviceWebService.asmx" />
-    <Content Include="WebServices\EMRBaseWebService.asmx" />
-    <Content Include="WebServices\EMRInpatientWebService.asmx" />
-    <Content Include="WebServices\EMROutpatientWebService.asmx" />
-    <Content Include="WebServices\EMRPreExaminationWebService.asmx" />
+    <None Include="Connected Services\LogServiceReference\LogService.wsdl" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Connected Services\FileServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\LogServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="InpatientService.asmx.cs">
+      <DependentUpon>InpatientService.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\SharedRepository.cs" />
-    <Compile Include="WebServices\DataExchangeWebService.asmx.cs">
-      <DependentUpon>DataExchangeWebService.asmx</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="WebServices\DeviceWebService.asmx.cs">
-      <DependentUpon>DeviceWebService.asmx</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="WebServices\EMRBaseWebService.asmx.cs">
-      <DependentUpon>EMRBaseWebService.asmx</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="WebServices\EMRInpatientWebService.asmx.cs">
-      <DependentUpon>EMRInpatientWebService.asmx</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="WebServices\EMROutpatientWebService.asmx.cs">
-      <DependentUpon>EMROutpatientWebService.asmx</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="WebServices\EMRPreExaminationWebService.asmx.cs">
-      <DependentUpon>EMRPreExaminationWebService.asmx</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Connected Services\FileServiceReference\FileService.wsdl" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -113,14 +145,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Configs\" />
-    <Folder Include="Utils\" />
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Autobots.Common\Autobots.Common.csproj">
-      <Project>{1b1961c5-d404-41cd-ab83-9cf54257182b}</Project>
-      <Name>Autobots.Common</Name>
-    </ProjectReference>
+    <WCFMetadataStorage Include="Connected Services\FileServiceReference\" />
+    <WCFMetadataStorage Include="Connected Services\LogServiceReference\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -135,9 +164,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>62437</DevelopmentServerPort>
+          <DevelopmentServerPort>58989</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44396/</IISUrl>
+          <IISUrl>https://localhost:44363/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

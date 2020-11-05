@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="ReadAllBytes">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="fileName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReadAllBytesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReadAllBytesResult" type="tns:APIResultOfArrayOfByte" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="APIResultOfArrayOfByte">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Data" type="s:base64Binary" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="APIResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ReadAllTexts">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="fileName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReadAllTextsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReadAllTextsResult" type="tns:APIResultOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="APIResultOfString">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Data" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="WriteAllBytes">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="fileName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="bytes" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="WriteAllBytesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="WriteAllBytesResult" type="tns:APIResultOfBoolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="APIResultOfBoolean">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="Data" type="s:boolean" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ReadAllBytesSoapIn">
+    <wsdl:part name="parameters" element="tns:ReadAllBytes" />
+  </wsdl:message>
+  <wsdl:message name="ReadAllBytesSoapOut">
+    <wsdl:part name="parameters" element="tns:ReadAllBytesResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReadAllTextsSoapIn">
+    <wsdl:part name="parameters" element="tns:ReadAllTexts" />
+  </wsdl:message>
+  <wsdl:message name="ReadAllTextsSoapOut">
+    <wsdl:part name="parameters" element="tns:ReadAllTextsResponse" />
+  </wsdl:message>
+  <wsdl:message name="WriteAllBytesSoapIn">
+    <wsdl:part name="parameters" element="tns:WriteAllBytes" />
+  </wsdl:message>
+  <wsdl:message name="WriteAllBytesSoapOut">
+    <wsdl:part name="parameters" element="tns:WriteAllBytesResponse" />
+  </wsdl:message>
+  <wsdl:portType name="FileServiceSoap">
+    <wsdl:operation name="ReadAllBytes">
+      <wsdl:input message="tns:ReadAllBytesSoapIn" />
+      <wsdl:output message="tns:ReadAllBytesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReadAllTexts">
+      <wsdl:input message="tns:ReadAllTextsSoapIn" />
+      <wsdl:output message="tns:ReadAllTextsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="WriteAllBytes">
+      <wsdl:input message="tns:WriteAllBytesSoapIn" />
+      <wsdl:output message="tns:WriteAllBytesSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="FileServiceSoap" type="tns:FileServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ReadAllBytes">
+      <soap:operation soapAction="http://tempuri.org/ReadAllBytes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReadAllTexts">
+      <soap:operation soapAction="http://tempuri.org/ReadAllTexts" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WriteAllBytes">
+      <soap:operation soapAction="http://tempuri.org/WriteAllBytes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="FileServiceSoap12" type="tns:FileServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ReadAllBytes">
+      <soap12:operation soapAction="http://tempuri.org/ReadAllBytes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReadAllTexts">
+      <soap12:operation soapAction="http://tempuri.org/ReadAllTexts" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WriteAllBytes">
+      <soap12:operation soapAction="http://tempuri.org/WriteAllBytes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="FileService">
+    <wsdl:port name="FileServiceSoap" binding="tns:FileServiceSoap">
+      <soap:address location="http://localhost:8094/Services/FileService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="FileServiceSoap12" binding="tns:FileServiceSoap12">
+      <soap12:address location="http://localhost:8094/Services/FileService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
