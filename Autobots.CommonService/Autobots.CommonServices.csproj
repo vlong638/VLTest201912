@@ -95,6 +95,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\Log4NetLogger.cs" />
+    <Compile Include="Utils\WebServiceHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="configs\log4net.config">

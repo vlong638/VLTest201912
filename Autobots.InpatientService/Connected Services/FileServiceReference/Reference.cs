@@ -168,6 +168,13 @@ namespace Autobots.InpatientService.FileServiceReference {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/WriteAllBytes", ReplyAction="*")]
         System.Threading.Tasks.Task<Autobots.InpatientService.FileServiceReference.WriteAllBytesResponse> WriteAllBytesAsync(Autobots.InpatientService.FileServiceReference.WriteAllBytesRequest request);
+        
+        // CODEGEN: 命名空间 http://tempuri.org/ 的元素名称 fileName 以后生成的消息协定未标记为 nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/WriteAllTexts", ReplyAction="*")]
+        Autobots.InpatientService.FileServiceReference.WriteAllTextsResponse WriteAllTexts(Autobots.InpatientService.FileServiceReference.WriteAllTextsRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/WriteAllTexts", ReplyAction="*")]
+        System.Threading.Tasks.Task<Autobots.InpatientService.FileServiceReference.WriteAllTextsResponse> WriteAllTextsAsync(Autobots.InpatientService.FileServiceReference.WriteAllTextsRequest request);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -378,6 +385,78 @@ namespace Autobots.InpatientService.FileServiceReference {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class WriteAllTextsRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="WriteAllTexts", Namespace="http://tempuri.org/", Order=0)]
+        public Autobots.InpatientService.FileServiceReference.WriteAllTextsRequestBody Body;
+        
+        public WriteAllTextsRequest() {
+        }
+        
+        public WriteAllTextsRequest(Autobots.InpatientService.FileServiceReference.WriteAllTextsRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class WriteAllTextsRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string fileName;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=1)]
+        public string texts;
+        
+        public WriteAllTextsRequestBody() {
+        }
+        
+        public WriteAllTextsRequestBody(string fileName, string texts) {
+            this.fileName = fileName;
+            this.texts = texts;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class WriteAllTextsResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="WriteAllTextsResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Autobots.InpatientService.FileServiceReference.WriteAllTextsResponseBody Body;
+        
+        public WriteAllTextsResponse() {
+        }
+        
+        public WriteAllTextsResponse(Autobots.InpatientService.FileServiceReference.WriteAllTextsResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class WriteAllTextsResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public Autobots.InpatientService.FileServiceReference.APIResultOfBoolean WriteAllTextsResult;
+        
+        public WriteAllTextsResponseBody() {
+        }
+        
+        public WriteAllTextsResponseBody(Autobots.InpatientService.FileServiceReference.APIResultOfBoolean WriteAllTextsResult) {
+            this.WriteAllTextsResult = WriteAllTextsResult;
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface FileServiceSoapChannel : Autobots.InpatientService.FileServiceReference.FileServiceSoap, System.ServiceModel.IClientChannel {
     }
@@ -480,6 +559,33 @@ namespace Autobots.InpatientService.FileServiceReference {
             inValue.Body.fileName = fileName;
             inValue.Body.bytes = bytes;
             return ((Autobots.InpatientService.FileServiceReference.FileServiceSoap)(this)).WriteAllBytesAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Autobots.InpatientService.FileServiceReference.WriteAllTextsResponse Autobots.InpatientService.FileServiceReference.FileServiceSoap.WriteAllTexts(Autobots.InpatientService.FileServiceReference.WriteAllTextsRequest request) {
+            return base.Channel.WriteAllTexts(request);
+        }
+        
+        public Autobots.InpatientService.FileServiceReference.APIResultOfBoolean WriteAllTexts(string fileName, string texts) {
+            Autobots.InpatientService.FileServiceReference.WriteAllTextsRequest inValue = new Autobots.InpatientService.FileServiceReference.WriteAllTextsRequest();
+            inValue.Body = new Autobots.InpatientService.FileServiceReference.WriteAllTextsRequestBody();
+            inValue.Body.fileName = fileName;
+            inValue.Body.texts = texts;
+            Autobots.InpatientService.FileServiceReference.WriteAllTextsResponse retVal = ((Autobots.InpatientService.FileServiceReference.FileServiceSoap)(this)).WriteAllTexts(inValue);
+            return retVal.Body.WriteAllTextsResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<Autobots.InpatientService.FileServiceReference.WriteAllTextsResponse> Autobots.InpatientService.FileServiceReference.FileServiceSoap.WriteAllTextsAsync(Autobots.InpatientService.FileServiceReference.WriteAllTextsRequest request) {
+            return base.Channel.WriteAllTextsAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<Autobots.InpatientService.FileServiceReference.WriteAllTextsResponse> WriteAllTextsAsync(string fileName, string texts) {
+            Autobots.InpatientService.FileServiceReference.WriteAllTextsRequest inValue = new Autobots.InpatientService.FileServiceReference.WriteAllTextsRequest();
+            inValue.Body = new Autobots.InpatientService.FileServiceReference.WriteAllTextsRequestBody();
+            inValue.Body.fileName = fileName;
+            inValue.Body.texts = texts;
+            return ((Autobots.InpatientService.FileServiceReference.FileServiceSoap)(this)).WriteAllTextsAsync(inValue);
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using Autobots.Common.ServiceExchange;
+using Autobots.CommonServices.Utils;
 using Autobots.EMRServices.FileSolution;
+using System;
 using System.IO;
 using System.Web.Services;
 
@@ -21,7 +23,7 @@ namespace Autobots.CommonServices.Services
         [WebMethod]
         public APIResult<byte[]> ReadAllBytes(string fileName)
         {
-            try
+            return WebServiceHelper.DelegateWebService(() =>
             {
                 var fullPath = Path.Combine(FileHelper.GetDirectoryToOutput(FileDirectory), fileName);
                 if (!File.Exists(fullPath))
@@ -30,17 +32,16 @@ namespace Autobots.CommonServices.Services
                 }
                 var data = File.ReadAllBytes(fullPath);
                 return new APIResult<byte[]>(data);
-            }
-            catch (System.Exception ex)
-            {
-                return new APIResult<byte[]>(null, 500, ex.Message);
-            }
+            });
         }
+
         [WebMethod]
         public APIResult<string> ReadAllTexts(string fileName)
         {
-            try
+            return WebServiceHelper.DelegateWebService(() =>
             {
+                throw new NotImplementedException("error0949");
+
                 var fullPath = Path.Combine(FileHelper.GetDirectoryToOutput(FileDirectory), fileName);
                 if (!File.Exists(fullPath))
                 {
@@ -48,26 +49,29 @@ namespace Autobots.CommonServices.Services
                 }
                 var data = File.ReadAllText(fullPath);
                 return new APIResult<string>(data);
-            }
-            catch (System.Exception ex)
-            {
-                return new APIResult<string>(null, 500, ex.Message);
-            }
+            });
         }
 
         [WebMethod]
         public APIResult<bool> WriteAllBytes(string fileName, byte[] bytes)
         {
-            try
+            return WebServiceHelper.DelegateWebService(() =>
             {
                 var fullPath = Path.Combine(FileHelper.GetDirectoryToOutput(FileDirectory), fileName);
                 File.WriteAllBytes(fullPath, bytes);
                 return new APIResult<bool>(true);
-            }
-            catch (System.Exception ex)
+            });
+        }
+
+        [WebMethod]
+        public APIResult<bool> WriteAllTexts(string fileName, string texts)
+        {
+            return WebServiceHelper.DelegateWebService(() =>
             {
-                return new APIResult<bool>(false, 500, ex.Message);
-            }
+                var fullPath = Path.Combine(FileHelper.GetDirectoryToOutput(FileDirectory), fileName);
+                File.AppendAllText(fullPath, texts);
+                return new APIResult<bool>(true);
+            });
         }
     }
 }

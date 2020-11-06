@@ -14,9 +14,8 @@ namespace Autobots.CommonServices.Services
     // [System.Web.Script.Services.ScriptService]
     public class DataLogService : System.Web.Services.WebService
     {
-
         [WebMethod]
-        public bool SaveDataLog(string oldContent, string newContent,string operateBy)
+        public bool SaveDataLog(string sourceId, string operateBy, string operateType, string oldContent, string newContent)
         {
             return true;
         }

@@ -24,8 +24,9 @@ namespace Autobots.InpatientService
             var file = @"a.txt";
             var bytes = Encoding.UTF8.GetBytes("8G");
             var fileService = new FileServiceReference.FileServiceSoapClient();
-            var result = fileService.WriteAllBytes(file, bytes);
-            var text = fileService.ReadAllTexts(file);
+            var result1 = fileService.WriteAllBytes(file, bytes);
+            var result2 = fileService.ReadAllTexts(file);
+            var result3 = fileService.ReadAllBytes(file);
             return "Hello World";
         }
     }

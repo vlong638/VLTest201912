@@ -17,43 +17,31 @@ namespace Autobots.CommonServices.Services
         [WebMethod]
         public APIResult Info(string message)
         {
-            try
+            return WebServiceHelper.DelegateWebService(() =>
             {
                 Log4NetLogger.Info(message);
                 return new APIResult();
-            }
-            catch (System.Exception ex)
-            {
-                return new APIResult(500, ex.Message);
-            }
+            });
         }
 
         [WebMethod]
         public APIResult Warn(string message)
         {
-            try
+            return WebServiceHelper.DelegateWebService(() =>
             {
                 Log4NetLogger.Warn(message);
                 return new APIResult();
-            }
-            catch (System.Exception ex)
-            {
-                return new APIResult(500, ex.Message);
-            }
+            });
         }
 
         [WebMethod]
         public APIResult Error(string message)
         {
-            try
+            return WebServiceHelper.DelegateWebService(() =>
             {
                 Log4NetLogger.Error(message);
                 return new APIResult();
-            }
-            catch (System.Exception ex)
-            {
-                return new APIResult(500, ex.Message);
-            }
+            });
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using log4net;
+﻿using Autobots.EMRServices.FileSolution;
+using log4net;
 using log4net.Config;
 using System;
 using System.Collections.Generic;
@@ -13,24 +14,37 @@ namespace Autobots.CommonServices.Utils
     /// </summary>
     public class Log4NetLogger
     {
-        private static ILog logger;
+        private static ILog systemLogger;
+        private static ILog fileLogger;
         private static ILog sqlLogger;
 
         static Log4NetLogger()
         {
-            var repository = LogManager.CreateRepository("NETCoreRepository");
-            if (logger == null)
+            var repository = LogManager.CreateRepository("LoggerRepository");
+            var log4netConfig = Path.Combine(FileHelper.GetDirectoryToOutput("configs"), "log4net.config");
+            XmlConfigurator.Configure(repository, new FileInfo(log4netConfig));
+            if (systemLogger == null)
             {
-                //log4net从log4net.config文件中读取配置信息
-                XmlConfigurator.Configure(repository, new FileInfo("configs/log4net.config"));
-                logger = LogManager.GetLogger(repository.Name, "filelogger");
+                systemLogger = LogManager.GetLogger(repository.Name, "systemLogger");
+            }
+            if (fileLogger == null)
+            {
+                fileLogger = LogManager.GetLogger(repository.Name, "filelogger");
             }
             if (sqlLogger == null)
             {
-                //log4net从log4net.config文件中读取配置信息
-                XmlConfigurator.Configure(repository, new FileInfo("configs/log4net.config"));
                 sqlLogger = LogManager.GetLogger(repository.Name, "sqlLogger");
             }
+        }
+
+        /// <summary>
+        /// 错误日志
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="exception"></param>
+        public static void SystemError(Exception exception)
+        {
+            systemLogger.Error(exception);
         }
 
         /// <summary>
@@ -41,9 +55,9 @@ namespace Autobots.CommonServices.Utils
         public static void Info(string message, Exception exception = null)
         {
             if (exception == null)
-                logger.Info(message);
+                fileLogger.Info(message);
             else
-                logger.Info(message, exception);
+                fileLogger.Info(message, exception);
         }
 
         /// <summary>
@@ -54,9 +68,9 @@ namespace Autobots.CommonServices.Utils
         public static void Warn(string message, Exception exception = null)
         {
             if (exception == null)
-                logger.Warn(message);
+                fileLogger.Warn(message);
             else
-                logger.Warn(message, exception);
+                fileLogger.Warn(message, exception);
         }
 
         /// <summary>
@@ -67,9 +81,9 @@ namespace Autobots.CommonServices.Utils
         public static void Error(string message, Exception exception = null)
         {
             if (exception == null)
-                logger.Error(message);
+                fileLogger.Error(message);
             else
-                logger.Error(message, exception);
+                fileLogger.Error(message, exception);
         }
 
         /// <summary>

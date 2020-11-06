@@ -87,6 +87,9 @@
     <Content Include="Connected Services\FileServiceReference\Autobots.InpatientService.FileServiceReference.ReadAllTextsResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
+    <Content Include="Connected Services\FileServiceReference\Autobots.InpatientService.FileServiceReference.WriteAllTextsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
     <None Include="Connected Services\FileServiceReference\FileService.disco" />
     <None Include="Connected Services\FileServiceReference\configuration91.svcinfo" />
     <None Include="Connected Services\FileServiceReference\configuration.svcinfo" />
