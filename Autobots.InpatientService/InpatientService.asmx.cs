@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Autobots.CommonServices.Utils;
+using Autofac;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,13 +23,23 @@ namespace Autobots.InpatientService
         [WebMethod]
         public string GetPageConfig()
         {
-            var file = @"a.txt";
-            var bytes = Encoding.UTF8.GetBytes("8G");
-            var fileService = new FileServiceReference.FileServiceSoapClient();
-            var result1 = fileService.WriteAllBytes(file, bytes);
-            var result2 = fileService.ReadAllTexts(file);
-            var result3 = fileService.ReadAllBytes(file);
-            return "Hello World";
+            try
+            {
+                throw new NotImplementedException("888G");
+
+                var file = @"a.txt";
+                var bytes = Encoding.UTF8.GetBytes("8G");
+                var fileService = new FileServiceReference.FileServiceSoapClient();
+                var result1 = fileService.WriteAllBytes(file, bytes);
+                var result2 = fileService.ReadAllTexts(file);
+                var result3 = fileService.ReadAllBytes(file);
+                return "Hello World";
+            }
+            catch (Exception ex)
+            {
+                Global.Container.Resolve<Log4NetLogger>().Error(ex);
+                return ex.Message;
+            }
         }
     }
 }

@@ -25,7 +25,7 @@ namespace Autobots.CommonServices.Utils
             XmlConfigurator.Configure(repository, new FileInfo(log4netConfig));
             if (systemLogger == null)
             {
-                systemLogger = LogManager.GetLogger(repository.Name, "systemLogger");
+                systemLogger = LogManager.GetLogger(repository.Name, "systemlogger");
             }
             if (fileLogger == null)
             {
@@ -33,7 +33,7 @@ namespace Autobots.CommonServices.Utils
             }
             if (sqlLogger == null)
             {
-                sqlLogger = LogManager.GetLogger(repository.Name, "sqlLogger");
+                sqlLogger = LogManager.GetLogger(repository.Name, "sqllogger");
             }
         }
 

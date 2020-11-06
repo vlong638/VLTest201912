@@ -70,6 +70,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Services\AuthorizationService.asmx" />
     <Content Include="Services\DataLogService.asmx" />
     <Content Include="Services\DataSyncService.asmx" />
     <Content Include="Services\FileService.asmx" />
@@ -77,6 +78,10 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Services\AuthorizationService.asmx.cs">
+      <DependentUpon>AuthorizationService.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Services\DataLogService.asmx.cs">
       <DependentUpon>DataLogService.asmx</DependentUpon>
       <SubType>Component</SubType>

@@ -112,8 +112,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autobots.CommonServices", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autobots.InpatientService", "Autobots.InpatientService\Autobots.InpatientService.csproj", "{8EDAC57D-C4DE-42FA-9817-227E12A1244A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autobots.BusinessCommon", "Autobots.BusinessCommon\Autobots.BusinessCommon.csproj", "{CC72BAA3-E1C6-4B29-9FCA-F35C9C2203FC}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -268,10 +266,6 @@ Global
 		{8EDAC57D-C4DE-42FA-9817-227E12A1244A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8EDAC57D-C4DE-42FA-9817-227E12A1244A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8EDAC57D-C4DE-42FA-9817-227E12A1244A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CC72BAA3-E1C6-4B29-9FCA-F35C9C2203FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CC72BAA3-E1C6-4B29-9FCA-F35C9C2203FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CC72BAA3-E1C6-4B29-9FCA-F35C9C2203FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CC72BAA3-E1C6-4B29-9FCA-F35C9C2203FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -319,7 +313,6 @@ Global
 		{1B1961C5-D404-41CD-AB83-9CF54257182B} = {D77D66EA-9876-4AEF-8C26-F04574EFE867}
 		{E021CA42-FA4A-43C2-96C6-AEFD2086F8EE} = {D77D66EA-9876-4AEF-8C26-F04574EFE867}
 		{8EDAC57D-C4DE-42FA-9817-227E12A1244A} = {D77D66EA-9876-4AEF-8C26-F04574EFE867}
-		{CC72BAA3-E1C6-4B29-9FCA-F35C9C2203FC} = {D77D66EA-9876-4AEF-8C26-F04574EFE867}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1BEAF6BD-B42E-40E0-929E-2233182F9868}
