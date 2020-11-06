@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的常规信息通过下列特性集
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("Autobots.EMRBase")]
+[assembly: AssemblyTitle("Autobots.Tasks")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Autobots.EMRBase")]
+[assembly: AssemblyProduct("Autobots.Tasks")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于 typelib 的 ID
-[assembly: Guid("2e4da2ca-5926-4075-8881-e7796b85dc63")]
+[assembly: Guid("31869c5d-f7de-4533-a558-a7c121a780cd")]
 
 // 程序集的版本信息由下列四个值组成:
 //
