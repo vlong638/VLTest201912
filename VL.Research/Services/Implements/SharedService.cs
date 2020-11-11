@@ -45,9 +45,12 @@ namespace BBee.Services
         }
         internal ServiceResult<DataTable> GetCommonSelectByExportConfig(VL.Consolo_Core.Common.ExcelExportSolution.SQLConfigSource sourceConfig)
         {
-            var result = dbContext.GetDBContext(DBSourceType.DefaultConnectionString.ToString()).DelegateTransaction((g) =>
+            var adbContext = dbContext.GetDBContext(sourceConfig.DBSourceType);
+            var result = adbContext.DelegateNonTransaction((g) =>
             {
-                return sharedRepository.GetCommonSelect(sourceConfig);
+                sharedRepository = new SharedRepository(adbContext);
+                var datatable = sharedRepository.GetCommonSelect(sourceConfig);
+                return datatable;
             });
             return result;
         }
@@ -56,11 +59,11 @@ namespace BBee.Services
         /// 获取通用的导出数据
         /// </summary>
         /// <param name="sourceConfig"></param>
-        /// <param name="source"></param>
+        /// <param name="dbSourceType"></param>
         /// <returns></returns>
-        internal ServiceResult<DataTable> GetCommonSelectByExportConfig(VL.Consolo_Core.Common.ExcelExportSolution.SQLConfigSource sourceConfig, DBSourceType source)
+        internal ServiceResult<DataTable> GetCommonSelectByExportConfig(VL.Consolo_Core.Common.ExcelExportSolution.SQLConfigSource sourceConfig, string dbSourceType)
         {
-            var adbContext = dbContext.GetDBContext(source.ToString());
+            var adbContext = dbContext.GetDBContext(dbSourceType);
             var result = adbContext.DelegateNonTransaction((g) =>
             {
                 sharedRepository = new SharedRepository(adbContext);

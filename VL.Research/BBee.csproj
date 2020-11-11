@@ -179,6 +179,18 @@
     <None Update="XMLConfig\DeathMonitorUnder5Organization\ExportConfig_列表.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="XMLConfig\GJPregnantInfo\ExportConfig_列表.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLConfig\GJPregnantInfo\ListConfig.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLConfig\GJPregnantInfo\SQLConfig.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLConfig\GJPregnantInfo\列表.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="XMLConfig\LDETBJFWJKBBArea\ExportConfig_列表.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

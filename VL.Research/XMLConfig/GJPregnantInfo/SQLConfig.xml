@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Views>
+	<View ViewName="">
+		<Source SourceName="Data" DBSourceType="GJConnectionString">
+			<Properties>
+				<Property IsOn="true" ColumnName="*" Alias =""/>
+			</Properties>
+			<Wheres>
+				<Where ComponentName="姓名" Formatter="%@姓名%" Required="false"/>
+				<Where ComponentName="身份证号" Required="false"/>
+				<Where ComponentName="随访日期Start" Required="true"/>
+				<Where ComponentName="随访日期End" Required="true"/>
+			</Wheres>
+			<OrderBys>
+				<OrderBy ComponentName="id" Alias ="tb.序号"/>
+			</OrderBys>
+			<SQLs UnitedBy="dizhibm">
+				<SQL>
+select b.id vid
+,a.idcard 身份证号
+,a.personname 姓名
+,a.mobilenumber 手机
+,concat(b.sbp,'/',b.dbp) 血压
+,b.weight 体重
+,b.heartrate 脉搏
+,b.heightfundusuterus 宫高
+,b.abdomencircumference 腹围
+,b.multifetal 多胎
+,b.highrisklevel 高危等级
+,b.highriskreason 高危因素
+,b.visitdate 随访日期
+,b.filedtime 归档日期
+,b.followupappointment 下次随访
+,h.name 随访机构
+,ic.text 区属
+,a.liveplace_text 街道名称
+,case when a.iscreatebook=2 then '否' when a.iscreatebook=1 then '是' else a.iscreatebook end 是否建册
+,a.createbookunit 建册地址
+,b.doctorname 随访医生
+from pregnantinfo a 
+inner join MHC_VISITRECORD b on a.id=b.pregnantinfoid  
+left join InstitutionCode ic on a.liveplace = ic.value
+left join Hospital h on b.hospitalcode  = h.institutioncode
+where
+a.status in (0,1) 
+and b.status in (1)
+<If Operator="NotEmpty" ComponentName="随访日期Start"> and b.visitdate &gt;= @随访日期Start  </If>
+<If Operator="NotEmpty" ComponentName="随访日期End"> and b.visitdate &lt;= dateadd(day,1,@随访日期End) </If>
+<If Operator="NotEmpty" ComponentName ="身份证号"> and a.idcard = @身份证号 </If>
+<If Operator="NotEmpty" ComponentName ="姓名"> and a.personname like @姓名 </If>
+order by b.visitdate
+@Pager
+				</SQL>
+			</SQLs>
+			<CountSQL>
+select count(*)
+from pregnantinfo a 
+inner join MHC_VISITRECORD b on a.id=b.pregnantinfoid  
+left join Hospital h on b.hospitalcode  = h.institutioncode
+where
+a.status in (0,1) 
+and b.status in (1)
+<If Operator="NotEmpty" ComponentName="随访日期Start"> and b.visitdate &gt;= @随访日期Start  </If>
+<If Operator="NotEmpty" ComponentName="随访日期End"> and b.visitdate &lt;= dateadd(day,1,@随访日期End) </If>
+<If Operator="NotEmpty" ComponentName ="身份证号"> and a.idcard = @身份证号 </If>
+<If Operator="NotEmpty" ComponentName ="姓名"> and a.personname like @姓名 </If>
+			</CountSQL>
+			<Transforms>
+				<Transform SourceType="JsonList" ColumnName="多胎" SubFieldName="heartrate" FunctionType="Join" Splitter="," TargetColumnName ="胎心"/>
+				<Transform SourceType="JsonList" ColumnName="多胎" SubFieldName="position" FunctionType="JoinCase" Splitter="," TargetColumnName ="胎位">
+					<Case ColumnName="position" DataType="String" Operator="eq" Value ="01" Then="左枕前（LOA）" />
+					<Case ColumnName="position" DataType="String" Operator="eq" Value ="02" Then="右枕前（ROA）" />
+					<Case ColumnName="position" DataType="String" Operator="eq" Value ="03" Then="左枕后（LOP）" />
+					<Case ColumnName="position" DataType="String" Operator="eq" Value ="04" Then="右枕后（ROP）" />
+					<Case ColumnName="position" DataType="String" Operator="eq" Value ="05" Then="左枕横（LOT）" />
+					<Case ColumnName="position" DataType="String" Operator="eq" Value ="06" Then="右枕横（ROT）" />
+					<Case ColumnName="position" DataType="String" Operator="eq" Value ="07" Then="左颏前（LMA）" />
+					<Case ColumnName="position" DataType="String" Operator="eq" Value ="08" Then="右颏前（RMA）" />
+					<Case ColumnName="position" DataType="String" Operator="eq" Value ="09" Then="左颏后（LMP）" />
+					<Case ColumnName="position" DataType="String" Operator="eq" Value ="10" Then="右颏后（RMP）" />
+					<Case ColumnName="position" DataType="String" Operator="eq" Value ="11" Then="左颏横（LMT）" />
+					<Case ColumnName="position" DataType="String" Operator="eq" Value ="12" Then="右颏横（RMT）" />
+					<Case ColumnName="position" DataType="String" Operator="eq" Value ="13" Then="左骶前（LSA）" />
+					<Case ColumnName="position" DataType="String" Operator="eq" Value ="14" Then="右骶前（RSA）" />
+					<Case ColumnName="position" DataType="String" Operator="eq" Value ="15" Then="左骶后（LSP）" />
+					<Case ColumnName="position" DataType="String" Operator="eq" Value ="16" Then="右骶后（RSP）" />
+					<Case ColumnName="position" DataType="String" Operator="eq" Value ="17" Then="左骶横（LST）" />
+					<Case ColumnName="position" DataType="String" Operator="eq" Value ="18" Then="右骶横（RST）" />
+					<Case ColumnName="position" DataType="String" Operator="eq" Value ="19" Then="左肩前（LScA）" />
+					<Case ColumnName="position" DataType="String" Operator="eq" Value ="20" Then="右肩前（RscA）" />
+					<Case ColumnName="position" DataType="String" Operator="eq" Value ="21" Then="左肩后（LScP）" />
+					<Case ColumnName="position" DataType="String" Operator="eq" Value ="22" Then="右肩后（RScP）" />
+					<Case ColumnName="position" DataType="String" Operator="eq" Value ="99" Then="不定" />
+					<Case DataType="Default" Then="" />
+				</Transform>
+			</Transforms>
+		</Source>
+	</View>
+</Views>

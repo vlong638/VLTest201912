@@ -121,6 +121,14 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
             #region 批量移动行
             if (addCount>0)
             {
+                //Excel中可能存在null行
+                for (int i = 0; i < startAt+addCount; i++)
+                {
+                    var row = sheet.GetRow(i);
+                    if (row==null)
+                        sheet.CreateRow(i);
+                }
+
                 sheet.ShiftRows(
                 startAt,
                 sheet.LastRowNum,                            //--结束行

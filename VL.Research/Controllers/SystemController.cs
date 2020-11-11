@@ -371,8 +371,7 @@ namespace BBee.Controllers
                         //获取数据
                         foreach (var sourceConfig in sheetConfig.Sources)
                         {
-                            DBSourceType sourceType = sourceConfig.DBSourceType.ToEnum<DBSourceType>();
-                            var result = sharedService.GetCommonSelectByExportConfig(sourceConfig, sourceType);
+                            var result = sharedService.GetCommonSelectByExportConfig(sourceConfig);
                             if (!result.IsSuccess)
                             {
                                 throw new NotImplementedException("数据源存在异常:" + result.Message);

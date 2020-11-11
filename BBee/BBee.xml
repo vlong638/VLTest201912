@@ -2582,12 +2582,12 @@
             通用查询模型
             </summary>
         </member>
-        <member name="M:BBee.Services.SharedService.GetCommonSelectByExportConfig(VL.Consolo_Core.Common.ExcelExportSolution.SQLConfigSource,BBee.Common.DBSourceType)">
+        <member name="M:BBee.Services.SharedService.GetCommonSelectByExportConfig(VL.Consolo_Core.Common.ExcelExportSolution.SQLConfigSource,System.String)">
             <summary>
             获取通用的导出数据
             </summary>
             <param name="sourceConfig"></param>
-            <param name="source"></param>
+            <param name="dbSourceType"></param>
             <returns></returns>
         </member>
         <member name="M:BBee.Services.SharedService.UpdateIndicatorsForPrematureBabyManagement(BBee.Common.DBSourceType)">

@@ -290,6 +290,51 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
                                 }
                                 #endregion
                                 break;
+                            case TransfromFunctionType.Join:
+                                #region Join
+                                datatable.Columns.Add(new DataColumn(transform.TargetColumnName));
+                                for (int i = 0; i < datatable.Rows.Count; i++)
+                                {
+                                    var jsonTable = datatable.Rows[i][transform.ColumnName].ToString()?.FromJson<DataTable>();
+                                    if (jsonTable == null)
+                                        continue;
+
+                                    var joinValue = "";
+                                    foreach (var row in jsonTable.AsEnumerable())
+                                    {
+                                        if (joinValue!="")
+                                        {
+                                            joinValue += transform.Splitter;
+                                        }
+                                        var text = row.Field<string>(transform.SubFieldName);
+                                        joinValue += text;
+                                    }
+                                    datatable.Rows[i][transform.TargetColumnName] = joinValue;
+                                } 
+                                #endregion
+                                break;
+                            case TransfromFunctionType.JoinCase:
+                                #region JoinCase
+                                datatable.Columns.Add(new DataColumn(transform.TargetColumnName));
+                                for (int i = 0; i < datatable.Rows.Count; i++)
+                                {
+                                    var jsonTable = datatable.Rows[i][transform.ColumnName].ToString()?.FromJson<DataTable>();
+                                    if (jsonTable == null)
+                                        continue;
+
+                                    var joinValue = "";
+                                    foreach (var row in jsonTable.AsEnumerable())
+                                    {
+                                        if (joinValue != "")
+                                        {
+                                            joinValue += transform.Splitter;
+                                        }
+                                        joinValue += GetValue(row, transform.Cases);
+                                    }
+                                    datatable.Rows[i][transform.TargetColumnName] = joinValue;
+                                }
+                                #endregion
+                                break;
                             default:
                                 throw new NotImplementedException("未支持该`FunctionType` ");
                         }
@@ -508,7 +553,7 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
                 if (where.Required)
                 {
                     var matched = keyValues.FirstOrDefault(c => c.Key == where.ComponentName);
-                    if (matched == null)
+                    if (matched == null || matched.Value.IsNullOrEmpty())
                     {
                         return "缺少必要的参数";
                     }
@@ -517,7 +562,6 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
             return "";
         }
     }
-
 
     public class SQLConfigSQLs
     {

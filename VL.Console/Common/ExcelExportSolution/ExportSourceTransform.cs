@@ -18,6 +18,8 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
         Case,
         SumInt,
         SumCase,
+        Join,
+        JoinCase,
     }
 
     public class ExportSourceTransform
@@ -41,6 +43,10 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
         /// </summary>
         public TransfromFunctionType FunctionType { set; get; }
         /// <summary>
+        /// Case; TransfromFunctionType.Join 分隔符
+        /// </summary>
+        public string Splitter { set; get; }
+        /// <summary>
         /// 目标列名
         /// </summary>
         public string TargetColumnName { set; get; }
@@ -52,6 +58,7 @@ namespace VL.Consolo_Core.Common.ExcelExportSolution
             SubFieldName = element.Attribute(nameof(SubFieldName))?.Value;
             SourceType = element.Attribute(nameof(SourceType))?.Value.ToEnum<SourceType>() ?? SourceType.None;
             FunctionType = element.Attribute(nameof(FunctionType))?.Value.ToEnum<TransfromFunctionType>() ?? TransfromFunctionType.None;
+            Splitter = element.Attribute(nameof(Splitter))?.Value;
             TargetColumnName = element.Attribute(nameof(TargetColumnName))?.Value;
             Cases = element.Descendants(ExportSourceTransformCase.ElementName).Select(c => new ExportSourceTransformCase(c)).ToList();
         }

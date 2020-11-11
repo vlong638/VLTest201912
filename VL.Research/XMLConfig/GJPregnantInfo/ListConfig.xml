@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Views>
+	<!--IsNeedOnPage="false" DisplayName="" (.+) Description="(\w+)"(.+)\r\n
+	IsNeedOnPage="true" DisplayName="$2" $1 Description="$2"$3\r\n-->
+	<View ViewName="" ViewURL="../api/System/GetCommonSelectByDirectoryName">
+		<Export URL="../api/System/CommonExportAll"/>
+		<Wheres>
+			<Where ComponentName="姓名" DisplayName="姓名" DisplayType="1"/>
+			<Where ComponentName="身份证号" DisplayName="身份证号" DisplayType="1"/>
+			<Where ComponentName="随访日期" DisplayName="随访日期" DisplayType="5" Required="true"/>
+			<!--"DisplayType <类型[1-文本框|2-数字框|3-单选下拉框|4-树状下拉框|5-日期选择框][默认:1]>",-->
+		</Wheres>
+		<OrderBy DefaultName ="createdate" DefaultValue ="desc"/>
+		<ToolBars ActionBarPosition="1" ActionBarWidth="100">			
+		</ToolBars>
+		<Properties>
+			<Property IsNeedOnPage="true" DisplayName="身份证号" ColumnName="身份证号" DisplayWidth="100"/>
+			<Property IsNeedOnPage="true" DisplayName="姓名" ColumnName="姓名" DisplayWidth="100"/>
+			<Property IsNeedOnPage="true" DisplayName="手机" ColumnName="手机" DisplayWidth="100"/>
+			<Property IsNeedOnPage="true" DisplayName="血压" ColumnName="血压" DisplayWidth="100"/>
+			<Property IsNeedOnPage="true" DisplayName="体重" ColumnName="体重" DisplayWidth="100"/>
+			<Property IsNeedOnPage="true" DisplayName="脉搏" ColumnName="脉搏" DisplayWidth="100"/>
+			<Property IsNeedOnPage="true" DisplayName="宫高" ColumnName="宫高" DisplayWidth="100"/>
+			<Property IsNeedOnPage="true" DisplayName="腹围" ColumnName="腹围" DisplayWidth="100"/>
+			<Property IsNeedOnPage="true" DisplayName="胎心" ColumnName="胎心" DisplayWidth="100"/>
+			<Property IsNeedOnPage="true" DisplayName="胎位" ColumnName="胎位" DisplayWidth="100"/>
+			<Property IsNeedOnPage="true" DisplayName="高危等级" ColumnName="高危等级" DisplayWidth="100"/>
+			<Property IsNeedOnPage="true" DisplayName="高危因素" ColumnName="高危因素" DisplayWidth="100"/>
+			<Property IsNeedOnPage="true" DisplayName="随访日期" ColumnName="随访日期" DisplayWidth="100"/>
+			<Property IsNeedOnPage="true" DisplayName="归档日期" ColumnName="归档日期" DisplayWidth="100"/>
+			<Property IsNeedOnPage="true" DisplayName="下次随访" ColumnName="下次随访" DisplayWidth="100"/>
+			<Property IsNeedOnPage="true" DisplayName="随访机构" ColumnName="随访机构" DisplayWidth="100"/>
+			<Property IsNeedOnPage="true" DisplayName="区属" ColumnName="区属" DisplayWidth="100"/>
+			<Property IsNeedOnPage="true" DisplayName="街道名称" ColumnName="街道名称" DisplayWidth="100"/>
+			<Property IsNeedOnPage="true" DisplayName="是否建册" ColumnName="是否建册" DisplayWidth="100"/>
+			<Property IsNeedOnPage="true" DisplayName="建册地址" ColumnName="建册地址" DisplayWidth="100"/>
+			<Property IsNeedOnPage="true" DisplayName="随访医生" ColumnName="随访医生" DisplayWidth="100"/>
+		</Properties>
+	</View>
+</Views>
