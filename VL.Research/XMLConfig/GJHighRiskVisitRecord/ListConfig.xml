@@ -22,6 +22,7 @@
 			<Property IsNeedOnPage="true" DisplayName="孕周" ColumnName="孕周" DisplayWidth="100"/>
 			<Property IsNeedOnPage="true" DisplayName="证件号码" ColumnName="证件号码" DisplayWidth="100"/>
 			<Property IsNeedOnPage="true" DisplayName="联系电话" ColumnName="联系电话" DisplayWidth="100"/>
+			<Property IsNeedOnPage="true" DisplayName="高危因素" ColumnName="高危因素" DisplayWidth="200"/>
 			<Property IsNeedOnPage="true" DisplayName="产检日期" ColumnName="检查日期" DisplayWidth="100"/>
 			<Property IsNeedOnPage="true" DisplayName="评估分级" ColumnName="评估分级" DisplayWidth="100"/>
 			<Property IsNeedOnPage="true" DisplayName="转诊情况" ColumnName="转诊情况" DisplayWidth="100"/>
