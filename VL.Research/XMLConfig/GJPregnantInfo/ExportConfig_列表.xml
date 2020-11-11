@@ -50,22 +50,9 @@
 						<If Operator="NotEmpty" ComponentName="随访日期End"> and b.visitdate &lt;= dateadd(day,1,@随访日期End) </If>
 						<If Operator="NotEmpty" ComponentName ="身份证号"> and a.idcard = @身份证号 </If>
 						<If Operator="NotEmpty" ComponentName ="姓名"> and a.personname like @姓名 </If>
-						order by b.visitdate
+						order by b.visitdate desc,a.idcard
 					</SQL>
 				</SQLs>
-				<CountSQL>
-					select count(*)
-					from pregnantinfo a
-					inner join MHC_VISITRECORD b on a.id=b.pregnantinfoid
-					left join Hospital h on b.hospitalcode  = h.institutioncode
-					where
-					a.status in (0,1)
-					and b.status in (1)
-					<If Operator="NotEmpty" ComponentName="随访日期Start"> and b.visitdate &gt;= @随访日期Start  </If>
-					<If Operator="NotEmpty" ComponentName="随访日期End"> and b.visitdate &lt;= dateadd(day,1,@随访日期End) </If>
-					<If Operator="NotEmpty" ComponentName ="身份证号"> and a.idcard = @身份证号 </If>
-					<If Operator="NotEmpty" ComponentName ="姓名"> and a.personname like @姓名 </If>
-				</CountSQL>
 				<Transforms>
 					<Transform SourceType="JsonList" ColumnName="多胎" SubFieldName="heartrate" FunctionType="Join" Splitter="," TargetColumnName ="胎心"/>
 					<Transform SourceType="JsonList" ColumnName="多胎" SubFieldName="position" FunctionType="JoinCase" Splitter="," TargetColumnName ="胎位">

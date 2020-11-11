@@ -48,7 +48,7 @@ and b.status in (1)
 <If Operator="NotEmpty" ComponentName="随访日期End"> and b.visitdate &lt;= dateadd(day,1,@随访日期End) </If>
 <If Operator="NotEmpty" ComponentName ="身份证号"> and a.idcard = @身份证号 </If>
 <If Operator="NotEmpty" ComponentName ="姓名"> and a.personname like @姓名 </If>
-order by b.visitdate
+order by b.visitdate desc,a.idcard
 @Pager
 				</SQL>
 			</SQLs>
@@ -57,6 +57,7 @@ select count(*)
 from pregnantinfo a 
 inner join MHC_VISITRECORD b on a.id=b.pregnantinfoid  
 left join Hospital h on b.hospitalcode  = h.institutioncode
+left join InstitutionCode ic on a.liveplace = ic.value
 where
 a.status in (0,1) 
 and b.status in (1)
