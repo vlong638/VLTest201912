@@ -37,6 +37,7 @@
       <HintPath>..\packages\Oracle.ManagedDataAccess.19.9.0\lib\net40\Oracle.ManagedDataAccess.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -46,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ServiceBase\ConfigSolution\AppConfigHelper.cs" />
     <Compile Include="ServiceBase\DBSolution\DbContext.cs" />
     <Compile Include="ServiceBase\DBSolution\DbGroup.cs" />
     <Compile Include="ServiceBase\DBSolution\DBHelper.cs" />

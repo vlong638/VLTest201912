@@ -1,7 +1,9 @@
-﻿using Autobots.Common.ServiceExchange;
+﻿using Autobots.Common.ServiceBase;
+using Autobots.Common.ServiceExchange;
 using Autobots.CommonServices.Utils;
 using Autobots.EMRServices.FileSolution;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Web.Services;
 
@@ -16,9 +18,24 @@ namespace Autobots.CommonServices.Services
     [System.ComponentModel.ToolboxItem(false)]
     // 若要允许使用 ASP.NET AJAX 从脚本中调用此 Web 服务，请取消注释以下行。 
     // [System.Web.Script.Services.ScriptService]
-    public class FileService : System.Web.Services.WebService
+    public class FileService : System.Web.Services.WebService , IHealthCheck
     {
         const string FileDirectory = "Files";
+
+        #region IHealthCheck
+        public LoadingCheckReport GetLoadingCheckReport()
+        {
+            throw new NotImplementedException();
+        }
+        public List<ReferenceCheckReport> GetReferenceCheckReports()
+        {
+            throw new NotImplementedException();
+        }
+        public bool IsAlive()
+        {
+            throw new NotImplementedException();
+        } 
+        #endregion
 
         [WebMethod]
         public APIResult<byte[]> ReadAllBytes(string fileName)

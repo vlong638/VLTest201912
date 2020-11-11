@@ -1,4 +1,5 @@
-﻿using Autobots.CommonServices.Utils;
+﻿using Autobots.Common.ServiceBase;
+using Autobots.CommonServices.Utils;
 using Autofac;
 using System;
 using System.Collections.Generic;
@@ -17,8 +18,27 @@ namespace Autobots.InpatientService
     [System.ComponentModel.ToolboxItem(false)]
     // 若要允许使用 ASP.NET AJAX 从脚本中调用此 Web 服务，请取消注释以下行。 
     // [System.Web.Script.Services.ScriptService]
-    public class InpatientService : System.Web.Services.WebService
+    public class InpatientService : System.Web.Services.WebService , IHealthCheck
     {
+        #region IHealthCheck
+
+        [WebMethod]
+        public bool IsAlive()
+        {
+            return true;
+        }
+
+        public LoadingCheckReport GetLoadingCheckReport()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<ReferenceCheckReport> GetReferenceCheckReports()
+        {
+            throw new NotImplementedException();
+        } 
+        #endregion
+
 
         [WebMethod]
         public string GetPageConfig()
