@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Views>
+	<!--IsNeedOnPage="false" DisplayName="" (.+) Description="(\w+)"(.+)\r\n
+	IsNeedOnPage="true" DisplayName="$2" $1 Description="$2"$3\r\n-->
+	<View ViewName="GWE" ViewURL="../api/System/GetCommonSelectByDirectoryName">
+		<Export URL="../api/System/CommonExportAll"/>
+		<Wheres>
+			<Where ComponentName="姓名" DisplayName="姓名" DisplayType="1"/>
+			<Where ComponentName="身份证号" DisplayName="身份证号" DisplayType="1"/>
+			<Where ComponentName="检查日期" DisplayName="检查日期" DisplayType="5" Required="true"/>
+			<!--"DisplayType <类型[1-文本框|2-数字框|3-单选下拉框|4-树状下拉框|5-日期选择框][默认:1]>",-->
+		</Wheres>
+		<OrderBy DefaultName ="createdate" DefaultValue ="desc"/>
+		<ToolBars ActionBarPosition="1" ActionBarWidth="100">
+		</ToolBars>
+		<Properties>
+			<Property IsNeedOnPage="true" DisplayName="检查日期" ColumnName="检查日期" DisplayWidth="100"/>
+			<Property IsNeedOnPage="true" DisplayName="姓名" ColumnName="姓名" DisplayWidth="100"/>
+			<Property IsNeedOnPage="true" DisplayName="出生日期" ColumnName="出生日期" DisplayWidth="100"/>
+			<Property IsNeedOnPage="true" DisplayName="现住址" ColumnName="现住址" DisplayWidth="100"/>
+			<Property IsNeedOnPage="true" DisplayName="年龄" ColumnName="年龄" DisplayWidth="100"/>
+			<Property IsNeedOnPage="true" DisplayName="孕周" ColumnName="孕周" DisplayWidth="100"/>
+			<Property IsNeedOnPage="true" DisplayName="证件号码" ColumnName="证件号码" DisplayWidth="100"/>
+			<Property IsNeedOnPage="true" DisplayName="联系电话" ColumnName="联系电话" DisplayWidth="100"/>
+			<Property IsNeedOnPage="true" DisplayName="产检日期" ColumnName="检查日期" DisplayWidth="100"/>
+			<Property IsNeedOnPage="true" DisplayName="评估分级" ColumnName="评估分级" DisplayWidth="100"/>
+			<Property IsNeedOnPage="true" DisplayName="转诊情况" ColumnName="转诊情况" DisplayWidth="100"/>
+			<Property IsNeedOnPage="true" DisplayName="报告单位" ColumnName="报告单位" DisplayWidth="100"/>
+			<Property IsNeedOnPage="true" DisplayName="报告人" ColumnName="报告人" DisplayWidth="100"/>
+			<Property IsNeedOnPage="true" DisplayName="随访情况" ColumnName="随访情况" DisplayWidth="100"/>
+			<Property IsNeedOnPage="true" DisplayName="户籍地址" ColumnName="户籍地址" DisplayWidth="100"/>
+			<Property IsNeedOnPage="true" DisplayName="建册单位" ColumnName="建册单位" DisplayWidth="100"/>
+		</Properties>
+	</View>
+</Views>

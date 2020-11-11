@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Views>
+	<View ViewName="">
+		<Source SourceName="Data" DBSourceType="GJConnectionString">
+			<Properties>
+				<Property IsOn="true" ColumnName="*" Alias =""/>
+			</Properties>
+			<Wheres>
+				<Where ComponentName="姓名" Formatter="%@姓名%" Required="false"/>
+				<Where ComponentName="身份证号" Required="false"/>
+				<Where ComponentName="检查日期Start" Required="true"/>
+				<Where ComponentName="检查日期End" Required="true"/>
+			</Wheres>
+			<OrderBys>
+				<OrderBy ComponentName="id" Alias ="tb.序号"/>
+			</OrderBys>
+			<SQLs UnitedBy="dizhibm">
+				<SQL>
+					select
+					vr.visitdate 检查日期
+					,pi.personname 姓名
+					,pi.birthday 出生日期
+					,pi.liveplace_text 现住址
+					,pi.createage 年龄
+					,concat(vr.checkweek,'+',vr.checkday) 孕周
+					,pi.idcard 证件号码
+					,pi.mobilenumber 联系电话
+					,vr.highriskreason 高危因素
+					-- 评估时间 即填写高危报告的时间 即产检日期
+					,case when vr.highrisklevel = 'A' then '黄' when vr.highrisklevel = 'B' then '橙' when vr.highrisklevel = 'C' then '红' when vr.highrisklevel = 'Z' then '紫' else vr.highrisklevel end 评估分级
+					,'否' 转诊情况
+					,'吉林国建妇产医院' 报告单位
+					,vr.doctorname 报告人
+					,vr.suggestion 随访情况
+					-- 报告时间不需要待
+					,concat(ic.text,pi.homeaddress_text) 户籍地址
+					,pi.createbookunit 建册单位
+					from MHC_VisitRecord vr
+					left join PregnantInfo pi on vr.idcard = pi.idcard
+					left join InstitutionCode ic on ic.value = pi.homeaddress
+					where pi.status in (0,1)
+					and vr.status = 1
+					and vr.highriskreason is not null
+					<If Operator="NotEmpty" ComponentName="检查日期Start"> and vr.visitdate &gt;= @检查日期Start </If>
+					<If Operator="NotEmpty" ComponentName="检查日期End"> and vr.visitdate &lt; dateadd(day,1,@检查日期End) </If>
+					<If Operator="NotEmpty" ComponentName ="身份证号"> and vr.idcard = @身份证号 </If>
+					<If Operator="NotEmpty" ComponentName ="姓名"> and pi.personname like @姓名 </If>
+					order by vr.visitdate,pi.idcard
+					@Pager
+				</SQL>
+			</SQLs>
+			<CountSQL>
+				select count(*)
+				from MHC_VisitRecord vr
+				left join PregnantInfo pi on vr.idcard = pi.idcard
+				left join InstitutionCode ic on ic.value = pi.homeaddress
+				where pi.status in (0,1)
+				and vr.status = 1
+				and vr.highriskreason is not null
+				<If Operator="NotEmpty" ComponentName="检查日期Start"> and vr.visitdate &gt;= @检查日期Start </If>
+				<If Operator="NotEmpty" ComponentName="检查日期End"> and vr.visitdate &lt; dateadd(day,1,@检查日期End) </If>
+				<If Operator="NotEmpty" ComponentName ="身份证号"> and vr.idcard = @身份证号 </If>
+				<If Operator="NotEmpty" ComponentName ="姓名"> and pi.personname like @姓名 </If>
+			</CountSQL>
+		</Source>
+	</View>
+</Views>
