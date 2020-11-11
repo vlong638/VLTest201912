@@ -14,12 +14,29 @@ namespace Autobots.CommonServices.Services
     // [System.Web.Script.Services.ScriptService]
     public class DataLogService : System.Web.Services.WebService
     {
+        #region CommonDataLogs
+
+        /// <summary>
+        /// 保存数据日志
+        /// </summary>
+        /// <param name="sourceId">来源Id</param>
+        /// <param name="operateBy">操作人Id</param>
+        /// <param name="operateType">操作类型:(新增,删除,更改,编辑新增(子项),编辑删除(子项))</param>
+        /// <param name="oldContent">老数据</param>
+        /// <param name="newContent">新数据</param>
+        /// <returns></returns>
         [WebMethod]
         public bool SaveDataLog(string sourceId, string operateBy, string operateType, string oldContent, string newContent)
         {
             return true;
         }
 
+        /// <summary>
+        /// 对比数据日志
+        /// </summary>
+        /// <param name="oldContent"></param>
+        /// <param name="newContent"></param>
+        /// <returns></returns>
         [WebMethod]
         public List<DataLogChange> CompareDataLog(string oldContent, string newContent)
         {
@@ -27,6 +44,8 @@ namespace Autobots.CommonServices.Services
                 new DataLogChange("姓名","王武","王五"),
                 new DataLogChange("年龄","25","15"),
             };
-        }
+        } 
+
+        #endregion
     }
 }

@@ -20,8 +20,6 @@ namespace Autobots.CommonServices.Services
     // [System.Web.Script.Services.ScriptService]
     public class FileService : System.Web.Services.WebService , IHealthCheck
     {
-        const string FileDirectory = "Files";
-
         #region IHealthCheck
         public LoadingCheckReport GetLoadingCheckReport()
         {
@@ -34,8 +32,12 @@ namespace Autobots.CommonServices.Services
         public bool IsAlive()
         {
             throw new NotImplementedException();
-        } 
+        }
         #endregion
+
+        #region CommonFiles
+
+        const string FileDirectory = "Files";
 
         [WebMethod]
         public APIResult<byte[]> ReadAllBytes(string fileName)
@@ -79,7 +81,6 @@ namespace Autobots.CommonServices.Services
                 return new APIResult<bool>(true);
             });
         }
-
         [WebMethod]
         public APIResult<bool> WriteAllTexts(string fileName, string texts)
         {
@@ -89,6 +90,8 @@ namespace Autobots.CommonServices.Services
                 File.AppendAllText(fullPath, texts);
                 return new APIResult<bool>(true);
             });
-        }
+        } 
+
+        #endregion
     }
 }

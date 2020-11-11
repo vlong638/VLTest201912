@@ -14,8 +14,16 @@ namespace Autobots.CommonServices.Services
     // [System.Web.Script.Services.ScriptService]
     public class DataSyncService : System.Web.Services.WebService
     {
+        #region CommonTasks
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="task">执行什么</param>
+        /// <param name="schedule">执行计划</param>
+        /// <returns></returns>
         [WebMethod]
-        public APIResult<SyncResult> StartSync(string syncType)
+        public APIResult<SyncResult> StartSync(string taskType, string schedule)
         {
             var syncId = Guid.NewGuid();
             return new APIResult<SyncResult>()
@@ -28,11 +36,28 @@ namespace Autobots.CommonServices.Services
             };
         }
 
+        /// <summary>
+        /// 获取执行任务(已经执行的,正在执行的)
+        /// </summary>
+        /// <returns></returns>
         [WebMethod]
-        public SyncResult GetSyncStatus(string syncId)
+        public SyncResult GetTasks()
         {
             return new SyncResult() { SyncStatus = SyncStatus.Waiting };
         }
+
+        /// <summary>
+        /// 执行报告
+        /// </summary>
+        /// <param name="syncId">执行项目Id</param>
+        /// <returns></returns>
+        [WebMethod]
+        public SyncResult GetSyncStatus(string taskId)
+        {
+            return new SyncResult() { SyncStatus = SyncStatus.Waiting };
+        } 
+
+        #endregion
     }
 
     /// <summary>

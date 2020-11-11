@@ -31,8 +31,16 @@ namespace Autobots.CommonServices.Services
         }
         #endregion
 
+        #region CommonLog
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="message">记录信息</param>
+        /// <param name="location">定位信息</param>
+        /// <param name="operator">操作人</param>
+        /// <returns></returns>
         [WebMethod]
-        public APIResult Info(string message)
+        public APIResult Info(string message, string location, string @operator)
         {
             return WebServiceHelper.DelegateWebService(() =>
             {
@@ -41,11 +49,15 @@ namespace Autobots.CommonServices.Services
             });
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="message">记录信息</param>
+        /// <param name="location">定位信息</param>
+        /// <param name="operator">操作人</param>
+        /// <returns></returns>
         [WebMethod]
-        public
-            
-            
-            APIResult Warn(string message)
+        public APIResult Warn(string message, string location, string @operator)
         {
             return WebServiceHelper.DelegateWebService(() =>
             {
@@ -54,14 +66,23 @@ namespace Autobots.CommonServices.Services
             });
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="message">记录信息</param>
+        /// <param name="location">定位信息</param>
+        /// <param name="operator">操作人</param>
+        /// <returns></returns>
         [WebMethod]
-        public APIResult Error(string message)
+        public APIResult Error(string message, string location, string @operator)
         {
             return WebServiceHelper.DelegateWebService(() =>
             {
                 Log4NetLogger.Error(message);
                 return new APIResult();
             });
-        }
+        } 
+
+        #endregion
     }
 }
