@@ -40,7 +40,7 @@ namespace Autobots.CommonServices.Services
         /// <param name="operator">操作人</param>
         /// <returns></returns>
         [WebMethod]
-        public APIResult Info(string message, string location, string @operator)
+        public APIResult Info(string message, string locator, string @operator)
         {
             return WebServiceHelper.DelegateWebService(() =>
             {
@@ -57,7 +57,7 @@ namespace Autobots.CommonServices.Services
         /// <param name="operator">操作人</param>
         /// <returns></returns>
         [WebMethod]
-        public APIResult Warn(string message, string location, string @operator)
+        public APIResult Warn(string message, string locator, string @operator)
         {
             return WebServiceHelper.DelegateWebService(() =>
             {
@@ -74,7 +74,7 @@ namespace Autobots.CommonServices.Services
         /// <param name="operator">操作人</param>
         /// <returns></returns>
         [WebMethod]
-        public APIResult Error(string message, string location, string @operator)
+        public APIResult Error(string message, string locator, string @operator)
         {
             return WebServiceHelper.DelegateWebService(() =>
             {

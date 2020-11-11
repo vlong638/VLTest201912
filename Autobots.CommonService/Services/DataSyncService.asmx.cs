@@ -1,5 +1,7 @@
-﻿using Autobots.Common.ServiceExchange;
+﻿using Autobots.Common.ServiceBase;
+using Autobots.Common.ServiceExchange;
 using System;
+using System.Collections.Generic;
 using System.Web.Services;
 
 namespace Autobots.CommonServices.Services
@@ -12,8 +14,23 @@ namespace Autobots.CommonServices.Services
     [System.ComponentModel.ToolboxItem(false)]
     // 若要允许使用 ASP.NET AJAX 从脚本中调用此 Web 服务，请取消注释以下行。 
     // [System.Web.Script.Services.ScriptService]
-    public class DataSyncService : System.Web.Services.WebService
+    public class DataSyncService : System.Web.Services.WebService, IHealthCheck
     {
+        #region IHealthCheck
+        public bool IsAlive()
+        {
+            throw new System.NotImplementedException();
+        }
+        public List<ReferenceCheckReport> GetReferenceCheckReports()
+        {
+            throw new System.NotImplementedException();
+        }
+        public LoadingCheckReport GetLoadingCheckReport()
+        {
+            throw new System.NotImplementedException();
+        }
+        #endregion
+
         #region CommonTasks
 
         /// <summary>
