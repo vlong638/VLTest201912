@@ -16,7 +16,7 @@ namespace FrameworkTest.Common.DBSolution
         public DbContext(IDbConnection connection)
         {
             DbGroup = new DbGroup(connection);
-            VLLogger = new VLLogger(FileHelper.GetDirectoryToOutput("Logs"));
+            VLLogger = new VLLogger(FileHelper.GetDirectory("Logs"));
         }
 
         /// <summary>

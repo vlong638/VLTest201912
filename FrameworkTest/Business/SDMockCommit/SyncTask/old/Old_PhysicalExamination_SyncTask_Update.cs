@@ -21,7 +21,7 @@ namespace FrameworkTest.Business.SDMockCommit
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(examination.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Update-体格检查" + DateTime.Now.ToString("yyyy_MM_dd")), examination.pi_personname + "_" + examination.idcard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Update-体格检查" + DateTime.Now.ToString("yyyy_MM_dd")), examination.pi_personname + "_" + examination.idcard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 }
@@ -86,7 +86,7 @@ namespace FrameworkTest.Business.SDMockCommit
                     {
                         sb.Append(serviceResult.Messages);
                     }
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Update-体格检查" + DateTime.Now.ToString("yyyy_MM_dd")), examination.pi_personname + "_" + examination.idcard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Update-体格检查" + DateTime.Now.ToString("yyyy_MM_dd")), examination.pi_personname + "_" + examination.idcard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 }

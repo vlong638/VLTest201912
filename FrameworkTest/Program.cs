@@ -2600,7 +2600,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(pregnantInfo.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\ToCreate_" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\ToCreate_" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 }
@@ -2828,7 +2828,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
 
                     testOne = true;
                     #endregion
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Update_" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Update_" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 }
@@ -2870,7 +2870,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     {
                         StringBuilder sb = new StringBuilder();
                         sb.AppendLine(pregnantInfo.ToJson());
-                        var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\ToCreate_" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
+                        var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\ToCreate_" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
                         File.WriteAllText(file, sb.ToString());
                         Console.WriteLine($"result:{file}");
                     }
@@ -2884,7 +2884,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(pregnantInfo.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-问询病史" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Create-问询病史" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 }
@@ -2897,7 +2897,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(pregnantInfo.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Update-问询病史" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Update-问询病史" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 }
@@ -2910,7 +2910,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(pregnantInfo.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Test-问询病史" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Test-问询病史" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 }
@@ -3017,7 +3017,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     {
                         sb.Append(serviceResult.Messages);
                     }
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Create-问询病史" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Create-问询病史" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 }
@@ -3109,7 +3109,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     {
                         sb.Append(serviceResult.Messages);
                     }
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Update-问询病史" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Update-问询病史" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 }
@@ -3123,7 +3123,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(examination.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-体格检查" + DateTime.Now.ToString("yyyy_MM_dd")), examination.pi_personname + "_" + examination.idcard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Create-体格检查" + DateTime.Now.ToString("yyyy_MM_dd")), examination.pi_personname + "_" + examination.idcard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 }
@@ -3136,7 +3136,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(examination.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Update-体格检查" + DateTime.Now.ToString("yyyy_MM_dd")), examination.pi_personname + "_" + examination.idcard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Update-体格检查" + DateTime.Now.ToString("yyyy_MM_dd")), examination.pi_personname + "_" + examination.idcard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 }
@@ -3149,7 +3149,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(pregnantInfo.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Test-体格检查" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Test-体格检查" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 }
@@ -3304,7 +3304,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(sourceData.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-专科检查" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Create-专科检查" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 }
@@ -3317,7 +3317,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(sourceData.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Update-专科检查" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Update-专科检查" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 }
@@ -3378,13 +3378,13 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(sourceData.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Create-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
                 syncTask.DoLogOnWork = (sourceData, sb) =>
                 {
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Create-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Create-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
@@ -3398,13 +3398,13 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(sourceData.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Update-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Update-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
                 syncTask.DoLogOnWork = (sourceData, sb) =>
                 {
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Update-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Update-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
@@ -3418,13 +3418,13 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(sourceData.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-问询病史-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.personname + "_" + sourceData.IdCard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Create-问询病史-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.personname + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
                 syncTask.DoLogOnWork = (sourceData, sb) =>
                 {
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Create-问询病史-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.personname + "_" + sourceData.IdCard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Create-问询病史-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.personname + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
@@ -3438,13 +3438,13 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(sourceData.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Update-问询病史-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.personname + "_" + sourceData.IdCard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Update-问询病史-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.personname + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
                 syncTask.DoLogOnWork = (sourceData, sb) =>
                 {
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Update-问询病史-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.personname + "_" + sourceData.IdCard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Update-问询病史-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.personname + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
@@ -3458,13 +3458,13 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(sourceData.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-体格检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.pi_personname + "_" + sourceData.IdCard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Create-体格检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.pi_personname + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
                 syncTask.DoLogOnWork = (sourceData, sb) =>
                 {
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Create-体格检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.pi_personname + "_" + sourceData.IdCard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Create-体格检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.pi_personname + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
@@ -3478,13 +3478,13 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(sourceData.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Update-体格检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.pi_personname + "_" + sourceData.IdCard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Update-体格检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.pi_personname + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
                 syncTask.DoLogOnWork = (sourceData, sb) =>
                 {
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Update-体格检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.pi_personname + "_" + sourceData.IdCard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Update-体格检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.pi_personname + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
@@ -3498,13 +3498,13 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(sourceData.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-专科检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Create-专科检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
                 syncTask.DoLogOnWork = (sourceData, sb) =>
                 {
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Create-专科检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Create-专科检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
@@ -3518,13 +3518,13 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(sourceData.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Update-专科检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Update-专科检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
                 syncTask.DoLogOnWork = (sourceData, sb) =>
                 {
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Update-专科检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Update-专科检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
@@ -3537,13 +3537,13 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(sourceData.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-CreateOrUpdate-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-CreateOrUpdate-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
                 syncTask.DoLogOnWork = (sourceData, sb) =>
                 {
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\CreateOrUpdate-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\CreateOrUpdate-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
@@ -3668,13 +3668,13 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     {
                         StringBuilder sb = new StringBuilder();
                         sb.AppendLine(sourceData.ToJson());
-                        var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
+                        var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Create-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
                         File.WriteAllText(file, sb.ToString());
                         Console.WriteLine($"result:{file}");
                     };
                     syncTask.DoLogOnWork = (sourceData, sb) =>
                     {
-                        var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Create-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
+                        var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Create-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
                         File.WriteAllText(file, sb.ToString());
                         Console.WriteLine($"result:{file}");
                     };
@@ -3689,13 +3689,13 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     {
                         StringBuilder sb = new StringBuilder();
                         sb.AppendLine(sourceData.ToJson());
-                        var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Update-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
+                        var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Update-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
                         File.WriteAllText(file, sb.ToString());
                         Console.WriteLine($"result:{file}");
                     };
                     syncTask.DoLogOnWork = (sourceData, sb) =>
                     {
-                        var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Update-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
+                        var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Update-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
                         File.WriteAllText(file, sb.ToString());
                         Console.WriteLine($"result:{file}");
                     };
@@ -3710,13 +3710,13 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     {
                         StringBuilder sb = new StringBuilder();
                         sb.AppendLine(sourceData.ToJson());
-                        var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-问询病史-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.personname + "_" + sourceData.IdCard + ".txt");
+                        var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Create-问询病史-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.personname + "_" + sourceData.IdCard + ".txt");
                         File.WriteAllText(file, sb.ToString());
                         Console.WriteLine($"result:{file}");
                     };
                     syncTask.DoLogOnWork = (sourceData, sb) =>
                     {
-                        var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Create-问询病史-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.personname + "_" + sourceData.IdCard + ".txt");
+                        var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Create-问询病史-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.personname + "_" + sourceData.IdCard + ".txt");
                         File.WriteAllText(file, sb.ToString());
                         Console.WriteLine($"result:{file}");
                     };
@@ -3731,13 +3731,13 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     {
                         StringBuilder sb = new StringBuilder();
                         sb.AppendLine(sourceData.ToJson());
-                        var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Update-问询病史-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.personname + "_" + sourceData.IdCard + ".txt");
+                        var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Update-问询病史-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.personname + "_" + sourceData.IdCard + ".txt");
                         File.WriteAllText(file, sb.ToString());
                         Console.WriteLine($"result:{file}");
                     };
                     syncTask.DoLogOnWork = (sourceData, sb) =>
                     {
-                        var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Update-问询病史-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.personname + "_" + sourceData.IdCard + ".txt");
+                        var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Update-问询病史-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.personname + "_" + sourceData.IdCard + ".txt");
                         File.WriteAllText(file, sb.ToString());
                         Console.WriteLine($"result:{file}");
                     };
@@ -3752,13 +3752,13 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     {
                         StringBuilder sb = new StringBuilder();
                         sb.AppendLine(sourceData.ToJson());
-                        var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-体格检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.pi_personname + "_" + sourceData.IdCard + ".txt");
+                        var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Create-体格检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.pi_personname + "_" + sourceData.IdCard + ".txt");
                         File.WriteAllText(file, sb.ToString());
                         Console.WriteLine($"result:{file}");
                     };
                     syncTask.DoLogOnWork = (sourceData, sb) =>
                     {
-                        var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Create-体格检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.pi_personname + "_" + sourceData.IdCard + ".txt");
+                        var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Create-体格检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.pi_personname + "_" + sourceData.IdCard + ".txt");
                         File.WriteAllText(file, sb.ToString());
                         Console.WriteLine($"result:{file}");
                     };
@@ -3773,13 +3773,13 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     {
                         StringBuilder sb = new StringBuilder();
                         sb.AppendLine(sourceData.ToJson());
-                        var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Update-体格检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.pi_personname + "_" + sourceData.IdCard + ".txt");
+                        var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Update-体格检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.pi_personname + "_" + sourceData.IdCard + ".txt");
                         File.WriteAllText(file, sb.ToString());
                         Console.WriteLine($"result:{file}");
                     };
                     syncTask.DoLogOnWork = (sourceData, sb) =>
                     {
-                        var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Update-体格检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.pi_personname + "_" + sourceData.IdCard + ".txt");
+                        var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Update-体格检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.pi_personname + "_" + sourceData.IdCard + ".txt");
                         File.WriteAllText(file, sb.ToString());
                         Console.WriteLine($"result:{file}");
                     };
@@ -3794,13 +3794,13 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     {
                         StringBuilder sb = new StringBuilder();
                         sb.AppendLine(sourceData.ToJson());
-                        var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-专科检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
+                        var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Create-专科检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
                         File.WriteAllText(file, sb.ToString());
                         Console.WriteLine($"result:{file}");
                     };
                     syncTask.DoLogOnWork = (sourceData, sb) =>
                     {
-                        var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Create-专科检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
+                        var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Create-专科检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
                         File.WriteAllText(file, sb.ToString());
                         Console.WriteLine($"result:{file}");
                     };
@@ -3815,13 +3815,13 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     {
                         StringBuilder sb = new StringBuilder();
                         sb.AppendLine(sourceData.ToJson());
-                        var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Update-专科检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
+                        var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Update-专科检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
                         File.WriteAllText(file, sb.ToString());
                         Console.WriteLine($"result:{file}");
                     };
                     syncTask.DoLogOnWork = (sourceData, sb) =>
                     {
-                        var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Update-专科检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
+                        var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Update-专科检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
                         File.WriteAllText(file, sb.ToString());
                         Console.WriteLine($"result:{file}");
                     };
@@ -3836,13 +3836,13 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     {
                         StringBuilder sb = new StringBuilder();
                         sb.AppendLine(sourceData.ToJson());
-                        var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-孕妇出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.idcard + "_" + sourceData.inp_no + ".txt");
+                        var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Create-孕妇出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.idcard + "_" + sourceData.inp_no + ".txt");
                         File.WriteAllText(file, sb.ToString());
                         Console.WriteLine($"result:{file}");
                     };
                     syncTask.DoLogOnWork = (sourceData, sb) =>
                     {
-                        var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Create-孕妇出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.idcard + "_" + sourceData.inp_no + ".txt");
+                        var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Create-孕妇出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.idcard + "_" + sourceData.inp_no + ".txt");
                         File.WriteAllText(file, sb.ToString());
                         Console.WriteLine($"result:{file}");
                     };
@@ -3857,13 +3857,13 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     {
                         StringBuilder sb = new StringBuilder();
                         sb.AppendLine(sourceData.ToJson());
-                        var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Update-孕妇出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.inp_no + ".txt");
+                        var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Update-孕妇出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.inp_no + ".txt");
                         File.WriteAllText(file, sb.ToString());
                         Console.WriteLine($"result:{file}");
                     };
                     syncTask.DoLogOnWork = (sourceData, sb) =>
                     {
-                        var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Update-孕妇出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.inp_no + ".txt");
+                        var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Update-孕妇出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.inp_no + ".txt");
                         File.WriteAllText(file, sb.ToString());
                         Console.WriteLine($"result:{file}");
                     };
@@ -3878,13 +3878,13 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     {
                         StringBuilder sb = new StringBuilder();
                         sb.AppendLine(sourceData.ToJson());
-                        var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-婴儿出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.idcard + "_" + sourceData.inp_no + ".txt");
+                        var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Create-婴儿出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.idcard + "_" + sourceData.inp_no + ".txt");
                         File.WriteAllText(file, sb.ToString());
                         Console.WriteLine($"result:{file}");
                     };
                     syncTask.DoLogOnWork = (sourceData, sb) =>
                     {
-                        var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Create-婴儿出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.idcard + "_" + sourceData.inp_no + ".txt");
+                        var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Create-婴儿出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.idcard + "_" + sourceData.inp_no + ".txt");
                         File.WriteAllText(file, sb.ToString());
                         Console.WriteLine($"result:{file}");
                     };
@@ -3899,13 +3899,13 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     {
                         StringBuilder sb = new StringBuilder();
                         sb.AppendLine(sourceData.ToJson());
-                        var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Update-婴儿出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.idcard + "_" + sourceData.inp_no + ".txt");
+                        var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Update-婴儿出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.idcard + "_" + sourceData.inp_no + ".txt");
                         File.WriteAllText(file, sb.ToString());
                         Console.WriteLine($"result:{file}");
                     };
                     syncTask.DoLogOnWork = (sourceData, sb) =>
                     {
-                        var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Update-婴儿出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.idcard + "_" + sourceData.inp_no + ".txt");
+                        var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Update-婴儿出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.idcard + "_" + sourceData.inp_no + ".txt");
                         File.WriteAllText(file, sb.ToString());
                         Console.WriteLine($"result:{file}");
                     };
@@ -3920,13 +3920,13 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(sourceData.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-孕妇出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.idcard + "_" + sourceData.inp_no + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Create-孕妇出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.idcard + "_" + sourceData.inp_no + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
                 syncTask.DoLogOnWork = (sourceData, sb) =>
                 {
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Create-孕妇出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.idcard + "_" + sourceData.inp_no + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Create-孕妇出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.idcard + "_" + sourceData.inp_no + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
@@ -3939,13 +3939,13 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(sourceData.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Update-孕妇出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.inp_no + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Update-孕妇出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.inp_no + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
                 syncTask.DoLogOnWork = (sourceData, sb) =>
                 {
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Update-孕妇出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.inp_no + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Update-孕妇出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.inp_no + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
@@ -3958,13 +3958,13 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(sourceData.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-婴儿出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.idcard + "_" + sourceData.inp_no + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Create-婴儿出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.idcard + "_" + sourceData.inp_no + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
                 syncTask.DoLogOnWork = (sourceData, sb) =>
                 {
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Create-婴儿出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.idcard + "_" + sourceData.inp_no + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Create-婴儿出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.idcard + "_" + sourceData.inp_no + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
@@ -3977,13 +3977,13 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(sourceData.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Update-婴儿出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.idcard + "_" + sourceData.inp_no + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Update-婴儿出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.idcard + "_" + sourceData.inp_no + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
                 syncTask.DoLogOnWork = (sourceData, sb) =>
                 {
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Update-婴儿出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.idcard + "_" + sourceData.inp_no + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Update-婴儿出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.idcard + "_" + sourceData.inp_no + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
@@ -3997,13 +3997,13 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(sourceData.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Create-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
                 syncTask.DoLogOnWork = (sourceData, sb) =>
                 {
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Create-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Create-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };

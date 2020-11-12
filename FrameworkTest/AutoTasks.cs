@@ -21,13 +21,13 @@ namespace FrameworkTest
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(sourceData.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Create-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
                 syncTask.DoLogOnWork = (sourceData, sb) =>
                 {
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Create-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Create-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
@@ -43,13 +43,13 @@ namespace FrameworkTest
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(sourceData.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Update-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Update-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
                 syncTask.DoLogOnWork = (sourceData, sb) =>
                 {
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Update-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Update-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
@@ -65,13 +65,13 @@ namespace FrameworkTest
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(sourceData.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-问询病史-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.personname + "_" + sourceData.IdCard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Create-问询病史-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.personname + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
                 syncTask.DoLogOnWork = (sourceData, sb) =>
                 {
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Create-问询病史-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.personname + "_" + sourceData.IdCard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Create-问询病史-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.personname + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
@@ -87,13 +87,13 @@ namespace FrameworkTest
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(sourceData.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Update-问询病史-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.personname + "_" + sourceData.IdCard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Update-问询病史-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.personname + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
                 syncTask.DoLogOnWork = (sourceData, sb) =>
                 {
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Update-问询病史-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.personname + "_" + sourceData.IdCard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Update-问询病史-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.personname + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
@@ -109,13 +109,13 @@ namespace FrameworkTest
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(sourceData.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-体格检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.pi_personname + "_" + sourceData.IdCard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Create-体格检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.pi_personname + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
                 syncTask.DoLogOnWork = (sourceData, sb) =>
                 {
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Create-体格检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.pi_personname + "_" + sourceData.IdCard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Create-体格检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.pi_personname + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
@@ -131,13 +131,13 @@ namespace FrameworkTest
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(sourceData.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Update-体格检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.pi_personname + "_" + sourceData.IdCard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Update-体格检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.pi_personname + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
                 syncTask.DoLogOnWork = (sourceData, sb) =>
                 {
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Update-体格检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.pi_personname + "_" + sourceData.IdCard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Update-体格检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.SourceData.pi_personname + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
@@ -153,13 +153,13 @@ namespace FrameworkTest
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(sourceData.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-专科检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Create-专科检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
                 syncTask.DoLogOnWork = (sourceData, sb) =>
                 {
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Create-专科检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Create-专科检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
@@ -175,13 +175,13 @@ namespace FrameworkTest
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(sourceData.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Update-专科检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Update-专科检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
                 syncTask.DoLogOnWork = (sourceData, sb) =>
                 {
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Update-专科检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Update-专科检查-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };

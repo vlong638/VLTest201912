@@ -51,7 +51,7 @@ namespace BBee
             services.Configure<DHFConfig>(Configuration.GetSection("DHF"));
             services.Configure<DBConfig>(Configuration.GetSection("DB"));
             services.Configure<AuthenticationOptions>(Configuration.GetSection("Authentication"));
-
+            
             #region 接口及服务
 
             //Controller

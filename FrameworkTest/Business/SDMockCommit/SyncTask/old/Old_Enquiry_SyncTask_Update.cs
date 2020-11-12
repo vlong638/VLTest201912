@@ -21,7 +21,7 @@ namespace FrameworkTest.Business.SDMockCommit
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(pregnantInfo.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\ToUpdate_问询病史" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\ToUpdate_问询病史" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 }
@@ -154,7 +154,7 @@ namespace FrameworkTest.Business.SDMockCommit
                     {
                         sb.Append(serviceResult.Messages);
                     }
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Update_问询病史" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Update_问询病史" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 }

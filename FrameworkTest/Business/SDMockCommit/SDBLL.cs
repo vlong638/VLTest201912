@@ -150,7 +150,7 @@ namespace FrameworkTest.Business.SDMockCommit
 
                 isExecuteOne = true;
                 #endregion
-                var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Update_" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
+                var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Update_" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
                 File.WriteAllText(file, sb.ToString());
                 Console.WriteLine($"result:{file}");
             }
@@ -174,7 +174,7 @@ where s.id is not null and s.SyncStatus = 2 ", transaction: group.Transaction).T
             {
                 StringBuilder sb = new StringBuilder();
                 sb.AppendLine(pregnantInfo.ToJson());
-                var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\ToUpdate_" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
+                var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\ToUpdate_" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
                 File.WriteAllText(file, sb.ToString());
                 Console.WriteLine($"result:{file}");
             }
@@ -211,7 +211,7 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
             {
                 StringBuilder sb = new StringBuilder();
                 sb.AppendLine(pregnantInfo.ToJson());
-                var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\ToUpdate_" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
+                var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\ToUpdate_" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
                 File.WriteAllText(file, sb.ToString());
                 Console.WriteLine($"result:{file}");
             }
@@ -317,7 +317,7 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
 
                 isExecuteOne = true;
                 #endregion
-                var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Update_" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
+                var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Update_" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
                 File.WriteAllText(file, sb.ToString());
                 Console.WriteLine($"result:{file}");
             }
@@ -556,7 +556,7 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
                     sb.AppendLine(ex.ToString());
                 }
                 #endregion
-                var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Create-基本信息-" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
+                var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Create-基本信息-" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
                 File.WriteAllText(file, sb.ToString());
                 Console.WriteLine($"result:{file}");
             }
@@ -1171,7 +1171,7 @@ left join MHC_VisitRecord vr_data on vr_data.idcard = T1.idcard and vr_data.visi
                     sb.AppendLine(ex.ToString());
                 }
                 #endregion
-                var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Create-基本信息-" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
+                var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Create-基本信息-" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
                 File.WriteAllText(file, sb.ToString());
                 Console.WriteLine($"result:{file}");
             }

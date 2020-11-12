@@ -22,7 +22,7 @@ namespace FrameworkTest.Business.SDMockCommit
                 {
                     //记录待处理的病人
                     sb.AppendLine(pregnantInfo.ToJson());
-                    var file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\To-Create-问询病史" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Create-问询病史" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                     //业务处理
@@ -157,7 +157,7 @@ namespace FrameworkTest.Business.SDMockCommit
                     {
                         sb.Append(serviceResult.Messages);
                     }
-                    file = Path.Combine(FileHelper.GetDirectoryToOutput("SyncLog\\Create-问询病史" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
+                    file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Create-问询病史" + DateTime.Now.ToString("yyyy_MM_dd")), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 }

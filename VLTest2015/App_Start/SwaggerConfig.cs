@@ -13,7 +13,7 @@ namespace VLTest2015
         public static void Register()
         {
             var thisAssembly = typeof(SwaggerConfig).Assembly;
-            var xmlDirectory = FrameworkTest.Common.FileSolution.FileHelper.GetDirectoryToOutput("bin");
+            var xmlDirectory = FrameworkTest.Common.FileSolution.FileHelper.GetDirectory("bin");
             var xmlFile = Path.Combine(xmlDirectory, "VLTest2015.xml");
 
             GlobalConfiguration.Configuration
