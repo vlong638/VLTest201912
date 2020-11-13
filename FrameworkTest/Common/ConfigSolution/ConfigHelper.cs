@@ -40,10 +40,9 @@ namespace FrameworkTest.Common.ConfigSolution
         #endregion
 
         #region VLConfig
-        public static Dictionary<string,string> GetVLConfig(string text)
+        public static VLConfig GetVLConfig(string text)
         {
-            var config = new VLConfig(text);
-            return config.GetKeyValues();
+            return new VLConfig(text);
         }
         #endregion
     }

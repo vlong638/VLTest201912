@@ -32,8 +32,7 @@ namespace FrameworkTest.Common.HttpSolution
                     }
                 }
                 configRequest?.Invoke(request);
-                //响应
-                response = (HttpWebResponse)request.GetResponse();
+                response = (HttpWebResponse)request.GetResponse();//响应
                 container.Add(response.Cookies);
                 using (Stream responseStm = response.GetResponseStream())
                 {

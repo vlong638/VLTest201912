@@ -1,4 +1,5 @@
 using Consul;
+using FrameworkTest.Common.ConfigSolution;
 using FrameworkTest.Common.FileSolution;
 using System;
 using System.Collections.Generic;
@@ -27,47 +28,15 @@ namespace Autobots.ConsulSample
             //var hostname= System.Net.Dns.GetHostName();
             //var address = System.Net.Dns.Resolve(hostname).AddressList;
             //考虑全部基于配置
-            var config = FileHelper.GetFile(FileHelper.GetDirectory("Configs"), "config.json");
-            //Newtonsoft.Json.JsonConvert.DeserializeObject()
 
+            //简易配置方案
+            var file = FileHelper.ReadAllText(FileHelper.GetDirectory("configs"), "config.xml");
+            var config = ConfigHelper.GetVLConfig(file);
+            var serviceName = config.GetKey("Consul_ServiceName");
+            var serviceHost = config.GetKey("Consul_ServiceHost");
+            var servicePort = config.GetKey("Consul_ServicePort");
         }
 
-
-        //private void ConfigureConsul(IConsulClient consul, IHostApplicationLifetime lifetime)
-        //{
-        //    var features = app.Properties["server.Features"] as FeatureCollection;
-        //    var addresses = features.Get<IServerAddressesFeature>()
-        //        .Addresses
-        //        .Select(p => new Uri(p));
-
-        //    foreach (var address in addresses)
-        //    {
-        //        var serviceId = $"{serviceOptions.Value.ServiceName}_{address.Host}:{address.Port}";
-
-        //        var httpCheck = new AgentServiceCheck()
-        //        {
-        //            DeregisterCriticalServiceAfter = TimeSpan.FromMinutes(1),
-        //            Interval = TimeSpan.FromSeconds(30),
-        //            HTTP = new Uri(address, "health", true).OriginalString
-        //        };
-
-        //        var registration = new AgentServiceRegistration()
-        //        {
-        //            Checks = new[] { httpCheck },
-        //            Address = address.Host,
-        //            ID = serviceId,
-        //            Name = serviceOptions.Value.ServiceName,
-        //            Port = address.Port
-        //        };
-
-        //        consul.Agent.ServiceRegister(registration).GetAwaiter().GetResult();
-        
-        //        lifetime.ApplicationStopping.Register(() =>
-        //        {
-        //            consul.Agent.ServiceDeregister(serviceId).GetAwaiter().GetResult();
-        //        });
-        //    }
-        //}
     }
 
     public class ServiceDisvoveryOptions

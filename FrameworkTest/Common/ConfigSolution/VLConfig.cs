@@ -11,11 +11,10 @@ namespace FrameworkTest.Common.ConfigSolution
     {
         public List<XMLConfigItem> Items { set; get; }
         public List<XMLConfigItemSet> ItemSets { set; get; }
-
+        public Dictionary<string, string> Dic { get; private set; }
 
         public VLConfig()
         {
-
         }
 
         public VLConfig(string text)
@@ -25,6 +24,7 @@ namespace FrameworkTest.Common.ConfigSolution
             XDocument doc = XDocument.Parse(text);
             Items = doc.Descendants(XMLConfigItem.ElemntName).Select(c => new XMLConfigItem(c)).ToList() ?? new List<XMLConfigItem>();
             ItemSets = doc.Descendants(XMLConfigItemSet.ElemntName).Select(c => new XMLConfigItemSet(c)).ToList() ?? new List<XMLConfigItemSet>();
+            Dic = this.GetKeyValues();
         }
 
         internal Dictionary<string, string> GetKeyValues()
@@ -42,6 +42,15 @@ namespace FrameworkTest.Common.ConfigSolution
                 }
             }
             return result;
+        }
+
+        public string GetKey(string key)
+        {
+            if (Dic.ContainsKey(key))
+            {
+                return Dic[key];
+            }
+            return null;
         }
     }
 

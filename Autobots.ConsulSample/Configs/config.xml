@@ -9,6 +9,7 @@
 		<item key="GJConnectionString" value ="6" />
 	</itemset>
 	<itemset key="Consul">
+		<item key="ServiceName" value ="ConsulSampleService" />
 		<item key="ServiceHost" value ="127.0.0.1" />
 		<item key="ServicePort" value ="8077" />
 		<item key="ServerHost" value ="127.0.0.1" />

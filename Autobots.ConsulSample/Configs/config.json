@@ -1,32 +1,10 @@
 {
-  "DB": {
-    "ConnectionStrings": [
-      {
-        "Key": "DefaultConnectionString",
-        "Value": "Data Source=127.0.0.1,1433;Initial Catalog=VLTest;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sa;Password=123"
-      },
-      {
-        "Key": "FYPTConnectionString",
-        "Value": "Data Source=192.168.50.102,1433;Initial Catalog=fypt-dev;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=vl;Password=123"
-      },
-      {
-        "Key": "SZXTConnectionString",
-        "Value": "Data Source=192.168.50.102,1433;Initial Catalog=SZXT;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=vl;Password=123"
-      },
-      {
-        "Key": "HZConnectionString",
-        "Value": "Data Source=122.225.118.58,7335;Initial Catalog=fypt;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=huzfypt;Password=huz3305@2018."
-      },
-      {
-        "Key": "GJConnectionString",
-        "Value": "Data Source=192.168.50.102,1433;Initial Catalog=HL_Manage;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=HZFYUSER;Password=HZFYPWD"
-      }
-    ]
-  },
+  "ServiceName": "ServiceA",
   "Consul": {
-    "ServiceHost": "127.0.0.1",
-    "ServicePort": "8077",
-    "ServerHost": "127.0.0.1",
-    "ServerPort": "8077"
+    "HttpEndpoint": "http://127.0.0.1:8500",
+    "DnsEndpoint": {
+      "Address": "127.0.0.1",
+      "Port": 8600
+    }
   }
 }
