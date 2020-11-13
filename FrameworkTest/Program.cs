@@ -5,6 +5,7 @@ using FrameworkTest.Business.GJPredeliveryAsync;
 using FrameworkTest.Business.Research;
 using FrameworkTest.Business.SDMockCommit;
 using FrameworkTest.Business.TaskScheduler;
+using FrameworkTest.Common.ConfigSolution;
 using FrameworkTest.Common.DBSolution;
 using FrameworkTest.Common.FileSolution;
 using FrameworkTest.Common.HttpSolution;
@@ -41,6 +42,12 @@ namespace FrameworkTest
 
         static void Main(string[] args)
         {
+            var cjson = FileHelper.ReadAllText(FileHelper.GetDirectory("Configs"), "config.json");
+            var cxml = FileHelper.ReadAllText(FileHelper.GetDirectory("Configs"), "config.xml");
+            var configDic = ConfigHelper.GetVLConfig(cxml);
+
+            //var jsonConfig = Newtonsoft.Json.JsonConvert.DeserializeObject
+
             //var tster = @"<If Operator=""NotEmpty"" ComponentName=""登记日期End""> and h.registerdate <= @登记日期End </If>";
             //var xItem = new XDocument(new XElement("root", XElement.Parse(tster)));
 

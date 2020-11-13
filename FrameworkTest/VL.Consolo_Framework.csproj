@@ -283,7 +283,8 @@
     <Compile Include="Business\TaskScheduler\VLScheduler.cs" />
     <Compile Include="Business\TaskScheduler\TaskConfig.cs" />
     <Compile Include="Business\TaskScheduler\WorkTask.cs" />
-    <Compile Include="Common\ConfigSolution\AppConfigHelper.cs" />
+    <Compile Include="Common\ConfigSolution\ConfigHelper.cs" />
+    <Compile Include="Common\ConfigSolution\VLConfig.cs" />
     <Compile Include="Common\ControllerSolution\APIResult.cs" />
     <Compile Include="Common\ControllerSolution\BaseController.cs" />
     <Compile Include="Common\DALSolution\IRepository.cs" />
@@ -293,6 +294,7 @@
     <Compile Include="Common\DBSolution\ServiceResult.cs" />
     <Compile Include="Business\SDMockCommit\Entities\PregnantInfo\SyncOrder.cs" />
     <Compile Include="Business\SDMockCommit\SDBLL.cs" />
+    <Compile Include="Common\JsonSolution\JsonHelper.cs" />
     <Compile Include="Common\ValuesSolution\DataRowEx.cs" />
     <Compile Include="Business\Research\TransformInfo.cs" />
     <Content Include="Business\ConfigurableEntity\Output\ListPages.xml" />
@@ -362,6 +364,12 @@
     <Content Include="Common\Scripts\Common-EasyUI-1.0.11.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Configs\config.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Configs\config.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Connected Services\Sample02WebService\Sample02WebService1.disco" />
     <None Include="Connected Services\Sample01WebService\Sample01WebService1.disco" />
     <None Include="Connected Services\Sample01WebService\Sample01WebService1.wsdl" />
@@ -422,4 +430,9 @@
     <WCFMetadataStorage Include="Connected Services\Sample02WebService\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties configs_4config_1json__JsonSchema="" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

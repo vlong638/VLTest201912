@@ -22,45 +22,52 @@ namespace Autobots.ConsulSample
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            var config = FileHelper.GetDirectory()
+            //Consul注册
+            ////获取服务器地址
+            //var hostname= System.Net.Dns.GetHostName();
+            //var address = System.Net.Dns.Resolve(hostname).AddressList;
+            //考虑全部基于配置
+            var config = FileHelper.GetFile(FileHelper.GetDirectory("Configs"), "config.json");
+            //Newtonsoft.Json.JsonConvert.DeserializeObject()
 
         }
 
-        private void ConfigureConsul(IApplicationBuilder app, IOptions<ServiceDisvoveryOptions> serviceOptions, IConsulClient consul, IHostApplicationLifetime lifetime)
-        {
-            var features = app.Properties["server.Features"] as FeatureCollection;
-            var addresses = features.Get<IServerAddressesFeature>()
-                .Addresses
-                .Select(p => new Uri(p));
 
-            foreach (var address in addresses)
-            {
-                var serviceId = $"{serviceOptions.Value.ServiceName}_{address.Host}:{address.Port}";
+        //private void ConfigureConsul(IConsulClient consul, IHostApplicationLifetime lifetime)
+        //{
+        //    var features = app.Properties["server.Features"] as FeatureCollection;
+        //    var addresses = features.Get<IServerAddressesFeature>()
+        //        .Addresses
+        //        .Select(p => new Uri(p));
 
-                var httpCheck = new AgentServiceCheck()
-                {
-                    DeregisterCriticalServiceAfter = TimeSpan.FromMinutes(1),
-                    Interval = TimeSpan.FromSeconds(30),
-                    HTTP = new Uri(address, "health", true).OriginalString
-                };
+        //    foreach (var address in addresses)
+        //    {
+        //        var serviceId = $"{serviceOptions.Value.ServiceName}_{address.Host}:{address.Port}";
 
-                var registration = new AgentServiceRegistration()
-                {
-                    Checks = new[] { httpCheck },
-                    Address = address.Host,
-                    ID = serviceId,
-                    Name = serviceOptions.Value.ServiceName,
-                    Port = address.Port
-                };
+        //        var httpCheck = new AgentServiceCheck()
+        //        {
+        //            DeregisterCriticalServiceAfter = TimeSpan.FromMinutes(1),
+        //            Interval = TimeSpan.FromSeconds(30),
+        //            HTTP = new Uri(address, "health", true).OriginalString
+        //        };
 
-                consul.Agent.ServiceRegister(registration).GetAwaiter().GetResult();
+        //        var registration = new AgentServiceRegistration()
+        //        {
+        //            Checks = new[] { httpCheck },
+        //            Address = address.Host,
+        //            ID = serviceId,
+        //            Name = serviceOptions.Value.ServiceName,
+        //            Port = address.Port
+        //        };
 
-                lifetime.ApplicationStopping.Register(() =>
-                {
-                    consul.Agent.ServiceDeregister(serviceId).GetAwaiter().GetResult();
-                });
-            }
-        }
+        //        consul.Agent.ServiceRegister(registration).GetAwaiter().GetResult();
+        
+        //        lifetime.ApplicationStopping.Register(() =>
+        //        {
+        //            consul.Agent.ServiceDeregister(serviceId).GetAwaiter().GetResult();
+        //        });
+        //    }
+        //}
     }
 
     public class ServiceDisvoveryOptions

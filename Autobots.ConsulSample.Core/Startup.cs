@@ -106,10 +106,10 @@ namespace Autobots.ConsulSample.Core
 
                 consul.Agent.ServiceRegister(registration).GetAwaiter().GetResult();
 
-                lifetime.ApplicationStopping.Register(() =>
-                {
-                    consul.Agent.ServiceDeregister(serviceId).GetAwaiter().GetResult();
-                });
+                //lifetime.ApplicationStopping.Register(() =>
+                //{
+                //    consul.Agent.ServiceDeregister(serviceId).GetAwaiter().GetResult();
+                //});
             }
         }
     }

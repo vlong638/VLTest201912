@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<config>
+	<item key="A1" value ="1" />
+	<item key="A2" value ="2" />
+	<item key="A3" value ="3" />
+	<itemset key="A4">
+		<item key="B1" value ="4" />
+		<item key="B2" value ="5" />
+		<item key="B3" value ="6" />
+	</itemset>
+</config>

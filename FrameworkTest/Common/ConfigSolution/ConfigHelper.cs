@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Xml;
 
 namespace FrameworkTest.Common.ConfigSolution
 {
-    public class AppConfigHelper
+    public class ConfigHelper
     {
+        #region AppConfig
         public static void SetAppConfig(string appKey, string appValue)
         {
             XmlDocument doc = new XmlDocument();
@@ -33,7 +35,17 @@ namespace FrameworkTest.Common.ConfigSolution
 
         public static string GetAppConfig(string appKey)
         {
-           return  ConfigurationManager.AppSettings[appKey];
+            return ConfigurationManager.AppSettings[appKey];
         }
+        #endregion
+
+        #region VLConfig
+        public static Dictionary<string,string> GetVLConfig(string text)
+        {
+            var config = new VLConfig(text);
+            return config.GetKeyValues();
+        }
+        #endregion
     }
+
 }
