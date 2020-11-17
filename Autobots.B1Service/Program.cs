@@ -1,26 +1,25 @@
+﻿using Grpc.Core;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace Autobots.B1Service
 {
-    public class Program
+    class Program
     {
-        public static void Main(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-        }
+        const string Server = "localhost";
+        const int Port = 30051;
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+        static void Main(string[] args)
+        {
+            Server server = new Server
+            {
+                Services = { B1ServiceDefinition.B1Service.BindService(new B1ServiceImpl()) },
+                Ports = { new ServerPort(Server, Port, ServerCredentials.Insecure) }
+            };
+            server.Start();
+            Console.WriteLine("Greeter server listening on port " + Port);
+            Console.WriteLine("Press any key to stop the server...");
+            Console.ReadKey();
+            server.ShutdownAsync().Wait();
+        }
     }
 }
