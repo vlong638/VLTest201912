@@ -62,6 +62,8 @@
     <Compile Include="ServiceCommon\IHealthCheck.cs" />
     <Compile Include="ServiceCommon\IPager.cs" />
     <Compile Include="ServiceExchange\APIResult.cs" />
+    <Compile Include="Utils\AccountSolution.cs" />
+    <Compile Include="Utils\DBMiddlewareSolution.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
