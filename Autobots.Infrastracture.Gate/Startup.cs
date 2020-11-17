@@ -26,6 +26,14 @@ namespace Autobots.Infrastracture.Gate
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            //服务接口管理
+            services.AddSwaggerGen(p =>
+            {
+                p.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Autobots.Infrastracture.Gateway", Version = "v1" });
+                p.IncludeXmlComments(AppDomain.CurrentDomain.BaseDirectory + "Autobots.Infrastracture.Gateway.xml");
+                p.CustomSchemaIds(x => x.FullName);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +53,13 @@ namespace Autobots.Infrastracture.Gate
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            //swagger
+            app.UseSwagger();
+            app.UseSwaggerUI(p =>
+            {
+                p.SwaggerEndpoint("/swagger/v1/swagger.json", "VL API");
             });
         }
     }

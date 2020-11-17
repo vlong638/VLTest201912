@@ -6,6 +6,9 @@ using static Autobots.B1ServiceDefinition.B1Service;
 
 namespace Autobots.Infrastracture.Gate.Controllers
 {
+    /// <summary>
+    /// 样例服务B1
+    /// </summary>
     [ApiController]
     [Route("api/[controller]/[action]")]
     public class B1ServiceController : ControllerBase
@@ -17,7 +20,7 @@ namespace Autobots.Infrastracture.Gate.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
+        [HttpPost]
         public async Task<HelloReply> SayHello(HelloRequest request)
         {
             Channel channel = new Channel($"{Server}:{Port}", ChannelCredentials.Insecure);

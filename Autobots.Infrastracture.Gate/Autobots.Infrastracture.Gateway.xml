@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Autobots.Infrastracture.Gateway</name>
+    </assembly>
+    <members>
+        <member name="T:Autobots.Infrastracture.Gate.Controllers.B1ServiceController">
+            <summary>
+            样例服务B1
+            </summary>
+        </member>
+        <member name="M:Autobots.Infrastracture.Gate.Controllers.B1ServiceController.SayHello(Autobots.B1ServiceDefinition.HelloRequest)">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
