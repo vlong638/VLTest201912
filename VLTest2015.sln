@@ -140,6 +140,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autobots.ServiceProtocols",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autobots.B1Service", "Autobots.B1Service\Autobots.B1Service.csproj", "{6B8C3153-07C4-44C5-8504-683794E1CF29}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools.Consul", "Consul\Tools.Consul.csproj", "{92145C1E-A6E9-4545-B616-B2C5B3D83CDB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -346,6 +348,10 @@ Global
 		{6B8C3153-07C4-44C5-8504-683794E1CF29}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B8C3153-07C4-44C5-8504-683794E1CF29}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B8C3153-07C4-44C5-8504-683794E1CF29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92145C1E-A6E9-4545-B616-B2C5B3D83CDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92145C1E-A6E9-4545-B616-B2C5B3D83CDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92145C1E-A6E9-4545-B616-B2C5B3D83CDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92145C1E-A6E9-4545-B616-B2C5B3D83CDB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -406,6 +412,7 @@ Global
 		{06E8BB1A-B63B-428C-8954-8E3E2273955A} = {B387092C-A320-496B-B123-3ABA43BFA6B1}
 		{7AF6B517-8137-424C-8508-9F0578307B2C} = {B387092C-A320-496B-B123-3ABA43BFA6B1}
 		{6B8C3153-07C4-44C5-8504-683794E1CF29} = {B387092C-A320-496B-B123-3ABA43BFA6B1}
+		{92145C1E-A6E9-4545-B616-B2C5B3D83CDB} = {B387092C-A320-496B-B123-3ABA43BFA6B1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1BEAF6BD-B42E-40E0-929E-2233182F9868}
