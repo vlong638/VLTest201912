@@ -1,12 +1,18 @@
 {
   "ServiceDiscovery": {
-    "Service": {
+    "RPCService": {
       "Name": "B2Service",
       "Address": "127.0.0.1",
       "Port": "5002",
       "Tag": "B2Service"
     },
-    "Consul": {
+    "HealthCheckService": {
+      "Name": "B2Service",
+      "Address": "127.0.0.1",
+      "Port": "5003",
+      "Tag": "B2ServiceHealthCheck"
+    },
+    "ConsulService": {
       "HttpEndpoint": "http://127.0.0.1:8500",
       "DnsEndpoint": {
         "Address": "127.0.0.1",

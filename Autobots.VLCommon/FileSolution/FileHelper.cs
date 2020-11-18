@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace VL.Consolo_Core.Common.FileSolution
+namespace VLAutobots.Infrastracture.Common.FileSolution
 {
     public class FileHelper
     {

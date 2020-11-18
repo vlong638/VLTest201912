@@ -3,19 +3,15 @@ using Consul;
 using Grpc.Core;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using System;
-using System.Linq;
 
 namespace Autobots.B2Service
 {
-
     public interface IRPCService
     {
         void Start();
@@ -36,11 +32,11 @@ namespace Autobots.B2Service
             _server = new Server
             {
                 Services = { B2ServiceDefinition.B2Service.BindService(new B2ServiceImpl()) },
-                Ports = { new ServerPort(ServiceConfig.Service.Address, ServiceConfig.Service.Port, ServerCredentials.Insecure) }
+                Ports = { new ServerPort(ServiceConfig.RPCService.Address, ServiceConfig.RPCService.Port, ServerCredentials.Insecure) }
             };
             _server.Start();
 
-            Console.WriteLine($"Grpc ServerListening On Port {ServiceConfig.Service.Port}");
+            Console.WriteLine($"Grpc ServerListening On Port {ServiceConfig.RPCService.Port}");
         }
     }
 
@@ -58,8 +54,10 @@ namespace Autobots.B2Service
         {
             //注册全局配置
             services.AddOptions();
+
+            //注册RPC配置
             services.Configure<ServiceDisvoveryOptions>(Configuration.GetSection("ServiceDiscovery"));
-            //注册Rpc服务
+            //注册RPC服务
             services.AddSingleton<IRPCService, RPCService>();
         }
 
@@ -75,7 +73,6 @@ namespace Autobots.B2Service
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
-
 
             // 添加健康检查路由地址
             app.Map("/health", (app) =>
@@ -96,23 +93,23 @@ namespace Autobots.B2Service
         // 服务注册
         public static IApplicationBuilder RegisterConsul(IApplicationBuilder app, ServiceDisvoveryOptions serviceConfig)
         {
-            var consulClient = new ConsulClient(x => x.Address = new Uri($"http://{serviceConfig.Consul.DnsEndpoint.Address}:{serviceConfig.Consul.DnsEndpoint.Port}"));
+            var consulClient = new ConsulClient(x => x.Address = new Uri($"http://{serviceConfig.ConsulService.DnsEndpoint.Address}:{serviceConfig.ConsulService.DnsEndpoint.Port}"));
             var httpCheck = new AgentServiceCheck()
             {
                 DeregisterCriticalServiceAfter = TimeSpan.FromSeconds(5), //服务启动多久后注册
                 Interval = TimeSpan.FromSeconds(3), //健康检查时间间隔，或者称为心跳间隔
-                HTTP = $"http://{serviceConfig.Service.Address}:{5001}/health", //健康检查地址
+                HTTP = $"http://{serviceConfig.HealthCheckService.Address}:{serviceConfig.HealthCheckService.Port}/health", //健康检查地址
                 //Timeout = TimeSpan.FromSeconds(5) //超时时间
             };
-            var serviceId = $"{serviceConfig.Service.Name}_{serviceConfig.Service.Address}:{serviceConfig.Service.Port}";
+            var serviceId = $"{serviceConfig.RPCService.Name}_{serviceConfig.RPCService.Address}:{serviceConfig.RPCService.Port}";
             var registration = new AgentServiceRegistration()
             {
                 Checks = new[] { httpCheck },
                 ID = serviceId,
-                Name = serviceConfig.Service.Name,
-                Address = serviceConfig.Service.Address,
-                Port = serviceConfig.Service.Port,
-                Tags = new[] { $"urlprefix-/{serviceConfig.Service.Tag}" }//添加 urlprefix-/servicename 格式的 tag 标签，以便 Fabio 识别
+                Name = serviceConfig.RPCService.Name,
+                Address = serviceConfig.RPCService.Address,
+                Port = serviceConfig.RPCService.Port,
+                Tags = new[] { $"urlprefix-/{serviceConfig.RPCService.Tag}" }//添加 urlprefix-/servicename 格式的 tag 标签，以便 Fabio 识别
             };
             consulClient.Agent.ServiceRegister(registration).Wait();//服务启动时注册，内部实现其实就是使用 Consul API 进行注册（HttpClient发起）
             return app;

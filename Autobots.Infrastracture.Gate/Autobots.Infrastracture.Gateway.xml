@@ -15,5 +15,41 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:Autobots.Infrastracture.Gate.Controllers.B2ServiceController">
+            <summary>
+            样例服务B1
+            </summary>
+        </member>
+        <member name="M:Autobots.Infrastracture.Gate.Controllers.B2ServiceController.SayHello(Autobots.Infrastracture.Gate.B2ServiceRPCClientProvider,Autobots.B2ServiceDefinition.HelloRequest)">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Autobots.Infrastracture.Gate.Program">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Autobots.Infrastracture.Gate.Program.Main(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:Autobots.Infrastracture.Gate.Program.GetWebHostBuilder(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Autobots.Infrastracture.Gate.RPCServiceConfigProvider.GetService(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="serviceName"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

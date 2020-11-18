@@ -4,9 +4,11 @@ namespace Autobots.Infrastracture.Common.ConsulSolution
 {
     public class ServiceDisvoveryOptions
     {
-        public ServiceConfig Service { get; set; }
+        public ServiceConfig RPCService { get; set; }
 
-        public ConsulOptions Consul { get; set; }
+        public ServiceConfig HealthCheckService { get; set; }
+
+        public ConsulOptions ConsulService { get; set; }
     }
 
     public class ServiceConfig

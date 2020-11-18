@@ -1,8 +1,6 @@
-﻿using Autobots.B1ServiceDefinition;
-using Grpc.Core;
+﻿using Autobots.B2ServiceDefinition;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using static Autobots.B2ServiceDefinition.B2Service;
 
 namespace Autobots.Infrastracture.Gate.Controllers
 {
@@ -13,18 +11,14 @@ namespace Autobots.Infrastracture.Gate.Controllers
     [Route("api/[controller]/[action]")]
     public class B2ServiceController : ControllerBase
     {
-        const string Server = "localhost";
-        const int Port = 5000;
-
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public async Task<HelloReply> SayHello(HelloRequest request)
+        public async Task<HelloReply> SayHello([FromServices] B2ServiceRPCClientProvider provider, HelloRequest request)
         {
-            Channel channel = new Channel($"{Server}:{Port}", ChannelCredentials.Insecure);
-            var client = new B2ServiceClient(channel);
+            var client = provider.GetClient();
             var reply = await client.SayHelloAsync(request);
             return reply;
         }

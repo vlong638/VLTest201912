@@ -1,6 +1,5 @@
 ﻿using Autobots.B2ServiceDefinition;
 using Autobots.Infrastracture.Common.ValuesSolution;
-using Grpc.Core;
 using System;
 using System.Threading.Tasks;
 
