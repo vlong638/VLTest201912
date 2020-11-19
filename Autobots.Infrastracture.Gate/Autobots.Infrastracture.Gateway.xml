@@ -4,6 +4,17 @@
         <name>Autobots.Infrastracture.Gateway</name>
     </assembly>
     <members>
+        <member name="T:Autobots.Infrastracture.Gateway.Controllers.AggregateServiceController">
+            <summary>
+            样例服务B1
+            </summary>
+        </member>
+        <member name="M:Autobots.Infrastracture.Gateway.Controllers.AggregateServiceController.BothSayHello(Autobots.Infrastracture.Gateway.B1ServiceRPCClientProvider,Autobots.Infrastracture.Gateway.B2ServiceRPCClientProvider,Autobots.Infrastracture.Gateway.Controllers.AggregateServiceController.HelloRequestModel)">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Autobots.Infrastracture.Gateway.Controllers.B1ServiceController">
             <summary>
             样例服务B1
