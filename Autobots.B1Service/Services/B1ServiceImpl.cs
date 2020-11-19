@@ -1,16 +1,16 @@
-﻿using Autobots.B2ServiceDefinition;
+﻿using Autobots.B1ServiceDefinition;
 using Autobots.Infrastracture.Common.ValuesSolution;
 using System;
 using System.Threading.Tasks;
 
-namespace Autobots.B2Service
+namespace Autobots.B1Service
 {
-    public class B2ServiceImpl : B2ServiceDefinition.B2Service.B2ServiceBase
+    public class B1ServiceImpl : B1ServiceDefinition.B1Service.B1ServiceBase
     {
         public override Task<HelloReply> SayHello(HelloRequest request, global::Grpc.Core.ServerCallContext context)
         {
             Console.WriteLine("From Client," + request.ToJson());
-            return Task.FromResult(new HelloReply { Message = "Hello " + request.Name +" From Server B2" });
+            return Task.FromResult(new HelloReply { Message = "Hello " + request.Name +" From Server B1" });
 
         }
     }

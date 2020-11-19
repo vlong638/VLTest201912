@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using VLAutobots.Infrastracture.Common.FileSolution;
 
-namespace Autobots.Infrastracture.Gate
+namespace Autobots.Infrastracture.Gateway
 {
     /// <summary>
     /// 

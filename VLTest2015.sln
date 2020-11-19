@@ -104,7 +104,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultipleCommon.WebService.V
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample_Log4Net", "Sample_Log4Net\Sample_Log4Net.csproj", "{B914BA2F-E3FD-4C3B-872B-23060E02E5DB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business_ckblv2", "Business_ckblv2", "{D77D66EA-9876-4AEF-8C26-F04574EFE867}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business_SOA", "Business_SOA", "{D77D66EA-9876-4AEF-8C26-F04574EFE867}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autobots.Common", "Autobots.Common\Autobots.Common.csproj", "{1B1961C5-D404-41CD-AB83-9CF54257182B}"
 EndProject
@@ -120,27 +120,27 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autobots.ConsulSample", "Au
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Autobots.ConsulSample.Core", "Autobots.ConsulSample.Core\Autobots.ConsulSample.Core.csproj", "{B2B9C141-FE2E-4925-8616-298838615BD6}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business_v3", "Business_v3", "{B387092C-A320-496B-B123-3ABA43BFA6B1}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business_Micro", "Business_Micro", "{B387092C-A320-496B-B123-3ABA43BFA6B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autobots.Infrastracture.Common", "Autobots.VLCommon\Autobots.Infrastracture.Common.csproj", "{3DB22DB1-BFD5-4DB6-B8F1-6DC15D8810F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Autobots.Infrastracture.Common", "Autobots.VLCommon\Autobots.Infrastracture.Common.csproj", "{3DB22DB1-BFD5-4DB6-B8F1-6DC15D8810F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autobots.Infrastracture.FileCenter", "Autobots.Infrastracture.File\Autobots.Infrastracture.FileCenter.csproj", "{7833E071-2CC9-40E2-92A8-ACFD1B2FA8B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Autobots.Infrastracture.FileCenter", "Autobots.Infrastracture.File\Autobots.Infrastracture.FileCenter.csproj", "{7833E071-2CC9-40E2-92A8-ACFD1B2FA8B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autobots.Infrastracture.LogCenter", "Autobots.Infrastracture.Log\Autobots.Infrastracture.LogCenter.csproj", "{9B365AF0-48E5-4677-AA74-17877EEF412E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Autobots.Infrastracture.LogCenter", "Autobots.Infrastracture.Log\Autobots.Infrastracture.LogCenter.csproj", "{9B365AF0-48E5-4677-AA74-17877EEF412E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autobots.Infrastracture.ConfigCenter", "Autobots.Infrastracture.Config\Autobots.Infrastracture.ConfigCenter.csproj", "{548E764D-6CC0-42F8-9FCB-80B54963A7FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Autobots.Infrastracture.ConfigCenter", "Autobots.Infrastracture.Config\Autobots.Infrastracture.ConfigCenter.csproj", "{548E764D-6CC0-42F8-9FCB-80B54963A7FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autobots.Infrastracture.Gateway", "Autobots.Infrastracture.Gate\Autobots.Infrastracture.Gateway.csproj", "{4F4D8833-927D-45BC-AA01-6DCF1DCA853C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Autobots.Infrastracture.Gateway", "Autobots.Infrastracture.Gate\Autobots.Infrastracture.Gateway.csproj", "{4F4D8833-927D-45BC-AA01-6DCF1DCA853C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autobots.AggregateService", "Autobots.AggregateService\Autobots.AggregateService.csproj", "{8236A5AC-B31E-4EB1-944C-3D9D5BD5950B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Autobots.AggregateService", "Autobots.AggregateService\Autobots.AggregateService.csproj", "{8236A5AC-B31E-4EB1-944C-3D9D5BD5950B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autobots.B2Service", "Autobots.B2Service\Autobots.B2Service.csproj", "{06E8BB1A-B63B-428C-8954-8E3E2273955A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Autobots.B2Service", "Autobots.B2Service\Autobots.B2Service.csproj", "{06E8BB1A-B63B-428C-8954-8E3E2273955A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autobots.ServiceProtocols", "Autobots.ServiceProtocols\Autobots.ServiceProtocols.csproj", "{7AF6B517-8137-424C-8508-9F0578307B2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Autobots.ServiceProtocols", "Autobots.ServiceProtocols\Autobots.ServiceProtocols.csproj", "{7AF6B517-8137-424C-8508-9F0578307B2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autobots.B1Service", "Autobots.B1Service\Autobots.B1Service.csproj", "{6B8C3153-07C4-44C5-8504-683794E1CF29}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tools.Consul", "Consul\Tools.Consul.csproj", "{92145C1E-A6E9-4545-B616-B2C5B3D83CDB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools.Consul", "Consul\Tools.Consul.csproj", "{92145C1E-A6E9-4545-B616-B2C5B3D83CDB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autobots.B1Service", "Autobots.B1Service\Autobots.B1Service.csproj", "{18A8AA66-A92A-44A5-A303-2A65DCC2F3D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -344,14 +344,14 @@ Global
 		{7AF6B517-8137-424C-8508-9F0578307B2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7AF6B517-8137-424C-8508-9F0578307B2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7AF6B517-8137-424C-8508-9F0578307B2C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6B8C3153-07C4-44C5-8504-683794E1CF29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6B8C3153-07C4-44C5-8504-683794E1CF29}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6B8C3153-07C4-44C5-8504-683794E1CF29}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6B8C3153-07C4-44C5-8504-683794E1CF29}.Release|Any CPU.Build.0 = Release|Any CPU
 		{92145C1E-A6E9-4545-B616-B2C5B3D83CDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{92145C1E-A6E9-4545-B616-B2C5B3D83CDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92145C1E-A6E9-4545-B616-B2C5B3D83CDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92145C1E-A6E9-4545-B616-B2C5B3D83CDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18A8AA66-A92A-44A5-A303-2A65DCC2F3D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18A8AA66-A92A-44A5-A303-2A65DCC2F3D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18A8AA66-A92A-44A5-A303-2A65DCC2F3D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18A8AA66-A92A-44A5-A303-2A65DCC2F3D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -411,8 +411,8 @@ Global
 		{8236A5AC-B31E-4EB1-944C-3D9D5BD5950B} = {B387092C-A320-496B-B123-3ABA43BFA6B1}
 		{06E8BB1A-B63B-428C-8954-8E3E2273955A} = {B387092C-A320-496B-B123-3ABA43BFA6B1}
 		{7AF6B517-8137-424C-8508-9F0578307B2C} = {B387092C-A320-496B-B123-3ABA43BFA6B1}
-		{6B8C3153-07C4-44C5-8504-683794E1CF29} = {B387092C-A320-496B-B123-3ABA43BFA6B1}
 		{92145C1E-A6E9-4545-B616-B2C5B3D83CDB} = {B387092C-A320-496B-B123-3ABA43BFA6B1}
+		{18A8AA66-A92A-44A5-A303-2A65DCC2F3D5} = {B387092C-A320-496B-B123-3ABA43BFA6B1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1BEAF6BD-B42E-40E0-929E-2233182F9868}

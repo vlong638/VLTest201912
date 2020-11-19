@@ -4,47 +4,47 @@
         <name>Autobots.Infrastracture.Gateway</name>
     </assembly>
     <members>
-        <member name="T:Autobots.Infrastracture.Gate.Controllers.B1ServiceController">
+        <member name="T:Autobots.Infrastracture.Gateway.Controllers.B1ServiceController">
             <summary>
             样例服务B1
             </summary>
         </member>
-        <member name="M:Autobots.Infrastracture.Gate.Controllers.B1ServiceController.SayHello(Autobots.B1ServiceDefinition.HelloRequest)">
+        <member name="M:Autobots.Infrastracture.Gateway.Controllers.B1ServiceController.SayHello(Autobots.Infrastracture.Gateway.B1ServiceRPCClientProvider,Autobots.B1ServiceDefinition.HelloRequest)">
             <summary>
             
             </summary>
             <returns></returns>
         </member>
-        <member name="T:Autobots.Infrastracture.Gate.Controllers.B2ServiceController">
+        <member name="T:Autobots.Infrastracture.Gateway.Controllers.B2ServiceController">
             <summary>
             样例服务B1
             </summary>
         </member>
-        <member name="M:Autobots.Infrastracture.Gate.Controllers.B2ServiceController.SayHello(Autobots.Infrastracture.Gate.B2ServiceRPCClientProvider,Autobots.B2ServiceDefinition.HelloRequest)">
+        <member name="M:Autobots.Infrastracture.Gateway.Controllers.B2ServiceController.SayHello(Autobots.Infrastracture.Gateway.B2ServiceRPCClientProvider,Autobots.B2ServiceDefinition.HelloRequest)">
             <summary>
             
             </summary>
             <returns></returns>
         </member>
-        <member name="T:Autobots.Infrastracture.Gate.Program">
+        <member name="T:Autobots.Infrastracture.Gateway.Program">
             <summary>
             
             </summary>
         </member>
-        <member name="M:Autobots.Infrastracture.Gate.Program.Main(System.String[])">
+        <member name="M:Autobots.Infrastracture.Gateway.Program.Main(System.String[])">
             <summary>
             
             </summary>
             <param name="args"></param>
         </member>
-        <member name="M:Autobots.Infrastracture.Gate.Program.GetWebHostBuilder(System.String[])">
+        <member name="M:Autobots.Infrastracture.Gateway.Program.GetWebHostBuilder(System.String[])">
             <summary>
             
             </summary>
             <param name="args"></param>
             <returns></returns>
         </member>
-        <member name="M:Autobots.Infrastracture.Gate.RPCServiceConfigProvider.GetService(System.String)">
+        <member name="M:Autobots.Infrastracture.Gateway.RPCServiceConfigProvider.GetService(System.String)">
             <summary>
             
             </summary>

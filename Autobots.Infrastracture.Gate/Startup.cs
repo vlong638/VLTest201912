@@ -11,7 +11,7 @@ using Microsoft.Extensions.Options;
 using System;
 using System.Linq;
 
-namespace Autobots.Infrastracture.Gate
+namespace Autobots.Infrastracture.Gateway
 {
     public interface IRPCServiceConfigProvider
     {
@@ -67,27 +67,7 @@ namespace Autobots.Infrastracture.Gate
         T GetClient();
     }
 
-    public class B2ServiceRPCClientProvider : IRPCClientProvider<B2Service.B2ServiceClient>
-    {
-        IRPCServiceConfigProvider ConfigProvider;
 
-        public B2ServiceRPCClientProvider(IRPCServiceConfigProvider configProvider)
-        {
-            ConfigProvider = configProvider;
-        }
-
-        public B2Service.B2ServiceClient GetClient()
-        {
-            string serviceName = "B2Service";
-            var serviceConfig = ConfigProvider.GetService(serviceName);
-            if (serviceConfig==null)
-            {
-                throw new NotImplementedException("依赖的服务无效");
-            }
-            Channel channel = new Channel($"{serviceConfig.Address}:{serviceConfig.Port}", ChannelCredentials.Insecure);
-            return new B2ServiceDefinition.B2Service.B2ServiceClient(channel);
-        }
-    }
 
 
     public class Startup
@@ -107,6 +87,7 @@ namespace Autobots.Infrastracture.Gate
             //注册RPC配置
             services.Configure<ServiceDisvoveryOptions>(Configuration.GetSection("ServiceDiscovery"));
             services.AddSingleton<IRPCServiceConfigProvider, RPCServiceConfigProvider>();
+            services.AddSingleton<B1ServiceRPCClientProvider, B1ServiceRPCClientProvider>();
             services.AddSingleton<B2ServiceRPCClientProvider, B2ServiceRPCClientProvider>();
 
             //服务接口管理

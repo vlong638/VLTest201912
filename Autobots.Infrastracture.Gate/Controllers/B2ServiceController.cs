@@ -1,8 +1,11 @@
 ﻿using Autobots.B2ServiceDefinition;
+using Autobots.Infrastracture.Common.ControllerSolution;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Autobots.Infrastracture.Gate.Controllers
+namespace Autobots.Infrastracture.Gateway.Controllers
 {
     /// <summary>
     /// 样例服务B1
@@ -16,11 +19,12 @@ namespace Autobots.Infrastracture.Gate.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public async Task<HelloReply> SayHello([FromServices] B2ServiceRPCClientProvider provider, HelloRequest request)
+        public async Task<APIResult<HelloReply>> SayHello([FromServices] B2ServiceRPCClientProvider provider, HelloRequest request)
         {
             var client = provider.GetClient();
             var reply = await client.SayHelloAsync(request);
-            return reply;
+            Console.WriteLine(reply);
+            return new APIResult<HelloReply>(reply);
         }
     }
 }
