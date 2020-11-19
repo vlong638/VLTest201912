@@ -1,2 +1,2 @@
-dotnet run Autobots.B2Service.dll
+dotnet Autobots.B2Service.dll
 pause
