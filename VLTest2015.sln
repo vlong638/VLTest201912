@@ -138,9 +138,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Autobots.B2Service", "Autob
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Autobots.ServiceProtocols", "Autobots.ServiceProtocols\Autobots.ServiceProtocols.csproj", "{7AF6B517-8137-424C-8508-9F0578307B2C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tools.Consul", "Consul\Tools.Consul.csproj", "{92145C1E-A6E9-4545-B616-B2C5B3D83CDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tools", "Consul\Tools.csproj", "{92145C1E-A6E9-4545-B616-B2C5B3D83CDB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autobots.B1Service", "Autobots.B1Service\Autobots.B1Service.csproj", "{18A8AA66-A92A-44A5-A303-2A65DCC2F3D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Autobots.B1Service", "Autobots.B1Service\Autobots.B1Service.csproj", "{18A8AA66-A92A-44A5-A303-2A65DCC2F3D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
