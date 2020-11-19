@@ -29,8 +29,8 @@ namespace Autobots.Infrastracture.Gateway.Controllers
         {
             var b1Client = b1Provider.GetClient();
             var b2Client = b2Provider.GetClient();
-            var b1Reply = await b1Client.SayHelloAsync(new B1ServiceDefinition.HelloRequest() { Name = request.Name });
-            var b2Reply = await b2Client.SayHelloAsync(new B2ServiceDefinition.HelloRequest() { Name = request.Name });
+            var b1Reply = await b1Client.SayHelloAsync(new B1Service.HelloRequest() { Name = request.Name });
+            var b2Reply = await b2Client.SayHelloAsync(new B2Service.HelloRequest() { Name = request.Name });
             Console.WriteLine(b1Reply);
             Console.WriteLine(b2Reply);
             var result = new HelloReplyModel() { Name = b1Reply.ToString() + b2Reply.ToString() };

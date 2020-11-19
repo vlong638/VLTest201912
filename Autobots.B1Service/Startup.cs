@@ -31,7 +31,7 @@ namespace Autobots.B1Service
         {
             _server = new Server
             {
-                Services = { B1ServiceDefinition.B1Service.BindService(new B1ServiceImpl()) },
+                Services = { B1ServiceDefinition.BindService(new B1ServiceImpl()) },
                 Ports = { new ServerPort(ServiceConfig.RPCService.Address, ServiceConfig.RPCService.Port, ServerCredentials.Insecure) }
             };
             _server.Start();

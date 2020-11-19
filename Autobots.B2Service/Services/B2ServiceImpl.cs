@@ -1,11 +1,10 @@
-﻿using Autobots.B2ServiceDefinition;
-using Autobots.Infrastracture.Common.ValuesSolution;
+﻿using Autobots.Infrastracture.Common.ValuesSolution;
 using System;
 using System.Threading.Tasks;
 
 namespace Autobots.B2Service
 {
-    public class B2ServiceImpl : B2ServiceDefinition.B2Service.B2ServiceBase
+    public class B2ServiceImpl : B2ServiceDefinition.B2ServiceDefinitionBase
     {
         public override Task<HelloReply> SayHello(HelloRequest request, global::Grpc.Core.ServerCallContext context)
         {

@@ -31,7 +31,7 @@ namespace Autobots.B2Service
         {
             _server = new Server
             {
-                Services = { B2ServiceDefinition.B2Service.BindService(new B2ServiceImpl()) },
+                Services = { B2ServiceDefinition.BindService(new B2ServiceImpl()) },
                 Ports = { new ServerPort(ServiceConfig.RPCService.Address, ServiceConfig.RPCService.Port, ServerCredentials.Insecure) }
             };
             _server.Start();

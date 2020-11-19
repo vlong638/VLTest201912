@@ -1,7 +1,4 @@
-using Autobots.B2ServiceDefinition;
 using Autobots.Infrastracture.Common.ConsulSolution;
-using Consul;
-using Grpc.Core;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;

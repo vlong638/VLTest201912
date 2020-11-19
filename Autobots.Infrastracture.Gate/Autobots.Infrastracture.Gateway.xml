@@ -20,7 +20,7 @@
             样例服务B1
             </summary>
         </member>
-        <member name="M:Autobots.Infrastracture.Gateway.Controllers.B1ServiceController.SayHello(Autobots.Infrastracture.Gateway.B1ServiceRPCClientProvider,Autobots.B1ServiceDefinition.HelloRequest)">
+        <member name="M:Autobots.Infrastracture.Gateway.Controllers.B1ServiceController.SayHello(Autobots.Infrastracture.Gateway.B1ServiceRPCClientProvider,Autobots.B1Service.HelloRequest)">
             <summary>
             
             </summary>
@@ -31,7 +31,7 @@
             样例服务B1
             </summary>
         </member>
-        <member name="M:Autobots.Infrastracture.Gateway.Controllers.B2ServiceController.SayHello(Autobots.Infrastracture.Gateway.B2ServiceRPCClientProvider,Autobots.B2ServiceDefinition.HelloRequest)">
+        <member name="M:Autobots.Infrastracture.Gateway.Controllers.B2ServiceController.SayHello(Autobots.Infrastracture.Gateway.B2ServiceRPCClientProvider,Autobots.B2Service.HelloRequest)">
             <summary>
             
             </summary>

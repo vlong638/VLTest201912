@@ -1,8 +1,7 @@
-﻿using Autobots.B2ServiceDefinition;
+﻿using Autobots.B2Service;
 using Autobots.Infrastracture.Common.ControllerSolution;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Autobots.Infrastracture.Gateway.Controllers

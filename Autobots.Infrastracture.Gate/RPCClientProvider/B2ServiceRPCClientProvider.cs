@@ -1,9 +1,10 @@
 ﻿using Grpc.Core;
 using System;
+using static Autobots.B2Service.B2ServiceDefinition;
 
 namespace Autobots.Infrastracture.Gateway
 {
-    public class B2ServiceRPCClientProvider : IRPCClientProvider<B2ServiceDefinition.B2Service.B2ServiceClient>
+    public class B2ServiceRPCClientProvider : IRPCClientProvider<B2ServiceDefinitionClient>
     {
         IRPCServiceConfigProvider ConfigProvider;
 
@@ -12,7 +13,7 @@ namespace Autobots.Infrastracture.Gateway
             ConfigProvider = configProvider;
         }
 
-        public B2ServiceDefinition.B2Service.B2ServiceClient GetClient()
+        public B2ServiceDefinitionClient GetClient()
         {
             string serviceName = "B2Service";
             var serviceConfig = ConfigProvider.GetService(serviceName);
@@ -21,7 +22,7 @@ namespace Autobots.Infrastracture.Gateway
                 throw new NotImplementedException("依赖的服务无效");
             }
             Channel channel = new Channel($"{serviceConfig.Address}:{serviceConfig.Port}", ChannelCredentials.Insecure);
-            return new B2ServiceDefinition.B2Service.B2ServiceClient(channel);
+            return new B2ServiceDefinitionClient(channel);
         }
     }
 }

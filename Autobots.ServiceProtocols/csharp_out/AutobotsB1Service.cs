@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace Autobots.B1ServiceDefinition {
+namespace Autobots.B1Service {
 
   /// <summary>Holder for reflection information generated from Autobots.B1Service.proto</summary>
   public static partial class AutobotsB1ServiceReflection {
@@ -24,19 +24,18 @@ namespace Autobots.B1ServiceDefinition {
     static AutobotsB1ServiceReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChhBdXRvYm90cy5CMVNlcnZpY2UucHJvdG8SHEF1dG9ib3RzLkIxU2Vydmlj",
-            "ZURlZmluaXRpb24iHAoMSGVsbG9SZXF1ZXN0EgwKBG5hbWUYASABKAkiHQoK",
-            "SGVsbG9SZXBseRIPCgdtZXNzYWdlGAEgASgJMtgBCglCMVNlcnZpY2USYgoI",
-            "U2F5SGVsbG8SKi5BdXRvYm90cy5CMVNlcnZpY2VEZWZpbml0aW9uLkhlbGxv",
-            "UmVxdWVzdBooLkF1dG9ib3RzLkIxU2VydmljZURlZmluaXRpb24uSGVsbG9S",
-            "ZXBseSIAEmcKDVRyYW5zVGVzdDEwa2ISKi5BdXRvYm90cy5CMVNlcnZpY2VE",
-            "ZWZpbml0aW9uLkhlbGxvUmVxdWVzdBooLkF1dG9ib3RzLkIxU2VydmljZURl",
-            "ZmluaXRpb24uSGVsbG9SZXBseSIAYgZwcm90bzM="));
+            "ChhBdXRvYm90cy5CMVNlcnZpY2UucHJvdG8SEkF1dG9ib3RzLkIxU2Vydmlj",
+            "ZSIcCgxIZWxsb1JlcXVlc3QSDAoEbmFtZRgBIAEoCSIdCgpIZWxsb1JlcGx5",
+            "Eg8KB21lc3NhZ2UYASABKAkyugEKE0IxU2VydmljZURlZmluaXRpb24STgoI",
+            "U2F5SGVsbG8SIC5BdXRvYm90cy5CMVNlcnZpY2UuSGVsbG9SZXF1ZXN0Gh4u",
+            "QXV0b2JvdHMuQjFTZXJ2aWNlLkhlbGxvUmVwbHkiABJTCg1UcmFuc1Rlc3Qx",
+            "MGtiEiAuQXV0b2JvdHMuQjFTZXJ2aWNlLkhlbGxvUmVxdWVzdBoeLkF1dG9i",
+            "b3RzLkIxU2VydmljZS5IZWxsb1JlcGx5IgBiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Autobots.B1ServiceDefinition.HelloRequest), global::Autobots.B1ServiceDefinition.HelloRequest.Parser, new[]{ "Name" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Autobots.B1ServiceDefinition.HelloReply), global::Autobots.B1ServiceDefinition.HelloReply.Parser, new[]{ "Message" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Autobots.B1Service.HelloRequest), global::Autobots.B1Service.HelloRequest.Parser, new[]{ "Name" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Autobots.B1Service.HelloReply), global::Autobots.B1Service.HelloReply.Parser, new[]{ "Message" }, null, null, null, null)
           }));
     }
     #endregion
@@ -54,7 +53,7 @@ namespace Autobots.B1ServiceDefinition {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Autobots.B1ServiceDefinition.AutobotsB1ServiceReflection.Descriptor.MessageTypes[0]; }
+      get { return global::Autobots.B1Service.AutobotsB1ServiceReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -186,7 +185,7 @@ namespace Autobots.B1ServiceDefinition {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Autobots.B1ServiceDefinition.AutobotsB1ServiceReflection.Descriptor.MessageTypes[1]; }
+      get { return global::Autobots.B1Service.AutobotsB1ServiceReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

@@ -1,10 +1,8 @@
-﻿using Autobots.B1ServiceDefinition;
+﻿using Autobots.B1Service;
 using Autobots.Infrastracture.Common.ControllerSolution;
-using Grpc.Core;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
-using static Autobots.B1ServiceDefinition.B1Service;
 
 namespace Autobots.Infrastracture.Gateway.Controllers
 {

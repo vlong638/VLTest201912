@@ -1,11 +1,10 @@
-﻿using Autobots.B1ServiceDefinition;
-using Autobots.Infrastracture.Common.ValuesSolution;
+﻿using Autobots.Infrastracture.Common.ValuesSolution;
 using System;
 using System.Threading.Tasks;
 
 namespace Autobots.B1Service
 {
-    public class B1ServiceImpl : B1ServiceDefinition.B1Service.B1ServiceBase
+    public class B1ServiceImpl : B1ServiceDefinition.B1ServiceDefinitionBase
     {
         public override Task<HelloReply> SayHello(HelloRequest request, global::Grpc.Core.ServerCallContext context)
         {
