@@ -2,11 +2,13 @@ syntax = "proto3";
 
 package Autobots.Infrastracture.LogCenter;
 
-message HealthCheckRequest {
-  string service = 1;
+message LogRequest {
+  string message = 1;
+  string locator = 2;
+  string operator = 3;
 }
 
-message HealthCheckResponse {
+message LogResponse {
   enum ServingStatus {
     UNKNOWN = 0;
     SERVING = 1;
@@ -16,8 +18,8 @@ message HealthCheckResponse {
   ServingStatus status = 1;
 }
 
-service Health {
-  rpc Check(HealthCheckRequest) returns (HealthCheckResponse);
-
-  rpc Watch(HealthCheckRequest) returns (stream HealthCheckResponse);
+service LogServiceDefinition {
+  rpc Info(LogRequest) returns (LogResponse);
+  rpc Warn(LogRequest) returns (LogResponse);
+  rpc Error(LogRequest) returns (LogResponse);
 }

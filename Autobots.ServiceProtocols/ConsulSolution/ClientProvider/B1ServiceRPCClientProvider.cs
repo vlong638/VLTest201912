@@ -2,7 +2,7 @@
 using System;
 using static Autobots.B1Service.B1ServiceDefinition;
 
-namespace Autobots.Infrastracture.Gateway
+namespace Autobots.ServiceProtocols
 {
     public class B1ServiceRPCClientProvider : IRPCClientProvider<B1ServiceDefinitionClient>
     {
@@ -13,10 +13,10 @@ namespace Autobots.Infrastracture.Gateway
             ConfigProvider = configProvider;
         }
 
-        public B1ServiceDefinitionClient GetClient()
+        public B1ServiceDefinitionClient GetClient(string consulAddress, int consulPort)
         {
-            string serviceName = "B1Service";
-            var serviceConfig = ConfigProvider.GetService(serviceName);
+            string serviceName = nameof(B1Service);
+            var serviceConfig = ConfigProvider.GetService(serviceName, consulAddress, consulPort);
             if (serviceConfig == null)
             {
                 throw new NotImplementedException("依赖的服务无效");

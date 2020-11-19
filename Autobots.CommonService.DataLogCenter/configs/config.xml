@@ -1,18 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <config>
 	<itemset key="HealthCheckService">
-		<item key="Name" value ="B2Service" />
+		<item key="Name" value ="DataLogCenter" />
 		<item key="Address" value ="127.0.0.1" />
-		<item key="Port" value ="5004" />
+		<item key="Port" value ="5012" />
+	</itemset>
+	<!--<itemset key="RPCService">
+		<item key="Name" value ="DataLogCenter" />
+		<item key="Address" value ="127.0.0.1" />
+		<item key="Port" value ="5002" />
 	</itemset>
 	<itemset key="ConsulService">
 		<item key="Name" value ="ConsulService" />
 		<item key="Address" value ="127.0.0.1" />
 		<item key="Port" value ="8500" />
-	</itemset>
-	<!--<itemset key="RPCService">
-		<item key="Name" value ="B2Service" />
-		<item key="Address" value ="127.0.0.1" />
-		<item key="Port" value ="5002" />
 	</itemset>-->
 </config>

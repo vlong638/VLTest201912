@@ -10,7 +10,6 @@ namespace Autobots.B1Service
         {
             Console.WriteLine("From Client," + request.ToJson());
             return Task.FromResult(new HelloReply { Message = "Hello " + request.Name +" From Server B1" });
-
         }
     }
 }

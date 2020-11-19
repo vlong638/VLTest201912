@@ -18,23 +18,8 @@ namespace Autobots.CommonServices.Services
     [System.ComponentModel.ToolboxItem(false)]
     // 若要允许使用 ASP.NET AJAX 从脚本中调用此 Web 服务，请取消注释以下行。 
     // [System.Web.Script.Services.ScriptService]
-    public class FileService : System.Web.Services.WebService , IHealthCheck
+    public class FileService : System.Web.Services.WebService
     {
-        #region IHealthCheck
-        public LoadingCheckReport GetLoadingCheckReport()
-        {
-            throw new NotImplementedException();
-        }
-        public List<ReferenceCheckReport> GetReferenceCheckReports()
-        {
-            throw new NotImplementedException();
-        }
-        public bool IsAlive()
-        {
-            throw new NotImplementedException();
-        }
-        #endregion
-
         #region CommonFiles
 
         const string FileDirectory = "Files";

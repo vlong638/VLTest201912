@@ -6,6 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ConsulSolution\**" />
+    <EmbeddedResource Remove="ConsulSolution\**" />
+    <None Remove="ConsulSolution\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="ConfigSolution\configSample.xml" />
   </ItemGroup>
 

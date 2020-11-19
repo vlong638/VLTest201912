@@ -1,26 +1,34 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Autobots.Infrastracture.Common.ConfigSolution;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using VLAutobots.Infrastracture.Common.FileSolution;
 
-namespace Autobots.CommonService.DataLogCenter
+namespace Autobots.DataLogCenter
 {
     public class Program
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            GetWebHostBuilder(args).Build().Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+        public static IWebHostBuilder GetWebHostBuilder(string[] args)
+        {
+            var currentDirectory = FileHelper.GetDirectory("configs");
+            var configText = FileHelper.ReadAllText(currentDirectory, "config.xml");
+            var config = ConfigHelper.GetVLConfig(configText);
+
+            var builder = WebHost.CreateDefaultBuilder(args)
+            .UseUrls($"http://{config.GetKey("HealthCheckService", "Address")}:{config.GetKey("HealthCheckService", "Port")}")
+            .ConfigureAppConfiguration((context, builder) =>
+            {
+                builder.SetBasePath(System.IO.Directory.GetCurrentDirectory());
+                builder.AddJsonFile("configs/config.json", optional: false, reloadOnChange: false);
+            })
+            .UseStartup<Startup>();
+            return builder;
+        }
     }
 }

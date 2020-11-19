@@ -1,4 +1,4 @@
-using Autobots.Infrastracture.Common.ConsulSolution;
+using Autobots.ServiceProtocols;
 using Consul;
 using Grpc.Core;
 using Microsoft.AspNetCore.Builder;
@@ -106,7 +106,7 @@ namespace Autobots.B2Service
             {
                 Checks = new[] { httpCheck },
                 ID = serviceId,
-                Name = serviceConfig.RPCService.Name,
+                Name = nameof(B2Service),
                 Address = serviceConfig.RPCService.Address,
                 Port = serviceConfig.RPCService.Port,
                 Tags = new[] { $"urlprefix-/{serviceConfig.RPCService.Tag}" }//添加 urlprefix-/servicename 格式的 tag 标签，以便 Fabio 识别

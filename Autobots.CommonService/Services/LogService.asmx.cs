@@ -14,23 +14,8 @@ namespace Autobots.CommonServices.Services
     [System.ComponentModel.ToolboxItem(false)]
     // 若要允许使用 ASP.NET AJAX 从脚本中调用此 Web 服务，请取消注释以下行。 
     // [System.Web.Script.Services.ScriptService]
-    public class LogService : WebService, IHealthCheck
+    public class LogService : WebService
     {
-        #region IHealthCheck
-        public bool IsAlive()
-        {
-            throw new System.NotImplementedException();
-        }
-        public List<ReferenceCheckReport> GetReferenceCheckReports()
-        {
-            throw new System.NotImplementedException();
-        }
-        public LoadingCheckReport GetLoadingCheckReport()
-        {
-            throw new System.NotImplementedException();
-        }
-        #endregion
-
         #region CommonLog
         /// <summary>
         /// 
