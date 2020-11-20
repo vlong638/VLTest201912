@@ -22,15 +22,17 @@ where ur.UserId in @userIds;"
                 , new { userIds });
         }
 
+
+
         public Role GetBy(string name)
         {
-            return _connection.Query<Role>("select * from [A_Role] where Name = @name;"
+            return _connection.Query<Role>("select * from [Role] where Name = @name;"
                 , new { name }).FirstOrDefault();
         }
 
         public IEnumerable<Role> GetAll()
         {
-            return _connection.Query<Role>("select * from [A_Role] order by Id desc;");
+            return _connection.Query<Role>("select * from [Role] order by Id desc;");
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace BBee.Models
 {
-    [Table("A_Role")]
+    [Table("Role")]
     public class Role
     {
         public long Id { set; get; }
