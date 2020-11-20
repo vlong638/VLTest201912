@@ -551,11 +551,14 @@ namespace FrameworkTest.Business.SDMockCommit
         internal CQJL_LIST_Data GetPregnantInHospitalList(UserInfo userInfo, string inp_no, ref StringBuilder logger)
         {
             var container = new CookieContainer();
-            var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/CQJL_LIST&sUserID={userInfo.UserId}&sParams=null${userInfo.OrgId}$1${inp_no}$P$P";
-            var postData = "pageIndex=0&pageSize=1000&sortField=&sortOrder=";
-            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/CQJL_LIST&sUserID={userInfo.UserId}&sParams=null${userInfo.OrgId}$2${inp_no}$P$P$4406";
+            var postData = "pageIndex=0&pageSize=20&sortField=&sortOrder=";
+            var contentType = "application/x-www-form-urlencoded; charset=UTF-8";
+            var result = HttpHelper.Post(url, postData, ref container, contentType);
             logger.AppendLine($">>>查询-获取孕妇住院数据列表");
             logger.AppendLine(url);
+            logger.AppendLine(contentType);
+            logger.AppendLine(postData);
             logger.AppendLine(result);
             var re2 = result.FromJson<CQJL_LIST>();
             if (re2 == null || re2.data == null || re2.data.Count == 0)
