@@ -1,0 +1,23 @@
+{
+  "ServiceDiscovery": {
+    "RPCService": {
+      "Name": "LogCenter",
+      "Address": "127.0.0.1",
+      "Port": "5011",
+      "Tag": "LogCenter"
+    },
+    "HealthCheckService": {
+      "Name": "LogCenter",
+      "Address": "127.0.0.1",
+      "Port": "5012",
+      "Tag": "LogCenterHealthCheck"
+    },
+    "ConsulService": {
+      "HttpEndpoint": "http://127.0.0.1:8500",
+      "DnsEndpoint": {
+        "Address": "127.0.0.1",
+        "Port": 8500
+      }
+    }
+  }
+}
