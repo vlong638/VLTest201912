@@ -188,6 +188,93 @@ namespace FrameworkTest
                 syncTask.Start_Auto_DoWork(context, SDBLL.UserInfo);
             });
 
+            Console.WriteLine($"任务启动=>孕妇出院-新增");
+            Task.Factory.StartNew(() =>
+            {
+                var context = new ServiceContext();
+                var syncTask = new PregnantDischarge_SyncTask_Create(context);
+                syncTask.DoLogOnGetSource = (sourceData) =>
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.AppendLine(sourceData.ToJson());
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Create-孕妇出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.idcard + "_" + sourceData.inp_no + ".txt");
+                    File.WriteAllText(file, sb.ToString());
+                    Console.WriteLine($"result:{file}");
+                };
+                syncTask.DoLogOnWork = (sourceData, sb) =>
+                {
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Create-孕妇出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.idcard + "_" + sourceData.inp_no + ".txt");
+                    File.WriteAllText(file, sb.ToString());
+                    Console.WriteLine($"result:{file}");
+                };
+                syncTask.Start_Auto_DoWork(context, SDBLL.UserInfo);
+            });
+
+            Console.WriteLine($"任务启动=>孕妇出院-更新");
+            Task.Factory.StartNew(() =>
+            {
+                var context = new ServiceContext();
+                var syncTask = new PregnantDischarge_SyncTask_Update(context);
+                syncTask.DoLogOnGetSource = (sourceData) =>
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.AppendLine(sourceData.ToJson());
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Update-孕妇出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.inp_no + ".txt");
+                    File.WriteAllText(file, sb.ToString());
+                    Console.WriteLine($"result:{file}");
+                };
+                syncTask.DoLogOnWork = (sourceData, sb) =>
+                {
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Update-孕妇出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.inp_no + ".txt");
+                    File.WriteAllText(file, sb.ToString());
+                    Console.WriteLine($"result:{file}");
+                };
+                syncTask.Start_Auto_DoWork(context, SDBLL.UserInfo);
+            });
+
+            Console.WriteLine($"任务启动=>婴儿出院-新增");
+            Task.Factory.StartNew(() =>
+            {
+                var context = new ServiceContext();
+                var syncTask = new ChildDischarge_SyncTask_Create(context);
+                syncTask.DoLogOnGetSource = (sourceData) =>
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.AppendLine(sourceData.ToJson());
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Create-婴儿出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.idcard + "_" + sourceData.inp_no + ".txt");
+                    File.WriteAllText(file, sb.ToString());
+                    Console.WriteLine($"result:{file}");
+                };
+                syncTask.DoLogOnWork = (sourceData, sb) =>
+                {
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Create-婴儿出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.idcard + "_" + sourceData.inp_no + ".txt");
+                    File.WriteAllText(file, sb.ToString());
+                    Console.WriteLine($"result:{file}");
+                };
+                syncTask.Start_Auto_DoWork(context, SDBLL.UserInfo);
+            });
+
+            Console.WriteLine($"任务启动=>婴儿出院-更新");
+            Task.Factory.StartNew(() =>
+            {
+                var context = new ServiceContext();
+                var syncTask = new ChildDischarge_SyncTask_Update(context);
+                syncTask.DoLogOnGetSource = (sourceData) =>
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.AppendLine(sourceData.ToJson());
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Update-婴儿出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.idcard + "_" + sourceData.inp_no + ".txt");
+                    File.WriteAllText(file, sb.ToString());
+                    Console.WriteLine($"result:{file}");
+                };
+                syncTask.DoLogOnWork = (sourceData, sb) =>
+                {
+                    var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Update-婴儿出院-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.idcard + "_" + sourceData.inp_no + ".txt");
+                    File.WriteAllText(file, sb.ToString());
+                    Console.WriteLine($"result:{file}");
+                };
+                syncTask.Start_Auto_DoWork(context, SDBLL.UserInfo);
+            });
             Console.ReadLine();
         }
     }
