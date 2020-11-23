@@ -16,7 +16,7 @@ namespace Autobots.ServiceProtocols
         public B1ServiceDefinitionClient GetClient(string consulAddress, int consulPort)
         {
             string serviceName = nameof(B1Service);
-            var serviceConfig = ConfigProvider.GetService(serviceName, consulAddress, consulPort);
+            var serviceConfig = ConfigProvider.GetServiceConfig(serviceName, consulAddress, consulPort);
             if (serviceConfig == null)
             {
                 throw new NotImplementedException("依赖的服务无效");

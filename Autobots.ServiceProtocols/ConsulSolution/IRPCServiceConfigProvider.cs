@@ -5,7 +5,7 @@ namespace Autobots.ServiceProtocols
 {
     public interface IRPCServiceConfigProvider
     {
-        ServiceConfig GetService(string serviceName, string consulAddress, int consulPort);
+        ServiceConfig GetServiceConfig(string serviceName, string consulAddress, int consulPort);
     }
 
     public class RPCServiceConfigProvider : IRPCServiceConfigProvider
@@ -18,7 +18,7 @@ namespace Autobots.ServiceProtocols
         /// 
         /// </summary>
         /// <returns></returns>
-        public ServiceConfig GetService(string serviceName, string consulAddress, int consulPort)
+        public ServiceConfig GetServiceConfig(string serviceName, string consulAddress, int consulPort)
         {
             //获取所有注册的服务
             using (var consul = new Consul.ConsulClient(c =>

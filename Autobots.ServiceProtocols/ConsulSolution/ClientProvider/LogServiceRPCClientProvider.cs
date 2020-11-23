@@ -17,7 +17,7 @@ namespace Autobots.ServiceProtocols
         public LogServiceDefinitionClient GetClient(string consulAddress, int consulPort)
         {
             string serviceName = nameof(Infrastracture.LogCenter);
-            var serviceConfig = ConfigProvider.GetService(serviceName, consulAddress, consulPort);
+            var serviceConfig = ConfigProvider.GetServiceConfig(serviceName, consulAddress, consulPort);
             if (serviceConfig == null)
             {
                 throw new NotImplementedException("依赖的服务无效");

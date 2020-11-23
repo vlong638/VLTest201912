@@ -10,7 +10,7 @@ namespace Autobots.B2Service
     public class B2ServiceImpl : B2ServiceDefinition.B2ServiceDefinitionBase
     {
         public override Task<HelloReply> SayHello(HelloRequest request, global::Grpc.Core.ServerCallContext context)
-        {
+        {            
             var message = "From Client," + request.ToJson();
 
             #region logService
