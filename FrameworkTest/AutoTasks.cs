@@ -10,8 +10,73 @@ namespace FrameworkTest
 {
     class AutoTasks
     {
+        //static void DelegateEvent(string taskName, ref DateTime lastWorkTime, Action doSomething)
+        //{
+        //    if (lastWorkTime < DateTime.Now.AddSeconds(-10))
+        //    {
+        //        Console.WriteLine(taskName + DateTime.Now);
+        //        Task.Factory.StartNew(() =>
+        //        {
+        //            try
+        //            {
+        //                doSomething();
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                Log4NetLogger.Warn("任务出现异常", ex);
+        //            }
+        //        });
+        //    }
+        //}
+
+        //static DateTime LastWorkTimeOf_PregnantInfo_SyncTask_Create;
+        //static DateTime LastEditTimeOf_PregnantInfo_SyncTask_Create;
+        //static DateTime LastEditTimeOf_PregnantInfo_SyncTask_Create;
+        //static DateTime LastEditTimeOf_PregnantInfo_SyncTask_Create;
+        //static DateTime LastEditTimeOf_PregnantInfo_SyncTask_Create;
+        //static DateTime LastEditTimeOf_PregnantInfo_SyncTask_Create;
+        //static DateTime LastEditTimeOf_PregnantInfo_SyncTask_Create;
+        //static DateTime LastEditTimeOf_PregnantInfo_SyncTask_Create;
+        //static DateTime LastEditTimeOf_PregnantInfo_SyncTask_Create;
+
+
         static void Main(string[] args)
         {
+            //LastWorkTimeOf_PregnantInfo_SyncTask_Create = DateTime.Now.AddSeconds(-10);
+            //while (true)
+            //{
+            //    Console.WriteLine("任务存活检测");
+
+            //    DelegateEvent("孕妇档案-新建", ref LastWorkTimeOf_PregnantInfo_SyncTask_Create, () =>
+            //    {
+            //        LastWorkTimeOf_PregnantInfo_SyncTask_Create = DateTime.Now;
+            //        Console.WriteLine("异常终止,{0}", LastWorkTimeOf_PregnantInfo_SyncTask_Create);
+            //        throw new NotImplementedException("222");
+
+            //        var context = new ServiceContext();
+            //        var syncTask = new PregnantInfo_SyncTask_Create(context);
+            //        syncTask.DoLogOnGetSource = (sourceData) =>
+            //        {
+            //            StringBuilder sb = new StringBuilder();
+            //            sb.AppendLine(sourceData.ToJson());
+            //            var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Create-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
+            //            File.WriteAllText(file, sb.ToString());
+            //            Console.WriteLine($"result:{file}");
+            //        };
+            //        syncTask.DoLogOnWork = (sourceData, sb) =>
+            //        {
+            //            var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Create-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
+            //            File.WriteAllText(file, sb.ToString());
+            //            Console.WriteLine($"result:{file}");
+            //        };
+            //        syncTask.Start_Auto_DoWork(context, SDBLL.UserInfo);
+            //    });
+
+            //    System.Threading.Thread.Sleep(3 * 1000);
+            //}
+            //Console.ReadLine();
+            //return;
+
             Console.WriteLine($"任务启动=>孕妇档案-新建");
             Task.Factory.StartNew(() =>
             {
@@ -279,3 +344,7 @@ namespace FrameworkTest
         }
     }
 }
+
+
+
+
