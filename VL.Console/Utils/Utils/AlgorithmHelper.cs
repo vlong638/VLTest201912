@@ -25,6 +25,17 @@ namespace VL.Consoling.Utils
         #endregion
 
         #region 快速排序
+        /// <summary>
+        /// 快速排序关键性说明
+        /// 1.结构性分层 
+        /// ***排序分界
+        /// 结构型分层是结构型的通用处理
+        /// 总是将要处理的数据分成左右区间
+        /// 2.分界交换
+        /// ***双While技巧左右倒腾
+        /// </summary>
+        /// <param name="array"></param>
+        /// <returns></returns>
         internal static int[] QuickSort(this int[] array)
         {
             if (array == null || array.Length == 0)

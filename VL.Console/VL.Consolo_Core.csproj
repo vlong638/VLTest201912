@@ -33,19 +33,19 @@
     <None Update="Common\ExcelExportSolution\Sample_高危妊娠管理个案登记表.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="za\Configuration\appsettings.json">
+    <None Update="Utils\Configuration\appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="za\docs\妇幼平台\SelectionReflect.xml">
+    <None Update="Utils\docs\妇幼平台\SelectionReflect.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="za\docs\妇幼平台\SelectionXML.xml">
+    <None Update="Utils\docs\妇幼平台\SelectionXML.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="za\docs\电子病历\SelectionReflect.xml">
+    <None Update="Utils\docs\电子病历\SelectionReflect.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="za\docs\电子病历\SelectionXML.xml">
+    <None Update="Utils\docs\电子病历\SelectionXML.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
