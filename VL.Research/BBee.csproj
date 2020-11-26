@@ -119,6 +119,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="XMLConfig\ChildHeathArea-去性能瓶颈\ExportConfig_列表.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLConfig\ChildHeathArea-去性能瓶颈\ListConfig.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLConfig\ChildHeathArea-去性能瓶颈\SQLConfig.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLConfig\ChildHeathArea-去性能瓶颈\儿童保健和健康情况表（2019年版）.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="XMLConfig\ChildHeathArea\ExportConfig_列表.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

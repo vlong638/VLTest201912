@@ -18,7 +18,7 @@
       },
       {
         "Key": "HZConnectionString",
-        "Value": "Data Source=122.225.118.58,7335;Initial Catalog=fypt;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=huzfypt;Password=huz3305@2018."
+        "Value": "Data Source=122.225.118.58,7335;Initial Catalog=fypt;Pooling=true;Max Pool Size=40000;Min Pool Size=0;Connection Timeout=60;User ID=huzfypt;Password=huz3305@2018."
       },
       {
         "Key": "GJConnectionString",

@@ -89,32 +89,40 @@ namespace BBee.Repositories
                         continue;
                     }
                     //结构整合
-                    foreach (DataColumn column in temp.Columns)
+                    ts = TimeSpanHelper.GetTimeSpan(() =>
                     {
-                        if (!table.Columns.Contains(column.ColumnName))
+                        foreach (DataColumn column in temp.Columns)
                         {
-                            table.Columns.Add(column.ColumnName, column.DataType);
-                        }
-                    }
-                    //数据整合
-                    for (int j = 0; j < temp.Rows.Count; j++)
-                    {
-                        var tempRow = temp.Rows[j];
-                        var tempKey = tempRow[config.SQLs.UnitedBy].ToString();
-                        for (int i = 0; i < table.Rows.Count; i++)
-                        {
-                            var mainRow = table.Rows[i];
-                            var mainKey = mainRow[config.SQLs.UnitedBy].ToString();
-                            if (tempKey == mainKey)
+                            if (!table.Columns.Contains(column.ColumnName))
                             {
-                                foreach (DataColumn column in temp.Columns)
-                                {
-                                    mainRow[column.ColumnName] = tempRow[column.ColumnName];
-                                }
-                                break;
+                                table.Columns.Add(column.ColumnName, column.DataType);
                             }
                         }
-                    }
+                    });
+                    APIContraints.DHFConfig.DoLog("结构整合,执行时间:" + ts.TotalMilliseconds, null);
+                    //数据整合
+                    ts = TimeSpanHelper.GetTimeSpan(() =>
+                    {
+                        for (int j = 0; j < temp.Rows.Count; j++)
+                        {
+                            var tempRow = temp.Rows[j];
+                            var tempKey = tempRow[config.SQLs.UnitedBy].ToString();
+                            for (int i = 0; i < table.Rows.Count; i++)
+                            {
+                                var mainRow = table.Rows[i];
+                                var mainKey = mainRow[config.SQLs.UnitedBy].ToString();
+                                if (tempKey == mainKey)
+                                {
+                                    foreach (DataColumn column in temp.Columns)
+                                    {
+                                        mainRow[column.ColumnName] = tempRow[column.ColumnName];
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                    });
+                    APIContraints.DHFConfig.DoLog("数据整合,执行时间:" + ts.TotalMilliseconds, null);
                 }
                 return table;
             }
