@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<All>
+	<!--<ViewViewEntitys>
+		<ViewViewEntity ViewViewEntityName="ViewEntity-Child" DisplayName ="新生儿">
+			<ViewEntity ViewEntityName="Child" DisplayName ="新生儿">
+				<Properties>
+					<Property DisplayName="姓名" ColumnName="Name"/>
+					<Property DisplayName="生日" ColumnName="Birthday"/>
+					<Property DisplayName="性别" ColumnName="Sex"/>
+				</Properties>
+			</ViewEntity>
+				
+			<Properties>
+				<Property DisplayName="" ColumnName="Id" IsHidden="True"/>
+				<Property DisplayName="" ColumnName="PregnantInfoId" IsHidden="True"/>
+
+				<Property DisplayName="姓名" ColumnName="Name"/>
+				<Property DisplayName="生日" ColumnName="Birthday"/>
+				<Property DisplayName="性别" ColumnName="Sex"/>
+			</Properties>
+		</ViewViewEntity>
+		<ViewViewEntity ViewViewEntityName="ViewEntity-PregnantInfo" DisplayName ="病人">
+			<Properties>
+				<Property DisplayName="" ColumnName="Id" IsHidden="True"/>
+
+				<Property DisplayName="姓名" ColumnName="Name"/>
+				<Property DisplayName="生日" ColumnName="Birthday"/>
+				<Property DisplayName="性别" ColumnName="Sex"/>
+				<Property DisplayName="身份证" ColumnName="Idcard"/>
+			</Properties>
+		</ViewViewEntity>
+		<ViewViewEntity ViewViewEntityName="ViewEntity-PregnantInfoLabOrder" DisplayName ="检查单">
+			<Properties>
+				<Property DisplayName="" ColumnName="Id" IsHidden="True"/>
+				<Property DisplayName="" ColumnName="PregnantInfoId" IsHidden="True"/>
+
+				<Property DisplayName="名称" ColumnName="Name"/>
+				<Property DisplayName="生日" ColumnName="Birthday"/>
+				<Property DisplayName="性别" ColumnName="Sex"/>
+			</Properties>
+		</ViewViewEntity>
+		<ViewViewEntity ViewViewEntityName="ViewEntity-PregnantInfoLabResult" DisplayName ="检验项">
+			<Properties>
+				<Property DisplayName="" ColumnName="Id" IsHidden="True"/>
+				<Property DisplayName="" ColumnName="OrderId" IsHidden="True"/>
+
+				<Property DisplayName="检验类别" ColumnName="ItemId"/>
+				<Property DisplayName="名称" ColumnName="Name"/>
+				<Property DisplayName="值" ColumnName="Value"/>
+			</Properties>
+		</ViewViewEntity>
+	</ViewViewEntitys>-->
+	<ViewEntitys>
+		<ViewEntity ViewEntityName="Child" DisplayName ="新生儿">
+			<Properties>
+				<Property DisplayName="" ColumnName="Id" IsHidden="True"/>
+				<Property DisplayName="" ColumnName="PregnantInfoId" IsHidden="True"/>
+
+				<Property DisplayName="姓名" ColumnName="Name"/>
+				<Property DisplayName="生日" ColumnName="Birthday"/>
+				<Property DisplayName="性别" ColumnName="Sex"/>
+			</Properties>
+		</ViewEntity>
+		<ViewEntity ViewEntityName="PregnantInfo" DisplayName ="病人">
+			<Properties>
+				<Property DisplayName="" ColumnName="Id" IsHidden="True"/>
+
+				<Property DisplayName="姓名" ColumnName="Name"/>
+				<Property DisplayName="生日" ColumnName="Birthday"/>
+				<Property DisplayName="性别" ColumnName="Sex"/>
+				<Property DisplayName="身份证" ColumnName="Idcard"/>
+				<Property DisplayName="预产期" ColumnName="DateOfPrenatal"/>
+			</Properties>
+		</ViewEntity>
+		<ViewEntity ViewEntityName="LabOrder" DisplayName ="检查单">
+			<Properties>
+				<Property DisplayName="" ColumnName="Id" IsHidden="True"/>
+				<Property DisplayName="" ColumnName="PregnantInfoId" IsHidden="True"/>
+
+				<Property DisplayName="检查名称" ColumnName="Name"/>
+				<Property DisplayName="检查日期" ColumnName="ExamTime"/>
+			</Properties>
+		</ViewEntity>
+		<ViewEntity ViewEntityName="LabResult" DisplayName ="检验项">
+			<Properties>
+				<Property DisplayName="" ColumnName="Id" IsHidden="True"/>
+				<Property DisplayName="" ColumnName="OrderId" IsHidden="True"/>
+
+				<Property DisplayName="检验类别" ColumnName="ItemId"/>
+				<Property DisplayName="检验名称" ColumnName="Name"/>
+				<Property DisplayName="检验结果" ColumnName="Value"/>
+			</Properties>
+		</ViewEntity>
+	</ViewEntitys>
+	<Routers>
+		<Router From="PregnantInfo" To="Child" RouteType="LeftJoin">
+			<On From="PregnantInfo" FromField="Id" To="Child" ToField="PregnantInfoId"/>
+		</Router>
+		<Router From="PregnantInfo" To="PregnantInfoLabOrder" RouteType="LeftJoin">
+			<On From="PregnantInfo" FromField="Id" To="PregnantInfoLabOrder" ToField="PregnantInfoId"/>
+		</Router>
+		<Router From="PregnantInfoLabOrder" To="PregnantInfoLabResult" RouteType="LeftJoin">
+			<On From="PregnantInfoLabOrder" FromField="Id" To="PregnantInfoLabResult" ToField="OrderId"/>
+		</Router>
+	</Routers>
+	<Conditions>
+		<GroupBy Source="PregnantInfo" FieldName="Idcard"/>
+		<GroupSelect Source="PregnantInfo" FieldName="Idcard"/>
+		<GroupSelect Source="LabResult" FieldName="Value"/>
+	</Conditions>
+	<GroupSet>
+		<GroupBy Source="PregnantInfo" FieldName="Idcard"/>
+		<GroupSelect Source="PregnantInfo" FieldName="Idcard"/>
+		<GroupSelect Source="LabResult" FieldName="Value"/>
+	</GroupSet>
+	<ReportEntity>
+	</ReportEntity>
+</All>
