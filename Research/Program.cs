@@ -357,6 +357,9 @@ namespace Research
             return data2;
         }
 
+        /// <summary>
+        /// 分组操作类型
+        /// </summary>
         public enum GroupSelectOperator
         {
             None = 0,
@@ -430,7 +433,6 @@ namespace Research
             public RouteType RouteType { set; get; }
             public List<RouterOn> Ons { set; get; }
         }
-
         /// <summary>
         /// 连接内容
         /// </summary>
@@ -449,7 +451,6 @@ namespace Research
             public string To { set; get; }
             public string ToField { set; get; }
         }
-
         /// <summary>
         /// 连接类型
         /// </summary>
@@ -479,7 +480,6 @@ namespace Research
                 throw new NotImplementedException();
             }
         }
-
         /// <summary>
         /// 报告单元
         /// </summary>
@@ -548,12 +548,16 @@ namespace Research
             And = 1,
             Or = 2,
         }
-
+        /// <summary>
+        /// 筛选条件接口
+        /// </summary>
         public interface ICondition
         {
             
         }
-
+        /// <summary>
+        /// 表对表 条件项
+        /// </summary>
         public class Field2FieldCondition : ICondition
         {
             public Field2FieldCondition(string entityName, string fieldName, ConditionOperator @operator, string entityName2Compare, string fieldName2Compare)
@@ -584,9 +588,8 @@ namespace Research
             public string FieldName2Compare { get; set; }
             public string FieldName2CompareFormat { get; set; }
         }
-
         /// <summary>
-        /// 条件项
+        /// 表对值 条件项
         /// </summary>
         public class Field2ValueCondition: ICondition
         {
@@ -614,7 +617,6 @@ namespace Research
                 return string.Format(ValueFormat, Value);
             }
         }
-
         /// <summary>
         /// 条件运算类型
         /// </summary>
