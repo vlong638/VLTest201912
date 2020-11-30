@@ -10,16 +10,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="XMLConfigs\ChildHeathArea\ExportConfig_列表.xml">
+    <None Update="XMLConfigs\VLTest项目\Routers.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="XMLConfigs\ChildHeathArea\ListConfig.xml">
+    <None Update="XMLConfigs\VLTest项目\BusinessEntities - 复制.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="XMLConfigs\ChildHeathArea\SQLConfig.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="XMLConfigs\ChildHeathArea\儿童保健和健康情况表（2019年版）.xlsx">
+    <None Update="XMLConfigs\VLTest项目\BusinessEntities.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

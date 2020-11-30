@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<BusinessEntities>
+	<BusinessEntity DisplayName ="基本档案">
+		<Properties>
+			<Property DisplayName="姓名" From="PregnantInfo" ColumnName="Name"/>
+			<Property DisplayName="生日" From="PregnantInfo" ColumnName="Birthday"/>
+			<Property DisplayName="性别" From="PregnantInfo" ColumnName="Sex"/>
+		</Properties>
+	</BusinessEntity>
+	<BusinessEntity DisplayName ="检查单">
+		<Properties>
+			<Property DisplayName="检查名称" From="LabOrder" ColumnName="Name"/>
+			<Property DisplayName="检查日期" From="LabOrder" ColumnName="ExamTime"/>
+		</Properties>
+	</BusinessEntity>
+	<BusinessEntity DisplayName ="检验项">
+		<Properties>
+			<Property DisplayName="检验类别" From="LabResult" ColumnName="ItemId"/>
+			<Property DisplayName="检验名称" From="LabResult" ColumnName="Name"/>
+			<Property DisplayName="检验结果" From="LabResult" ColumnName="Value"/>
+		</Properties>
+	</BusinessEntity>
+	<BusinessEntity DisplayName ="新生儿">
+		<Properties>
+			<Property DisplayName="姓名" From="Child" ColumnName="Name"/>
+			<Property DisplayName="生日" From="Child" ColumnName="Birthday"/>
+			<Property DisplayName="性别" From="Child" ColumnName="Sex"/>
+		</Properties>
+	</BusinessEntity>
+</BusinessEntities>	
+	

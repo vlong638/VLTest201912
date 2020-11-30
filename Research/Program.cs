@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Research.Common;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using VL.Consolo_Core.Common.ValuesSolution;
@@ -158,6 +159,12 @@ namespace Research
             //基于主体整合结果 
             #endregion
 
+            var businessEntities = ConfigHelper.GetBusinessEntities();
+            var routers = ConfigHelper.GetRouters();
+
+
+
+
             #region 连表查询案例
             //主体
             var viewEntities = new ViewEntitySet();
@@ -198,7 +205,7 @@ namespace Research
         private static DataTable Get孕期16_28周的最近一次血红蛋白()
         {
             ///导出单元
-            ///16~28周的最近一次血红蛋白
+            ///16~28周的最近一次血红蛋白   
             ///翻译成业务语言:
             ///>>>血红蛋白
             ///根据检查项筛选血红蛋白的检查
