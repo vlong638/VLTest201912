@@ -264,7 +264,7 @@ namespace Research
 
         private static DataTable Get孕期最近一次空腹血糖()
         {
-            //孕期最近一次但不超过七天的空腹血糖
+            //孕期[最近一次]且[检查日期不超过七天]的[检验类型为`葡萄糖`的检验结果]
             #region 完整sql
             //select temp.*,lr.itemid,lr.itemname,lr.value 
             //from
@@ -283,7 +283,7 @@ namespace Research
             //where lr.itemid = '0148' 
             //and temp.deliverydate > lo.examtime
             //and temp.deliverydate < dateadd(day, 7, lo.examtime)
-            #endregion
+            #endregion 
             #region 拆接中间表方案,效率更高
             //构建中间表
             //select pi.idcard,pi.deliverydate,max(lo.examtime) maxexamtime 

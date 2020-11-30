@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -7,7 +8,7 @@ namespace FrameworkTest.Common.HttpSolution
 {
     public class HttpHelper
     {
-        public static string Post(string url, string postData, ref CookieContainer container, string contentType = "application/x-www-form-urlencoded; charset=UTF-8",Action<HttpWebRequest> configRequest = null)
+        public static string Post(string url, string postData, ref CookieContainer container, string contentType = "application/x-www-form-urlencoded; charset=UTF-8", Action<HttpWebRequest> configRequest = null, List<KeyValuePair<string,string>> keyValues = null)
         {
             var result = "";
             HttpWebRequest request = null;
@@ -23,6 +24,10 @@ namespace FrameworkTest.Common.HttpSolution
                 request.AllowAutoRedirect = true;
                 request.CookieContainer = container;//获取验证码时候获取到的cookie会附加在这个容器里面
                 request.KeepAlive = true;//建立持久性连接
+                foreach (var keyValue in keyValues)
+                {
+                    request.Headers.Add(keyValue.Key, keyValue.Value);
+                }
                 if (bytepostData != null)
                 {
                     request.ContentLength = bytepostData.Length;

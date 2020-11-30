@@ -178,6 +178,7 @@
     <Compile Include="Business\ExcelGenerator\ExportConfig.cs" />
     <Compile Include="Business\ExcelGenerator\PlaceHolder.cs" />
     <Compile Include="Business\GJPredeliveryAsync\PreDelivery.cs" />
+    <Compile Include="Business\SDMockCommit\SDHttpHelper.cs" />
     <Compile Include="Utils\Log4NetLogger.cs" />
     <Content Include="Business\Profile\Input.txt" />
     <Compile Include="Business\Research\Entities\Patient.cs" />

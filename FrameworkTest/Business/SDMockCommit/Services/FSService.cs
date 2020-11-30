@@ -26,7 +26,7 @@ namespace FrameworkTest.Business.SDMockCommit
             var container = new CookieContainer();
             var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_QHJC_ID_GET&sUserID={userInfo.UserId}&sParams=1";
             var postData = "";
-            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             var mainId = result.FromJsonToAnonymousType(new { id = "" }).id;
             logger.AppendLine(">>>获取 UniqueId");
             logger.AppendLine(url);
@@ -47,7 +47,7 @@ namespace FrameworkTest.Business.SDMockCommit
             var container = new CookieContainer();
             var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=CDH_GET_ID1&sUserID={userInfo.UserId}&sParams={userInfo.OrgId}";
             var postData = "";
-            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             var careId = result.FromJsonToAnonymousType(new { id = "" }).id;
             logger.AppendLine($"查询-保健号");
             logger.AppendLine(url);
@@ -67,7 +67,7 @@ namespace FrameworkTest.Business.SDMockCommit
             var container = new CookieContainer();
             var postData = "";
             var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID={userInfo.UserId}&sParams=P${idCard}$P$P";
-            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             var resultBase = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
             logger.AppendLine($">>>查询 孕妇档案 Base8");
             logger.AppendLine(url);
@@ -90,7 +90,7 @@ namespace FrameworkTest.Business.SDMockCommit
             var container = new CookieContainer();
             var postData = "";
             var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_WCQBJ_CZDH_JBXX_READ&sUserID={userInfo.UserId}&sParams={mainId}${userInfo.OrgId}";
-            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             var resultBase = result.FromJson<WMH_WCQBJ_CZDH_JBXX_READ>();
             logger.AppendLine($">>>查询 Base18");
             logger.AppendLine(url);
@@ -113,7 +113,7 @@ namespace FrameworkTest.Business.SDMockCommit
             var container = new CookieContainer();
             var postData = "";
             var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_READ&sUserID={userInfo.UserId}&sParams={mainId}";
-            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             var resultBase = result.FromJson<WMH_CQBJ_JBXX_FORM_READResponse>();
             logger.AppendLine($">>>查询 孕妇档案77项数据");
             logger.AppendLine(result);
@@ -132,7 +132,7 @@ namespace FrameworkTest.Business.SDMockCommit
             var container = new CookieContainer();
             var url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_CC&sUserID={userInfo.UserId}&sParams={mainId}$P$null${sourceData.Data.idcard}&pageSize=10000&pageIndex=0";
             var postData = "";
-            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             var repeatData = result.FromJson<WMH_CQBJ_JBXX_FORM_CC>();
             if (repeatData.data.Count != 0 && repeatData.data.FirstOrDefault(c => c.PersonName != sourceData.PersonName) != null)
             {
@@ -148,7 +148,7 @@ namespace FrameworkTest.Business.SDMockCommit
             var container = new CookieContainer();
             var url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_CC&sUserID={userInfo.UserId}&sParams=null$P${careId}$null&pageSize=10000&pageIndex=0";
             var postData = "";
-            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             var repeatData = result.FromJson<WMH_CQBJ_JBXX_FORM_CC>();
             if (repeatData.data.Count != 0 && repeatData.data.FirstOrDefault(c => c.PersonName != sourceData.PersonName) != null)
             {
@@ -172,7 +172,7 @@ namespace FrameworkTest.Business.SDMockCommit
             var container = new CookieContainer();
             var postData = "";
             var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_GWYCF_GW_LIST1&sUserID={userInfo.UserId}&sParams={base8.MainId}${newHighRiskId}";
-            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             var re = result.FromJson<WMH_GWYCF_GW_LIST1>();
             logger.AppendLine($">>>查询-获取全部高危列表");
             logger.AppendLine(url);
@@ -193,7 +193,7 @@ namespace FrameworkTest.Business.SDMockCommit
             var container = new CookieContainer();
             var postData = "";
             var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_GWYCF_LIST&sUserID={userInfo.UserId}&sParams={base8.MainId}${newHighRiskId}";
-            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             var re = result.FromJson<WMH_GWYCF_LIST>();
             logger.AppendLine($">>>查询-获取变动的高危列表");
             logger.AppendLine(url);
@@ -216,7 +216,7 @@ namespace FrameworkTest.Business.SDMockCommit
             var url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_SAVE&sUserID={userInfo.UserId}&sParams=null${mainId}${userInfo.OrgId}${userInfo.EncodeUserName}$null$null$null$%E6%99%AE%E9%80%9A%E6%8A%A4%E5%A3%AB%E4%BA%A7%E6%A3%80";
             var json = datas.ToJson();
             var postData = "data=" + HttpUtility.UrlEncode(json);
-            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             logger.AppendLine(">>>CreatePregnantInfo 保存基本信息");
             logger.AppendLine(url);
             logger.AppendLine(json);
@@ -239,7 +239,7 @@ namespace FrameworkTest.Business.SDMockCommit
             var url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/WMH_GWYCF_GW_LIST_SAVE&sUserID={userInfo.UserId}&sParams={base8.MainId}${userInfo.OrgId}${physicalExaminationId}";
             var json = datas.ToJson();
             var postData = "data=" + HttpUtility.UrlEncode(json);
-            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             logger.AppendLine(">>>SaveCurrentHignRisks 保存高危信息");
             logger.AppendLine(url);
             logger.AppendLine(json);
@@ -253,7 +253,7 @@ namespace FrameworkTest.Business.SDMockCommit
             var url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_SAVE&sUserID={userInfo.UserId}&sParams={mainIdForChange}${mainId}${userInfo.OrgId}${userInfo.EncodeUserName}$null$null$null$%E6%99%AE%E9%80%9A%E6%8A%A4%E5%A3%AB%E4%BA%A7%E6%A3%80";
             var json = datas.ToJson();
             var postData = "data=" + HttpUtility.UrlEncode(json);
-            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             logger.AppendLine(">>>Update 基本信息");
             logger.AppendLine(url);
             logger.AppendLine(json);
@@ -279,7 +279,7 @@ namespace FrameworkTest.Business.SDMockCommit
             var dateStr = issueDate.ToString("yyyy-MM-dd");
             var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_TODAY_CQJC_ID_READ&sUserID={userInfo.UserId}&sParams={base8.MainId}${dateStr}";
             var postData = "";
-            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             logger.AppendLine($">>>查询-获取体格检查Id");
             logger.AppendLine(url);
             logger.AppendLine(result);
@@ -304,7 +304,7 @@ namespace FrameworkTest.Business.SDMockCommit
             //查询体格检查详情
             var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_CQJC_TGJC_NEW_READ&sUserID={userInfo.UserId}&sParams={base8.MainId}${physicalExaminationId}";
             var postData = "";
-            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             logger.AppendLine($"查询-查询体格检查详情");
             logger.AppendLine(url);
             logger.AppendLine(result);
@@ -333,7 +333,7 @@ namespace FrameworkTest.Business.SDMockCommit
             logger.AppendLine("Create 体格检查");
             logger.AppendLine(url);
             logger.AppendLine(json);
-            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             logger.AppendLine(result);
             return result.Contains("处理成功");
         }
@@ -358,7 +358,7 @@ namespace FrameworkTest.Business.SDMockCommit
             logger.AppendLine("Update 体格检查");
             logger.AppendLine(url);
             logger.AppendLine(json);
-            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             logger.AppendLine(result);
             return result.Contains("处理成功");
         }
@@ -379,7 +379,7 @@ namespace FrameworkTest.Business.SDMockCommit
             var container = new CookieContainer();
             var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/MQDA_READ_NEW&sUserID={userInfo.UserId}&sParams={base8.MainId}${userInfo.OrgId}";
             var postData = "";
-            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             logger.AppendLine($"查询-问询病史");
             logger.AppendLine(url);
             logger.AppendLine(result);
@@ -405,7 +405,7 @@ namespace FrameworkTest.Business.SDMockCommit
             logger.AppendLine("Update 问询病史");
             logger.AppendLine(url);
             logger.AppendLine(json);
-            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             logger.AppendLine(result);
             return result.Contains((string)"处理成功");
         }
@@ -422,7 +422,7 @@ namespace FrameworkTest.Business.SDMockCommit
             var container = new CookieContainer();
             var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_CQJC_PRE_READ&sUserID={userInfo.UserId}&sParams={base8.MainId}";
             var postData = "pageIndex=0&pageSize=1000&sortField=&sortOrder=";
-            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             var re = result.FromJson<WMH_CQBJ_CQJC_PRE_READ>();
             logger.AppendLine($"查询-问询病史-生育史");
             logger.AppendLine(url);
@@ -449,7 +449,7 @@ namespace FrameworkTest.Business.SDMockCommit
             logger.AppendLine("Add 问询病史-生育史");
             logger.AppendLine(url);
             logger.AppendLine(json);
-            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             logger.AppendLine(result);
             return result.Contains("处理成功");
         }
@@ -465,7 +465,7 @@ namespace FrameworkTest.Business.SDMockCommit
             logger.AppendLine("Delete 问询病史-生育史");
             logger.AppendLine(url);
             logger.AppendLine(json);
-            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             logger.AppendLine(result);
             return result.Contains("处理成功");
         }
@@ -481,7 +481,7 @@ namespace FrameworkTest.Business.SDMockCommit
             logger.AppendLine("Update 问询病史-生育史");
             logger.AppendLine(url);
             logger.AppendLine(json);
-            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             logger.AppendLine(result);
             return result.Contains("处理成功");
         }
@@ -503,7 +503,7 @@ namespace FrameworkTest.Business.SDMockCommit
             var container = new CookieContainer();
             var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_CQJC_READ&sUserID={userInfo.UserId}&sParams={physicalExaminationId}${base8.MainId}";
             var postData = "";
-            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             logger.AppendLine($">>>查询-获取体格检查数据");
             logger.AppendLine(url);
             logger.AppendLine(result);
@@ -529,7 +529,7 @@ namespace FrameworkTest.Business.SDMockCommit
             var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_CQJC_SAVE&sUserID={userInfo.UserId}&sParams={base8.MainId}${userInfo.OrgId}${physicalExaminationId}$1$P$%E6%99%AE%E9%80%9A%E4%BA%A7%E6%A3%80%E5%8C%BB%E7%94%9F";
             var json = new List<WMH_CQBJ_CQJC_SAVE>() { professionalExaminationNew }.ToJson();
             var postData = "data=" + HttpUtility.UrlEncode(json);
-            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             logger.AppendLine($">>>提交-专科检查数据");
             logger.AppendLine(url);
             logger.AppendLine(json);
@@ -554,7 +554,7 @@ namespace FrameworkTest.Business.SDMockCommit
             var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/CQJL_LIST&sUserID={userInfo.UserId}&sParams=null${userInfo.OrgId}$1${inp_no}$P$P$4406";
             var postData = "pageIndex=0&pageSize=20&sortField=&sortOrder=";
             var contentType = "application/x-www-form-urlencoded; charset=UTF-8";
-            var result = HttpHelper.Post(url, postData, ref container, contentType);
+            var result = SDHttpHelper.Post(url, postData, ref container, contentType);
             logger.AppendLine($">>>查询-获取孕妇住院数据列表");
             logger.AppendLine(url);
             logger.AppendLine(contentType);
@@ -582,7 +582,7 @@ namespace FrameworkTest.Business.SDMockCommit
             var container = new CookieContainer();
             var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/CQJL_WOMAN_FORM_READ&sUserID={userInfo.UserId}&sParams=P${userInfo.OrgId}${fmMainId}$null";
             var postData = "";
-            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             logger.AppendLine($">>>查询-获取孕妇出院登记详情");
             logger.AppendLine(url);
             logger.AppendLine(result);
@@ -608,7 +608,7 @@ namespace FrameworkTest.Business.SDMockCommit
             logger.AppendLine($">>>保存-孕妇出院登记");
             logger.AppendLine(url);
             logger.AppendLine(json);
-            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             logger.AppendLine(result);
             return result.Contains("处理成功");
         }
@@ -629,7 +629,7 @@ namespace FrameworkTest.Business.SDMockCommit
             var container = new CookieContainer();
             var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/CQJL_CHILD_FORM_READ&sUserID={userInfo.UserId}&sParams=P${userInfo.OrgId}${fMMainId}$null$1";
             var postData = "";
-            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             logger.AppendLine($">>>查询-获取婴儿出院登记详情");
             logger.AppendLine(url);
             logger.AppendLine(result);
@@ -654,7 +654,7 @@ namespace FrameworkTest.Business.SDMockCommit
             logger.AppendLine($">>>保存-婴儿出院登记");
             logger.AppendLine(url);
             logger.AppendLine(json);
-            var result = HttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             logger.AppendLine(result);
             return result.Contains("处理成功");
         }
