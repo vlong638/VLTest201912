@@ -9,6 +9,9 @@ namespace FrameworkTest.Business.SDMockCommit
 {
     public class PregnantDAL
     {
+        public const string limiter = "DATEADD(day,-1 ,getdate())";
+        //const string limiter = "'2020-11-01'";
+
         #region SyncOrder
 
         public static long InsertSyncForFS(DbGroup group, SyncOrder syncForFS)
@@ -225,7 +228,7 @@ from PregnantInfo pi
 left join SyncForFS s on s.TargetType = 1 and s.SourceId = pi.Id
 where s.id is null 
 and pi.createtime < convert(nvarchar, getdate(),23) 
-and pi.updatetime> '2020-07-01'
+and pi.updatetime> {limiter}
 ", transaction: dbGroup.Transaction).ToList();
 
             //当天
@@ -278,7 +281,7 @@ union
 	LEFT JOIN MHC_VisitRecord vr on pi.idcard = vr.idcard 
 	left join SyncForFS s4 on s4.TargetType = 4 and s4.SourceId = vr.Id			
 	left join SyncForFS s1 on s1.TargetType = 1 and s1.SourceId = pi.Id			
-	where vr.visitdate >='2020-07-13' and s4.id is null and s1.id is null
+	where vr.visitdate >= {limiter} and s4.id is null and s1.id is null
 	and pi.createtime < convert(nvarchar, getdate(),23) 
 	and pi.updatetime < convert(nvarchar, getdate(),23)
 )
