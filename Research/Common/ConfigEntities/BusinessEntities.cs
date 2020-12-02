@@ -4,7 +4,7 @@ using System.Xml.Linq;
 
 namespace Research.Common
 {
-    public class BusinessEntities: List<BusinessEntity>
+    public class BusinessEntities: List<IBusinessEntity>
     {
         #region 预设配置
 
@@ -31,8 +31,26 @@ namespace Research.Common
         }
 
         #endregion
+
+        public IBusinessEntity GetByName(string name )
+        {
+            return this.FirstOrDefault(c => c.DisplayName == name);
+        }
     }
-    public class BusinessEntity
+
+    public interface IBusinessEntity
+    {
+        string DisplayName { get; set; }
+        List<BusinessEntityProperty> Properties { get; set; }
+    }
+
+    public class CustomBusinessEntity : IBusinessEntity
+    {
+        public string DisplayName { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+        public List<BusinessEntityProperty> Properties { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    }
+
+    public class BusinessEntity : IBusinessEntity
     {
         public const string ElementName = "BusinessEntity";
 
@@ -60,6 +78,13 @@ namespace Research.Common
             DisplayName = element.Attribute(nameof(DisplayName))?.Value;
             From = element.Attribute(nameof(From))?.Value;
             ColumnName = element.Attribute(nameof(ColumnName))?.Value;
+        }
+
+        public BusinessEntityProperty(string displayName, string from, string columnName)
+        {
+            DisplayName = displayName;
+            From = from;
+            ColumnName = columnName;
         }
 
         public string DisplayName { set; get; }

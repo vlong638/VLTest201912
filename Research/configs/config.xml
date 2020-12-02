@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<config>
+	<itemset key="ConnectionStrings">
+		<item key="HL_Pregnant" value ="Data Source=192.168.50.102,1433;Initial Catalog=HL_Pregnant;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=HZFYUSER;Password=HZFYPWD" />
+	</itemset>
+	<!--<itemset key="RPCService">
+		<item key="Name" value ="B1Service" />
+		<item key="Address" value ="127.0.0.1" />
+		<item key="Port" value ="5002" />
+	</itemset>
+	<itemset key="ConsulService">
+		<item key="Name" value ="ConsulService" />
+		<item key="Address" value ="127.0.0.1" />
+		<item key="Port" value ="8500" />
+	</itemset>-->
+</config>

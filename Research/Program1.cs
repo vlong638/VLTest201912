@@ -8,6 +8,9 @@ using VL.Consolo_Core.Common.ValuesSolution;
 
 namespace Research.Temp
 {
+    /// <summary>
+    /// 原始草稿
+    /// </summary>
     class Program2
     {
         static void Main(string[] args)

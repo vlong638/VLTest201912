@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<BusinessEntities>
+<BusinessEntities ConnectionString="FYPTConnectionString">
 	<BusinessEntity DisplayName ="基本档案">
 		<Properties>
 			<Property DisplayName="姓名" From="PregnantInfo" ColumnName="Name"/>
