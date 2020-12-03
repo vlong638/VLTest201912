@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using VL.Consolo_Core.Common.ValuesSolution;
 
 namespace Research.Common
@@ -26,7 +27,8 @@ namespace Research.Common
     /// </summary>
     public interface IWhere
     {
-
+        string ToSQL(Dictionary<string, string> tableAlias);
+        KeyValuePair<string, object>? GetParameter();
     }
     /// <summary>
     /// 表对表 条件项
@@ -60,6 +62,16 @@ namespace Research.Common
         public string EntityName2Compare { get; set; }
         public string FieldName2Compare { get; set; }
         public string FieldName2CompareFormat { get; set; }
+
+        public KeyValuePair<string, object>? GetParameter()
+        {
+            return null;
+        }
+
+        public string ToSQL(Dictionary<string, string> tableAlias)
+        {
+            throw new NotImplementedException();
+        }
     }
     /// <summary>
     /// 表对值 条件项
@@ -81,7 +93,19 @@ namespace Research.Common
         public string Value { get; set; }
         public string ValueFormat { get; set; }
 
-        public string GetFormatValue()
+        public KeyValuePair<string, object>? GetParameter()
+        {
+            var field = new DBField();
+            return new KeyValuePair<string, object>(GetParameterName(), field.GetValue(Value, ValueFormat));
+
+        }
+
+        private string GetParameterName()
+        {
+            return "@" + EntityName + "_" + FieldName;
+        }
+
+        public string GetValue()
         {
             if (ValueFormat.IsNullOrEmpty())
             {
@@ -89,7 +113,28 @@ namespace Research.Common
             }
             return string.Format(ValueFormat, Value);
         }
+
+        public string ToSQL(Dictionary<string, string> tableAlias)
+        {
+            //TODO 这里理论上需要知道数据库的知识
+            var field = new DBField();
+            return $"{tableAlias[EntityName]}.{FieldName} { Operator.ToSQL() } { GetParameterName() }";
+        }
     }
+
+    public class DBField
+    {
+        public string ColumnType { set; get; } = "string";
+
+    }
+
+    public class ValueEntity
+    {
+        public string ValueName { set; get; }
+        public string ValueFormat { set; get; }
+        public string ValueType { set; get; }
+    }
+
     /// <summary>
     /// 条件运算类型
     /// </summary>
@@ -102,5 +147,66 @@ namespace Research.Common
         IsNull = 4,
         GreatThan = 5,
         LessThan = 6,
+        GreatOrEqualThan = 7,
+        LessOrEqualThan = 8,
+    }
+
+    public static class IWhereEx
+    {
+        public static string GetValue(this DBField field,string value,string valueFormat)
+        {
+            var tempValue = value;
+            switch (field.ColumnType)
+            {
+                case "string":
+                    tempValue = value;
+                    break;
+                default:
+                    throw new NotImplementedException("未支持的字段类型");
+            }
+            if (valueFormat.IsNullOrEmpty())
+            {
+                return tempValue;
+            }
+            return string.Format(valueFormat, tempValue);
+        }
+
+        public static string ToSQL(this RouteType routeType)
+        {
+            switch (routeType)
+            {
+                case RouteType.LeftJoin:
+                    return "left join";
+                case RouteType.InnerJoin:
+                    return "inner join";
+                default:
+                    throw new NotImplementedException("未支持的连接类型");
+            }
+        }
+
+        public static string ToSQL(this WhereOperator @operator)
+        {
+            switch (@operator)
+            {
+                case WhereOperator.Equal:
+                    return " = ";
+                case WhereOperator.Like:
+                    return " like ";
+                case WhereOperator.IsNotNull:
+                    return " is not null ";
+                case WhereOperator.IsNull:
+                    return " is null ";
+                case WhereOperator.GreatThan:
+                    return " > ";
+                case WhereOperator.LessThan:
+                    return " < ";
+                case WhereOperator.GreatOrEqualThan:
+                    return " >= ";
+                case WhereOperator.LessOrEqualThan:
+                    return " <= ";
+                default:
+                    return "";
+            }
+        }
     }
 }

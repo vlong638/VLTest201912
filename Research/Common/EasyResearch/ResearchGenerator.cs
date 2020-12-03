@@ -53,8 +53,7 @@ namespace Research.Common
     {
         internal static APIResult<DataTable> GetReport(ReportTask reportEntity)
         {
-            var routers = reportEntity.GetRouters();
-            var sql = SQLBuilder.Build(reportEntity.Properties, routers, reportEntity.MainConditions);
+            var sql = reportEntity.GetSQL();
             var parameters = reportEntity.GetParameters();
             var serviceResult = new SharedService().GetReport(sql, parameters);
             if (serviceResult.IsSuccess)

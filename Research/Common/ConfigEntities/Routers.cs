@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using VL.Consolo_Core.Common.ValuesSolution;
 
 namespace Research.Common
 {
@@ -46,7 +48,7 @@ namespace Research.Common
             FromAlias = element.Attribute(nameof(FromAlias))?.Value;
             To = element.Attribute(nameof(To))?.Value;
             ToAlias = element.Attribute(nameof(ToAlias))?.Value;
-            RouteType = element.Attribute(nameof(RouteType))?.Value;
+            RouteType = element.Attribute(nameof(RouteType))?.Value.ToEnum<RouteType>() ?? RouteType.None;
             Ons = element.Descendants(RouterOn.ElementName).Select(c => new RouterOn(c)).ToList();
         }
 
@@ -54,7 +56,7 @@ namespace Research.Common
         public string FromAlias { set; get; }
         public string To { set; get; }
         public string ToAlias { set; get; }
-        public string RouteType { set; get; }
+        public RouteType RouteType { set; get; }
         public List<RouterOn> Ons { set; get; }
     }
 
@@ -73,5 +75,10 @@ namespace Research.Common
 
         public string FromField { set; get; }
         public string ToField { set; get; }
+
+        internal string ToSQL(Router c)
+        {
+            return $@"{c.FromAlias}.{FromField} = {c.ToAlias}.{ToField}";
+        }
     }
 }
