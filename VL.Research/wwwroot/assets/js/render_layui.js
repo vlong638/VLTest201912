@@ -327,7 +327,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
             if (isBlank(search)) {
                 buildSearch();
             }
-            $.each(_data.export.defaultParam, (index, item) => {
+            $.each(_data.export.defaultParam, function(index, item) {
                 search.push(item);
             })
             sendAjax('post', _data.export.url, JSON.stringify({search: search}), function (res) {
