@@ -13,7 +13,8 @@ layui.config({  // common.js是配置layui扩展模块的目录，每个页面�
     tagsInput: 'tagsInput/tagsInput',
     citypicker: 'city-picker/city-picker',
     introJs: 'introJs/introJs',
-    zTree: 'zTree/zTree'
+    zTree: 'zTree/zTree',
+    xmSelect: 'xm-select'
 }).use(['layer', 'admin'], function () {
     var $ = layui.jquery;
     var layer = layui.layer;
@@ -39,14 +40,13 @@ function getProjectUrl() {
 }
 
 // 封装ajax
-function sendAjax(type, url, data, successCallback, contentType = "application/json", dataType = "json", failCallback) {
+function sendAjax(type, url, data, successCallback, contentType, dataType, failCallback) {
     $.ajax({
         type: type,
         url: url,
         data: data,
-        contentType: contentType,
-        dataType: dataType,
-
+        contentType: contentType || "application/json",
+        dataType: dataType || "json",
         success: successCallback === null || typeof successCallback !== 'function' ? function (res) {
             console.log(res);
         } : successCallback,

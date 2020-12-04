@@ -1,20 +1,17 @@
 jQuery.fn.extend({
-    renderTreeSelect: function (_layui, treeData, _setting) {
+    renderTreeSelect: function(_layui, treeData,_setting) {
         const $ = _layui.jquery;
         const _this = $(this);
         const class_name = _this.attr('id') + '_select'
         _this.css("display", "none");
 
-        let html = `
-            <div class="layui-unselect layui-form-select ` + class_name + `">
-                <div class="layui-select-title">
-                    <input type="text" placeholder="请选择" value="" readonly="" class="layui-input layui-unselect ` + class_name + `">
-                    <i class="layui-edge"></i>
-                </div>
-                <dl class="layui-anim layui-anim-upbit ` + class_name + `" style="display: none">
-                    
-                </dl>
-            </div>`
+        let html = '<div class="layui-unselect layui-form-select ' + class_name + '">' +
+                       '<div class="layui-select-title">' +
+                           '<input type="text" placeholder="请选择" value="" readonly="" class="layui-input layui-unselect ' + class_name + '">' +
+                           '<i class="layui-edge"></i>' +
+                       '</div>' +
+                       '<dl class="layui-anim layui-anim-upbit ' + class_name + '" style="display: none"></dl>' +
+                   '</div>'
         _this.after(html)
 
         _layui.tree.render({
@@ -23,9 +20,8 @@ jQuery.fn.extend({
             data: treeData,
             showCheckbox: false,
             accordion: false,
-            click: function (obj) {
-                console.log(obj)
-                if (obj.data.children !== null && obj.data.children !== undefined && obj.data.children.length !== 0) {
+            click: function(obj){
+                if (obj.data.children !== null && obj.data.children !== undefined){
                     //当前节点下是否有子节点
                     return false;
                 } else {
@@ -40,13 +36,13 @@ jQuery.fn.extend({
                 // console.log(obj.elem); //得到当前节点元素
             }
         });
-        $(".layui-anim .layui-anim-upbit").on("click", function () {
+        $(".layui-anim .layui-anim-upbit").on("click",function () {
             console.log("11")
         })
 
         $("div." + class_name).on('click', function () {
             // console.log($(".layui-unselect.layui-form-select." + class_name));
-            if ($(".layui-unselect.layui-form-select." + class_name).hasClass("layui-form-selected")) {
+            if ($(".layui-unselect.layui-form-select." + class_name).hasClass("layui-form-selected")){
                 $(".layui-unselect.layui-form-select." + class_name).removeClass("layui-form-selected");
                 $("dl." + class_name).hide();
             } else {
@@ -55,7 +51,7 @@ jQuery.fn.extend({
             }
         })
 
-        $("dl." + class_name).on('click', function () {
+        $("dl." + class_name).on('click',function () {
             return false;
         })
 
