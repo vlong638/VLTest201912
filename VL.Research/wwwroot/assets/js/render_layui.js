@@ -233,7 +233,7 @@ jQuery.prototype.renderTable = function (_data, _layui, _parent) {
             countName: 'data2'
         },
         text: {
-            none: ''
+            none: '请输入有效参数后搜索'
         },
         cols: _data.table.cols,
         done: function (res, curr, count) {
