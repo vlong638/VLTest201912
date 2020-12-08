@@ -57,7 +57,8 @@ namespace Research.Common
         public string To { set; get; }
         public string ToAlias { set; get; }
         public RouteType RouteType { set; get; }
-        public List<RouterOn> Ons { set; get; }
+        public List<RouterOn> Ons { set; get; } = new List<RouterOn>();
+        public bool IsFromTemplate { get; set; }
     }
 
     public class RouterOn
@@ -71,6 +72,12 @@ namespace Research.Common
         {
             FromField = element.Attribute(nameof(FromField))?.Value;
             ToField = element.Attribute(nameof(ToField))?.Value;
+        }
+
+        public RouterOn(string fromField, string toField)
+        {
+            FromField = fromField;
+            ToField = toField;
         }
 
         public string FromField { set; get; }

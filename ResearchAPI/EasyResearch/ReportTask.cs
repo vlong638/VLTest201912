@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
-using VL.Consolo_Core.Common.ValuesSolution;
 
-namespace Research.Common
+namespace ResearchAPI.Common
 {
     ///// <summary>
     ///// 数据集单元集合

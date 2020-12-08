@@ -6,21 +6,39 @@ namespace Research.Common
 {
     public class ConfigHelper
     {
-        public static BusinessEntities GetBusinessEntities()
+        public static BusinessEntities GetBusinessEntities(string directory,string file)
         {
-            //TODO 正式版需去掉测试用代码 VLTest项目
-            var path = Path.Combine(AppContext.BaseDirectory, "XMLConfigs\\VLTest项目", "BusinessEntities.xml");
-            XDocument doc = XDocument.Load(path);
+            XDocument doc = GetDoc(directory, file);
             var root = doc.Element(BusinessEntities.ElementName);
             return new BusinessEntities(root);
         }
-        public static Routers GetRouters()
+
+        public static Routers GetRouters(string directory, string file)
         {
-            //TODO 正式版需去掉测试用代码 VLTest项目
-            var path = Path.Combine(AppContext.BaseDirectory, "XMLConfigs\\VLTest项目", "Routers.xml");
-            XDocument doc = XDocument.Load(path);
+            XDocument doc = GetDoc(directory, file);
             var root = doc.Element(Routers.ElementName);
             return new Routers(root);
+        }
+
+        public static BusinessEntityTemplate GetBusinessEntityTemplate(string directory, string file)
+        {
+            XDocument doc = GetDoc(directory, file);
+            var root = doc.Element(BusinessEntityTemplate.ElementName);
+            return new BusinessEntityTemplate(root);
+        }
+
+        public static CustomBusinessEntity GetCustomBusinessEntity(string directory, string file)
+        {
+            XDocument doc = GetDoc(directory, file);
+            var root = doc.Element(CustomBusinessEntity.ElementName);
+            return new CustomBusinessEntity(root);
+        }
+
+        private static XDocument GetDoc(string directory, string file)
+        {
+            var path = Path.Combine(AppContext.BaseDirectory, directory, file);
+            XDocument doc = XDocument.Load(path);
+            return doc;
         }
     }
 }

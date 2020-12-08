@@ -4,5 +4,17 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Docs\SQLs\CreateTable_User.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Docs\SQLs\CreateTable_User.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Autobots.VLCommon\Autobots.Infrastracture.Common.csproj" />
+  </ItemGroup>
+
 
 </Project>

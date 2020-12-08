@@ -21,13 +21,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="XMLConfigs\VLTest项目\CustomBusinessEntities.xml">
+    <None Update="XMLConfigs\VLTest项目\BusinessEntities - 复制 - 复制.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLConfigs\VLTest项目\Template_检验.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="XMLConfigs\VLTest项目\Routers.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="XMLConfigs\VLTest项目\BusinessEntities - 复制.xml">
+    <None Update="XMLConfigs\VLTest项目\CustomBusinessEntity_检验.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="XMLConfigs\VLTest项目\BusinessEntities.xml">

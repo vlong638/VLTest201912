@@ -1,0 +1,52 @@
+﻿<BusinessEntityTemplate ConnectionString="FYPTConnectionString">
+	<BusinessEntity DisplayName ="检验结果分类周期模板">
+		<Properties>
+			<!--From="CustomBusinessEntity.ReportName"--> 
+			<Property DisplayName="检查名称" ColumnName="ExamName"/>
+			<Property DisplayName="检查日期" ColumnName="ExamTime"/>
+			<Property DisplayName="检验名称" ColumnName="ItemName"/>
+			<Property DisplayName="检验结果" ColumnName="Value"/>
+		</Properties>
+		<SQLConfig>
+			<Wheres>
+				<Where ComponentName="检验类别" DisplayName="检验类别" DisplayType="3" Options="0148:葡萄糖,0193:血红蛋白" Required="true"/>
+				<Where ComponentName="检查日期下限" DisplayName="检查日期(多少天内)" DisplayType="2"/>
+				<Where ComponentName="检查日期上限" DisplayName="检查日期(多少天内)" DisplayType="2"/>
+				<Where ComponentName="检查日期分组类别" DisplayName="检查日期分组类别" DisplayType="3" Options="0:最早,1:最晚" Required="true"/>
+				<Where ComponentName="检验结果上限" DisplayName="检验结果上限" DisplayType="1"/>
+				<Where ComponentName="检验结果下限" DisplayName="检验结果下限" DisplayType="1"/>
+			</Wheres>
+			<SQL>
+				select temp.idcard,lr.value
+				,lo.examname
+				,lo.examtime
+				,lr.itemname
+				,lr.value
+				from
+				(
+					select pi.idcard,pi.deliverydate
+					<If Operator="eq" ComponentName="检查日期分组类别" Value="0"> ,max(lo.examtime) targetexamtime </If>
+					<If Operator="eq" ComponentName="检查日期分组类别" Value="1"> ,min(lo.examtime) targetexamtime </If>
+					from LabOrder lo
+					left join LabResult lr on lo.orderid = lr.orderid
+					left join PregnantInfo pi on lo.idcard = pi.idcard
+					where
+					<If Operator="NotEmpty" ComponentName="检验类别"> lr.itemid = '@检验类别'</If>
+					and pi.deliverydate &gt; lo.examtime
+					<If Operator="NotEmpty" ComponentName="检查日期上限"> and lo.examtime &lt; @检查日期上限 </If>
+					<If Operator="NotEmpty" ComponentName="检查日期下限"> and lo.examtime &gt; @检查日期下限 </If>
+					group by pi.idcard,pi.deliverydate
+				) as temp
+				left join LabOrder lo on temp.idcard = lo.idcard and temp.targetexamtime = lo.examtime
+				left join LabResult lr on lo.orderid = lr.orderid
+				where 1 = 1
+				<If Operator="NotEmpty" ComponentName="检验结果上限"> and lr.value &lt; @检验结果上限 </If>
+				<If Operator="NotEmpty" ComponentName="检验结果下限"> and lr.value &gt; @检查日期下限 </If>
+			</SQL>
+		</SQLConfig>
+	</BusinessEntity>
+	<Router From="PregnantInfo" FromAlias="pi" RouteType="LeftJoin">
+		<!--ToAlias="ReportName"-->
+		<On FromField="Idcard" ToField="Idcard"/>
+	</Router>
+</BusinessEntityTemplate>

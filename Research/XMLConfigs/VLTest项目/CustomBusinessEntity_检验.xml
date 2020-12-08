@@ -1,0 +1,15 @@
+﻿<CustomBusinessEntity ReportName ="孕期检验结果-空腹血糖" Template="检验结果分类周期模板">
+	<Properties>
+		<!--From="ReportName"-->
+		<Property DisplayName="空腹血糖-值" ColumnName="Value"/>
+		<Property DisplayName="空腹血糖-检查名称" ColumnName="ExamName"/>
+		<Property DisplayName="空腹血糖-检查日期" ColumnName="ExamTime"/>
+		<Property DisplayName="空腹血糖-检验名称" ColumnName="ItemName"/>
+		<Property DisplayName="空腹血糖-检验结果" ColumnName="Value"/>
+	</Properties>
+	<Wheres>
+		<Where ComponentName="检查类别" Operator ="eq" Value ="9126"/>
+		<Where ComponentName="检查日期最早" Operator ="gt" Value ="14"/>
+		<Where ComponentName="检查日期最晚" Operator ="lt" Value ="21"/>
+	</Wheres>
+</CustomBusinessEntity>
