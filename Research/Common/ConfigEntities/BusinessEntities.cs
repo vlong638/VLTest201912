@@ -39,6 +39,7 @@ namespace Research.Common
             return this.FirstOrDefault(c => c.DisplayName == name);
         }
     }
+
     public class CustomBusinessEntitySet : List<CustomBusinessEntity>
     {
         

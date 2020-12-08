@@ -4,16 +4,28 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\WorkSpace\Repository\VLTest201912\ResearchAPI\ResearchAPI.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
-    <None Remove="Docs\SQLs\CreateTable_User.sql" />
+    <Resource Include="Docs\SQLs\1.CreateTable_User.sql" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="Docs\SQLs\CreateTable_User.sql" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.6.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.6.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="5.6.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Autobots.VLCommon\Autobots.Infrastracture.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Docs\SQLs\1.CreateTable_User.sql">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Autobots.Infrastracture.Common.ServiceSolution;
+using System;
 
 namespace ResearchAPI.Services
 {
@@ -9,6 +7,17 @@ namespace ResearchAPI.Services
     /// 
     /// </summary>
     public class ReportTaskService
+    {
+        internal ServiceResult<bool> ExecuteReportTask(long taskId)
+        {
+
+
+
+            throw new NotImplementedException();
+        }
+    }
+
+    public class ReportTaskDomain
     {
     }
 }

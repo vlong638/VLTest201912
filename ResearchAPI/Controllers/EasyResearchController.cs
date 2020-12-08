@@ -1,6 +1,7 @@
 ﻿using Autobots.Infrastracture.Common.ControllerSolution;
 using Microsoft.AspNetCore.Mvc;
-using ResearchAPI.EasyResearch;
+using ResearchAPI.Common;
+using ResearchAPI.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -35,12 +36,12 @@ namespace ResearchAPI.Controllers
         /// <summary>
         /// 执行任务
         /// </summary>
-        /// <param name="taskId"></param>
-        /// <returns></returns>
-        public async Task<APIResult<bool>> ExecuteReportTask(long taskId)
+        public async Task<APIResult<bool>> ExecuteReportTask([FromServices] ReportTaskService service, long taskId)
         {
-            var result = new APIResult<bool>(true);
-            return await Task.FromResult(result);
+            ;
+            var serviceResult = service.ExecuteReportTask(taskId);
+            var apiResult = new APIResult<bool>(serviceResult);
+            return await Task.FromResult(apiResult);
         }
 
         /// <summary>
@@ -88,11 +89,11 @@ namespace ResearchAPI.Controllers
         public List<Field2FieldWhere> F2FWheres { set; get; }
     }
 
-    public class CreateReportTaskRequest : SaveReportTaskModel
+    public class CreateReportTaskRequest : SaveReportTaskRequest
     {
     }
 
-    public class UpdateReportTaskRequest : SaveReportTaskModel
+    public class UpdateReportTaskRequest : SaveReportTaskRequest
     {
         public long TaskId { set; get; }
     }

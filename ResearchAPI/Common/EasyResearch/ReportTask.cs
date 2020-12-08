@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Autobots.Infrastracture.Common.ValuesSolution;
+using ResearchAPI.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +8,35 @@ using System.Xml.Linq;
 
 namespace ResearchAPI.Common
 {
+    public class BusinessEntityTemplate
+    {
+        public const string ElementName = "BusinessEntityTemplate";
+
+        public BusinessEntityTemplate()
+        {
+        }
+        public BusinessEntityTemplate(XElement element)
+        {
+            ConnectionString = element.Attribute(nameof(ConnectionString))?.Value;
+            BusinessEntity = new BusinessEntity(element.Element(BusinessEntity.ElementName));
+            SQLConfig = new SQLConfig(element.Descendants(SQLConfig.ElementName).First());
+            Router = new Router(element.Element(Router.ElementName));
+        }
+
+        public string ConnectionString { set; get; }
+        public BusinessEntity BusinessEntity { set; get; }
+        public SQLConfig SQLConfig { set; get; }
+        public Router Router { set; get; }
+    }
+
+    public class BusinessContext
+    {
+        public static string Root = "PregnantInfo";
+        public static BusinessEntities BusinessEntities { set; get; } = ConfigHelper.GetBusinessEntities("XMLConfigs\\VLTest项目", "BusinessEntities.xml");
+        public static Routers Routers { set; get; } = ConfigHelper.GetRouters("XMLConfigs\\VLTest项目", "Routers.xml");
+        public static List<BusinessEntityTemplate> Templates { set; get; } = new List<BusinessEntityTemplate>();
+    }
+
     ///// <summary>
     ///// 数据集单元集合
     ///// </summary>
@@ -184,6 +215,89 @@ namespace ResearchAPI.Common
         private string GetSelect(List<BusinessEntityProperty> properties, Dictionary<string, string> tableAlias)
         {
             return "select " + string.Join(",", properties.Select(c => "[" + (tableAlias[c.From] ?? c.From) + "]." + c.ColumnName));
+        }
+    }
+
+    public class Routers : List<Router>
+    {
+        #region 预设配置
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static string ElementName = "Routers";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Routers()
+        {
+
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="element"></param>
+        public Routers(XElement element)
+        {
+            var routers = element.Elements(Router.ElementName);
+            this.AddRange(routers.Select(c => new Router(c)));
+        }
+
+        #endregion
+    }
+
+    public class Router
+    {
+        public const string ElementName = "Router";
+
+        public Router()
+        {
+        }
+        public Router(XElement element)
+        {
+            From = element.Attribute(nameof(From))?.Value;
+            FromAlias = element.Attribute(nameof(FromAlias))?.Value;
+            To = element.Attribute(nameof(To))?.Value;
+            ToAlias = element.Attribute(nameof(ToAlias))?.Value;
+            RouteType = element.Attribute(nameof(RouteType))?.Value.ToEnum<RouteType>() ?? RouteType.None;
+            Ons = element.Descendants(RouterOn.ElementName).Select(c => new RouterOn(c)).ToList();
+        }
+
+        public string From { set; get; }
+        public string FromAlias { set; get; }
+        public string To { set; get; }
+        public string ToAlias { set; get; }
+        public RouteType RouteType { set; get; }
+        public List<RouterOn> Ons { set; get; } = new List<RouterOn>();
+        public bool IsFromTemplate { get; set; }
+    }
+
+    public class RouterOn
+    {
+        public const string ElementName = "On";
+
+        public RouterOn()
+        {
+        }
+        public RouterOn(XElement element)
+        {
+            FromField = element.Attribute(nameof(FromField))?.Value;
+            ToField = element.Attribute(nameof(ToField))?.Value;
+        }
+
+        public RouterOn(string fromField, string toField)
+        {
+            FromField = fromField;
+            ToField = toField;
+        }
+
+        public string FromField { set; get; }
+        public string ToField { set; get; }
+
+        internal string ToSQL(Router c)
+        {
+            return $@"{c.FromAlias}.{FromField} = {c.ToAlias}.{ToField}";
         }
     }
 }

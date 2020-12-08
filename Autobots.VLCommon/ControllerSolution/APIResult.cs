@@ -1,4 +1,6 @@
-﻿namespace Autobots.Infrastracture.Common.ControllerSolution
+﻿using Autobots.Infrastracture.Common.ServiceSolution;
+
+namespace Autobots.Infrastracture.Common.ControllerSolution
 {
     /// <summary>
     /// Controller层返回结构
@@ -43,6 +45,13 @@
         public APIResult(T data, params string[] messages) : base(messages)
         {
             Data = data;
+        }
+
+        public APIResult(ServiceResult<T> serviceResult)
+        {
+            Data = serviceResult.Data;
+            Code = serviceResult.Code;
+            Message = serviceResult.Message;
         }
 
         /// <summary>

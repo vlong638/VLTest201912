@@ -1,6 +1,6 @@
 ﻿using System.Xml.Linq;
 
-namespace ResearchAPI.EasyResearch
+namespace ResearchAPI.Common
 {
     public class BusinessEntityProperty
     {
