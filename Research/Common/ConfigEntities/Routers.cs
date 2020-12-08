@@ -58,7 +58,21 @@ namespace Research.Common
         public string ToAlias { set; get; }
         public RouteType RouteType { set; get; }
         public List<RouterOn> Ons { set; get; } = new List<RouterOn>();
-        public bool IsFromTemplate { get; set; }
+        public long CustomBusinessEntityId { get; set; }
+
+        internal Router Clone()
+        {
+            return new Router()
+            {
+                From = this.From,
+                FromAlias = this.FromAlias,
+                To = this.To,
+                ToAlias = this.ToAlias,
+                RouteType = this.RouteType,
+                Ons = this.Ons,
+                CustomBusinessEntityId = this.CustomBusinessEntityId,
+            };
+        }
     }
 
     public class RouterOn
@@ -85,7 +99,7 @@ namespace Research.Common
 
         internal string ToSQL(Router c)
         {
-            return $@"{c.FromAlias}.{FromField} = {c.ToAlias}.{ToField}";
+            return $@"{c.FromAlias}.{FromField} = [{c.ToAlias}].{ToField}";
         }
     }
 }

@@ -54,19 +54,33 @@ namespace Research.Common
         }
         public CustomBusinessEntity(XElement element)
         {
-            ReportName = element.Attribute(nameof(ReportName))?.Value;
-            Template = element.Attribute(nameof(Template))?.Value;
+            CustomBusinessEntityName = element.Attribute(nameof(CustomBusinessEntityName))?.Value;
+            TemplateName = element.Attribute(nameof(TemplateName))?.Value;
             Properties.AddRange(element.Descendants(BusinessEntityProperty.ElementName).Select(c => new BusinessEntityProperty(c)));
+            Wheres.AddRange(element.Descendants(BusinessEntityWhere.ElementName).Select(c => new BusinessEntityWhere(c)));
         }
 
-        public string ReportName { set; get; }
-        public string Template { set; get; }
+        public long Id { set; get; }
+        public string CustomBusinessEntityName { set; get; }
+        public string TemplateName { set; get; }
         public List<BusinessEntityProperty> Properties { set; get; } = new List<BusinessEntityProperty>();
         public List<BusinessEntityWhere> Wheres { set; get; } = new List<BusinessEntityWhere>();
     }
 
     public class BusinessEntityWhere
     {
+        public const string ElementName = "Where";
+
+        public BusinessEntityWhere()
+        {
+        }
+        public BusinessEntityWhere(XElement element)
+        {
+            ComponentName = element.Attribute(nameof(ComponentName))?.Value;
+            Operator = element.Attribute(nameof(Operator))?.Value.ToEnum<WhereOperator>() ?? WhereOperator.None;
+            Value = element.Attribute(nameof(Value))?.Value;
+        }
+
         public string ComponentName { set; get; }
         public WhereOperator Operator { set; get; }
         public string Value { set; get; }
@@ -250,7 +264,6 @@ namespace Research.Common
         public string DisplayName { set; get; }
         public List<BusinessEntityProperty> Properties { set; get; } = new List<BusinessEntityProperty>();
         public string Template { get; set; }
-        public SQLConfig SQLConfig { get; internal set; }
     }
     public class BusinessEntityProperty
     {

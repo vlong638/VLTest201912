@@ -96,13 +96,13 @@ namespace Research.Common
         public KeyValuePair<string, object>? GetParameter()
         {
             var field = new DBField();
-            return new KeyValuePair<string, object>(GetParameterName(), field.GetValue(Value, ValueFormat));
+            return new KeyValuePair<string, object>(GetParameterName(""), field.GetValue(Value, ValueFormat));
 
         }
 
-        private string GetParameterName()
+        private string GetParameterName(string tableAlias)
         {
-            return "@" + EntityName + "_" + FieldName;
+            return "@" + tableAlias + "_" + FieldName;
         }
 
         public string GetValue()
@@ -114,11 +114,12 @@ namespace Research.Common
             return string.Format(ValueFormat, Value);
         }
 
-        public string ToSQL(Dictionary<string, string> tableAlias)
+        public string ToSQL(Dictionary<string, string> tableAliass)
         {
             //TODO 这里理论上需要知道数据库的知识
             var field = new DBField();
-            return $"{tableAlias[EntityName]}.{FieldName} { Operator.ToSQL() } { GetParameterName() }";
+            var tableAlias = tableAliass[EntityName];
+            return $"[{tableAlias}].{FieldName} { Operator.ToSQL() } { GetParameterName(tableAlias) }";
         }
     }
 
@@ -141,12 +142,12 @@ namespace Research.Common
     public enum WhereOperator
     {
         None = 0,
-        Equal = 1,
+        eq = 1,
         Like = 2,
         IsNotNull = 3,
         IsNull = 4,
-        GreatThan = 5,
-        LessThan = 6,
+        gt = 5,
+        lt = 6,
         GreatOrEqualThan = 7,
         LessOrEqualThan = 8,
     }
@@ -188,7 +189,7 @@ namespace Research.Common
         {
             switch (@operator)
             {
-                case WhereOperator.Equal:
+                case WhereOperator.eq:
                     return " = ";
                 case WhereOperator.Like:
                     return " like ";
@@ -196,9 +197,9 @@ namespace Research.Common
                     return " is not null ";
                 case WhereOperator.IsNull:
                     return " is null ";
-                case WhereOperator.GreatThan:
+                case WhereOperator.gt:
                     return " > ";
-                case WhereOperator.LessThan:
+                case WhereOperator.lt:
                     return " < ";
                 case WhereOperator.GreatOrEqualThan:
                     return " >= ";

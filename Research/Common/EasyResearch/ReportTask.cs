@@ -107,15 +107,12 @@ namespace Research.Common
 //where 1=1  and 检验结果分类周期模板.检验类别  =  @孕期检验结果-空腹血糖_检验类别 and 检验结果分类周期模板.Value  >=  @孕期检验结果-空腹血糖_Value
 
             Dictionary<string, object> args = new Dictionary<string, object>();
-            args.Add("检查日期分组类别" ,"1");
             args.Add("检验类别", "0148");
-            args.Add("检查日期上限", "1");
-            //foreach (var where in MainConditions)
-            //{
-            //    var para = where.GetParameter();
-            //    if (para != null)
-            //        args.Add(para.Value.Key, para.Value.Value);
-            //}
+            args.Add("检查日期早于", "2020-01-01");
+            args.Add("检查日期晚于", "2020-12-31");
+            args.Add("检查日期分组类别" ,"1");
+            args.Add("检验结果上限", "1");
+            args.Add("检验结果下限", "100");
             return args;
         }
 
@@ -202,13 +199,12 @@ namespace Research.Common
             {
                 StringBuilder sb = new StringBuilder();
                 var from = routers.First(c => c.From == BusinessContext.Root);
-                sb.AppendLine($" from [{from.From}] ");
+                sb.AppendLine($" from [{from.From}] {from.FromAlias}");
                 foreach (var router in routers)
                 {
-                    var customBE = customBusinessEntities.FirstOrDefault(b => b.ReportName == router.To);
-                    router.ToAlias = customBE.Template;
-                    var template = templates.First(c => c.BusinessEntity.DisplayName == customBE.Template);
-                    sb.AppendLine($" {router.RouteType.ToSQL()} ({template.SQLConfig.SQL} \r\n ) as {customBE.Template} on {string.Join(",", router.Ons.Select(o => o.ToSQL(router)))} ");
+                    var customBE = customBusinessEntities.FirstOrDefault(b => b.CustomBusinessEntityName == router.To);
+                    var template = templates.First(c => c.TemplateName == customBE.TemplateName);
+                    sb.AppendLine($" {router.RouteType.ToSQL()} ({template.SQLConfig.SQL} \r\n ) as [{router.ToAlias}] on {string.Join(",", router.Ons.Select(o => o.ToSQL(router)))} ");
                 }
                 return sb.ToString();
             }
