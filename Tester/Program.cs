@@ -19,17 +19,18 @@ namespace Tester
             {
                 var grouper = new List<Grouper>();
                 Data.AddData(grouper);
-                var groupedData = grouper.GroupBy(c => c.id);
+                var groupedData = grouper.GroupBy(c => c.id);                  
                 StringBuilder sb = new StringBuilder();
                 foreach (var items in groupedData)
                 {
                     //12 16 24 32 37
                     List<KeyValuePair<string, string>> validValues = new List<KeyValuePair<string, string>>();
-                    AddBorder(items, validValues, 11,13, 12);
-                    AddBorder(items, validValues, 15, 17, 16);
-                    AddBorder(items, validValues, 23, 25, 24);
-                    AddBorder(items, validValues, 31, 33, 32);
-                    AddBorder(items, validValues, 36, 38, 37);
+                    AddBorder(items, validValues, 0 , 12, 12);
+                    AddBorder(items, validValues, 13, 21, 16);
+                    AddBorder(items, validValues, 22, 29, 24);
+                    AddBorder(items, validValues, 30, 34, 32);
+                    AddBorder(items, validValues, 35, 37, 36);
+                    AddBorder(items, validValues, 38, 50, 40);
                     sb.AppendLine($"{items.Key + "\t"} {string.Join("\t", validValues.Select(c => (c.Key ?? "") + "\t" + c.Value).ToList().Distinct())}");
                 }
                 var s = sb.ToString();
