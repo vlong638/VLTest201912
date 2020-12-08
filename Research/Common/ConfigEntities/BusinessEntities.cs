@@ -175,6 +175,16 @@ namespace Research.Common
             }
             return "";
         }
+
+        internal string GetSQL(Dictionary<string, object> parameters)
+        {
+            var where = parameters.FirstOrDefault(c => c.Key == ComponentName);
+            if (where.Key != null)
+            {
+                return Text;
+            }
+            return "";
+        }
     }
 
     public class SQLConfigWhere

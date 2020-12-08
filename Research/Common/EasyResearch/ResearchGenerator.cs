@@ -53,8 +53,8 @@ namespace Research.Common
     {
         internal static APIResult<DataTable> GetReport(ReportTask reportEntity)
         {
-            var sql = reportEntity.GetSQL();
             var parameters = reportEntity.GetParameters();
+            var sql = reportEntity.GetSQL(parameters);
             var serviceResult = new SharedService().GetReport(sql, parameters);
             if (serviceResult.IsSuccess)
             {

@@ -13,6 +13,9 @@ namespace ResearchAPI.Services
         internal ServiceResult<bool> ExecuteReportTask(long taskId)
         {
             var reportTask = ReportTaskDomain.GetReportTask(taskId);
+            var reportProject = ReportTaskDomain.GetReportProject(reportTask.ProjectId);
+
+
 
 
             throw new NotImplementedException();

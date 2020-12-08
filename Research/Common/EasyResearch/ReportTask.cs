@@ -77,7 +77,39 @@ namespace Research.Common
 
         internal Dictionary<string, object> GetParameters()
         {
+//select [pi].PersonName,[pi].Birthday,[检验结果分类周期模板].ExamName,[检验结果分类周期模板].ExamTime,[检验结果分类周期模板].ItemName,[检验结果分类周期模板].Value
+// from [PregnantInfo] 
+// left join (
+//				select temp.idcard,lr.value
+//				,lo.examname
+//				,lo.examtime
+//				,lr.itemname
+//				,lr.value
+//				from
+//				(
+//					select pi.idcard,pi.deliverydate
+//					<If Operator="eq" ComponentName="检查日期分组类别" Value="0"> ,max(lo.examtime) targetexamtime </If><If Operator="eq" ComponentName="检查日期分组类别" Value="1"> ,min(lo.examtime) targetexamtime </If>
+//					from LabOrder lo
+//					left join LabResult lr on lo.orderid = lr.orderid
+//					left join PregnantInfo pi on lo.idcard = pi.idcard
+//					where
+//					<If Operator="NotEmpty" ComponentName="检验类别"> lr.itemid = '@检验类别'</If>
+//					and pi.deliverydate &gt; lo.examtime
+//					<If Operator="NotEmpty" ComponentName="检查日期上限"> and lo.examtime &lt; @检查日期上限 </If><If Operator="NotEmpty" ComponentName="检查日期下限"> and lo.examtime &gt; @检查日期下限 </If>
+//					group by pi.idcard,pi.deliverydate
+//				) as temp
+//				left join LabOrder lo on temp.idcard = lo.idcard and temp.targetexamtime = lo.examtime
+//				left join LabResult lr on lo.orderid = lr.orderid
+//				where 1 = 1
+//				<If Operator="NotEmpty" ComponentName="检验结果上限"> and lr.value &lt; @检验结果上限 </If><If Operator="NotEmpty" ComponentName="检验结果下限"> and lr.value &gt; @检查日期下限 </If> 
+// ) as 检验结果分类周期模板 on pi.Idcard = 检验结果分类周期模板.Idcard 
+
+//where 1=1  and 检验结果分类周期模板.检验类别  =  @孕期检验结果-空腹血糖_检验类别 and 检验结果分类周期模板.Value  >=  @孕期检验结果-空腹血糖_Value
+
             Dictionary<string, object> args = new Dictionary<string, object>();
+            args.Add("检查日期分组类别" ,"1");
+            args.Add("检验类别", "0148");
+            args.Add("检查日期上限", "1");
             //foreach (var where in MainConditions)
             //{
             //    var para = where.GetParameter();
@@ -87,7 +119,7 @@ namespace Research.Common
             return args;
         }
 
-        internal string GetSQL()
+        internal string GetSQL(Dictionary<string, object> parameters)
         {
             var routerSource = new Routers();
             routerSource.AddRange(BusinessContext.Routers);
@@ -101,18 +133,18 @@ namespace Research.Common
 {GetFrom(routers, properties, customBusinessEntities, BusinessContext.Templates)}
 {GetWhere(conditions, GetTableAlias(routers, properties))}
 ";
-            UpdateIf(ref sql, new List<SQLConfigWhere>());
+            UpdateIf(ref sql, parameters);
             return sql;
         }
 
-        private void UpdateIf(ref string sql, List<SQLConfigWhere> wheres)
+        private void UpdateIf(ref string sql, Dictionary<string, object> parameters)
         {
             var ifItems = sql.GetMatches("<If", "</If>");
             foreach (var ifItem in ifItems)
             {
                 var xItem = new XDocument(new XElement("root", XElement.Parse(ifItem)));
                 var ifEntity = xItem.Descendants(IfCondition.ElementName).Select(c => new IfCondition(c)).First();
-                sql = sql.Replace(ifItem, ifEntity.GetSQL(wheres));
+                sql = sql.Replace(ifItem, ifEntity.GetSQL(parameters));
             }
         }
 

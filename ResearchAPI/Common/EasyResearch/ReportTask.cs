@@ -61,6 +61,7 @@ namespace ResearchAPI.Common
         }
 
         public long Id { set; get; }
+        public long ProjectId { set; get; }
         public string Name { set; get; }
         public List<BusinessEntityProperty> Properties { get; set; } = new List<BusinessEntityProperty>();
 
