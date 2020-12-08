@@ -1,0 +1,215 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ResearchAPI</name>
+    </assembly>
+    <members>
+        <member name="F:ResearchAPI.Common.BusinessEntities.ElementName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.Common.BusinessEntities.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.Common.BusinessEntities.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            
+            </summary>
+            <param name="element"></param>
+        </member>
+        <member name="T:ResearchAPI.Common.Field2FieldWhere">
+            <summary>
+            表对表 条件项
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.Common.Field2ValueWhere">
+            <summary>
+            表对值 条件项
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.Common.IWhere">
+            <summary>
+            筛选条件接口
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.Common.ReportTask">
+            <summary>
+            报告单元
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Common.ReportTask.MainConditions">
+            <summary>
+            纳入标准
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Common.ReportTask.ExceptionConditions">
+            <summary>
+            排除标准
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.Common.Routers.ElementName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.Common.Routers.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.Common.Routers.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            
+            </summary>
+            <param name="element"></param>
+        </member>
+        <member name="T:ResearchAPI.Common.SQLConfig">
+            <summary>
+            查询sql配置
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.Common.SQLConfig.ElementName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Common.SQLConfig.Wheres">
+            <summary>
+            页面条件项
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Common.SQLConfig.SQL">
+            <summary>
+            预设SQL
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.Common.SQLConfig.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.Common.SQLConfig.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            
+            </summary>
+            <param name="element"></param>
+        </member>
+        <member name="F:ResearchAPI.Common.SQLConfigWhere.ElementName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.Common.SQLConfigWhere.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            
+            </summary>
+            <param name="element"></param>
+        </member>
+        <member name="P:ResearchAPI.Common.SQLConfigWhere.IsOn">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Common.SQLConfigWhere.Required">
+            <summary>
+            是否必须
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Common.SQLConfigWhere.Value">
+            <summary>
+            值
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Common.SQLConfigWhere.ComponentName">
+            <summary>
+            项目名称
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Common.SQLConfigWhere.SQL">
+            <summary>
+            值
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Common.SQLConfigWhere.Formatter">
+            <summary>
+            格式化
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.Common.WhereLinker">
+            <summary>
+            条件连接类型
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.Common.WhereOperator">
+            <summary>
+            条件运算类型
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.Common.WhereSet">
+            <summary>
+            条件集
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.Controllers.EasyResearchController">
+            <summary>
+            科研内核接口
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.CreateCustomBusinessEntity(ResearchAPI.Services.ReportTaskService,ResearchAPI.Controllers.CreateCustomBusinessEntityRequest)">
+            <summary>
+            新建用户指标单元
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.EditCustomBusinessEntity(ResearchAPI.Services.ReportTaskService,ResearchAPI.Controllers.EditCustomBusinessEntityRequest)">
+            <summary>
+            编辑用户指标单元
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.CreateReportTask(ResearchAPI.Controllers.CreateReportTaskRequest)">
+            <summary>
+            新建队列任务
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.UpdateReportTask(ResearchAPI.Controllers.UpdateReportTaskRequest)">
+            <summary>
+            更新队列任务
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.ExecuteReportTask(ResearchAPI.Services.ReportTaskService,System.Int64)">
+            <summary>
+            执行任务
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetReportTaskStatus(System.Int64)">
+            <summary>
+            获取任务执行状态描述
+            </summary>
+            <param name="taskId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.DownloadReportTask(System.Int64)">
+            <summary>
+            下载任务
+            </summary>
+            <param name="taskId"></param>
+            <returns>文件路径</returns>
+        </member>
+        <member name="T:ResearchAPI.Services.ReportTaskService">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.Services.ReportTaskDomain">
+            <summary>
+            
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,4 +1,7 @@
-﻿namespace ResearchAPI.Common
+﻿using Autobots.Infrastracture.Common.ValuesSolution;
+using System;
+
+namespace ResearchAPI.Common
 {
     public static class IWhereEx
     {
