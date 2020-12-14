@@ -84,7 +84,7 @@ namespace BBee
             services.AddAuthenticationCore(options => options.AddScheme<VLAuthenticationHandler>(VLAuthenticationHandler.ShemeName, "demo scheme"));
 
             //允许跨域
-            services.AddCors(option => option.AddPolicy("cors", policy => policy.AllowAnyHeader().AllowAnyMethod().AllowCredentials().AllowAnyOrigin()));
+            services.AddCors(option => option.AddPolicy("cors", policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin()));//.AllowCredentials()
 
         }
 
@@ -111,6 +111,8 @@ namespace BBee
             app.UseStaticFiles();
             //注册路由中间件
             app.UseRouting();
+            //允许跨域
+            app.UseCors("cors");
             //注册认证中间件
             app.UseAuthentication();
             //注册鉴权中间件

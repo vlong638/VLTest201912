@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>ResearchAPI</name>
+        <name>ResearchAPI.CORS</name>
     </assembly>
     <members>
         <member name="F:ResearchAPI.Common.BusinessEntities.ElementName">

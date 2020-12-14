@@ -1,16 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using ResearchAPI.Services;
+using System;
 
 namespace ResearchAPI
 {
@@ -27,7 +21,11 @@ namespace ResearchAPI
         public void ConfigureServices(IServiceCollection services)
         {
             //接口注册
-            services.AddControllers();
+            //services.AddControllers();
+            services.AddMvc(option =>
+            {
+                //option.Filters.Add<CustomerExceptionFilter>();
+            });
 
             //服务注册
             services.AddScoped<ReportTaskService, ReportTaskService>();
@@ -39,6 +37,9 @@ namespace ResearchAPI
                 p.IncludeXmlComments(AppDomain.CurrentDomain.BaseDirectory + "ResearchAPI.xml");
                 p.CustomSchemaIds(x => x.FullName);
             });
+
+            //允许跨域
+            services.AddCors(option => option.AddPolicy("AllCors", policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin()));//.AllowCredentials()
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +54,10 @@ namespace ResearchAPI
 
             app.UseRouting();
 
+            //允许跨域
+            app.UseCors("AllCors");
+
+            //注册鉴权中间件
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -66,6 +71,7 @@ namespace ResearchAPI
             {
                 p.SwaggerEndpoint("/swagger/v1/swagger.json", "VL API");
             });
+
         }
     }
 }
