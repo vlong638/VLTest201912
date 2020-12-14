@@ -153,10 +153,224 @@
             条件集
             </summary>
         </member>
+        <member name="T:ResearchAPI.Controllers.DropDownItem">
+            <summary>
+            下拉项
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.Controllers.DropDownItem.#ctor(System.String,System.String)">
+            <summary>
+            下拉项
+            </summary>
+            <param name="text"></param>
+            <param name="value"></param>
+        </member>
+        <member name="P:ResearchAPI.Controllers.DropDownItem.text">
+            <summary>
+            文本
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.DropDownItem.value">
+            <summary>
+            值
+            </summary>
+        </member>
         <member name="T:ResearchAPI.Controllers.EasyResearchController">
             <summary>
             科研内核接口
             </summary>
+        </member>
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetDropdowns(System.String)">
+            <summary>
+            下拉项
+            1.1.2.下拉项_科室
+            1.2.2.下拉项_项目成员
+            1.2.3.下拉项_关联科室
+            </summary>
+            <param name="type">类型名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetProjectsForMenu">
+            <summary>
+            1.1.0.获取项目列表(菜单)
+            </summary>
+            <returns>Key:项目名称,Value:项目Id</returns>
+        </member>
+        <member name="T:ResearchAPI.Controllers.EasyResearchController.GetPagedProjectsRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetPagedProjectsRequest.ProjectName">
+            <summary>
+            项目名称
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetPagedProjectsRequest.DepartmentId">
+            <summary>
+            科室Id
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetPagedProjectsRequest.CreateTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.Controllers.EasyResearchController.GetPagedProjectsModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetPagedProjectsModel.ProjectId">
+            <summary>
+            项目Id
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetPagedProjectsModel.ProjectName">
+            <summary>
+            项目名称
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetPagedProjectsModel.DepartmentId">
+            <summary>
+            关联科室
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetPagedProjectsModel.CreatedBy">
+            <summary>
+            创建者
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetPagedProjectsModel.CreatedAt">
+            <summary>
+            创建日期
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetPagedProjectsModel.LastModifiedAt">
+            <summary>
+            最近更新时间
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetPagedProjects(ResearchAPI.Controllers.EasyResearchController.GetPagedProjectsRequest)">
+            <summary>
+            1.1.1.获取项目列表
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.Controllers.EasyResearchController.GetProjectModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetProjectModel.ProjectId">
+            <summary>
+            项目Id
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetProjectModel.ProjectName">
+            <summary>
+            项目名称
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetProjectModel.AdminIds">
+            <summary>
+            项目管理人员
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetProjectModel.MemberIds">
+            <summary>
+            项目成员
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetProjectModel.DepartmentId">
+            <summary>
+            关联科室
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetProjectModel.ViewAuthorizeType">
+            <summary>
+            项目查看权限
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetProjectModel.ProjectDescription">
+            <summary>
+            项目描述
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetProject(System.Int32)">
+            <summary>
+            1.1.3.获取项目详情
+            </summary>
+            <param name="projectId">项目Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.DeleteProject(System.Int32)">
+            <summary>
+            1.1.4.删除项目
+            </summary>
+            <param name="projectId">项目Id</param>
+            <returns></returns>
+        </member>
+        <member name="T:ResearchAPI.Controllers.EasyResearchController.ProjectDTO">
+            <summary>
+            项目信息
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.ProjectDTO.ProjectName">
+            <summary>
+            项目名称
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.ProjectDTO.AdminIds">
+            <summary>
+            项目管理人员
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.ProjectDTO.MemberIds">
+            <summary>
+            项目成员
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.ProjectDTO.DepartmentId">
+            <summary>
+            关联科室
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.ProjectDTO.ViewAuthorizeType">
+            <summary>
+            项目查看权限
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.ProjectDTO.ProjectDescription">
+            <summary>
+            项目描述
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.Controllers.EasyResearchController.CreateProjectRequest">
+            <summary>
+            新建项目
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.Controllers.EasyResearchController.EditProjectRequest">
+            <summary>
+            编辑项目
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.EditProjectRequest.ProjectId">
+            <summary>
+            项目Id
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.CreateProject(ResearchAPI.Controllers.EasyResearchController.CreateProjectRequest)">
+            <summary>
+            1.2.1.新建项目
+            </summary>
+            <returns>项目Id</returns>
+        </member>
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.EditProject(ResearchAPI.Controllers.EasyResearchController.EditProjectRequest)">
+            <summary>
+            1.2.1.新建项目
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:ResearchAPI.Controllers.EasyResearchController.CreateCustomBusinessEntity(ResearchAPI.Services.ReportTaskService,ResearchAPI.Controllers.CreateCustomBusinessEntityRequest)">
             <summary>
@@ -168,16 +382,33 @@
             编辑用户指标单元
             </summary>
         </member>
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetBusinessEntities(ResearchAPI.Services.ReportTaskService)">
+            <summary>
+            获取 指标单元
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetBusinessEntityProperties(ResearchAPI.Services.ReportTaskService)">
+            <summary>
+            获取 指标属性
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.UpdateReportProject(ResearchAPI.Controllers.UpdateReportProjectRequest)">
+            <summary>
+            更新 项目
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
         <member name="M:ResearchAPI.Controllers.EasyResearchController.CreateReportTask(ResearchAPI.Controllers.CreateReportTaskRequest)">
             <summary>
-            新建队列任务
+            新建 项目执行项,即队列
             </summary>
             <param name="request"></param>
             <returns></returns>
         </member>
         <member name="M:ResearchAPI.Controllers.EasyResearchController.UpdateReportTask(ResearchAPI.Controllers.UpdateReportTaskRequest)">
             <summary>
-            更新队列任务
+            更新 项目执行项,即队列
             </summary>
             <param name="request"></param>
             <returns></returns>
@@ -200,6 +431,61 @@
             </summary>
             <param name="taskId"></param>
             <returns>文件路径</returns>
+        </member>
+        <member name="P:ResearchAPI.Controllers.GetBusinessEntityPropertiesModel.BusinessEntityId">
+            <summary>
+            指标单元Id
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.GetBusinessEntityPropertiesModel.BusinessEntityName">
+            <summary>
+            指标单元名称
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.GetBusinessEntityPropertiesModel.IsCustom">
+            <summary>
+            是否用户自定义
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.GetBusinessEntityPropertiesModel.IsSelected">
+            <summary>
+            是否勾选
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.GetBusinessEntityModel.BusinessEntityId">
+            <summary>
+            指标单元Id
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.GetBusinessEntityModel.BusinessEntityName">
+            <summary>
+            指标单元名称
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.GetBusinessEntityModel.IsCustom">
+            <summary>
+            是否用户自定义
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.GetBusinessEntityModel.IsSelected">
+            <summary>
+            是否勾选
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.BusinessEntityPropertyDTO.From">
+            <summary>
+            来源对象
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.BusinessEntityPropertyDTO.CustomBusinessId">
+            <summary>
+            如果不是默认表,则填写来源的自定义对象Id
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.BusinessEntityPropertyDTO.ColumnName">
+            <summary>
+            字段名称
+            </summary>
         </member>
         <member name="T:ResearchAPI.Services.ReportTaskService">
             <summary>

@@ -20,13 +20,13 @@ namespace Research.Common
 
     public class SharedService
     {
-        public ServiceResult<DataTable> GetReport(string sql,Dictionary<string, object> parameters)
+        public ServiceResult<DataTable> GetReport(string sql, Dictionary<string, object> parameters)
         {
             var vlConfig = VLConfigHelper.GetVLConfig("configs", "config.xml");
             var connectionString = vlConfig.GetByKey("ConnectionStrings", "HL_Pregnant");
-            var context =  new DbContext(DBHelper.GetDbConnection(connectionString));
+            var context = new DbContext(DBHelper.GetDbConnection(connectionString));
             var repository = new SharedRepository(context);
-            var result =  repository.ExecuteReader(sql, parameters);
+            var result = repository.ExecuteReader(sql, parameters);
             return new ServiceResult<DataTable>(result);
         }
     }
@@ -53,8 +53,13 @@ namespace Research.Common
     {
         internal static APIResult<DataTable> GetReport(ReportTask reportEntity)
         {
-            var parameters = reportEntity.GetParameters();
-            var sql = reportEntity.GetSQL(parameters);
+            var routerSource = new Routers();
+            routerSource.AddRange(BusinessContext.Routers);
+            routerSource.AddRange(reportEntity.CustomRouters);
+            var routers = reportEntity.GetRouters(routerSource);
+            var parameters = reportEntity.GetParameters(routers);
+            var sql = reportEntity.GetSQL(parameters, routers);
+
             var serviceResult = new SharedService().GetReport(sql, parameters);
             if (serviceResult.IsSuccess)
             {

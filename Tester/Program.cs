@@ -10,6 +10,32 @@ using System.Threading.Tasks;
 namespace Tester
 {
 
+    /// <summary>
+    /// 键值对
+    /// </summary>
+    public class VLKeyValue
+    {
+        public VLKeyValue()
+        {
+            Key = "";
+            Value = "";
+        }
+        public VLKeyValue(string key, string value)
+        {
+            Key = key;
+            Value = value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Key { set; get; }
+        /// <summary>
+        /// /
+        /// </summary>
+        public string Value { set; get; }
+    }
+
     class Program
     {
 
@@ -17,15 +43,41 @@ namespace Tester
         {
             if (true)
             {
+                var sources = File.ReadAllLines(@"C:\Users\Administrator\Desktop\杭妇院\1211.铁剂补充源列表.txt");
+                var sourcePersons = new List<VLKeyValue>();
+                foreach (var source in sources)
+                {
+                    var key = source.Replace(" ", "");
+                    sourcePersons.Add(new VLKeyValue(key, "否"));
+                }
+                var ties = File.ReadAllLines(@"C:\Users\Administrator\Desktop\杭妇院\1211.铁剂名单.txt");
+                foreach (var tie in ties)
+                {
+                    var key = tie.Replace(" ", "").Replace("/", "-");
+                    var fetched = sourcePersons.FirstOrDefault(c => c.Key == key);
+                    if (fetched != null)
+                    {
+                        fetched.Value = "是";
+                    }
+                }
+                StringBuilder sb = new StringBuilder();
+                foreach (var sourcePerson in sourcePersons)
+                {
+                    sb.AppendLine(sourcePerson.Key + "\t\t" + sourcePerson.Value);
+                }
+                var s = sb.ToString();
+            }
+            if (false)
+            {
                 var grouper = new List<Grouper>();
                 Data.AddData(grouper);
-                var groupedData = grouper.GroupBy(c => c.id);                  
+                var groupedData = grouper.GroupBy(c => c.id);
                 StringBuilder sb = new StringBuilder();
                 foreach (var items in groupedData)
                 {
                     //12 16 24 32 37
                     List<KeyValuePair<string, string>> validValues = new List<KeyValuePair<string, string>>();
-                    AddBorder(items, validValues, 0 , 12, 12);
+                    AddBorder(items, validValues, 0, 12, 12);
                     AddBorder(items, validValues, 13, 21, 16);
                     AddBorder(items, validValues, 22, 29, 24);
                     AddBorder(items, validValues, 30, 34, 32);
@@ -57,10 +109,10 @@ namespace Tester
             Console.ReadLine();
         }
 
-        private static void AddBorder(IGrouping<string, Grouper> items, List<KeyValuePair<string, string>> validValues, int minweek,int maxweek, int border)
+        private static void AddBorder(IGrouping<string, Grouper> items, List<KeyValuePair<string, string>> validValues, int minweek, int maxweek, int border)
         {
             var closeItems = items.Where(c => c.week >= minweek && c.week <= maxweek && c.weight.IsNotNullOrEmpty() && c.weight != "NULL");
-            if (closeItems.Count()==0)
+            if (closeItems.Count() == 0)
             {
                 validValues.Add(new KeyValuePair<string, string>("", ""));
             }
@@ -170,3 +222,9 @@ public class Grouper
         this.weight = weight;
     }
 }
+
+
+
+
+
+

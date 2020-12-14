@@ -24,7 +24,7 @@ namespace Research
                 reportTask.Properties.Add(new BusinessEntityProperty("姓名", "PregnantInfo", "PersonName"));
                 reportTask.Properties.Add(new BusinessEntityProperty("生日", "PregnantInfo", "Birthday"));
                 reportTask.MainConditions.Add(new Field2ValueWhere("PregnantInfo", "Birthday", WhereOperator.gt, "1991-01-01"));
-                var result = ResearchGenerator.GetReport(reportTask); 
+                var result = ResearchGenerator.GetReport(reportTask);
             }
 
             //相邻多表关联
@@ -36,7 +36,7 @@ namespace Research
                 reportTask.Properties.Add(new BusinessEntityProperty("检查名称", "LabOrder", "ExamName"));
                 reportTask.Properties.Add(new BusinessEntityProperty("检查日期", "LabOrder", "ExamTime"));
                 reportTask.MainConditions.Add(new Field2ValueWhere("LabOrder", "ExamTime", WhereOperator.gt, "2020-01-01"));
-                var result = ResearchGenerator.GetReport(reportTask); 
+                var result = ResearchGenerator.GetReport(reportTask);
             }
 
             //跨表多表关联
@@ -86,13 +86,13 @@ namespace Research
                 reportTask.Properties.Add(new BusinessEntityProperty("空腹血糖-检查日期", customBusinessEntity.CustomBusinessEntityName, "ExamTime"));
                 reportTask.Properties.Add(new BusinessEntityProperty("空腹血糖-检验名称", customBusinessEntity.CustomBusinessEntityName, "ItemName"));
                 reportTask.Properties.Add(new BusinessEntityProperty("空腹血糖-检验结果", customBusinessEntity.CustomBusinessEntityName, "Value"));
-                reportTask.MainConditions.Add(new Field2ValueWhere(customBusinessEntity.CustomBusinessEntityName, "检验类别", WhereOperator.eq, "0148"));
+                reportTask.MainConditions.Add(new Field2ValueWhere(customBusinessEntity.CustomBusinessEntityName, "ItemName", WhereOperator.eq, "葡萄糖"));
                 reportTask.MainConditions.Add(new Field2ValueWhere(customBusinessEntity.CustomBusinessEntityName, "Value", WhereOperator.GreatOrEqualThan, "10"));
                 reportTask.CustomBusinessEntities.Add(customBusinessEntity);
                 reportTask.CustomRouters.Add(customBusinessEntityRouter);
 
                 //4.任务执行
-                 var result = ResearchGenerator.GetReport(reportTask);
+                var result = ResearchGenerator.GetReport(reportTask);
             }
 
             Console.WriteLine("Hello World!");

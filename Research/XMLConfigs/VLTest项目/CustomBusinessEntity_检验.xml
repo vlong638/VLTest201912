@@ -1,6 +1,7 @@
 ﻿<CustomBusinessEntity CustomBusinessEntityName ="孕期检验结果-空腹血糖" TemplateName="检验结果分类周期模板">
 	<Properties>
 		<!--From="ReportName"-->
+		<Property DisplayName="孕妇姓名" ColumnName="PersonName"/>
 		<Property DisplayName="空腹血糖-检查名称" ColumnName="ExamName"/>
 		<Property DisplayName="空腹血糖-检查日期" ColumnName="ExamTime"/>
 		<Property DisplayName="空腹血糖-检验名称" ColumnName="ItemName"/>
