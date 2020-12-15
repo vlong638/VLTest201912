@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -38,10 +39,29 @@ namespace Tester
 
     class Program
     {
+        public static string GetHashValue(string input)
+        {
+            using (MD5 mi = MD5.Create())
+            {
+                //开始加密
+                byte[] buffer = Encoding.Default.GetBytes(input);
+                byte[] newBuffer = mi.ComputeHash(buffer);
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < newBuffer.Length; i++)
+                {
+                    sb.Append(newBuffer[i].ToString("x2"));
+                }
+                return sb.ToString();
+            }
+        }
 
         static void Main(string[] args)
         {
-            if (true)
+            var pwd = GetHashValue("123456");
+            Console.WriteLine(pwd);
+
+
+            if (false)
             {
                 var sources = File.ReadAllLines(@"C:\Users\Administrator\Desktop\杭妇院\1211.铁剂补充源列表.txt");
                 var sourcePersons = new List<VLKeyValue>();
@@ -65,7 +85,7 @@ namespace Tester
                 {
                     sb.AppendLine(sourcePerson.Key + "\t\t" + sourcePerson.Value);
                 }
-                var s = sb.ToString();
+                File.WriteAllText(@"C:\Users\Administrator\Desktop\杭妇院\1211.Output.txt", sb.ToString());
             }
             if (false)
             {

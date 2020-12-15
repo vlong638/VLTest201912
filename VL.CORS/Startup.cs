@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -20,10 +21,12 @@ namespace VL.CORS
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
-
             //·þÎñ×¢²á
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<APIContext>();
             services.AddScoped<ReportTaskService, ReportTaskService>();
+
+            services.AddControllers();
 
             //ÔÊÐí¿çÓò
             services.AddCors(option => option.AddPolicy("AllCors", policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin()));//.AllowCredentials()

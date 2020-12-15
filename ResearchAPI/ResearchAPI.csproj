@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Resource Include="Docs\SQLs\1.CreateTable_User.sql" />
+    <Resource Include="Docs\SQLs\1.C_User.sql" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Docs\SQLs\1.CreateTable_User.sql">
+    <None Update="Docs\SQLs\1.C_User.sql">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Update="ResearchAPI.xml">

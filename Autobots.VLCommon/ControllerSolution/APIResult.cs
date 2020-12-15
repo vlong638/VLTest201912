@@ -54,6 +54,10 @@ namespace Autobots.Infrastracture.Common.ControllerSolution
             Message = serviceResult.Message;
         }
 
+        public APIResult()
+        {
+        }
+
         /// <summary>
         /// 数据
         /// </summary>

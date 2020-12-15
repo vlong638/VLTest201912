@@ -2,16 +2,90 @@
 using Autobots.Infrastracture.Common.FileSolution;
 using Autobots.Infrastracture.Common.ValuesSolution;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using ResearchAPI.Common;
 using ResearchAPI.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
+using VL.CORS;
 
 namespace ResearchAPI.Controllers
 {
+    public class TestContext
+    {
+        public const long UserId = 1;
+    }
+
+
+
+    public class APIBaseController : Controller
+    {
+
+        #region APIResult,便捷方法
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        internal APIResult<T> Success<T>(T data)
+        {
+            return new APIResult<T>(data);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        internal APIResult<T> Success<T>(T data, params string[] messages)
+        {
+            return new APIResult<T>(data, messages);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        internal APIResult<T> Error<T>(T data, IList<string> messages)
+        {
+            return new APIResult<T>(data, messages.ToArray());
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        internal APIResult<T> Error<T>(T data, int code, IList<string> messages)
+        {
+            return new APIResult<T>(data, code, messages.ToArray());
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        internal APIResult<T> Error<T>(params string[] messages)
+        {
+            return new APIResult<T>(default(T), messages);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        internal APIResult<T> Error<T>(T data, params string[] messages)
+        {
+            return new APIResult<T>(data, messages);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        internal APIResult<T> Error<T>(T data, int code, params string[] messages)
+        {
+            return new APIResult<T>(data, code, messages);
+        }
+        #endregion
+    }
+
     /// <summary>
     /// 下拉项
     /// </summary>
@@ -42,10 +116,36 @@ namespace ResearchAPI.Controllers
     /// 科研内核接口
     /// </summary>
     [ApiController]
-    [Route("api/[controller]/[action]")]
-    public class EasyResearchController : ControllerBase
+    [Route("[controller]")]
+    public class EasyResearch2Controller : ControllerBase
     {
-        #region 通用
+        private static readonly string[] Summaries = new[]
+        {
+            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+        };
+
+        [HttpPost]
+        public IEnumerable<WeatherForecast> Post()
+        {
+            var rng = new Random();
+            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            {
+                Date = DateTime.Now.AddDays(index),
+                TemperatureC = rng.Next(-20, 55),
+                Summary = Summaries[rng.Next(Summaries.Length)]
+            })
+            .ToArray();
+        }
+    }
+
+    /// <summary>
+    /// 科研内核接口
+    /// </summary>
+    [ApiController]
+    [Route("api/[controller]/[action]")]
+    public class EasyResearchController : APIBaseController
+    {
+        #region 通用,Dropdown
 
         /// <summary>
         /// 下拉项
@@ -57,27 +157,27 @@ namespace ResearchAPI.Controllers
         /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
+        [EnableCors("AllCors")]
         public APIResult<List<VLKeyValue<string,long>>> GetDropdowns(string type)
         {
-            throw new NotImplementedException();
-            //var file = (Path.Combine(AppContext.BaseDirectory, "JsonConfigs", type + ".json"));
-            //if (!System.IO.File.Exists(file))
-            //{
-            //    List<DropDownItem> values = new List<DropDownItem>()
-            //    {
-            //        new DropDownItem("请联系管理员配置","请联系管理员配置"),
-            //    };
-            //    System.IO.File.WriteAllText(file, Newtonsoft.Json.JsonConvert.SerializeObject(values));
-            //    return Success(values);
-            //}
-            //var data = System.IO.File.ReadAllText(file);
-            //var entity = Newtonsoft.Json.JsonConvert.DeserializeObject<List<DropDownItem>>(data);
-            //return Success(entity);
+            var file = (Path.Combine(AppContext.BaseDirectory, "JsonConfigs", type + ".json"));
+            if (!System.IO.File.Exists(file))
+            {
+                List<VLKeyValue<string, long>> values = new List<VLKeyValue<string, long>>()
+                {
+                    new VLKeyValue<string, long>("请联系管理员配置",0),
+                };
+                System.IO.File.WriteAllText(file, Newtonsoft.Json.JsonConvert.SerializeObject(values));
+                return Success<List<VLKeyValue<string, long>>>(values);
+            }
+            var data = System.IO.File.ReadAllText(file);
+            var entity = Newtonsoft.Json.JsonConvert.DeserializeObject<List<VLKeyValue<string, long>>>(data);
+            return Success(entity);
         }
 
         #endregion
 
-        #region 项目
+        #region 项目,Project
 
         /// <summary>
         /// 1.1.0.获取项目列表(菜单)
@@ -85,9 +185,14 @@ namespace ResearchAPI.Controllers
         /// <returns>Key:项目名称,Value:项目Id</returns>
         [HttpPost]
         [AllowAnonymous]
-        public APIResult<List<VLKeyValue<string, long>>> GetProjectsForMenu()
+        [EnableCors("AllCors")]
+        public APIResult<List<VLKeyValue<string, long>>> GetProjectsForMenu([FromServices] ReportTaskService service)
         {
-            throw new NotImplementedException();
+            //TODO 
+            var userid = TestContext.UserId;
+
+            var result = service.GetUserFavoriteProjects(userid);
+            return new APIResult<List<VLKeyValue<string, long>>>(result);
         }
 
         /// <summary>
@@ -145,6 +250,7 @@ namespace ResearchAPI.Controllers
         /// </summary>
         [HttpPost]
         [AllowAnonymous]
+        [EnableCors("AllCors")]
         public APIResult<VLPagerResult<GetPagedProjectsModel>> GetPagedProjects(GetPagedProjectsRequest request)
         {
             throw new NotImplementedException();
@@ -192,6 +298,7 @@ namespace ResearchAPI.Controllers
         /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
+        [EnableCors("AllCors")]
         public APIResult<GetProjectModel> GetProject(int projectId)
         {
             throw new NotImplementedException();
@@ -204,6 +311,7 @@ namespace ResearchAPI.Controllers
         /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
+        [EnableCors("AllCors")]
         public APIResult<bool> DeleteProject(int projectId)
         {
             throw new NotImplementedException();
@@ -264,6 +372,7 @@ namespace ResearchAPI.Controllers
         /// <returns>项目Id</returns>
         [HttpPost]
         [AllowAnonymous]
+        [EnableCors("AllCors")]
         public APIResult<long> CreateProject(CreateProjectRequest request)
         {
             throw new NotImplementedException();
@@ -276,6 +385,7 @@ namespace ResearchAPI.Controllers
         /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
+        [EnableCors("AllCors")]
         public APIResult<bool> CollectProject(int projectId)
         {
             throw new NotImplementedException();
@@ -287,6 +397,7 @@ namespace ResearchAPI.Controllers
         /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
+        [EnableCors("AllCors")]
         public APIResult<bool> EditProject(EditProjectRequest request)
         {
             throw new NotImplementedException();
@@ -314,6 +425,7 @@ namespace ResearchAPI.Controllers
         /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
+        [EnableCors("AllCors")]
         public APIResult<GetProjectOperateHistoryResponse> GetProjectOperateHistory(long projectId)
         {
             throw new NotImplementedException();
@@ -361,6 +473,7 @@ namespace ResearchAPI.Controllers
         /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
+        [EnableCors("AllCors")]
         public APIResult<GetProjectOperateHistoryResponse> GetBiefProject(long projectId)
         {
             throw new NotImplementedException();
@@ -397,13 +510,13 @@ namespace ResearchAPI.Controllers
         /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
+        [EnableCors("AllCors")]
         public APIResult<List<GetIndicatorsResponse>> GetIndicators(long projectId)
         {
             throw new NotImplementedException();
         }
 
         #endregion
-
 
         /// <summary>
         /// 新建用户指标单元

@@ -29,6 +29,14 @@ namespace VL.CORSTest
 
             //允许跨域
             services.AddCors(option => option.AddPolicy("cors", policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin()));//.AllowCredentials()
+
+            //服务接口管理
+            services.AddSwaggerGen(p =>
+            {
+                p.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "ResearchAPI", Version = "v1" });
+                p.IncludeXmlComments(AppDomain.CurrentDomain.BaseDirectory + "VL.CORSTest.xml");
+                p.CustomSchemaIds(x => x.FullName);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,6 +59,13 @@ namespace VL.CORSTest
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            //swagger
+            app.UseSwagger();
+            app.UseSwaggerUI(p =>
+            {
+                p.SwaggerEndpoint("/swagger/v1/swagger.json", "VL API");
             });
         }
     }

@@ -175,6 +175,11 @@
             值
             </summary>
         </member>
+        <member name="T:ResearchAPI.Controllers.EasyResearch2Controller">
+            <summary>
+            科研内核接口
+            </summary>
+        </member>
         <member name="T:ResearchAPI.Controllers.EasyResearchController">
             <summary>
             科研内核接口

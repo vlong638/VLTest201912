@@ -31,13 +31,13 @@
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        TEntity GetById(string id);
+        TEntity GetById(long id);
 
         /// <summary>
         /// 根据Id删除实体
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        bool DeleteById(string id);
+        bool DeleteById(long id);
     }
 }
