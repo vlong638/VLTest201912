@@ -266,8 +266,23 @@ namespace ResearchAPI.Controllers
         [EnableCors("AllCors")]
         public APIResult<bool> AddFavoriteProject([FromServices] APIContext context, [FromServices] ReportTaskService service, int projectId)
         {
-            var userid = context.GetCurrentUser().UserId;
-            var result = service.AddFavoriteProject(projectId, userid);
+            var userId = context.GetCurrentUser().UserId;
+            var result = service.AddFavoriteProject(projectId, userId);
+            return new APIResult<bool>(result);
+        }
+
+        /// <summary>
+        /// 1.2.6.解除收藏项目
+        /// </summary>
+        /// <param name="projectId">项目Id</param>
+        /// <returns></returns>
+        [HttpPost]
+        [AllowAnonymous]
+        [EnableCors("AllCors")]
+        public APIResult<bool> DeleteFavoriteProject([FromServices] APIContext context, [FromServices] ReportTaskService service, int projectId)
+        {
+            var userId = context.GetCurrentUser().UserId;
+            var result = service.DeleteFavoriteProject(projectId, userId);
             return new APIResult<bool>(result);
         }
 

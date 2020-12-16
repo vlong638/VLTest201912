@@ -24,5 +24,11 @@ namespace ResearchAPI.CORS.Repositories
             return _connection.Query<FavoriteProject>("select * from [FavoriteProject] where ProjectId = @ProjectId and UserId = @UserId"
                 , favoriteProject, transaction: _transaction).FirstOrDefault();
         }
+
+        internal int DeleteOne(FavoriteProject favoriteProject)
+        {
+            return _connection.Execute("delete from [FavoriteProject] where ProjectId = @ProjectId and UserId = @UserId"
+                , favoriteProject, transaction: _transaction);
+        }
     }
 }

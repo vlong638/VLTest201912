@@ -234,6 +234,18 @@ namespace ResearchAPI.Services
                 return FavoriteProjectRepository.InsertOne(favoriteProject) > 0;
             });
         }
+
+        internal ServiceResult<bool> DeleteFavoriteProject(int projectId, long userId)
+        {
+            return ResearchDbContext.DelegateNonTransaction(c =>
+            {
+                var favoriteProject = new FavoriteProject(projectId, userId);
+                var exist = FavoriteProjectRepository.GetOne(favoriteProject);
+                if (exist == null)
+                    throw new NotImplementedException("收藏不存在");
+                return FavoriteProjectRepository.DeleteOne(favoriteProject) > 0;
+            });
+        }
     }
 
     /// <summary>
