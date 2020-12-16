@@ -1,6 +1,8 @@
 ﻿using Autobots.Infrastracture.Common.DBSolution;
 using Autobots.Infrastracture.Common.RepositorySolution;
 using ResearchAPI.CORS.Common;
+using System;
+using System.Collections.Generic;
 
 namespace ResearchAPI.CORS.Repositories
 {
@@ -11,5 +13,12 @@ namespace ResearchAPI.CORS.Repositories
         {
         }
 
+        internal void CreateProjectMembers(List<ProjectMember> members)
+        {
+            foreach (var member in members)
+            {
+                Insert(member);
+            }
+        }
     }
 }

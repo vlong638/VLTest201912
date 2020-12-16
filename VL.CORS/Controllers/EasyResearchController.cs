@@ -22,8 +22,6 @@ namespace ResearchAPI.Controllers
         public const long UserId = 1;
     }
 
-
-
     public class APIBaseController : Controller
     {
 
@@ -160,21 +158,30 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<List<VLKeyValue<string, long>>> GetDropdowns(string type)
+        public APIResult<List<VLKeyValue<string, long>>> GetDropdowns([FromServices] ReportTaskService service, string type)
         {
-            var file = (Path.Combine(AppContext.BaseDirectory, "JsonConfigs", type + ".json"));
-            if (!System.IO.File.Exists(file))
+            List<VLKeyValue<string, long>> values = new List<VLKeyValue<string, long>>();
+            switch (type)
             {
-                List<VLKeyValue<string, long>> values = new List<VLKeyValue<string, long>>()
-                {
-                    new VLKeyValue<string, long>("请联系管理员配置",0),
-                };
-                System.IO.File.WriteAllText(file, Newtonsoft.Json.JsonConvert.SerializeObject(values));
-                return Success<List<VLKeyValue<string, long>>>(values);
+                case "Member":
+                    var result = service.GetAllUsersIdAndName();
+                    foreach (var user in result.Data)
+                    {
+                        values.Add(new VLKeyValue<string, long>(user.Name, user.Id));
+                    }
+                    return Success(values);
+                default:
+                    var file = (Path.Combine(AppContext.BaseDirectory, "JsonConfigs", type + ".json"));
+                    if (!System.IO.File.Exists(file))
+                    {
+                        values.Add(new VLKeyValue<string, long>("请联系管理员配置", 0));
+                        System.IO.File.WriteAllText(file, Newtonsoft.Json.JsonConvert.SerializeObject(values));
+                        return Success<List<VLKeyValue<string, long>>>(values);
+                    }
+                    var data = System.IO.File.ReadAllText(file);
+                    var entity = Newtonsoft.Json.JsonConvert.DeserializeObject<List<VLKeyValue<string, long>>>(data);
+                    return Success(entity);
             }
-            var data = System.IO.File.ReadAllText(file);
-            var entity = Newtonsoft.Json.JsonConvert.DeserializeObject<List<VLKeyValue<string, long>>>(data);
-            return Success(entity);
         }
 
         #endregion

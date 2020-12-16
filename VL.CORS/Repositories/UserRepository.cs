@@ -2,6 +2,8 @@
 using Autobots.Infrastracture.Common.RepositorySolution;
 using Dapper;
 using ResearchAPI.CORS.Common;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ResearchAPI.CORS.Repositories
@@ -19,11 +21,11 @@ namespace ResearchAPI.CORS.Repositories
                 .FirstOrDefault();
         }
 
-        public User GetBy(string userName, string password)
+        public List<User> GetAllUsersIdAndName()
         {
-            return _connection.Query<User>("select * from [A_User] where Name = @userName and Password = @password;"
-                , new { userName, password }, transaction: _transaction)
-                .FirstOrDefault();
+            return _connection.Query<User>("select Id,Name from [User] ;" 
+                , transaction: _transaction)
+                .ToList();
         }
     }
 }
