@@ -198,7 +198,7 @@ namespace ResearchAPI.Controllers
         public APIResult<List<VLKeyValue<string, long>>> GetProjectsForMenu([FromServices] APIContext context, [FromServices] ReportTaskService service)
         {
             var userid = context.GetCurrentUser().UserId;
-            var result = service.GetUserFavoriteProjects(userid);
+            var result = service.GetFavoriteProjects(userid);
             return new APIResult<List<VLKeyValue<string, long>>>(result);
         }
 
@@ -264,9 +264,11 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<bool> CollectProject(int projectId)
+        public APIResult<bool> AddFavoriteProject([FromServices] APIContext context, [FromServices] ReportTaskService service, int projectId)
         {
-            throw new NotImplementedException();
+            var userid = context.GetCurrentUser().UserId;
+            var result = service.AddFavoriteProject(projectId, userid);
+            return new APIResult<bool>(result);
         }
 
         /// <summary>

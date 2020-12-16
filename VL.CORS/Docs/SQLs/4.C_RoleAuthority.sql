@@ -12,5 +12,9 @@ CREATE TABLE [dbo].[RoleAuthority](
 GO
 GO
 
+--设置联合主键
+ALTER TABLE [dbo].[RoleAuthority] ADD PRIMARY KEY CLUSTERED (RoleId, AuthorityId)
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+
 -- 校验
 select * from [RoleAuthority];

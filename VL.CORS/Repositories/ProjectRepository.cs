@@ -2,9 +2,7 @@
 using Autobots.Infrastracture.Common.RepositorySolution;
 using Dapper;
 using ResearchAPI.CORS.Common;
-using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 
 namespace ResearchAPI.CORS.Repositories
@@ -36,12 +34,12 @@ namespace ResearchAPI.CORS.Repositories
                 , new { Id = id, IsDeleted = true }, transaction: _transaction) > 0;
         }
 
-        public List<UserFavoriteProjectModel> GetUserFavoriteProjects(long userId)
+        public List<FavoriteProjectModel> GetFavoriteProjects(long userId)
         {
-            return _connection.Query<UserFavoriteProjectModel>(@" select p.Id as ProjectId, p.Name as ProjectName
-        from UserFavoriteProject ufp
-        left join Project p on p.id = ufp.ProjectId
-        where ufp.UserId = @userId and p.IsDeleted = @IsDeleted;"
+            return _connection.Query<FavoriteProjectModel>(@" select p.Id as ProjectId, p.Name as ProjectName
+        from Project p
+        left join FavoriteProject fp on p.id = fp.ProjectId
+        where fp.UserId = @userId and p.IsDeleted = @IsDeleted;"
                 , new { userId, IsDeleted = false }, transaction: _transaction).ToList();
         }
 
@@ -59,7 +57,7 @@ and RoleId = @RoleId"
         }
     }
 
-    public class UserFavoriteProjectModel
+    public class FavoriteProjectModel
     {
         public long ProjectId { set; get; }
         public string ProjectName { set; get; }

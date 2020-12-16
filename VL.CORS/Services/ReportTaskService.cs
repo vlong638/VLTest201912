@@ -70,11 +70,13 @@ namespace ResearchAPI.Services
     {
         APIContext APIContext { get; set; }
         DbContext ResearchDbContext { set; get; }
-        internal UserRepository UserRepository { set; get; }
-        internal RoleRepository RoleRepository { set; get; }
-        internal ProjectRepository ProjectRepository { set; get; }
-        internal ProjectMemberRepository ProjectMemberRepository { set; get; }
-        internal SharedRepository SharedRepository { set; get; }
+
+        FavoriteProjectRepository FavoriteProjectRepository { set; get; }
+        ProjectRepository ProjectRepository { set; get; }
+        ProjectMemberRepository ProjectMemberRepository { set; get; }
+        RoleRepository RoleRepository { set; get; }
+        SharedRepository SharedRepository { set; get; }
+        UserRepository UserRepository { set; get; }
 
         /// <summary>
         /// 
@@ -84,11 +86,14 @@ namespace ResearchAPI.Services
         {
             APIContext = apiContext;
             ResearchDbContext = APIContext.GetDBContext(APIContraints.ResearchDbContext);
-            UserRepository = new UserRepository(ResearchDbContext);
-            RoleRepository = new RoleRepository(ResearchDbContext);
+
+            //repositories
+            FavoriteProjectRepository = new FavoriteProjectRepository(ResearchDbContext);
             ProjectRepository = new ProjectRepository(ResearchDbContext);
             ProjectMemberRepository = new ProjectMemberRepository(ResearchDbContext);
+            RoleRepository = new RoleRepository(ResearchDbContext);
             SharedRepository = new SharedRepository(ResearchDbContext);
+            UserRepository = new UserRepository(ResearchDbContext);
         }
 
         internal ServiceResult<bool> ExecuteReportTask(long taskId)
@@ -106,9 +111,9 @@ namespace ResearchAPI.Services
             throw new NotImplementedException();
         }
 
-        internal ServiceResult<List<VLKeyValue<string, long>>> GetUserFavoriteProjects(long userid)
+        internal ServiceResult<List<VLKeyValue<string, long>>> GetFavoriteProjects(long userid)
         {
-            var result = ProjectRepository.GetUserFavoriteProjects(userid);
+            var result = ProjectRepository.GetFavoriteProjects(userid);
             return new ServiceResult<List<VLKeyValue<string, long>>>(
                 result.Select(c => new VLKeyValue<string, long>(c.ProjectName, c.ProjectId)).ToList()
             );
@@ -198,6 +203,12 @@ namespace ResearchAPI.Services
         internal List<Role> GetAllRoles()
         {
             return RoleRepository.GetAllRoles();
+        }
+
+        internal bool AddFavoriteProject(int projectId, long userId)
+        {
+            var favoriteProject = new FavoriteProject(userId, projectId);
+            return FavoriteProjectRepository.InsertOne(favoriteProject) > 0;
         }
     }
 

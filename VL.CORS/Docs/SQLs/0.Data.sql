@@ -35,10 +35,10 @@ truncate table [Project]
 insert into Project(Name,ViewAuthorizeType,CreatorId) values('测试项目01',1,(select id from [user] where name = 'admin'))
 select * from [Project];
 
---UserFavoriteProject
-truncate table [UserFavoriteProject]
-insert into UserFavoriteProject(UserId,ProjectId) values((select id from [user] where name = 'admin'),(select id from [Project] where name = '测试项目01'))
-select * from UserFavoriteProject;
+--FavoriteProject
+truncate table [FavoriteProject]
+insert into FavoriteProject(UserId,ProjectId) values((select id from [user] where name = 'admin'),(select id from [Project] where name = '测试项目01'))
+select * from FavoriteProject;
 
 --ProjectMember
 truncate table [ProjectMember]
