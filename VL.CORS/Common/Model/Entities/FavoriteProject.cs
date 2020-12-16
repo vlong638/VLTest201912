@@ -11,10 +11,10 @@ namespace ResearchAPI.CORS.Common
         {
         }
 
-        public FavoriteProject(long userId, long projectId)
+        public FavoriteProject(long projectId, long userId)
         {
-            UserId = userId;
             ProjectId = projectId;
+            UserId = userId;
         }
 
         public long UserId { set; get; }

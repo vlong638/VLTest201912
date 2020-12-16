@@ -195,7 +195,7 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<List<VLKeyValue<string, long>>> GetProjectsForMenu([FromServices] APIContext context, [FromServices] ReportTaskService service)
+        public APIResult<List<VLKeyValue<string, long>>> GetFavoriteProjects([FromServices] APIContext context, [FromServices] ReportTaskService service)
         {
             var userid = context.GetCurrentUser().UserId;
             var result = service.GetFavoriteProjects(userid);

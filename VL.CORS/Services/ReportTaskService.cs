@@ -22,7 +22,7 @@ namespace ResearchAPI.Services
         {
             if (roles == null)
             {
-                var result = service.GetAllRoles();
+                var result = service.GetAllRoles().Data;
                 roles = new Dictionary<string, long>();
                 foreach (var role in result)
                 {
@@ -113,48 +113,60 @@ namespace ResearchAPI.Services
 
         internal ServiceResult<List<VLKeyValue<string, long>>> GetFavoriteProjects(long userid)
         {
-            var result = ProjectRepository.GetFavoriteProjects(userid);
-            return new ServiceResult<List<VLKeyValue<string, long>>>(
-                result.Select(c => new VLKeyValue<string, long>(c.ProjectName, c.ProjectId)).ToList()
-            );
+            return ResearchDbContext.DelegateNonTransaction(c =>
+            {
+                var result = ProjectRepository.GetFavoriteProjects(userid);
+                return new List<VLKeyValue<string, long>>(
+                    result.Select(c => new VLKeyValue<string, long>(c.ProjectName, c.ProjectId)).ToList()
+                );
+            });
         }
 
         internal ServiceResult<GetProjectModel> GetProject(int projectId)
         {
-            var result = new GetProjectModel();
-            var project = ProjectRepository.GetById(projectId);
-            if (project == null)
+            return ResearchDbContext.DelegateNonTransaction(c =>
             {
-                return new ServiceResult<GetProjectModel>(null, "无效的项目");
-            }
-            result.ProjectId = project.Id;
-            result.ProjectName = project.Name;
-            result.DepartmentId = project.DepartmentId;
-            result.ViewAuthorizeType = project.ViewAuthorizeType;
-            result.ProjectDescription = project.ProjectDescription;
-            result.CreatorId = project.CreatorId;
-            result.CreatedAt = project.CreatedAt;
-            result.LastModifiedAt = project.LastModifiedAt;
-            result.LastModifiedBy = project.LastModifiedBy;
-            var adminRoleId = DomainConstraits.GetAdminRoleId(this);
-            var memberRoleId = DomainConstraits.GetMemberRoleId(this);
-            var adminIds = ProjectRepository.GetUserIdsByProjectIdAndRoleId(projectId, adminRoleId);
-            result.AdminIds = adminIds;
-            var memberIds = ProjectRepository.GetUserIdsByProjectIdAndRoleId(projectId, memberRoleId);
-            result.MemberIds = memberIds;
-            return new ServiceResult<GetProjectModel>(result);
+                var result = new GetProjectModel();
+                var project = ProjectRepository.GetById(projectId);
+                if (project == null)
+                {
+                    throw new NotImplementedException("项目不存在");
+                }
+                result.ProjectId = project.Id;
+                result.ProjectName = project.Name;
+                result.DepartmentId = project.DepartmentId;
+                result.ViewAuthorizeType = project.ViewAuthorizeType;
+                result.ProjectDescription = project.ProjectDescription;
+                result.CreatorId = project.CreatorId;
+                result.CreatedAt = project.CreatedAt;
+                result.LastModifiedAt = project.LastModifiedAt;
+                result.LastModifiedBy = project.LastModifiedBy;
+                var adminRoleId = DomainConstraits.GetAdminRoleId(this);
+                var memberRoleId = DomainConstraits.GetMemberRoleId(this);
+                var adminIds = ProjectRepository.GetUserIdsByProjectIdAndRoleId(projectId, adminRoleId);
+                result.AdminIds = adminIds;
+                var memberIds = ProjectRepository.GetUserIdsByProjectIdAndRoleId(projectId, memberRoleId);
+                result.MemberIds = memberIds;
+                return result;
+            });
         }
 
         internal ServiceResult<List<User>> GetAllUsersIdAndName()
         {
-            var result= UserRepository.GetAllUsersIdAndName();
-            return new ServiceResult<List<User>>(result);
+            return ResearchDbContext.DelegateNonTransaction(c =>
+            {
+                var result = UserRepository.GetAllUsersIdAndName();
+                return result;
+            });
         }
 
         internal ServiceResult<bool> DeleteProject(int projectId)
         {
-            var result = ProjectRepository.DeleteById(projectId);
-            return new ServiceResult<bool>(result);
+            return ResearchDbContext.DelegateNonTransaction(c =>
+            {
+                var result = ProjectRepository.DeleteById(projectId);
+                return result;
+            });
         }
 
         internal ServiceResult<VLPagerResult<List<Dictionary<string, object>>>> GetPagedResultBySQLConfig(GetCommonSelectRequest request)
@@ -200,15 +212,27 @@ namespace ResearchAPI.Services
             });
         }
 
-        internal List<Role> GetAllRoles()
+        internal ServiceResult<List<Role>> GetAllRoles()
         {
-            return RoleRepository.GetAllRoles();
+            return ResearchDbContext.DelegateNonTransaction(c =>
+            {
+                return RoleRepository.GetAllRoles();
+            });
         }
 
-        internal bool AddFavoriteProject(int projectId, long userId)
+        internal ServiceResult<bool> AddFavoriteProject(int projectId, long userId)
         {
-            var favoriteProject = new FavoriteProject(userId, projectId);
-            return FavoriteProjectRepository.InsertOne(favoriteProject) > 0;
+            return ResearchDbContext.DelegateNonTransaction(c =>
+            {
+                var favoriteProject = new FavoriteProject(projectId, userId);
+                var exist = FavoriteProjectRepository.GetOne(favoriteProject);
+                if (exist != null)
+                    throw new NotImplementedException("已添加收藏");
+                var project = ProjectRepository.GetById(projectId);
+                if (project == null)
+                    throw new NotImplementedException("项目不存在");
+                return FavoriteProjectRepository.InsertOne(favoriteProject) > 0;
+            });
         }
     }
 
