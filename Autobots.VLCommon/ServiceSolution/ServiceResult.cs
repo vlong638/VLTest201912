@@ -5,7 +5,7 @@
     /// </summary>
     public class ServiceResult
     {
-        public const int SuccessCode = 200;
+        public const int SuccessCode = 0;
 
         public ServiceResult(params string[] messages)
         {

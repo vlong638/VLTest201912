@@ -147,103 +147,114 @@
 <script>
     $(
         function () {
+            var projectId = 1;
             $.ajax({
-                //url: 'http://192.168.50.213:8043/api/EasyResearch/GetDropdowns',
-                url: 'http://192.168.50.213:8041/weatherforecast',
-                type: 'post',
-                dataType: 'json',
-                data: {
-                    recordId: 111
-                },
+                url: 'http://192.168.50.213:8041/api/EasyResearch/DeleteProject',
+                type: "post",
+                dataType: "json",
+                data: { projectId },
                 success: function (resp) {
                     console.log(resp.data);
                 }
             })
 
-            $.ajax({
-                url: 'http://192.168.50.213:8041/EasyResearch2',
-                type: 'post',
-                dataType: 'json',
-                data: {
-                    recordId: 111
-                },
-                success: function (resp) {
-                    console.log(resp.data);
-                }
-            })
+            //$.ajax({
+            //    //url: 'http://192.168.50.213:8043/api/EasyResearch/GetDropdowns',
+            //    url: 'http://192.168.50.213:8041/weatherforecast',
+            //    type: 'post',
+            //    dataType: 'json',
+            //    data: {
+            //        recordId: 111
+            //    },
+            //    success: function (resp) {
+            //        console.log(resp.data);
+            //    }
+            //})
 
-            $.ajax({
-                url: 'http://192.168.50.213:8041/api/EasyResearch/GetDropdowns',
-                type: 'post',
-                dataType: 'json',
-                data: {
-                    type: '111'
-                },
-                success: function (resp) {
-                    console.log(resp.data);
-                }
-            })
+            //$.ajax({
+            //    url: 'http://192.168.50.213:8041/EasyResearch2',
+            //    type: 'post',
+            //    dataType: 'json',
+            //    data: {
+            //        recordId: 111
+            //    },
+            //    success: function (resp) {
+            //        console.log(resp.data);
+            //    }
+            //})
 
-            $.ajax({
-                url: 'http://192.168.50.213:8001/EasyResearch2',
-                type: 'post',
-                dataType: 'json',
-                data: {
-                    recordId: 111
-                },
-                success: function (resp) {
-                    console.log(resp.data);
-                }
-            })
+            //$.ajax({
+            //    url: 'http://192.168.50.213:8041/api/EasyResearch/GetDropdowns',
+            //    type: 'post',
+            //    dataType: 'json',
+            //    data: {
+            //        type: '111'
+            //    },
+            //    success: function (resp) {
+            //        console.log(resp.data);
+            //    }
+            //})
 
-            $.ajax({
-                url: 'http://192.168.50.213:8001/api/EasyResearch/GetDropdowns',
-                type: 'post',
-                dataType: 'json',
-                data: {
-                    type: '111'
-                },
-                success: function (resp) {
-                    console.log(resp.data);
-                }
-            })
+            //$.ajax({
+            //    url: 'http://192.168.50.213:8001/EasyResearch2',
+            //    type: 'post',
+            //    dataType: 'json',
+            //    data: {
+            //        recordId: 111
+            //    },
+            //    success: function (resp) {
+            //        console.log(resp.data);
+            //    }
+            //})
 
-            $.ajax({
-                url: 'http://localhost:61696/EasyResearch2',
-                type: 'post',
-                dataType: 'json',
-                data: {
-                    recordId: 111
-                },
-                success: function (resp) {
-                    console.log(resp.data);
-                }
-            })
+            //$.ajax({
+            //    url: 'http://192.168.50.213:8001/api/EasyResearch/GetDropdowns',
+            //    type: 'post',
+            //    dataType: 'json',
+            //    data: {
+            //        type: '111'
+            //    },
+            //    success: function (resp) {
+            //        console.log(resp.data);
+            //    }
+            //})
 
-            $.ajax({
-                url: 'http://localhost:61696/api/EasyResearch/GetDropdowns',
-                type: 'post',
-                dataType: 'json',
-                data: {
-                    type: '111'
-                },
-                success: function (resp) {
-                    console.log(resp.data);
-                }
-            })
+            //$.ajax({
+            //    url: 'http://localhost:61696/EasyResearch2',
+            //    type: 'post',
+            //    dataType: 'json',
+            //    data: {
+            //        recordId: 111
+            //    },
+            //    success: function (resp) {
+            //        console.log(resp.data);
+            //    }
+            //})
 
-            $.ajax({
-                //url: 'http://192.168.50.213:8043/api/EasyResearch/GetDropdowns',
-                url: 'http://192.168.50.213:8043/weatherforecast',
-                type: 'post',
-                dataType: 'json',
-                data: {
-                    recordId: 111
-                },
-                success: function (resp) {
-                    console.log(resp.data);
-                }
-            })
+            //$.ajax({
+            //    url: 'http://localhost:61696/api/EasyResearch/GetDropdowns',
+            //    type: 'post',
+            //    dataType: 'json',
+            //    data: {
+            //        type: '111'
+            //    },
+            //    success: function (resp) {
+            //        console.log(resp.data);
+            //    }
+            //})
+
+            //$.ajax({
+            //    //url: 'http://192.168.50.213:8043/api/EasyResearch/GetDropdowns',
+            //    url: 'http://192.168.50.213:8043/weatherforecast',
+            //    type: 'post',
+            //    dataType: 'json',
+            //    data: {
+            //        recordId: 111
+            //    },
+            //    success: function (resp) {
+            //        console.log(resp.data);
+            //    }
+            //})
 
         }
     )

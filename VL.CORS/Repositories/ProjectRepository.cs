@@ -19,21 +19,21 @@ namespace ResearchAPI.CORS.Repositories
         public Project GetBy(string ProjectName)
         {
             return _connection.Query<Project>("select * from [Project] where Name = @ProjectName;"
-                , new { ProjectName })
+                , new { ProjectName }, transaction: _transaction)
                 .FirstOrDefault();
         }
 
         public override Project GetById(long id)
         {
             return _connection.Query<Project>("select * from [Project] where Id = @Id and IsDeleted = @IsDeleted;"
-                , new { Id = id, IsDeleted = false })
+                , new { Id = id, IsDeleted = false }, transaction: _transaction)
                 .FirstOrDefault();
         }
 
         public override bool DeleteById(long id)
         {
             return _connection.Execute("update [Project] set IsDeleted = @IsDeleted where Id = @Id ;"
-                , new { Id = id, IsDeleted = true }) > 0;
+                , new { Id = id, IsDeleted = true }, transaction: _transaction) > 0;
         }
 
         public List<UserFavoriteProjectModel> GetUserFavoriteProjects(long userId)
@@ -42,30 +42,21 @@ namespace ResearchAPI.CORS.Repositories
         from UserFavoriteProject ufp
         left join Project p on p.id = ufp.ProjectId
         where ufp.UserId = @userId and p.IsDeleted = @IsDeleted;"
-                , new { userId, IsDeleted = false }).ToList();
+                , new { userId, IsDeleted = false }, transaction: _transaction).ToList();
         }
 
-        internal List<long> GetUserIdsByProjectAndRoleName(int projectId, string roleName)
+        internal List<long> GetUserIdsByProjectIdAndRoleId(long projectId, long roleId)
         {
             return _connection.Query<long>(@"select * from  ProjectMember where ProjectId = @ProjectId 
-and RoleId = (select id from [role] where name = @RoleName)"
-                , new { projectId, roleName }).ToList();
+and RoleId = @RoleId"
+                , new { projectId, roleId }, transaction: _transaction).ToList();
         }
 
-        //internal List<GetPagedProjectsModel> GetPagedProjectList(SQLConfig sqlConfig)
-        //{
-        //    var sql = request.ToListSQL();
-        //    var pars = request.GetParams();
-        //    return context.DbGroup.Connection.Query<GetPagedProjectsModel>(sql, pars, transaction: _transaction).ToList();
-        //}
-
-        //internal int GetPagedProjectCount(GetPagedProjectsRequest request)
-        //{
-        //    var sql = request.ToCountSQL();
-        //    var pars = request.GetParams();
-        //    return context.DbGroup.Connection.Query<int>(sql, pars, transaction: _transaction).FirstOrDefault();
-        //}
-
+        internal long GetRoleIdByName(string roleName)
+        {
+            return _connection.Query<long>(@"select id from Role where name = @RoleName)"
+                , new { roleName }, transaction: _transaction).FirstOrDefault();
+        }
     }
 
     public class UserFavoriteProjectModel

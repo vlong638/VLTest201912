@@ -16,13 +16,17 @@ namespace ResearchAPI.CORS.Common
         public long CreatorId { set; get; }
         public DateTime? CreatedAt { set; get; }
         public DateTime? LastModifiedAt { get; set; }
+        public long? LastModifiedBy { get; set; }
     }
 
+    /// <summary>
+    /// 项目查看权限
+    /// </summary>
     public enum ViewAuthorizeType
     {
         None,
-        CreatorOnly,
-        MemberAvailable,
-        DepartmentAndMemberAvailable,
+        Public = 1, //所有人可见
+        MemberAvailable = 2,//成员可见
+        DepartmentAndMemberAvailable = 3,//成员与科室可见
     }
 }

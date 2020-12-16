@@ -143,7 +143,7 @@ namespace ResearchAPI.Controllers
     /// <summary>
     /// 科研内核接口
     /// </summary>
-    [ApiController]
+    //[ApiController]
     [Route("api/[controller]/[action]")]
     public class EasyResearchController : APIBaseController
     {
@@ -242,9 +242,11 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<long> CreateProject(CreateProjectRequest request)
+        public APIResult<long> CreateProject([FromServices] APIContext context, [FromServices] ReportTaskService service, CreateProjectRequest request)
         {
-            throw new NotImplementedException();
+            var userid = context.GetCurrentUser().UserId;
+            var result = service.CreateProject(request, userid);
+            return new APIResult<long>(result);
         }
 
         /// <summary>

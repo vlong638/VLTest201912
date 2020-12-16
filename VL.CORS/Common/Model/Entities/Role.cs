@@ -1,11 +1,12 @@
-﻿using Dapper.Contrib.Extensions;
+﻿
+using Dapper.Contrib.Extensions;
 
 namespace ResearchAPI.CORS.Common
 {
     [Table(TableName)]
-    public class User
+    public class Role
     {
-        public const string TableName = "User";
+        public const string TableName = "Role";
 
         public long Id { set; get; }
         public string Name { set; get; }

@@ -48,5 +48,9 @@ namespace ResearchAPI.CORS.Common
         /// 最近更新时间
         /// </summary>
         public DateTime? LastModifiedAt { set; get; }
+        /// <summary>
+        /// 最近修改人员
+        /// </summary>
+        public long? LastModifiedBy { get; set; }
     }
 }

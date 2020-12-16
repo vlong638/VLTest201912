@@ -14,19 +14,21 @@
 				<SQL>
 					select p.Id,p.Name,p.DepartmentId,p.CreatorId,p.CreatedAt,p.LastModifiedAt
 					from Project as p 
-					where 1=1
+					where p.IsDeleted = 0
 					<If Operator="NotEmpty" ComponentName="Name"> and p.name like @Name </If>
 					<If Operator="NotEmpty" ComponentName="DepartmentId"> and p.DepartmentId = @DepartmentId </If>
 					<If Operator="NotEmpty" ComponentName="CreatedAt"> 
 					and p.CreatedAt &gt;= @CreatedAt
 					and p.CreatedAt &lt; dateadd(day,1,@CreatedAt)
 					</If>
+					order by p.Id desc
+					@Pager
 				</SQL>
 			</SQLs>
 			<CountSQL>
 				select count(*)
 				from Project as p 
-				where 1=1
+				where p.IsDeleted = 0
 				<If Operator="NotEmpty" ComponentName="Name"> and p.name like @Name </If>
 				<If Operator="NotEmpty" ComponentName="DepartmentId"> and p.DepartmentId = @DepartmentId </If>
 				<If Operator="NotEmpty" ComponentName="CreatedAt"> 

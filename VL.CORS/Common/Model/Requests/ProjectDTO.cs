@@ -27,7 +27,7 @@ namespace ResearchAPI.CORS.Common
         /// <summary>
         /// 项目查看权限
         /// </summary>
-        public int ViewAuthorizeType { set; get; }
+        public ViewAuthorizeType ViewAuthorizeType { set; get; }
         /// <summary>
         /// 项目描述
         /// </summary>

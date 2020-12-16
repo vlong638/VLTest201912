@@ -15,21 +15,82 @@ using System.Text;
 
 namespace ResearchAPI.Services
 {
+    public static class DomainConstraits {
+        private static Dictionary<string, long> roles;
+
+        public static Dictionary<string, long> GetRoles(ReportTaskDomain domain)
+        {
+            if (roles == null)
+            {
+                var result = domain.GetRoles();
+                roles = new Dictionary<string, long>();
+                foreach (var role in result)
+                {
+                    roles.Add(role.Name, role.Id);
+                }
+            }
+            return roles;
+        }
+
+        private static long adminRoleId;
+        internal static long GetAdminRoleId(ReportTaskDomain domain)
+        {
+            if (adminRoleId == 0)
+            {
+                adminRoleId = GetRoles(domain).First(c => c.Key == "项目管理员").Value;
+            }
+            return adminRoleId;
+        }
+
+        private static long memberRoleId;
+        internal static long GetMemberRoleId(ReportTaskDomain domain)
+        {
+            if (memberRoleId == 0)
+            {
+                memberRoleId = GetRoles(domain).First(c => c.Key == "项目成员").Value;
+            }
+            return memberRoleId;
+        }
+
+        private static long owenerRoleId;
+        internal static long GetOwnerRoleId(ReportTaskDomain domain)
+        {
+            if (owenerRoleId == 0)
+            {
+                owenerRoleId = GetRoles(domain).First(c => c.Key == "项目创建人").Value;
+            }
+            return owenerRoleId;
+        }
+    }
+
     /// <summary>
     /// 
     /// </summary>
     public class ReportTaskService
     {
-        static ReportTaskDomain Domain { set; get; }
+        ReportTaskDomain Domain { set; get; }
 
-        public APIContext APIContext { get; private set; }
+        APIContext APIContext { get; set; }
+        DbContext ResearchDbContext { set; get; }
+        internal RoleRepository RoleRepository { set; get; }
+        internal ProjectRepository ProjectRepository { set; get; }
+        internal ProjectMemberRepository ProjectMemberRepository { set; get; }
+        internal SharedRepository SharedRepository { set; get; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dbContext"></param>
         public ReportTaskService(APIContext apiContext)
         {
             APIContext = apiContext;
-            Domain = new ReportTaskDomain(APIContext);
+            ResearchDbContext = APIContext.GetDBContext(APIContraints.ResearchDbContext);
+            RoleRepository = new RoleRepository(ResearchDbContext);
+            ProjectRepository = new ProjectRepository(ResearchDbContext);
+            ProjectMemberRepository = new ProjectMemberRepository(ResearchDbContext);
+            SharedRepository = new SharedRepository(ResearchDbContext);
+            Domain = new ReportTaskDomain(this);
         }
-
 
         internal ServiceResult<bool> ExecuteReportTask(long taskId)
         {
@@ -70,11 +131,13 @@ namespace ResearchAPI.Services
             result.CreatorId = project.CreatorId;
             result.CreatedAt = project.CreatedAt;
             result.LastModifiedAt = project.LastModifiedAt;
-
-            var adminId = Domain.GetUserIdsByProjectAndRoleName(projectId, "项目管理员");
-            result.AdminIds = adminId;
-            var memberId = Domain.GetUserIdsByProjectAndRoleName(projectId, "项目成员");
-            result.MemberIds = memberId;
+            result.LastModifiedBy = project.LastModifiedBy;
+            var adminRoleId = DomainConstraits.GetAdminRoleId(Domain);
+            var memberRoleId = DomainConstraits.GetMemberRoleId(Domain);
+            var adminIds = Domain.GetUserIdsByProjectAndRoleName(projectId, adminRoleId);
+            result.AdminIds = adminIds;
+            var memberIds = Domain.GetUserIdsByProjectAndRoleName(projectId, memberRoleId);
+            result.MemberIds = memberIds;
             return new ServiceResult<GetProjectModel>(result);
         }
 
@@ -90,8 +153,29 @@ namespace ResearchAPI.Services
             sqlConfig.PageIndex = request.page;
             sqlConfig.PageSize = request.limit;
             sqlConfig.UpdateWheres(request.search);
-            var result = Domain.GetPagedResultBySQLConfig(sqlConfig);
-            return new ServiceResult<VLPagerResult<List<Dictionary<string, object>>>>(result);
+            return ResearchDbContext.DelegateTransaction(c =>
+            {
+                var result = Domain.GetPagedResultBySQLConfig(sqlConfig);
+                return result;
+            });
+        }
+
+        internal ServiceResult<long> CreateProject(CreateProjectRequest request, long userid)
+        {
+            var project = new Project()
+            {
+                Name = request.ProjectName,
+                CreatedAt = DateTime.Now,
+                CreatorId = userid,
+                DepartmentId = request.DepartmentId,
+                ProjectDescription = request.ProjectDescription,
+                ViewAuthorizeType = request.ViewAuthorizeType,
+            };
+            return ResearchDbContext.DelegateTransaction(c =>
+            {
+                var projectId = Domain.CreateProject(project, request.AdminIds, request.MemberIds);
+                return projectId;
+            });
         }
     }
 
@@ -176,7 +260,7 @@ namespace ResearchAPI.Services
         {
             var currentUser = new CurrentUser();
             currentUser.UserId = TestContext.UserId;
-            return currentUser; 
+            return currentUser;
         }
 
         #endregion
@@ -197,7 +281,7 @@ namespace ResearchAPI.Services
         /// </summary>
         public static DBConfig DBConfig { set; get; }
 
-        public static string DefaultConnectionString { set; get; } = "DefaultConnectionString";
+        public static string ResearchDbContext { set; get; } = "ResearchConnectionString";
     }
 
     /// <summary>
@@ -216,21 +300,11 @@ namespace ResearchAPI.Services
     /// </summary>
     public class ReportTaskDomain
     {
-        APIContext APIContext { set; get; }
-        DbContext DefaultDbContext { set; get; }
-        ProjectRepository ProjectRepository { set; get; }
-        SharedRepository SharedRepository { set; get; }
+        private ReportTaskService Service;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="dbContext"></param>
-        public ReportTaskDomain(APIContext dbContext)
+        public ReportTaskDomain(ReportTaskService reportTaskService)
         {
-            APIContext = dbContext;
-            DefaultDbContext = dbContext.GetDBContext(APIContraints.DefaultConnectionString);
-            ProjectRepository = new ProjectRepository(DefaultDbContext);
-            SharedRepository = new SharedRepository(DefaultDbContext);
+            this.Service = reportTaskService;
         }
 
         internal long CreateCustomBusinessEntity(CreateCustomBusinessEntityRequest request)
@@ -256,33 +330,62 @@ namespace ResearchAPI.Services
 
         internal List<UserFavoriteProjectModel> GetUserFavoriteProjects(long userid)
         {
-            return ProjectRepository.GetUserFavoriteProjects(userid);
+            return Service.ProjectRepository.GetUserFavoriteProjects(userid);
         }
 
         internal Project GetProject(int projectId)
         {
-            return ProjectRepository.GetById(projectId);
+            return Service.ProjectRepository.GetById(projectId);
         }
 
         internal bool DeleteProject(int projectId)
         {
-            return ProjectRepository.DeleteById(projectId);
+            return Service.ProjectRepository.DeleteById(projectId);
         }
 
-        internal List<long> GetUserIdsByProjectAndRoleName(int projectId, string roleName)
+        internal List<long> GetUserIdsByProjectAndRoleName(long projectId, long roleId)
         {
-            return ProjectRepository.GetUserIdsByProjectAndRoleName(projectId, roleName);
+            return Service.ProjectRepository.GetUserIdsByProjectIdAndRoleId(projectId, roleId);
         }
 
         internal VLPagerResult<List<Dictionary<string, object>>> GetPagedResultBySQLConfig(SQLConfigV2 sqlConfig)
         {
-            return DefaultDbContext.DelegateTransaction(c =>
+            var list = Service.SharedRepository.GetCommonSelect(sqlConfig.Source, sqlConfig.Skip, sqlConfig.Limit);
+            var count = Service.SharedRepository.GetCommonSelectCount(sqlConfig);
+            sqlConfig.Source.DoTransforms(ref list);
+            return new VLPagerResult<List<Dictionary<string, object>>>() { List = list.ToList(), Count = count };
+        }
+
+        internal long CreateProject(Project project, List<long> adminIds, List<long> memberIds)
+        {
+            var projectId = Service.ProjectRepository.Insert(project);
+            var ownerRoleId = DomainConstraits.GetOwnerRoleId(this);
+            var adminRoleId = DomainConstraits.GetAdminRoleId(this);
+            var memberRoleId = DomainConstraits.GetMemberRoleId(this);
+            var members = new List<ProjectMember>();
+            members.Add(new ProjectMember(projectId, project.CreatorId, ownerRoleId));
+            foreach (var adminId in adminIds)
+                members.Add(new ProjectMember(projectId, adminId, adminRoleId));
+            foreach (var memberId in memberIds)
+                members.Add(new ProjectMember(projectId, memberId, memberRoleId));
+            CreateProjectMembers(members);
+            return projectId;
+        }
+
+        internal List<Role> GetRoles()
+        {
+            return Service.RoleRepository.GetAllRoles();
+        }
+
+        internal bool CreateProjectMembers(List<ProjectMember> members)
+        {
+            //TODO 可以优化为批量处理
+
+            foreach (var member in members)
             {
-                var list = SharedRepository.GetCommonSelect(sqlConfig.Source, sqlConfig.Skip, sqlConfig.Limit);
-                var count = SharedRepository.GetCommonSelectCount(sqlConfig);
-                sqlConfig.Source.DoTransforms(ref list);
-                return new VLPagerResult<List<Dictionary<string, object>>>() { List = list.ToList(), Count = count };
-            });
+                Service.ProjectMemberRepository.Insert(member);
+            }
+            return true;
         }
     }
 
@@ -311,7 +414,7 @@ namespace ResearchAPI.Services
         /// <summary>
         /// 扩展事务(服务层)通用处理
         /// </summary>
-        public static T DelegateTransaction<T>(this DbContext context, Func<DbContext, T> exec)
+        public static ServiceResult<T> DelegateTransaction<T>(this DbContext context, Func<DbContext, T> exec)
         {
             try
             {
@@ -323,21 +426,24 @@ namespace ResearchAPI.Services
                     var result = exec(context);
                     context.DbGroup.Transaction.Commit();
                     context.DbGroup.Connection.Close();
-                    return result;
+                    return new ServiceResult<T>(result);
                 }
                 catch (Exception ex)
                 {
                     context.DbGroup.Transaction.Rollback();
                     context.DbGroup.Connection.Close();
 
+                    //集成Log4Net
                     Log4NetLogger.Error("DelegateTransaction Exception", ex);
-                    return default(T);
+
+                    return new ServiceResult<T>(default(T), ex.Message);
                 }
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                Log4NetLogger.Error($"当前数据库连接:{context.DbGroup.Connection.ConnectionString},DelegateTransaction Exception:", ex);
-                return default(T);
+                //集成Log4Net
+                Log4NetLogger.Error("打开数据库连接配置失败,当前数据库连接," + context.DbGroup.Connection.ConnectionString);
+                return new ServiceResult<T>(default(T), e.Message);
             }
         }
         /// <summary>
@@ -372,4 +478,3 @@ namespace ResearchAPI.Services
         }
     }
 }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      

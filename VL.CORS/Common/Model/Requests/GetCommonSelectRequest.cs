@@ -9,23 +9,15 @@ namespace ResearchAPI.CORS.Common
     public class GetCommonSelectRequest
     {
         /// <summary>
-        /// 
+        /// 页码
         /// </summary>
         public int page { set; get; }
         /// <summary>
-        /// 
+        /// 每页大小
         /// </summary>
         public int limit { set; get; }
         /// <summary>
-        /// 
-        /// </summary>
-        public string field { set; get; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string order { set; get; }
-        /// <summary>
-        /// 
+        /// 搜索条件
         /// </summary>
         public List<VLKeyValue> search { set; get; }
     }

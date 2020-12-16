@@ -15,14 +15,14 @@ namespace ResearchAPI.CORS.Repositories
         public User GetBy(string userName)
         {
             return _connection.Query<User>("select * from [User] where Name = @userName;"
-                , new { userName })
+                , new { userName }, transaction: _transaction)
                 .FirstOrDefault();
         }
 
         public User GetBy(string userName, string password)
         {
             return _connection.Query<User>("select * from [A_User] where Name = @userName and Password = @password;"
-                , new { userName, password })
+                , new { userName, password }, transaction: _transaction)
                 .FirstOrDefault();
         }
     }
