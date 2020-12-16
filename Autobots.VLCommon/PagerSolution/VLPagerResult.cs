@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Autobots.Infrastracture.Common.FileSolution
+namespace Autobots.Infrastracture.Common.PagerSolution
 {
     /// <summary>
     /// 分页出参规范
@@ -18,6 +18,6 @@ namespace Autobots.Infrastracture.Common.FileSolution
         /// <summary>
         /// 内容
         /// </summary>
-        public IEnumerable<T> List { set; get; }
+        public T List { set; get; }
     }
 }

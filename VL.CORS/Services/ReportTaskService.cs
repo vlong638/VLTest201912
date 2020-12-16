@@ -1,12 +1,15 @@
 ﻿using Autobots.Infrastracture.Common.DBSolution;
+using Autobots.Infrastracture.Common.PagerSolution;
 using Autobots.Infrastracture.Common.ServiceSolution;
 using Autobots.Infrastracture.Common.ValuesSolution;
 using Microsoft.AspNetCore.Http;
 using ResearchAPI.Common;
 using ResearchAPI.Controllers;
+using ResearchAPI.CORS.Common;
 using ResearchAPI.CORS.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 
@@ -49,6 +52,46 @@ namespace ResearchAPI.Services
             return new ServiceResult<List<VLKeyValue<string, long>>>(
                 result.Select(c => new VLKeyValue<string, long>(c.ProjectName, c.ProjectId)).ToList()
             );
+        }
+
+        internal ServiceResult<GetProjectModel> GetProject(int projectId)
+        {
+            var result = new GetProjectModel();
+            var project = Domain.GetProject(projectId);
+            if (project == null)
+            {
+                return new ServiceResult<GetProjectModel>(null, "无效的项目");
+            }
+            result.ProjectId = project.Id;
+            result.ProjectName = project.Name;
+            result.DepartmentId = project.DepartmentId;
+            result.ViewAuthorizeType = project.ViewAuthorizeType;
+            result.ProjectDescription = project.ProjectDescription;
+            result.CreatorId = project.CreatorId;
+            result.CreatedAt = project.CreatedAt;
+            result.LastModifiedAt = project.LastModifiedAt;
+
+            var adminId = Domain.GetUserIdsByProjectAndRoleName(projectId, "项目管理员");
+            result.AdminIds = adminId;
+            var memberId = Domain.GetUserIdsByProjectAndRoleName(projectId, "项目成员");
+            result.MemberIds = memberId;
+            return new ServiceResult<GetProjectModel>(result);
+        }
+
+        internal ServiceResult<bool> DeleteProject(int projectId)
+        {
+            var result = Domain.DeleteProject(projectId);
+            return new ServiceResult<bool>(result);
+        }
+
+        internal ServiceResult<VLPagerResult<List<Dictionary<string, object>>>> GetPagedResultBySQLConfig(GetCommonSelectRequest request)
+        {
+            var sqlConfig = ConfigHelper.GetSQLConfigByDirectoryName("ProjectList");
+            sqlConfig.PageIndex = request.page;
+            sqlConfig.PageSize = request.limit;
+            sqlConfig.UpdateWheres(request.search);
+            var result = Domain.GetPagedResultBySQLConfig(sqlConfig);
+            return new ServiceResult<VLPagerResult<List<Dictionary<string, object>>>>(result);
         }
     }
 
@@ -129,7 +172,19 @@ namespace ResearchAPI.Services
             return new DbContext(DBHelper.GetDbConnection(connectionString.Value));
         }
 
+        internal CurrentUser GetCurrentUser()
+        {
+            var currentUser = new CurrentUser();
+            currentUser.UserId = TestContext.UserId;
+            return currentUser; 
+        }
+
         #endregion
+    }
+
+    public class CurrentUser
+    {
+        public long UserId { set; get; }
     }
 
     /// <summary>
@@ -164,6 +219,7 @@ namespace ResearchAPI.Services
         APIContext APIContext { set; get; }
         DbContext DefaultDbContext { set; get; }
         ProjectRepository ProjectRepository { set; get; }
+        SharedRepository SharedRepository { set; get; }
 
         /// <summary>
         /// 
@@ -174,6 +230,7 @@ namespace ResearchAPI.Services
             APIContext = dbContext;
             DefaultDbContext = dbContext.GetDBContext(APIContraints.DefaultConnectionString);
             ProjectRepository = new ProjectRepository(DefaultDbContext);
+            SharedRepository = new SharedRepository(DefaultDbContext);
         }
 
         internal long CreateCustomBusinessEntity(CreateCustomBusinessEntityRequest request)
@@ -201,6 +258,49 @@ namespace ResearchAPI.Services
         {
             return ProjectRepository.GetUserFavoriteProjects(userid);
         }
+
+        internal Project GetProject(int projectId)
+        {
+            return ProjectRepository.GetById(projectId);
+        }
+
+        internal bool DeleteProject(int projectId)
+        {
+            return ProjectRepository.DeleteById(projectId);
+        }
+
+        internal List<long> GetUserIdsByProjectAndRoleName(int projectId, string roleName)
+        {
+            return ProjectRepository.GetUserIdsByProjectAndRoleName(projectId, roleName);
+        }
+
+        internal VLPagerResult<List<Dictionary<string, object>>> GetPagedResultBySQLConfig(SQLConfigV2 sqlConfig)
+        {
+            return DefaultDbContext.DelegateTransaction(c =>
+            {
+                var list = SharedRepository.GetCommonSelect(sqlConfig.Source, sqlConfig.Skip, sqlConfig.Limit);
+                var count = SharedRepository.GetCommonSelectCount(sqlConfig);
+                sqlConfig.Source.DoTransforms(ref list);
+                return new VLPagerResult<List<Dictionary<string, object>>>() { List = list.ToList(), Count = count };
+            });
+        }
+    }
+
+    public class VLPagerResultDataTable
+    {
+
+        /// <summary>
+        /// 总数
+        /// </summary>
+        public int Count { set; get; }
+        /// <summary>
+        /// 当前页
+        /// </summary>
+        public int CurrentIndex { set; get; }
+        /// <summary>
+        /// 内容
+        /// </summary>
+        public DataTable List { set; get; }
     }
 
     /// <summary>
@@ -211,7 +311,7 @@ namespace ResearchAPI.Services
         /// <summary>
         /// 扩展事务(服务层)通用处理
         /// </summary>
-        public static ServiceResult<T> DelegateTransaction<T>(this DbContext context, Func<DbContext, T> exec)
+        public static T DelegateTransaction<T>(this DbContext context, Func<DbContext, T> exec)
         {
             try
             {
@@ -223,24 +323,21 @@ namespace ResearchAPI.Services
                     var result = exec(context);
                     context.DbGroup.Transaction.Commit();
                     context.DbGroup.Connection.Close();
-                    return new ServiceResult<T>(result);
+                    return result;
                 }
                 catch (Exception ex)
                 {
                     context.DbGroup.Transaction.Rollback();
                     context.DbGroup.Connection.Close();
 
-                    //集成Log4Net
                     Log4NetLogger.Error("DelegateTransaction Exception", ex);
-
-                    return new ServiceResult<T>(default(T), ex.Message);
+                    return default(T);
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                //集成Log4Net
-                Log4NetLogger.Error("打开数据库连接配置失败,当前数据库连接," + context.DbGroup.Connection.ConnectionString);
-                return new ServiceResult<T>(default(T), e.Message);
+                Log4NetLogger.Error($"当前数据库连接:{context.DbGroup.Connection.ConnectionString},DelegateTransaction Exception:", ex);
+                return default(T);
             }
         }
         /// <summary>

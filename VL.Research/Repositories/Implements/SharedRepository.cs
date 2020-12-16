@@ -26,19 +26,6 @@ namespace BBee.Repositories
         {
         }
 
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <returns></returns>
-        //public DataTable GetCommonSelect(SQLConfig sqlConfig)
-        //{
-        //    var sql = sqlConfig.GetListSQL();
-        //    var pars = sqlConfig.GetParams();
-        //    DataTable table = new DataTable("MyTable");
-        //    var reader = context.DbGroup.Connection.ExecuteReader(sql, pars, transaction: _transaction);
-        //    table.Load(reader);
-        //    return table;
-        //}
         /// <summary>
         /// 
         /// </summary>

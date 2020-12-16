@@ -19,13 +19,13 @@ namespace ResearchAPI.Common
         {
             ConnectionString = element.Attribute(nameof(ConnectionString))?.Value;
             BusinessEntity = new BusinessEntity(element.Element(BusinessEntity.ElementName));
-            SQLConfig = new SQLConfig(element.Descendants(SQLConfig.ElementName).First());
+            SQLConfig = new SQLConfigV3(element.Descendants(SQLConfigV3.ElementName).First());
             Router = new Router(element.Element(Router.ElementName));
         }
 
         public string ConnectionString { set; get; }
         public BusinessEntity BusinessEntity { set; get; }
-        public SQLConfig SQLConfig { set; get; }
+        public SQLConfigV3 SQLConfig { set; get; }
         public Router Router { set; get; }
     }
 
@@ -75,7 +75,7 @@ namespace ResearchAPI.Common
         /// <summary>
         /// 排除标准
         /// </summary>
-        public List<SQLConfigWhere> ExceptionConditions { get; set; } = new List<SQLConfigWhere>();
+        public List<SQLConfigV3Where> ExceptionConditions { get; set; } = new List<SQLConfigV3Where>();
 
         internal List<Router> GetRouters(Routers routerSource)
         {
@@ -132,11 +132,11 @@ namespace ResearchAPI.Common
 {GetFrom(routers, properties, customBusinessEntities, BusinessContext.Templates)}
 {GetWhere(conditions, GetTableAlias(routers, properties))}
 ";
-            UpdateIf(ref sql, new List<SQLConfigWhere>());
+            UpdateIf(ref sql, new List<SQLConfigV3Where>());
             return sql;
         }
 
-        private void UpdateIf(ref string sql, List<SQLConfigWhere> wheres)
+        private void UpdateIf(ref string sql, List<SQLConfigV3Where> wheres)
         {
             var ifItems = sql.GetMatches("<If", "</If>");
             foreach (var ifItem in ifItems)

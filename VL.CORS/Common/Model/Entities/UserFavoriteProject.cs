@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Dapper.Contrib.Extensions;
 
 namespace ResearchAPI.CORS.Common
 {
+    [Table(TableName)]
     public class UserFavoriteProject
     {
+        public const string TableName = "UserFavoriteProject";
+
         public long UserId { set; get; }
         public long ProjectId { set; get; }
     }

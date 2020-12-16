@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Autobots.Infrastracture.Common.FileSolution
+namespace Autobots.Infrastracture.Common.PagerSolution
 {
     /// <summary>
     /// 分页入参规范

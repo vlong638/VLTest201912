@@ -21,6 +21,6 @@ namespace ResearchAPI.Common
         public string DisplayName { set; get; }
         public List<BusinessEntityProperty> Properties { set; get; } = new List<BusinessEntityProperty>();
         public string Template { get; set; }
-        public SQLConfig SQLConfig { get; internal set; }
+        public SQLConfigV3 SQLConfig { get; internal set; }
     }
 }

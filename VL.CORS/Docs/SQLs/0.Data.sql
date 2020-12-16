@@ -1,6 +1,10 @@
 ﻿--User
 truncate table [user]
 insert into [user] (name,password) values ('admin','e10adc3949ba59abbe56e057f0f883e')
+insert into [user] (name,password) values ('test01','e10adc3949ba59abbe56e057f0f883e')
+insert into [user] (name,password) values ('test02','e10adc3949ba59abbe56e057f0f883e')
+insert into [user] (name,password) values ('test03','e10adc3949ba59abbe56e057f0f883e')
+insert into [user] (name,password) values ('test04','e10adc3949ba59abbe56e057f0f883e')
 select * from [user];
 
 --Role
@@ -35,3 +39,20 @@ select * from [Project];
 truncate table [UserFavoriteProject]
 insert into UserFavoriteProject(UserId,ProjectId) values((select id from [user] where name = 'admin'),(select id from [Project] where name = '测试项目01'))
 select * from UserFavoriteProject;
+
+--ProjectMember
+truncate table [ProjectMember]
+insert into ProjectMember (ProjectId,UserId,RoleId) Values((select id from [Project] where name = '测试项目01')
+,(select id from [user] where name = 'test01'),(select id from [role] where name = '项目管理员'))
+insert into ProjectMember (ProjectId,UserId,RoleId) Values((select id from [Project] where name = '测试项目01')
+,(select id from [user] where name = 'test02'),(select id from [role] where name = '项目管理员'))
+insert into ProjectMember (ProjectId,UserId,RoleId) Values((select id from [Project] where name = '测试项目01')
+,(select id from [user] where name = 'test03'),(select id from [role] where name = '项目成员'))
+insert into ProjectMember (ProjectId,UserId,RoleId) Values((select id from [Project] where name = '测试项目01')
+,(select id from [user] where name = 'test04'),(select id from [role] where name = '项目成员'))
+select * from ProjectMember
+
+
+select * from  ProjectMember where ProjectId = @ProjectId and RoleId = (select id from [role] where name = @RoleName)
+
+

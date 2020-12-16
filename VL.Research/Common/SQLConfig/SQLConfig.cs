@@ -105,11 +105,6 @@ namespace BBee.Common
 
         #region 结果使用
 
-        //internal string GetListSQL()
-        //{
-        //    return Source.GetListSQL(Skip, Limit);
-        //}
-
         internal string GetCountSQL()
         {
             return Source.GetCountSQL();

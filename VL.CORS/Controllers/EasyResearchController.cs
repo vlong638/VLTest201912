@@ -1,13 +1,15 @@
 ﻿using Autobots.Infrastracture.Common.ControllerSolution;
-using Autobots.Infrastracture.Common.FileSolution;
+using Autobots.Infrastracture.Common.PagerSolution;
 using Autobots.Infrastracture.Common.ValuesSolution;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using ResearchAPI.Common;
+using ResearchAPI.CORS.Common;
 using ResearchAPI.Services;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -158,7 +160,7 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<List<VLKeyValue<string,long>>> GetDropdowns(string type)
+        public APIResult<List<VLKeyValue<string, long>>> GetDropdowns(string type)
         {
             var file = (Path.Combine(AppContext.BaseDirectory, "JsonConfigs", type + ".json"));
             if (!System.IO.File.Exists(file))
@@ -186,63 +188,11 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<List<VLKeyValue<string, long>>> GetProjectsForMenu([FromServices] ReportTaskService service)
+        public APIResult<List<VLKeyValue<string, long>>> GetProjectsForMenu([FromServices] APIContext context, [FromServices] ReportTaskService service)
         {
-            //TODO 
-            var userid = TestContext.UserId;
-
+            var userid = context.GetCurrentUser().UserId;
             var result = service.GetUserFavoriteProjects(userid);
             return new APIResult<List<VLKeyValue<string, long>>>(result);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public class GetPagedProjectsRequest : VLPagerRequest
-        {
-            /// <summary>
-            /// 项目名称
-            /// </summary>
-            public string ProjectName { set; get; }        
-            /// <summary>
-            /// 科室Id
-            /// </summary>
-            public long DepartmentId { set; get; }
-            /// <summary>
-            /// 创建时间
-            /// </summary>
-            public string CreateTime{ set; get; }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public class GetPagedProjectsModel
-        {
-            /// <summary>
-            /// 项目Id
-            /// </summary>
-            public long ProjectId { set; get; }
-            /// <summary>
-            /// 项目名称
-            /// </summary>
-            public string ProjectName { set; get; }
-            /// <summary>
-            /// 关联科室
-            /// </summary>
-            public long DepartmentId { set; get; }
-            /// <summary>
-            /// 创建者
-            /// </summary>
-            public long CreatorId { set; get; }
-            /// <summary>
-            /// 创建日期
-            /// </summary>
-            public DateTime CreatedAt { set; get; }
-            /// <summary>
-            /// 最近更新时间
-            /// </summary>
-            public DateTime LastModifiedAt { set; get; }
         }
 
         /// <summary>
@@ -251,44 +201,10 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<VLPagerResult<GetPagedProjectsModel>> GetPagedProjects(GetPagedProjectsRequest request)
+        public APIResult<VLPagerResult<List<Dictionary<string, object>>>> GetPagedProjects([FromServices] ReportTaskService service, GetCommonSelectRequest request)
         {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public class GetProjectModel
-        {
-            /// <summary>
-            /// 项目Id
-            /// </summary>
-            public long ProjectId { set; get; }
-            /// <summary>
-            /// 项目名称
-            /// </summary>
-            public string ProjectName { set; get; }
-            /// <summary>
-            /// 项目管理人员
-            /// </summary>
-            public List<long> AdminIds { set; get; }
-            /// <summary>
-            /// 项目成员
-            /// </summary>
-            public List<long> MemberIds { set; get; }
-            /// <summary>
-            /// 关联科室
-            /// </summary>
-            public long DepartmentId { set; get; }
-            /// <summary>
-            /// 项目查看权限
-            /// </summary>
-            public int ViewAuthorizeType { set; get; }
-            /// <summary>
-            /// 项目描述
-            /// </summary>
-            public string ProjectDescription { set; get; }
+            var result = service.GetPagedResultBySQLConfig(request);
+            return new APIResult<VLPagerResult<List<Dictionary<string, object>>>>(result);
         }
 
         /// <summary>
@@ -299,9 +215,10 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<GetProjectModel> GetProject(int projectId)
+        public APIResult<GetProjectModel> GetProject([FromServices] ReportTaskService service, int projectId)
         {
-            throw new NotImplementedException();
+            var result = service.GetProject(projectId);
+            return new APIResult<GetProjectModel>(result);
         }
 
         /// <summary>
@@ -312,58 +229,10 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<bool> DeleteProject(int projectId)
+        public APIResult<bool> DeleteProject([FromServices] ReportTaskService service, int projectId)
         {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// 项目信息
-        /// </summary>
-        public class ProjectDTO
-        {
-            /// <summary>
-            /// 项目名称
-            /// </summary>
-            public string ProjectName { set; get; }
-            /// <summary>
-            /// 项目管理人员
-            /// </summary>
-            public List<long> AdminIds { set; get; }
-            /// <summary>
-            /// 项目成员
-            /// </summary>
-            public List<long> MemberIds { set; get; }
-            /// <summary>
-            /// 关联科室
-            /// </summary>
-            public long DepartmentId { set; get; }
-            /// <summary>
-            /// 项目查看权限
-            /// </summary>
-            public int ViewAuthorizeType { set; get; }
-            /// <summary>
-            /// 项目描述
-            /// </summary>
-            public string ProjectDescription { set; get; }
-        }
-
-        /// <summary>
-        /// 新建项目
-        /// </summary>
-        public class CreateProjectRequest: ProjectDTO
-        {
-        }
-
-        /// <summary>
-        /// 编辑项目
-        /// </summary>
-        public class EditProjectRequest: ProjectDTO
-        {
-            /// <summary>
-            /// 项目Id
-            /// </summary>
-            public long ProjectId { set; get; }
+            var result = service.DeleteProject(projectId);
+            return new APIResult<bool>(result);
         }
 
         /// <summary>
@@ -701,7 +570,7 @@ namespace ResearchAPI.Controllers
         None = 0,
         Executing = 1,
         Done = 2,
-        Error =3,
+        Error = 3,
     }
 
     public class SaveReportTaskRequest

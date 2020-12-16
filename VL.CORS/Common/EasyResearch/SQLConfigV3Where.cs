@@ -3,7 +3,7 @@ using System.Xml.Linq;
 
 namespace ResearchAPI.Common
 {
-    public class SQLConfigWhere
+    public class SQLConfigV3Where
     {
         /// <summary>
         /// 
@@ -14,7 +14,7 @@ namespace ResearchAPI.Common
         /// 
         /// </summary>
         /// <param name="element"></param>
-        public SQLConfigWhere(XElement element)
+        public SQLConfigV3Where(XElement element)
         {
             ComponentName = element.Attribute(nameof(ComponentName))?.Value;
             Formatter = element.Attribute(nameof(Formatter))?.Value;

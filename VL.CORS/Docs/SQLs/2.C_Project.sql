@@ -18,7 +18,7 @@ CREATE TABLE [dbo].[Project](
 	-------------------------------------------
 	[CreatorId] bigint NULL,
 	[CreatedAt] datetime NULL,
-	 
+	[LastModifiedAt] datetime NULL,
 
 	CONSTRAINT[PK_Project] PRIMARY KEY CLUSTERED 
 	(

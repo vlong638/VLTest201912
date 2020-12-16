@@ -22,7 +22,7 @@ namespace ResearchAPI.Common
             Text = WebUtility.HtmlDecode(element.Value);
         }
 
-        internal string GetSQL(List<SQLConfigWhere> wheres)
+        internal string GetSQL(List<SQLConfigV3Where> wheres)
         {
             switch (Operator)
             {

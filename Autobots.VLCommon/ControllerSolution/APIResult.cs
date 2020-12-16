@@ -7,7 +7,7 @@ namespace Autobots.Infrastracture.Common.ControllerSolution
     /// </summary>
     public class APIResult
     {
-        public const int SuccessCode = 200;
+        public const int SuccessCode = 0;
 
         public APIResult(params string[] messages)
         {
