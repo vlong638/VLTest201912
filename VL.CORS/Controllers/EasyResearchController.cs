@@ -293,9 +293,11 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<bool> EditProject(EditProjectRequest request)
+        public APIResult<bool> EditProject([FromServices] APIContext context, [FromServices] ReportTaskService service, EditProjectRequest request)
         {
-            throw new NotImplementedException();
+            var userid = context.GetCurrentUser().UserId;
+            var result = service.EditProject(request, userid);
+            return new APIResult<bool>(result);
         }
 
         /// <summary>

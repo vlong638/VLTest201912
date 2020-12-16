@@ -31,7 +31,7 @@
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        TEntity GetById(long id);
+        TEntity GetAvailableProjectById(long id);
 
         /// <summary>
         /// 根据Id删除实体

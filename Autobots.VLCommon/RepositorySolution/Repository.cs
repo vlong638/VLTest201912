@@ -43,7 +43,7 @@ namespace Autobots.Infrastracture.Common.RepositorySolution
             return _connection.Update(entity, _transaction);
         }
 
-        public virtual TEntity GetById(long id)
+        public virtual TEntity GetAvailableProjectById(long id)
         {
             return _connection.Get<TEntity>(id, _transaction);
         }

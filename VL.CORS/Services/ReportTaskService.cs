@@ -127,7 +127,7 @@ namespace ResearchAPI.Services
             return ResearchDbContext.DelegateNonTransaction(c =>
             {
                 var result = new GetProjectModel();
-                var project = ProjectRepository.GetById(projectId);
+                var project = ProjectRepository.GetAvailableProjectById(projectId);
                 if (project == null)
                 {
                     throw new NotImplementedException("项目不存在");
@@ -212,6 +212,42 @@ namespace ResearchAPI.Services
             });
         }
 
+        internal ServiceResult<bool> EditProject(EditProjectRequest request, long userid)
+        {
+            var project = new Project()
+            {
+                Id = request.ProjectId,
+                Name = request.ProjectName,
+                CreatedAt = DateTime.Now,
+                CreatorId = userid,
+                DepartmentId = request.DepartmentId,
+                ProjectDescription = request.ProjectDescription,
+                ViewAuthorizeType = request.ViewAuthorizeType,
+            };
+            return ResearchDbContext.DelegateTransaction(c =>
+            {
+                var oldProject = ProjectRepository.GetAvailableProjectById(project.Id);
+                if (oldProject == null)
+                    throw new NotImplementedException("项目不存在");
+                var result = ProjectRepository.Update(project);
+                if (!result)
+                    throw new NotImplementedException("项目更新失败");
+                var projectId = project.Id;
+                var ownerRoleId = DomainConstraits.GetOwnerRoleId(this);
+                var adminRoleId = DomainConstraits.GetAdminRoleId(this);
+                var memberRoleId = DomainConstraits.GetMemberRoleId(this);
+                var members = new List<ProjectMember>();
+                members.Add(new ProjectMember(projectId, project.CreatorId, ownerRoleId));
+                foreach (var adminId in request.AdminIds)
+                    members.Add(new ProjectMember(projectId, adminId, adminRoleId));
+                foreach (var memberId in request.MemberIds)
+                    members.Add(new ProjectMember(projectId, memberId, memberRoleId));
+                ProjectMemberRepository.DeleteByProjectId(projectId);
+                ProjectMemberRepository.CreateProjectMembers(members);
+                return true;
+            });
+        }
+
         internal ServiceResult<List<Role>> GetAllRoles()
         {
             return ResearchDbContext.DelegateNonTransaction(c =>
@@ -228,7 +264,7 @@ namespace ResearchAPI.Services
                 var exist = FavoriteProjectRepository.GetOne(favoriteProject);
                 if (exist != null)
                     throw new NotImplementedException("已添加收藏");
-                var project = ProjectRepository.GetById(projectId);
+                var project = ProjectRepository.GetAvailableProjectById(projectId);
                 if (project == null)
                     throw new NotImplementedException("项目不存在");
                 return FavoriteProjectRepository.InsertOne(favoriteProject) > 0;
@@ -393,30 +429,30 @@ namespace ResearchAPI.Services
         {
             try
             {
-                context.DbGroup.Connection.Open();
+                if (context.DbGroup.Connection.State != ConnectionState.Open)
+                    context.DbGroup.Connection.Open();
                 context.DbGroup.Transaction = context.DbGroup.Connection.BeginTransaction();
                 context.DbGroup.Command.Transaction = context.DbGroup.Transaction;
                 try
                 {
                     var result = exec(context);
                     context.DbGroup.Transaction.Commit();
-                    context.DbGroup.Connection.Close();
                     return new ServiceResult<T>(result);
                 }
                 catch (Exception ex)
                 {
                     context.DbGroup.Transaction.Rollback();
-                    context.DbGroup.Connection.Close();
-
-                    //集成Log4Net
                     Log4NetLogger.Error("DelegateTransaction Exception", ex);
 
                     return new ServiceResult<T>(default(T), ex.Message);
                 }
+                finally
+                {
+                    context.DbGroup.Connection.Close();
+                }
             }
             catch (Exception e)
             {
-                //集成Log4Net
                 Log4NetLogger.Error("打开数据库连接配置失败,当前数据库连接," + context.DbGroup.Connection.ConnectionString);
                 return new ServiceResult<T>(default(T), e.Message);
             }
@@ -428,20 +464,21 @@ namespace ResearchAPI.Services
         {
             try
             {
-                context.DbGroup.Connection.Open();
+                if (context.DbGroup.Connection.State != ConnectionState.Open)
+                    context.DbGroup.Connection.Open();
                 try
                 {
                     var result = exec(context);
-                    context.DbGroup.Connection.Close();
                     return new ServiceResult<T>(result);
                 }
                 catch (Exception ex)
                 {
-                    context.DbGroup.Connection.Close();
-
                     Log4NetLogger.Error("DelegateTransaction Exception", ex);
-
                     return new ServiceResult<T>(default(T), ex.Message);
+                }
+                finally
+                {
+                    context.DbGroup.Connection.Close();
                 }
             }
             catch (Exception e)

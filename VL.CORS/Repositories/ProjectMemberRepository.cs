@@ -1,7 +1,7 @@
 ﻿using Autobots.Infrastracture.Common.DBSolution;
 using Autobots.Infrastracture.Common.RepositorySolution;
+using Dapper;
 using ResearchAPI.CORS.Common;
-using System;
 using System.Collections.Generic;
 
 namespace ResearchAPI.CORS.Repositories
@@ -19,6 +19,12 @@ namespace ResearchAPI.CORS.Repositories
             {
                 Insert(member);
             }
+        }
+
+        internal bool DeleteByProjectId(long projectId)
+        {
+            return _connection.Execute("Delete from ProjectMember where ProjectId = @ProjectId ;"
+                , new { projectId }, transaction: _transaction) > 0;
         }
     }
 }
