@@ -1,17 +1,29 @@
-﻿using Autobots.Infrastracture.Common.PagerSolution;
+﻿using System;
 using System.Collections.Generic;
 
 namespace ResearchAPI.CORS.Common
 {
     /// <summary>
-    /// 项目信息
+    /// 
     /// </summary>
-    public class ProjectDTO
+    public class GetBiefProjectResponse
     {
         /// <summary>
-        /// 项目名称
+        /// 创建日期
         /// </summary>
-        public string ProjectName { set; get; }
+        public DateTime CreatedAt { set; get; }
+        /// <summary>
+        /// 最近更新时间
+        /// </summary>
+        public DateTime LastModifiedAt { set; get; }
+        /// <summary>
+        /// 创建者
+        /// </summary>
+        public long CreatorName { set; get; }
+        /// <summary>
+        /// 关联科室
+        /// </summary>
+        public long DepartmentId { set; get; }
         /// <summary>
         /// 项目管理人员
         /// </summary>
@@ -20,14 +32,6 @@ namespace ResearchAPI.CORS.Common
         /// 项目成员
         /// </summary>
         public List<long> MemberIds { set; get; }
-        /// <summary>
-        /// 关联科室
-        /// </summary>
-        public long DepartmentId { set; get; }
-        /// <summary>
-        /// 项目查看权限
-        /// </summary>
-        public int ViewAuthorizeType { set; get; }
         /// <summary>
         /// 项目描述
         /// </summary>

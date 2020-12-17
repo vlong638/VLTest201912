@@ -55,8 +55,19 @@ namespace Tester
             }
         }
 
+        class A
+        {
+            public string Type { set; get; }
+        }
+        class CA: A
+        {
+            public string Name { set; get; }
+        }
+
         static void Main(string[] args)
         {
+
+
             var pwd = GetHashValue("123456");
             Console.WriteLine(pwd);
 

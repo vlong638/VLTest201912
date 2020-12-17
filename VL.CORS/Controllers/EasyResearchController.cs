@@ -115,32 +115,6 @@ namespace ResearchAPI.Controllers
     /// <summary>
     /// 科研内核接口
     /// </summary>
-    [ApiController]
-    [Route("[controller]")]
-    public class EasyResearch2Controller : ControllerBase
-    {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
-        [HttpPost]
-        public IEnumerable<WeatherForecast> Post()
-        {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
-        }
-    }
-
-    /// <summary>
-    /// 科研内核接口
-    /// </summary>
     //[ApiController]
     [Route("api/[controller]/[action]")]
     public class EasyResearchController : APIBaseController
@@ -167,21 +141,39 @@ namespace ResearchAPI.Controllers
                     var result = service.GetAllUsersIdAndName();
                     foreach (var user in result.Data)
                     {
-                        values.Add(new VLKeyValue<string, long>(user.Name, user.Id));
+                        values.Add(new VLKeyValue<string, long>(user.Value, user.Key));
                     }
                     return Success(values);
                 default:
-                    var file = (Path.Combine(AppContext.BaseDirectory, "JsonConfigs", type + ".json"));
-                    if (!System.IO.File.Exists(file))
-                    {
-                        values.Add(new VLKeyValue<string, long>("请联系管理员配置", 0));
-                        System.IO.File.WriteAllText(file, Newtonsoft.Json.JsonConvert.SerializeObject(values));
-                        return Success<List<VLKeyValue<string, long>>>(values);
-                    }
-                    var data = System.IO.File.ReadAllText(file);
-                    var entity = Newtonsoft.Json.JsonConvert.DeserializeObject<List<VLKeyValue<string, long>>>(data);
-                    return Success(entity);
+                    values = LoadKeyValueFile<long>(type);
+                    return Success(values);
             }
+        }
+
+        private List<VLKeyValue<string, T>> LoadKeyValueFile<T>(string type)
+        {
+            List<VLKeyValue<string, T>> values = new List<VLKeyValue<string, T>>();
+            var file = (Path.Combine(AppContext.BaseDirectory, "JsonConfigs", type + ".json"));
+            if (!System.IO.File.Exists(file))
+            {
+                values.Add(new VLKeyValue<string, T>("请联系管理员配置", default(T)));
+                System.IO.File.WriteAllText(file, Newtonsoft.Json.JsonConvert.SerializeObject(values));
+                return values;
+            }
+            var data = System.IO.File.ReadAllText(file);
+            values = Newtonsoft.Json.JsonConvert.DeserializeObject<List<VLKeyValue<string, T>>>(data);
+            return values;
+        }
+
+        private Dictionary<T, string> GetDictionary<T>(string type)
+        {
+            var kvs = LoadKeyValueFile<T>(type);
+            var result = new Dictionary<T, string>();
+            foreach (var kv in kvs)
+            {
+                result.Add(kv.Value, kv.Key);
+            }
+            return result;
         }
 
         #endregion
@@ -222,7 +214,7 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<GetProjectModel> GetProject([FromServices] ReportTaskService service, int projectId)
+        public APIResult<GetProjectModel> GetProject([FromServices] ReportTaskService service, long projectId)
         {
             var result = service.GetProject(projectId);
             return new APIResult<GetProjectModel>(result);
@@ -236,7 +228,7 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<bool> DeleteProject([FromServices] ReportTaskService service, int projectId)
+        public APIResult<bool> DeleteProject([FromServices] ReportTaskService service, long projectId)
         {
             var result = service.DeleteProject(projectId);
             return new APIResult<bool>(result);
@@ -264,7 +256,7 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<bool> AddFavoriteProject([FromServices] APIContext context, [FromServices] ReportTaskService service, int projectId)
+        public APIResult<bool> AddFavoriteProject([FromServices] APIContext context, [FromServices] ReportTaskService service, long projectId)
         {
             var userId = context.GetCurrentUser().UserId;
             var result = service.AddFavoriteProject(projectId, userId);
@@ -279,7 +271,7 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<bool> DeleteFavoriteProject([FromServices] APIContext context, [FromServices] ReportTaskService service, int projectId)
+        public APIResult<bool> DeleteFavoriteProject([FromServices] APIContext context, [FromServices] ReportTaskService service, long projectId)
         {
             var userId = context.GetCurrentUser().UserId;
             var result = service.DeleteFavoriteProject(projectId, userId);
@@ -301,21 +293,6 @@ namespace ResearchAPI.Controllers
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        public class GetProjectOperateHistoryResponse
-        {
-            /// <summary>
-            /// 操作时间
-            /// </summary>
-            public DateTime OperateAt { set; get; }
-            /// <summary>
-            /// 操作概要描述
-            /// </summary>
-            public string OperatorSummary { set; get; }
-        }
-
-        /// <summary>
         /// 1.3.4.获取操作记录 GetProjectOperateHistory
         /// </summary>
         /// <param name="projectId"></param>
@@ -329,41 +306,6 @@ namespace ResearchAPI.Controllers
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        public class GetBiefProjectResponse
-        {
-            /// <summary>
-            /// 创建日期
-            /// </summary>
-            public DateTime CreatedAt { set; get; }
-            /// <summary>
-            /// 最近更新时间
-            /// </summary>
-            public DateTime LastModifiedAt { set; get; }
-            /// <summary>
-            /// 创建者
-            /// </summary>
-            public long CreatorName { set; get; }
-            /// <summary>
-            /// 关联科室
-            /// </summary>
-            public long DepartmentId { set; get; }
-            /// <summary>
-            /// 项目管理人员
-            /// </summary>
-            public List<long> AdminIds { set; get; }
-            /// <summary>
-            /// 项目成员
-            /// </summary>
-            public List<long> MemberIds { set; get; }
-            /// <summary>
-            /// 项目描述
-            /// </summary>
-            public string ProjectDescription { set; get; }
-        }
-
-        /// <summary>
         /// 1.4.1.获取项目概要信息
         /// </summary>
         /// <param name="projectId"></param>
@@ -371,9 +313,56 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<GetProjectOperateHistoryResponse> GetBiefProject(long projectId)
+        public APIResult<GetBiefProjectResponse> GetBiefProject([FromServices] ReportTaskService service, long projectId)
         {
-            throw new NotImplementedException();
+            var serviceResult = service.GetProject(projectId);
+            if (!serviceResult.IsSuccess)
+                return new APIResult<GetBiefProjectResponse>(null, serviceResult.Code, serviceResult.Message);
+            var result = new GetBiefProjectResponse(serviceResult.Data);
+            result.ViewAuthorizeTypeName = DomainConstraits.RenderIdsToText(result.ViewAuthorizeType, KVType.ViewAuthorizeType, () => GetDictionary<int>(KVType.ViewAuthorizeType.ToString()));
+            if (result.DepartmentId.HasValue)
+                result.DepartmentName = DomainConstraits.RenderIdsToText(result.DepartmentId.Value, KVType.Department, () => GetDictionary<long>(KVType.Department.ToString()));
+            result.AdminNames = DomainConstraits.RenderIdsToText(result.AdminIds, KVType.User, () => service.GetUsersDictionary());
+            result.MemberNames = DomainConstraits.RenderIdsToText(result.MemberIds, KVType.User, () => service.GetUsersDictionary());
+            return new APIResult<GetBiefProjectResponse>(result);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public class GetBiefProjectResponse : GetProjectModel
+        {
+            public GetBiefProjectResponse(GetProjectModel model)
+            {
+                this.ProjectId = model.ProjectId;
+                this.ProjectName = model.ProjectName;
+                this.AdminIds = model.AdminIds;
+                this.MemberIds = model.MemberIds;
+                this.CreatorId = model.CreatorId;
+                this.DepartmentId = model.DepartmentId;
+                this.ViewAuthorizeType = model.ViewAuthorizeType;
+                this.ProjectDescription = model.ProjectDescription;
+                this.CreatedAt = model.CreatedAt;
+                this.LastModifiedAt = model.LastModifiedAt;
+                this.LastModifiedBy = model.LastModifiedBy;
+            }
+
+            /// <summary>
+            /// 项目查看权限 名称
+            /// </summary>
+            public string ViewAuthorizeTypeName { set; get; }
+            /// <summary>
+            /// 关联科室 名称
+            /// </summary>
+            public string DepartmentName { set; get; }
+            /// <summary>
+            /// 项目管理人员 名称
+            /// </summary>
+            public List<string> AdminNames { set; get; }
+            /// <summary>
+            /// 项目成员 名称
+            /// </summary>
+            public List<string> MemberNames { set; get; }
         }
 
         /// <summary>

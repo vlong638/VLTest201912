@@ -45,8 +45,11 @@ namespace ResearchAPI.CORS.Repositories
 
         internal List<long> GetUserIdsByProjectIdAndRoleId(long projectId, long roleId)
         {
-            return _connection.Query<long>(@"select * from  ProjectMember where ProjectId = @ProjectId 
-and RoleId = @RoleId"
+            return _connection.Query<long>(@"
+select pm.UserId from ProjectMember pm
+where pm.ProjectId = @ProjectId 
+and pm.RoleId = @RoleId
+"
                 , new { projectId, roleId }, transaction: _transaction).ToList();
         }
 

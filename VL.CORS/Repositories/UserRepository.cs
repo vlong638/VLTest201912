@@ -21,6 +21,13 @@ namespace ResearchAPI.CORS.Repositories
                 .FirstOrDefault();
         }
 
+        public List<User> GetAllUsers()
+        {
+            return _connection.Query<User>("select * from [User] ;"
+                , transaction: _transaction)
+                .ToList();
+        }
+
         public List<User> GetAllUsersIdAndName()
         {
             return _connection.Query<User>("select Id,Name from [User] ;" 

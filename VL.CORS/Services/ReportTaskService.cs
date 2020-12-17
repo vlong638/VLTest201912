@@ -15,52 +15,116 @@ using System.Text;
 
 namespace ResearchAPI.Services
 {
-    public static class DomainConstraits {
-        private static Dictionary<string, long> roles;
+    public static class DomainConstraits
+    {
 
-        public static Dictionary<string, long> GetRoles(ReportTaskService service)
+        private static long? _AdminRoleId;
+        internal static long GetAdminRoleId(Func<Dictionary<long, string>> source)
         {
-            if (roles == null)
+            if (_AdminRoleId == null)
             {
-                var result = service.GetAllRoles().Data;
-                roles = new Dictionary<string, long>();
-                foreach (var role in result)
-                {
-                    roles.Add(role.Name, role.Id);
-                }
+                _AdminRoleId = GetRoles(source).First(c => c.Value == "项目管理员").Key;
             }
-            return roles;
+            return _AdminRoleId.Value;
         }
 
-        private static long adminRoleId;
-        internal static long GetAdminRoleId(ReportTaskService service)
+        private static long? _MemberRoleId;
+        internal static long GetMemberRoleId(Func<Dictionary<long, string>> source)
         {
-            if (adminRoleId == 0)
+            if (_MemberRoleId == null)
             {
-                adminRoleId = GetRoles(service).First(c => c.Key == "项目管理员").Value;
+                _MemberRoleId = GetRoles(source).First(c => c.Value == "项目成员").Key;
             }
-            return adminRoleId;
+            return _MemberRoleId.Value;
         }
 
-        private static long memberRoleId;
-        internal static long GetMemberRoleId(ReportTaskService service)
+        private static long? _OwenerRoleId;
+        internal static long GetOwnerRoleId(Func<Dictionary<long, string>> source)
         {
-            if (memberRoleId == 0)
+            if (_OwenerRoleId == null)
             {
-                memberRoleId = GetRoles(service).First(c => c.Key == "项目成员").Value;
+                _OwenerRoleId = GetRoles(source).First(c => c.Value == "项目创建人").Key;
             }
-            return memberRoleId;
+            return _OwenerRoleId.Value;
         }
 
-        private static long owenerRoleId;
-        internal static long GetOwnerRoleId(ReportTaskService service)
+        private static object _Roles;
+        public static Dictionary<T, string> GetRoles<T>(Func<Dictionary<T, string>> source)
         {
-            if (owenerRoleId == 0)
+            if (_Roles == null)
             {
-                owenerRoleId = GetRoles(service).First(c => c.Key == "项目创建人").Value;
+                _Roles = source();
             }
-            return owenerRoleId;
+            return (Dictionary<T, string>)_Roles;
         }
+
+        private static object _Users;
+        public static Dictionary<T, string> GetUsers<T>(Func<Dictionary<T, string>> source)
+        {
+            if (_Users == null)
+            {
+                _Users = source();
+            }
+            return (Dictionary<T, string>)_Users;
+        }
+
+        private static object _Departments;
+        public static Dictionary<T, string> GetDepartments<T>(Func<Dictionary<T, string>> source)
+        {
+            if (_Departments == null)
+            {
+                _Departments = source();
+            }
+            return (Dictionary<T, string>)_Departments;
+        }
+
+        private static object _ViewAuthorizeTypes;
+        public static Dictionary<T, string> GetViewAuthorizeTypes<T>(Func<Dictionary<T, string>> source)
+        {
+            if (_ViewAuthorizeTypes == null)
+            {
+                _ViewAuthorizeTypes = source();
+            }
+            return (Dictionary<T, string>)_ViewAuthorizeTypes;
+        }
+
+        internal static string RenderIdsToText<T>(T id, KVType kvType, Func<Dictionary<T, string>> source)
+        {
+            List<T> ids = new List<T>() { id };
+            var values = RenderIdsToText(ids, kvType, source);
+            return values.First();
+        }
+        internal static List<string> RenderIdsToText<T>(List<T> ids, KVType kvType, Func<Dictionary<T, string>> source)
+        {
+            Dictionary<T, string> dic = null;
+            switch (kvType)
+            {
+                case KVType.ViewAuthorizeType:
+                    dic = GetViewAuthorizeTypes(source);
+                    break;
+                case KVType.Department:
+                    dic = GetDepartments(source);
+                    break;
+                case KVType.User:
+                    dic = GetUsers(source);
+                    break;
+                case KVType.Role:
+                    dic = GetRoles(source);
+                    break;
+                default:
+                    break;
+            }
+            var values = ids.Select(c => dic.ContainsKey(c) ? dic[c] : c.ToString()).ToList();
+            return values;
+        }
+    }
+
+    public enum KVType
+    {
+        ViewAuthorizeType,
+        Department,
+        User,
+        Role,
     }
 
     /// <summary>
@@ -141,8 +205,8 @@ namespace ResearchAPI.Services
                 result.CreatedAt = project.CreatedAt;
                 result.LastModifiedAt = project.LastModifiedAt;
                 result.LastModifiedBy = project.LastModifiedBy;
-                var adminRoleId = DomainConstraits.GetAdminRoleId(this);
-                var memberRoleId = DomainConstraits.GetMemberRoleId(this);
+                var adminRoleId = DomainConstraits.GetAdminRoleId(() => GetRolesDictionary());
+                var memberRoleId = DomainConstraits.GetMemberRoleId(() => GetRolesDictionary());
                 var adminIds = ProjectRepository.GetUserIdsByProjectIdAndRoleId(projectId, adminRoleId);
                 result.AdminIds = adminIds;
                 var memberIds = ProjectRepository.GetUserIdsByProjectIdAndRoleId(projectId, memberRoleId);
@@ -151,16 +215,76 @@ namespace ResearchAPI.Services
             });
         }
 
-        internal ServiceResult<List<User>> GetAllUsersIdAndName()
+        internal ServiceResult<GetProjectModel> GetProject(long projectId)
         {
             return ResearchDbContext.DelegateNonTransaction(c =>
             {
-                var result = UserRepository.GetAllUsersIdAndName();
+                var result = new GetProjectModel();
+                var project = ProjectRepository.GetAvailableProjectById(projectId);
+                if (project == null)
+                {
+                    throw new NotImplementedException("项目不存在");
+                }
+                result.ProjectId = project.Id;
+                result.ProjectName = project.Name;
+                result.DepartmentId = project.DepartmentId;
+                result.ViewAuthorizeType = project.ViewAuthorizeType;
+                result.ProjectDescription = project.ProjectDescription;
+                result.CreatorId = project.CreatorId;
+                result.CreatedAt = project.CreatedAt;
+                result.LastModifiedAt = project.LastModifiedAt;
+                result.LastModifiedBy = project.LastModifiedBy;
+                var adminRoleId = DomainConstraits.GetAdminRoleId(() => GetRolesDictionary());
+                var memberRoleId = DomainConstraits.GetMemberRoleId(() => GetRolesDictionary());
+                var adminIds = ProjectRepository.GetUserIdsByProjectIdAndRoleId(projectId, adminRoleId);
+                result.AdminIds = adminIds;
+                var memberIds = ProjectRepository.GetUserIdsByProjectIdAndRoleId(projectId, memberRoleId);
+                result.MemberIds = memberIds;
                 return result;
             });
         }
 
-        internal ServiceResult<bool> DeleteProject(int projectId)
+        internal ServiceResult<Dictionary<long, string>> GetAllUsersIdAndName()
+        {
+            return ResearchDbContext.DelegateNonTransaction(c =>
+            {
+                var result = DomainConstraits.GetUsers(() => GetUsersDictionary());
+                return result;
+            });
+        }
+
+        internal Dictionary<long, string> GetUsersDictionary()
+        {
+            var result = UserRepository.GetAllUsers();
+            var dic = new Dictionary<long, string>();
+            foreach (var item in result)
+            {
+                dic.Add(item.Id, item.Name);
+            }
+            return dic;
+        }
+
+        internal Dictionary<long, string> GetRolesDictionary()
+        {
+            var result = RoleRepository.GetAllRoles();
+            var dic = new Dictionary<long, string>();
+            foreach (var item in result)
+            {
+                dic.Add(item.Id, item.Name);
+            }
+            return dic;
+        }
+
+        internal ServiceResult<List<User>> GetAllUsers()
+        {
+            return ResearchDbContext.DelegateNonTransaction(c =>
+            {
+                var result = UserRepository.GetAllUsers();
+                return result;
+            });
+        }
+
+        internal ServiceResult<bool> DeleteProject(long projectId)
         {
             return ResearchDbContext.DelegateNonTransaction(c =>
             {
@@ -198,9 +322,9 @@ namespace ResearchAPI.Services
             return ResearchDbContext.DelegateTransaction(c =>
             {
                 var projectId = ProjectRepository.Insert(project);
-                var ownerRoleId = DomainConstraits.GetOwnerRoleId(this);
-                var adminRoleId = DomainConstraits.GetAdminRoleId(this);
-                var memberRoleId = DomainConstraits.GetMemberRoleId(this);
+                var ownerRoleId = DomainConstraits.GetOwnerRoleId(() => GetRolesDictionary());
+                var adminRoleId = DomainConstraits.GetAdminRoleId(() => GetRolesDictionary());
+                var memberRoleId = DomainConstraits.GetMemberRoleId(() => GetRolesDictionary());
                 var members = new List<ProjectMember>();
                 members.Add(new ProjectMember(projectId, project.CreatorId, ownerRoleId));
                 foreach (var adminId in request.AdminIds)
@@ -233,9 +357,9 @@ namespace ResearchAPI.Services
                 if (!result)
                     throw new NotImplementedException("项目更新失败");
                 var projectId = project.Id;
-                var ownerRoleId = DomainConstraits.GetOwnerRoleId(this);
-                var adminRoleId = DomainConstraits.GetAdminRoleId(this);
-                var memberRoleId = DomainConstraits.GetMemberRoleId(this);
+                var ownerRoleId = DomainConstraits.GetOwnerRoleId(() => GetRolesDictionary());
+                var adminRoleId = DomainConstraits.GetAdminRoleId(() => GetRolesDictionary());
+                var memberRoleId = DomainConstraits.GetMemberRoleId(() => GetRolesDictionary());
                 var members = new List<ProjectMember>();
                 members.Add(new ProjectMember(projectId, project.CreatorId, ownerRoleId));
                 foreach (var adminId in request.AdminIds)
@@ -256,7 +380,7 @@ namespace ResearchAPI.Services
             });
         }
 
-        internal ServiceResult<bool> AddFavoriteProject(int projectId, long userId)
+        internal ServiceResult<bool> AddFavoriteProject(long projectId, long userId)
         {
             return ResearchDbContext.DelegateNonTransaction(c =>
             {
@@ -271,7 +395,7 @@ namespace ResearchAPI.Services
             });
         }
 
-        internal ServiceResult<bool> DeleteFavoriteProject(int projectId, long userId)
+        internal ServiceResult<bool> DeleteFavoriteProject(long projectId, long userId)
         {
             return ResearchDbContext.DelegateNonTransaction(c =>
             {

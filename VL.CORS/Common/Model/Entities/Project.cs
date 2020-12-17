@@ -11,13 +11,14 @@ namespace ResearchAPI.CORS.Common
         public long Id { set; get; }
         public string Name { set; get; }
         public long? DepartmentId { set; get; }
-        public ViewAuthorizeType ViewAuthorizeType { set; get; }
+        public int ViewAuthorizeType { set; get; }
         public string ProjectDescription { set; get; }
         public long CreatorId { set; get; }
         public DateTime? CreatedAt { set; get; }
         public DateTime? LastModifiedAt { get; set; }
         public long? LastModifiedBy { get; set; }
     }
+
 
     /// <summary>
     /// 项目查看权限
