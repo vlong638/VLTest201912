@@ -348,6 +348,7 @@ namespace ResearchAPI.Controllers
                 this.CreatedAt = model.CreatedAt;
                 this.LastModifiedAt = model.LastModifiedAt;
                 this.LastModifiedBy = model.LastModifiedBy;
+                this.IsFavorite = model.IsFavorite;
             }
 
             /// <summary>

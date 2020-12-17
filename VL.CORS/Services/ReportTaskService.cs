@@ -186,7 +186,7 @@ namespace ResearchAPI.Services
             });
         }
 
-        internal ServiceResult<GetProjectModel> GetProject(int projectId)
+        internal ServiceResult<GetProjectModel> GetProject(long projectId)
         {
             return ResearchDbContext.DelegateNonTransaction(c =>
             {
@@ -213,35 +213,6 @@ namespace ResearchAPI.Services
                 result.MemberIds = memberIds;
                 var isFavorite = FavoriteProjectRepository.GetOne(new FavoriteProject(project.Id, project.CreatorId));
                 result.IsFavorite = isFavorite != null;
-                return result;
-            });
-        }
-
-        internal ServiceResult<GetProjectModel> GetProject(long projectId)
-        {
-            return ResearchDbContext.DelegateNonTransaction(c =>
-            {
-                var result = new GetProjectModel();
-                var project = ProjectRepository.GetAvailableProjectById(projectId);
-                if (project == null)
-                {
-                    throw new NotImplementedException("项目不存在");
-                }
-                result.ProjectId = project.Id;
-                result.ProjectName = project.Name;
-                result.DepartmentId = project.DepartmentId;
-                result.ViewAuthorizeType = project.ViewAuthorizeType;
-                result.ProjectDescription = project.ProjectDescription;
-                result.CreatorId = project.CreatorId;
-                result.CreatedAt = project.CreatedAt;
-                result.LastModifiedAt = project.LastModifiedAt;
-                result.LastModifiedBy = project.LastModifiedBy;
-                var adminRoleId = DomainConstraits.GetAdminRoleId(() => GetRolesDictionary());
-                var memberRoleId = DomainConstraits.GetMemberRoleId(() => GetRolesDictionary());
-                var adminIds = ProjectRepository.GetUserIdsByProjectIdAndRoleId(projectId, adminRoleId);
-                result.AdminIds = adminIds;
-                var memberIds = ProjectRepository.GetUserIdsByProjectIdAndRoleId(projectId, memberRoleId);
-                result.MemberIds = memberIds;
                 return result;
             });
         }
