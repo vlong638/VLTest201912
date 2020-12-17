@@ -52,5 +52,9 @@ namespace ResearchAPI.CORS.Common
         /// 最近修改人员
         /// </summary>
         public long? LastModifiedBy { get; set; }
+        /// <summary>
+        /// 是否收藏
+        /// </summary>
+        public bool IsFavorite { set; get; }
     }
 }

@@ -323,6 +323,7 @@ namespace ResearchAPI.Controllers
             if (result.DepartmentId.HasValue)
                 result.DepartmentName = DomainConstraits.RenderIdsToText(result.DepartmentId.Value, KVType.Department, () => GetDictionary<long>(KVType.Department.ToString()));
             result.AdminNames = DomainConstraits.RenderIdsToText(result.AdminIds, KVType.User, () => service.GetUsersDictionary());
+            result.CreateName = DomainConstraits.RenderIdsToText(result.CreatorId.Value, KVType.User, () => service.GetUsersDictionary());
             result.MemberNames = DomainConstraits.RenderIdsToText(result.MemberIds, KVType.User, () => service.GetUsersDictionary());
             return new APIResult<GetBiefProjectResponse>(result);
         }
@@ -334,6 +335,8 @@ namespace ResearchAPI.Controllers
         {
             public GetBiefProjectResponse(GetProjectModel model)
             {
+                //TODO 设计一个AutoMapper
+
                 this.ProjectId = model.ProjectId;
                 this.ProjectName = model.ProjectName;
                 this.AdminIds = model.AdminIds;
@@ -351,6 +354,10 @@ namespace ResearchAPI.Controllers
             /// 项目查看权限 名称
             /// </summary>
             public string ViewAuthorizeTypeName { set; get; }
+            /// <summary>
+            /// 创建者 名称
+            /// </summary>
+            public string CreateName { set; get; }
             /// <summary>
             /// 关联科室 名称
             /// </summary>

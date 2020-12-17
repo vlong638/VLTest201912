@@ -211,6 +211,8 @@ namespace ResearchAPI.Services
                 result.AdminIds = adminIds;
                 var memberIds = ProjectRepository.GetUserIdsByProjectIdAndRoleId(projectId, memberRoleId);
                 result.MemberIds = memberIds;
+                var isFavorite = FavoriteProjectRepository.GetOne(new FavoriteProject(project.Id, project.CreatorId));
+                result.IsFavorite = isFavorite != null;
                 return result;
             });
         }
@@ -327,9 +329,9 @@ namespace ResearchAPI.Services
                 var memberRoleId = DomainConstraits.GetMemberRoleId(() => GetRolesDictionary());
                 var members = new List<ProjectMember>();
                 members.Add(new ProjectMember(projectId, project.CreatorId, ownerRoleId));
-                foreach (var adminId in request.AdminIds)
+                foreach (var adminId in request.AdminIds ?? new List<long>())
                     members.Add(new ProjectMember(projectId, adminId, adminRoleId));
-                foreach (var memberId in request.MemberIds)
+                foreach (var memberId in request.MemberIds ?? new List<long>())
                     members.Add(new ProjectMember(projectId, memberId, memberRoleId));
                 ProjectMemberRepository.CreateProjectMembers(members);
                 return projectId;
