@@ -147,16 +147,33 @@
 <script>
     $(
         function () {
-            var projectId = 1;
+
+            var request = {};
+            request.page = 1;
+            request.limit = 5;
+            request.search = [];
+            request.search.push({ key: "Name", value: "1" });
             $.ajax({
-                url: 'http://192.168.50.213:8041/api/EasyResearch/DeleteProject',
-                type: "post",
-                dataType: "json",
-                data: { projectId },
+                url: 'http://localhost:61696/api/EasyResearch/GetPagedProjects',
+                type: 'post',
+                dataType: 'json',
+                data: request,
                 success: function (resp) {
                     console.log(resp.data);
                 }
             })
+
+
+            //var projectId = 1;
+            //$.ajax({
+            //    url: 'http://192.168.50.213:8041/api/EasyResearch/DeleteProject',
+            //    type: "post",
+            //    dataType: "json",
+            //    data: { projectId },
+            //    success: function (resp) {
+            //        console.log(resp.data);
+            //    }
+            //})
 
             //$.ajax({
             //    //url: 'http://192.168.50.213:8043/api/EasyResearch/GetDropdowns',

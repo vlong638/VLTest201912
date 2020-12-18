@@ -55,7 +55,7 @@ namespace ResearchAPI.Common
         /// <returns></returns>
         public static SQLConfigV2 GetSQLConfigByDirectoryName(string viewName)
         {
-            var path = Path.Combine(AppContext.BaseDirectory, "XMLConfig", viewName, "SQLConfig.xml");
+            var path = Path.Combine(AppContext.BaseDirectory, "Configs\\XMLConfigs", viewName, "SQLConfig.xml");
             XDocument doc = XDocument.Load(path);
             var tableElements = doc.Descendants(SQLConfigV2.ElementName);
             var tableConfigs = tableElements.Select(c => new SQLConfigV2(c));
