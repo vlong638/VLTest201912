@@ -1,77 +1,77 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>VL.Research</name>
+        <name>BBee</name>
     </assembly>
     <members>
-        <member name="T:VL.Research.Common.Authority">
+        <member name="T:BBee.Common.Authority">
             <summary>
             权限 
             前三位代表业务系统,后三位表示模块内功能模块,后三位表示功能模块内细分功能
             通用功能为000
             </summary>
         </member>
-        <member name="F:VL.Research.Common.Authority.None">
+        <member name="F:BBee.Common.Authority.None">
             <summary>
             无效权限
             </summary>
         </member>
-        <member name="F:VL.Research.Common.Authority.查看用户分娩信息">
+        <member name="F:BBee.Common.Authority.查看用户分娩信息">
             <summary>
             查看用户分娩信息 101
             </summary>
         </member>
-        <member name="F:VL.Research.Common.Authority.搜索用户分娩信息">
+        <member name="F:BBee.Common.Authority.搜索用户分娩信息">
             <summary>
             搜索用户分娩信息 102
             </summary>
         </member>
-        <member name="F:VL.Research.Common.Authority.查看用户列表">
+        <member name="F:BBee.Common.Authority.查看用户列表">
             <summary>
             查看用户列表 001
             </summary>
         </member>
-        <member name="F:VL.Research.Common.Authority.编辑用户角色">
+        <member name="F:BBee.Common.Authority.编辑用户角色">
             <summary>
             编辑用户角色 002
             </summary>
         </member>
-        <member name="F:VL.Research.Common.Authority.查看角色列表">
+        <member name="F:BBee.Common.Authority.查看角色列表">
             <summary>
             查看角色列表 001
             </summary>
         </member>
-        <member name="F:VL.Research.Common.Authority.创建角色">
+        <member name="F:BBee.Common.Authority.创建角色">
             <summary>
             创建角色 002
             </summary>
         </member>
-        <member name="F:VL.Research.Common.Authority.编辑角色权限">
+        <member name="F:BBee.Common.Authority.编辑角色权限">
             <summary>
             编辑角色权限 003
             </summary>
         </member>
-        <member name="T:VL.Research.Common.CurrentUser">
+        <member name="T:BBee.Common.CurrentUser">
             <summary>
             当前用户
             </summary>
         </member>
-        <member name="P:VL.Research.Common.CurrentUser.UserId">
+        <member name="P:BBee.Common.CurrentUser.UserId">
             <summary>
             
             </summary>
         </member>
-        <member name="P:VL.Research.Common.CurrentUser.UserName">
+        <member name="P:BBee.Common.CurrentUser.UserName">
             <summary>
             
             </summary>
         </member>
-        <member name="P:VL.Research.Common.CurrentUser.Authorities">
+        <member name="P:BBee.Common.CurrentUser.Authorities">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Common.CurrentUser.SetCurrentUser(VL.Consolo_Core.Common.RedisSolution.RedisCache,System.String,VL.Research.Common.CurrentUser)">
+        <member name="M:BBee.Common.CurrentUser.SetCurrentUser(VL.Consolo_Core.Common.RedisSolution.RedisCache,System.String,BBee.Common.CurrentUser)">
             <summary>
             缓存当前用户信息
             </summary>
@@ -79,7 +79,7 @@
             <param name="sessionId"></param>
             <param name="currentUser"></param>
         </member>
-        <member name="M:VL.Research.Common.CurrentUser.GetCurrentUser(VL.Consolo_Core.Common.RedisSolution.RedisCache,System.String)">
+        <member name="M:BBee.Common.CurrentUser.GetCurrentUser(VL.Consolo_Core.Common.RedisSolution.RedisCache,System.String)">
             <summary>
             从缓存获取当前用户信息
             </summary>
@@ -87,283 +87,283 @@
             <param name="sessionId"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Common.CurrentUser.SetSessionId(Microsoft.AspNetCore.Http.HttpContext,System.String)">
+        <member name="M:BBee.Common.CurrentUser.SetSessionId(Microsoft.AspNetCore.Http.HttpContext,System.String)">
             <summary>
             设置SessionId到Cookie
             </summary>
             <param name="httpContext"></param>
             <param name="sessionId"></param>
         </member>
-        <member name="M:VL.Research.Common.CurrentUser.GetSessionId(Microsoft.AspNetCore.Http.HttpContext)">
+        <member name="M:BBee.Common.CurrentUser.GetSessionId(Microsoft.AspNetCore.Http.HttpContext)">
             <summary>
             从Cookie获取SessionId
             </summary>
             <param name="httpContext"></param>
             <returns></returns>
         </member>
-        <member name="T:VL.Research.Common.VLActionFilterAttribute">
+        <member name="T:BBee.Common.VLActionFilterAttribute">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Common.VLActionFilterAttribute.#ctor(VL.Research.Common.Authority[])">
+        <member name="M:BBee.Common.VLActionFilterAttribute.#ctor(BBee.Common.Authority[])">
             <summary>
             
             </summary>
         </member>
-        <member name="P:VL.Research.Common.VLActionFilterAttribute.Authorities">
+        <member name="P:BBee.Common.VLActionFilterAttribute.Authorities">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Common.VLActionFilterAttribute.OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+        <member name="M:BBee.Common.VLActionFilterAttribute.OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
             <summary>
             
             </summary>
             <param name="context"></param>
         </member>
-        <member name="M:VL.Research.Common.VLAuthenticationTicketHelper.Encrypt(Microsoft.AspNetCore.Authentication.AuthenticationTicket)">
+        <member name="M:BBee.Common.VLAuthenticationTicketHelper.Encrypt(Microsoft.AspNetCore.Authentication.AuthenticationTicket)">
             <summary>
             
             </summary>
             <param name="ticket"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Common.VLAuthenticationTicketHelper.Decrypt(System.String)">
+        <member name="M:BBee.Common.VLAuthenticationTicketHelper.Decrypt(System.String)">
             <summary>
             
             </summary>
             <param name="sessionId"></param>
             <returns></returns>
         </member>
-        <member name="T:VL.Research.Common.ConfigHelper">
+        <member name="T:BBee.Common.ConfigHelper">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Common.ConfigHelper.GetListConfigByDirectoryName(System.String)">
+        <member name="M:BBee.Common.ConfigHelper.GetListConfigByDirectoryName(System.String)">
             <summary>
             获取 列表配置
             </summary>
             <param name="viewName"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Common.ConfigHelper.GetListConfigByTagName(System.String)">
+        <member name="M:BBee.Common.ConfigHelper.GetListConfigByTagName(System.String)">
             <summary>
             
             </summary>
             <param name="viewName"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Common.ConfigHelper.GetSQLConfigByDirectoryName(System.String)">
+        <member name="M:BBee.Common.ConfigHelper.GetSQLConfigByDirectoryName(System.String)">
             <summary>
             获取 列表sql配置
             </summary>
             <param name="viewName"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Common.ConfigHelper.GetSQLConfigByTagName(System.String)">
+        <member name="M:BBee.Common.ConfigHelper.GetSQLConfigByTagName(System.String)">
             <summary>
             
             </summary>
             <param name="viewName"></param>
             <returns></returns>
         </member>
-        <member name="T:VL.Research.Common.Configuration.DBConfig">
+        <member name="T:BBee.Common.Configuration.DBConfig">
             <summary>
             配置样例
             </summary>
         </member>
-        <member name="P:VL.Research.Common.Configuration.DBConfig.ConnectionStrings">
+        <member name="P:BBee.Common.Configuration.DBConfig.ConnectionStrings">
             <summary>
             
             </summary>
         </member>
-        <member name="T:VL.Research.Common.Configuration.DHFConfig">
+        <member name="T:BBee.Common.Configuration.DHFConfig">
             <summary>
             配置样例
             </summary>
         </member>
-        <member name="P:VL.Research.Common.Configuration.DHFConfig.IsLogSQL">
+        <member name="P:BBee.Common.Configuration.DHFConfig.IsLogSQL">
             <summary>
             
             </summary>
         </member>
-        <member name="T:VL.Research.Common.APIContext">
+        <member name="T:BBee.Common.APIContext">
             <summary>
             
             </summary>
         </member>
-        <member name="P:VL.Research.Common.APIContext.HttpContextAccessor">
+        <member name="P:BBee.Common.APIContext.HttpContextAccessor">
             <summary>
             
             </summary>
         </member>
-        <member name="P:VL.Research.Common.APIContext.HttpContext">
+        <member name="P:BBee.Common.APIContext.HttpContext">
             <summary>
             
             </summary>
         </member>
-        <member name="P:VL.Research.Common.APIContext.RedisCache">
+        <member name="P:BBee.Common.APIContext.RedisCache">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Common.APIContext.GetCurrentUser">
+        <member name="M:BBee.Common.APIContext.GetCurrentUser">
             <summary>
             获取当前用户信息
             </summary>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Common.APIContext.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,VL.Consolo_Core.Common.RedisSolution.RedisCache)">
+        <member name="M:BBee.Common.APIContext.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,VL.Consolo_Core.Common.RedisSolution.RedisCache)">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Common.APIContext.GetWebPath">
+        <member name="M:BBee.Common.APIContext.GetWebPath">
             <summary>
             
             </summary>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Common.APIContext.GetDBContext(System.String)">
+        <member name="M:BBee.Common.APIContext.GetDBContext(System.String)">
             <summary>
             
             </summary>
             <param name="source"></param>
             <returns></returns>
         </member>
-        <member name="T:VL.Research.Common.DBSourceType">
+        <member name="T:BBee.Common.DBSourceType">
             <summary>
             
             </summary>
         </member>
-        <member name="F:VL.Research.Common.DBSourceType.None">
+        <member name="F:BBee.Common.DBSourceType.None">
             <summary>
             
             </summary>
         </member>
-        <member name="F:VL.Research.Common.DBSourceType.DefaultConnectionString">
+        <member name="F:BBee.Common.DBSourceType.DefaultConnectionString">
             <summary>
             电子病历(Pregnant)
             </summary>
         </member>
-        <member name="F:VL.Research.Common.DBSourceType.FYPTConnectionString">
+        <member name="F:BBee.Common.DBSourceType.FYPTConnectionString">
             <summary>
             妇幼平台
             </summary>
         </member>
-        <member name="F:VL.Research.Common.DBSourceType.SZXTConnectionString">
+        <member name="F:BBee.Common.DBSourceType.SZXTConnectionString">
             <summary>
             生殖系统
             </summary>
         </member>
-        <member name="F:VL.Research.Common.DBSourceType.HZConnectionString">
+        <member name="F:BBee.Common.DBSourceType.HZConnectionString">
             <summary>
             生殖系统
             </summary>
         </member>
-        <member name="T:VL.Research.Common.CustomerExceptionFilter">
+        <member name="T:BBee.Common.CustomerExceptionFilter">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Common.CustomerExceptionFilter.#ctor(Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.AspNetCore.Mvc.ModelBinding.IModelMetadataProvider)">
+        <member name="M:BBee.Common.CustomerExceptionFilter.#ctor(Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.AspNetCore.Mvc.ModelBinding.IModelMetadataProvider)">
             <summary>
             
             </summary>
             <param name="hostingEnvironment"></param>
             <param name="modelMetadataProvider"></param>
         </member>
-        <member name="M:VL.Research.Common.CustomerExceptionFilter.OnException(Microsoft.AspNetCore.Mvc.Filters.ExceptionContext)">
+        <member name="M:BBee.Common.CustomerExceptionFilter.OnException(Microsoft.AspNetCore.Mvc.Filters.ExceptionContext)">
             <summary>
             发生异常进入
             </summary>
             <param name="context"></param>
         </member>
-        <member name="T:VL.Research.Common.DbContextEX">
+        <member name="T:BBee.Common.DbContextEX">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Common.DbContextEX.DelegateTransaction``1(VL.Consolo_Core.Common.DBSolution.DbContext,System.Func{VL.Consolo_Core.Common.DBSolution.DbGroup,``0})">
+        <member name="M:BBee.Common.DbContextEX.DelegateTransaction``1(VL.Consolo_Core.Common.DBSolution.DbContext,System.Func{VL.Consolo_Core.Common.DBSolution.DbGroup,``0})">
             <summary>
             扩展事务(服务层)通用处理
             </summary>
         </member>
-        <member name="M:VL.Research.Common.DbContextEX.DelegateNonTransaction``1(VL.Consolo_Core.Common.DBSolution.DbContext,System.Func{VL.Consolo_Core.Common.DBSolution.DbGroup,``0})">
+        <member name="M:BBee.Common.DbContextEX.DelegateNonTransaction``1(VL.Consolo_Core.Common.DBSolution.DbContext,System.Func{VL.Consolo_Core.Common.DBSolution.DbGroup,``0})">
             <summary>
             扩展事务(服务层)通用处理
             </summary>
         </member>
-        <member name="T:VL.Research.Common.Log4NetLogger">
+        <member name="T:BBee.Common.Log4NetLogger">
             <summary>
             Log4Net Logger
             </summary>
         </member>
-        <member name="M:VL.Research.Common.Log4NetLogger.Info(System.String,System.Exception)">
+        <member name="M:BBee.Common.Log4NetLogger.Info(System.String,System.Exception)">
             <summary>
             普通日志
             </summary>
             <param name="message"></param>
             <param name="exception"></param>
         </member>
-        <member name="M:VL.Research.Common.Log4NetLogger.Warn(System.String,System.Exception)">
+        <member name="M:BBee.Common.Log4NetLogger.Warn(System.String,System.Exception)">
             <summary>
             告警日志
             </summary>
             <param name="message"></param>
             <param name="exception"></param>
         </member>
-        <member name="M:VL.Research.Common.Log4NetLogger.Error(System.String,System.Exception)">
+        <member name="M:BBee.Common.Log4NetLogger.Error(System.String,System.Exception)">
             <summary>
             错误日志
             </summary>
             <param name="message"></param>
             <param name="exception"></param>
         </member>
-        <member name="M:VL.Research.Common.Log4NetLogger.LogSQL(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
+        <member name="M:BBee.Common.Log4NetLogger.LogSQL(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
             <summary>
             DHF日志
             </summary>
         </member>
-        <member name="T:VL.Research.Common.MenuConfig">
+        <member name="T:BBee.Common.MenuConfig">
             <summary>
             查询sql配置
             </summary>
         </member>
-        <member name="F:VL.Research.Common.MenuConfig.RootElementName">
+        <member name="F:BBee.Common.MenuConfig.RootElementName">
             <summary>
             
             </summary>
         </member>
-        <member name="F:VL.Research.Common.MenuConfig.NodeElementName">
+        <member name="F:BBee.Common.MenuConfig.NodeElementName">
             <summary>
             
             </summary>
         </member>
-        <member name="P:VL.Research.Common.MenuConfig.MenuItems">
+        <member name="P:BBee.Common.MenuConfig.MenuItems">
             <summary>
             页面字段
             </summary>
         </member>
-        <member name="M:VL.Research.Common.MenuConfig.#ctor">
+        <member name="M:BBee.Common.MenuConfig.#ctor">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Common.MenuConfig.#ctor(System.Xml.Linq.XElement)">
+        <member name="M:BBee.Common.MenuConfig.#ctor(System.Xml.Linq.XElement)">
             <summary>
             
             </summary>
             <param name="element"></param>
         </member>
-        <member name="T:VL.Research.Common.MenuItem">
+        <member name="T:BBee.Common.MenuItem">
             <summary>
             页面菜单
             </summary>
         </member>
-        <member name="M:VL.Research.Common.MenuItem.#ctor(System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:BBee.Common.MenuItem.#ctor(System.String,System.String,System.String,System.String,System.String)">
             <summary>
             /
             </summary>
@@ -373,186 +373,186 @@
             <param name="icon"></param>
             <param name="url"></param>
         </member>
-        <member name="M:VL.Research.Common.MenuItem.#ctor(System.Xml.Linq.XElement)">
+        <member name="M:BBee.Common.MenuItem.#ctor(System.Xml.Linq.XElement)">
             <summary>
             
             </summary>
             <param name="element"></param>
         </member>
-        <member name="P:VL.Research.Common.MenuItem.id">
+        <member name="P:BBee.Common.MenuItem.id">
             <summary>
             节点Id
             </summary>
         </member>
-        <member name="P:VL.Research.Common.MenuItem.parentId">
+        <member name="P:BBee.Common.MenuItem.parentId">
             <summary>
             上级节点id
             </summary>
         </member>
-        <member name="P:VL.Research.Common.MenuItem.text">
+        <member name="P:BBee.Common.MenuItem.text">
             <summary>
             显示文本
             </summary>
         </member>
-        <member name="P:VL.Research.Common.MenuItem.icon">
+        <member name="P:BBee.Common.MenuItem.icon">
             <summary>
             图标
             </summary>
         </member>
-        <member name="P:VL.Research.Common.MenuItem.url">
+        <member name="P:BBee.Common.MenuItem.url">
             <summary>
             跳转链接
             </summary>
         </member>
-        <member name="T:VL.Research.Common.SQLConfig">
+        <member name="T:BBee.Common.SQLConfig">
             <summary>
             查询sql配置
             </summary>
         </member>
-        <member name="F:VL.Research.Common.SQLConfig.RootElementName">
+        <member name="F:BBee.Common.SQLConfig.RootElementName">
             <summary>
             
             </summary>
         </member>
-        <member name="F:VL.Research.Common.SQLConfig.NodeElementName">
+        <member name="F:BBee.Common.SQLConfig.NodeElementName">
             <summary>
             
             </summary>
         </member>
-        <member name="P:VL.Research.Common.SQLConfig.ViewName">
+        <member name="P:BBee.Common.SQLConfig.ViewName">
             <summary>
             页面名称
             </summary>
         </member>
-        <member name="P:VL.Research.Common.SQLConfig.Source">
+        <member name="P:BBee.Common.SQLConfig.Source">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Common.SQLConfig.#ctor">
+        <member name="M:BBee.Common.SQLConfig.#ctor">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Common.SQLConfig.#ctor(System.Xml.Linq.XElement)">
+        <member name="M:BBee.Common.SQLConfig.#ctor(System.Xml.Linq.XElement)">
             <summary>
             
             </summary>
             <param name="element"></param>
         </member>
-        <member name="P:VL.Research.Common.DBListConfig.TableName">
+        <member name="P:BBee.Common.DBListConfig.TableName">
             <summary>
             表名
             </summary>
         </member>
-        <member name="P:VL.Research.Common.DBListConfig.ColumnName">
+        <member name="P:BBee.Common.DBListConfig.ColumnName">
             <summary>
             列名
             </summary>
         </member>
-        <member name="P:VL.Research.Common.DBListConfig.DataType">
+        <member name="P:BBee.Common.DBListConfig.DataType">
             <summary>
             数据类型
             </summary>
         </member>
-        <member name="P:VL.Research.Common.DBListConfig.MaxLength">
+        <member name="P:BBee.Common.DBListConfig.MaxLength">
             <summary>
             占用字节数
             </summary>
         </member>
-        <member name="P:VL.Research.Common.DBListConfig.Precision">
+        <member name="P:BBee.Common.DBListConfig.Precision">
             <summary>
             数字长度
             </summary>
         </member>
-        <member name="P:VL.Research.Common.DBListConfig.Scale">
+        <member name="P:BBee.Common.DBListConfig.Scale">
             <summary>
             小数位数
             </summary>
         </member>
-        <member name="P:VL.Research.Common.DBListConfig.IsNullable">
+        <member name="P:BBee.Common.DBListConfig.IsNullable">
             <summary>
             是否允许空
             </summary>
         </member>
-        <member name="P:VL.Research.Common.DBListConfig.IsIdentity">
+        <member name="P:BBee.Common.DBListConfig.IsIdentity">
             <summary>
             是否自增
             </summary>
         </member>
-        <member name="P:VL.Research.Common.DBListConfig.IsPrimaryKey">
+        <member name="P:BBee.Common.DBListConfig.IsPrimaryKey">
             <summary>
             是否是主键
             </summary>
         </member>
-        <member name="P:VL.Research.Common.DBListConfig.Description">
+        <member name="P:BBee.Common.DBListConfig.Description">
             <summary>
             说明
             </summary>
         </member>
-        <member name="T:VL.Research.Common.ListConfig">
+        <member name="T:BBee.Common.ListConfig">
             <summary>
             页面配置
             </summary>
         </member>
-        <member name="P:VL.Research.Common.ListConfig.ViewName">
+        <member name="P:BBee.Common.ListConfig.ViewName">
             <summary>
             页面名称
             </summary>
         </member>
-        <member name="P:VL.Research.Common.ListConfig.ViewURL">
+        <member name="P:BBee.Common.ListConfig.ViewURL">
             <summary>
             页面数据URL
             </summary>
         </member>
-        <member name="P:VL.Research.Common.ListConfig.Export">
+        <member name="P:BBee.Common.ListConfig.Export">
             <summary>
             
             </summary>
         </member>
-        <member name="P:VL.Research.Common.ListConfig.Properties">
+        <member name="P:BBee.Common.ListConfig.Properties">
             <summary>
             页面字段
             </summary>
         </member>
-        <member name="P:VL.Research.Common.ListConfig.Wheres">
+        <member name="P:BBee.Common.ListConfig.Wheres">
             <summary>
             页面条件项
             </summary>
         </member>
-        <member name="P:VL.Research.Common.ListConfig.OrderBys">
+        <member name="P:BBee.Common.ListConfig.OrderBys">
             <summary>
             页面排序项
             </summary>
         </member>
-        <member name="P:VL.Research.Common.ListConfig.ToolBars">
+        <member name="P:BBee.Common.ListConfig.ToolBars">
             <summary>
             行内功能栏
             </summary>
         </member>
-        <member name="P:VL.Research.Common.ListConfig.AddButton">
+        <member name="P:BBee.Common.ListConfig.AddButton">
             <summary>
             新增按钮
             </summary>
         </member>
-        <member name="M:VL.Research.Common.ListConfig.#ctor">
+        <member name="M:BBee.Common.ListConfig.#ctor">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Common.ListConfig.#ctor(System.Xml.Linq.XElement)">
+        <member name="M:BBee.Common.ListConfig.#ctor(System.Xml.Linq.XElement)">
             <summary>
             
             </summary>
             <param name="element"></param>
         </member>
-        <member name="M:VL.Research.Common.ListConfig.UpdateValues(System.Collections.Generic.List{System.Collections.Generic.Dictionary{System.String,System.Object}})">
+        <member name="M:BBee.Common.ListConfig.UpdateValues(System.Collections.Generic.List{System.Collections.Generic.Dictionary{System.String,System.Object}})">
             <summary>
             
             </summary>
             <param name="list"></param>
         </member>
-        <member name="M:VL.Research.Common.ListConfig.UpdateOrderBy(System.Collections.Generic.Dictionary{System.String,System.Boolean},System.String,System.String)">
+        <member name="M:BBee.Common.ListConfig.UpdateOrderBy(System.Collections.Generic.Dictionary{System.String,System.Boolean},System.String,System.String)">
             <summary>
             更新排序项
             </summary>
@@ -560,234 +560,234 @@
             <param name="field"></param>
             <param name="order"></param>
         </member>
-        <member name="M:VL.Research.Common.ListConfig.UpdatePropertiesToSelect(System.Collections.Generic.List{System.String})">
+        <member name="M:BBee.Common.ListConfig.UpdatePropertiesToSelect(System.Collections.Generic.List{System.String})">
             <summary>
             更新待选择显示的字段
             </summary>
             <param name="fieldNames"></param>
         </member>
-        <member name="T:VL.Research.Common.CompareOperator">
+        <member name="T:BBee.Common.CompareOperator">
             <summary>
             比较操作
             </summary>
         </member>
-        <member name="T:VL.Research.Common.LinkOperator">
+        <member name="T:BBee.Common.LinkOperator">
             <summary>
             组合操作
             </summary>
         </member>
-        <member name="T:VL.Research.Common.ListConfigExport">
+        <member name="T:BBee.Common.ListConfigExport">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Common.ListConfigExport.#ctor">
+        <member name="M:BBee.Common.ListConfigExport.#ctor">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Common.ListConfigExport.#ctor(System.Xml.Linq.XElement)">
+        <member name="M:BBee.Common.ListConfigExport.#ctor(System.Xml.Linq.XElement)">
             <summary>
             
             </summary>
             <param name="element"></param>
         </member>
-        <member name="P:VL.Research.Common.ListConfigExport.URL">
+        <member name="P:BBee.Common.ListConfigExport.URL">
             <summary>
             项目名称
             </summary>
         </member>
-        <member name="P:VL.Research.Common.ListConfigExport.DefaultParams">
+        <member name="P:BBee.Common.ListConfigExport.DefaultParams">
             <summary>
             默认参数
             </summary>
         </member>
-        <member name="T:VL.Research.Common.ListConfigWhere">
+        <member name="T:BBee.Common.ListConfigWhere">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Common.ListConfigWhere.#ctor">
+        <member name="M:BBee.Common.ListConfigWhere.#ctor">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Common.ListConfigWhere.#ctor(System.Xml.Linq.XElement)">
+        <member name="M:BBee.Common.ListConfigWhere.#ctor(System.Xml.Linq.XElement)">
             <summary>
             
             </summary>
             <param name="element"></param>
         </member>
-        <member name="P:VL.Research.Common.ListConfigWhere.ComponentName">
+        <member name="P:BBee.Common.ListConfigWhere.ComponentName">
             <summary>
             项目名称
             </summary>
         </member>
-        <member name="P:VL.Research.Common.ListConfigWhere.CompareOperator">
+        <member name="P:BBee.Common.ListConfigWhere.CompareOperator">
             <summary>
             比较操作符
             </summary>
         </member>
-        <member name="P:VL.Research.Common.ListConfigWhere.Value">
+        <member name="P:BBee.Common.ListConfigWhere.Value">
             <summary>
             值
             </summary>
         </member>
-        <member name="P:VL.Research.Common.ListConfigWhere.Required">
+        <member name="P:BBee.Common.ListConfigWhere.Required">
             <summary>
             是否必填
             </summary>
         </member>
-        <member name="P:VL.Research.Common.ListConfigWhere.LinkOperator">
+        <member name="P:BBee.Common.ListConfigWhere.LinkOperator">
             <summary>
             链接操作符
             </summary>
         </member>
-        <member name="P:VL.Research.Common.ListConfigWhere.DisplayName">
+        <member name="P:BBee.Common.ListConfigWhere.DisplayName">
             <summary>
             页面 字段名称
             </summary>
         </member>
-        <member name="P:VL.Research.Common.ListConfigWhere.DisplayType">
+        <member name="P:BBee.Common.ListConfigWhere.DisplayType">
             <summary>
             页面 数据类型
             </summary>
         </member>
-        <member name="P:VL.Research.Common.ListConfigWhere.DisplayValues">
+        <member name="P:BBee.Common.ListConfigWhere.DisplayValues">
             <summary>
             页面 下拉项配置
             </summary>
         </member>
-        <member name="P:VL.Research.Common.ListConfigWhere.Options">
+        <member name="P:BBee.Common.ListConfigWhere.Options">
             <summary>
             页面 下拉项选项
             </summary>
         </member>
-        <member name="P:VL.Research.Common.ListConfigWhere.TreeOptions">
+        <member name="P:BBee.Common.ListConfigWhere.TreeOptions">
             <summary>
             页面 下拉项选项
             </summary>
         </member>
-        <member name="M:VL.Research.Common.ListConfigWhere.ToXElement">
+        <member name="M:BBee.Common.ListConfigWhere.ToXElement">
             <summary>
             
             </summary>
             <returns></returns>
         </member>
-        <member name="T:VL.Research.Common.ListConfigOrderBy">
+        <member name="T:BBee.Common.ListConfigOrderBy">
             <summary>
             
             </summary>
         </member>
-        <member name="T:VL.Research.Common.ListConfigToolBars">
+        <member name="T:BBee.Common.ListConfigToolBars">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Common.ListConfigToolBars.#ctor">
+        <member name="M:BBee.Common.ListConfigToolBars.#ctor">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Common.ListConfigToolBars.#ctor(System.Xml.Linq.XElement)">
-            <summary>
-            
-            </summary>
-            <param name="element"></param>
-        </member>
-        <member name="T:VL.Research.Common.ListConfigToolBar">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:VL.Research.Common.ListConfigToolBar.#ctor">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:VL.Research.Common.ListConfigToolBar.#ctor(System.Xml.Linq.XElement)">
+        <member name="M:BBee.Common.ListConfigToolBars.#ctor(System.Xml.Linq.XElement)">
             <summary>
             
             </summary>
             <param name="element"></param>
         </member>
-        <member name="T:VL.Research.Common.ListConfigAddButton">
+        <member name="T:BBee.Common.ListConfigToolBar">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Common.ListConfigAddButton.#ctor">
+        <member name="M:BBee.Common.ListConfigToolBar.#ctor">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Common.ListConfigAddButton.#ctor(System.Xml.Linq.XElement)">
+        <member name="M:BBee.Common.ListConfigToolBar.#ctor(System.Xml.Linq.XElement)">
             <summary>
             
             </summary>
             <param name="element"></param>
         </member>
-        <member name="T:VL.Research.Common.DisplayType">
+        <member name="T:BBee.Common.ListConfigAddButton">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:BBee.Common.ListConfigAddButton.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:BBee.Common.ListConfigAddButton.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            
+            </summary>
+            <param name="element"></param>
+        </member>
+        <member name="T:BBee.Common.DisplayType">
             <summary>
             显示类型
             </summary>
         </member>
-        <member name="P:VL.Research.Common.ListConfigProperty.ColumnName">
+        <member name="P:BBee.Common.ListConfigProperty.ColumnName">
             <summary>
             列名
             </summary>
         </member>
-        <member name="P:VL.Research.Common.ListConfigProperty.Description">
+        <member name="P:BBee.Common.ListConfigProperty.Description">
             <summary>
             说明(显示,编辑时易理解)
             </summary>
         </member>
-        <member name="P:VL.Research.Common.ListConfigProperty.DisplayName">
+        <member name="P:BBee.Common.ListConfigProperty.DisplayName">
             <summary>
             列名(显示)
             </summary>
         </member>
-        <member name="P:VL.Research.Common.ListConfigProperty.DisplayType">
+        <member name="P:BBee.Common.ListConfigProperty.DisplayType">
             <summary>
             显示方案
             </summary>
         </member>
-        <member name="P:VL.Research.Common.ListConfigProperty.EnumType">
+        <member name="P:BBee.Common.ListConfigProperty.EnumType">
             <summary>
             枚举类型
             </summary>
         </member>
-        <member name="P:VL.Research.Common.ListConfigProperty.DisplayWidth">
+        <member name="P:BBee.Common.ListConfigProperty.DisplayWidth">
             <summary>
             显示宽度
             </summary>
         </member>
-        <member name="P:VL.Research.Common.ListConfigProperty.IsSortable">
+        <member name="P:BBee.Common.ListConfigProperty.IsSortable">
             <summary>
             可排序的
             </summary>
         </member>
-        <member name="P:VL.Research.Common.ListConfigProperty.IsCheckable">
+        <member name="P:BBee.Common.ListConfigProperty.IsCheckable">
             <summary>
             可选中的
             </summary>
         </member>
-        <member name="P:VL.Research.Common.ListConfigProperty.IsNeedOnPage">
+        <member name="P:BBee.Common.ListConfigProperty.IsNeedOnPage">
             <summary>
             是否在详情页显示
             </summary>
         </member>
-        <member name="P:VL.Research.Common.ListConfigProperty.IsNeedOnDatabase">
+        <member name="P:BBee.Common.ListConfigProperty.IsNeedOnDatabase">
             <summary>
             是否从数据库读取
             </summary>
         </member>
-        <member name="P:VL.Research.Common.ListConfigProperty.DataType">
+        <member name="P:BBee.Common.ListConfigProperty.DataType">
             <summary>
             数据类型(显示,校验)
             </summary>
         </member>
-        <member name="P:VL.Research.Common.ListConfigProperty.ColGroup">
+        <member name="P:BBee.Common.ListConfigProperty.ColGroup">
              <summary>
             支持以下结构  二级叶子需要为true
              ------
@@ -795,1154 +795,1154 @@
              | | |
              </summary>
         </member>
-        <member name="P:VL.Research.Common.ListConfigProperty.DisplayLevel">
+        <member name="P:BBee.Common.ListConfigProperty.DisplayLevel">
             <summary>
             
             </summary>
         </member>
-        <member name="P:VL.Research.Common.ListConfigProperty.RowSpan">
+        <member name="P:BBee.Common.ListConfigProperty.RowSpan">
             <summary>
             
             </summary>
         </member>
-        <member name="P:VL.Research.Common.ListConfigProperty.ColumnSpan">
+        <member name="P:BBee.Common.ListConfigProperty.ColumnSpan">
             <summary>
             
             </summary>
         </member>
-        <member name="T:VL.Research.Models.DetailConfig">
+        <member name="T:BBee.Models.DetailConfig">
             <summary>
             页面配置
             </summary>
         </member>
-        <member name="F:VL.Research.Models.DetailConfig.RootElementName">
+        <member name="F:BBee.Models.DetailConfig.RootElementName">
             <summary>
             
             </summary>
         </member>
-        <member name="F:VL.Research.Models.DetailConfig.NodeElementName">
+        <member name="F:BBee.Models.DetailConfig.NodeElementName">
             <summary>
             
             </summary>
         </member>
-        <member name="P:VL.Research.Models.DetailConfig.ViewName">
+        <member name="P:BBee.Models.DetailConfig.ViewName">
             <summary>
             页面名称
             </summary>
         </member>
-        <member name="P:VL.Research.Models.DetailConfig.cards">
+        <member name="P:BBee.Models.DetailConfig.cards">
             <summary>
             页面字段
             </summary>
         </member>
-        <member name="P:VL.Research.Models.DetailConfig.getUrl">
+        <member name="P:BBee.Models.DetailConfig.getUrl">
             <summary>
             用于 详情|编辑 时的查询接口
             </summary>
         </member>
-        <member name="P:VL.Research.Models.DetailConfig.getUrl_param">
+        <member name="P:BBee.Models.DetailConfig.getUrl_param">
             <summary>
             用于查询接口的参数
             </summary>
         </member>
-        <member name="P:VL.Research.Models.DetailConfig.saveUrl">
+        <member name="P:BBee.Models.DetailConfig.saveUrl">
             <summary>
             用于查询接口的参数
             </summary>
         </member>
-        <member name="M:VL.Research.Models.DetailConfig.#ctor">
+        <member name="M:BBee.Models.DetailConfig.#ctor">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Models.DetailConfig.#ctor(System.Xml.Linq.XElement)">
-            <summary>
-            
-            </summary>
-            <param name="element"></param>
-        </member>
-        <member name="T:VL.Research.Models.DetailConfig_Card">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="F:VL.Research.Models.DetailConfig_Card.ElementName">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:VL.Research.Models.DetailConfig_Card.#ctor">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:VL.Research.Models.DetailConfig_Card.#ctor(System.Xml.Linq.XElement)">
+        <member name="M:BBee.Models.DetailConfig.#ctor(System.Xml.Linq.XElement)">
             <summary>
             
             </summary>
             <param name="element"></param>
         </member>
-        <member name="P:VL.Research.Models.DetailConfig_Card.text">
+        <member name="T:BBee.Models.DetailConfig_Card">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:BBee.Models.DetailConfig_Card.ElementName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:BBee.Models.DetailConfig_Card.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:BBee.Models.DetailConfig_Card.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            
+            </summary>
+            <param name="element"></param>
+        </member>
+        <member name="P:BBee.Models.DetailConfig_Card.text">
             <summary>
             标题
             </summary>
         </member>
-        <member name="P:VL.Research.Models.DetailConfig_Card.content">
+        <member name="P:BBee.Models.DetailConfig_Card.content">
             <summary>
             
             </summary>
         </member>
-        <member name="T:VL.Research.Models.DetailConfig_Card_Content">
+        <member name="T:BBee.Models.DetailConfig_Card_Content">
             <summary>
             
             </summary>
         </member>
-        <member name="F:VL.Research.Models.DetailConfig_Card_Content.ElementName">
+        <member name="F:BBee.Models.DetailConfig_Card_Content.ElementName">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Models.DetailConfig_Card_Content.#ctor">
+        <member name="M:BBee.Models.DetailConfig_Card_Content.#ctor">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Models.DetailConfig_Card_Content.#ctor(System.Xml.Linq.XElement)">
+        <member name="M:BBee.Models.DetailConfig_Card_Content.#ctor(System.Xml.Linq.XElement)">
             <summary>
             
             </summary>
             <param name="element"></param>
         </member>
-        <member name="P:VL.Research.Models.DetailConfig_Card_Content.width">
+        <member name="P:BBee.Models.DetailConfig_Card_Content.width">
             <summary>
             标题
             </summary>
         </member>
-        <member name="P:VL.Research.Models.DetailConfig_Card_Content.child">
+        <member name="P:BBee.Models.DetailConfig_Card_Content.child">
             <summary>
             比较操作符
             </summary>
         </member>
-        <member name="T:VL.Research.Models.DetailConfig_Card_Content_Child">
+        <member name="T:BBee.Models.DetailConfig_Card_Content_Child">
             <summary>
             
             </summary>
         </member>
-        <member name="F:VL.Research.Models.DetailConfig_Card_Content_Child.ElementName">
+        <member name="F:BBee.Models.DetailConfig_Card_Content_Child.ElementName">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Models.DetailConfig_Card_Content_Child.#ctor">
+        <member name="M:BBee.Models.DetailConfig_Card_Content_Child.#ctor">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Models.DetailConfig_Card_Content_Child.#ctor(System.Xml.Linq.XElement)">
+        <member name="M:BBee.Models.DetailConfig_Card_Content_Child.#ctor(System.Xml.Linq.XElement)">
             <summary>
             
             </summary>
             <param name="element"></param>
         </member>
-        <member name="P:VL.Research.Models.DetailConfig_Card_Content_Child.width">
+        <member name="P:BBee.Models.DetailConfig_Card_Content_Child.width">
             <summary>
             所占单位[12个单位为一行]
             </summary>
         </member>
-        <member name="P:VL.Research.Models.DetailConfig_Card_Content_Child.attr">
+        <member name="P:BBee.Models.DetailConfig_Card_Content_Child.attr">
             <summary>
             
             </summary>
         </member>
-        <member name="T:VL.Research.Models.DetailConfig_Card_Content_Child_Attribute">
+        <member name="T:BBee.Models.DetailConfig_Card_Content_Child_Attribute">
             <summary>
             
             </summary>
         </member>
-        <member name="F:VL.Research.Models.DetailConfig_Card_Content_Child_Attribute.ElementName">
+        <member name="F:BBee.Models.DetailConfig_Card_Content_Child_Attribute.ElementName">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Models.DetailConfig_Card_Content_Child_Attribute.#ctor">
+        <member name="M:BBee.Models.DetailConfig_Card_Content_Child_Attribute.#ctor">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Models.DetailConfig_Card_Content_Child_Attribute.#ctor(System.Xml.Linq.XElement)">
+        <member name="M:BBee.Models.DetailConfig_Card_Content_Child_Attribute.#ctor(System.Xml.Linq.XElement)">
             <summary>
             
             </summary>
             <param name="element"></param>
         </member>
-        <member name="P:VL.Research.Models.DetailConfig_Card_Content_Child_Attribute.options">
+        <member name="P:BBee.Models.DetailConfig_Card_Content_Child_Attribute.options">
             <summary>
             下拉项的下拉项
             </summary>
         </member>
-        <member name="T:VL.Research.Models.DropDownItem">
+        <member name="T:BBee.Models.DropDownItem">
             <summary>
             下拉项
             </summary>
         </member>
-        <member name="M:VL.Research.Models.DropDownItem.#ctor(System.String,System.String)">
+        <member name="M:BBee.Models.DropDownItem.#ctor(System.String,System.String)">
             <summary>
             下拉项
             </summary>
             <param name="text"></param>
             <param name="value"></param>
         </member>
-        <member name="P:VL.Research.Models.DropDownItem.text">
+        <member name="P:BBee.Models.DropDownItem.text">
             <summary>
             文本
             </summary>
         </member>
-        <member name="P:VL.Research.Models.DropDownItem.value">
+        <member name="P:BBee.Models.DropDownItem.value">
             <summary>
             值
             </summary>
         </member>
-        <member name="T:VL.Research.Models.AllStaticsModel">
+        <member name="T:BBee.Models.AllStaticsModel">
             <summary>
             
             </summary>
         </member>
-        <member name="P:VL.Research.Models.AllStaticsModel.EutociaCount">
+        <member name="P:BBee.Models.AllStaticsModel.EutociaCount">
             <summary>
             顺产人数
             </summary>
         </member>
-        <member name="P:VL.Research.Models.AllStaticsModel.CesareanCount">
+        <member name="P:BBee.Models.AllStaticsModel.CesareanCount">
             <summary>
             剖宫产人数
             </summary>
         </member>
-        <member name="P:VL.Research.Models.AllStaticsModel.OdinopoeiaCount">
+        <member name="P:BBee.Models.AllStaticsModel.OdinopoeiaCount">
             <summary>
             引产人数
             </summary>
         </member>
-        <member name="P:VL.Research.Models.AllStaticsModel.EutociaChangeToCesarean">
+        <member name="P:BBee.Models.AllStaticsModel.EutociaChangeToCesarean">
             <summary>
             顺转剖人数
             </summary>
         </member>
-        <member name="P:VL.Research.Models.AllStaticsModel.CutCount">
+        <member name="P:BBee.Models.AllStaticsModel.CutCount">
             <summary>
             侧切人数
             </summary>
         </member>
-        <member name="P:VL.Research.Models.AllStaticsModel.BreakCount">
+        <member name="P:BBee.Models.AllStaticsModel.BreakCount">
             <summary>
             裂伤人数
             </summary>
         </member>
-        <member name="P:VL.Research.Models.AllStaticsModel.ChildCount">
+        <member name="P:BBee.Models.AllStaticsModel.ChildCount">
             <summary>
             新生儿人数
             </summary>
         </member>
-        <member name="T:VL.Research.Models.GetListConfigModel">
+        <member name="T:BBee.Models.GetListConfigModel">
             <summary>
             页面配置 模型
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel.CustomConfigId">
+        <member name="P:BBee.Models.GetListConfigModel.CustomConfigId">
             <summary>
             个性化配置Id
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel.ListConfig">
+        <member name="P:BBee.Models.GetListConfigModel.ListConfig">
             <summary>
             页面配置
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel.modelId">
+        <member name="P:BBee.Models.GetListConfigModel.modelId">
             <summary>
             模版ID
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel.modelName">
+        <member name="P:BBee.Models.GetListConfigModel.modelName">
             <summary>
             模版名称
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel.saveModelUrl">
+        <member name="P:BBee.Models.GetListConfigModel.saveModelUrl">
             <summary>
             保存模版URL
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel.deleteModelUrl">
+        <member name="P:BBee.Models.GetListConfigModel.deleteModelUrl">
             <summary>
             删除模版URL
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel.search">
+        <member name="P:BBee.Models.GetListConfigModel.search">
             <summary>
             搜索项配置
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel.table">
+        <member name="P:BBee.Models.GetListConfigModel.table">
             <summary>
             列表控件配置
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel.export">
+        <member name="P:BBee.Models.GetListConfigModel.export">
             <summary>
             
             </summary>
         </member>
-        <member name="T:VL.Research.Models.GetListConfigModel_Export">
+        <member name="T:BBee.Models.GetListConfigModel_Export">
             <summary>
             页面配置 模型子项
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_Export.url">
+        <member name="P:BBee.Models.GetListConfigModel_Export.url">
             <summary>
             接口
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_Export.defaultParam">
+        <member name="P:BBee.Models.GetListConfigModel_Export.defaultParam">
             <summary>
             默认参数
             </summary>
         </member>
-        <member name="T:VL.Research.Models.GetListConfigModel_Search">
+        <member name="T:BBee.Models.GetListConfigModel_Search">
             <summary>
             页面配置 模型子项
             </summary>
         </member>
-        <member name="M:VL.Research.Models.GetListConfigModel_Search.#ctor(VL.Research.Common.ListConfigWhere)">
+        <member name="M:BBee.Models.GetListConfigModel_Search.#ctor(BBee.Common.ListConfigWhere)">
             <summary>
             
             </summary>
             <param name="c"></param>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_Search.name">
+        <member name="P:BBee.Models.GetListConfigModel_Search.name">
             <summary>
             字段名称
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_Search.names">
+        <member name="P:BBee.Models.GetListConfigModel_Search.names">
             <summary>
             字段名称
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_Search.text">
+        <member name="P:BBee.Models.GetListConfigModel_Search.text">
             <summary>
             显示文本
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_Search.type">
+        <member name="P:BBee.Models.GetListConfigModel_Search.type">
             <summary>
             类型 1-文本框|2-数字框|3-单选下拉框|4-树状下拉框|5-日期选择框,默认:1
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_Search.value">
+        <member name="P:BBee.Models.GetListConfigModel_Search.value">
             <summary>
             输入项的输入值
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_Search.required">
+        <member name="P:BBee.Models.GetListConfigModel_Search.required">
             <summary>
             是否必填
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_Search.options">
+        <member name="P:BBee.Models.GetListConfigModel_Search.options">
             <summary>
             下拉项的下拉项
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_Search.treeOptions">
+        <member name="P:BBee.Models.GetListConfigModel_Search.treeOptions">
             <summary>
             下拉项的下拉项
             </summary>
         </member>
-        <member name="T:VL.Research.Models.Config_Option">
+        <member name="T:BBee.Models.Config_Option">
             <summary>
             页面配置 模型子项
             </summary>
         </member>
-        <member name="P:VL.Research.Models.Config_Option.name">
+        <member name="P:BBee.Models.Config_Option.name">
             <summary>
             名称
             </summary>
         </member>
-        <member name="P:VL.Research.Models.Config_Option.value">
+        <member name="P:BBee.Models.Config_Option.value">
             <summary>
             值
             </summary>
         </member>
-        <member name="P:VL.Research.Models.Config_Option.checked">
+        <member name="P:BBee.Models.Config_Option.checked">
             <summary>
             是否选中
             </summary>
         </member>
-        <member name="T:VL.Research.Models.TreeConfig_Option">
+        <member name="T:BBee.Models.TreeConfig_Option">
             <summary>
             页面配置 模型子项
             </summary>
         </member>
-        <member name="P:VL.Research.Models.TreeConfig_Option.id">
+        <member name="P:BBee.Models.TreeConfig_Option.id">
             <summary>
             id
             </summary>
         </member>
-        <member name="P:VL.Research.Models.TreeConfig_Option.parentId">
+        <member name="P:BBee.Models.TreeConfig_Option.parentId">
             <summary>
             上级Id
             </summary>
         </member>
-        <member name="P:VL.Research.Models.TreeConfig_Option.title">
+        <member name="P:BBee.Models.TreeConfig_Option.title">
             <summary>
             值
             </summary>
         </member>
-        <member name="P:VL.Research.Models.TreeConfig_Option.spread">
+        <member name="P:BBee.Models.TreeConfig_Option.spread">
             <summary>
             是否展开
             </summary>
         </member>
-        <member name="P:VL.Research.Models.TreeConfig_Option.children">
+        <member name="P:BBee.Models.TreeConfig_Option.children">
             <summary>
             子项
             </summary>
         </member>
-        <member name="T:VL.Research.Models.GetListConfigModel_Search_Options">
+        <member name="T:BBee.Models.GetListConfigModel_Search_Options">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Models.GetListConfigModel_Search_Options.#ctor(System.String)">
-            <summary>
-            
-            </summary>
-            <param name="options"></param>
-        </member>
-        <member name="T:VL.Research.Models.GetListConfigModel_Search_TreeOptions">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:VL.Research.Models.GetListConfigModel_Search_TreeOptions.#ctor(System.String)">
+        <member name="M:BBee.Models.GetListConfigModel_Search_Options.#ctor(System.String)">
             <summary>
             
             </summary>
             <param name="options"></param>
         </member>
-        <member name="T:VL.Research.Models.GetListConfigModel_TableConfg">
+        <member name="T:BBee.Models.GetListConfigModel_Search_TreeOptions">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:BBee.Models.GetListConfigModel_Search_TreeOptions.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="options"></param>
+        </member>
+        <member name="T:BBee.Models.GetListConfigModel_TableConfg">
             <summary>
             页面配置 模型子项
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg.url">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg.url">
             <summary>
             getList接口
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg.add_btn">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg.add_btn">
             <summary>
             新增按钮配置
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg.line_toolbar">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg.line_toolbar">
             <summary>
             新增按钮配置
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg.toolbar_viewModel">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg.toolbar_viewModel">
             <summary>
             列表内容配置
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg.page">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg.page">
             <summary>
             是否分页[true|false][默认:true]
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg.limit">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg.limit">
             <summary>
             每页显示的条数[默认:10]
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg.initSort">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg.initSort">
             <summary>
             列表 排序
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg.cols">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg.cols">
             <summary>
             列表 字段
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg.where">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg.where">
             <summary>
             列表 查询条件初始值
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg.actionBar_position">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg.actionBar_position">
             <summary>
             操作栏位置
             </summary>
         </member>
-        <member name="T:VL.Research.Models.GetListConfigModel_TableConfg_AddButton">
+        <member name="T:BBee.Models.GetListConfigModel_TableConfg_AddButton">
             <summary>
             页面配置 模型子项
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_AddButton.url">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg_AddButton.url">
             <summary>
             接口
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_AddButton.defaultParam">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg_AddButton.defaultParam">
             <summary>
             默认参数
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_AddButton.text">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg_AddButton.text">
             <summary>
             显示文本
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_AddButton.type">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg_AddButton.type">
             <summary>
             window-弹窗|newPage-新页面
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_AddButton.area">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg_AddButton.area">
             <summary>
             窗体大小
             </summary>
         </member>
-        <member name="T:VL.Research.Models.GetListConfigModel_TableConfg_ToolBar">
+        <member name="T:BBee.Models.GetListConfigModel_TableConfg_ToolBar">
             <summary>
             页面配置 模型子项
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_ToolBar.url">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg_ToolBar.url">
             <summary>
             接口
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_ToolBar.params">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg_ToolBar.params">
             <summary>
             用于url的参数
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_ToolBar.defaultParam">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg_ToolBar.defaultParam">
             <summary>
             默认参数
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_ToolBar.text">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg_ToolBar.text">
             <summary>
             显示文本
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_ToolBar.type">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg_ToolBar.type">
             <summary>
             window-弹窗|newPage-新页面|confirm-提示
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_ToolBar.desc">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg_ToolBar.desc">
             <summary>
             提示文本
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_ToolBar.area">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg_ToolBar.area">
             <summary>
             弹窗宽高 { 宽 } or { 宽,高 }
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_ToolBar.yesFun">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg_ToolBar.yesFun">
             <summary>
             弹窗确认调用函数
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_ToolBar.bringParam">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg_ToolBar.bringParam">
             <summary>
             弹窗传递的搜索参数
             </summary>
         </member>
-        <member name="T:VL.Research.Models.GetListConfigModel_TableConfg_ViewModel_Model">
+        <member name="T:BBee.Models.GetListConfigModel_TableConfg_ViewModel_Model">
             <summary>
             页面配置 模型子项
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_ViewModel_Model.text">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg_ViewModel_Model.text">
             <summary>
             显示文本
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_ViewModel_Model.type">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg_ViewModel_Model.type">
             <summary>
             1-文本框|2-文本域|3-下拉框|4-单选框|5-日期选择框
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_ViewModel_Model.param">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg_ViewModel_Model.param">
             <summary>
             字段名称
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_ViewModel_Model.value">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg_ViewModel_Model.value">
             <summary>
             默认值|下拉项内容
             </summary>
         </member>
-        <member name="T:VL.Research.Models.GetListConfigModel_TableConfg_ViewModel">
+        <member name="T:BBee.Models.GetListConfigModel_TableConfg_ViewModel">
             <summary>
             页面配置 模型子项
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_ViewModel.model">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg_ViewModel.model">
             <summary>
             视图字段配置
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_ViewModel.get_url">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg_ViewModel.get_url">
             <summary>
             用于 详情|编辑 时的查询接口
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_ViewModel.params">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg_ViewModel.params">
             <summary>
             用于url的参数
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_ViewModel.save_url">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg_ViewModel.save_url">
             <summary>
             用于 保存|编辑 时的保存接口
             </summary>
         </member>
-        <member name="T:VL.Research.Models.GetListConfigModel_TableConfg_InitSort">
+        <member name="T:BBee.Models.GetListConfigModel_TableConfg_InitSort">
             <summary>
             页面配置 模型子项
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_InitSort.field">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg_InitSort.field">
             <summary>
             需要排序的字段名
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_InitSort.type">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg_InitSort.type">
             <summary>
             排序方式[desc|asc
             </summary>
         </member>
-        <member name="T:VL.Research.Models.GetListConfigModel_TableConfg_Col">
+        <member name="T:BBee.Models.GetListConfigModel_TableConfg_Col">
             <summary>
             页面配置 模型子项
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_Col.field">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg_Col.field">
             <summary>
             "field": "参数名1",
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_Col.title">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg_Col.title">
             <summary>
             "title": "参数中文名",
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_Col.align">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg_Col.align">
             <summary>
             "align": "内容对齐方式[center|right|left][默认:center]",
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_Col.templet">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg_Col.templet">
             <summary>
             "templet": "模版[就是这里写什么,就显示什么]",
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_Col.width">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg_Col.width">
             <summary>
             "width": "单元格宽度[数字|百分比][默认:自动]",
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_Col.type">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg_Col.type">
             <summary>
             "type": "列类型[normal-常规列|radio-单选框列|numbers-序号列][默认:normal]",
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_Col.fixed">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg_Col.fixed">
             <summary>
             "fixed": "固定列[left|true-固定在左|right-固定在右][注意：如果是固定在左，该列必须放在表头最前面；如果是固定在右，该列必须放在表头最后面]",
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_Col.sort">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg_Col.sort">
             <summary>
             "sort": "是否允许排序[true|false][默认:false]",
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_Col.colspan">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg_Col.colspan">
             <summary>
             "colspan": "单元格所占列数[用于多级表头][这种情况下不用设置field和width]",
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_Col.rowspan">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg_Col.rowspan">
             <summary>
             "rowspan": "单元格所占行数[用于多级表头]"
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigModel_TableConfg_Col.colGroup">
+        <member name="P:BBee.Models.GetListConfigModel_TableConfg_Col.colGroup">
             <summary>
             "colGroup": 用于多级表头中的多级叶节点
             </summary>
         </member>
-        <member name="T:VL.Research.Models.VLNameValue">
+        <member name="T:BBee.Models.VLNameValue">
             <summary>
             页面配置 模型子项
             </summary>
         </member>
-        <member name="M:VL.Research.Models.VLNameValue.#ctor">
+        <member name="M:BBee.Models.VLNameValue.#ctor">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Models.VLNameValue.#ctor(System.String,System.String)">
+        <member name="M:BBee.Models.VLNameValue.#ctor(System.String,System.String)">
             <summary>
             
             </summary>
             <param name="name"></param>
             <param name="value"></param>
         </member>
-        <member name="P:VL.Research.Models.VLNameValue.name">
+        <member name="P:BBee.Models.VLNameValue.name">
             <summary>
             字段名
             </summary>
         </member>
-        <member name="P:VL.Research.Models.VLNameValue.value">
+        <member name="P:BBee.Models.VLNameValue.value">
             <summary>
             默认值
             </summary>
         </member>
-        <member name="T:VL.Research.Models.LoginViewModel">
+        <member name="T:BBee.Models.LoginViewModel">
             <summary>
             
             </summary>
         </member>
-        <member name="P:VL.Research.Models.LoginViewModel.UserName">
+        <member name="P:BBee.Models.LoginViewModel.UserName">
             <summary>
             用户名
             </summary>
         </member>
-        <member name="P:VL.Research.Models.LoginViewModel.Password">
+        <member name="P:BBee.Models.LoginViewModel.Password">
             <summary>
             密码
             </summary>
         </member>
-        <member name="P:VL.Research.Models.LoginViewModel.RememberMe">
+        <member name="P:BBee.Models.LoginViewModel.RememberMe">
             <summary>
             记住我
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PagedListOfLabOrderModel.Id">
+        <member name="P:BBee.Models.PagedListOfLabOrderModel.Id">
             <summary>
             标识符
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PagedListOfLabOrderModel.orderid">
+        <member name="P:BBee.Models.PagedListOfLabOrderModel.orderid">
             <summary>
             检查id
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PagedListOfLabOrderModel.examname">
+        <member name="P:BBee.Models.PagedListOfLabOrderModel.examname">
             <summary>
             检查名称
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PagedListOfLabOrderModel.examcode">
+        <member name="P:BBee.Models.PagedListOfLabOrderModel.examcode">
             <summary>
             检查编码
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PagedListOfLabOrderModel.ordertime">
+        <member name="P:BBee.Models.PagedListOfLabOrderModel.ordertime">
             <summary>
             检查时间
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PagedListOfLabOrderModel.orderdocid">
+        <member name="P:BBee.Models.PagedListOfLabOrderModel.orderdocid">
             <summary>
             检查医生Id
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PagedListOfLabOrderModel.orderdocname">
+        <member name="P:BBee.Models.PagedListOfLabOrderModel.orderdocname">
             <summary>
             检查医生名称
             </summary>
         </member>
-        <member name="T:VL.Research.Models.PagedListOfPregnantInfoModel">
+        <member name="T:BBee.Models.PagedListOfPregnantInfoModel">
             <summary>
             
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PagedListOfPregnantInfoModel.id">
+        <member name="P:BBee.Models.PagedListOfPregnantInfoModel.id">
             <summary>
             标识符
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PagedListOfPregnantInfoModel.patientid">
+        <member name="P:BBee.Models.PagedListOfPregnantInfoModel.patientid">
             <summary>
             病人Id
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PagedListOfPregnantInfoModel.idcard">
+        <member name="P:BBee.Models.PagedListOfPregnantInfoModel.idcard">
             <summary>
             身份证号
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PagedListOfPregnantInfoModel.personname">
+        <member name="P:BBee.Models.PagedListOfPregnantInfoModel.personname">
             <summary>
             孕妇姓名
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PagedListOfPregnantInfoModel.sexcode">
+        <member name="P:BBee.Models.PagedListOfPregnantInfoModel.sexcode">
             <summary>
             性别
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PagedListOfPregnantInfoModel.contactphone">
+        <member name="P:BBee.Models.PagedListOfPregnantInfoModel.contactphone">
             <summary>
             联系人电话
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PagedListOfPregnantInfoModel.birthday">
+        <member name="P:BBee.Models.PagedListOfPregnantInfoModel.birthday">
             <summary>
             出生日期
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PagedListOfPregnantInfoModel.gravidity">
+        <member name="P:BBee.Models.PagedListOfPregnantInfoModel.gravidity">
             <summary>
             孕次
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PagedListOfPregnantInfoModel.parity">
+        <member name="P:BBee.Models.PagedListOfPregnantInfoModel.parity">
             <summary>
             产次
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PagedListOfPregnantInfoModel.iscreatebook">
+        <member name="P:BBee.Models.PagedListOfPregnantInfoModel.iscreatebook">
             <summary>
             是否建册
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PagedListOfPregnantInfoModel.GestationalWeeks">
+        <member name="P:BBee.Models.PagedListOfPregnantInfoModel.GestationalWeeks">
             <summary>
             建册孕周
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PagedListOfPregnantInfoModel.lastmenstrualperiod">
+        <member name="P:BBee.Models.PagedListOfPregnantInfoModel.lastmenstrualperiod">
             <summary>
             末次月经
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PagedListOfPregnantInfoModel.dateofprenatal">
+        <member name="P:BBee.Models.PagedListOfPregnantInfoModel.dateofprenatal">
             <summary>
             预产期
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PagedListOfPregnantInfoModel.filestatus">
+        <member name="P:BBee.Models.PagedListOfPregnantInfoModel.filestatus">
             <summary>
             档案状态:(结案标识)
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PagedListOfVisitRecordModel.Id">
+        <member name="P:BBee.Models.PagedListOfVisitRecordModel.Id">
             <summary>
             标识符
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PagedListOfVisitRecordModel.PregnantInfoId">
+        <member name="P:BBee.Models.PagedListOfVisitRecordModel.PregnantInfoId">
             <summary>
             病人编码
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PagedListOfVisitRecordModel.VisitDate">
+        <member name="P:BBee.Models.PagedListOfVisitRecordModel.VisitDate">
             <summary>
             检查时间
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PagedListOfVisitRecordModel.DBP">
+        <member name="P:BBee.Models.PagedListOfVisitRecordModel.DBP">
             <summary>
             舒张压(mmhg)
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PagedListOfVisitRecordModel.SBP">
+        <member name="P:BBee.Models.PagedListOfVisitRecordModel.SBP">
             <summary>
             收缩压(mmhg)
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PagedListOfVisitRecordModel.Weight">
+        <member name="P:BBee.Models.PagedListOfVisitRecordModel.Weight">
             <summary>
             体重(kg)
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PagedListOfVisitRecordModel.HeightFundusuterus">
+        <member name="P:BBee.Models.PagedListOfVisitRecordModel.HeightFundusuterus">
             <summary>
             宫高(cm)
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PagedListOfVisitRecordModel.AbdomenCircumference">
+        <member name="P:BBee.Models.PagedListOfVisitRecordModel.AbdomenCircumference">
             <summary>
             腹围(cm)
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PagedListOfVisitRecordModel.FetalHeartRate">
+        <member name="P:BBee.Models.PagedListOfVisitRecordModel.FetalHeartRate">
             <summary>
             胎心率(次)
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PagedListOfVisitRecordModel.EdemaStatus">
+        <member name="P:BBee.Models.PagedListOfVisitRecordModel.EdemaStatus">
             <summary>
             浮肿
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PregnantInfo.Id">
+        <member name="P:BBee.Models.PregnantInfo.Id">
             <summary>
             标识符
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PregnantInfo.InstitutionCode">
+        <member name="P:BBee.Models.PregnantInfo.InstitutionCode">
             <summary>
             机构编码
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PregnantInfo.CreatorId">
+        <member name="P:BBee.Models.PregnantInfo.CreatorId">
             <summary>
             创建者
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PregnantInfo.PatientId">
+        <member name="P:BBee.Models.PregnantInfo.PatientId">
             <summary>
             病人Id
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PregnantInfo.IdCard">
+        <member name="P:BBee.Models.PregnantInfo.IdCard">
             <summary>
             身份证号
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PregnantInfo.PersonName">
+        <member name="P:BBee.Models.PregnantInfo.PersonName">
             <summary>
             孕妇姓名
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PregnantInfo.SexCode">
+        <member name="P:BBee.Models.PregnantInfo.SexCode">
             <summary>
             性别
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PregnantInfo.ContactPhone">
+        <member name="P:BBee.Models.PregnantInfo.ContactPhone">
             <summary>
             联系人电话
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PregnantInfo.Birthday">
+        <member name="P:BBee.Models.PregnantInfo.Birthday">
             <summary>
             出生日期
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PregnantInfo.Gravidity">
+        <member name="P:BBee.Models.PregnantInfo.Gravidity">
             <summary>
             孕次
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PregnantInfo.Parity">
+        <member name="P:BBee.Models.PregnantInfo.Parity">
             <summary>
             产次
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PregnantInfo.IsCreateBook">
+        <member name="P:BBee.Models.PregnantInfo.IsCreateBook">
             <summary>
             是否建册
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PregnantInfo.GestationalWeeks">
+        <member name="P:BBee.Models.PregnantInfo.GestationalWeeks">
             <summary>
             建册孕周
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PregnantInfo.LastMenstrualPeriod">
+        <member name="P:BBee.Models.PregnantInfo.LastMenstrualPeriod">
             <summary>
             末次月经
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PregnantInfo.DateOfPrenatal">
+        <member name="P:BBee.Models.PregnantInfo.DateOfPrenatal">
             <summary>
             预产期
             </summary>
         </member>
-        <member name="P:VL.Research.Models.PregnantInfo.FileStatus">
+        <member name="P:BBee.Models.PregnantInfo.FileStatus">
             <summary>
             档案状态:(结案标识)
             </summary>
         </member>
-        <member name="T:VL.Research.Models.Enums.DeliveryStatus">
+        <member name="T:BBee.Models.Enums.DeliveryStatus">
             <summary>
             分娩状态
             </summary>
         </member>
-        <member name="F:VL.Research.Models.Enums.DeliveryStatus.None">
+        <member name="F:BBee.Models.Enums.DeliveryStatus.None">
             <summary>
             
             </summary>
         </member>
-        <member name="F:VL.Research.Models.Enums.DeliveryStatus.Undone">
+        <member name="F:BBee.Models.Enums.DeliveryStatus.Undone">
             <summary>
             未分娩
             </summary>
         </member>
-        <member name="F:VL.Research.Models.Enums.DeliveryStatus.Done">
+        <member name="F:BBee.Models.Enums.DeliveryStatus.Done">
             <summary>
             已分娩
             </summary>
         </member>
-        <member name="T:VL.Research.Models.Enums.SettleStatus">
+        <member name="T:BBee.Models.Enums.SettleStatus">
             <summary>
             结案 状态
             </summary>
         </member>
-        <member name="F:VL.Research.Models.Enums.SettleStatus.None">
+        <member name="F:BBee.Models.Enums.SettleStatus.None">
             <summary>
             
             </summary>
         </member>
-        <member name="F:VL.Research.Models.Enums.SettleStatus.Undone">
+        <member name="F:BBee.Models.Enums.SettleStatus.Undone">
             <summary>
             未结案
             </summary>
         </member>
-        <member name="F:VL.Research.Models.Enums.SettleStatus.Done">
+        <member name="F:BBee.Models.Enums.SettleStatus.Done">
             <summary>
             已结案
             </summary>
         </member>
-        <member name="T:VL.Research.Models.Enums.Sex">
+        <member name="T:BBee.Models.Enums.Sex">
             <summary>
             性别
             </summary>
         </member>
-        <member name="F:VL.Research.Models.Enums.Sex.None">
+        <member name="F:BBee.Models.Enums.Sex.None">
             <summary>
             
             </summary>
         </member>
-        <member name="F:VL.Research.Models.Enums.Sex.Man">
+        <member name="F:BBee.Models.Enums.Sex.Man">
             <summary>
             男性
             </summary>
         </member>
-        <member name="F:VL.Research.Models.Enums.Sex.Woman">
+        <member name="F:BBee.Models.Enums.Sex.Woman">
             <summary>
             女性
             </summary>
         </member>
-        <member name="T:VL.Research.Models.GetCommonSelectRequest">
+        <member name="T:BBee.Models.GetCommonSelectRequest">
             <summary>
             统一查询入参结构
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetCommonSelectRequest.page">
+        <member name="P:BBee.Models.GetCommonSelectRequest.page">
             <summary>
             
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetCommonSelectRequest.limit">
+        <member name="P:BBee.Models.GetCommonSelectRequest.limit">
             <summary>
             
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetCommonSelectRequest.field">
+        <member name="P:BBee.Models.GetCommonSelectRequest.field">
             <summary>
             
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetCommonSelectRequest.order">
+        <member name="P:BBee.Models.GetCommonSelectRequest.order">
             <summary>
             
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetCommonSelectRequest.search">
+        <member name="P:BBee.Models.GetCommonSelectRequest.search">
             <summary>
             
             </summary>
         </member>
-        <member name="T:VL.Research.Models.GetListConfigRequest">
+        <member name="T:BBee.Models.GetListConfigRequest">
             <summary>
             请求参数实体
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigRequest.ViewName">
+        <member name="P:BBee.Models.GetListConfigRequest.ViewName">
             <summary>
             列表名称
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigRequest.CustomConfigId">
+        <member name="P:BBee.Models.GetListConfigRequest.CustomConfigId">
             <summary>
             自定义配置Id
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigRequest.DefaultParams">
+        <member name="P:BBee.Models.GetListConfigRequest.DefaultParams">
             <summary>
             默认参数
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetListConfigRequest.HiddenParams">
+        <member name="P:BBee.Models.GetListConfigRequest.HiddenParams">
             <summary>
             默认参数
             </summary>
         </member>
-        <member name="T:VL.Research.Models.GetPagedListOfLabOrderRequest">
+        <member name="T:BBee.Models.GetPagedListOfLabOrderRequest">
             <summary>
             
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetPagedListOfLabOrderRequest.PregnantInfoId">
+        <member name="P:BBee.Models.GetPagedListOfLabOrderRequest.PregnantInfoId">
             <summary>
             病人档案Id
             </summary>
         </member>
-        <member name="P:VL.Research.Models.CommonSelectRequest.PersonName">
+        <member name="P:BBee.Models.CommonSelectRequest.PersonName">
             <summary>
             孕妇姓名
             </summary>
         </member>
-        <member name="P:VL.Research.Models.CommonSelectRequest.FieldNames">
+        <member name="P:BBee.Models.CommonSelectRequest.FieldNames">
             <summary>
             待查询的字段
             </summary>
         </member>
-        <member name="P:VL.Research.Models.CommonSelectRequest.Params">
+        <member name="P:BBee.Models.CommonSelectRequest.Params">
             <summary>
             参数项集合
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetPagedListOfPregnantInfoRequest.PersonName">
+        <member name="P:BBee.Models.GetPagedListOfPregnantInfoRequest.PersonName">
             <summary>
             孕妇姓名
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetPagedListOfPregnantInfoRequest.FieldNames">
+        <member name="P:BBee.Models.GetPagedListOfPregnantInfoRequest.FieldNames">
             <summary>
             
             </summary>
         </member>
-        <member name="T:VL.Research.Models.GetPagedListOfVisitRecordRequest">
+        <member name="T:BBee.Models.GetPagedListOfVisitRecordRequest">
             <summary>
             
             </summary>
         </member>
-        <member name="P:VL.Research.Models.GetPagedListOfVisitRecordRequest.PregnantInfoId">
+        <member name="P:BBee.Models.GetPagedListOfVisitRecordRequest.PregnantInfoId">
             <summary>
             病人档案Id
             </summary>
         </member>
-        <member name="T:VL.Research.Controllers.APIBaseController">
+        <member name="T:BBee.Controllers.APIBaseController">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.APIBaseController.Success``1(``0)">
+        <member name="M:BBee.Controllers.APIBaseController.Success``1(``0)">
             <summary>
             
             </summary>
@@ -1950,12 +1950,12 @@
             <param name="data"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.APIBaseController.Success``1(``0,System.String[])">
+        <member name="M:BBee.Controllers.APIBaseController.Success``1(``0,System.String[])">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.APIBaseController.Success``2(``0,``1,System.String[])">
+        <member name="M:BBee.Controllers.APIBaseController.Success``2(``0,``1,System.String[])">
             <summary>
             
             </summary>
@@ -1966,43 +1966,43 @@
             <param name="messages"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.APIBaseController.Error``1(``0,System.Collections.Generic.IList{System.String})">
+        <member name="M:BBee.Controllers.APIBaseController.Error``1(``0,System.Collections.Generic.IList{System.String})">
             <summary>
             
             </summary>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.APIBaseController.Error``2(``0,``1,System.String[])">
+        <member name="M:BBee.Controllers.APIBaseController.Error``2(``0,``1,System.String[])">
             <summary>
             
             </summary>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.APIBaseController.Error``1(``0,System.Int32,System.Collections.Generic.IList{System.String})">
+        <member name="M:BBee.Controllers.APIBaseController.Error``1(``0,System.Int32,System.Collections.Generic.IList{System.String})">
             <summary>
             
             </summary>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.APIBaseController.Error``1(System.String[])">
+        <member name="M:BBee.Controllers.APIBaseController.Error``1(System.String[])">
             <summary>
             
             </summary>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.APIBaseController.Error``1(``0,System.String[])">
+        <member name="M:BBee.Controllers.APIBaseController.Error``1(``0,System.String[])">
             <summary>
             
             </summary>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.APIBaseController.Error``1(``0,System.Int32,System.String[])">
+        <member name="M:BBee.Controllers.APIBaseController.Error``1(``0,System.Int32,System.String[])">
             <summary>
             
             </summary>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.BaseController.Download(System.String,System.String)">
+        <member name="M:BBee.Controllers.BaseController.Download(System.String,System.String)">
             <summary>
             
             </summary>
@@ -2010,118 +2010,118 @@
             <param name="fileName"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.HomeController.Options(Microsoft.Extensions.Options.IOptions{VL.Research.Common.Configuration.DBConfig})">
+        <member name="M:BBee.Controllers.HomeController.Options(Microsoft.Extensions.Options.IOptions{BBee.Common.Configuration.DBConfig})">
             <summary>
             测试业务层调用注册的配置
             </summary>
             <param name="options"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.HomeController.Login(System.String)">
+        <member name="M:BBee.Controllers.HomeController.Login(System.String)">
             <summary>
             
             </summary>
             <param name="returnUrl"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.HomeController.Logout(VL.Research.Common.APIContext,VL.Research.Services.UserService)">
+        <member name="M:BBee.Controllers.HomeController.Logout(BBee.Common.APIContext,BBee.Services.UserService)">
             <summary>
             登出
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.HomeController.Login(VL.Research.Common.APIContext,VL.Research.Services.UserService,VL.Research.Models.LoginViewModel,System.String)">
+        <member name="M:BBee.Controllers.HomeController.Login(BBee.Common.APIContext,BBee.Services.UserService,BBee.Models.LoginViewModel,System.String)">
             <summary>
             登录
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.HomeController.CommonListByViewName(VL.Research.Common.APIContext,System.String,System.String,System.String)">
+        <member name="M:BBee.Controllers.HomeController.CommonListByViewName(BBee.Common.APIContext,System.String,System.String,System.String)">
             <summary>
             
             </summary>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.HomeController.CommonListByDirectoryName(VL.Research.Common.APIContext,System.String,System.String,System.String)">
+        <member name="M:BBee.Controllers.HomeController.CommonListByDirectoryName(BBee.Common.APIContext,System.String,System.String,System.String)">
             <summary>
             
             </summary>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.HomeController.UserList">
+        <member name="M:BBee.Controllers.HomeController.UserList">
             <summary>
             
             </summary>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.HomeController.RoleList">
+        <member name="M:BBee.Controllers.HomeController.RoleList">
             <summary>
             
             </summary>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.HomeController.CreateRole">
+        <member name="M:BBee.Controllers.HomeController.CreateRole">
             <summary>
             
             </summary>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.HomeController.EditRole">
+        <member name="M:BBee.Controllers.HomeController.EditRole">
             <summary>
             
             </summary>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.HomeController.EditRoleAuthorities">
+        <member name="M:BBee.Controllers.HomeController.EditRoleAuthorities">
             <summary>
             编辑角色权限
             </summary>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.HomeController.EditUserRoles">
+        <member name="M:BBee.Controllers.HomeController.EditUserRoles">
             <summary>
             编辑用户角色
             </summary>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.HomeController.PregnantInfoList">
+        <member name="M:BBee.Controllers.HomeController.PregnantInfoList">
             <summary>
             
             </summary>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.HomeController.VisitRecordList">
+        <member name="M:BBee.Controllers.HomeController.VisitRecordList">
             <summary>
             
             </summary>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.HomeController.LabOrderList">
+        <member name="M:BBee.Controllers.HomeController.LabOrderList">
             <summary>
             
             </summary>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.HomeController.PregnantInfo(System.Int64)">
-            <summary>
-            
-            </summary>
-            <param name="pregnantInfoId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Research.Controllers.HomeController.LabOrderDetail(System.Int64)">
+        <member name="M:BBee.Controllers.HomeController.PregnantInfo(System.Int64)">
             <summary>
             
             </summary>
             <param name="pregnantInfoId"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.HomeController.GetConfigurablePagedListOfPregnantInfoExcel(VL.Research.Services.PregnantService,System.String)">
+        <member name="M:BBee.Controllers.HomeController.LabOrderDetail(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="pregnantInfoId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BBee.Controllers.HomeController.GetConfigurablePagedListOfPregnantInfoExcel(BBee.Services.PregnantService,System.String)">
             <summary>
             
             </summary>
             <param name="name"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.HomeController.CommonExport(VL.Research.Services.SharedService,System.String)">
+        <member name="M:BBee.Controllers.HomeController.CommonExport(BBee.Services.SharedService,System.String)">
             <summary>
             通用导出方案
             </summary>
@@ -2129,7 +2129,7 @@
             <param name="exportName"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.HomeController.CommonExportInlineForFYPT(VL.Research.Services.SharedService,System.String,System.String)">
+        <member name="M:BBee.Controllers.HomeController.CommonExportInlineForFYPT(BBee.Services.SharedService,System.String,System.String)">
             <summary>
             通用导出方案
             </summary>
@@ -2138,22 +2138,22 @@
             <param name="exportName"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.HomeController.CommonExportAll(VL.Research.Common.APIContext,System.String)">
+        <member name="M:BBee.Controllers.HomeController.CommonExportAll(BBee.Common.APIContext,System.String)">
             <summary>
             获取 通用分页列表
             </summary>
         </member>
-        <member name="T:VL.Research.Controllers.PregnantController">
+        <member name="T:BBee.Controllers.PregnantController">
             <summary>
             控制器 孕妇信息
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.PregnantController.#ctor">
+        <member name="M:BBee.Controllers.PregnantController.#ctor">
             <summary>
             控制器 孕妇信息
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.PregnantController.GetPagedListOfPregnantInfo(VL.Research.Services.PregnantService,System.Int32,System.Int32,System.String)">
+        <member name="M:BBee.Controllers.PregnantController.GetPagedListOfPregnantInfo(BBee.Services.PregnantService,System.Int32,System.Int32,System.String)">
             <summary>
             获取 孕妇档案列表
             </summary>
@@ -2163,7 +2163,7 @@
             <param name="name">参数(姓名)</param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.PregnantController.GetConfigurablePagedListOfPregnantInfo(VL.Research.Services.PregnantService,System.Int32,System.Int32,System.String,System.String,System.String)">
+        <member name="M:BBee.Controllers.PregnantController.GetConfigurablePagedListOfPregnantInfo(BBee.Services.PregnantService,System.Int32,System.Int32,System.String,System.String,System.String)">
             <summary>
             获取 自定义配置的孕妇档案列表
             </summary>
@@ -2175,7 +2175,7 @@
             <param name="order">参数(排序顺序:asc|desc)</param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.PregnantController.GetPregnantInfo(VL.Research.Services.PregnantService,System.Int64)">
+        <member name="M:BBee.Controllers.PregnantController.GetPregnantInfo(BBee.Services.PregnantService,System.Int64)">
             <summary>
             获取 孕妇档案详情
             </summary>
@@ -2183,7 +2183,7 @@
             <param name="pregnantInfoId">孕妇档案Id</param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.PregnantController.GetPagedListOfVisitRecord(VL.Research.Services.PregnantService,System.Int32,System.Int32,System.Int64)">
+        <member name="M:BBee.Controllers.PregnantController.GetPagedListOfVisitRecord(BBee.Services.PregnantService,System.Int32,System.Int32,System.Int64)">
             <summary>
             获取 产检列表
             </summary>
@@ -2193,7 +2193,7 @@
             <param name="pregnantInfoId">参数(孕妇档案Id)</param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.PregnantController.GetPagedListOfLabOrder(VL.Research.Services.PregnantService,System.Int32,System.Int32,System.Int64)">
+        <member name="M:BBee.Controllers.PregnantController.GetPagedListOfLabOrder(BBee.Services.PregnantService,System.Int32,System.Int32,System.Int64)">
             <summary>
             获取 检查列表
             </summary>
@@ -2203,7 +2203,7 @@
             <param name="pregnantInfoId">参数(孕妇档案Id)</param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.PregnantController.GetAllStatics">
+        <member name="M:BBee.Controllers.PregnantController.GetAllStatics">
             <summary>
             获取 全统计汇总
             顺产人数
@@ -2216,17 +2216,17 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="T:VL.Research.Controllers.SystemController">
+        <member name="T:BBee.Controllers.SystemController">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.SystemController.#ctor">
+        <member name="M:BBee.Controllers.SystemController.#ctor">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.SystemController.GetDropDowns(System.String,System.Boolean)">
+        <member name="M:BBee.Controllers.SystemController.GetDropDowns(System.String,System.Boolean)">
             <summary>
             获取 下拉项        
             </summary>
@@ -2234,27 +2234,27 @@
             <param name="isForceChange">是否强制获取最新</param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.SystemController.GetMenuConfig">
+        <member name="M:BBee.Controllers.SystemController.GetMenuConfig">
             <summary>
             
             </summary>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.SystemController.GetListMenu(VL.Research.Services.UserService)">
+        <member name="M:BBee.Controllers.SystemController.GetListMenu(BBee.Services.UserService)">
             <summary>
             获取 菜单栏(当前用户)
             </summary>
             <param name="userService"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.SystemController.GetListMenu_LayUI(VL.Research.Services.UserService)">
+        <member name="M:BBee.Controllers.SystemController.GetListMenu_LayUI(BBee.Services.UserService)">
             <summary>
             获取 菜单栏(当前用户)
             </summary>
             <param name="userService"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.SystemController.SaveListConfig(VL.Research.Services.UserService,VL.Research.Models.SaveListConfigRequest)">
+        <member name="M:BBee.Controllers.SystemController.SaveListConfig(BBee.Services.UserService,BBee.Models.SaveListConfigRequest)">
             <summary>
             保存 列表配置
             </summary>
@@ -2262,163 +2262,163 @@
             <param name="request">请求参数实体</param>
             <returns></returns>
         </member>
-        <member name="T:VL.Research.Controllers.SystemController.GetDetailConfigRequest">
+        <member name="T:BBee.Controllers.SystemController.GetDetailConfigRequest">
             <summary>
             请求参数实体
             </summary>
         </member>
-        <member name="P:VL.Research.Controllers.SystemController.GetDetailConfigRequest.ViewName">
+        <member name="P:BBee.Controllers.SystemController.GetDetailConfigRequest.ViewName">
             <summary>
             列表名称
             </summary>
         </member>
-        <member name="P:VL.Research.Controllers.SystemController.GetDetailConfigRequest.CustomConfigId">
+        <member name="P:BBee.Controllers.SystemController.GetDetailConfigRequest.CustomConfigId">
             <summary>
             自定义配置Id
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.SystemController.GetDetailConfig(VL.Research.Common.APIContext,VL.Research.Services.UserService,System.String)">
+        <member name="M:BBee.Controllers.SystemController.GetDetailConfig(BBee.Common.APIContext,BBee.Services.UserService,System.String)">
             <summary>
             获取 列表配置
             </summary>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.SystemController.CommonExportAll(VL.Research.Common.APIContext,VL.Research.Services.SharedService,VL.Research.Models.GetCommonSelectRequest)">
+        <member name="M:BBee.Controllers.SystemController.CommonExportAll(BBee.Common.APIContext,BBee.Services.SharedService,BBee.Models.GetCommonSelectRequest)">
             <summary>
             通用导出
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.SystemController.GetListConfigByDirectoryName(VL.Research.Common.APIContext,VL.Research.Services.UserService,VL.Research.Models.GetListConfigRequest)">
+        <member name="M:BBee.Controllers.SystemController.GetListConfigByDirectoryName(BBee.Common.APIContext,BBee.Services.UserService,BBee.Models.GetListConfigRequest)">
             <summary>
             获取 列表配置
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.SystemController.GetListConfigByViewName(VL.Research.Common.APIContext,VL.Research.Services.UserService,VL.Research.Models.GetListConfigRequest)">
+        <member name="M:BBee.Controllers.SystemController.GetListConfigByViewName(BBee.Common.APIContext,BBee.Services.UserService,BBee.Models.GetListConfigRequest)">
             <summary>
             获取 列表配置
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.SystemController.GetNameValue(System.String)">
+        <member name="M:BBee.Controllers.SystemController.GetNameValue(System.String)">
             <summary>
             A_111|B_222
             </summary>
             <param name="defaultParams"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.SystemController.GetCommonSelectByViewName(VL.Research.Services.SharedService,VL.Research.Models.GetCommonSelectRequest)">
+        <member name="M:BBee.Controllers.SystemController.GetCommonSelectByViewName(BBee.Services.SharedService,BBee.Models.GetCommonSelectRequest)">
             <summary>
             获取 通用分页列表
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.SystemController.GetCommonSelectByDirectoryName(VL.Research.Services.SharedService,VL.Research.Models.GetCommonSelectRequest)">
+        <member name="M:BBee.Controllers.SystemController.GetCommonSelectByDirectoryName(BBee.Services.SharedService,BBee.Models.GetCommonSelectRequest)">
             <summary>
             获取 通用查询 分页列表
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.SystemController.Log4Net">
+        <member name="M:BBee.Controllers.SystemController.Log4Net">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.SystemController.GlobalException">
+        <member name="M:BBee.Controllers.SystemController.GlobalException">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.SystemController.GetPrematureBabyManagement(VL.Consolo_Core.Common.RedisSolution.RedisCache,VL.Research.Services.SharedService,VL.Research.Models.GetCommonSelectRequest)">
+        <member name="M:BBee.Controllers.SystemController.GetPrematureBabyManagement(VL.Consolo_Core.Common.RedisSolution.RedisCache,BBee.Services.SharedService,BBee.Models.GetCommonSelectRequest)">
             <summary>
             专案处理
             </summary>
         </member>
-        <member name="T:VL.Research.Controllers.SignInStatus">
+        <member name="T:BBee.Controllers.SignInStatus">
             <summary>
             登录状态枚举
             </summary>
         </member>
-        <member name="F:VL.Research.Controllers.SignInStatus.Success">
+        <member name="F:BBee.Controllers.SignInStatus.Success">
             <summary>
             
             </summary>
         </member>
-        <member name="F:VL.Research.Controllers.SignInStatus.LockedOut">
+        <member name="F:BBee.Controllers.SignInStatus.LockedOut">
             <summary>
             
             </summary>
         </member>
-        <member name="F:VL.Research.Controllers.SignInStatus.RequiresVerification">
+        <member name="F:BBee.Controllers.SignInStatus.RequiresVerification">
             <summary>
             
             </summary>
         </member>
-        <member name="F:VL.Research.Controllers.SignInStatus.Failure">
+        <member name="F:BBee.Controllers.SignInStatus.Failure">
             <summary>
             
             </summary>
         </member>
-        <member name="T:VL.Research.Controllers.UserController">
+        <member name="T:BBee.Controllers.UserController">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.UserController.#ctor">
+        <member name="M:BBee.Controllers.UserController.#ctor">
             <summary>
             账户
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.UserController.CreateRole(VL.Research.Services.UserService,VL.Research.Controllers.UserController.CreateRoleRequest)">
+        <member name="M:BBee.Controllers.UserController.CreateRole(BBee.Services.UserService,BBee.Controllers.UserController.CreateRoleRequest)">
             <summary>
             
             </summary>
             <param name="userService"></param>s
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.UserController.GetRole(VL.Research.Services.UserService,System.Int64)">
+        <member name="M:BBee.Controllers.UserController.GetRole(BBee.Services.UserService,System.Int64)">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.UserController.EditRole(VL.Research.Services.UserService,VL.Research.Controllers.UserController.EditRoleRequest)">
+        <member name="M:BBee.Controllers.UserController.EditRole(BBee.Services.UserService,BBee.Controllers.UserController.EditRoleRequest)">
             <summary>
             
             </summary>
             <returns></returns>
         </member>
-        <member name="T:VL.Research.Controllers.UserController.CheckableTreeResponse">
+        <member name="T:BBee.Controllers.UserController.CheckableTreeResponse">
             <summary>
             可选树形列表
             </summary>
         </member>
-        <member name="P:VL.Research.Controllers.UserController.CheckableTreeResponse.id">
+        <member name="P:BBee.Controllers.UserController.CheckableTreeResponse.id">
             <summary>
             
             </summary>
         </member>
-        <member name="P:VL.Research.Controllers.UserController.CheckableTreeResponse.name">
+        <member name="P:BBee.Controllers.UserController.CheckableTreeResponse.name">
             <summary>
             
             </summary>
         </member>
-        <member name="P:VL.Research.Controllers.UserController.CheckableTreeResponse.open">
+        <member name="P:BBee.Controllers.UserController.CheckableTreeResponse.open">
             <summary>
             
             </summary>
         </member>
-        <member name="P:VL.Research.Controllers.UserController.CheckableTreeResponse.pId">
+        <member name="P:BBee.Controllers.UserController.CheckableTreeResponse.pId">
             <summary>
             
             </summary>
         </member>
-        <member name="P:VL.Research.Controllers.UserController.CheckableTreeResponse.checked">
+        <member name="P:BBee.Controllers.UserController.CheckableTreeResponse.checked">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.UserController.GetUserRoles(VL.Research.Services.UserService,System.Int64)">
+        <member name="M:BBee.Controllers.UserController.GetUserRoles(BBee.Services.UserService,System.Int64)">
             <summary>
             获取 用户的角色
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.UserController.EditUserRoles(VL.Research.Services.UserService,VL.Research.Controllers.UserController.EditUserRoleRequest)">
+        <member name="M:BBee.Controllers.UserController.EditUserRoles(BBee.Services.UserService,BBee.Controllers.UserController.EditUserRoleRequest)">
             <summary>
             编辑 用户角色
             </summary>
@@ -2426,188 +2426,188 @@
             <param name="data"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Controllers.UserController.GetRoleAuthorities(VL.Research.Services.UserService,System.Int64)">
+        <member name="M:BBee.Controllers.UserController.GetRoleAuthorities(BBee.Services.UserService,System.Int64)">
             <summary>
             获取 角色权限`
             </summary>
         </member>
-        <member name="M:VL.Research.Controllers.UserController.EditRoleAuthority(VL.Research.Services.UserService,VL.Research.Controllers.UserController.EditRoleAuthorityRequest)">
+        <member name="M:BBee.Controllers.UserController.EditRoleAuthority(BBee.Services.UserService,BBee.Controllers.UserController.EditRoleAuthorityRequest)">
             <summary>
             编辑 角色权限
             </summary>
         </member>
-        <member name="T:VL.Research.Program">
+        <member name="T:BBee.Program">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Program.Main(System.String[])">
+        <member name="M:BBee.Program.Main(System.String[])">
             <summary>
             程序启动入口
             </summary>
             <param name="args"></param>
         </member>
-        <member name="M:VL.Research.Program.CreateHostBuilder(System.String[])">
+        <member name="M:BBee.Program.CreateHostBuilder(System.String[])">
             <summary>
             Host启动配置
             </summary>
             <param name="args"></param>
             <returns></returns>
         </member>
-        <member name="T:VL.Research.APIContraints">
+        <member name="T:BBee.APIContraints">
             <summary>
             静态量,常量
             </summary>
         </member>
-        <member name="P:VL.Research.APIContraints.DHFConfig">
+        <member name="P:BBee.APIContraints.DHFConfig">
             <summary>
             大黄蜂相关配置
             </summary>
         </member>
-        <member name="P:VL.Research.APIContraints.DBConfig">
+        <member name="P:BBee.APIContraints.DBConfig">
             <summary>
             数据库配置
             </summary>
         </member>
-        <member name="M:VL.Research.Repositories.PregnantInfoRepository.GetPregnantInfoById(System.Int64)">
+        <member name="M:BBee.Repositories.PregnantInfoRepository.GetPregnantInfoById(System.Int64)">
             <summary>
             根据 PregnantInfoId 查询 PregnantInfo
             </summary>
             <param name="pregnantInfoId"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Repositories.PregnantInfoRepository.GetPregnantInfoPagedList(VL.Research.Models.GetPagedListOfPregnantInfoRequest)">
+        <member name="M:BBee.Repositories.PregnantInfoRepository.GetPregnantInfoPagedList(BBee.Models.GetPagedListOfPregnantInfoRequest)">
             <summary>
             获取孕妇档案分页列表
             </summary>
             <param name="request"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Repositories.PregnantInfoRepository.GetConfigurablePregnantInfoPagedList(VL.Research.Models.GetPagedListOfPregnantInfoRequest)">
+        <member name="M:BBee.Repositories.PregnantInfoRepository.GetConfigurablePregnantInfoPagedList(BBee.Models.GetPagedListOfPregnantInfoRequest)">
             <summary>
             获取孕妇档案分页列表
             </summary>
             <param name="request"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Repositories.PregnantInfoRepository.GetPregnantInfoPagedListCount(VL.Research.Models.GetPagedListOfPregnantInfoRequest)">
+        <member name="M:BBee.Repositories.PregnantInfoRepository.GetPregnantInfoPagedListCount(BBee.Models.GetPagedListOfPregnantInfoRequest)">
             <summary>
             获取孕妇档案分页计数
             </summary>
             <param name="request"></param>
             <returns></returns>
         </member>
-        <member name="T:VL.Research.Repositories.SharedRepository">
+        <member name="T:BBee.Repositories.SharedRepository">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Repositories.SharedRepository.#ctor(VL.Consolo_Core.Common.DBSolution.DbContext)">
+        <member name="M:BBee.Repositories.SharedRepository.#ctor(VL.Consolo_Core.Common.DBSolution.DbContext)">
             <summary>
             
             </summary>
             <param name="context"></param>
         </member>
-        <member name="M:VL.Research.Repositories.SharedRepository.GetCommonSelectCount(VL.Research.Common.SQLConfig)">
+        <member name="M:BBee.Repositories.SharedRepository.GetCommonSelectCount(BBee.Common.SQLConfig)">
             <summary>
             
             </summary>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Repositories.SharedRepository.GetCommonSelect(VL.Consolo_Core.Common.ExcelExportSolution.SQLConfigSource,System.Int32,System.Int32)">
+        <member name="M:BBee.Repositories.SharedRepository.GetCommonSelect(VL.Consolo_Core.Common.ExcelExportSolution.SQLConfigSource,System.Int32,System.Int32)">
             <summary>
             
             </summary>
             <returns></returns>
         </member>
-        <member name="T:VL.Research.Services.PregnantService">
+        <member name="T:BBee.Services.PregnantService">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Services.PregnantService.#ctor(VL.Research.Common.APIContext)">
+        <member name="M:BBee.Services.PregnantService.#ctor(BBee.Common.APIContext)">
             <summary>
             
             </summary>
             <param name="dbContext"></param>
         </member>
-        <member name="M:VL.Research.Services.PregnantService.GetPagedListOfPregnantInfo(VL.Research.Models.GetPagedListOfPregnantInfoRequest)">
+        <member name="M:BBee.Services.PregnantService.GetPagedListOfPregnantInfo(BBee.Models.GetPagedListOfPregnantInfoRequest)">
             <summary>
             孕妇档案列表
             </summary>
             <param name="request">请求参数实体</param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Services.PregnantService.GetConfigurablePagedListOfPregnantInfo(VL.Research.Models.GetPagedListOfPregnantInfoRequest)">
+        <member name="M:BBee.Services.PregnantService.GetConfigurablePagedListOfPregnantInfo(BBee.Models.GetPagedListOfPregnantInfoRequest)">
             <summary>
             孕妇档案列表
             </summary>
             <param name="request">请求参数实体</param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Services.PregnantService.GetPregnantInfoByPregnantInfoId(System.Int64)">
+        <member name="M:BBee.Services.PregnantService.GetPregnantInfoByPregnantInfoId(System.Int64)">
             <summary>
             孕妇档案详情
             </summary>
             <param name="pregnantInfoId">孕妇档案Id</param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Services.PregnantService.GetPagedListOfVisitRecord(VL.Research.Models.GetPagedListOfVisitRecordRequest)">
+        <member name="M:BBee.Services.PregnantService.GetPagedListOfVisitRecord(BBee.Models.GetPagedListOfVisitRecordRequest)">
             <summary>
             产检列表
             </summary>
             <param name="request">请求参数实体</param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Services.PregnantService.GetPagedListOfLabOrder(VL.Research.Models.GetPagedListOfLabOrderRequest)">
+        <member name="M:BBee.Services.PregnantService.GetPagedListOfLabOrder(BBee.Models.GetPagedListOfLabOrderRequest)">
             <summary>
             检查单列表
             </summary>
             <param name="request">请求参数实体</param>
             <returns></returns>
         </member>
-        <member name="T:VL.Research.Services.SharedService">
+        <member name="T:BBee.Services.SharedService">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Services.SharedService.#ctor(VL.Research.Common.APIContext)">
+        <member name="M:BBee.Services.SharedService.#ctor(BBee.Common.APIContext)">
             <summary>
             
             </summary>
             <param name="dbContext"></param>
         </member>
-        <member name="M:VL.Research.Services.SharedService.GetCommonSelectBySQLConfig(VL.Research.Common.SQLConfig)">
+        <member name="M:BBee.Services.SharedService.GetCommonSelectBySQLConfig(BBee.Common.SQLConfig)">
             <summary>
             通用查询模型
             </summary>
         </member>
-        <member name="M:VL.Research.Services.SharedService.GetCommonSelectByExportConfig(VL.Consolo_Core.Common.ExcelExportSolution.SQLConfigSource,VL.Research.Common.DBSourceType)">
+        <member name="M:BBee.Services.SharedService.GetCommonSelectByExportConfig(VL.Consolo_Core.Common.ExcelExportSolution.SQLConfigSource,System.String)">
             <summary>
             获取通用的导出数据
             </summary>
             <param name="sourceConfig"></param>
-            <param name="source"></param>
+            <param name="dbSourceType"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Services.SharedService.UpdateIndicatorsForPrematureBabyManagement(VL.Research.Common.DBSourceType)">
+        <member name="M:BBee.Services.SharedService.UpdateIndicatorsForPrematureBabyManagement(BBee.Common.DBSourceType)">
             <summary>
             早产儿管理情况统计报 指标更新
             </summary>
             <param name="source"></param>
             <returns></returns>
         </member>
-        <member name="T:VL.Research.Services.UserService">
+        <member name="T:BBee.Services.UserService">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Services.UserService.#ctor(VL.Research.Common.APIContext,Microsoft.AspNetCore.Authentication.IAuthenticationSchemeProvider,Microsoft.AspNetCore.Authentication.IAuthenticationHandlerProvider,Microsoft.AspNetCore.Authentication.IClaimsTransformation)">
+        <member name="M:BBee.Services.UserService.#ctor(BBee.Common.APIContext,Microsoft.AspNetCore.Authentication.IAuthenticationSchemeProvider,Microsoft.AspNetCore.Authentication.IAuthenticationHandlerProvider,Microsoft.AspNetCore.Authentication.IClaimsTransformation)">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Services.UserService.Register(System.String,System.String)">
+        <member name="M:BBee.Services.UserService.Register(System.String,System.String)">
             <summary>
             用户注册
             </summary>
@@ -2615,17 +2615,17 @@
             <param name="password"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Services.UserService.Logout(VL.Research.Common.APIContext)">
+        <member name="M:BBee.Services.UserService.Logout(BBee.Common.APIContext)">
             <summary>
             登出
             </summary>
         </member>
-        <member name="M:VL.Research.Services.UserService.PasswordSignIn(VL.Research.Common.APIContext,System.String,System.String,System.Boolean)">
+        <member name="M:BBee.Services.UserService.PasswordSignIn(BBee.Common.APIContext,System.String,System.String,System.Boolean)">
             <summary>
             密码登录
             </summary>
         </member>
-        <member name="M:VL.Research.Services.UserService.EditRoleAuthorities(System.Int64,System.Collections.Generic.List{System.Int64})">
+        <member name="M:BBee.Services.UserService.EditRoleAuthorities(System.Int64,System.Collections.Generic.List{System.Int64})">
             <summary>
             角色权限编辑
             </summary>
@@ -2633,7 +2633,7 @@
             <param name="authorityIds"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Services.UserService.EditUserRoles(System.Int64,System.Collections.Generic.IEnumerable{System.Int64})">
+        <member name="M:BBee.Services.UserService.EditUserRoles(System.Int64,System.Collections.Generic.IEnumerable{System.Int64})">
             <summary>
             用户角色编辑
             </summary>
@@ -2641,14 +2641,14 @@
             <param name="roleIds"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Services.UserService.GetRole(System.Int64)">
+        <member name="M:BBee.Services.UserService.GetRole(System.Int64)">
             <summary>
             
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Services.UserService.EditRole(System.Int64,System.String)">
+        <member name="M:BBee.Services.UserService.EditRole(System.Int64,System.String)">
             <summary>
             
             </summary>
@@ -2656,17 +2656,17 @@
             <param name="roleName"></param>
             <returns></returns>
         </member>
-        <member name="F:VL.Research.Services.UserService.AuthCookieName">
+        <member name="F:BBee.Services.UserService.AuthCookieName">
             <summary>
             
             </summary>
         </member>
-        <member name="F:VL.Research.Services.UserService.SchemeName">
+        <member name="F:BBee.Services.UserService.SchemeName">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Services.UserService.AuthenticateAsync(Microsoft.AspNetCore.Http.HttpContext,System.String)">
+        <member name="M:BBee.Services.UserService.AuthenticateAsync(Microsoft.AspNetCore.Http.HttpContext,System.String)">
             <summary>
             
             </summary>
@@ -2674,16 +2674,7 @@
             <param name="scheme"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Services.UserService.ChallengeAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
-            <summary>
-            
-            </summary>
-            <param name="context"></param>
-            <param name="scheme"></param>
-            <param name="properties"></param>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Research.Services.UserService.ForbidAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+        <member name="M:BBee.Services.UserService.ChallengeAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
             <summary>
             
             </summary>
@@ -2692,7 +2683,16 @@
             <param name="properties"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Services.UserService.SignInAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,System.Security.Claims.ClaimsPrincipal,Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+        <member name="M:BBee.Services.UserService.ForbidAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+            <param name="scheme"></param>
+            <param name="properties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BBee.Services.UserService.SignInAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,System.Security.Claims.ClaimsPrincipal,Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
             <summary>
             
             </summary>
@@ -2702,7 +2702,7 @@
             <param name="properties"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Research.Services.UserService.SignOutAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+        <member name="M:BBee.Services.UserService.SignOutAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
             <summary>
             
             </summary>
@@ -2711,29 +2711,29 @@
             <param name="properties"></param>
             <returns></returns>
         </member>
-        <member name="T:VL.Research.Startup">
+        <member name="T:BBee.Startup">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:BBee.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
             <summary>
             
             </summary>
             <param name="configuration"></param>
         </member>
-        <member name="P:VL.Research.Startup.Configuration">
+        <member name="P:BBee.Startup.Configuration">
             <summary>
             
             </summary>
         </member>
-        <member name="M:VL.Research.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+        <member name="M:BBee.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
             This method gets called by the runtime. Use this method to add services to the container.
             </summary>
             <param name="services"></param>
         </member>
-        <member name="M:VL.Research.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+        <member name="M:BBee.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
             <summary>
             This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
             </summary>

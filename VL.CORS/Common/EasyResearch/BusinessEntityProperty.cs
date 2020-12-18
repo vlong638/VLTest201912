@@ -1,4 +1,5 @@
-﻿using System.Xml.Linq;
+﻿using Autobots.Infrastracture.Common.ValuesSolution;
+using System.Xml.Linq;
 
 namespace ResearchAPI.Common
 {
@@ -11,18 +12,13 @@ namespace ResearchAPI.Common
         }
         public BusinessEntityProperty(XElement element)
         {
+            Id = element.Attribute(nameof(Id)).Value.ToLong().Value;
             DisplayName = element.Attribute(nameof(DisplayName))?.Value;
             From = element.Attribute(nameof(From))?.Value;
             ColumnName = element.Attribute(nameof(ColumnName))?.Value;
         }
 
-        public BusinessEntityProperty(string displayName, string from, string columnName)
-        {
-            DisplayName = displayName;
-            From = from;
-            ColumnName = columnName;
-        }
-
+        public long Id { set; get; }
         public string DisplayName { set; get; }
         public string From { set; get; }
         public string ColumnName { set; get; }

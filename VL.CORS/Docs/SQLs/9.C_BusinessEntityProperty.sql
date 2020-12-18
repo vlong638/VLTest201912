@@ -1,23 +1,24 @@
-﻿IF OBJECT_ID(N'User', N'U') IS  NOT  NULL 
-DROP TABLE [User];
+﻿IF OBJECT_ID(N'BusinessEntityProperty', N'U') IS  NOT  NULL 
+DROP TABLE [BusinessEntityProperty];
 
 SET QUOTED_IDENTIFIER ON
 GO
 
 -- 新增时间 设置默认值
-CREATE TABLE [dbo].[User](
+CREATE TABLE [dbo].[BusinessEntityProperty](
 	[Id][bigint] IDENTITY(1, 2) NOT NULL,
+	[BusinessEntityId][bigint] NOT NULL,
 	-------------------------------------------上关联
 	[db_createtime] [datetime] DEFAULT CURRENT_TIMESTAMP,
 	[db_updatetime] [datetime] NULL,
 	-------------------------------------------下管控
-	IsDeleted char(1) default 0,
+	[TableName] nvarchar(20) NULL,
+	[ColumnName] nvarchar(20) NULL,
 	-------------------------------------------下内容
-	[Name] nvarchar(20) NULL,
-	[Password] nvarchar(32) NULL,
-	[NickName] nvarchar(20) NULL,
+	[DisplayName] nvarchar(20) NULL,
 	-------------------------------------------
-	CONSTRAINT[PK_User] PRIMARY KEY CLUSTERED 
+
+	CONSTRAINT[PK_BusinessEntityProperty] PRIMARY KEY CLUSTERED 
 	(
 		[Id] ASC
 	)WITH(PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON) ON[PRIMARY]
@@ -25,15 +26,15 @@ CREATE TABLE [dbo].[User](
 GO
 
 -- 更新时间 采用触发器
-CREATE TRIGGER [dbo].[trigger_User_db_updatetime]
-ON[dbo].[User]
+CREATE TRIGGER [dbo].[trigger_BusinessEntityProperty_db_updatetime]
+ON[dbo].[BusinessEntityProperty]
 FOR UPDATE
 AS
 BEGIN
-  update [User] set db_updatetime = CURRENT_TIMESTAMP
+  update [BusinessEntityProperty] set db_updatetime = CURRENT_TIMESTAMP
 	where id in (select id from inserted)
 END
 GO
 
 -- 校验
-select * from [User];
+select * from [BusinessEntityProperty];

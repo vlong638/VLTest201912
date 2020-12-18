@@ -9,8 +9,11 @@
     <DocumentationFile>D:\WorkSpace\Repository\VLTest201912\BBee\BBee.xml</DocumentationFile>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>D:\WorkSpace\Repository\VLTest201912\VL.Research\BBee.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
-    <None Remove="BBee.xml" />
     <None Remove="XMLConfig\CustomConfig.xml" />
     <None Remove="XMLConfig\DetailConfig.xml" />
     <None Remove="XMLConfig\FYPT_PregnantInfo.rar" />
@@ -119,6 +122,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="BBee.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="XMLConfig\ChildHeathArea-去性能瓶颈\ExportConfig_列表.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -9,6 +9,7 @@ select * from [user];
 
 --Role
 truncate table [role]
+insert into role (name) values('项目创建人')
 insert into role (name) values('项目管理员')
 insert into role (name) values('项目成员')
 select * from  [role];
@@ -32,7 +33,7 @@ select * from [RoleAuthority];
 
 --Project
 truncate table [Project]
-insert into Project(Name,ViewAuthorizeType,CreatorId) values('测试项目01',1,(select id from [user] where name = 'admin'))
+insert into Project(Name,ViewAuthorizeType,CreatorId,DepartmentId) values('测试项目01',1,(select id from [user] where name = 'admin'),1)
 select * from [Project];
 
 --FavoriteProject

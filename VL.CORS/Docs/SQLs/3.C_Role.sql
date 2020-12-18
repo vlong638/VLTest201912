@@ -9,6 +9,7 @@ CREATE TABLE [dbo].[Role](
 	[Id][bigint] IDENTITY(1, 2) NOT NULL,
 	[db_createtime] [datetime] DEFAULT CURRENT_TIMESTAMP,
 	[db_updatetime] [datetime] NULL,
+	-------------------------------------------
 	[Name] nvarchar(20) NULL,
 	CONSTRAINT[PK_Role] PRIMARY KEY CLUSTERED 
 	(

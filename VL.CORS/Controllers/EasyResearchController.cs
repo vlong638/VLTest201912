@@ -137,6 +137,10 @@ namespace ResearchAPI.Controllers
             List<VLKeyValue<string, long>> values = new List<VLKeyValue<string, long>>();
             switch (type)
             {
+                case "BusinessType":
+                    values.AddRange(DomainConstraits.GetBusinessTypes(() => LoadByXMLConfig())
+                        .Select(c => new VLKeyValue<string, long>(c.Name, c.Id)));
+                    return Success(values);
                 case "Member":
                     var result = service.GetAllUsersIdAndName();
                     foreach (var user in result.Data)
@@ -150,10 +154,45 @@ namespace ResearchAPI.Controllers
             }
         }
 
+        [HttpPost]
+        [AllowAnonymous]
+        [EnableCors("AllCors")]
+        public APIResult<List<VLKeyValue<string, long>>> GetDropdownsWithParent([FromServices] ReportTaskService service, string type,long parentId)
+        {
+            List<VLKeyValue<string, long>> values = new List<VLKeyValue<string, long>>();
+            switch (type)
+            {
+                case "BusinessEntity":
+                    values.AddRange(DomainConstraits.GetBusinessEntities(() => LoadByXMLConfig())
+                        .Select(c => new VLKeyValue<string, long>(c.Name, c.Id)));
+                    return Success(values);
+                case "BusinessEntityProperty":
+                    values.AddRange(DomainConstraits.GetBusinessEntityProperties(() => LoadByXMLConfig())
+                        .Select(c => new VLKeyValue<string, long>(c.Name, c.Id)));
+                    return Success(values);
+                default:
+                    throw new NotImplementedException("未支持该类型");
+            }
+        }
+        private static List<BusinessEntities> LoadByXMLConfig()
+        {
+            var businessEntitiesCollection = new List<BusinessEntities>();
+            var directory = @"Configs/XMLConfigs/BusinessEntities";
+            var files = Directory.GetFiles(directory);
+            var bsfiles = files.Select(c => Path.GetFileName(c)).Where(c => c.StartsWith("BusinessEntities"));
+            foreach (var bsfile in bsfiles)
+            {
+                var businessEntities = ConfigHelper.GetBusinessEntities(directory, bsfile);
+                businessEntitiesCollection.Add(businessEntities);
+            }
+            return businessEntitiesCollection;
+        }
+
+
         private List<VLKeyValue<string, T>> LoadKeyValueFile<T>(string type)
         {
             List<VLKeyValue<string, T>> values = new List<VLKeyValue<string, T>>();
-            var file = (Path.Combine(AppContext.BaseDirectory, "JsonConfigs", type + ".json"));
+            var file = (Path.Combine(AppContext.BaseDirectory, "Configs/JsonConfigs", type + ".json"));
             if (!System.IO.File.Exists(file))
             {
                 values.Add(new VLKeyValue<string, T>("请联系管理员配置", default(T)));

@@ -28,19 +28,31 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="configs\config.json">
+    <Content Update="Configs\config.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Configs\XMLConfigs\BusinessEntities\BusinessEntities_分娩.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Configs\XMLConfigs\BusinessEntities\BusinessEntities_产科.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Configs\XMLConfigs\BusinessEntities\Routers.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Configs\XMLConfigs\BusinessEntities\Template_孕周检验.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Docs\SQLs\1.C_User.sql">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Update="ResearchAPI.CORS.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="XMLConfig\ProjectList\SQLConfig.xml">
+    <None Update="Configs\XMLConfigs\ProjectList\SQLConfig.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

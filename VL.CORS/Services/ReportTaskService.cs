@@ -88,6 +88,56 @@ namespace ResearchAPI.Services
             return (Dictionary<T, string>)_ViewAuthorizeTypes;
         }
 
+        static List<BOBusinessType> BusinessTypes { set; get; }
+        static List<BOBusinessEntity> BusinessEntities { set; get; }
+        static List<BOBusinessEntityProperty> BusinessEntityProperties { set; get; }
+
+        internal static List<BOBusinessType> GetBusinessTypes(Func<List<BusinessEntities>> source)
+        {
+            if (BusinessTypes == null)
+            {
+                LoadBy(source());
+            }
+            return BusinessTypes;
+        }
+
+        internal static List<BOBusinessEntity> GetBusinessEntities(Func<List<BusinessEntities>> source)
+        {
+            if (BusinessEntities == null)
+            {
+                LoadBy(source());
+            }
+            return BusinessEntities;
+        }
+
+        internal static List<BOBusinessEntityProperty> GetBusinessEntityProperties(Func<List<BusinessEntities>> source)
+        {
+            if (BusinessEntityProperties == null)
+            {
+                LoadBy(source());
+            }
+            return BusinessEntityProperties;
+        }
+
+        private static void LoadBy(List<BusinessEntities> BusinessEntitiesCollection)
+        {
+            BusinessTypes = new List<BOBusinessType>();
+            BusinessEntities = new List<BOBusinessEntity>();
+            BusinessEntityProperties = new List<BOBusinessEntityProperty>();
+            foreach (var businessEntities in BusinessEntitiesCollection)
+            {
+                BusinessTypes.Add(new BOBusinessType(businessEntities.Id, businessEntities.BusinessType));
+                foreach (var businessEntity in businessEntities)
+                {
+                    BusinessEntities.Add(new BOBusinessEntity(businessEntity.Id, businessEntity.DisplayName, businessEntities.Id));
+                    foreach (var property in businessEntity.Properties)
+                    {
+                        BusinessEntityProperties.Add(new BOBusinessEntityProperty(property.Id, property.DisplayName, businessEntity.Id));
+                    }
+                }
+            }
+        }
+
         internal static string RenderIdsToText<T>(T id, KVType kvType, Func<Dictionary<T, string>> source)
         {
             List<T> ids = new List<T>() { id };
