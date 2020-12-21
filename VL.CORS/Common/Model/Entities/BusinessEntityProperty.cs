@@ -16,7 +16,7 @@
         /// </summary>
         public string ColumnName { set; get; }
         /// <summary>
-        /// 显示用名称
+        /// 字段中文名称
         /// </summary>
         public string DisplayName { set; get; }
     }

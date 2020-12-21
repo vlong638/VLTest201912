@@ -2,12 +2,14 @@
 using Autobots.Infrastracture.Common.RepositorySolution;
 using Dapper;
 using ResearchAPI.CORS.Common;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace ResearchAPI.CORS.Repositories
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class ProjectIndicatorRepository : Repository<ProjectIndicator>
     {
         public ProjectIndicatorRepository(DbContext context) : base(context)
@@ -46,6 +48,12 @@ namespace ResearchAPI.CORS.Repositories
         {
             return _connection.Execute("delete from [ProjectIndicator] where ProjectId = @projectId and BusinessEntityId = @businessEntityId"
                 , new { projectId, businessEntityId }, transaction: _transaction);
+        }
+
+        internal List<GetProjectIndicatorModel> GetByProjectId(long projectId)
+        {
+            return _connection.Query<GetProjectIndicatorModel>("select * from [ProjectIndicator] where ProjectId = @ProjectId"
+                , new { projectId }, transaction: _transaction).ToList();
         }
     }
 }

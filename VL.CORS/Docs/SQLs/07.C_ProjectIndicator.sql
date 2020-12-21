@@ -15,6 +15,7 @@ CREATE TABLE [dbo].[ProjectIndicator](
 	[SourceName] nvarchar(20) NULL,
 	[ColumnName] nvarchar(20) NULL,
 	[DisplayName] nvarchar(20) NULL,
+	[ColumnNickName] nvarchar(20) NULL,
 	-------------------------------------------
 
 	CONSTRAINT[PK_ProjectIndicator] PRIMARY KEY CLUSTERED 

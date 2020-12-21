@@ -12,9 +12,9 @@ CREATE TABLE [dbo].[BusinessEntityProperty](
 	[db_createtime] [datetime] DEFAULT CURRENT_TIMESTAMP,
 	[db_updatetime] [datetime] NULL,
 	-------------------------------------------下管控
+	-------------------------------------------下内容
 	[TableName] nvarchar(20) NULL,
 	[ColumnName] nvarchar(20) NULL,
-	-------------------------------------------下内容
 	[DisplayName] nvarchar(20) NULL,
 	-------------------------------------------
 

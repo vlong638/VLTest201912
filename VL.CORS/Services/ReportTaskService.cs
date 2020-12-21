@@ -78,6 +78,36 @@ namespace ResearchAPI.Services
             return (Dictionary<T, string>)_Departments;
         }
 
+        private static object _BusinessTypes;
+        public static Dictionary<T, string> GetBusinessTypes<T>(Func<Dictionary<T, string>> source)
+        {
+            if (_BusinessTypes == null)
+            {
+                _BusinessTypes = source();
+            }
+            return (Dictionary<T, string>)_BusinessTypes;
+        }
+
+        private static Dictionary<long, string> _BusinessEntityDic;
+        public static Dictionary<long, string> GetBusinessEntityDic(Func<List<COBusinessEntities>> source)
+        {
+            if (_BusinessEntityDic == null)
+            {
+                LoadBy(source());
+            }
+            return (Dictionary<long, string>)_BusinessEntityDic;
+        }
+
+        private static Dictionary<long, string> _BusinessEntityPropertyDic;
+        public static Dictionary<long, string> GetBusinessEntityPropertyDic(Func<List<COBusinessEntities>> source)
+        {
+            if (_BusinessEntityPropertyDic == null)
+            {
+                LoadBy(source());
+            }
+            return (Dictionary<long, string>)_BusinessEntityPropertyDic;
+        }
+
         private static object _ViewAuthorizeTypes;
         public static Dictionary<T, string> GetViewAuthorizeTypes<T>(Func<Dictionary<T, string>> source)
         {
@@ -143,21 +173,42 @@ namespace ResearchAPI.Services
                     }
                 }
             }
+            _BusinessEntityDic = new Dictionary<long, string>();
+            foreach (var item in BusinessEntities.Select(c => new VLKeyValue<long,string>(c.Id, c.Name)))
+            {
+                _BusinessEntityDic.Add(item.Key, item.Value);
+            }
+            _BusinessEntityDic = new Dictionary<long, string>();
+            foreach (var item in BusinessEntities.Select(c => new VLKeyValue<long, string>(c.Id, c.Name)))
+            {
+                _BusinessEntityDic.Add(item.Key, item.Value);
+            }
         }
 
-        internal static string RenderIdsToText<T>(T id, KVType kvType, Func<Dictionary<T, string>> source)
+        internal static string RenderIdsToText<T>(T id, Func<Dictionary<T, string>> source)
         {
             List<T> ids = new List<T>() { id };
-            var values = RenderIdsToText(ids, kvType, source);
+            var values = RenderIdsToText(ids, source);
             return values.First();
         }
-        internal static List<string> RenderIdsToText<T>(List<T> ids, KVType kvType, Func<Dictionary<T, string>> source)
+
+        internal static List<string> RenderIdsToText<T>(List<T> ids,Func<Dictionary<T, string>> source)
+        {
+            var dic = source();
+            var values = ids.Select(c => dic.ContainsKey(c) ? dic[c] : c.ToString()).ToList();
+            return values;
+        }
+
+        public static Dictionary<T, string> GetDictionary<T>(KVType kvType, Func<Dictionary<T, string>> source)
         {
             Dictionary<T, string> dic = null;
             switch (kvType)
             {
                 case KVType.ViewAuthorizeType:
                     dic = GetViewAuthorizeTypes(source);
+                    break;
+                case KVType.BusinessType:
+                    dic = GetBusinessTypes(source);
                     break;
                 case KVType.Department:
                     dic = GetDepartments(source);
@@ -171,17 +222,69 @@ namespace ResearchAPI.Services
                 default:
                     break;
             }
+
+            return dic;
+        }
+
+        internal static string RenderIdsToText<T>(T id, PKVType kvType, Func<Dictionary<T, string>> source)
+        {
+            List<T> ids = new List<T>() { id };
+            var values = RenderIdsToText(ids, kvType, source);
+            return values.First();
+        }
+
+        internal static List<string> RenderIdsToText<T>(List<T> ids, PKVType kvType, Func<Dictionary<T, string>> source)
+        {
+            Dictionary<T, string> dic = null;
+            switch (kvType)
+            {
+                case PKVType.BusinessEntity:
+                    dic = GetViewAuthorizeTypes(source);
+                    break;
+                default:
+                    break;
+            }
             var values = ids.Select(c => dic.ContainsKey(c) ? dic[c] : c.ToString()).ToList();
             return values;
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public enum KVType
     {
+        /// <summary>
+        /// 浏览权限类型
+        /// </summary>
         ViewAuthorizeType,
+        /// <summary>
+        /// 科室
+        /// </summary>
         Department,
+        /// <summary>
+        /// 用户
+        /// </summary>
         User,
+        /// <summary>
+        /// 角色
+        /// </summary>
         Role,
+        /// <summary>
+        /// 业务对象类型
+        /// </summary>
+        BusinessType,
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public enum PKVType
+    {
+        /// <summary>
+        /// 业务对象
+        /// </summary>
+        BusinessEntity,
     }
 
     /// <summary>
@@ -405,6 +508,13 @@ namespace ResearchAPI.Services
                 return true;
             });
         }
+        internal ServiceResult<List<GetProjectIndicatorModel>> GetProjectIndicators(long projectId)
+        {
+            return ResearchDbContext.DelegateNonTransaction(c =>
+            {
+                return ProjectIndicatorRepository.GetByProjectId(projectId);
+            });
+        }
 
         internal ServiceResult<List<Role>> GetAllRoles()
         {
@@ -444,13 +554,12 @@ namespace ResearchAPI.Services
         internal ServiceResult<bool> AddProjectIndicators(AddIndicatorsRequest request)
         {
             //Data
-            var projectIndicators = request.Properties.Select(c => new ProjectIndicator()
-            {
-                ProjectId = request.ProjectId,
-                BusinessEntityId = request.BusinessEntityId,
-                SourceName = c.SourceName,
-                ColumnName = c.ColumnName,
-                DisplayName = c.DisplayName,
+            var projectIndicators = request.Properties.Select(c => {
+                var projectIndicator = new ProjectIndicator();
+                c.MapTo(projectIndicator);
+                projectIndicator.ProjectId = request.ProjectId;
+                projectIndicator.BusinessEntityId = request.BusinessEntityId;
+                return projectIndicator;
             });
             //Logic
             return ResearchDbContext.DelegateTransaction(c =>

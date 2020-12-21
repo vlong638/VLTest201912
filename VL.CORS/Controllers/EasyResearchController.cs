@@ -161,7 +161,7 @@ namespace ResearchAPI.Controllers
             switch (type)
             {
                 case "BusinessType":
-                    values.AddRange(DomainConstraits.GetBusinessTypes(() => LoadByXMLConfig())
+                    values.AddRange(DomainConstraits.GetBusinessTypes(() => LoadBusinessEntitiesByXMLConfig())
                         .Select(c => new VLKeyValue<string, long>(c.Name, c.Id)));
                     return Success(values);
                 case "Member":
@@ -177,6 +177,13 @@ namespace ResearchAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="service"></param>
+        /// <param name="type"></param>
+        /// <param name="parentId"></param>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
@@ -186,18 +193,20 @@ namespace ResearchAPI.Controllers
             switch (type)
             {
                 case "BusinessEntity":
-                    values.AddRange(DomainConstraits.GetBusinessEntities(() => LoadByXMLConfig())
+                    values.AddRange(DomainConstraits.GetBusinessEntities(() => LoadBusinessEntitiesByXMLConfig())
+                        .Where(c=>c.BusinessTypeId == parentId)
                         .Select(c => new VLKeyValue<string, long>(c.Name, c.Id)));
                     return Success(values);
                 case "BusinessEntityProperty":
-                    values.AddRange(DomainConstraits.GetBusinessEntityProperties(() => LoadByXMLConfig())
+                    values.AddRange(DomainConstraits.GetBusinessEntityProperties(() => LoadBusinessEntitiesByXMLConfig())
+                        .Where(c => c.BusinessEntityId == parentId)
                         .Select(c => new VLKeyValue<string, long>(c.DisplayName, c.Id)));
                     return Success(values);
                 default:
                     throw new NotImplementedException("未支持该类型");
             }
         }
-        private static List<COBusinessEntities> LoadByXMLConfig()
+        private static List<COBusinessEntities> LoadBusinessEntitiesByXMLConfig()
         {
             var businessEntitiesCollection = new List<COBusinessEntities>();
             var directory = @"Configs/XMLConfigs/BusinessEntities";
@@ -210,7 +219,6 @@ namespace ResearchAPI.Controllers
             }
             return businessEntitiesCollection;
         }
-
 
         private List<VLKeyValue<string, T>> LoadKeyValueFile<T>(string type)
         {
@@ -370,7 +378,6 @@ namespace ResearchAPI.Controllers
         /// <summary>
         /// 1.4.1.获取项目概要信息
         /// </summary>
-        /// <param name="projectId"></param>
         /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
@@ -381,14 +388,31 @@ namespace ResearchAPI.Controllers
             if (!serviceResult.IsSuccess)
                 return new APIResult<GetBiefProjectResponse>(null, serviceResult.Code, serviceResult.Message);
             var result = new GetBiefProjectResponse(serviceResult.Data);
-            result.ViewAuthorizeTypeName = DomainConstraits.RenderIdsToText(result.ViewAuthorizeType, KVType.ViewAuthorizeType, () => GetDictionary<int>(KVType.ViewAuthorizeType.ToString()));
+            result.ViewAuthorizeTypeName = DomainConstraits.RenderIdsToText(result.ViewAuthorizeType, () => GetDictionary<int>(KVType.ViewAuthorizeType.ToString()));
             if (result.DepartmentId.HasValue)
-                result.DepartmentName = DomainConstraits.RenderIdsToText(result.DepartmentId.Value, KVType.Department, () => GetDictionary<long>(KVType.Department.ToString()));
-            result.AdminNames = DomainConstraits.RenderIdsToText(result.AdminIds, KVType.User, () => service.GetUsersDictionary());
-            result.CreateName = DomainConstraits.RenderIdsToText(result.CreatorId.Value, KVType.User, () => service.GetUsersDictionary());
-            result.MemberNames = DomainConstraits.RenderIdsToText(result.MemberIds, KVType.User, () => service.GetUsersDictionary());
+                result.DepartmentName = DomainConstraits.RenderIdsToText(result.DepartmentId.Value, () => GetDictionary<long>(KVType.Department.ToString()));
+            result.AdminNames = DomainConstraits.RenderIdsToText(result.AdminIds, () => service.GetUsersDictionary());
+            result.CreateName = DomainConstraits.RenderIdsToText(result.CreatorId.Value, () => service.GetUsersDictionary());
+            result.MemberNames = DomainConstraits.RenderIdsToText(result.MemberIds, () => service.GetUsersDictionary());
             return new APIResult<GetBiefProjectResponse>(result);
         }
+
+        /// <summary>
+        /// 1.4.2.获取指标集合
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [AllowAnonymous]
+        [EnableCors("AllCors")]
+        public APIResult<List<GetProjectIndicatorModel>> GetProjectIndicators([FromServices] ReportTaskService service, long projectId)
+        {
+            var result = service.GetProjectIndicators(projectId);
+            result.Data.ForEach(
+                c => c.BusinessEntityName = DomainConstraits.RenderIdsToText<long>(c.BusinessEntityId, () => DomainConstraits.GetBusinessEntityDic(() => LoadBusinessEntitiesByXMLConfig())
+            ));
+            return new APIResult<List<GetProjectIndicatorModel>>(result);
+        }
+
 
         /// <summary>
         /// 
@@ -457,19 +481,6 @@ namespace ResearchAPI.Controllers
             /// </summary>
             public string Rule { set; get; }
 
-        }
-
-        /// <summary>
-        /// 1.4.2.获取指标集合 
-        /// </summary>
-        /// <param name="projectId"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [AllowAnonymous]
-        [EnableCors("AllCors")]
-        public APIResult<List<GetIndicatorsResponse>> GetIndicators(long projectId)
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>

@@ -13,5 +13,9 @@ namespace ResearchAPI.CORS.Common
         public string SourceName { set; get; }
         public string ColumnName { set; get; }
         public string DisplayName { set; get; }
+        /// <summary>
+        /// 字段别名名称
+        /// </summary>
+        public string ColumnNickName { set; get; }
     }
 }
