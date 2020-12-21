@@ -455,6 +455,7 @@ namespace ResearchAPI.Services
             //Logic
             return ResearchDbContext.DelegateTransaction(c =>
             {
+                ProjectIndicatorRepository.DeleteByEntityId(request.ProjectId, request.BusinessEntityId);
                 var successCount = ProjectIndicatorRepository.InsertBatch(projectIndicators);
                 return successCount == request.Properties.Count();
             });

@@ -19,7 +19,7 @@ namespace ResearchAPI.CORS.Repositories
             return Insert(ProjectIndicator);
         }
 
-        public int InsertBatch(IEnumerable<ProjectIndicator> businessEntityProperties)
+        internal int InsertBatch(IEnumerable<ProjectIndicator> businessEntityProperties)
         {
             int i = 0;
             foreach (var ProjectIndicator in businessEntityProperties)
@@ -40,6 +40,12 @@ namespace ResearchAPI.CORS.Repositories
         {
             return _connection.Execute("delete from [ProjectIndicator] where ProjectId = @ProjectId and UserId = @UserId"
                 , ProjectIndicator, transaction: _transaction);
+        }
+
+        internal int DeleteByEntityId(long projectId, long businessEntityId)
+        {
+            return _connection.Execute("delete from [ProjectIndicator] where ProjectId = @projectId and BusinessEntityId = @businessEntityId"
+                , new { projectId, businessEntityId }, transaction: _transaction);
         }
     }
 }
