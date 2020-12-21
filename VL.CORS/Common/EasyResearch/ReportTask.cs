@@ -18,13 +18,13 @@ namespace ResearchAPI.Common
         public BusinessEntityTemplate(XElement element)
         {
             ConnectionString = element.Attribute(nameof(ConnectionString))?.Value;
-            BusinessEntity = new BusinessEntity(element.Element(BusinessEntity.ElementName));
+            BusinessEntity = new COBusinessEntity(element.Element(COBusinessEntity.ElementName));
             SQLConfig = new SQLConfigV3(element.Descendants(SQLConfigV3.ElementName).First());
             Router = new Router(element.Element(Router.ElementName));
         }
 
         public string ConnectionString { set; get; }
-        public BusinessEntity BusinessEntity { set; get; }
+        public COBusinessEntity BusinessEntity { set; get; }
         public SQLConfigV3 SQLConfig { set; get; }
         public Router Router { set; get; }
     }
@@ -32,7 +32,7 @@ namespace ResearchAPI.Common
     public class BusinessContext
     {
         public static string Root = "PregnantInfo";
-        public static BusinessEntities BusinessEntities { set; get; } = ConfigHelper.GetBusinessEntities("XMLConfigs\\VLTest项目", "BusinessEntities.xml");
+        public static COBusinessEntities BusinessEntities { set; get; } = ConfigHelper.GetBusinessEntities("XMLConfigs\\VLTest项目", "BusinessEntities.xml");
         public static Routers Routers { set; get; } = ConfigHelper.GetRouters("XMLConfigs\\VLTest项目", "Routers.xml");
         public static List<BusinessEntityTemplate> Templates { set; get; } = new List<BusinessEntityTemplate>();
     }
@@ -63,7 +63,7 @@ namespace ResearchAPI.Common
         public long Id { set; get; }
         public long ProjectId { set; get; }
         public string Name { set; get; }
-        public List<BusinessEntityProperty> Properties { get; set; } = new List<BusinessEntityProperty>();
+        public List<COBusinessEntityProperty> Properties { get; set; } = new List<COBusinessEntityProperty>();
 
         public CustomBusinessEntitySet CustomBusinessEntities { set; get; } = new CustomBusinessEntitySet();
         public Routers CustomRouters { set; get; } = new Routers();
@@ -147,7 +147,7 @@ namespace ResearchAPI.Common
             }
         }
 
-        private Dictionary<string, string> GetTableAlias(List<Router> routers, List<BusinessEntityProperty> properties)
+        private Dictionary<string, string> GetTableAlias(List<Router> routers, List<COBusinessEntityProperty> properties)
         {
             var result = new Dictionary<string, string>();
             if (routers.Count == 0)
@@ -190,7 +190,7 @@ namespace ResearchAPI.Common
             }
         }
 
-        private string GetFrom(List<Router> routers, List<BusinessEntityProperty> properties, CustomBusinessEntitySet customBusinessEntities, List<BusinessEntityTemplate> templates)
+        private string GetFrom(List<Router> routers, List<COBusinessEntityProperty> properties, CustomBusinessEntitySet customBusinessEntities, List<BusinessEntityTemplate> templates)
         {
             if (routers.Count == 0)
             {
@@ -213,7 +213,7 @@ namespace ResearchAPI.Common
             }
         }
 
-        private string GetSelect(List<BusinessEntityProperty> properties, Dictionary<string, string> tableAlias)
+        private string GetSelect(List<COBusinessEntityProperty> properties, Dictionary<string, string> tableAlias)
         {
             return "select " + string.Join(",", properties.Select(c => "[" + (tableAlias[c.From] ?? c.From) + "]." + c.ColumnName));
         }

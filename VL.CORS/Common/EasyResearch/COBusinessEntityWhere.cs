@@ -1,6 +1,6 @@
 ﻿namespace ResearchAPI.Common
 {
-    public class BusinessEntityWhere
+    public class COBusinessEntityWhere
     {
         public string ComponentName { set; get; }
         public WhereOperator Operator { set; get; }

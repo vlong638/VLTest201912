@@ -72,7 +72,7 @@ namespace Tester
             Console.WriteLine(pwd);
 
 
-            if (false)
+            if (true)
             {
                 var sources = File.ReadAllLines(@"C:\Users\Administrator\Desktop\杭妇院\1211.铁剂补充源列表.txt");
                 var sourcePersons = new List<VLKeyValue>();

@@ -3,14 +3,14 @@ using System.Xml.Linq;
 
 namespace ResearchAPI.Common
 {
-    public class BusinessEntityProperty
+    public class COBusinessEntityProperty
     {
         public const string ElementName = "Property";
 
-        public BusinessEntityProperty()
+        public COBusinessEntityProperty()
         {
         }
-        public BusinessEntityProperty(XElement element)
+        public COBusinessEntityProperty(XElement element)
         {
             Id = element.Attribute(nameof(Id)).Value.ToLong().Value;
             DisplayName = element.Attribute(nameof(DisplayName))?.Value;

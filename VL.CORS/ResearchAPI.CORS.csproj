@@ -46,7 +46,7 @@
     <None Update="Configs\XMLConfigs\BusinessEntities\Template_孕周检验.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Docs\SQLs\1.C_User.sql">
+    <None Update="Docs\SQLs\01.C_User.sql">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Update="ResearchAPI.CORS.xml">
@@ -55,6 +55,10 @@
     <None Update="Configs\XMLConfigs\ProjectList\SQLConfig.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Common\Model\BOs\" />
   </ItemGroup>
 
 

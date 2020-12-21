@@ -5,24 +5,24 @@ using System.Xml.Linq;
 
 namespace ResearchAPI.Common
 {
-    public class BusinessEntity
+    public class COBusinessEntity
     {
         public const string ElementName = "BusinessEntity";
 
-        public BusinessEntity()
+        public COBusinessEntity()
         {
         }
-        public BusinessEntity(XElement element)
+        public COBusinessEntity(XElement element)
         {
             Id = element.Attribute(nameof(Id)).Value.ToLong().Value;
             DisplayName = element.Attribute(nameof(DisplayName))?.Value;
             Template = element.Attribute(nameof(Template))?.Value;
-            Properties.AddRange(element.Descendants(BusinessEntityProperty.ElementName).Select(c => new BusinessEntityProperty(c)));
+            Properties.AddRange(element.Descendants(COBusinessEntityProperty.ElementName).Select(c => new COBusinessEntityProperty(c)));
         }
 
         public long Id { set; get; }
         public string DisplayName { set; get; }
-        public List<BusinessEntityProperty> Properties { set; get; } = new List<BusinessEntityProperty>();
+        public List<COBusinessEntityProperty> Properties { set; get; } = new List<COBusinessEntityProperty>();
         public string Template { get; set; }
         public SQLConfigV3 SQLConfig { get; internal set; }
     }

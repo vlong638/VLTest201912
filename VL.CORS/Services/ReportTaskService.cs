@@ -88,11 +88,11 @@ namespace ResearchAPI.Services
             return (Dictionary<T, string>)_ViewAuthorizeTypes;
         }
 
-        static List<BOBusinessType> BusinessTypes { set; get; }
-        static List<BOBusinessEntity> BusinessEntities { set; get; }
-        static List<BOBusinessEntityProperty> BusinessEntityProperties { set; get; }
+        static List<BusinessType> BusinessTypes { set; get; }
+        static List<BusinessEntity> BusinessEntities { set; get; }
+        static List<BusinessEntityProperty> BusinessEntityProperties { set; get; }
 
-        internal static List<BOBusinessType> GetBusinessTypes(Func<List<BusinessEntities>> source)
+        internal static List<BusinessType> GetBusinessTypes(Func<List<COBusinessEntities>> source)
         {
             if (BusinessTypes == null)
             {
@@ -101,7 +101,7 @@ namespace ResearchAPI.Services
             return BusinessTypes;
         }
 
-        internal static List<BOBusinessEntity> GetBusinessEntities(Func<List<BusinessEntities>> source)
+        internal static List<BusinessEntity> GetBusinessEntities(Func<List<COBusinessEntities>> source)
         {
             if (BusinessEntities == null)
             {
@@ -110,7 +110,7 @@ namespace ResearchAPI.Services
             return BusinessEntities;
         }
 
-        internal static List<BOBusinessEntityProperty> GetBusinessEntityProperties(Func<List<BusinessEntities>> source)
+        internal static List<BusinessEntityProperty> GetBusinessEntityProperties(Func<List<COBusinessEntities>> source)
         {
             if (BusinessEntityProperties == null)
             {
@@ -119,20 +119,20 @@ namespace ResearchAPI.Services
             return BusinessEntityProperties;
         }
 
-        private static void LoadBy(List<BusinessEntities> BusinessEntitiesCollection)
+        private static void LoadBy(List<COBusinessEntities> BusinessEntitiesCollection)
         {
-            BusinessTypes = new List<BOBusinessType>();
-            BusinessEntities = new List<BOBusinessEntity>();
-            BusinessEntityProperties = new List<BOBusinessEntityProperty>();
+            BusinessTypes = new List<BusinessType>();
+            BusinessEntities = new List<BusinessEntity>();
+            BusinessEntityProperties = new List<BusinessEntityProperty>();
             foreach (var businessEntities in BusinessEntitiesCollection)
             {
-                BusinessTypes.Add(new BOBusinessType(businessEntities.Id, businessEntities.BusinessType));
+                BusinessTypes.Add(new BusinessType(businessEntities.Id, businessEntities.BusinessType));
                 foreach (var businessEntity in businessEntities)
                 {
-                    BusinessEntities.Add(new BOBusinessEntity(businessEntity.Id, businessEntity.DisplayName, businessEntities.Id));
+                    BusinessEntities.Add(new BusinessEntity(businessEntity.Id, businessEntity.DisplayName, businessEntities.Id));
                     foreach (var property in businessEntity.Properties)
                     {
-                        BusinessEntityProperties.Add(new BOBusinessEntityProperty(property.Id, property.DisplayName, businessEntity.Id));
+                        BusinessEntityProperties.Add(new BusinessEntityProperty(property.Id, property.DisplayName, businessEntity.Id));
                     }
                 }
             }

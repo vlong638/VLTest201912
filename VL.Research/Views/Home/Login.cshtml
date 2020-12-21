@@ -121,24 +121,24 @@
     <div id="loginForm">
         @using (Html.BeginForm("Login", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, true, new { @class = "form-horizontal", role = "form" }))
         {
-        @Html.AntiForgeryToken()
-        <div class="Title">用户登录</div>
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <ul class="input_block">
-            <li class="input_line">
-                <img src="/Content/imgs/Login/img_account.png" style="width:22px;height:26px;padding: 0 10 0 10px;">
-                @Html.TextBoxFor(m => m.UserName, new { @class = "input_text", @placeholder = "请输入账号" })
-                @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
-            </li>
-            <li class="input_line" style="margin-top:48px;">
-                <img src="/Content/imgs/Login/img_lock.png" style="width:22px;height:26px;padding: 0 10 0 10px;">
-                @Html.PasswordFor(m => m.Password, new { @class = "input_text", @placeholder = "请输入密码" })
-                @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
-            </li>
-            <li class="input_buttonline" style="margin-top:96px;">
-                <input type="submit" value="登录" class="input_button" />
-            </li>
-        </ul>
+            @Html.AntiForgeryToken()
+            <div class="Title">用户登录</div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <ul class="input_block">
+                <li class="input_line">
+                    <img src="/Content/imgs/Login/img_account.png" style="width:22px;height:26px;padding: 0 10 0 10px;">
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "input_text", @placeholder = "请输入账号" })
+                    @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                </li>
+                <li class="input_line" style="margin-top:48px;">
+                    <img src="/Content/imgs/Login/img_lock.png" style="width:22px;height:26px;padding: 0 10 0 10px;">
+                    @Html.PasswordFor(m => m.Password, new { @class = "input_text", @placeholder = "请输入密码" })
+                    @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                </li>
+                <li class="input_buttonline" style="margin-top:96px;">
+                    <input type="submit" value="登录" class="input_button" />
+                </li>
+            </ul>
         }
     </div>
 </body>
@@ -153,6 +153,7 @@
             request.limit = 5;
             request.search = [];
             request.search.push({ key: "Name", value: "1" });
+            request.search.push({ key: "DepartmentId", value: "2" });
             $.ajax({
                 url: 'http://localhost:61696/api/EasyResearch/GetPagedProjects',
                 type: 'post',
@@ -163,6 +164,55 @@
                 }
             })
 
+
+            var request = {};
+            request.page = 1;
+            request.limit = 5;
+            request.search = [];
+            request.search.push({ key: "Name", value: "2" });
+            request.search.push({ key: "DepartmentId", value: "1" });
+            $.ajax({
+                url: 'http://localhost:61696/api/EasyResearch/GetPagedProjects',
+                type: 'post',
+                dataType: 'json',
+                data: request,
+                success: function (resp) {
+                    console.log(resp.data);
+                }
+            })
+
+            var request = {};
+            request.page = 1;
+            request.limit = 5;
+            request.search = [];
+            request.search.push({ key: "Name", value: "1" });
+            request.search.push({ key: "DepartmentId", value: "1" });
+            request.search.push({ key: "CreateAt", value: "" });
+            $.ajax({
+                url: 'http://localhost:61696/api/EasyResearch/GetPagedProjects',
+                type: 'post',
+                dataType: 'json',
+                data: request,
+                success: function (resp) {
+                    console.log(resp.data);
+                }
+            })
+
+            var request = {};
+            request.page = 1;
+            request.limit = 5;
+            request.search = [];
+            request.search.push({ key: "Name", value: "1" });
+            request.search.push({ key: "DepartmentId", value: "1" });
+            $.ajax({
+                url: 'http://localhost:61696/api/EasyResearch/GetPagedProjects',
+                type: 'post',
+                dataType: 'json',
+                data: request,
+                success: function (resp) {
+                    console.log(resp.data);
+                }
+            })
 
             //var projectId = 1;
             //$.ajax({
@@ -276,3 +326,9 @@
         }
     )
 </script>
+
+
+
+
+
+

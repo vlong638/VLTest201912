@@ -5,7 +5,7 @@ using System.Xml.Linq;
 
 namespace ResearchAPI.Common
 {
-    public class BusinessEntities : List<BusinessEntity>
+    public class COBusinessEntities : List<COBusinessEntity>
     {
 
         /// <summary>
@@ -16,7 +16,7 @@ namespace ResearchAPI.Common
         /// <summary>
         /// 
         /// </summary>
-        public BusinessEntities()
+        public COBusinessEntities()
         {
 
         }
@@ -24,18 +24,18 @@ namespace ResearchAPI.Common
         /// 
         /// </summary>
         /// <param name="element"></param>
-        public BusinessEntities(XElement element)
+        public COBusinessEntities(XElement element)
         {
             Id = element.Attribute(nameof(Id)).Value.ToLong().Value;
             BusinessType = element.Attribute(nameof(BusinessType))?.Value;
-            var businessEntities = element.Elements(BusinessEntity.ElementName);
-            this.AddRange(businessEntities.Select(c => new BusinessEntity(c)));
+            var businessEntities = element.Elements(COBusinessEntity.ElementName);
+            this.AddRange(businessEntities.Select(c => new COBusinessEntity(c)));
         }
 
         public long Id { set; get; }
         public string BusinessType { set; get; }
 
-        public BusinessEntity GetByName(string name)
+        public COBusinessEntity GetByName(string name)
         {
             return this.FirstOrDefault(c => c.DisplayName == name);
         }

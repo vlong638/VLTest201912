@@ -1,8 +1,8 @@
 ﻿namespace ResearchAPI.CORS.Common
 {
-    public class BOBusinessEntity
+    public class BusinessEntity
     {
-        public BOBusinessEntity(long id, string name, long businessTypeId)
+        public BusinessEntity(long id, string name, long businessTypeId)
         {
             Id = id;
             Name = name;

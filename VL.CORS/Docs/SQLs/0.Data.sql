@@ -1,4 +1,6 @@
-﻿--User
+﻿use VLTest
+
+--User
 truncate table [user]
 insert into [user] (name,password) values ('admin','e10adc3949ba59abbe56e057f0f883e')
 insert into [user] (name,password) values ('test01','e10adc3949ba59abbe56e057f0f883e')
@@ -53,7 +55,26 @@ insert into ProjectMember (ProjectId,UserId,RoleId) Values((select id from [Proj
 ,(select id from [user] where name = 'test04'),(select id from [role] where name = '项目成员'))
 select * from ProjectMember
 
+--BusinessType
+truncate table [BusinessType]
+insert into BusinessType (Name) Values('产科')
+insert into BusinessType (Name) Values('妇科')
+insert into BusinessType (Name) Values('儿科')
+select * from BusinessType
 
-select * from  ProjectMember where ProjectId = @ProjectId and RoleId = (select id from [role] where name = @RoleName)
+--BusinessEntity
+truncate table [BusinessEntity]
+insert into BusinessEntity (BusinessTypeId,Name) Values((select id from [BusinessType] where name = '产科'),'孕妇基本信息')
+insert into BusinessEntity (BusinessTypeId,Name) Values((select id from [BusinessType] where name = '产科'),'检查单')
+insert into BusinessEntity (BusinessTypeId,Name) Values((select id from [BusinessType] where name = '产科'),'检验项')
+select * from BusinessEntity
+
+--BusinessEntityProperty
+truncate table [BusinessEntityProperty]
+insert into BusinessEntityProperty (BusinessEntityId,TableName,ColumnName,DisplayName) Values((select id from BusinessEntity where Name = '孕妇基本信息'),'PregnantInfo','PersonName','姓名')
+insert into BusinessEntityProperty (BusinessEntityId,TableName,ColumnName,DisplayName) Values((select id from BusinessEntity where Name = '孕妇基本信息'),'PregnantInfo','Birthday','生日')
+insert into BusinessEntityProperty (BusinessEntityId,TableName,ColumnName,DisplayName) Values((select id from BusinessEntity where Name = '孕妇基本信息'),'PregnantInfo','Sex','性别')
+select * from BusinessEntityProperty
 
 
+			

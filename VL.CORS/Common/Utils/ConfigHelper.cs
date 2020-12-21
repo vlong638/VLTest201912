@@ -9,19 +9,19 @@ namespace ResearchAPI.Common
 {
     public class ConfigHelper
     {
-        public static BusinessEntities GetBusinessEntities(string path)
+        public static COBusinessEntities GetBusinessEntities(string path)
         {
             XDocument doc = XDocument.Load(path);
-            var root = doc.Element(BusinessEntities.ElementName);
-            return new BusinessEntities(root);
+            var root = doc.Element(COBusinessEntities.ElementName);
+            return new COBusinessEntities(root);
         }
 
-        public static BusinessEntities GetBusinessEntities(string directory, string file)
+        public static COBusinessEntities GetBusinessEntities(string directory, string file)
         {
             var path = Path.Combine(AppContext.BaseDirectory, directory, file);
             XDocument doc = XDocument.Load(path);
-            var root = doc.Element(BusinessEntities.ElementName);
-            return new BusinessEntities(root);
+            var root = doc.Element(COBusinessEntities.ElementName);
+            return new COBusinessEntities(root);
         }
 
         public static Routers GetRouters(string directory, string file)

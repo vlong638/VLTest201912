@@ -12,11 +12,35 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using VL.CORS;
 
 namespace ResearchAPI.Controllers
 {
+
+    public static class VLAutoMappler
+    {
+        /// <summary>
+        /// 注意,只自动匹配 '类型'和'名称'一致的属性
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        public static void MapTo(this object from, object to)
+        {
+            PropertyInfo[] fromProperties = from.GetType().GetProperties(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public);
+            PropertyInfo[] toProperties = to.GetType().GetProperties(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public);
+            foreach (var fromProperty in fromProperties)
+            {
+                var matchedProperty = toProperties.FirstOrDefault(c => c.Name == fromProperty.Name);
+                if (matchedProperty.PropertyType == fromProperty.PropertyType)
+                {
+                    matchedProperty.SetValue(to, fromProperty.GetValue(from));
+                }
+            }
+        }
+    }
+
     public class TestContext
     {
         public const long UserId = 1;
@@ -174,9 +198,9 @@ namespace ResearchAPI.Controllers
                     throw new NotImplementedException("未支持该类型");
             }
         }
-        private static List<BusinessEntities> LoadByXMLConfig()
+        private static List<COBusinessEntities> LoadByXMLConfig()
         {
-            var businessEntitiesCollection = new List<BusinessEntities>();
+            var businessEntitiesCollection = new List<COBusinessEntities>();
             var directory = @"Configs/XMLConfigs/BusinessEntities";
             var files = Directory.GetFiles(directory);
             var bsfiles = files.Select(c => Path.GetFileName(c)).Where(c => c.StartsWith("BusinessEntities"));
@@ -374,20 +398,20 @@ namespace ResearchAPI.Controllers
         {
             public GetBiefProjectResponse(GetProjectModel model)
             {
-                //TODO 设计一个AutoMapper
+                model.MapTo(this);
 
-                this.ProjectId = model.ProjectId;
-                this.ProjectName = model.ProjectName;
-                this.AdminIds = model.AdminIds;
-                this.MemberIds = model.MemberIds;
-                this.CreatorId = model.CreatorId;
-                this.DepartmentId = model.DepartmentId;
-                this.ViewAuthorizeType = model.ViewAuthorizeType;
-                this.ProjectDescription = model.ProjectDescription;
-                this.CreatedAt = model.CreatedAt;
-                this.LastModifiedAt = model.LastModifiedAt;
-                this.LastModifiedBy = model.LastModifiedBy;
-                this.IsFavorite = model.IsFavorite;
+                //this.ProjectId = model.ProjectId;
+                //this.ProjectName = model.ProjectName;
+                //this.AdminIds = model.AdminIds;
+                //this.MemberIds = model.MemberIds;
+                //this.CreatorId = model.CreatorId;
+                //this.DepartmentId = model.DepartmentId;
+                //this.ViewAuthorizeType = model.ViewAuthorizeType;
+                //this.ProjectDescription = model.ProjectDescription;
+                //this.CreatedAt = model.CreatedAt;
+                //this.LastModifiedAt = model.LastModifiedAt;
+                //this.LastModifiedBy = model.LastModifiedBy;
+                //this.IsFavorite = model.IsFavorite;
             }
 
             /// <summary>
@@ -609,8 +633,8 @@ namespace ResearchAPI.Controllers
     {
         public long TemplateId { set; get; }
         public string DisplayName { set; get; }
-        public List<BusinessEntityProperty> Properties { set; get; }
-        public List<BusinessEntityWhere> Wheres { set; get; }
+        public List<COBusinessEntityProperty> Properties { set; get; }
+        public List<COBusinessEntityWhere> Wheres { set; get; }
     }
 
     public class EditCustomBusinessEntityRequest
@@ -618,8 +642,8 @@ namespace ResearchAPI.Controllers
         public long CustomBBusinessEntityId { set; get; }
         public long TemplateId { set; get; }
         public string DisplayName { set; get; }
-        public List<BusinessEntityProperty> Properties { set; get; }
-        public List<BusinessEntityWhere> Wheres { set; get; }
+        public List<COBusinessEntityProperty> Properties { set; get; }
+        public List<COBusinessEntityWhere> Wheres { set; get; }
     }
 
     public class ReportTaskStatusResponse
