@@ -132,7 +132,14 @@ namespace ResearchAPI.Services
                     BusinessEntities.Add(new BusinessEntity(businessEntity.Id, businessEntity.DisplayName, businessEntities.Id));
                     foreach (var property in businessEntity.Properties)
                     {
-                        BusinessEntityProperties.Add(new BusinessEntityProperty(property.Id, property.DisplayName, businessEntity.Id));
+                        BusinessEntityProperties.Add(new BusinessEntityProperty()
+                        {
+                            Id = property.Id,
+                            TableName = property.From,
+                            ColumnName = property.ColumnName,
+                            DisplayName = property.DisplayName,
+                            BusinessEntityId = businessEntity.Id,
+                        });
                     }
                 }
             }
@@ -185,9 +192,11 @@ namespace ResearchAPI.Services
         APIContext APIContext { get; set; }
         DbContext ResearchDbContext { set; get; }
 
+        BusinessEntityPropertyRepository BusinessEntityPropertyRepository { set; get; }
         FavoriteProjectRepository FavoriteProjectRepository { set; get; }
         ProjectRepository ProjectRepository { set; get; }
         ProjectMemberRepository ProjectMemberRepository { set; get; }
+        ProjectIndicatorRepository ProjectIndicatorRepository { set; get; }
         RoleRepository RoleRepository { set; get; }
         SharedRepository SharedRepository { set; get; }
         UserRepository UserRepository { set; get; }
@@ -202,9 +211,11 @@ namespace ResearchAPI.Services
             ResearchDbContext = APIContext.GetDBContext(APIContraints.ResearchDbContext);
 
             //repositories
+            BusinessEntityPropertyRepository = new BusinessEntityPropertyRepository(ResearchDbContext);
             FavoriteProjectRepository = new FavoriteProjectRepository(ResearchDbContext);
             ProjectRepository = new ProjectRepository(ResearchDbContext);
             ProjectMemberRepository = new ProjectMemberRepository(ResearchDbContext);
+            ProjectIndicatorRepository = new ProjectIndicatorRepository(ResearchDbContext);
             RoleRepository = new RoleRepository(ResearchDbContext);
             SharedRepository = new SharedRepository(ResearchDbContext);
             UserRepository = new UserRepository(ResearchDbContext);
@@ -427,6 +438,25 @@ namespace ResearchAPI.Services
                 if (exist == null)
                     throw new NotImplementedException("收藏不存在");
                 return FavoriteProjectRepository.DeleteOne(favoriteProject) > 0;
+            });
+        }
+
+        internal ServiceResult<bool> AddProjectIndicators(AddIndicatorsRequest request)
+        {
+            //Data
+            var projectIndicators = request.Properties.Select(c => new ProjectIndicator()
+            {
+                ProjectId = request.ProjectId,
+                BusinessEntityId = request.BusinessEntityId,
+                SourceName = c.SourceName,
+                ColumnName = c.ColumnName,
+                DisplayName = c.DisplayName,
+            });
+            //Logic
+            return ResearchDbContext.DelegateTransaction(c =>
+            {
+                var successCount = ProjectIndicatorRepository.InsertBatch(projectIndicators);
+                return successCount == request.Properties.Count();
             });
         }
     }

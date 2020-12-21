@@ -12,6 +12,7 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <Optimize>false</Optimize>
+    <DocumentationFile>D:\WorkSpace\Repository\VLTest201912\VL.CORS\ResearchAPI.CORS.xml</DocumentationFile>
   </PropertyGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>

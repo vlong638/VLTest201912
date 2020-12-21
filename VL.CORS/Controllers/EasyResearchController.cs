@@ -14,7 +14,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using VL.CORS;
 
 namespace ResearchAPI.Controllers
 {
@@ -192,7 +191,7 @@ namespace ResearchAPI.Controllers
                     return Success(values);
                 case "BusinessEntityProperty":
                     values.AddRange(DomainConstraits.GetBusinessEntityProperties(() => LoadByXMLConfig())
-                        .Select(c => new VLKeyValue<string, long>(c.Name, c.Id)));
+                        .Select(c => new VLKeyValue<string, long>(c.DisplayName, c.Id)));
                     return Success(values);
                 default:
                     throw new NotImplementedException("未支持该类型");
@@ -263,7 +262,7 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<VLPagerResult<List<Dictionary<string, object>>>> GetPagedProjects([FromServices] ReportTaskService service, GetCommonSelectRequest request)
+        public APIResult<VLPagerResult<List<Dictionary<string, object>>>> GetPagedProjects([FromServices] ReportTaskService service, [FromBody] GetCommonSelectRequest request)
         {
             var result = service.GetPagedResultBySQLConfig(request);
             return new APIResult<VLPagerResult<List<Dictionary<string, object>>>>(result);
@@ -471,6 +470,19 @@ namespace ResearchAPI.Controllers
         public APIResult<List<GetIndicatorsResponse>> GetIndicators(long projectId)
         {
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 1.4.13.保存指标
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [AllowAnonymous]
+        [EnableCors("AllCors")]
+        public APIResult<bool> AddProjectIndicators([FromServices] ReportTaskService service, [FromBody] AddIndicatorsRequest request)
+        {
+            var serviceResult = service.AddProjectIndicators(request);
+            return new APIResult<bool>(serviceResult);
         }
 
         #endregion

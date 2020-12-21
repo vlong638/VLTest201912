@@ -2,15 +2,22 @@
 {
     public class BusinessEntityProperty
     {
-        public BusinessEntityProperty(long id, string name, long businessEntityId)
-        {
-            this.Id = id;
-            this.Name = name;
-            this.BusinessEntityId = businessEntityId;
-        }
-
         public long Id { set; get; }
-        public string Name { set; get; }
+        /// <summary>
+        /// 业务对象Id
+        /// </summary>
         public long BusinessEntityId { set; get; }
+        /// <summary>
+        /// 表名
+        /// </summary>
+        public string TableName { set; get; }
+        /// <summary>
+        /// 字段名称
+        /// </summary>
+        public string ColumnName { set; get; }
+        /// <summary>
+        /// 显示用名称
+        /// </summary>
+        public string DisplayName { set; get; }
     }
 }
