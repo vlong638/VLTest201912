@@ -1174,6 +1174,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.DeleteProjectIndicators(ResearchAPI.Services.ReportTaskService,System.Collections.Generic.List{System.Int64})">
+            <summary>
+            1.4.5.删除指标(批量)
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:ResearchAPI.Controllers.EasyResearchController.DeleteProjectIndicator(ResearchAPI.Services.ReportTaskService,System.Int64)">
             <summary>
             1.4.6.删除指标

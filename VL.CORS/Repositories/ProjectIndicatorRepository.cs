@@ -2,6 +2,7 @@
 using Autobots.Infrastracture.Common.RepositorySolution;
 using Dapper;
 using ResearchAPI.CORS.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -32,16 +33,10 @@ namespace ResearchAPI.CORS.Repositories
             return i;
         }
 
-        internal ProjectIndicator GetOne(ProjectIndicator ProjectIndicator)
+        internal int DeleteByIds(IEnumerable<long> indicatorIds)
         {
-            return _connection.Query<ProjectIndicator>("select * from [ProjectIndicator] where ProjectId = @ProjectId and UserId = @UserId"
-                , ProjectIndicator, transaction: _transaction).FirstOrDefault();
-        }
-
-        internal int DeleteOne(ProjectIndicator ProjectIndicator)
-        {
-            return _connection.Execute("delete from [ProjectIndicator] where ProjectId = @ProjectId and UserId = @UserId"
-                , ProjectIndicator, transaction: _transaction);
+            return _connection.Execute("delete from [ProjectIndicator] where id in @IndicatorIds"
+                , new { indicatorIds }, transaction: _transaction);
         }
 
         internal int DeleteByEntityId(long projectId, long businessEntityId)
@@ -55,5 +50,6 @@ namespace ResearchAPI.CORS.Repositories
             return _connection.Query<GetProjectIndicatorModel>("select * from [ProjectIndicator] where ProjectId = @ProjectId"
                 , new { projectId }, transaction: _transaction).ToList();
         }
+
     }
 }

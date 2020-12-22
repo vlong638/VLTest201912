@@ -445,6 +445,15 @@ namespace ResearchAPI.Services
             });
         }
 
+        internal ServiceResult<int> DeleteProjectIndicators(List<long> indicatorIds)
+        {
+            return ResearchDbContext.DelegateNonTransaction(c =>
+            {
+                var result = ProjectIndicatorRepository.DeleteByIds(indicatorIds);
+                return result;
+            });
+        }
+
         internal ServiceResult<bool> DeleteProjectIndicator(long indicatorId)
         {
             return ResearchDbContext.DelegateNonTransaction(c =>

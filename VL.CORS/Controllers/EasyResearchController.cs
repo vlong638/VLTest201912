@@ -414,6 +414,19 @@ namespace ResearchAPI.Controllers
         }
 
         /// <summary>
+        /// 1.4.5.删除指标(批量)
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [AllowAnonymous]
+        [EnableCors("AllCors")]
+        public APIResult<int> DeleteProjectIndicators([FromServices] ReportTaskService service, List<long> indicatorIds)
+        {
+            var result = service.DeleteProjectIndicators(indicatorIds);
+            return new APIResult<int>(result);
+        }
+
+        /// <summary>
         /// 1.4.6.删除指标
         /// </summary>
         /// <returns></returns>
@@ -425,8 +438,6 @@ namespace ResearchAPI.Controllers
             var result = service.DeleteProjectIndicator(indicatorId);
             return new APIResult<bool>(result);
         }
-        
-
 
         /// <summary>
         /// 
