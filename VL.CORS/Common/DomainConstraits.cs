@@ -139,6 +139,7 @@ namespace ResearchAPI.CORS.Common
                 BusinessEntityPropertyDic.Add(item.Key, item.Value);
             }
 
+            ViewAuthorizeTypes= EasyResearchController.GetDictionary<long>("ViewAuthorizeType");
             Departments = EasyResearchController.GetDictionary<long>("Department");
             Users = reportTaskService.GetUsersDictionary().Data;
             Roles = reportTaskService.GetRolesDictionary().Data;

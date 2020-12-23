@@ -1,4 +1,4 @@
-﻿<BusinessEntityTemplate ConnectionString="FYPTConnectionString" TemplateName="检验结果分类周期模板">
+﻿<BusinessEntityTemplate Id="777202012230906" ConnectionString="FYPTConnectionString" TemplateName="检验结果分类周期模板">
 	<BusinessEntity Id="20201222103157" DisplayName ="">
 		<Properties>
 			<!--From="CustomBusinessEntity.ReportName"--> 
@@ -11,8 +11,8 @@
 	<SQLConfig>
 		<Wheres>
 			<Where ComponentName="检验类别" DisplayName="检验类别" DisplayType="3" Options="0148:葡萄糖,0193:血红蛋白" Required="true"/>
-			<Where ComponentName="检查日期早于" DisplayName="检查日期(多少天内)" DisplayType="5"/>
-			<Where ComponentName="检查日期晚于" DisplayName="检查日期(多少天内)" DisplayType="5"/>
+			<Where ComponentName="检查日期早于孕周" DisplayName="检查日期(多少天内)" DisplayType="5"/>
+			<Where ComponentName="检查日期晚于孕周" DisplayName="检查日期(多少天内)" DisplayType="5"/>
 			<Where ComponentName="检查日期分组类别" DisplayName="检查日期分组类别" DisplayType="3" Options="0:最早,1:最晚" Required="true"/>
 			<Where ComponentName="检验结果小于" DisplayName="检验结果小于" DisplayType="1"/>
 			<Where ComponentName="检验结果大于" DisplayName="检验结果大于" DisplayType="1"/>

@@ -396,19 +396,19 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<GetBiefProjectResponse> GetBiefProject([FromServices] ReportTaskService service, long projectId)
+        public APIResult<GetBriefProjectResponse> GetBriefProject([FromServices] ReportTaskService service, long projectId)
         {
             var serviceResult = service.GetProject(projectId);
             if (!serviceResult.IsSuccess)
-                return new APIResult<GetBiefProjectResponse>(null, serviceResult.Code, serviceResult.Message);
-            var result = new GetBiefProjectResponse(serviceResult.Data);
+                return new APIResult<GetBriefProjectResponse>(null, serviceResult.Code, serviceResult.Message);
+            var result = new GetBriefProjectResponse(serviceResult.Data);
             result.ViewAuthorizeTypeName = DomainConstraits.RenderIdToText(result.ViewAuthorizeType, DomainConstraits.ViewAuthorizeTypes);
             if (result.DepartmentId.HasValue)
                 result.DepartmentName = DomainConstraits.RenderIdToText(result.DepartmentId.Value, DomainConstraits.Departments);
             result.AdminNames = DomainConstraits.RenderIdsToText<long>(result.AdminIds, DomainConstraits.Users);
             result.CreateName = DomainConstraits.RenderIdToText(result.CreatorId.Value, DomainConstraits.Users);
             result.MemberNames = DomainConstraits.RenderIdsToText(result.MemberIds, DomainConstraits.Users);
-            return new APIResult<GetBiefProjectResponse>(result);
+            return new APIResult<GetBriefProjectResponse>(result);
         }
 
         /// <summary>
@@ -458,15 +458,19 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<long> CreateCustomIndicator([FromServices] ReportTaskService service,[FromBody] CreateCustomIndicatorRequest request)
+        public APIResult<List<BusinessEntityPropertyDTO>> CreateCustomIndicator([FromServices] ReportTaskService service,[FromBody] CreateCustomIndicatorRequest request)
         {
             switch (request.TargetArea)
             {
-                case TargetArea.None: 
+                case TargetArea.None:
                     break;
                 case TargetArea.Pregnant:
                     var template = ConfigHelper.GetBusinessEntityTemplate("Configs\\XMLConfigs\\BusinessEntities", "Template_孕周检验.xml");
-                    break;
+                    request.Properties = new List<BusinessEntityPropertyDTO>() {
+                        new BusinessEntityPropertyDTO(){ ColumnName = "Value"},
+                    };
+                    var result = service.CreateCustomIndicator(request, template);
+                    return new APIResult<List<BusinessEntityPropertyDTO>>(result);
                 case TargetArea.Woman:
                     break;
                 case TargetArea.Child:
@@ -474,9 +478,7 @@ namespace ResearchAPI.Controllers
                 default:
                     break;
             }
-            //request
-            var result = service.CreateCustomIndicator(request);
-            return new APIResult<long>(result);
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -540,9 +542,9 @@ namespace ResearchAPI.Controllers
         /// <summary>
         /// 
         /// </summary>
-        public class GetBiefProjectResponse : GetProjectModel
+        public class GetBriefProjectResponse : GetProjectModel
         {
-            public GetBiefProjectResponse(GetProjectModel model)
+            public GetBriefProjectResponse(GetProjectModel model)
             {
                 model.MapTo(this);
 
@@ -851,13 +853,9 @@ namespace ResearchAPI.Controllers
     public class BusinessEntityPropertyDTO
     {
         /// <summary>
-        /// 来源对象
+        /// 字段Id
         /// </summary>
-        public string From { set; get; }
-        /// <summary>
-        /// 如果不是默认表,则填写来源的自定义对象Id
-        /// </summary>
-        public string CustomBusinessId { set; get; }
+        public long Id { set; get; }
         /// <summary>
         /// 字段名称
         /// </summary>

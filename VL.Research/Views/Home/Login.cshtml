@@ -147,23 +147,27 @@
 <script>
     $(
         function () {
-
-            var request = {};
-            request.page = 1;
-            request.limit = 5;
-            request.search = [];
-            request.search.push({ key: "Name", value: "1" });
-            request.search.push({ key: "DepartmentId", value: "2" });
+            var projectId = 49;
             $.ajax({
-                url: 'http://localhost:61696/api/EasyResearch/GetPagedProjects',
+                url: 'http://localhost:61696/api/EasyResearch/GetBriefProject',
                 type: 'post',
                 dataType: 'json',
-                data: request,
+                data: { projectId },
                 success: function (resp) {
                     console.log(resp.data);
                 }
             })
 
+            var projectId = 49;
+            $.ajax({
+                url: 'http://localhost:61696/api/EasyResearch/GetProject',
+                type: 'post',
+                dataType: 'json',
+                data: { projectId },
+                success: function (resp) {
+                    console.log(resp.data);
+                }
+            })
 
             var request = {};
             request.page = 1;

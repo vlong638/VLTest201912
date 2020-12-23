@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using static ResearchAPI.Controllers.EasyResearchController;
 
 namespace ResearchAPI.Services
 {
@@ -25,6 +26,8 @@ namespace ResearchAPI.Services
         APIContext APIContext { get; set; }
         DbContext ResearchDbContext { set; get; }
 
+        CustomerBusinessEntityPropertyRepository CustomerBusinessEntityPropertyRepository { set; get; }
+        CustomerBusinessEntityRepository CustomerBusinessEntityRepository { set; get; }
         BusinessEntityPropertyRepository BusinessEntityPropertyRepository { set; get; }
         FavoriteProjectRepository FavoriteProjectRepository { set; get; }
         ProjectRepository ProjectRepository { set; get; }
@@ -43,6 +46,8 @@ namespace ResearchAPI.Services
             ResearchDbContext = APIContext?.GetDBContext(APIContraints.ResearchDbContext);
 
             //repositories
+            CustomerBusinessEntityPropertyRepository = new CustomerBusinessEntityPropertyRepository(ResearchDbContext);
+            CustomerBusinessEntityRepository = new CustomerBusinessEntityRepository(ResearchDbContext);
             BusinessEntityPropertyRepository = new BusinessEntityPropertyRepository(ResearchDbContext);
             FavoriteProjectRepository = new FavoriteProjectRepository(ResearchDbContext);
             ProjectRepository = new ProjectRepository(ResearchDbContext);
@@ -187,9 +192,29 @@ namespace ResearchAPI.Services
             });
         }
 
-        internal ServiceResult<long> CreateCustomIndicator(EasyResearchController.CreateCustomIndicatorRequest request)
+        internal ServiceResult<List<BusinessEntityPropertyDTO>> CreateCustomIndicator(CreateCustomIndicatorRequest request, BusinessEntityTemplate template)
         {
-            throw new NotImplementedException();
+            var entity = new CustomerBusinessEntity()
+            {
+                Name = "tempate" + template.Id,
+                TemplateId = template.Id
+            };
+            var properties = request.Properties.Select(c => new CustomerBusinessEntityProperty()
+            {
+                ColumnName = c.ColumnName,
+                SourceName = entity.Name,
+                DisplayName = template.BusinessEntity.Properties.First(d => d.ColumnName == d.ColumnName).DisplayName,
+            }).ToList();
+            return ResearchDbContext.DelegateTransaction(c =>
+            {
+                var entityId = CustomerBusinessEntityRepository.InsertOne(entity);
+                properties.ForEach(c =>
+                {
+                    c.BusinessEntityId = entityId;
+                    c.Id = CustomerBusinessEntityPropertyRepository.InsertOne(c);
+                });
+                return properties.Select(c => new BusinessEntityPropertyDTO() { Id = c.Id, ColumnName = c.ColumnName }).ToList();
+            });
         }
 
         internal ServiceResult<bool> DeleteProjectIndicator(long indicatorId)

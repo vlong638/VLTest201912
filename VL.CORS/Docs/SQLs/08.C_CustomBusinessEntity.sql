@@ -1,25 +1,21 @@
-﻿IF OBJECT_ID(N'CustomerIndicator', N'U') IS  NOT  NULL 
-DROP TABLE [CustomerIndicator];
+﻿IF OBJECT_ID(N'CustomBusinessEntity', N'U') IS  NOT  NULL 
+DROP TABLE [CustomBusinessEntity];
 
 SET QUOTED_IDENTIFIER ON
 GO
 
 -- 新增时间 设置默认值
-CREATE TABLE [dbo].[CustomerIndicator](
+CREATE TABLE [dbo].[CustomBusinessEntity](
 	[Id][bigint] IDENTITY(1, 2) NOT NULL,
+	[TemplateId] bigint NULL,
 	[db_createtime] [datetime] DEFAULT CURRENT_TIMESTAMP,
 	[db_updatetime] [datetime] NULL,
 	-------------------------------------------
-	[TemplateId] bigint NULL,
-	[ColumnId] nvarchar(20) NULL,
-	[NickName] nvarchar(20) NULL,
+	[Name] nvarchar(20) NULL,
 	-------------------------------------------
 	[CreatorBy] bigint NULL,
 	[CreatedAt] datetime NULL,
-	[LastModifiedBy] bigint NULL,
-	[LastModifiedAt] datetime NULL,
-
-	CONSTRAINT[PK_CustomerIndicator] PRIMARY KEY CLUSTERED 
+	CONSTRAINT[PK_CustomBusinessEntity] PRIMARY KEY CLUSTERED 
 	(
 		[Id] ASC
 	)WITH(PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON) ON[PRIMARY]
@@ -27,15 +23,15 @@ CREATE TABLE [dbo].[CustomerIndicator](
 GO
 
 -- 更新时间 采用触发器
-CREATE TRIGGER [dbo].[trigger_CustomerIndicator_db_updatetime]
-ON[dbo].[CustomerIndicator]
+CREATE TRIGGER [dbo].[trigger_CustomBusinessEntity_db_updatetime]
+ON[dbo].[CustomBusinessEntity]
 FOR UPDATE
 AS
 BEGIN
-  update [CustomerIndicator] set db_updatetime = CURRENT_TIMESTAMP
+  update [CustomBusinessEntity] set db_updatetime = CURRENT_TIMESTAMP
 	where id in (select id from inserted)
 END
 GO
 
 -- 校验
-select * from [CustomerIndicator];
+select * from [CustomBusinessEntity];

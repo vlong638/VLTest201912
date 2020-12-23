@@ -652,6 +652,26 @@
             字段中文名称
             </summary>
         </member>
+        <member name="P:ResearchAPI.CORS.Common.CustomerBusinessEntityProperty.BusinessEntityId">
+            <summary>
+            业务对象Id
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.CustomerBusinessEntityProperty.SourceName">
+            <summary>
+            来源对象名称: 表或临时表或视图
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.CustomerBusinessEntityProperty.ColumnName">
+            <summary>
+            字段名称
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.CustomerBusinessEntityProperty.DisplayName">
+            <summary>
+            字段中文名称
+            </summary>
+        </member>
         <member name="T:ResearchAPI.CORS.Common.ViewAuthorizeType">
             <summary>
             项目查看权限
@@ -1225,7 +1245,7 @@
             <param name="projectId"></param>
             <returns></returns>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetBiefProject(ResearchAPI.Services.ReportTaskService,System.Int64)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetBriefProject(ResearchAPI.Services.ReportTaskService,System.Int64)">
             <summary>
             1.4.1.获取项目概要信息
             </summary>
@@ -1319,32 +1339,32 @@
             
             </summary>
         </member>
-        <member name="T:ResearchAPI.Controllers.EasyResearchController.GetBiefProjectResponse">
+        <member name="T:ResearchAPI.Controllers.EasyResearchController.GetBriefProjectResponse">
             <summary>
             
             </summary>
         </member>
-        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetBiefProjectResponse.ViewAuthorizeTypeName">
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetBriefProjectResponse.ViewAuthorizeTypeName">
             <summary>
             项目查看权限 名称
             </summary>
         </member>
-        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetBiefProjectResponse.CreateName">
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetBriefProjectResponse.CreateName">
             <summary>
             创建者 名称
             </summary>
         </member>
-        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetBiefProjectResponse.DepartmentName">
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetBriefProjectResponse.DepartmentName">
             <summary>
             关联科室 名称
             </summary>
         </member>
-        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetBiefProjectResponse.AdminNames">
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetBriefProjectResponse.AdminNames">
             <summary>
             项目管理人员 名称
             </summary>
         </member>
-        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetBiefProjectResponse.MemberNames">
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetBriefProjectResponse.MemberNames">
             <summary>
             项目成员 名称
             </summary>
@@ -1486,14 +1506,9 @@
             是否勾选
             </summary>
         </member>
-        <member name="P:ResearchAPI.Controllers.BusinessEntityPropertyDTO.From">
+        <member name="P:ResearchAPI.Controllers.BusinessEntityPropertyDTO.Id">
             <summary>
-            来源对象
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.Controllers.BusinessEntityPropertyDTO.CustomBusinessId">
-            <summary>
-            如果不是默认表,则填写来源的自定义对象Id
+            字段Id
             </summary>
         </member>
         <member name="P:ResearchAPI.Controllers.BusinessEntityPropertyDTO.ColumnName">

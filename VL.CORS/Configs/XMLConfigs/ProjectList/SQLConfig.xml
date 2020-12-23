@@ -8,7 +8,8 @@
 			<Wheres>
 				<Where ComponentName="Name" Formatter="%@Name%"></Where>
 				<Where ComponentName="DepartmentId"/>
-				<Where ComponentName="CreatedAt"/>
+				<Where ComponentName="CreatedAtStart"/>
+				<Where ComponentName="CreatedAtEnd"/>
 			</Wheres>
 			<SQLs> <!--UnitedBy="dizhibm"-->
 				<SQL>
@@ -17,10 +18,8 @@
 					where p.IsDeleted = 0
 					<If Operator="NotEmpty" ComponentName="Name"> and p.name like @Name </If>
 					<If Operator="NotEmpty" ComponentName="DepartmentId"> and p.DepartmentId = @DepartmentId </If>
-					<If Operator="NotEmpty" ComponentName="CreatedAt"> 
-					and p.CreatedAt &gt;= @CreatedAt
-					and p.CreatedAt &lt; dateadd(day,1,@CreatedAt)
-					</If>
+					<If Operator="NotEmpty" ComponentName="CreatedAtStart">and p.CreatedAt &gt;= @CreatedAtStart </If>
+					<If Operator="NotEmpty" ComponentName="CreatedAtEnd"> and p.CreatedAt &lt; @CreatedAtEnd </If>
 					order by p.Id desc
 					@Pager
 				</SQL>
@@ -31,10 +30,8 @@
 				where p.IsDeleted = 0
 				<If Operator="NotEmpty" ComponentName="Name"> and p.name like @Name </If>
 				<If Operator="NotEmpty" ComponentName="DepartmentId"> and p.DepartmentId = @DepartmentId </If>
-				<If Operator="NotEmpty" ComponentName="CreatedAt"> 
-				and p.CreatedAt &gt;= @CreatedAt
-				and p.CreatedAt &lt; dateadd(day,1,@CreatedAt)
-				</If>
+				<If Operator="NotEmpty" ComponentName="CreatedAtStart">and p.CreatedAt &gt;= @CreatedAtStart </If>
+				<If Operator="NotEmpty" ComponentName="CreatedAtEnd"> and p.CreatedAt &lt; @CreatedAtEnd </If>
 			</CountSQL>
 		</Source>
 	</View>

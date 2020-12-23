@@ -17,12 +17,14 @@ namespace ResearchAPI.CORS.Common
         }
         public BusinessEntityTemplate(XElement element)
         {
+            Id = element.Attribute(nameof(Id)).Value.ToLong().Value;
             ConnectionString = element.Attribute(nameof(ConnectionString))?.Value;
             BusinessEntity = new COBusinessEntity(element.Element(COBusinessEntity.ElementName));
             SQLConfig = new SQLConfigV3(element.Descendants(SQLConfigV3.ElementName).First());
             Router = new Router(element.Element(Router.ElementName));
         }
 
+        public long Id { set; get; }
         public string ConnectionString { set; get; }
         public COBusinessEntity BusinessEntity { set; get; }
         public SQLConfigV3 SQLConfig { set; get; }
