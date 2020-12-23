@@ -1320,16 +1320,6 @@
             目标人群
             </summary>
         </member>
-        <member name="P:ResearchAPI.Controllers.EasyResearchController.CreateCustomIndicatorRequest.LabOrderName">
-            <summary>
-            检验单名称
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.Controllers.EasyResearchController.CreateCustomIndicatorRequest.LabResultName">
-            <summary>
-            检验项名称
-            </summary>
-        </member>
         <member name="P:ResearchAPI.Controllers.EasyResearchController.CreateCustomIndicatorRequest.Search">
             <summary>
             搜索项
@@ -1436,11 +1426,31 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.CreateTask(ResearchAPI.Services.ReportTaskService,ResearchAPI.CORS.Common.AddIndicatorsRequest)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.CreateTask(ResearchAPI.Services.ReportTaskService,ResearchAPI.Controllers.EasyResearchController.CreateTaskRequest)">
             <summary>
             1.5.1.新增队列
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:ResearchAPI.Controllers.EasyResearchController.CreateTaskRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.CreateTaskRequest.ProjectId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.CreateTaskRequest.TaskName">
+            <summary>
+            队列名称
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.CreateTaskRequest.CopyTaskId">
+            <summary>
+            复制队列Id
+            </summary>
         </member>
         <member name="M:ResearchAPI.Controllers.EasyResearchController.CreateCustomBusinessEntity(ResearchAPI.Services.ReportTaskService,ResearchAPI.Controllers.CreateCustomBusinessEntityRequest)">
             <summary>

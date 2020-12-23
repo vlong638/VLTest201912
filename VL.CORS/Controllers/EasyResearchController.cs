@@ -624,9 +624,29 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<long> CreateTask([FromServices] ReportTaskService service, [FromBody] AddIndicatorsRequest request)
+        public APIResult<long> CreateTask([FromServices] ReportTaskService service, [FromBody] CreateTaskRequest request)
         {
-            throw new NotImplementedException();
+            var serviceResult = service.CreateTask(request);
+            return new APIResult<long>(serviceResult);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public class CreateTaskRequest
+        {
+            /// <summary>
+            /// 
+            /// </summary>
+            public long ProjectId { get; set; }
+            /// <summary>
+            /// 队列名称
+            /// </summary>
+            public string TaskName { set; get; }
+            /// <summary>
+            /// 复制队列Id
+            /// </summary>
+            public long CopyTaskId { get; set; }
         }
 
         #endregion

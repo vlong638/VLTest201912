@@ -32,6 +32,7 @@ namespace ResearchAPI.Services
         BusinessEntityPropertyRepository BusinessEntityPropertyRepository { set; get; }
         FavoriteProjectRepository FavoriteProjectRepository { set; get; }
         ProjectRepository ProjectRepository { set; get; }
+        ProjectTaskRepository ProjectTaskRepository { set; get; }
         ProjectMemberRepository ProjectMemberRepository { set; get; }
         ProjectIndicatorRepository ProjectIndicatorRepository { set; get; }
         RoleRepository RoleRepository { set; get; }
@@ -53,6 +54,7 @@ namespace ResearchAPI.Services
             BusinessEntityPropertyRepository = new BusinessEntityPropertyRepository(ResearchDbContext);
             FavoriteProjectRepository = new FavoriteProjectRepository(ResearchDbContext);
             ProjectRepository = new ProjectRepository(ResearchDbContext);
+            ProjectTaskRepository = new ProjectTaskRepository(ResearchDbContext);
             ProjectMemberRepository = new ProjectMemberRepository(ResearchDbContext);
             ProjectIndicatorRepository = new ProjectIndicatorRepository(ResearchDbContext);
             RoleRepository = new RoleRepository(ResearchDbContext);
@@ -354,6 +356,27 @@ namespace ResearchAPI.Services
                 ProjectIndicatorRepository.DeleteByEntityId(request.ProjectId, request.BusinessEntityId);
                 var successCount = ProjectIndicatorRepository.InsertBatch(projectIndicators);
                 return successCount == request.Properties.Count();
+            });
+        }
+
+        internal ServiceResult<long> CreateTask(CreateTaskRequest request)
+        {
+            return ResearchDbContext.DelegateTransaction(c => 
+            {
+                if (request.CopyTaskId>0)
+                {
+                    throw new NotImplementedException("未支持队列复制");
+                }
+                else
+                {
+                    var task = new ProjectTask()
+                    {
+                        Name = request.TaskName,
+                        ProjectId = request.ProjectId,
+                    };
+                    task.Id = ProjectTaskRepository.Insert(task);
+                    return task.Id;
+                }
             });
         }
     }
