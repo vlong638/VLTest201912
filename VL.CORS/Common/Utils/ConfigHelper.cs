@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace ResearchAPI.Common
+namespace ResearchAPI.CORS.Common
 {
     public class ConfigHelper
     {

@@ -3,7 +3,7 @@ using Autobots.Infrastracture.Common.PagerSolution;
 using Autobots.Infrastracture.Common.ServiceSolution;
 using Autobots.Infrastracture.Common.ValuesSolution;
 using Microsoft.AspNetCore.Http;
-using ResearchAPI.Common;
+using ResearchAPI.CORS.Common;
 using ResearchAPI.Controllers;
 using ResearchAPI.CORS.Common;
 using ResearchAPI.CORS.Repositories;
@@ -15,277 +15,7 @@ using System.Text;
 
 namespace ResearchAPI.Services
 {
-    public static class DomainConstraits
-    {
 
-        private static long? _AdminRoleId;
-        internal static long GetAdminRoleId(Func<Dictionary<long, string>> source)
-        {
-            if (_AdminRoleId == null)
-            {
-                _AdminRoleId = GetRoles(source).First(c => c.Value == "项目管理员").Key;
-            }
-            return _AdminRoleId.Value;
-        }
-
-        private static long? _MemberRoleId;
-        internal static long GetMemberRoleId(Func<Dictionary<long, string>> source)
-        {
-            if (_MemberRoleId == null)
-            {
-                _MemberRoleId = GetRoles(source).First(c => c.Value == "项目成员").Key;
-            }
-            return _MemberRoleId.Value;
-        }
-
-        private static long? _OwenerRoleId;
-        internal static long GetOwnerRoleId(Func<Dictionary<long, string>> source)
-        {
-            if (_OwenerRoleId == null)
-            {
-                _OwenerRoleId = GetRoles(source).First(c => c.Value == "项目创建人").Key;
-            }
-            return _OwenerRoleId.Value;
-        }
-
-        private static object _Roles;
-        public static Dictionary<T, string> GetRoles<T>(Func<Dictionary<T, string>> source)
-        {
-            if (_Roles == null)
-            {
-                _Roles = source();
-            }
-            return (Dictionary<T, string>)_Roles;
-        }
-
-        private static object _Users;
-        public static Dictionary<T, string> GetUsers<T>(Func<Dictionary<T, string>> source)
-        {
-            if (_Users == null)
-            {
-                _Users = source();
-            }
-            return (Dictionary<T, string>)_Users;
-        }
-
-        private static object _Departments;
-        public static Dictionary<T, string> GetDepartments<T>(Func<Dictionary<T, string>> source)
-        {
-            if (_Departments == null)
-            {
-                _Departments = source();
-            }
-            return (Dictionary<T, string>)_Departments;
-        }
-
-        private static object _BusinessTypes;
-        public static Dictionary<T, string> GetBusinessTypes<T>(Func<Dictionary<T, string>> source)
-        {
-            if (_BusinessTypes == null)
-            {
-                _BusinessTypes = source();
-            }
-            return (Dictionary<T, string>)_BusinessTypes;
-        }
-
-        private static Dictionary<long, string> _BusinessEntityDic;
-        public static Dictionary<long, string> GetBusinessEntityDic(Func<List<COBusinessEntities>> source)
-        {
-            if (_BusinessEntityDic == null)
-            {
-                LoadBy(source());
-            }
-            return (Dictionary<long, string>)_BusinessEntityDic;
-        }
-
-        private static Dictionary<long, string> _BusinessEntityPropertyDic;
-        public static Dictionary<long, string> GetBusinessEntityPropertyDic(Func<List<COBusinessEntities>> source)
-        {
-            if (_BusinessEntityPropertyDic == null)
-            {
-                LoadBy(source());
-            }
-            return (Dictionary<long, string>)_BusinessEntityPropertyDic;
-        }
-
-        private static object _ViewAuthorizeTypes;
-        public static Dictionary<T, string> GetViewAuthorizeTypes<T>(Func<Dictionary<T, string>> source)
-        {
-            if (_ViewAuthorizeTypes == null)
-            {
-                _ViewAuthorizeTypes = source();
-            }
-            return (Dictionary<T, string>)_ViewAuthorizeTypes;
-        }
-
-        static List<BusinessType> BusinessTypes { set; get; }
-        static List<BusinessEntity> BusinessEntities { set; get; }
-        static List<BusinessEntityProperty> BusinessEntityProperties { set; get; }
-
-        internal static List<BusinessType> GetBusinessTypes(Func<List<COBusinessEntities>> source)
-        {
-            if (BusinessTypes == null)
-            {
-                LoadBy(source());
-            }
-            return BusinessTypes;
-        }
-
-        internal static List<BusinessEntity> GetBusinessEntities(Func<List<COBusinessEntities>> source)
-        {
-            if (BusinessEntities == null)
-            {
-                LoadBy(source());
-            }
-            return BusinessEntities;
-        }
-
-        internal static List<BusinessEntityProperty> GetBusinessEntityProperties(Func<List<COBusinessEntities>> source)
-        {
-            if (BusinessEntityProperties == null)
-            {
-                LoadBy(source());
-            }
-            return BusinessEntityProperties;
-        }
-
-        private static void LoadBy(List<COBusinessEntities> BusinessEntitiesCollection)
-        {
-            BusinessTypes = new List<BusinessType>();
-            BusinessEntities = new List<BusinessEntity>();
-            BusinessEntityProperties = new List<BusinessEntityProperty>();
-            foreach (var businessEntities in BusinessEntitiesCollection)
-            {
-                BusinessTypes.Add(new BusinessType(businessEntities.Id, businessEntities.BusinessType));
-                foreach (var businessEntity in businessEntities)
-                {
-                    BusinessEntities.Add(new BusinessEntity(businessEntity.Id, businessEntity.DisplayName, businessEntities.Id));
-                    foreach (var property in businessEntity.Properties)
-                    {
-                        BusinessEntityProperties.Add(new BusinessEntityProperty()
-                        {
-                            Id = property.Id,
-                            TableName = property.From,
-                            ColumnName = property.ColumnName,
-                            DisplayName = property.DisplayName,
-                            BusinessEntityId = businessEntity.Id,
-                        });
-                    }
-                }
-            }
-            _BusinessEntityDic = new Dictionary<long, string>();
-            foreach (var item in BusinessEntities.Select(c => new VLKeyValue<long,string>(c.Id, c.Name)))
-            {
-                _BusinessEntityDic.Add(item.Key, item.Value);
-            }
-            _BusinessEntityDic = new Dictionary<long, string>();
-            foreach (var item in BusinessEntities.Select(c => new VLKeyValue<long, string>(c.Id, c.Name)))
-            {
-                _BusinessEntityDic.Add(item.Key, item.Value);
-            }
-        }
-
-        internal static string RenderIdsToText<T>(T id, Func<Dictionary<T, string>> source)
-        {
-            List<T> ids = new List<T>() { id };
-            var values = RenderIdsToText(ids, source);
-            return values.First();
-        }
-
-        internal static List<string> RenderIdsToText<T>(List<T> ids,Func<Dictionary<T, string>> source)
-        {
-            var dic = source();
-            var values = ids.Select(c => dic.ContainsKey(c) ? dic[c] : c.ToString()).ToList();
-            return values;
-        }
-
-        public static Dictionary<T, string> GetDictionary<T>(KVType kvType, Func<Dictionary<T, string>> source)
-        {
-            Dictionary<T, string> dic = null;
-            switch (kvType)
-            {
-                case KVType.ViewAuthorizeType:
-                    dic = GetViewAuthorizeTypes(source);
-                    break;
-                case KVType.BusinessType:
-                    dic = GetBusinessTypes(source);
-                    break;
-                case KVType.Department:
-                    dic = GetDepartments(source);
-                    break;
-                case KVType.User:
-                    dic = GetUsers(source);
-                    break;
-                case KVType.Role:
-                    dic = GetRoles(source);
-                    break;
-                default:
-                    break;
-            }
-
-            return dic;
-        }
-
-        internal static string RenderIdsToText<T>(T id, PKVType kvType, Func<Dictionary<T, string>> source)
-        {
-            List<T> ids = new List<T>() { id };
-            var values = RenderIdsToText(ids, kvType, source);
-            return values.First();
-        }
-
-        internal static List<string> RenderIdsToText<T>(List<T> ids, PKVType kvType, Func<Dictionary<T, string>> source)
-        {
-            Dictionary<T, string> dic = null;
-            switch (kvType)
-            {
-                case PKVType.BusinessEntity:
-                    dic = GetViewAuthorizeTypes(source);
-                    break;
-                default:
-                    break;
-            }
-            var values = ids.Select(c => dic.ContainsKey(c) ? dic[c] : c.ToString()).ToList();
-            return values;
-        }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public enum KVType
-    {
-        /// <summary>
-        /// 浏览权限类型
-        /// </summary>
-        ViewAuthorizeType,
-        /// <summary>
-        /// 科室
-        /// </summary>
-        Department,
-        /// <summary>
-        /// 用户
-        /// </summary>
-        User,
-        /// <summary>
-        /// 角色
-        /// </summary>
-        Role,
-        /// <summary>
-        /// 业务对象类型
-        /// </summary>
-        BusinessType,
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public enum PKVType
-    {
-        /// <summary>
-        /// 业务对象
-        /// </summary>
-        BusinessEntity,
-    }
 
     /// <summary>
     /// 
@@ -307,11 +37,10 @@ namespace ResearchAPI.Services
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="dbContext"></param>
         public ReportTaskService(APIContext apiContext)
         {
             APIContext = apiContext;
-            ResearchDbContext = APIContext.GetDBContext(APIContraints.ResearchDbContext);
+            ResearchDbContext = APIContext?.GetDBContext(APIContraints.ResearchDbContext);
 
             //repositories
             BusinessEntityPropertyRepository = new BusinessEntityPropertyRepository(ResearchDbContext);
@@ -323,6 +52,7 @@ namespace ResearchAPI.Services
             SharedRepository = new SharedRepository(ResearchDbContext);
             UserRepository = new UserRepository(ResearchDbContext);
         }
+
 
         internal ServiceResult<bool> ExecuteReportTask(long taskId)
         {
@@ -369,8 +99,8 @@ namespace ResearchAPI.Services
                 result.CreatedAt = project.CreatedAt;
                 result.LastModifiedAt = project.LastModifiedAt;
                 result.LastModifiedBy = project.LastModifiedBy;
-                var adminRoleId = DomainConstraits.GetAdminRoleId(() => GetRolesDictionary());
-                var memberRoleId = DomainConstraits.GetMemberRoleId(() => GetRolesDictionary());
+                var adminRoleId = DomainConstraits.AdminRoleId;
+                var memberRoleId = DomainConstraits.MemberRoleId;
                 var adminIds = ProjectRepository.GetUserIdsByProjectIdAndRoleId(projectId, adminRoleId);
                 result.AdminIds = adminIds;
                 var memberIds = ProjectRepository.GetUserIdsByProjectIdAndRoleId(projectId, memberRoleId);
@@ -385,23 +115,26 @@ namespace ResearchAPI.Services
         {
             return ResearchDbContext.DelegateNonTransaction(c =>
             {
-                var result = DomainConstraits.GetUsers(() => GetUsersDictionary());
+                var result = DomainConstraits.Users;
                 return result;
             });
         }
 
-        internal Dictionary<long, string> GetUsersDictionary()
+        internal ServiceResult<Dictionary<long, string>> GetUsersDictionary()
         {
-            var result = UserRepository.GetAllUsers();
-            var dic = new Dictionary<long, string>();
-            foreach (var item in result)
+            return ResearchDbContext.DelegateNonTransaction(c =>
             {
-                dic.Add(item.Id, item.Name);
-            }
-            return dic;
+                var result = UserRepository.GetAllUsers();
+                var dic = new Dictionary<long, string>();
+                foreach (var item in result)
+                {
+                    dic.Add(item.Id, item.Name);
+                }
+                return dic;
+            });
         }
 
-        internal Dictionary<long, string> GetRolesDictionary()
+        internal ServiceResult<Dictionary<long, string>> GetRolesDictionary()
         {
             var result = RoleRepository.GetAllRoles();
             var dic = new Dictionary<long, string>();
@@ -409,7 +142,7 @@ namespace ResearchAPI.Services
             {
                 dic.Add(item.Id, item.Name);
             }
-            return dic;
+            return new ServiceResult<Dictionary<long, string>>(dic);
         }
 
         internal ServiceResult<List<User>> GetAllUsers()
@@ -454,6 +187,11 @@ namespace ResearchAPI.Services
             });
         }
 
+        internal ServiceResult<long> CreateCustomIndicator(EasyResearchController.CreateCustomIndicatorRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
         internal ServiceResult<bool> DeleteProjectIndicator(long indicatorId)
         {
             return ResearchDbContext.DelegateNonTransaction(c =>
@@ -477,9 +215,9 @@ namespace ResearchAPI.Services
             return ResearchDbContext.DelegateTransaction(c =>
             {
                 var projectId = ProjectRepository.Insert(project);
-                var ownerRoleId = DomainConstraits.GetOwnerRoleId(() => GetRolesDictionary());
-                var adminRoleId = DomainConstraits.GetAdminRoleId(() => GetRolesDictionary());
-                var memberRoleId = DomainConstraits.GetMemberRoleId(() => GetRolesDictionary());
+                var ownerRoleId = DomainConstraits.OwnerRoleId;
+                var adminRoleId = DomainConstraits.AdminRoleId;
+                var memberRoleId = DomainConstraits.MemberRoleId;
                 var members = new List<ProjectMember>();
                 members.Add(new ProjectMember(projectId, project.CreatorId, ownerRoleId));
                 foreach (var adminId in request.AdminIds ?? new List<long>())
@@ -512,9 +250,9 @@ namespace ResearchAPI.Services
                 if (!result)
                     throw new NotImplementedException("项目更新失败");
                 var projectId = project.Id;
-                var ownerRoleId = DomainConstraits.GetOwnerRoleId(() => GetRolesDictionary());
-                var adminRoleId = DomainConstraits.GetAdminRoleId(() => GetRolesDictionary());
-                var memberRoleId = DomainConstraits.GetMemberRoleId(() => GetRolesDictionary());
+                var ownerRoleId = DomainConstraits.OwnerRoleId;
+                var adminRoleId = DomainConstraits.AdminRoleId;
+                var memberRoleId = DomainConstraits.MemberRoleId;
                 var members = new List<ProjectMember>();
                 members.Add(new ProjectMember(projectId, project.CreatorId, ownerRoleId));
                 foreach (var adminId in request.AdminIds)

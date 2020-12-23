@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ResearchAPI.Common
+namespace ResearchAPI.CORS.Common
 {
     public class CustomBusinessEntitySet : List<CustomBusinessEntity>
     {

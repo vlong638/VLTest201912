@@ -1,4 +1,4 @@
-﻿namespace ResearchAPI.Common
+﻿namespace ResearchAPI.CORS.Common
 {
     /// <summary>
     /// 条件运算类型

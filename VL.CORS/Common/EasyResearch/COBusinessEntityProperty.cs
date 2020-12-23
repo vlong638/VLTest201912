@@ -1,7 +1,7 @@
 ﻿using Autobots.Infrastracture.Common.ValuesSolution;
 using System.Xml.Linq;
 
-namespace ResearchAPI.Common
+namespace ResearchAPI.CORS.Common
 {
     public class COBusinessEntityProperty
     {

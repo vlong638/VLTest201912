@@ -1,7 +1,7 @@
 ﻿using Autobots.Infrastracture.Common.ValuesSolution;
 using System;
 
-namespace ResearchAPI.Common
+namespace ResearchAPI.CORS.Common
 {
     public static class IWhereEx
     {

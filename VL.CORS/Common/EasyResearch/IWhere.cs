@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ResearchAPI.Common
+namespace ResearchAPI.CORS.Common
 {
     /// <summary>
     /// 筛选条件接口

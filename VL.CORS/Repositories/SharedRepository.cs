@@ -1,7 +1,7 @@
 ﻿using Autobots.Infrastracture.Common.DBSolution;
 using Autobots.Infrastracture.Common.RepositorySolution;
 using Dapper;
-using ResearchAPI.Common;
+using ResearchAPI.CORS.Common;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;

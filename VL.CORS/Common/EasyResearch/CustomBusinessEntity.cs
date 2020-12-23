@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Xml.Linq;
 
-namespace ResearchAPI.Common
+namespace ResearchAPI.CORS.Common
 {
     public class CustomBusinessEntity
     {

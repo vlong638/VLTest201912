@@ -13,7 +13,7 @@ CREATE TABLE [dbo].[CustomBusinessEntityWhere](
 	[db_updatetime] [datetime] NULL,
 	-------------------------------------------下管控
 	-------------------------------------------下内容
-	ComponentName nvarchar(20) NULL,
+	[ComponentName] nvarchar(20) NULL,
 	[Operator] nvarchar(20) NULL,
 	[Value] nvarchar(20) NULL,
 	-------------------------------------------

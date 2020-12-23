@@ -4,613 +4,620 @@
         <name>ResearchAPI.CORS</name>
     </assembly>
     <members>
-        <member name="F:ResearchAPI.Common.COBusinessEntities.ElementName">
+        <member name="T:ResearchAPI.CORS.Common.DomainConstraits">
             <summary>
             
             </summary>
         </member>
-        <member name="M:ResearchAPI.Common.COBusinessEntities.#ctor">
+        <member name="T:ResearchAPI.CORS.Common.DomainConstraits.KVType">
             <summary>
             
             </summary>
         </member>
-        <member name="M:ResearchAPI.Common.COBusinessEntities.#ctor(System.Xml.Linq.XElement)">
+        <member name="F:ResearchAPI.CORS.Common.DomainConstraits.KVType.ViewAuthorizeType">
+            <summary>
+            浏览权限类型
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DomainConstraits.KVType.Department">
+            <summary>
+            科室
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DomainConstraits.KVType.User">
+            <summary>
+            用户
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DomainConstraits.KVType.Role">
+            <summary>
+            角色
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DomainConstraits.KVType.BusinessType">
+            <summary>
+            业务对象类型
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Common.DomainConstraits.PKVType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DomainConstraits.PKVType.BusinessEntity">
+            <summary>
+            业务对象
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.COBusinessEntities.ElementName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Common.COBusinessEntities.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Common.COBusinessEntities.#ctor(System.Xml.Linq.XElement)">
             <summary>
             
             </summary>
             <param name="element"></param>
         </member>
-        <member name="T:ResearchAPI.Common.Field2FieldWhere">
+        <member name="T:ResearchAPI.CORS.Common.Field2FieldWhere">
             <summary>
             表对表 条件项
             </summary>
         </member>
-        <member name="T:ResearchAPI.Common.Field2ValueWhere">
+        <member name="T:ResearchAPI.CORS.Common.Field2ValueWhere">
             <summary>
             表对值 条件项
             </summary>
         </member>
-        <member name="T:ResearchAPI.Common.IWhere">
+        <member name="T:ResearchAPI.CORS.Common.IWhere">
             <summary>
             筛选条件接口
             </summary>
         </member>
-        <member name="T:ResearchAPI.Common.ReportTask">
+        <member name="T:ResearchAPI.CORS.Common.ReportTask">
             <summary>
             报告单元
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.ReportTask.MainConditions">
+        <member name="P:ResearchAPI.CORS.Common.ReportTask.MainConditions">
             <summary>
             纳入标准
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.ReportTask.ExceptionConditions">
+        <member name="P:ResearchAPI.CORS.Common.ReportTask.ExceptionConditions">
             <summary>
             排除标准
             </summary>
         </member>
-        <member name="F:ResearchAPI.Common.Routers.ElementName">
+        <member name="F:ResearchAPI.CORS.Common.Routers.ElementName">
             <summary>
             
             </summary>
         </member>
-        <member name="M:ResearchAPI.Common.Routers.#ctor">
+        <member name="M:ResearchAPI.CORS.Common.Routers.#ctor">
             <summary>
             
             </summary>
         </member>
-        <member name="M:ResearchAPI.Common.Routers.#ctor(System.Xml.Linq.XElement)">
+        <member name="M:ResearchAPI.CORS.Common.Routers.#ctor(System.Xml.Linq.XElement)">
             <summary>
             
             </summary>
             <param name="element"></param>
         </member>
-        <member name="T:ResearchAPI.Common.SQLConfigV2">
+        <member name="T:ResearchAPI.CORS.Common.SQLConfigV2">
             <summary>
             查询sql配置
             </summary>
         </member>
-        <member name="F:ResearchAPI.Common.SQLConfigV2.ElementName">
+        <member name="F:ResearchAPI.CORS.Common.SQLConfigV2.ElementName">
             <summary>
             
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.SQLConfigV2.ViewName">
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigV2.ViewName">
             <summary>
             页面名称
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.SQLConfigV2.Source">
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigV2.Source">
             <summary>
             
             </summary>
         </member>
-        <member name="M:ResearchAPI.Common.SQLConfigV2.#ctor">
+        <member name="M:ResearchAPI.CORS.Common.SQLConfigV2.#ctor">
             <summary>
             
             </summary>
         </member>
-        <member name="M:ResearchAPI.Common.SQLConfigV2.#ctor(System.Xml.Linq.XElement)">
+        <member name="M:ResearchAPI.CORS.Common.SQLConfigV2.#ctor(System.Xml.Linq.XElement)">
             <summary>
             
             </summary>
             <param name="element"></param>
         </member>
-        <member name="T:ResearchAPI.Common.SQLConfigV2Source">
+        <member name="T:ResearchAPI.CORS.Common.SQLConfigV2Source">
             <summary>
             数据源
             </summary>
         </member>
-        <member name="F:ResearchAPI.Common.SQLConfigV2Source.ElementName">
+        <member name="F:ResearchAPI.CORS.Common.SQLConfigV2Source.ElementName">
             <summary>
             
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.SQLConfigV2Source.SourceName">
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigV2Source.SourceName">
             <summary>
             数据源名称
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.SQLConfigV2Source.DBSourceType">
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigV2Source.DBSourceType">
             <summary>
             
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.SQLConfigV2Source.Properties">
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigV2Source.Properties">
             <summary>
             页面字段
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.SQLConfigV2Source.Transforms">
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigV2Source.Transforms">
             <summary>
             
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.SQLConfigV2Source.Mappings">
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigV2Source.Mappings">
             <summary>
             
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.SQLConfigV2Source.Wheres">
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigV2Source.Wheres">
             <summary>
             页面条件项
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.SQLConfigV2Source.OrderBys">
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigV2Source.OrderBys">
             <summary>
             页面排序项
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.SQLConfigV2Source.DefaultComponentName">
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigV2Source.DefaultComponentName">
             <summary>
             默认排序项
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.SQLConfigV2Source.DefaultOrder">
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigV2Source.DefaultOrder">
             <summary>
             默认排序项
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.SQLConfigV2Source.SQLs">
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigV2Source.SQLs">
             <summary>
             预设SQL
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.SQLConfigV2Source.CountSQL">
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigV2Source.CountSQL">
             <summary>
             预设CountSQL
             </summary>
         </member>
-        <member name="M:ResearchAPI.Common.SQLConfigV2Source.#ctor(System.Xml.Linq.XElement)">
+        <member name="M:ResearchAPI.CORS.Common.SQLConfigV2Source.#ctor(System.Xml.Linq.XElement)">
             <summary>
             
             </summary>
             <param name="element"></param>
         </member>
-        <member name="P:ResearchAPI.Common.ExportSourceMapping.SourceName">
+        <member name="P:ResearchAPI.CORS.Common.ExportSourceMapping.SourceName">
             <summary>
             来源列名
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.ExportSourceMapping.FieldName">
+        <member name="P:ResearchAPI.CORS.Common.ExportSourceMapping.FieldName">
             <summary>
             
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.ExportSourceMapping.TargetColumnName">
+        <member name="P:ResearchAPI.CORS.Common.ExportSourceMapping.TargetColumnName">
             <summary>
             目标列名
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.ExportSourceMapping.FunctionType">
+        <member name="P:ResearchAPI.CORS.Common.ExportSourceMapping.FunctionType">
             <summary>
             转换类型
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.ExportSourceMapping.RelatedBy">
+        <member name="P:ResearchAPI.CORS.Common.ExportSourceMapping.RelatedBy">
             <summary>
             关联项目
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.ExportSourceMapping.Wheres">
+        <member name="P:ResearchAPI.CORS.Common.ExportSourceMapping.Wheres">
             <summary>
             条件转换
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.ExportSourceMapping.OrderBy">
+        <member name="P:ResearchAPI.CORS.Common.ExportSourceMapping.OrderBy">
             <summary>
             排序项目
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.ExportSourceMappingOrderBy.ColumnName">
+        <member name="P:ResearchAPI.CORS.Common.ExportSourceMappingOrderBy.ColumnName">
             <summary>
             列名
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.ExportSourceMappingOrderBy.IsAsc">
+        <member name="P:ResearchAPI.CORS.Common.ExportSourceMappingOrderBy.IsAsc">
             <summary>
             是否正序
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.ExportSourceMappingWhere.ColumnName">
+        <member name="P:ResearchAPI.CORS.Common.ExportSourceMappingWhere.ColumnName">
             <summary>
             来源列名
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.ExportSourceMappingWhere.DataType">
+        <member name="P:ResearchAPI.CORS.Common.ExportSourceMappingWhere.DataType">
             <summary>
             来源列名
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.ExportSourceMappingWhere.Operator">
+        <member name="P:ResearchAPI.CORS.Common.ExportSourceMappingWhere.Operator">
             <summary>
             
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.ExportSourceMappingWhere.Value">
+        <member name="P:ResearchAPI.CORS.Common.ExportSourceMappingWhere.Value">
             <summary>
             
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.ExportSourceMappingRelatedBy.ColumnName">
+        <member name="P:ResearchAPI.CORS.Common.ExportSourceMappingRelatedBy.ColumnName">
             <summary>
             列名
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.ExportSourceMappingRelatedBy.RelatedColumnName">
+        <member name="P:ResearchAPI.CORS.Common.ExportSourceMappingRelatedBy.RelatedColumnName">
             <summary>
             列名
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.ExportSourceMappingRelatedBy.DataType">
+        <member name="P:ResearchAPI.CORS.Common.ExportSourceMappingRelatedBy.DataType">
             <summary>
             来源列名
             </summary>
         </member>
-        <member name="T:ResearchAPI.Common.SQLConfigV2Where">
+        <member name="T:ResearchAPI.CORS.Common.SQLConfigV2Where">
             <summary>
             
             </summary>
         </member>
-        <member name="F:ResearchAPI.Common.SQLConfigV2Where.ElementName">
+        <member name="F:ResearchAPI.CORS.Common.SQLConfigV2Where.ElementName">
             <summary>
             
             </summary>
         </member>
-        <member name="M:ResearchAPI.Common.SQLConfigV2Where.#ctor(System.Xml.Linq.XElement)">
+        <member name="M:ResearchAPI.CORS.Common.SQLConfigV2Where.#ctor(System.Xml.Linq.XElement)">
             <summary>
             
             </summary>
             <param name="element"></param>
         </member>
-        <member name="P:ResearchAPI.Common.SQLConfigV2Where.IsOn">
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigV2Where.IsOn">
             <summary>
             是否启用
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.SQLConfigV2Where.Required">
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigV2Where.Required">
             <summary>
             是否必须
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.SQLConfigV2Where.Value">
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigV2Where.Value">
             <summary>
             值
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.SQLConfigV2Where.ComponentName">
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigV2Where.ComponentName">
             <summary>
             项目名称
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.SQLConfigV2Where.SQL">
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigV2Where.SQL">
             <summary>
             值
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.SQLConfigV2Where.Formatter">
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigV2Where.Formatter">
             <summary>
             格式化
             </summary>
         </member>
-        <member name="M:ResearchAPI.Common.SQLConfigV2SQLs.#ctor(System.Xml.Linq.XElement)">
+        <member name="M:ResearchAPI.CORS.Common.SQLConfigV2SQLs.#ctor(System.Xml.Linq.XElement)">
             <summary>
             
             </summary>
             <param name="element"></param>
         </member>
-        <member name="T:ResearchAPI.Common.SQLConfigOrderBy">
+        <member name="T:ResearchAPI.CORS.Common.SQLConfigOrderBy">
             <summary>
             
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "F:ResearchAPI.Common.SQLConfigOrderBy.RootElementName" -->
-        <member name="F:ResearchAPI.Common.SQLConfigOrderBy.ElementName">
+        <!-- Badly formed XML comment ignored for member "F:ResearchAPI.CORS.Common.SQLConfigOrderBy.RootElementName" -->
+        <member name="F:ResearchAPI.CORS.Common.SQLConfigOrderBy.ElementName">
             <summary>
             
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.SQLConfigOrderBy.IsOn">
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigOrderBy.IsOn">
             <summary>
             是否启用
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.SQLConfigOrderBy.IsAsc">
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigOrderBy.IsAsc">
             <summary>
             是否正序
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.SQLConfigOrderBy.ComponentName">
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigOrderBy.ComponentName">
             <summary>
             
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.SQLConfigOrderBy.Alias">
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigOrderBy.Alias">
             <summary>
             
             </summary>
         </member>
-        <member name="M:ResearchAPI.Common.SQLConfigOrderBy.#ctor(System.Xml.Linq.XElement)">
+        <member name="M:ResearchAPI.CORS.Common.SQLConfigOrderBy.#ctor(System.Xml.Linq.XElement)">
             <summary>
             
             </summary>
             <param name="element"></param>
         </member>
-        <member name="M:ResearchAPI.Common.SQLConfigOrderBy.ToXElement">
+        <member name="M:ResearchAPI.CORS.Common.SQLConfigOrderBy.ToXElement">
             <summary>
             
             </summary>
             <returns></returns>
         </member>
-        <member name="T:ResearchAPI.Common.SQLConfigV2Property">
+        <member name="T:ResearchAPI.CORS.Common.SQLConfigV2Property">
             <summary>
             
             </summary>
         </member>
-        <member name="F:ResearchAPI.Common.SQLConfigV2Property.ElementName">
+        <member name="F:ResearchAPI.CORS.Common.SQLConfigV2Property.ElementName">
             <summary>
             
             </summary>
         </member>
-        <member name="M:ResearchAPI.Common.SQLConfigV2Property.#ctor(System.Xml.Linq.XElement)">
+        <member name="M:ResearchAPI.CORS.Common.SQLConfigV2Property.#ctor(System.Xml.Linq.XElement)">
             <summary>
             
             </summary>
             <param name="element"></param>
         </member>
-        <member name="P:ResearchAPI.Common.SQLConfigV2Property.IsOn">
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigV2Property.IsOn">
             <summary>
             是否启用
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.SQLConfigV2Property.ColumnName">
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigV2Property.ColumnName">
             <summary>
             字段名称
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.SQLConfigV2Property.Alias">
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigV2Property.Alias">
             <summary>
             查询用名称
             </summary>
         </member>
-        <member name="M:ResearchAPI.Common.SQLConfigV2Property.ToXElement">
+        <member name="M:ResearchAPI.CORS.Common.SQLConfigV2Property.ToXElement">
             <summary>
             
             </summary>
             <returns></returns>
         </member>
-        <member name="P:ResearchAPI.Common.ExportSourceTransformV2.ColumnName">
+        <member name="P:ResearchAPI.CORS.Common.ExportSourceTransformV2.ColumnName">
             <summary>
             来源列名
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.ExportSourceTransformV2.SubFieldName">
+        <member name="P:ResearchAPI.CORS.Common.ExportSourceTransformV2.SubFieldName">
             <summary>
             
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.ExportSourceTransformV2.SourceType">
+        <member name="P:ResearchAPI.CORS.Common.ExportSourceTransformV2.SourceType">
             <summary>
             来源类型
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.ExportSourceTransformV2.FunctionType">
+        <member name="P:ResearchAPI.CORS.Common.ExportSourceTransformV2.FunctionType">
             <summary>
             转换类型
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.ExportSourceTransformV2.Splitter">
+        <member name="P:ResearchAPI.CORS.Common.ExportSourceTransformV2.Splitter">
             <summary>
             Case; TransfromFunctionType.Join 分隔符
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.ExportSourceTransformV2.TargetColumnName">
+        <member name="P:ResearchAPI.CORS.Common.ExportSourceTransformV2.TargetColumnName">
             <summary>
             目标列名
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.ExportSourceTransformCase.ColumnName">
+        <member name="P:ResearchAPI.CORS.Common.ExportSourceTransformCase.ColumnName">
             <summary>
             来源列名
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.ExportSourceTransformCase.DataType">
+        <member name="P:ResearchAPI.CORS.Common.ExportSourceTransformCase.DataType">
             <summary>
             来源列名
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.ExportSourceTransformCase.When">
+        <member name="P:ResearchAPI.CORS.Common.ExportSourceTransformCase.When">
             <summary>
             
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.ExportSourceTransformCase.Then">
+        <member name="P:ResearchAPI.CORS.Common.ExportSourceTransformCase.Then">
             <summary>
             
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.ExportSourceTransformCase.Operator">
+        <member name="P:ResearchAPI.CORS.Common.ExportSourceTransformCase.Operator">
             <summary>
             
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.ExportSourceTransformCase.Value">
+        <member name="P:ResearchAPI.CORS.Common.ExportSourceTransformCase.Value">
             <summary>
             
             </summary>
         </member>
-        <member name="T:ResearchAPI.Common.SQLConfigV3">
+        <member name="T:ResearchAPI.CORS.Common.SQLConfigV3">
             <summary>
             查询sql配置
             </summary>
         </member>
-        <member name="F:ResearchAPI.Common.SQLConfigV3.ElementName">
+        <member name="F:ResearchAPI.CORS.Common.SQLConfigV3.ElementName">
             <summary>
             
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.SQLConfigV3.Wheres">
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigV3.Wheres">
             <summary>
             页面条件项
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.SQLConfigV3.OrderBys">
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigV3.OrderBys">
             <summary>
             页面排序项
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.SQLConfigV3.SQL">
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigV3.SQL">
             <summary>
             预设SQL
             </summary>
         </member>
-        <member name="M:ResearchAPI.Common.SQLConfigV3.#ctor">
+        <member name="M:ResearchAPI.CORS.Common.SQLConfigV3.#ctor">
             <summary>
             
             </summary>
         </member>
-        <member name="M:ResearchAPI.Common.SQLConfigV3.#ctor(System.Xml.Linq.XElement)">
+        <member name="M:ResearchAPI.CORS.Common.SQLConfigV3.#ctor(System.Xml.Linq.XElement)">
             <summary>
             
             </summary>
             <param name="element"></param>
         </member>
-        <member name="T:ResearchAPI.Common.SQLConfigV3OrderBy">
+        <member name="T:ResearchAPI.CORS.Common.SQLConfigV3OrderBy">
             <summary>
             
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "F:ResearchAPI.Common.SQLConfigV3OrderBy.RootElementName" -->
-        <member name="F:ResearchAPI.Common.SQLConfigV3OrderBy.ElementName">
+        <!-- Badly formed XML comment ignored for member "F:ResearchAPI.CORS.Common.SQLConfigV3OrderBy.RootElementName" -->
+        <member name="F:ResearchAPI.CORS.Common.SQLConfigV3OrderBy.ElementName">
             <summary>
             
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.SQLConfigV3OrderBy.IsOn">
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigV3OrderBy.IsOn">
             <summary>
             是否启用
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.SQLConfigV3OrderBy.IsAsc">
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigV3OrderBy.IsAsc">
             <summary>
             是否正序
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.SQLConfigV3OrderBy.ComponentName">
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigV3OrderBy.ComponentName">
             <summary>
             
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.SQLConfigV3OrderBy.Alias">
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigV3OrderBy.Alias">
             <summary>
             
             </summary>
         </member>
-        <member name="M:ResearchAPI.Common.SQLConfigV3OrderBy.#ctor(System.Xml.Linq.XElement)">
+        <member name="M:ResearchAPI.CORS.Common.SQLConfigV3OrderBy.#ctor(System.Xml.Linq.XElement)">
             <summary>
             
             </summary>
             <param name="element"></param>
         </member>
-        <member name="M:ResearchAPI.Common.SQLConfigV3OrderBy.ToXElement">
+        <member name="M:ResearchAPI.CORS.Common.SQLConfigV3OrderBy.ToXElement">
             <summary>
             
             </summary>
             <returns></returns>
         </member>
-        <member name="F:ResearchAPI.Common.SQLConfigV3Where.ElementName">
+        <member name="F:ResearchAPI.CORS.Common.SQLConfigV3Where.ElementName">
             <summary>
             
             </summary>
         </member>
-        <member name="M:ResearchAPI.Common.SQLConfigV3Where.#ctor(System.Xml.Linq.XElement)">
+        <member name="M:ResearchAPI.CORS.Common.SQLConfigV3Where.#ctor(System.Xml.Linq.XElement)">
             <summary>
             
             </summary>
             <param name="element"></param>
         </member>
-        <member name="P:ResearchAPI.Common.SQLConfigV3Where.IsOn">
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigV3Where.IsOn">
             <summary>
             是否启用
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.SQLConfigV3Where.Required">
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigV3Where.Required">
             <summary>
             是否必须
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.SQLConfigV3Where.Value">
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigV3Where.Value">
             <summary>
             值
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.SQLConfigV3Where.ComponentName">
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigV3Where.ComponentName">
             <summary>
             项目名称
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.SQLConfigV3Where.SQL">
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigV3Where.SQL">
             <summary>
             值
             </summary>
         </member>
-        <member name="P:ResearchAPI.Common.SQLConfigV3Where.Formatter">
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigV3Where.Formatter">
             <summary>
             格式化
             </summary>
         </member>
-        <member name="T:ResearchAPI.Common.WhereLinker">
+        <member name="T:ResearchAPI.CORS.Common.WhereLinker">
             <summary>
             条件连接类型
             </summary>
         </member>
-        <member name="T:ResearchAPI.Common.WhereOperator">
+        <member name="T:ResearchAPI.CORS.Common.WhereOperator">
             <summary>
             条件运算类型
             </summary>
         </member>
-        <member name="T:ResearchAPI.Common.WhereSet">
+        <member name="T:ResearchAPI.CORS.Common.WhereSet">
             <summary>
             条件集
-            </summary>
-        </member>
-        <member name="M:ResearchAPI.Common.ConfigHelper.GetSQLConfigByDirectoryName(System.String)">
-            <summary>
-            获取 列表sql配置
-            </summary>
-            <param name="viewName"></param>
-            <returns></returns>
-        </member>
-        <member name="T:ResearchAPI.Common.Log4NetLogger">
-            <summary>
-            Log4Net Logger
-            </summary>
-        </member>
-        <member name="M:ResearchAPI.Common.Log4NetLogger.Info(System.String,System.Exception)">
-            <summary>
-            普通日志
-            </summary>
-            <param name="message"></param>
-            <param name="exception"></param>
-        </member>
-        <member name="M:ResearchAPI.Common.Log4NetLogger.Warn(System.String,System.Exception)">
-            <summary>
-            告警日志
-            </summary>
-            <param name="message"></param>
-            <param name="exception"></param>
-        </member>
-        <member name="M:ResearchAPI.Common.Log4NetLogger.Error(System.String,System.Exception)">
-            <summary>
-            错误日志
-            </summary>
-            <param name="message"></param>
-            <param name="exception"></param>
-        </member>
-        <member name="M:ResearchAPI.Common.Log4NetLogger.LogSQL(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
-            <summary>
-            DHF日志
             </summary>
         </member>
         <member name="T:ResearchAPI.CORS.Common.Authority">
@@ -980,6 +987,44 @@
             操作概要描述
             </summary>
         </member>
+        <member name="M:ResearchAPI.CORS.Common.ConfigHelper.GetSQLConfigByDirectoryName(System.String)">
+            <summary>
+            获取 列表sql配置
+            </summary>
+            <param name="viewName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ResearchAPI.CORS.Common.Log4NetLogger">
+            <summary>
+            Log4Net Logger
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Common.Log4NetLogger.Info(System.String,System.Exception)">
+            <summary>
+            普通日志
+            </summary>
+            <param name="message"></param>
+            <param name="exception"></param>
+        </member>
+        <member name="M:ResearchAPI.CORS.Common.Log4NetLogger.Warn(System.String,System.Exception)">
+            <summary>
+            告警日志
+            </summary>
+            <param name="message"></param>
+            <param name="exception"></param>
+        </member>
+        <member name="M:ResearchAPI.CORS.Common.Log4NetLogger.Error(System.String,System.Exception)">
+            <summary>
+            错误日志
+            </summary>
+            <param name="message"></param>
+            <param name="exception"></param>
+        </member>
+        <member name="M:ResearchAPI.CORS.Common.Log4NetLogger.LogSQL(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            DHF日志
+            </summary>
+        </member>
         <member name="T:ResearchAPI.CORS.Repositories.ProjectIndicatorRepository">
             <summary>
             
@@ -996,17 +1041,22 @@
             </summary>
             <param name="context"></param>
         </member>
-        <member name="M:ResearchAPI.CORS.Repositories.SharedRepository.GetCommonSelectCount(ResearchAPI.Common.SQLConfigV2)">
+        <member name="M:ResearchAPI.CORS.Repositories.SharedRepository.GetCommonSelectCount(ResearchAPI.CORS.Common.SQLConfigV2)">
             <summary>
             
             </summary>
             <returns></returns>
         </member>
-        <member name="M:ResearchAPI.CORS.Repositories.SharedRepository.GetCommonSelect(ResearchAPI.Common.SQLConfigV2Source,System.Int32,System.Int32)">
+        <member name="M:ResearchAPI.CORS.Repositories.SharedRepository.GetCommonSelect(ResearchAPI.CORS.Common.SQLConfigV2Source,System.Int32,System.Int32)">
             <summary>
             
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:ResearchAPI.Controllers.VLAutoMappler">
+            <summary>
+            
+            </summary>
         </member>
         <member name="M:ResearchAPI.Controllers.VLAutoMappler.MapTo(System.Object,System.Object)">
             <summary>
@@ -1014,6 +1064,16 @@
             </summary>
             <param name="from"></param>
             <param name="to"></param>
+        </member>
+        <member name="T:ResearchAPI.Controllers.TestContext">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.Controllers.APIBaseController">
+            <summary>
+            
+            </summary>
         </member>
         <member name="M:ResearchAPI.Controllers.APIBaseController.Success``1(``0)">
             <summary>
@@ -1085,6 +1145,13 @@
             科研内核接口
             </summary>
         </member>
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.InitData(ResearchAPI.Services.ReportTaskService)">
+            <summary>
+            
+            </summary>
+            <param name="service"></param>
+            <returns></returns>
+        </member>
         <member name="M:ResearchAPI.Controllers.EasyResearchController.GetDropdowns(ResearchAPI.Services.ReportTaskService,System.String)">
             <summary>
             下拉项
@@ -1119,15 +1186,11 @@
             <summary>
             1.1.3.获取项目详情
             </summary>
-            <param name="projectId">项目Id</param>
-            <returns></returns>
         </member>
         <member name="M:ResearchAPI.Controllers.EasyResearchController.DeleteProject(ResearchAPI.Services.ReportTaskService,System.Int64)">
             <summary>
             1.1.4.删除项目
             </summary>
-            <param name="projectId">项目Id</param>
-            <returns></returns>
         </member>
         <member name="M:ResearchAPI.Controllers.EasyResearchController.CreateProject(ResearchAPI.Services.APIContext,ResearchAPI.Services.ReportTaskService,ResearchAPI.CORS.Common.CreateProjectRequest)">
             <summary>
@@ -1185,6 +1248,76 @@
             1.4.6.删除指标
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.CreateCustomIndicator(ResearchAPI.Services.ReportTaskService,ResearchAPI.Controllers.EasyResearchController.CreateCustomIndicatorRequest)">
+            <summary>
+            1.4.11.保存自定义指标
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:ResearchAPI.Controllers.EasyResearchController.CreateCustomIndicatorRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.CreateCustomIndicatorRequest.ProjectId">
+            <summary>
+            项目Id
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.CreateCustomIndicatorRequest.TargetArea">
+            <summary>
+            目标人群
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.CreateCustomIndicatorRequest.LabOrderName">
+            <summary>
+            检验单名称
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.CreateCustomIndicatorRequest.LabResultName">
+            <summary>
+            检验项名称
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.CreateCustomIndicatorRequest.Search">
+            <summary>
+            搜索项
+            约定: 
+            孕产妇孕周检验模板: (@孕周小值-@孕周大值, @多次时分组:{0:最早,1:最晚,2:平均值,3:最小值,4:最大值})
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.CreateCustomIndicatorRequest.Properties">
+            <summary>
+            添加的字段
+            默认为:检验值
+            可选有:检验值,检验日期,检验单号
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.Controllers.EasyResearchController.TargetArea">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.Controllers.EasyResearchController.TargetArea.None">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.Controllers.EasyResearchController.TargetArea.Pregnant">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.Controllers.EasyResearchController.TargetArea.Woman">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.Controllers.EasyResearchController.TargetArea.Child">
+            <summary>
+            
+            </summary>
         </member>
         <member name="T:ResearchAPI.Controllers.EasyResearchController.GetBiefProjectResponse">
             <summary>
@@ -1244,6 +1377,12 @@
         <member name="M:ResearchAPI.Controllers.EasyResearchController.AddProjectIndicators(ResearchAPI.Services.ReportTaskService,ResearchAPI.CORS.Common.AddIndicatorsRequest)">
             <summary>
             1.4.13.保存指标
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.CreateTask(ResearchAPI.Services.ReportTaskService,ResearchAPI.CORS.Common.AddIndicatorsRequest)">
+            <summary>
+            1.5.1.新增队列
             </summary>
             <returns></returns>
         </member>
@@ -1362,46 +1501,6 @@
             字段名称
             </summary>
         </member>
-        <member name="T:ResearchAPI.Services.KVType">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="F:ResearchAPI.Services.KVType.ViewAuthorizeType">
-            <summary>
-            浏览权限类型
-            </summary>
-        </member>
-        <member name="F:ResearchAPI.Services.KVType.Department">
-            <summary>
-            科室
-            </summary>
-        </member>
-        <member name="F:ResearchAPI.Services.KVType.User">
-            <summary>
-            用户
-            </summary>
-        </member>
-        <member name="F:ResearchAPI.Services.KVType.Role">
-            <summary>
-            角色
-            </summary>
-        </member>
-        <member name="F:ResearchAPI.Services.KVType.BusinessType">
-            <summary>
-            业务对象类型
-            </summary>
-        </member>
-        <member name="T:ResearchAPI.Services.PKVType">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="F:ResearchAPI.Services.PKVType.BusinessEntity">
-            <summary>
-            业务对象
-            </summary>
-        </member>
         <member name="T:ResearchAPI.Services.ReportTaskService">
             <summary>
             
@@ -1411,7 +1510,6 @@
             <summary>
             
             </summary>
-            <param name="dbContext"></param>
         </member>
         <member name="T:ResearchAPI.Services.APIContext">
             <summary>

@@ -4,7 +4,6 @@ using Autobots.Infrastracture.Common.ValuesSolution;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using ResearchAPI.Common;
 using ResearchAPI.CORS.Common;
 using ResearchAPI.Services;
 using System;
@@ -17,7 +16,9 @@ using System.Threading.Tasks;
 
 namespace ResearchAPI.Controllers
 {
-
+    /// <summary>
+    /// 
+    /// </summary>
     public static class VLAutoMappler
     {
         /// <summary>
@@ -40,14 +41,19 @@ namespace ResearchAPI.Controllers
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public class TestContext
     {
         public const long UserId = 1;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public class APIBaseController : Controller
     {
-
         #region APIResult,便捷方法
         /// <summary>
         /// 
@@ -145,6 +151,18 @@ namespace ResearchAPI.Controllers
         #region 通用,Dropdown
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="service"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public APIResult<bool> InitData([FromServices] ReportTaskService service)
+        {
+            DomainConstraits.InitData(service);
+            return new APIResult<bool>(true);
+        }
+
+        /// <summary>
         /// 下拉项
         /// 1.1.2.下拉项_科室
         /// 1.2.2.下拉项_项目成员
@@ -161,8 +179,7 @@ namespace ResearchAPI.Controllers
             switch (type)
             {
                 case "BusinessType":
-                    values.AddRange(DomainConstraits.GetBusinessTypes(() => LoadBusinessEntitiesByXMLConfig())
-                        .Select(c => new VLKeyValue<string, long>(c.Name, c.Id)));
+                    values.AddRange(DomainConstraits.BusinessTypes.Select(c => new VLKeyValue<string, long>(c.Name, c.Id)));
                     return Success(values);
                 case "Member":
                     var result = service.GetAllUsersIdAndName();
@@ -193,12 +210,12 @@ namespace ResearchAPI.Controllers
             switch (type)
             {
                 case "BusinessEntity":
-                    values.AddRange(DomainConstraits.GetBusinessEntities(() => LoadBusinessEntitiesByXMLConfig())
+                    values.AddRange(DomainConstraits.BusinessEntities
                         .Where(c=>c.BusinessTypeId == parentId)
                         .Select(c => new VLKeyValue<string, long>(c.Name, c.Id)));
                     return Success(values);
                 case "BusinessEntityProperty":
-                    values.AddRange(DomainConstraits.GetBusinessEntityProperties(() => LoadBusinessEntitiesByXMLConfig())
+                    values.AddRange(DomainConstraits.BusinessEntityProperties
                         .Where(c => c.BusinessEntityId == parentId)
                         .Select(c => new VLKeyValue<string, long>(c.DisplayName, c.Id)));
                     return Success(values);
@@ -206,7 +223,8 @@ namespace ResearchAPI.Controllers
                     throw new NotImplementedException("未支持该类型");
             }
         }
-        private static List<COBusinessEntities> LoadBusinessEntitiesByXMLConfig()
+
+        internal static List<COBusinessEntities> LoadBusinessEntitiesByXMLConfig()
         {
             var businessEntitiesCollection = new List<COBusinessEntities>();
             var directory = @"Configs/XMLConfigs/BusinessEntities";
@@ -220,7 +238,7 @@ namespace ResearchAPI.Controllers
             return businessEntitiesCollection;
         }
 
-        private List<VLKeyValue<string, T>> LoadKeyValueFile<T>(string type)
+        internal static List<VLKeyValue<string, T>> LoadKeyValueFile<T>(string type)
         {
             List<VLKeyValue<string, T>> values = new List<VLKeyValue<string, T>>();
             var file = (Path.Combine(AppContext.BaseDirectory, "Configs/JsonConfigs", type + ".json"));
@@ -235,7 +253,7 @@ namespace ResearchAPI.Controllers
             return values;
         }
 
-        private Dictionary<T, string> GetDictionary<T>(string type)
+        internal static Dictionary<T, string> GetDictionary<T>(string type)
         {
             var kvs = LoadKeyValueFile<T>(type);
             var result = new Dictionary<T, string>();
@@ -279,8 +297,6 @@ namespace ResearchAPI.Controllers
         /// <summary>
         /// 1.1.3.获取项目详情
         /// </summary>
-        /// <param name="projectId">项目Id</param>
-        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
@@ -293,8 +309,6 @@ namespace ResearchAPI.Controllers
         /// <summary>
         /// 1.1.4.删除项目
         /// </summary>
-        /// <param name="projectId">项目Id</param>
-        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
@@ -388,12 +402,12 @@ namespace ResearchAPI.Controllers
             if (!serviceResult.IsSuccess)
                 return new APIResult<GetBiefProjectResponse>(null, serviceResult.Code, serviceResult.Message);
             var result = new GetBiefProjectResponse(serviceResult.Data);
-            result.ViewAuthorizeTypeName = DomainConstraits.RenderIdsToText(result.ViewAuthorizeType, () => GetDictionary<int>(KVType.ViewAuthorizeType.ToString()));
+            result.ViewAuthorizeTypeName = DomainConstraits.RenderIdToText(result.ViewAuthorizeType, DomainConstraits.ViewAuthorizeTypes);
             if (result.DepartmentId.HasValue)
-                result.DepartmentName = DomainConstraits.RenderIdsToText(result.DepartmentId.Value, () => GetDictionary<long>(KVType.Department.ToString()));
-            result.AdminNames = DomainConstraits.RenderIdsToText(result.AdminIds, () => service.GetUsersDictionary());
-            result.CreateName = DomainConstraits.RenderIdsToText(result.CreatorId.Value, () => service.GetUsersDictionary());
-            result.MemberNames = DomainConstraits.RenderIdsToText(result.MemberIds, () => service.GetUsersDictionary());
+                result.DepartmentName = DomainConstraits.RenderIdToText(result.DepartmentId.Value, DomainConstraits.Departments);
+            result.AdminNames = DomainConstraits.RenderIdsToText<long>(result.AdminIds, DomainConstraits.Users);
+            result.CreateName = DomainConstraits.RenderIdToText(result.CreatorId.Value, DomainConstraits.Users);
+            result.MemberNames = DomainConstraits.RenderIdsToText(result.MemberIds, DomainConstraits.Users);
             return new APIResult<GetBiefProjectResponse>(result);
         }
 
@@ -407,9 +421,7 @@ namespace ResearchAPI.Controllers
         public APIResult<List<GetProjectIndicatorModel>> GetProjectIndicators([FromServices] ReportTaskService service, long projectId)
         {
             var result = service.GetProjectIndicators(projectId);
-            result.Data.ForEach(
-                c => c.BusinessEntityName = DomainConstraits.RenderIdsToText<long>(c.BusinessEntityId, () => DomainConstraits.GetBusinessEntityDic(() => LoadBusinessEntitiesByXMLConfig())
-            ));
+            result.Data.ForEach(c => c.BusinessEntityName = DomainConstraits.RenderIdToText<long>(c.BusinessEntityId, DomainConstraits.BusinessEntityDic));
             return new APIResult<List<GetProjectIndicatorModel>>(result);
         }
 
@@ -437,6 +449,92 @@ namespace ResearchAPI.Controllers
         {
             var result = service.DeleteProjectIndicator(indicatorId);
             return new APIResult<bool>(result);
+        }
+
+        /// <summary>
+        /// 1.4.11.保存自定义指标
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [AllowAnonymous]
+        [EnableCors("AllCors")]
+        public APIResult<long> CreateCustomIndicator([FromServices] ReportTaskService service,[FromBody] CreateCustomIndicatorRequest request)
+        {
+            switch (request.TargetArea)
+            {
+                case TargetArea.None: 
+                    break;
+                case TargetArea.Pregnant:
+                    var template = ConfigHelper.GetBusinessEntityTemplate("Configs\\XMLConfigs\\BusinessEntities", "Template_孕周检验.xml");
+                    break;
+                case TargetArea.Woman:
+                    break;
+                case TargetArea.Child:
+                    break;
+                default:
+                    break;
+            }
+            //request
+            var result = service.CreateCustomIndicator(request);
+            return new APIResult<long>(result);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public class CreateCustomIndicatorRequest
+        {
+            /// <summary>
+            /// 项目Id
+            /// </summary>
+            public long ProjectId { set; get; }
+            /// <summary>
+            /// 目标人群
+            /// </summary>
+            public TargetArea TargetArea { set; get; }
+            /// <summary>
+            /// 检验单名称
+            /// </summary>
+            public string LabOrderName { set; get; }
+            /// <summary>
+            /// 检验项名称
+            /// </summary>
+            public string LabResultName { set; get; }
+            /// <summary>
+            /// 搜索项
+            /// 约定: 
+            /// 孕产妇孕周检验模板: (@孕周小值-@孕周大值, @多次时分组:{0:最早,1:最晚,2:平均值,3:最小值,4:最大值})
+            /// </summary>
+            public List<VLKeyValue> Search { set; get; }
+            /// <summary>
+            /// 添加的字段
+            /// 默认为:检验值
+            /// 可选有:检验值,检验日期,检验单号
+            /// </summary>
+            internal List<BusinessEntityPropertyDTO> Properties { set; get; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public enum TargetArea
+        {
+            /// <summary>
+            /// 
+            /// </summary>
+            None =0 ,
+            /// <summary>
+            /// 
+            /// </summary>
+            Pregnant,
+            /// <summary>
+            /// 
+            /// </summary>
+            Woman,
+            /// <summary>
+            /// 
+            /// </summary>
+            Child,
         }
 
         /// <summary>
@@ -519,6 +617,18 @@ namespace ResearchAPI.Controllers
         {
             var serviceResult = service.AddProjectIndicators(request);
             return new APIResult<bool>(serviceResult);
+        }
+
+        /// <summary>
+        /// 1.5.1.新增队列
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [AllowAnonymous]
+        [EnableCors("AllCors")]
+        public APIResult<long> CreateTask([FromServices] ReportTaskService service, [FromBody] AddIndicatorsRequest request)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

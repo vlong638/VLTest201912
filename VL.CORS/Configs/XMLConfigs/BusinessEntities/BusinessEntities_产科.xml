@@ -3,8 +3,8 @@
 	<BusinessEntity Id="101001" DisplayName ="基本档案">
 		<Properties>
 			<Property Id="101001001" DisplayName="姓名" From="PregnantInfo" ColumnName="PersonName" ColumnType="string"/>
-			<Property Id="101001001" DisplayName="生日" From="PregnantInfo" ColumnName="Birthday" ColumnType="string"/>
-			<Property Id="101001001" DisplayName="性别" From="PregnantInfo" ColumnName="Sex" ColumnType="string"/>
+			<Property Id="101001002" DisplayName="生日" From="PregnantInfo" ColumnName="Birthday" ColumnType="string"/>
+			<Property Id="101001003" DisplayName="性别" From="PregnantInfo" ColumnName="Sex" ColumnType="string"/>
 		</Properties>
 	</BusinessEntity>
 	<BusinessEntity Id="101002" DisplayName ="检查单">

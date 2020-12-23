@@ -1,4 +1,4 @@
-﻿namespace ResearchAPI.Common
+﻿namespace ResearchAPI.CORS.Common
 {
     public class ValueEntity
     {

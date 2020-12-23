@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace ResearchAPI.Common
+namespace ResearchAPI.CORS.Common
 {
     /// <summary>
     /// 表对值 条件项

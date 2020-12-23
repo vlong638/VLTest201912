@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Xml.Linq;
 
-namespace ResearchAPI.Common
+namespace ResearchAPI.CORS.Common
 {
     public class IfConditionV2
     {

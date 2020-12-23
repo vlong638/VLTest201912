@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace ResearchAPI.Common
+namespace ResearchAPI.CORS.Common
 {
     /// <summary>
     /// Log4Net Logger

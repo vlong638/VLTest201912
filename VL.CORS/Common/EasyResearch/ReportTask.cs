@@ -1,12 +1,12 @@
 ﻿using Autobots.Infrastracture.Common.ValuesSolution;
-using ResearchAPI.Common;
+using ResearchAPI.CORS.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
-namespace ResearchAPI.Common
+namespace ResearchAPI.CORS.Common
 {
     public class BusinessEntityTemplate
     {
