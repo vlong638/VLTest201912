@@ -375,7 +375,7 @@ namespace ResearchAPI.Controllers
             var result = service.EditProject(request, userid);
             return new APIResult<bool>(result);
         }
-
+        
         /// <summary>
         /// 1.3.4.获取操作记录 GetProjectOperateHistory
         /// </summary>
@@ -458,7 +458,7 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<List<BusinessEntityPropertyDTO>> CreateCustomIndicator([FromServices] ReportTaskService service,[FromBody] CreateCustomIndicatorRequest request)
+        public APIResult<List<BusinessEntityPropertyDTO>> CreateCustomIndicator([FromServices] ReportTaskService service, [FromBody] CreateCustomIndicatorRequest request)
         {
             switch (request.TargetArea)
             {
@@ -494,14 +494,6 @@ namespace ResearchAPI.Controllers
             /// 目标人群
             /// </summary>
             public TargetArea TargetArea { set; get; }
-            /// <summary>
-            /// 检验单名称
-            /// </summary>
-            public string LabOrderName { set; get; }
-            /// <summary>
-            /// 检验项名称
-            /// </summary>
-            public string LabResultName { set; get; }
             /// <summary>
             /// 搜索项
             /// 约定: 
@@ -544,6 +536,10 @@ namespace ResearchAPI.Controllers
         /// </summary>
         public class GetBriefProjectResponse : GetProjectModel
         {
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="model"></param>
             public GetBriefProjectResponse(GetProjectModel model)
             {
                 model.MapTo(this);

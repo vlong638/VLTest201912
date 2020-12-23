@@ -10,10 +10,11 @@
 	</BusinessEntity>
 	<SQLConfig>
 		<Wheres>
+			<Where ComponentName="检查单类别" DisplayName="检查单类别" DisplayType="3" Options="xxx:xxx,xxx:xxx" Required="true"/>
 			<Where ComponentName="检验类别" DisplayName="检验类别" DisplayType="3" Options="0148:葡萄糖,0193:血红蛋白" Required="true"/>
-			<Where ComponentName="检查日期早于孕周" DisplayName="检查日期(多少天内)" DisplayType="5"/>
-			<Where ComponentName="检查日期晚于孕周" DisplayName="检查日期(多少天内)" DisplayType="5"/>
-			<Where ComponentName="检查日期分组类别" DisplayName="检查日期分组类别" DisplayType="3" Options="0:最早,1:最晚" Required="true"/>
+			<Where ComponentName="起始孕周" DisplayName="起始孕周" DisplayType="5"/>
+			<Where ComponentName="截止孕周" DisplayName="截止孕周" DisplayType="5"/>
+			<Where ComponentName="多值时取值方式" DisplayName="多值时取值方式" DisplayType="3" Options="0:最早,1:最晚,2:最小,3:最大,4:平均" Required="true"/>
 			<Where ComponentName="检验结果小于" DisplayName="检验结果小于" DisplayType="1"/>
 			<Where ComponentName="检验结果大于" DisplayName="检验结果大于" DisplayType="1"/>
 		</Wheres>
@@ -25,16 +26,17 @@
 			,lr.value
 			from
 			(
-			select pi.idcard,pi.deliverydate
-			<If Operator="eq" ComponentName="检查日期分组类别" Value="0"> ,max(lo.examtime) targetexamtime </If>
-			from LabOrder lo
-			left join LabResult lr on lo.Id = lr.orderid
-			left join PregnantInfo pi on lo.idcard = pi.idcard
-			where
-			<If Operator="NotEmpty" ComponentName="检验类别"> lr.itemid = @检验类别</If>
-			<If Operator="NotEmpty" ComponentName="检查日期晚于"> and lo.examtime &lt; @检查日期晚于 </If>
-			<If Operator="NotEmpty" ComponentName="检查日期早于"> and lo.examtime &gt; @检查日期早于 </If>
-			group by pi.idcard,pi.deliverydate
+				select pi.idcard,pi.deliverydate
+				<If Operator="eq" ComponentName="检查日期分组类别" Value="0"> ,min(lo.examtime) targetexamtime </If>
+				<If Operator="eq" ComponentName="检查日期分组类别" Value="1"> ,max(lo.examtime) targetexamtime </If>
+				from LabOrder lo
+				left join LabResult lr on lo.Id = lr.orderid
+				left join PregnantInfo pi on lo.idcard = pi.idcard
+				where
+				<If Operator="NotEmpty" ComponentName="检验类别"> lr.itemid = @检验类别</If>
+				<If Operator="NotEmpty" ComponentName="起始孕周"> and lo.examtime &gt; @起始孕周 </If>
+				<If Operator="NotEmpty" ComponentName="截止孕周"> and lo.examtime &lt; @截止孕周 </If>
+				group by pi.idcard,pi.deliverydate
 			) as temp
 			left join LabOrder lo on temp.idcard = lo.idcard and temp.targetexamtime = lo.examtime
 			left join LabResult lr on lo.Id = lr.orderid

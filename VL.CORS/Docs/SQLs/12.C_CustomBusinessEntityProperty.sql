@@ -7,16 +7,18 @@ GO
 -- 新增时间 设置默认值
 CREATE TABLE [dbo].[CustomBusinessEntityProperty](
 	[Id][bigint] IDENTITY(1, 2) NOT NULL,
-	[TemplateId] bigint NULL,
+	[BusinessEntityId][bigint] NOT NULL,
 	-------------------------------------------上关联
 	[db_createtime] [datetime] DEFAULT CURRENT_TIMESTAMP,
 	[db_updatetime] [datetime] NULL,
-	-------------------------------------------下管控
-	-------------------------------------------下内容
+	-------------------------------------------
+	[SourceName] nvarchar(20) NULL,
 	[ColumnName] nvarchar(20) NULL,
 	[DisplayName] nvarchar(20) NULL,
 	-------------------------------------------
-
+	[CreatorBy] bigint NULL,
+	[CreatedAt] datetime NULL,
+	-------------------------------------------
 	CONSTRAINT[PK_CustomBusinessEntityProperty] PRIMARY KEY CLUSTERED 
 	(
 		[Id] ASC

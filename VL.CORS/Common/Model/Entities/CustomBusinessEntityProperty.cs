@@ -3,9 +3,9 @@
 namespace ResearchAPI.CORS.Common
 {
     [Table(TableName)]
-    public class CustomerBusinessEntityProperty
+    public class CustomBusinessEntityProperty
     {
-        public const string TableName = "CustomerBusinessEntityProperty";
+        public const string TableName = "CustomBusinessEntityProperty";
 
         public long Id { set; get; }
         /// <summary>

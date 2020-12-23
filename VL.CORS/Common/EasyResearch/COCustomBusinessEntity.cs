@@ -4,14 +4,14 @@ using System.Xml.Linq;
 
 namespace ResearchAPI.CORS.Common
 {
-    public class CustomBusinessEntity
+    public class COCustomBusinessEntity
     {
         public const string ElementName = "CustomBusinessEntity";
 
-        public CustomBusinessEntity()
+        public COCustomBusinessEntity()
         {
         }
-        public CustomBusinessEntity(XElement element)
+        public COCustomBusinessEntity(XElement element)
         {
             ReportName = element.Attribute(nameof(ReportName))?.Value;
             Template = element.Attribute(nameof(Template))?.Value;

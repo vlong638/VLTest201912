@@ -16,9 +16,9 @@ namespace ResearchAPI.CORS.Common
         {
         }
 
-        public static long AdminRoleId { private set; get; }
-        public static long MemberRoleId { private set; get; }
-        public static long OwnerRoleId { private set; get; }
+        public static long? AdminRoleId { private set; get; }
+        public static long? MemberRoleId { private set; get; }
+        public static long? OwnerRoleId { private set; get; }
         public static Dictionary<long, string> Roles { private set; get; }
         public static Dictionary<long, string> Users { private set; get; }
         public static Dictionary<long, string> Departments { private set; get; }

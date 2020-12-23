@@ -26,8 +26,9 @@ namespace ResearchAPI.Services
         APIContext APIContext { get; set; }
         DbContext ResearchDbContext { set; get; }
 
-        CustomerBusinessEntityPropertyRepository CustomerBusinessEntityPropertyRepository { set; get; }
-        CustomerBusinessEntityRepository CustomerBusinessEntityRepository { set; get; }
+        CustomBusinessEntityPropertyRepository CustomBusinessEntityPropertyRepository { set; get; }
+        CustomBusinessEntityRepository CustomerBusinessEntityRepository { set; get; }
+        CustomBusinessEntityWhereRepository CustomBusinessEntityWhereRepository { set; get; }
         BusinessEntityPropertyRepository BusinessEntityPropertyRepository { set; get; }
         FavoriteProjectRepository FavoriteProjectRepository { set; get; }
         ProjectRepository ProjectRepository { set; get; }
@@ -46,8 +47,9 @@ namespace ResearchAPI.Services
             ResearchDbContext = APIContext?.GetDBContext(APIContraints.ResearchDbContext);
 
             //repositories
-            CustomerBusinessEntityPropertyRepository = new CustomerBusinessEntityPropertyRepository(ResearchDbContext);
-            CustomerBusinessEntityRepository = new CustomerBusinessEntityRepository(ResearchDbContext);
+            CustomBusinessEntityPropertyRepository = new CustomBusinessEntityPropertyRepository(ResearchDbContext);
+            CustomerBusinessEntityRepository = new CustomBusinessEntityRepository(ResearchDbContext);
+            CustomBusinessEntityWhereRepository = new CustomBusinessEntityWhereRepository(ResearchDbContext);
             BusinessEntityPropertyRepository = new BusinessEntityPropertyRepository(ResearchDbContext);
             FavoriteProjectRepository = new FavoriteProjectRepository(ResearchDbContext);
             ProjectRepository = new ProjectRepository(ResearchDbContext);
@@ -104,11 +106,9 @@ namespace ResearchAPI.Services
                 result.CreatedAt = project.CreatedAt;
                 result.LastModifiedAt = project.LastModifiedAt;
                 result.LastModifiedBy = project.LastModifiedBy;
-                var adminRoleId = DomainConstraits.AdminRoleId;
-                var memberRoleId = DomainConstraits.MemberRoleId;
-                var adminIds = ProjectRepository.GetUserIdsByProjectIdAndRoleId(projectId, adminRoleId);
+                var adminIds = ProjectRepository.GetUserIdsByProjectIdAndRoleId(projectId, DomainConstraits.AdminRoleId.Value);
                 result.AdminIds = adminIds;
-                var memberIds = ProjectRepository.GetUserIdsByProjectIdAndRoleId(projectId, memberRoleId);
+                var memberIds = ProjectRepository.GetUserIdsByProjectIdAndRoleId(projectId, DomainConstraits.MemberRoleId.Value);
                 result.MemberIds = memberIds;
                 var isFavorite = FavoriteProjectRepository.GetOne(new FavoriteProject(project.Id, project.CreatorId));
                 result.IsFavorite = isFavorite != null;
@@ -194,16 +194,23 @@ namespace ResearchAPI.Services
 
         internal ServiceResult<List<BusinessEntityPropertyDTO>> CreateCustomIndicator(CreateCustomIndicatorRequest request, BusinessEntityTemplate template)
         {
-            var entity = new CustomerBusinessEntity()
+            var entity = new CustomBusinessEntity()
             {
-                Name = "tempate" + template.Id,
+                Name = "t" + template.Id,
                 TemplateId = template.Id
             };
-            var properties = request.Properties.Select(c => new CustomerBusinessEntityProperty()
+            var properties = request.Properties.Select(c => new CustomBusinessEntityProperty()
             {
                 ColumnName = c.ColumnName,
                 SourceName = entity.Name,
                 DisplayName = template.BusinessEntity.Properties.First(d => d.ColumnName == d.ColumnName).DisplayName,
+            }).ToList();
+            var wheres = request.Search.Select(c => new CustomBusinessEntityWhere()
+            {
+                ComponentName = c.Key,
+                Value = c.Value,
+                DisplayName = template.SQLConfig.Wheres.First(d => d.ComponentName == c.Key).DisplayName,
+                Operator = "eq",
             }).ToList();
             return ResearchDbContext.DelegateTransaction(c =>
             {
@@ -211,7 +218,12 @@ namespace ResearchAPI.Services
                 properties.ForEach(c =>
                 {
                     c.BusinessEntityId = entityId;
-                    c.Id = CustomerBusinessEntityPropertyRepository.InsertOne(c);
+                    c.Id = CustomBusinessEntityPropertyRepository.InsertOne(c);
+                });
+                wheres.ForEach(c =>
+                {
+                    c.BusinessEntityId = entityId;
+                    c.Id = CustomBusinessEntityWhereRepository.InsertOne(c);
                 });
                 return properties.Select(c => new BusinessEntityPropertyDTO() { Id = c.Id, ColumnName = c.ColumnName }).ToList();
             });
@@ -240,15 +252,12 @@ namespace ResearchAPI.Services
             return ResearchDbContext.DelegateTransaction(c =>
             {
                 var projectId = ProjectRepository.Insert(project);
-                var ownerRoleId = DomainConstraits.OwnerRoleId;
-                var adminRoleId = DomainConstraits.AdminRoleId;
-                var memberRoleId = DomainConstraits.MemberRoleId;
                 var members = new List<ProjectMember>();
-                members.Add(new ProjectMember(projectId, project.CreatorId, ownerRoleId));
+                members.Add(new ProjectMember(projectId, project.CreatorId, DomainConstraits.OwnerRoleId.Value));
                 foreach (var adminId in request.AdminIds ?? new List<long>())
-                    members.Add(new ProjectMember(projectId, adminId, adminRoleId));
+                    members.Add(new ProjectMember(projectId, adminId, DomainConstraits.AdminRoleId.Value));
                 foreach (var memberId in request.MemberIds ?? new List<long>())
-                    members.Add(new ProjectMember(projectId, memberId, memberRoleId));
+                    members.Add(new ProjectMember(projectId, memberId, DomainConstraits.MemberRoleId.Value));
                 ProjectMemberRepository.CreateProjectMembers(members);
                 return projectId;
             });
@@ -275,15 +284,12 @@ namespace ResearchAPI.Services
                 if (!result)
                     throw new NotImplementedException("项目更新失败");
                 var projectId = project.Id;
-                var ownerRoleId = DomainConstraits.OwnerRoleId;
-                var adminRoleId = DomainConstraits.AdminRoleId;
-                var memberRoleId = DomainConstraits.MemberRoleId;
                 var members = new List<ProjectMember>();
-                members.Add(new ProjectMember(projectId, project.CreatorId, ownerRoleId));
+                members.Add(new ProjectMember(projectId, project.CreatorId, DomainConstraits.OwnerRoleId.Value));
                 foreach (var adminId in request.AdminIds)
-                    members.Add(new ProjectMember(projectId, adminId, adminRoleId));
+                    members.Add(new ProjectMember(projectId, adminId, DomainConstraits.AdminRoleId.Value));
                 foreach (var memberId in request.MemberIds)
-                    members.Add(new ProjectMember(projectId, memberId, memberRoleId));
+                    members.Add(new ProjectMember(projectId, memberId, DomainConstraits.MemberRoleId.Value));
                 ProjectMemberRepository.DeleteByProjectId(projectId);
                 ProjectMemberRepository.CreateProjectMembers(members);
                 return true;

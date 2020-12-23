@@ -84,6 +84,8 @@ namespace Tester
                 }
                 var ties = File.ReadAllLines(@"C:\Users\Administrator\Desktop\杭妇院\1223.新Idcard名单.txt");
                 var newid = 3000000;
+                var countold = 0;
+                var countnew= 0;
                 foreach (var tie in ties)
                 {
                     var idcard = tie;
@@ -92,14 +94,17 @@ namespace Tester
                     if (fetched != null)
                     {
                         id = fetched.Value.ToInt().Value;
+                        countold++;
                     }
                     else
                     {
                         id = newid;
                         newid++;
+                        countnew++;
                     }
                     targetPersons.Add(new VLKeyValue(idcard, id.ToString()));
                 }
+                var s = countold + "," + countnew;
                 StringBuilder sb = new StringBuilder();
                 foreach (var item in targetPersons)
                 {

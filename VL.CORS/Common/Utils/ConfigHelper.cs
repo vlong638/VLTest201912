@@ -40,12 +40,12 @@ namespace ResearchAPI.CORS.Common
             return new BusinessEntityTemplate(root);
         }
 
-        public static CustomBusinessEntity GetCustomBusinessEntity(string directory, string file)
+        public static COCustomBusinessEntity GetCustomBusinessEntity(string directory, string file)
         {
             var path = Path.Combine(AppContext.BaseDirectory, directory, file);
             XDocument doc = XDocument.Load(path);
-            var root = doc.Element(CustomBusinessEntity.ElementName);
-            return new CustomBusinessEntity(root);
+            var root = doc.Element(COCustomBusinessEntity.ElementName);
+            return new COCustomBusinessEntity(root);
         }
 
         /// <summary>

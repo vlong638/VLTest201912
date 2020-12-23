@@ -2,7 +2,7 @@
 
 namespace ResearchAPI.CORS.Common
 {
-    public class CustomBusinessEntitySet : List<CustomBusinessEntity>
+    public class COCustomBusinessEntitySet : List<COCustomBusinessEntity>
     {
 
     }

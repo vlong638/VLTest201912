@@ -8,18 +8,18 @@ using System.Linq;
 
 namespace ResearchAPI.CORS.Repositories
 {
-    public class CustomerBusinessEntityPropertyRepository : Repository<CustomerBusinessEntityProperty>
+    public class CustomBusinessEntityPropertyRepository : Repository<CustomBusinessEntityProperty>
     {
-        public CustomerBusinessEntityPropertyRepository(DbContext context) : base(context)
+        public CustomBusinessEntityPropertyRepository(DbContext context) : base(context)
         {
         }
 
-        public long InsertOne(CustomerBusinessEntityProperty CustomerBusinessEntityProperty)
+        public long InsertOne(CustomBusinessEntityProperty CustomerBusinessEntityProperty)
         {
             return Insert(CustomerBusinessEntityProperty);
         }
 
-        public int InsertBatch(IEnumerable<CustomerBusinessEntityProperty> businessEntityProperties)
+        public int InsertBatch(IEnumerable<CustomBusinessEntityProperty> businessEntityProperties)
         {
             int i = 0;
             foreach (var CustomerBusinessEntityProperty in businessEntityProperties)

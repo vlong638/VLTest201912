@@ -17,6 +17,7 @@ namespace ResearchAPI.CORS.Common
         public SQLConfigV3Where(XElement element)
         {
             ComponentName = element.Attribute(nameof(ComponentName))?.Value;
+            DisplayName = element.Attribute(nameof(DisplayName))?.Value;
             Formatter = element.Attribute(nameof(Formatter))?.Value;
             IsOn = element.Attribute(nameof(IsOn))?.Value.ToBool() ?? false;
             Required = element.Attribute(nameof(Required))?.Value.ToBool() ?? false;
@@ -39,6 +40,10 @@ namespace ResearchAPI.CORS.Common
         /// 项目名称
         /// </summary>
         public string ComponentName { set; get; }
+        /// <summary>
+        /// 显示名称
+        /// </summary>
+        public string DisplayName { set; get; }
         /// <summary>
         /// 值
         /// </summary>

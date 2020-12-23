@@ -67,7 +67,7 @@ namespace ResearchAPI.CORS.Common
         public string Name { set; get; }
         public List<COBusinessEntityProperty> Properties { get; set; } = new List<COBusinessEntityProperty>();
 
-        public CustomBusinessEntitySet CustomBusinessEntities { set; get; } = new CustomBusinessEntitySet();
+        public COCustomBusinessEntitySet CustomBusinessEntities { set; get; } = new COCustomBusinessEntitySet();
         public Routers CustomRouters { set; get; } = new Routers();
 
         /// <summary>
@@ -192,7 +192,7 @@ namespace ResearchAPI.CORS.Common
             }
         }
 
-        private string GetFrom(List<Router> routers, List<COBusinessEntityProperty> properties, CustomBusinessEntitySet customBusinessEntities, List<BusinessEntityTemplate> templates)
+        private string GetFrom(List<Router> routers, List<COBusinessEntityProperty> properties, COCustomBusinessEntitySet customBusinessEntities, List<BusinessEntityTemplate> templates)
         {
             if (routers.Count == 0)
             {
