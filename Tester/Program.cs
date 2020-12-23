@@ -74,6 +74,41 @@ namespace Tester
 
             if (true)
             {
+                var sources = File.ReadAllLines(@"C:\Users\Administrator\Desktop\杭妇院\1223.原Id名单.txt");
+                var sourcePersons = new List<VLKeyValue>();
+                var targetPersons = new List<VLKeyValue>();
+                foreach (var source in sources)
+                {
+                    var key = source.Split(',');
+                    sourcePersons.Add(new VLKeyValue(key[1], key[0]));
+                }
+                var ties = File.ReadAllLines(@"C:\Users\Administrator\Desktop\杭妇院\1223.新Idcard名单.txt");
+                var newid = 3000000;
+                foreach (var tie in ties)
+                {
+                    var idcard = tie;
+                    var id = 0;
+                    var fetched = sourcePersons.FirstOrDefault(c => c.Key == idcard);
+                    if (fetched != null)
+                    {
+                        id = fetched.Value.ToInt().Value;
+                    }
+                    else
+                    {
+                        id = newid;
+                        newid++;
+                    }
+                    targetPersons.Add(new VLKeyValue(idcard, id.ToString()));
+                }
+                StringBuilder sb = new StringBuilder();
+                foreach (var item in targetPersons)
+                {
+                    sb.AppendLine(item.Key + "\t" + item.Value);
+                }
+                File.WriteAllText(@"C:\Users\Administrator\Desktop\杭妇院\1223.Output.txt", sb.ToString());
+            }
+            if (false)
+            {
                 var sources = File.ReadAllLines(@"C:\Users\Administrator\Desktop\杭妇院\1211.铁剂补充源列表.txt");
                 var sourcePersons = new List<VLKeyValue>();
                 foreach (var source in sources)
