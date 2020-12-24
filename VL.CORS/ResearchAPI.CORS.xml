@@ -892,42 +892,42 @@
             项目描述
             </summary>
         </member>
-        <member name="T:ResearchAPI.CORS.Common.GetBiefProjectResponse">
+        <member name="T:ResearchAPI.CORS.Common.GetBiefProjectModel">
             <summary>
             
             </summary>
         </member>
-        <member name="P:ResearchAPI.CORS.Common.GetBiefProjectResponse.CreatedAt">
+        <member name="P:ResearchAPI.CORS.Common.GetBiefProjectModel.CreatedAt">
             <summary>
             创建日期
             </summary>
         </member>
-        <member name="P:ResearchAPI.CORS.Common.GetBiefProjectResponse.LastModifiedAt">
+        <member name="P:ResearchAPI.CORS.Common.GetBiefProjectModel.LastModifiedAt">
             <summary>
             最近更新时间
             </summary>
         </member>
-        <member name="P:ResearchAPI.CORS.Common.GetBiefProjectResponse.CreatorName">
+        <member name="P:ResearchAPI.CORS.Common.GetBiefProjectModel.CreatorName">
             <summary>
             创建者
             </summary>
         </member>
-        <member name="P:ResearchAPI.CORS.Common.GetBiefProjectResponse.DepartmentId">
+        <member name="P:ResearchAPI.CORS.Common.GetBiefProjectModel.DepartmentId">
             <summary>
             关联科室
             </summary>
         </member>
-        <member name="P:ResearchAPI.CORS.Common.GetBiefProjectResponse.AdminIds">
+        <member name="P:ResearchAPI.CORS.Common.GetBiefProjectModel.AdminIds">
             <summary>
             项目管理人员
             </summary>
         </member>
-        <member name="P:ResearchAPI.CORS.Common.GetBiefProjectResponse.MemberIds">
+        <member name="P:ResearchAPI.CORS.Common.GetBiefProjectModel.MemberIds">
             <summary>
             项目成员
             </summary>
         </member>
-        <member name="P:ResearchAPI.CORS.Common.GetBiefProjectResponse.ProjectDescription">
+        <member name="P:ResearchAPI.CORS.Common.GetBiefProjectModel.ProjectDescription">
             <summary>
             项目描述
             </summary>
@@ -1077,19 +1077,34 @@
             是否收藏
             </summary>
         </member>
-        <member name="T:ResearchAPI.CORS.Common.GetProjectOperateHistoryResponse">
+        <member name="T:ResearchAPI.CORS.Common.GetProjectOperateHistoryModel">
             <summary>
             
             </summary>
         </member>
-        <member name="P:ResearchAPI.CORS.Common.GetProjectOperateHistoryResponse.OperateAt">
+        <member name="P:ResearchAPI.CORS.Common.GetProjectOperateHistoryModel.OperateAt">
             <summary>
             操作时间
             </summary>
         </member>
-        <member name="P:ResearchAPI.CORS.Common.GetProjectOperateHistoryResponse.OperatorSummary">
+        <member name="P:ResearchAPI.CORS.Common.GetProjectOperateHistoryModel.OperatorSummary">
             <summary>
             操作概要描述
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetTaskStatusModel.ScheduleStatus">
+            <summary>
+            执行状态
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetTaskStatusModel.ScheduleStatusName">
+            <summary>
+            执行状态_文本
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetTaskStatusModel.ProcessingRate">
+            <summary>
+            执行比例
             </summary>
         </member>
         <member name="M:ResearchAPI.CORS.Common.ConfigHelper.GetSQLConfigByDirectoryName(System.String)">
@@ -1508,6 +1523,12 @@
         <member name="M:ResearchAPI.Controllers.EasyResearchController.GetTasks(ResearchAPI.Services.ReportTaskService,System.Int64)">
             <summary>
             1.5.5.查看队列集合
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetTaskStatus(ResearchAPI.Services.ReportTaskService,System.Int64)">
+            <summary>
+            1.5.6.查看队列状态
             </summary>
             <returns></returns>
         </member>

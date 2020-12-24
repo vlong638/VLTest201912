@@ -5,7 +5,7 @@ namespace ResearchAPI.CORS.Common
     /// <summary>
     /// 
     /// </summary>
-    public class GetProjectOperateHistoryResponse
+    public class GetProjectOperateHistoryModel
     {
         /// <summary>
         /// 操作时间

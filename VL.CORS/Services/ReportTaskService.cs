@@ -482,6 +482,19 @@ namespace ResearchAPI.Services
                 return schedule.Id;
             });
         }
+
+        internal ServiceResult<GetTaskStatusModel> GetTaskStatus(long taskId)
+        {
+            return ResearchDbContext.DelegateNonTransaction(c =>
+            {
+                var taskStatus = ProjectScheduleRepository.GetTaskStatus(taskId);
+                if (taskStatus==null)
+                {
+                    throw new NotImplementedException("执行任务不存在");
+                }
+                return taskStatus;
+            });
+        }
     }
 
     /// <summary>

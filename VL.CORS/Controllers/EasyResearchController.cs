@@ -384,7 +384,7 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<GetProjectOperateHistoryResponse> GetProjectOperateHistory(long projectId)
+        public APIResult<GetProjectOperateHistoryModel> GetProjectOperateHistory(long projectId)
         {
             throw new NotImplementedException();
         }
@@ -689,6 +689,26 @@ namespace ResearchAPI.Controllers
                 });
             });
             return new APIResult<List<GetTaskModel>>(serviceResult);
+        }
+
+        /// <summary>
+        /// 1.5.6.查看队列状态
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [AllowAnonymous]
+        [EnableCors("AllCors")]
+        public APIResult<GetTaskStatusModel> GetTaskStatus([FromServices] ReportTaskService service, long taskId)
+        {
+            var serviceResult = service.GetTaskStatus(taskId);
+            if (serviceResult.IsSuccess)
+            {
+                //TODO
+                //serviceResult.Data.ScheduleStatusName = DomainConstraits.RenderIdsToText();
+                //serviceResult.Data.ProcessingRate = Redis.GetCurrentProcessingRate(taskId);
+                serviceResult.Data.ProcessingRate = (serviceResult.Data.ScheduleStatus == ScheduleStatus.Completed ? 100 : 50);
+            }
+            return new APIResult<GetTaskStatusModel>(serviceResult);
         }
 
         /// <summary>

@@ -6,7 +6,7 @@ namespace ResearchAPI.CORS.Common
     /// <summary>
     /// 
     /// </summary>
-    public class GetBiefProjectResponse
+    public class GetBiefProjectModel
     {
         /// <summary>
         /// 创建日期

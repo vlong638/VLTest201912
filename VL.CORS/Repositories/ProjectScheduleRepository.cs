@@ -35,5 +35,11 @@ namespace ResearchAPI.CORS.Repositories
             return _connection.Query<ProjectSchedule>("select top 1 * from [ProjectSchedule] where taskId = @taskId order by id desc"
                 , new { taskId }, transaction: _transaction).FirstOrDefault();
         }
+
+        internal GetTaskStatusModel GetTaskStatus(long taskId)
+        {
+            return _connection.Query<GetTaskStatusModel>("select top 1 Status as ScheduleStatus from [ProjectSchedule] where taskId = @taskId order by id desc"
+                , new { taskId }, transaction: _transaction).FirstOrDefault();
+        }
     }
 }
