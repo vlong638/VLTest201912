@@ -26,13 +26,17 @@ namespace ResearchAPI.CORS.Common
     public class AddIndicatorPropertyModel
     {
         /// <summary>
+        /// 
+        /// </summary>
+        public long BusinessEntityPropertyId { set; get; }
+        /// <summary>
         /// 表名
         /// </summary>
-        public string SourceName { set; get; }
+        public string EntityName { set; get; }
         /// <summary>
         /// 字段名称
         /// </summary>
-        public string ColumnName { set; get; }
+        public string PropertyName { set; get; }
         /// <summary>
         /// 显示用名称
         /// </summary>

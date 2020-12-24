@@ -6,7 +6,7 @@ GO
 
 -- 新增时间 设置默认值
 CREATE TABLE [dbo].[CustomBusinessEntity](
-	[Id][bigint] IDENTITY(1, 2) NOT NULL,
+	[Id][bigint] IDENTITY(300000, 2) NOT NULL,
 	[TemplateId] bigint NULL,
 	[db_createtime] [datetime] DEFAULT CURRENT_TIMESTAMP,
 	[db_updatetime] [datetime] NULL,

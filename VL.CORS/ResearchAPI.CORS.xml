@@ -662,12 +662,12 @@
             业务对象Id
             </summary>
         </member>
-        <member name="P:ResearchAPI.CORS.Common.CustomBusinessEntityProperty.SourceName">
+        <member name="P:ResearchAPI.CORS.Common.CustomBusinessEntityProperty.EntityName">
             <summary>
             来源对象名称: 表或临时表或视图
             </summary>
         </member>
-        <member name="P:ResearchAPI.CORS.Common.CustomBusinessEntityProperty.ColumnName">
+        <member name="P:ResearchAPI.CORS.Common.CustomBusinessEntityProperty.Name">
             <summary>
             字段名称
             </summary>
@@ -707,11 +707,6 @@
             项目查看权限
             </summary>
         </member>
-        <member name="P:ResearchAPI.CORS.Common.ProjectIndicator.ColumnNickName">
-            <summary>
-            字段别名名称
-            </summary>
-        </member>
         <member name="P:ResearchAPI.CORS.Common.AddIndicatorsRequest.ProjectId">
             <summary>
             项目Id
@@ -732,12 +727,17 @@
             
             </summary>
         </member>
-        <member name="P:ResearchAPI.CORS.Common.AddIndicatorPropertyModel.SourceName">
+        <member name="P:ResearchAPI.CORS.Common.AddIndicatorPropertyModel.BusinessEntityPropertyId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.AddIndicatorPropertyModel.EntityName">
             <summary>
             表名
             </summary>
         </member>
-        <member name="P:ResearchAPI.CORS.Common.AddIndicatorPropertyModel.ColumnName">
+        <member name="P:ResearchAPI.CORS.Common.AddIndicatorPropertyModel.PropertyName">
             <summary>
             字段名称
             </summary>
@@ -750,6 +750,26 @@
         <member name="T:ResearchAPI.CORS.Common.CreateProjectRequest">
             <summary>
             新建项目
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Common.CreateTaskRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.CreateTaskRequest.ProjectId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.CreateTaskRequest.TaskName">
+            <summary>
+            队列名称
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.CreateTaskRequest.CopyTaskId">
+            <summary>
+            复制队列Id
             </summary>
         </member>
         <member name="T:ResearchAPI.CORS.Common.EditProjectRequest">
@@ -1426,31 +1446,23 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.CreateTask(ResearchAPI.Services.ReportTaskService,ResearchAPI.Controllers.EasyResearchController.CreateTaskRequest)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.CreateTask(ResearchAPI.Services.ReportTaskService,ResearchAPI.CORS.Common.CreateTaskRequest)">
             <summary>
             1.5.1.新增队列
             </summary>
             <returns></returns>
         </member>
-        <member name="T:ResearchAPI.Controllers.EasyResearchController.CreateTaskRequest">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.EditTask(ResearchAPI.Services.ReportTaskService,ResearchAPI.CORS.Common.EditTaskRequest)">
             <summary>
-            
+            1.5.2.编辑队列
             </summary>
+            <returns></returns>
         </member>
-        <member name="P:ResearchAPI.Controllers.EasyResearchController.CreateTaskRequest.ProjectId">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.EditTaskName(ResearchAPI.Services.ReportTaskService,ResearchAPI.CORS.Common.EditTaskNameRequest)">
             <summary>
-            
+            1.5.9.编辑队列名称
             </summary>
-        </member>
-        <member name="P:ResearchAPI.Controllers.EasyResearchController.CreateTaskRequest.TaskName">
-            <summary>
-            队列名称
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.Controllers.EasyResearchController.CreateTaskRequest.CopyTaskId">
-            <summary>
-            复制队列Id
-            </summary>
+            <returns></returns>
         </member>
         <member name="M:ResearchAPI.Controllers.EasyResearchController.CreateCustomBusinessEntity(ResearchAPI.Services.ReportTaskService,ResearchAPI.Controllers.CreateCustomBusinessEntityRequest)">
             <summary>

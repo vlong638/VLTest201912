@@ -1,7 +1,10 @@
 ﻿using Autobots.Infrastracture.Common.DBSolution;
 using Autobots.Infrastracture.Common.RepositorySolution;
+using Dapper;
 using ResearchAPI.CORS.Common;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ResearchAPI.CORS.Repositories
 {
@@ -25,6 +28,18 @@ namespace ResearchAPI.CORS.Repositories
                 i++;
             }
             return i;
+        }
+
+        public int UpdateName(long id, string projectName)
+        {
+            return _connection.Execute("update [ProjectTask] Name=@projectName where id = @id"
+                , new { id, projectName }, transaction: _transaction);
+        }
+
+        internal ProjectTask GetById(long taskId)
+        {
+            return _connection.Query<ProjectTask>("select * from [ProjectTask] where id = @id"
+                , new { id = taskId }, transaction: _transaction).FirstOrDefault();
         }
     }
 }

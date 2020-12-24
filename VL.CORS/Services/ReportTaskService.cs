@@ -33,6 +33,7 @@ namespace ResearchAPI.Services
         FavoriteProjectRepository FavoriteProjectRepository { set; get; }
         ProjectRepository ProjectRepository { set; get; }
         ProjectTaskRepository ProjectTaskRepository { set; get; }
+        ProjectTaskWhereRepository ProjectTaskWhereRepository { set; get; }
         ProjectMemberRepository ProjectMemberRepository { set; get; }
         ProjectIndicatorRepository ProjectIndicatorRepository { set; get; }
         RoleRepository RoleRepository { set; get; }
@@ -55,6 +56,7 @@ namespace ResearchAPI.Services
             FavoriteProjectRepository = new FavoriteProjectRepository(ResearchDbContext);
             ProjectRepository = new ProjectRepository(ResearchDbContext);
             ProjectTaskRepository = new ProjectTaskRepository(ResearchDbContext);
+            ProjectTaskWhereRepository = new ProjectTaskWhereRepository(ResearchDbContext);
             ProjectMemberRepository = new ProjectMemberRepository(ResearchDbContext);
             ProjectIndicatorRepository = new ProjectIndicatorRepository(ResearchDbContext);
             RoleRepository = new RoleRepository(ResearchDbContext);
@@ -201,11 +203,11 @@ namespace ResearchAPI.Services
                 Name = "t" + template.Id,
                 TemplateId = template.Id
             };
-            var properties = request.Properties.Select(c => new CustomBusinessEntityProperty()
+            var properties = template.BusinessEntity.Properties.Select(c => new CustomBusinessEntityProperty()
             {
-                ColumnName = c.ColumnName,
-                SourceName = entity.Name,
-                DisplayName = template.BusinessEntity.Properties.First(d => d.ColumnName == d.ColumnName).DisplayName,
+                EntityName = entity.Name,
+                Name = c.ColumnName,
+                DisplayName = c.DisplayName,
             }).ToList();
             var wheres = request.Search.Select(c => new CustomBusinessEntityWhere()
             {
@@ -213,6 +215,13 @@ namespace ResearchAPI.Services
                 Value = c.Value,
                 DisplayName = template.SQLConfig.Wheres.First(d => d.ComponentName == c.Key).DisplayName,
                 Operator = "eq",
+            }).ToList();
+            var selectedProperties = request.Properties.Select(c => new ProjectIndicator()
+            {
+                ProjectId = request.ProjectId,
+                EntityName = entity.Name,
+                PropertyName = c.ColumnName,
+                DisplayName = properties.First(d => d.Name == c.ColumnName).DisplayName,
             }).ToList();
             return ResearchDbContext.DelegateTransaction(c =>
             {
@@ -227,7 +236,13 @@ namespace ResearchAPI.Services
                     c.BusinessEntityId = entityId;
                     c.Id = CustomBusinessEntityWhereRepository.InsertOne(c);
                 });
-                return properties.Select(c => new BusinessEntityPropertyDTO() { Id = c.Id, ColumnName = c.ColumnName }).ToList();
+                selectedProperties.ForEach(c =>
+                {
+                    c.BusinessEntityId = entityId;
+                    c.BusinessEntityPropertyId = properties.First(d => d.Name == c.PropertyName).Id;
+                    c.Id = ProjectIndicatorRepository.InsertOne(c);
+                });
+                return selectedProperties.Select(c => new BusinessEntityPropertyDTO() { Id = c.Id, ColumnName = c.PropertyName }).ToList();
             });
         }
 
@@ -343,13 +358,14 @@ namespace ResearchAPI.Services
         internal ServiceResult<bool> AddProjectIndicators(AddIndicatorsRequest request)
         {
             //Data
-            var projectIndicators = request.Properties.Select(c => {
+            var projectIndicators = request.Properties.Select(c =>
+            {
                 var projectIndicator = new ProjectIndicator();
                 c.MapTo(projectIndicator);
                 projectIndicator.ProjectId = request.ProjectId;
                 projectIndicator.BusinessEntityId = request.BusinessEntityId;
                 return projectIndicator;
-            });
+            }).ToList();
             //Logic
             return ResearchDbContext.DelegateTransaction(c =>
             {
@@ -377,6 +393,41 @@ namespace ResearchAPI.Services
                     task.Id = ProjectTaskRepository.Insert(task);
                     return task.Id;
                 }
+            });
+        }
+
+        internal ServiceResult<bool> EditTask(EditTaskRequest request)
+        {
+            return ResearchDbContext.DelegateTransaction(c =>
+            {
+                var projectTask = ProjectTaskRepository.GetById(request.TaskId);
+                if (projectTask == null)
+                {
+                    throw new NotImplementedException("队列不存在");
+                }
+                ProjectTaskWhereRepository.DeleteByTaskId(request.TaskId);
+                var wheres = request.Wheres.Select(c => new ProjectTaskWhere()
+                {
+                    ProjectId = projectTask.ProjectId,
+                    TaskId = projectTask.Id,
+                    BusinessEntityId = c.BusinessEntityId,
+                    PropertyName = c.PropertyName,
+                    Operator = c.Operator,
+                    Value = c.Value,
+                }).ToList();
+                wheres.ForEach(c =>
+                {
+                    c.Id = ProjectTaskWhereRepository.Insert(c);
+                });
+                return true;
+            });
+        }
+
+        internal ServiceResult<bool> EditTaskName(EditTaskNameRequest request)
+        {
+            return ResearchDbContext.DelegateTransaction(c =>
+            {
+                return ProjectTaskRepository.UpdateName(request.TaskId, request.TaskName) > 0;
             });
         }
     }

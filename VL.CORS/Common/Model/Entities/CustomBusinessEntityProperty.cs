@@ -15,11 +15,11 @@ namespace ResearchAPI.CORS.Common
         /// <summary>
         /// 来源对象名称: 表或临时表或视图
         /// </summary>
-        public string SourceName { set; get; }
+        public string EntityName { set; get; }
         /// <summary>
         /// 字段名称
         /// </summary>
-        public string ColumnName { set; get; }
+        public string Name { set; get; }
         /// <summary>
         /// 字段中文名称
         /// </summary>

@@ -33,7 +33,7 @@ namespace ResearchAPI.Controllers
             foreach (var fromProperty in fromProperties)
             {
                 var matchedProperty = toProperties.FirstOrDefault(c => c.Name == fromProperty.Name);
-                if (matchedProperty.PropertyType == fromProperty.PropertyType)
+                if (matchedProperty != null && matchedProperty.PropertyType == fromProperty.PropertyType)
                 {
                     matchedProperty.SetValue(to, fromProperty.GetValue(from));
                 }
@@ -204,14 +204,14 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<List<VLKeyValue<string, long>>> GetDropdownsWithParent([FromServices] ReportTaskService service, string type,long parentId)
+        public APIResult<List<VLKeyValue<string, long>>> GetDropdownsWithParent([FromServices] ReportTaskService service, string type, long parentId)
         {
             List<VLKeyValue<string, long>> values = new List<VLKeyValue<string, long>>();
             switch (type)
             {
                 case "BusinessEntity":
                     values.AddRange(DomainConstraits.BusinessEntities
-                        .Where(c=>c.BusinessTypeId == parentId)
+                        .Where(c => c.BusinessTypeId == parentId)
                         .Select(c => new VLKeyValue<string, long>(c.Name, c.Id)));
                     return Success(values);
                 case "BusinessEntityProperty":
@@ -375,7 +375,7 @@ namespace ResearchAPI.Controllers
             var result = service.EditProject(request, userid);
             return new APIResult<bool>(result);
         }
-        
+
         /// <summary>
         /// 1.3.4.获取操作记录 GetProjectOperateHistory
         /// </summary>
@@ -516,7 +516,7 @@ namespace ResearchAPI.Controllers
             /// <summary>
             /// 
             /// </summary>
-            None =0 ,
+            None = 0,
             /// <summary>
             /// 
             /// </summary>
@@ -631,22 +631,29 @@ namespace ResearchAPI.Controllers
         }
 
         /// <summary>
-        /// 
+        /// 1.5.2.编辑队列
         /// </summary>
-        public class CreateTaskRequest
+        /// <returns></returns>
+        [HttpPost]
+        [AllowAnonymous]
+        [EnableCors("AllCors")]
+        public APIResult<bool> EditTask([FromServices] ReportTaskService service, [FromBody] EditTaskRequest request)
         {
-            /// <summary>
-            /// 
-            /// </summary>
-            public long ProjectId { get; set; }
-            /// <summary>
-            /// 队列名称
-            /// </summary>
-            public string TaskName { set; get; }
-            /// <summary>
-            /// 复制队列Id
-            /// </summary>
-            public long CopyTaskId { get; set; }
+            var serviceResult = service.EditTask(request);
+            return new APIResult<bool>(serviceResult);
+        }
+
+        /// <summary>
+        /// 1.5.9.编辑队列名称
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [AllowAnonymous]
+        [EnableCors("AllCors")]
+        public APIResult<bool> EditTaskName([FromServices] ReportTaskService service, [FromBody] EditTaskNameRequest request)
+        {
+            var serviceResult = service.EditTaskName(request);
+            return new APIResult<bool>(serviceResult);
         }
 
         #endregion

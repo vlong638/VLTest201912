@@ -66,13 +66,30 @@ namespace Tester
 
         static void Main(string[] args)
         {
-
+            if (false)
+            {
+                var tstr = "leetcode";
+                Dictionary<char, List<int>> dicstr = new Dictionary<char, List<int>>();
+                for (int i = 0; i < tstr.Length; i++)
+                {
+                    var item = tstr[i];
+                    if (dicstr.ContainsKey(item))
+                    {
+                        dicstr[item].Add(i);
+                    }
+                    else
+                    {
+                        dicstr.Add(item, new List<int>() { i });
+                    }
+                }
+                Console.WriteLine(string.Join("\r\n", dicstr.Select(c => c.Key + ":" + string.Join(",", c.Value))));
+                Console.WriteLine(dicstr.FirstOrDefault(c => c.Value.Count() == 1).Value[0]); 
+            }
 
             var pwd = GetHashValue("123456");
             Console.WriteLine(pwd);
 
-
-            if (true)
+            if (false)
             {
                 var sources = File.ReadAllLines(@"C:\Users\Administrator\Desktop\杭妇院\1223.原Id名单.txt");
                 var sourcePersons = new List<VLKeyValue>();
