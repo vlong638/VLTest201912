@@ -747,6 +747,31 @@
             显示用名称
             </summary>
         </member>
+        <member name="T:ResearchAPI.CORS.Common.CommitTaskRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.CommitTaskRequest.ProjectId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.CommitTaskRequest.TaskId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.CommitTaskRequest.IsStartNow">
+            <summary>
+            是否立即执行
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.CommitTaskRequest.StartAt">
+            <summary>
+            指定的执行时间
+            </summary>
+        </member>
         <member name="T:ResearchAPI.CORS.Common.CreateProjectRequest">
             <summary>
             新建项目
@@ -780,6 +805,16 @@
         <member name="P:ResearchAPI.CORS.Common.EditProjectRequest.ProjectId">
             <summary>
             项目Id
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetTaskWhereModel.OperatorName">
+            <summary>
+            操作类型的显示名称
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetTaskWhereModel.DisplayName">
+            <summary>
+            属性的显示名称
             </summary>
         </member>
         <member name="T:ResearchAPI.CORS.Common.GetCommonSelectRequest">
@@ -1464,7 +1499,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.CommitTask(ResearchAPI.Services.ReportTaskService,System.Int64)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.CommitTask(ResearchAPI.Services.ReportTaskService,ResearchAPI.CORS.Common.CommitTaskRequest)">
             <summary>
             1.5.4.执行队列
             </summary>

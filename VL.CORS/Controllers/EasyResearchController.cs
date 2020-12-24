@@ -663,12 +663,10 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<bool> CommitTask([FromServices] ReportTaskService service, long taskId)
+        public APIResult<long> CommitTask([FromServices] ReportTaskService service, CommitTaskRequest request)
         {
-            return new APIResult<bool>(false);
-
-            //var serviceResult = service.DeleteTask(taskId);
-            //return new APIResult<bool>(serviceResult);
+            var serviceResult = service.CommitTask(request);
+            return new APIResult<long>(serviceResult);
         }
 
         /// <summary>

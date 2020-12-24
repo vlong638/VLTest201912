@@ -32,6 +32,7 @@ namespace ResearchAPI.Services
         BusinessEntityPropertyRepository BusinessEntityPropertyRepository { set; get; }
         FavoriteProjectRepository FavoriteProjectRepository { set; get; }
         ProjectRepository ProjectRepository { set; get; }
+        ProjectScheduleRepository ProjectScheduleRepository { set; get; }
         ProjectTaskRepository ProjectTaskRepository { set; get; }
         ProjectTaskWhereRepository ProjectTaskWhereRepository { set; get; }
         ProjectMemberRepository ProjectMemberRepository { set; get; }
@@ -55,6 +56,7 @@ namespace ResearchAPI.Services
             BusinessEntityPropertyRepository = new BusinessEntityPropertyRepository(ResearchDbContext);
             FavoriteProjectRepository = new FavoriteProjectRepository(ResearchDbContext);
             ProjectRepository = new ProjectRepository(ResearchDbContext);
+            ProjectScheduleRepository = new ProjectScheduleRepository(ResearchDbContext);
             ProjectTaskRepository = new ProjectTaskRepository(ResearchDbContext);
             ProjectTaskWhereRepository = new ProjectTaskWhereRepository(ResearchDbContext);
             ProjectMemberRepository = new ProjectMemberRepository(ResearchDbContext);
@@ -460,6 +462,26 @@ namespace ResearchAPI.Services
                 return result;
             });
         }
+
+        internal ServiceResult<long> CommitTask(CommitTaskRequest request)
+        {
+            var schedule = new ProjectSchedule();
+            schedule.ProjectId = request.ProjectId;
+            schedule.TaskId = request.TaskId;
+            schedule.StartedAt = request.IsStartNow ? DateTime.Now : request.StartAt;
+            schedule.Status = ScheduleStatus.Ready;
+            schedule.ResultFile = "";
+            return ResearchDbContext.DelegateTransaction(c =>
+            {
+                var old = ProjectScheduleRepository.GetLastestByTaskId(schedule.TaskId);
+                if (old != null && old.IsWorking())
+                {
+                    throw new NotImplementedException("任务已在执行中");
+                }
+                schedule.Id = ProjectScheduleRepository.InsertOne(schedule);
+                return schedule.Id;
+            });
+        }
     }
 
     /// <summary>
@@ -622,7 +644,7 @@ namespace ResearchAPI.Services
                     context.DbGroup.Transaction.Rollback();
                     Log4NetLogger.Error("DelegateTransaction Exception", ex);
 
-                    return new ServiceResult<T>(default(T), ex.Message);
+                    return new ServiceResult<T>(default(T), code: 500, ex.Message);
                 }
                 finally
                 {
@@ -632,7 +654,7 @@ namespace ResearchAPI.Services
             catch (Exception e)
             {
                 Log4NetLogger.Error("打开数据库连接配置失败,当前数据库连接," + context.DbGroup.Connection.ConnectionString);
-                return new ServiceResult<T>(default(T), e.Message);
+                return new ServiceResult<T>(default(T), code: 500, e.Message);
             }
         }
         /// <summary>
