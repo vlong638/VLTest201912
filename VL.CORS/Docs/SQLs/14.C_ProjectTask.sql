@@ -8,6 +8,7 @@ GO
 CREATE TABLE [dbo].[ProjectTask](
 	[Id][bigint] IDENTITY(1, 2) NOT NULL,
 	[ProjectId][bigint] NOT NULL,
+	IsDeleted char(1) default 0,
 	-------------------------------------------
 	[db_createtime] [datetime] DEFAULT CURRENT_TIMESTAMP,
 	[db_updatetime] [datetime] NULL,

@@ -38,8 +38,14 @@ namespace ResearchAPI.CORS.Repositories
 
         internal ProjectTask GetById(long taskId)
         {
-            return _connection.Query<ProjectTask>("select * from [ProjectTask] where id = @id"
+            return _connection.Query<ProjectTask>("select * from [ProjectTask] where id = @id and IsDeleted = 0"
                 , new { id = taskId }, transaction: _transaction).FirstOrDefault();
+        }
+
+        public override bool DeleteById(long taskId)
+        {
+            return _connection.Execute("update [ProjectTask] set IsDeleted = 1 where Id = @Id ;"
+                , new { id = taskId }, transaction: _transaction) > 0;
         }
     }
 }

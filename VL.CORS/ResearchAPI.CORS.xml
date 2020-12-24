@@ -1458,6 +1458,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.DeleteTask(ResearchAPI.Services.ReportTaskService,System.Int64)">
+            <summary>
+            1.5.3.删除队列
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:ResearchAPI.Controllers.EasyResearchController.EditTaskName(ResearchAPI.Services.ReportTaskService,ResearchAPI.CORS.Common.EditTaskNameRequest)">
             <summary>
             1.5.9.编辑队列名称

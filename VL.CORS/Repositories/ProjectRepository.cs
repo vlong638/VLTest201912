@@ -23,15 +23,15 @@ namespace ResearchAPI.CORS.Repositories
 
         public override Project GetAvailableProjectById(long id)
         {
-            return _connection.Query<Project>("select * from [Project] where Id = @Id and IsDeleted = @IsDeleted;"
-                , new { Id = id, IsDeleted = false }, transaction: _transaction)
+            return _connection.Query<Project>("select * from [Project] where Id = @Id and IsDeleted = 0;"
+                , new { Id = id }, transaction: _transaction)
                 .FirstOrDefault();
         }
 
         public override bool DeleteById(long id)
         {
-            return _connection.Execute("update [Project] set IsDeleted = @IsDeleted where Id = @Id ;"
-                , new { Id = id, IsDeleted = true }, transaction: _transaction) > 0;
+            return _connection.Execute("update [Project] set IsDeleted = 1 where Id = @Id ;"
+                , new { Id = id }, transaction: _transaction) > 0;
         }
 
         public List<FavoriteProjectModel> GetFavoriteProjects(long userId)
@@ -39,8 +39,8 @@ namespace ResearchAPI.CORS.Repositories
             return _connection.Query<FavoriteProjectModel>(@" select p.Id as ProjectId, p.Name as ProjectName
         from Project p
         left join FavoriteProject fp on p.id = fp.ProjectId
-        where fp.UserId = @userId and p.IsDeleted = @IsDeleted;"
-                , new { userId, IsDeleted = false }, transaction: _transaction).ToList();
+        where fp.UserId = @userId and p.IsDeleted = 0;"
+                , new { userId }, transaction: _transaction).ToList();
         }
 
         internal List<long> GetUserIdsByProjectIdAndRoleId(long projectId, long roleId)

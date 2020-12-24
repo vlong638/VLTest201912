@@ -430,6 +430,14 @@ namespace ResearchAPI.Services
                 return ProjectTaskRepository.UpdateName(request.TaskId, request.TaskName) > 0;
             });
         }
+
+        internal ServiceResult<bool> DeleteTask(long taskId)
+        {
+            return ResearchDbContext.DelegateTransaction(c =>
+            {
+                return ProjectTaskRepository.DeleteById(taskId);
+            });
+        }
     }
 
     /// <summary>

@@ -644,6 +644,19 @@ namespace ResearchAPI.Controllers
         }
 
         /// <summary>
+        /// 1.5.3.删除队列
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [AllowAnonymous]
+        [EnableCors("AllCors")]
+        public APIResult<bool> DeleteTask([FromServices] ReportTaskService service, long taskId)
+        {
+            var serviceResult = service.DeleteTask(taskId);
+            return new APIResult<bool>(serviceResult);
+        }
+
+        /// <summary>
         /// 1.5.9.编辑队列名称
         /// </summary>
         /// <returns></returns>
