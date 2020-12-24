@@ -105,7 +105,7 @@ namespace ResearchAPI.CORS.Common
 
         internal static void InitData(ReportTaskService reportTaskService)
         {
-            var businessEntitiesCollection = EasyResearchController.LoadBusinessEntitiesByXMLConfig();
+            var businessEntitiesCollection = ConfigHelper.GetCOBusinessEntities();
             BusinessTypes = new List<BusinessType>();
             BusinessEntities = new List<BusinessEntity>();
             BusinessEntityProperties = new List<BusinessEntityProperty>();
@@ -139,8 +139,8 @@ namespace ResearchAPI.CORS.Common
                 BusinessEntityPropertyDic.Add(item.Key, item.Value);
             }
 
-            ViewAuthorizeTypes= EasyResearchController.GetDictionary<long>("ViewAuthorizeType");
-            Departments = EasyResearchController.GetDictionary<long>("Department");
+            ViewAuthorizeTypes= ConfigHelper.GetDictionary<long>("ViewAuthorizeType");
+            Departments = ConfigHelper.GetDictionary<long>("Department");
             Users = reportTaskService.GetUsersDictionary().Data;
             Roles = reportTaskService.GetRolesDictionary().Data;
             AdminRoleId = Roles.First(c => c.Value == "项目管理员").Key;

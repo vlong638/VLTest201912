@@ -4,6 +4,107 @@
         <name>ResearchAPI.CORS</name>
     </assembly>
     <members>
+        <member name="T:ResearchAPI.CORS.Common.APIBaseController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Common.APIBaseController.Success``1(``0)">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ResearchAPI.CORS.Common.APIBaseController.Success``1(``0,System.String[])">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Common.APIBaseController.Error``1(``0,System.Collections.Generic.IList{System.String})">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ResearchAPI.CORS.Common.APIBaseController.Error``1(``0,System.Int32,System.Collections.Generic.IList{System.String})">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ResearchAPI.CORS.Common.APIBaseController.Error``1(System.String[])">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ResearchAPI.CORS.Common.APIBaseController.Error``1(``0,System.String[])">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ResearchAPI.CORS.Common.APIBaseController.Error``1(``0,System.Int32,System.String[])">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:ResearchAPI.CORS.Common.APIContext">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.APIContext.HttpContextAccessor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.APIContext.HttpContext">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Common.APIContext.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Common.APIContext.GetWebPath">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ResearchAPI.CORS.Common.APIContext.GetDBContext(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="source"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ResearchAPI.CORS.Common.APIContraints">
+            <summary>
+            静态量,常量
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.APIContraints.DBConfig">
+            <summary>
+            数据库配置
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Common.DBConfig">
+            <summary>
+            配置样例
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.DBConfig.ConnectionStrings">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:ResearchAPI.CORS.Common.DomainConstraits">
             <summary>
             
@@ -625,6 +726,28 @@
             条件集
             </summary>
         </member>
+        <member name="T:ResearchAPI.CORS.Common.DropDownItem">
+            <summary>
+            下拉项
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Common.DropDownItem.#ctor(System.String,System.String)">
+            <summary>
+            下拉项
+            </summary>
+            <param name="text"></param>
+            <param name="value"></param>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.DropDownItem.text">
+            <summary>
+            文本
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.DropDownItem.value">
+            <summary>
+            值
+            </summary>
+        </member>
         <member name="T:ResearchAPI.CORS.Common.Authority">
             <summary>
             权限 
@@ -770,6 +893,75 @@
         <member name="P:ResearchAPI.CORS.Common.CommitTaskRequest.StartAt">
             <summary>
             指定的执行时间
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Common.CreateCustomIndicatorRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.CreateCustomIndicatorRequest.ProjectId">
+            <summary>
+            项目Id
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.CreateCustomIndicatorRequest.TargetArea">
+            <summary>
+            目标人群
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.CreateCustomIndicatorRequest.Search">
+            <summary>
+            搜索项
+            约定: 
+            孕产妇孕周检验模板: (@孕周小值-@孕周大值, @多次时分组:{0:最早,1:最晚,2:平均值,3:最小值,4:最大值})
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.CreateCustomIndicatorRequest.Properties">
+            <summary>
+            添加的字段
+            默认为:检验值
+            可选有:检验值,检验日期,检验单号
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Common.BusinessEntityPropertyModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.BusinessEntityPropertyModel.Id">
+            <summary>
+            字段Id
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.BusinessEntityPropertyModel.ColumnName">
+            <summary>
+            字段名称
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Common.TargetArea">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.TargetArea.None">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.TargetArea.Pregnant">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.TargetArea.Woman">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.TargetArea.Child">
+            <summary>
+            
             </summary>
         </member>
         <member name="T:ResearchAPI.CORS.Common.CreateProjectRequest">
@@ -930,6 +1122,56 @@
         <member name="P:ResearchAPI.CORS.Common.GetBiefProjectModel.ProjectDescription">
             <summary>
             项目描述
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Common.GetBusinessEntityModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetBusinessEntityModel.BusinessEntityId">
+            <summary>
+            指标单元Id
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetBusinessEntityModel.BusinessEntityName">
+            <summary>
+            指标单元名称
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetBusinessEntityModel.IsCustom">
+            <summary>
+            是否用户自定义
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetBusinessEntityModel.IsSelected">
+            <summary>
+            是否勾选
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Common.GetBusinessEntityPropertiesModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetBusinessEntityPropertiesModel.BusinessEntityId">
+            <summary>
+            指标单元Id
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetBusinessEntityPropertiesModel.BusinessEntityName">
+            <summary>
+            指标单元名称
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetBusinessEntityPropertiesModel.IsCustom">
+            <summary>
+            是否用户自定义
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetBusinessEntityPropertiesModel.IsSelected">
+            <summary>
+            是否勾选
             </summary>
         </member>
         <member name="T:ResearchAPI.CORS.Common.GetPagedProjectsModel">
@@ -1173,91 +1415,9 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="T:ResearchAPI.Controllers.VLAutoMappler">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:ResearchAPI.Controllers.VLAutoMappler.MapTo(System.Object,System.Object)">
-            <summary>
-            注意,只自动匹配 '类型'和'名称'一致的属性
-            </summary>
-            <param name="from"></param>
-            <param name="to"></param>
-        </member>
         <member name="T:ResearchAPI.Controllers.TestContext">
             <summary>
             
-            </summary>
-        </member>
-        <member name="T:ResearchAPI.Controllers.APIBaseController">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:ResearchAPI.Controllers.APIBaseController.Success``1(``0)">
-            <summary>
-            
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="data"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ResearchAPI.Controllers.APIBaseController.Success``1(``0,System.String[])">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:ResearchAPI.Controllers.APIBaseController.Error``1(``0,System.Collections.Generic.IList{System.String})">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:ResearchAPI.Controllers.APIBaseController.Error``1(``0,System.Int32,System.Collections.Generic.IList{System.String})">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:ResearchAPI.Controllers.APIBaseController.Error``1(System.String[])">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:ResearchAPI.Controllers.APIBaseController.Error``1(``0,System.String[])">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:ResearchAPI.Controllers.APIBaseController.Error``1(``0,System.Int32,System.String[])">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:ResearchAPI.Controllers.DropDownItem">
-            <summary>
-            下拉项
-            </summary>
-        </member>
-        <member name="M:ResearchAPI.Controllers.DropDownItem.#ctor(System.String,System.String)">
-            <summary>
-            下拉项
-            </summary>
-            <param name="text"></param>
-            <param name="value"></param>
-        </member>
-        <member name="P:ResearchAPI.Controllers.DropDownItem.text">
-            <summary>
-            文本
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.Controllers.DropDownItem.value">
-            <summary>
-            值
             </summary>
         </member>
         <member name="T:ResearchAPI.Controllers.EasyResearchController">
@@ -1284,14 +1444,14 @@
         </member>
         <member name="M:ResearchAPI.Controllers.EasyResearchController.GetDropdownsWithParent(ResearchAPI.Services.ReportTaskService,System.String,System.Int64)">
             <summary>
-            
+            下拉项
             </summary>
             <param name="service"></param>
             <param name="type"></param>
             <param name="parentId"></param>
             <returns></returns>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetFavoriteProjects(ResearchAPI.Services.APIContext,ResearchAPI.Services.ReportTaskService)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetFavoriteProjects(ResearchAPI.CORS.Common.APIContext,ResearchAPI.Services.ReportTaskService)">
             <summary>
             1.1.0.获取项目列表(菜单)
             </summary>
@@ -1312,27 +1472,27 @@
             1.1.4.删除项目
             </summary>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.CreateProject(ResearchAPI.Services.APIContext,ResearchAPI.Services.ReportTaskService,ResearchAPI.CORS.Common.CreateProjectRequest)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.CreateProject(ResearchAPI.CORS.Common.APIContext,ResearchAPI.Services.ReportTaskService,ResearchAPI.CORS.Common.CreateProjectRequest)">
             <summary>
             1.2.1.新建项目
             </summary>
             <returns>项目Id</returns>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.AddFavoriteProject(ResearchAPI.Services.APIContext,ResearchAPI.Services.ReportTaskService,System.Int64)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.AddFavoriteProject(ResearchAPI.CORS.Common.APIContext,ResearchAPI.Services.ReportTaskService,System.Int64)">
             <summary>
             1.2.5.收藏项目
             </summary>
             <param name="projectId">项目Id</param>
             <returns></returns>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.DeleteFavoriteProject(ResearchAPI.Services.APIContext,ResearchAPI.Services.ReportTaskService,System.Int64)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.DeleteFavoriteProject(ResearchAPI.CORS.Common.APIContext,ResearchAPI.Services.ReportTaskService,System.Int64)">
             <summary>
             1.2.6.解除收藏项目
             </summary>
             <param name="projectId">项目Id</param>
             <returns></returns>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.EditProject(ResearchAPI.Services.APIContext,ResearchAPI.Services.ReportTaskService,ResearchAPI.CORS.Common.EditProjectRequest)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.EditProject(ResearchAPI.CORS.Common.APIContext,ResearchAPI.Services.ReportTaskService,ResearchAPI.CORS.Common.EditProjectRequest)">
             <summary>
             1.3.2.编辑项目
             </summary>
@@ -1369,98 +1529,44 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.CreateCustomIndicator(ResearchAPI.Services.ReportTaskService,ResearchAPI.Controllers.EasyResearchController.CreateCustomIndicatorRequest)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.CreateCustomIndicator(ResearchAPI.Services.ReportTaskService,ResearchAPI.CORS.Common.CreateCustomIndicatorRequest)">
             <summary>
             1.4.11.保存自定义指标
             </summary>
             <returns></returns>
         </member>
-        <member name="T:ResearchAPI.Controllers.EasyResearchController.CreateCustomIndicatorRequest">
+        <member name="T:ResearchAPI.Controllers.EasyResearchController.GetBriefProjectModel">
             <summary>
             
             </summary>
         </member>
-        <member name="P:ResearchAPI.Controllers.EasyResearchController.CreateCustomIndicatorRequest.ProjectId">
-            <summary>
-            项目Id
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.Controllers.EasyResearchController.CreateCustomIndicatorRequest.TargetArea">
-            <summary>
-            目标人群
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.Controllers.EasyResearchController.CreateCustomIndicatorRequest.Search">
-            <summary>
-            搜索项
-            约定: 
-            孕产妇孕周检验模板: (@孕周小值-@孕周大值, @多次时分组:{0:最早,1:最晚,2:平均值,3:最小值,4:最大值})
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.Controllers.EasyResearchController.CreateCustomIndicatorRequest.Properties">
-            <summary>
-            添加的字段
-            默认为:检验值
-            可选有:检验值,检验日期,检验单号
-            </summary>
-        </member>
-        <member name="T:ResearchAPI.Controllers.EasyResearchController.TargetArea">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="F:ResearchAPI.Controllers.EasyResearchController.TargetArea.None">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="F:ResearchAPI.Controllers.EasyResearchController.TargetArea.Pregnant">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="F:ResearchAPI.Controllers.EasyResearchController.TargetArea.Woman">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="F:ResearchAPI.Controllers.EasyResearchController.TargetArea.Child">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="T:ResearchAPI.Controllers.EasyResearchController.GetBriefProjectResponse">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetBriefProjectResponse.#ctor(ResearchAPI.CORS.Common.GetProjectModel)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetBriefProjectModel.#ctor(ResearchAPI.CORS.Common.GetProjectModel)">
             <summary>
             
             </summary>
             <param name="model"></param>
         </member>
-        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetBriefProjectResponse.ViewAuthorizeTypeName">
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetBriefProjectModel.ViewAuthorizeTypeName">
             <summary>
             项目查看权限 名称
             </summary>
         </member>
-        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetBriefProjectResponse.CreateName">
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetBriefProjectModel.CreateName">
             <summary>
             创建者 名称
             </summary>
         </member>
-        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetBriefProjectResponse.DepartmentName">
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetBriefProjectModel.DepartmentName">
             <summary>
             关联科室 名称
             </summary>
         </member>
-        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetBriefProjectResponse.AdminNames">
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetBriefProjectModel.AdminNames">
             <summary>
             项目管理人员 名称
             </summary>
         </member>
-        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetBriefProjectResponse.MemberNames">
+        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetBriefProjectModel.MemberNames">
             <summary>
             项目成员 名称
             </summary>
@@ -1532,198 +1638,27 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.Download(System.String)">
+            <summary>
+            1.5.7.导出
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
         <member name="M:ResearchAPI.Controllers.EasyResearchController.EditTaskName(ResearchAPI.Services.ReportTaskService,ResearchAPI.CORS.Common.EditTaskNameRequest)">
             <summary>
             1.5.9.编辑队列名称
             </summary>
             <returns></returns>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.CreateCustomBusinessEntity(ResearchAPI.Services.ReportTaskService,ResearchAPI.Controllers.CreateCustomBusinessEntityRequest)">
-            <summary>
-            新建用户指标单元
-            </summary>
-        </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.EditCustomBusinessEntity(ResearchAPI.Services.ReportTaskService,ResearchAPI.Controllers.EditCustomBusinessEntityRequest)">
-            <summary>
-            编辑用户指标单元
-            </summary>
-        </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetBusinessEntities(ResearchAPI.Services.ReportTaskService)">
-            <summary>
-            获取 指标单元
-            </summary>
-        </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetBusinessEntityProperties(ResearchAPI.Services.ReportTaskService)">
-            <summary>
-            获取 指标属性
-            </summary>
-        </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.UpdateReportProject(ResearchAPI.Controllers.UpdateReportProjectRequest)">
-            <summary>
-            更新 项目
-            </summary>
-            <param name="request"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.CreateReportTask(ResearchAPI.Controllers.CreateReportTaskRequest)">
-            <summary>
-            新建 项目执行项,即队列
-            </summary>
-            <param name="request"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.UpdateReportTask(ResearchAPI.Controllers.UpdateReportTaskRequest)">
-            <summary>
-            更新 项目执行项,即队列
-            </summary>
-            <param name="request"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.ExecuteReportTask(ResearchAPI.Services.ReportTaskService,System.Int64)">
-            <summary>
-            执行任务
-            </summary>
-        </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetReportTaskStatus(System.Int64)">
-            <summary>
-            获取任务执行状态描述
-            </summary>
-            <param name="taskId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.DownloadReportTask(System.Int64)">
-            <summary>
-            下载任务
-            </summary>
-            <param name="taskId"></param>
-            <returns>文件路径</returns>
-        </member>
-        <member name="P:ResearchAPI.Controllers.GetBusinessEntityPropertiesModel.BusinessEntityId">
-            <summary>
-            指标单元Id
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.Controllers.GetBusinessEntityPropertiesModel.BusinessEntityName">
-            <summary>
-            指标单元名称
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.Controllers.GetBusinessEntityPropertiesModel.IsCustom">
-            <summary>
-            是否用户自定义
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.Controllers.GetBusinessEntityPropertiesModel.IsSelected">
-            <summary>
-            是否勾选
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.Controllers.GetBusinessEntityModel.BusinessEntityId">
-            <summary>
-            指标单元Id
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.Controllers.GetBusinessEntityModel.BusinessEntityName">
-            <summary>
-            指标单元名称
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.Controllers.GetBusinessEntityModel.IsCustom">
-            <summary>
-            是否用户自定义
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.Controllers.GetBusinessEntityModel.IsSelected">
-            <summary>
-            是否勾选
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.Controllers.BusinessEntityPropertyDTO.Id">
-            <summary>
-            字段Id
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.Controllers.BusinessEntityPropertyDTO.ColumnName">
-            <summary>
-            字段名称
-            </summary>
-        </member>
         <member name="T:ResearchAPI.Services.ReportTaskService">
             <summary>
             
             </summary>
         </member>
-        <member name="M:ResearchAPI.Services.ReportTaskService.#ctor(ResearchAPI.Services.APIContext)">
+        <member name="M:ResearchAPI.Services.ReportTaskService.#ctor(ResearchAPI.CORS.Common.APIContext)">
             <summary>
             
-            </summary>
-        </member>
-        <member name="T:ResearchAPI.Services.APIContext">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.Services.APIContext.HttpContextAccessor">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.Services.APIContext.HttpContext">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:ResearchAPI.Services.APIContext.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor)">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:ResearchAPI.Services.APIContext.GetWebPath">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:ResearchAPI.Services.APIContext.GetDBContext(System.String)">
-            <summary>
-            
-            </summary>
-            <param name="source"></param>
-            <returns></returns>
-        </member>
-        <member name="T:ResearchAPI.Services.APIContraints">
-            <summary>
-            静态量,常量
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.Services.APIContraints.DBConfig">
-            <summary>
-            数据库配置
-            </summary>
-        </member>
-        <member name="T:ResearchAPI.Services.DBConfig">
-            <summary>
-            配置样例
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.Services.DBConfig.ConnectionStrings">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.Services.VLPagerResultDataTable.Count">
-            <summary>
-            总数
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.Services.VLPagerResultDataTable.CurrentIndex">
-            <summary>
-            当前页
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.Services.VLPagerResultDataTable.List">
-            <summary>
-            内容
             </summary>
         </member>
         <member name="T:ResearchAPI.Services.DbContextEX">

@@ -11,35 +11,10 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace ResearchAPI.Controllers
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public static class VLAutoMappler
-    {
-        /// <summary>
-        /// 注意,只自动匹配 '类型'和'名称'一致的属性
-        /// </summary>
-        /// <param name="from"></param>
-        /// <param name="to"></param>
-        public static void MapTo(this object from, object to)
-        {
-            PropertyInfo[] fromProperties = from.GetType().GetProperties(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public);
-            PropertyInfo[] toProperties = to.GetType().GetProperties(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public);
-            foreach (var fromProperty in fromProperties)
-            {
-                var matchedProperty = toProperties.FirstOrDefault(c => c.Name == fromProperty.Name);
-                if (matchedProperty != null && matchedProperty.PropertyType == fromProperty.PropertyType)
-                {
-                    matchedProperty.SetValue(to, fromProperty.GetValue(from));
-                }
-            }
-        }
-    }
 
     /// <summary>
     /// 
@@ -49,97 +24,6 @@ namespace ResearchAPI.Controllers
         public const long UserId = 1;
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    public class APIBaseController : Controller
-    {
-        #region APIResult,便捷方法
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="data"></param>
-        /// <returns></returns>
-        internal APIResult<T> Success<T>(T data)
-        {
-            return new APIResult<T>(data);
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        internal APIResult<T> Success<T>(T data, params string[] messages)
-        {
-            return new APIResult<T>(data, messages);
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        internal APIResult<T> Error<T>(T data, IList<string> messages)
-        {
-            return new APIResult<T>(data, messages.ToArray());
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        internal APIResult<T> Error<T>(T data, int code, IList<string> messages)
-        {
-            return new APIResult<T>(data, code, messages.ToArray());
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        internal APIResult<T> Error<T>(params string[] messages)
-        {
-            return new APIResult<T>(default(T), messages);
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        internal APIResult<T> Error<T>(T data, params string[] messages)
-        {
-            return new APIResult<T>(data, messages);
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        internal APIResult<T> Error<T>(T data, int code, params string[] messages)
-        {
-            return new APIResult<T>(data, code, messages);
-        }
-        #endregion
-    }
-
-    /// <summary>
-    /// 下拉项
-    /// </summary>
-    public class DropDownItem
-    {
-        /// <summary>
-        /// 下拉项
-        /// </summary>
-        /// <param name="text"></param>
-        /// <param name="value"></param>
-        public DropDownItem(string text, string value)
-        {
-            this.text = text;
-            this.value = value;
-        }
-
-        /// <summary>
-        /// 文本
-        /// </summary>
-        public string text { set; get; }
-        /// <summary>
-        /// 值
-        /// </summary>
-        public string value { set; get; }
-    }
 
     /// <summary>
     /// 科研内核接口
@@ -189,13 +73,13 @@ namespace ResearchAPI.Controllers
                     }
                     return Success(values);
                 default:
-                    values = LoadKeyValueFile<long>(type);
+                    values = ConfigHelper.GetJsonConfig<long>(type);
                     return Success(values);
             }
         }
 
         /// <summary>
-        /// 
+        /// 下拉项
         /// </summary>
         /// <param name="service"></param>
         /// <param name="type"></param>
@@ -222,46 +106,6 @@ namespace ResearchAPI.Controllers
                 default:
                     throw new NotImplementedException("未支持该类型");
             }
-        }
-
-        internal static List<COBusinessEntities> LoadBusinessEntitiesByXMLConfig()
-        {
-            var businessEntitiesCollection = new List<COBusinessEntities>();
-            var directory = @"Configs/XMLConfigs/BusinessEntities";
-            var files = Directory.GetFiles(directory);
-            var bsfiles = files.Select(c => Path.GetFileName(c)).Where(c => c.StartsWith("BusinessEntities"));
-            foreach (var bsfile in bsfiles)
-            {
-                var businessEntities = ConfigHelper.GetBusinessEntities(directory, bsfile);
-                businessEntitiesCollection.Add(businessEntities);
-            }
-            return businessEntitiesCollection;
-        }
-
-        internal static List<VLKeyValue<string, T>> LoadKeyValueFile<T>(string type)
-        {
-            List<VLKeyValue<string, T>> values = new List<VLKeyValue<string, T>>();
-            var file = (Path.Combine(AppContext.BaseDirectory, "Configs/JsonConfigs", type + ".json"));
-            if (!System.IO.File.Exists(file))
-            {
-                values.Add(new VLKeyValue<string, T>("请联系管理员配置", default(T)));
-                System.IO.File.WriteAllText(file, Newtonsoft.Json.JsonConvert.SerializeObject(values));
-                return values;
-            }
-            var data = System.IO.File.ReadAllText(file);
-            values = Newtonsoft.Json.JsonConvert.DeserializeObject<List<VLKeyValue<string, T>>>(data);
-            return values;
-        }
-
-        internal static Dictionary<T, string> GetDictionary<T>(string type)
-        {
-            var kvs = LoadKeyValueFile<T>(type);
-            var result = new Dictionary<T, string>();
-            foreach (var kv in kvs)
-            {
-                result.Add(kv.Value, kv.Key);
-            }
-            return result;
         }
 
         #endregion
@@ -396,19 +240,19 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<GetBriefProjectResponse> GetBriefProject([FromServices] ReportTaskService service, long projectId)
+        public APIResult<GetBriefProjectModel> GetBriefProject([FromServices] ReportTaskService service, long projectId)
         {
             var serviceResult = service.GetProject(projectId);
             if (!serviceResult.IsSuccess)
-                return new APIResult<GetBriefProjectResponse>(null, serviceResult.Code, serviceResult.Message);
-            var result = new GetBriefProjectResponse(serviceResult.Data);
+                return new APIResult<GetBriefProjectModel>(null, serviceResult.Code, serviceResult.Message);
+            var result = new GetBriefProjectModel(serviceResult.Data);
             result.ViewAuthorizeTypeName = DomainConstraits.RenderIdToText(result.ViewAuthorizeType, DomainConstraits.ViewAuthorizeTypes);
             if (result.DepartmentId.HasValue)
                 result.DepartmentName = DomainConstraits.RenderIdToText(result.DepartmentId.Value, DomainConstraits.Departments);
             result.AdminNames = DomainConstraits.RenderIdsToText<long>(result.AdminIds, DomainConstraits.Users);
             result.CreateName = DomainConstraits.RenderIdToText(result.CreatorId.Value, DomainConstraits.Users);
             result.MemberNames = DomainConstraits.RenderIdsToText(result.MemberIds, DomainConstraits.Users);
-            return new APIResult<GetBriefProjectResponse>(result);
+            return new APIResult<GetBriefProjectModel>(result);
         }
 
         /// <summary>
@@ -458,7 +302,7 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<List<BusinessEntityPropertyDTO>> CreateCustomIndicator([FromServices] ReportTaskService service, [FromBody] CreateCustomIndicatorRequest request)
+        public APIResult<List<BusinessEntityPropertyModel>> CreateCustomIndicator([FromServices] ReportTaskService service, [FromBody] CreateCustomIndicatorRequest request)
         {
             switch (request.TargetArea)
             {
@@ -466,11 +310,11 @@ namespace ResearchAPI.Controllers
                     break;
                 case TargetArea.Pregnant:
                     var template = ConfigHelper.GetBusinessEntityTemplate("Configs\\XMLConfigs\\BusinessEntities", "Template_孕周检验.xml");
-                    request.Properties = new List<BusinessEntityPropertyDTO>() {
-                        new BusinessEntityPropertyDTO(){ ColumnName = "Value"},
+                    request.Properties = new List<BusinessEntityPropertyModel>() {
+                        new BusinessEntityPropertyModel(){ ColumnName = "Value"},
                     };
                     var result = service.CreateCustomIndicator(request, template);
-                    return new APIResult<List<BusinessEntityPropertyDTO>>(result);
+                    return new APIResult<List<BusinessEntityPropertyModel>>(result);
                 case TargetArea.Woman:
                     break;
                 case TargetArea.Child:
@@ -481,66 +325,17 @@ namespace ResearchAPI.Controllers
             throw new NotImplementedException();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public class CreateCustomIndicatorRequest
-        {
-            /// <summary>
-            /// 项目Id
-            /// </summary>
-            public long ProjectId { set; get; }
-            /// <summary>
-            /// 目标人群
-            /// </summary>
-            public TargetArea TargetArea { set; get; }
-            /// <summary>
-            /// 搜索项
-            /// 约定: 
-            /// 孕产妇孕周检验模板: (@孕周小值-@孕周大值, @多次时分组:{0:最早,1:最晚,2:平均值,3:最小值,4:最大值})
-            /// </summary>
-            public List<VLKeyValue> Search { set; get; }
-            /// <summary>
-            /// 添加的字段
-            /// 默认为:检验值
-            /// 可选有:检验值,检验日期,检验单号
-            /// </summary>
-            internal List<BusinessEntityPropertyDTO> Properties { set; get; }
-        }
 
         /// <summary>
         /// 
         /// </summary>
-        public enum TargetArea
-        {
-            /// <summary>
-            /// 
-            /// </summary>
-            None = 0,
-            /// <summary>
-            /// 
-            /// </summary>
-            Pregnant,
-            /// <summary>
-            /// 
-            /// </summary>
-            Woman,
-            /// <summary>
-            /// 
-            /// </summary>
-            Child,
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public class GetBriefProjectResponse : GetProjectModel
+        public class GetBriefProjectModel : GetProjectModel
         {
             /// <summary>
             /// 
             /// </summary>
             /// <param name="model"></param>
-            public GetBriefProjectResponse(GetProjectModel model)
+            public GetBriefProjectModel(GetProjectModel model)
             {
                 model.MapTo(this);
 
@@ -711,9 +506,14 @@ namespace ResearchAPI.Controllers
             return new APIResult<GetTaskStatusModel>(serviceResult);
         }
 
+        /// <summary>
+        /// 1.5.7.导出
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(typeof(FileResult),0)]
-        public async Task<FileResult> Download(string path)
+        public FileResult Download(string path)
         {
             var fullPath = Path.Combine(AppContext.BaseDirectory, path);
             if (!System.IO.File.Exists(fullPath))
@@ -745,231 +545,5 @@ namespace ResearchAPI.Controllers
         }
 
         #endregion
-
-        /// <summary>
-        /// 新建用户指标单元
-        /// </summary>
-        [HttpPost]
-        public async Task<APIResult<long>> CreateCustomBusinessEntity([FromServices] ReportTaskService service, CreateCustomBusinessEntityRequest request)
-        {
-            var serviceResult = service.CreateCustomBusinessEntity(request);
-            var apiResult = new APIResult<long>(serviceResult);
-            return await Task.FromResult(apiResult);
-        }
-
-        /// <summary>
-        /// 编辑用户指标单元
-        /// </summary>
-        [HttpPost]
-        public async Task<APIResult<bool>> EditCustomBusinessEntity([FromServices] ReportTaskService service, EditCustomBusinessEntityRequest request)
-        {
-            var serviceResult = service.EditCustomBusinessEntity(request);
-            var apiResult = new APIResult<bool>(serviceResult);
-            return await Task.FromResult(apiResult);
-        }
-
-        /// <summary>
-        /// 获取 指标单元
-        /// </summary>
-        [HttpPost]
-        public async Task<APIResult<List<GetBusinessEntityModel>>> GetBusinessEntities([FromServices] ReportTaskService service)
-        {
-            var apiResult = new APIResult<List<GetBusinessEntityModel>>(new List<GetBusinessEntityModel>());
-            return await Task.FromResult(apiResult);
-        }
-
-        /// <summary>
-        /// 获取 指标属性
-        /// </summary>
-        [HttpPost]
-        public async Task<APIResult<List<GetBusinessEntityPropertiesModel>>> GetBusinessEntityProperties([FromServices] ReportTaskService service)
-        {
-            var apiResult = new APIResult<List<GetBusinessEntityPropertiesModel>>(new List<GetBusinessEntityPropertiesModel>());
-            return await Task.FromResult(apiResult);
-        }
-
-        /// <summary>
-        /// 更新 项目
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public async Task<APIResult<bool>> UpdateReportProject(UpdateReportProjectRequest request)
-        {
-            var result = new APIResult<bool>(true);
-            return await Task.FromResult(result);
-        }
-
-        /// <summary>
-        /// 新建 项目执行项,即队列
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public async Task<APIResult<bool>> CreateReportTask(CreateReportTaskRequest request)
-        {
-            var result = new APIResult<bool>(true);
-            return await Task.FromResult(result);
-        }
-
-        /// <summary>
-        /// 更新 项目执行项,即队列
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public async Task<APIResult<bool>> UpdateReportTask(UpdateReportTaskRequest request)
-        {
-            var result = new APIResult<bool>(true);
-            return await Task.FromResult(result);
-        }
-
-        /// <summary>
-        /// 执行任务
-        /// </summary>
-        [HttpPost]
-        public async Task<APIResult<bool>> ExecuteReportTask([FromServices] ReportTaskService service, long taskId)
-        {
-            var serviceResult = service.ExecuteReportTask(taskId);
-            var apiResult = new APIResult<bool>(serviceResult);
-            return await Task.FromResult(apiResult);
-        }
-
-        /// <summary>
-        /// 获取任务执行状态描述
-        /// </summary>
-        /// <param name="taskId"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public async Task<APIResult<ReportTaskStatusResponse>> GetReportTaskStatus(long taskId)
-        {
-            var result = new APIResult<ReportTaskStatusResponse>(new ReportTaskStatusResponse());
-            return await Task.FromResult(result);
-        }
-
-        /// <summary>
-        /// 下载任务
-        /// </summary>
-        /// <param name="taskId"></param>
-        /// <returns>文件路径</returns>
-        [HttpPost]
-        public async Task<APIResult<string>> DownloadReportTask(long taskId)
-        {
-            var result = new APIResult<string>("");
-            return await Task.FromResult(result);
-        }
-    }
-
-    public class GetBusinessEntityPropertiesModel
-    {
-        /// <summary>
-        /// 指标单元Id
-        /// </summary>
-        public long BusinessEntityId { set; get; }
-        /// <summary>
-        /// 指标单元名称
-        /// </summary>
-        public string BusinessEntityName { set; get; }
-        /// <summary>
-        /// 是否用户自定义
-        /// </summary>
-        public bool IsCustom { set; get; }
-        /// <summary>
-        /// 是否勾选
-        /// </summary>
-        public bool IsSelected { set; get; }
-    }
-
-    public class GetBusinessEntityModel
-    {
-        /// <summary>
-        /// 指标单元Id
-        /// </summary>
-        public long BusinessEntityId { set; get; }
-        /// <summary>
-        /// 指标单元名称
-        /// </summary>
-        public string BusinessEntityName { set; get; }
-        /// <summary>
-        /// 是否用户自定义
-        /// </summary>
-        public bool IsCustom { set; get; }
-        /// <summary>
-        /// 是否勾选
-        /// </summary>
-        public bool IsSelected { set; get; }
-    }
-
-    public class CreateCustomBusinessEntityRequest
-    {
-        public long TemplateId { set; get; }
-        public string DisplayName { set; get; }
-        public List<COBusinessEntityProperty> Properties { set; get; }
-        public List<COBusinessEntityWhere> Wheres { set; get; }
-    }
-
-    public class EditCustomBusinessEntityRequest
-    {
-        public long CustomBBusinessEntityId { set; get; }
-        public long TemplateId { set; get; }
-        public string DisplayName { set; get; }
-        public List<COBusinessEntityProperty> Properties { set; get; }
-        public List<COBusinessEntityWhere> Wheres { set; get; }
-    }
-
-    public class ReportTaskStatusResponse
-    {
-        public int ExecuteRate { set; get; }
-        public ExecuteStatus ExecuteStatus { set; get; }
-
-    }
-
-    public enum ExecuteStatus
-    {
-        None = 0,
-        Executing = 1,
-        Done = 2,
-        Error = 3,
-    }
-
-    public class SaveReportTaskRequest
-    {
-        public List<Field2FieldWhere> F2FWheres { set; get; }
-    }
-
-    public class CreateReportTaskRequest : SaveReportTaskRequest
-    {
-    }
-
-    public class UpdateReportTaskRequest : SaveReportTaskRequest
-    {
-        public long TaskId { set; get; }
-    }
-
-    public class SaveReportProjectRequest
-    {
-        public string ReportName { set; get; }
-        public List<BusinessEntityPropertyDTO> Properties { set; get; }
-    }
-
-    public class CreateReportProjectRequest : SaveReportProjectRequest
-    {
-    }
-
-    public class UpdateReportProjectRequest : SaveReportProjectRequest
-    {
-        public long TaskId { set; get; }
-    }
-
-    public class BusinessEntityPropertyDTO
-    {
-        /// <summary>
-        /// 字段Id
-        /// </summary>
-        public long Id { set; get; }
-        /// <summary>
-        /// 字段名称
-        /// </summary>
-        public string ColumnName { set; get; }
     }
 }

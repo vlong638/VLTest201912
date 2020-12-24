@@ -3,7 +3,6 @@ using Autobots.Infrastracture.Common.PagerSolution;
 using Autobots.Infrastracture.Common.ServiceSolution;
 using Autobots.Infrastracture.Common.ValuesSolution;
 using Microsoft.AspNetCore.Http;
-using ResearchAPI.CORS.Common;
 using ResearchAPI.Controllers;
 using ResearchAPI.CORS.Common;
 using ResearchAPI.CORS.Repositories;
@@ -12,12 +11,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
-using static ResearchAPI.Controllers.EasyResearchController;
 
 namespace ResearchAPI.Services
 {
-
-
     /// <summary>
     /// 
     /// </summary>
@@ -64,22 +60,6 @@ namespace ResearchAPI.Services
             RoleRepository = new RoleRepository(ResearchDbContext);
             SharedRepository = new SharedRepository(ResearchDbContext);
             UserRepository = new UserRepository(ResearchDbContext);
-        }
-
-
-        internal ServiceResult<bool> ExecuteReportTask(long taskId)
-        {
-            throw new NotImplementedException();
-        }
-
-        internal ServiceResult<long> CreateCustomBusinessEntity(CreateCustomBusinessEntityRequest request)
-        {
-            throw new NotImplementedException();
-        }
-
-        internal ServiceResult<bool> EditCustomBusinessEntity(EditCustomBusinessEntityRequest request)
-        {
-            throw new NotImplementedException();
         }
 
         internal ServiceResult<List<VLKeyValue<string, long>>> GetFavoriteProjects(long userid)
@@ -198,7 +178,7 @@ namespace ResearchAPI.Services
             });
         }
 
-        internal ServiceResult<List<BusinessEntityPropertyDTO>> CreateCustomIndicator(CreateCustomIndicatorRequest request, BusinessEntityTemplate template)
+        internal ServiceResult<List<BusinessEntityPropertyModel>> CreateCustomIndicator(CreateCustomIndicatorRequest request, BusinessEntityTemplate template)
         {
             var entity = new CustomBusinessEntity()
             {
@@ -244,7 +224,7 @@ namespace ResearchAPI.Services
                     c.BusinessEntityPropertyId = properties.First(d => d.Name == c.PropertyName).Id;
                     c.Id = ProjectIndicatorRepository.InsertOne(c);
                 });
-                return selectedProperties.Select(c => new BusinessEntityPropertyDTO() { Id = c.Id, ColumnName = c.PropertyName }).ToList();
+                return selectedProperties.Select(c => new BusinessEntityPropertyModel() { Id = c.Id, ColumnName = c.PropertyName }).ToList();
             });
         }
 
@@ -495,139 +475,6 @@ namespace ResearchAPI.Services
                 return taskStatus;
             });
         }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public class APIContext
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        public IHttpContextAccessor HttpContextAccessor { set; get; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public HttpContext HttpContext { set { HttpContextAccessor.HttpContext = value; } get { return HttpContextAccessor.HttpContext; } }
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        //public RedisCache RedisCache { set; get; }
-        ///// <summary>
-        ///// 获取当前用户信息
-        ///// </summary>
-        ///// <returns></returns>
-        //public CurrentUser GetCurrentUser()
-        //{
-        //    var sessionId = CurrentUser.GetSessionId(HttpContext);
-        //    return CurrentUser.GetCurrentUser(RedisCache, sessionId);
-        //}
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        //public APIContext(IHttpContextAccessor httpContext, RedisCache redisCache) : base()
-        //{
-        //    HttpContextAccessor = httpContext;
-        //    RedisCache = redisCache;
-        //}
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public APIContext(IHttpContextAccessor httpContext) : base()
-        {
-            HttpContextAccessor = httpContext;
-        }
-
-        #region Common
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public string GetWebPath()
-        {
-            var request = HttpContext.Request;
-            return new StringBuilder()
-                .Append(request.Scheme)
-                .Append("://")
-                .Append(request.Host)
-                .Append(request.PathBase)
-                .ToString();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="source"></param>
-        /// <returns></returns>
-        public DbContext GetDBContext(string source)
-        {
-            var connectionString = APIContraints.DBConfig.ConnectionStrings.FirstOrDefault(c => c.Key == source);
-            if (connectionString == null)
-            {
-                throw new NotImplementedException("尚未支持该类型的dbContext构建");
-            }
-            return new DbContext(DBHelper.GetDbConnection(connectionString.Value));
-        }
-
-        internal CurrentUser GetCurrentUser()
-        {
-            var currentUser = new CurrentUser();
-            currentUser.UserId = TestContext.UserId;
-            return currentUser;
-        }
-
-        #endregion
-    }
-
-    public class CurrentUser
-    {
-        public long UserId { set; get; }
-    }
-
-    /// <summary>
-    /// 静态量,常量
-    /// </summary>
-    public class APIContraints
-    {
-        /// <summary>
-        /// 数据库配置
-        /// </summary>
-        public static DBConfig DBConfig { set; get; }
-
-        public static string ResearchDbContext { set; get; } = "ResearchConnectionString";
-    }
-
-    /// <summary>
-    /// 配置样例
-    /// </summary>
-    public class DBConfig
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        public List<VLKeyValue> ConnectionStrings { set; get; }
-    }
-
-    public class VLPagerResultDataTable
-    {
-
-        /// <summary>
-        /// 总数
-        /// </summary>
-        public int Count { set; get; }
-        /// <summary>
-        /// 当前页
-        /// </summary>
-        public int CurrentIndex { set; get; }
-        /// <summary>
-        /// 内容
-        /// </summary>
-        public DataTable List { set; get; }
     }
 
     /// <summary>
