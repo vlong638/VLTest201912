@@ -657,6 +657,43 @@ namespace ResearchAPI.Controllers
         }
 
         /// <summary>
+        /// 1.5.4.执行队列
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [AllowAnonymous]
+        [EnableCors("AllCors")]
+        public APIResult<bool> CommitTask([FromServices] ReportTaskService service, long taskId)
+        {
+            return new APIResult<bool>(false);
+
+            //var serviceResult = service.DeleteTask(taskId);
+            //return new APIResult<bool>(serviceResult);
+        }
+
+        /// <summary>
+        /// 1.5.5.查看队列集合
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [AllowAnonymous]
+        [EnableCors("AllCors")]
+        public APIResult<List<GetTaskModel>> GetTasks([FromServices] ReportTaskService service, long projectId)
+        {
+            var serviceResult = service.GetTasks(projectId);
+            serviceResult.Data.ForEach(c =>
+            {
+                c.Wheres.ForEach(d =>
+                {
+                    ////TODO 补全显示用内容
+                    //d.OperatorName = DomainConstraits.RenderIdToText();
+                    //d.DisplayName = DomainConstraits.RenderIdToText();
+                });
+            });
+            return new APIResult<List<GetTaskModel>>(serviceResult);
+        }
+
+        /// <summary>
         /// 1.5.9.编辑队列名称
         /// </summary>
         /// <returns></returns>

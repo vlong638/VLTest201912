@@ -411,6 +411,7 @@ namespace ResearchAPI.Services
                     ProjectId = projectTask.ProjectId,
                     TaskId = projectTask.Id,
                     BusinessEntityId = c.BusinessEntityId,
+                    EntityName =c.EntityName,
                     PropertyName = c.PropertyName,
                     Operator = c.Operator,
                     Value = c.Value,
@@ -436,6 +437,27 @@ namespace ResearchAPI.Services
             return ResearchDbContext.DelegateTransaction(c =>
             {
                 return ProjectTaskRepository.DeleteById(taskId);
+            });
+        }
+
+        internal ServiceResult<List<GetTaskModel>> GetTasks(long projectId)
+        {
+            return ResearchDbContext.DelegateNonTransaction(c =>
+            {
+                var tasks = ProjectTaskRepository.GetByProjectId(projectId);
+                var taskWheres = ProjectTaskWhereRepository.GetByProjectId(projectId);
+                var result = tasks.Select(c => new GetTaskModel() {
+                    ProjectId = c.ProjectId,
+                    TaskId = c.Id,
+                    TaskName = c.Name,
+                    Wheres = taskWheres.Where(d => d.TaskId == c.Id)
+                    .Select(d => {
+                        var item = new GetTaskWhereModel();
+                        d.MapTo(item);
+                        return item;
+                    }).ToList(),
+                }).ToList();
+                return result;
             });
         }
     }

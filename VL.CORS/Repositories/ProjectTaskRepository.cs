@@ -47,5 +47,11 @@ namespace ResearchAPI.CORS.Repositories
             return _connection.Execute("update [ProjectTask] set IsDeleted = 1 where Id = @Id ;"
                 , new { id = taskId }, transaction: _transaction) > 0;
         }
+
+        internal List<ProjectTask> GetByProjectId(long projectId)
+        {
+            return _connection.Query<ProjectTask>("select * from [ProjectTask] where projectId = @projectId and IsDeleted = 0"
+                , new { projectId }, transaction: _transaction).ToList();
+        }
     }
 }

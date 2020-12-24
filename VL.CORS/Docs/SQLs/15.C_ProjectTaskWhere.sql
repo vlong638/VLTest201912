@@ -9,11 +9,13 @@ CREATE TABLE [dbo].[ProjectTaskWhere](
 	[Id][bigint] IDENTITY(1, 2) NOT NULL,
 	[ProjectId][bigint] NOT NULL,
 	[TaskId][bigint] NOT NULL,
+	BusinessEntityId [bigint] NOT NULL,
+	BusinessEntityPropertyId [bigint] NOT NULL,
 	-------------------------------------------
 	[db_createtime] [datetime] DEFAULT CURRENT_TIMESTAMP,
 	[db_updatetime] [datetime] NULL,
 	-------------------------------------------
-	BusinessEntityId [bigint] NOT NULL,
+	[EntityName] nvarchar(20) NULL,
 	[PropertyName] nvarchar(20) NULL,
 	[Operator] nvarchar(20) NULL,
 	[Value] nvarchar(20) NULL,

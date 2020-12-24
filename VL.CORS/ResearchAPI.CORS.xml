@@ -1464,6 +1464,18 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.CommitTask(ResearchAPI.Services.ReportTaskService,System.Int64)">
+            <summary>
+            1.5.4.执行队列
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetTasks(ResearchAPI.Services.ReportTaskService,System.Int64)">
+            <summary>
+            1.5.5.查看队列集合
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:ResearchAPI.Controllers.EasyResearchController.EditTaskName(ResearchAPI.Services.ReportTaskService,ResearchAPI.CORS.Common.EditTaskNameRequest)">
             <summary>
             1.5.9.编辑队列名称
