@@ -711,6 +711,26 @@ namespace ResearchAPI.Controllers
             return new APIResult<GetTaskStatusModel>(serviceResult);
         }
 
+        [HttpPost]
+        [ProducesResponseType(typeof(FileResult),0)]
+        public async Task<FileResult> Download(string path)
+        {
+            var fullPath = Path.Combine(AppContext.BaseDirectory, path);
+            if (!System.IO.File.Exists(fullPath))
+            {
+                return null;
+            }
+            FileStream fs = new FileStream(fullPath, FileMode.Open);
+            byte[] data = new byte[fs.Length];
+            fs.Read(data, 0, data.Length);
+            fs.Close();
+            MemoryStream ms = new MemoryStream(data);
+            var mediaType = path.EndsWith(".xls")|| path.EndsWith(".xlsx") ? "application/msexcel" : "";
+            var actionresult = new FileStreamResult(ms, new Microsoft.Net.Http.Headers.MediaTypeHeaderValue(mediaType));
+            actionresult.FileDownloadName = path;
+            return actionresult;
+        }
+
         /// <summary>
         /// 1.5.9.编辑队列名称
         /// </summary>

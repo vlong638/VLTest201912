@@ -63,6 +63,12 @@ namespace VL.CORS
                 endpoints.MapControllers();
             });
 
+            //ÆôÓÃ¾²Ì¬ÎÄ¼þ
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                ServeUnknownFileTypes = true
+            });
+
             //swagger
             app.UseSwagger();
             app.UseSwaggerUI(p =>
