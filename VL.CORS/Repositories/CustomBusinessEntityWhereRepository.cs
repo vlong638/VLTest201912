@@ -29,5 +29,11 @@ namespace ResearchAPI.CORS.Repositories
             }
             return i;
         }
+
+        public List<CustomBusinessEntityWhere> GetByBusinessEntityIds(List<long> businessEntityIds)
+        {
+            return _connection.Query<CustomBusinessEntityWhere>("select * from [CustomBusinessEntityWhere] where BusinessEntityId in @businessEntityIds"
+                , new { businessEntityIds }, transaction: _transaction).ToList();
+        }
     }
 }

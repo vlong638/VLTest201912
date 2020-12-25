@@ -34,9 +34,6 @@ namespace ResearchAPI.CORS.Common
     public class BusinessContext
     {
         public static string Root = "PregnantInfo";
-        public static COBusinessEntities BusinessEntities { set; get; } = ConfigHelper.GetBusinessEntities("XMLConfigs\\VLTest项目", "BusinessEntities.xml");
-        public static Routers Routers { set; get; } = ConfigHelper.GetRouters("XMLConfigs\\VLTest项目", "Routers.xml");
-        public static List<BusinessEntityTemplate> Templates { set; get; } = new List<BusinessEntityTemplate>();
     }
 
     ///// <summary>
@@ -66,18 +63,19 @@ namespace ResearchAPI.CORS.Common
         public long ProjectId { set; get; }
         public string Name { set; get; }
         public List<COBusinessEntityProperty> Properties { get; set; } = new List<COBusinessEntityProperty>();
-
         public COCustomBusinessEntitySet CustomBusinessEntities { set; get; } = new COCustomBusinessEntitySet();
-        public Routers CustomRouters { set; get; } = new Routers();
+        public Routers Routers { set; get; } = new Routers();
 
         /// <summary>
         /// 纳入标准
         /// </summary>
-        public List<IWhere> MainConditions { get; set; } = new List<IWhere>();
+        public List<Field2ValueWhere> Conditions { get; set; } = new List<Field2ValueWhere>();
+        public List<Field2ValueWhere> TemplateConditions { get; set; } = new List<Field2ValueWhere>();
         /// <summary>
         /// 排除标准
         /// </summary>
         public List<SQLConfigV3Where> ExceptionConditions { get; set; } = new List<SQLConfigV3Where>();
+        public List<BusinessEntityTemplate> Templates { get; internal set; } = new List<BusinessEntityTemplate>();
 
         internal List<Router> GetRouters(Routers routerSource)
         {
@@ -111,34 +109,30 @@ namespace ResearchAPI.CORS.Common
         internal Dictionary<string, object> GetParameters()
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
-            //foreach (var where in MainConditions)
-            //{
-            //    var para = where.GetParameter();
-            //    if (para != null)
-            //        args.Add(para.Value.Key, para.Value.Value);
-            //}
+            foreach (var item in Conditions)
+            {
+                args.Add(item.EntityName + "_" + item.FieldName, item.Value);
+            }
             return args;
         }
 
         internal string GetSQL()
         {
-            var routerSource = new Routers();
-            routerSource.AddRange(BusinessContext.Routers);
-            routerSource.AddRange(CustomRouters);
             var customBusinessEntities = CustomBusinessEntities;
             var properties = Properties;
-            var routers = GetRouters(routerSource);
-            var conditions = MainConditions;
+            var routers = Routers;
+            var conditions = Conditions;
+            var templates = Templates;
             var sql = $@"
-{GetSelect(properties, GetTableAlias(routers, properties))}
-{GetFrom(routers, properties, customBusinessEntities, BusinessContext.Templates)}
-{GetWhere(conditions, GetTableAlias(routers, properties))}
+{GetSelect(properties)}
+{GetFrom(routers, properties, customBusinessEntities, templates)}
+{GetWhere(conditions)}
 ";
-            UpdateIf(ref sql, new List<SQLConfigV3Where>());
+            UpdateIf(ref sql, TemplateConditions);
             return sql;
         }
 
-        private void UpdateIf(ref string sql, List<SQLConfigV3Where> wheres)
+        private void UpdateIf(ref string sql, List<Field2ValueWhere> wheres)
         {
             var ifItems = sql.GetMatches("<If", "</If>");
             foreach (var ifItem in ifItems)
@@ -173,7 +167,7 @@ namespace ResearchAPI.CORS.Common
             }
             return result;
         }
-        private string GetWhere(List<IWhere> conditions, Dictionary<string, string> tableAlias)
+        private string GetWhere(List<Field2ValueWhere> conditions)
         {
             if (conditions.Count == 0)
             {
@@ -185,7 +179,7 @@ namespace ResearchAPI.CORS.Common
                 sb.Append("where 1=1 ");
                 foreach (var condition in conditions)
                 {
-                    var sql = condition.ToSQL(tableAlias);
+                    var sql = condition.ToSQL();
                     sb.Append(" and " + sql);
                 }
                 return sb.ToString();
@@ -202,24 +196,40 @@ namespace ResearchAPI.CORS.Common
             else
             {
                 StringBuilder sb = new StringBuilder();
-                var from = routers.First(c => c.From == BusinessContext.Root);
-                sb.AppendLine($" from [{from.From}] ");
-                foreach (var router in routers)
-                {
-                    var customBE = customBusinessEntities.FirstOrDefault(b => b.ReportName == router.To);
-                    router.ToAlias = customBE.Template;
-                    var template = templates.First(c => c.BusinessEntity.DisplayName == customBE.Template);
-                    sb.AppendLine($" {router.RouteType.ToSQL()} ({template.SQLConfig.SQL} \r\n ) as {customBE.Template} on {string.Join(",", router.Ons.Select(o => o.ToSQL(router)))} ");
-                }
+                var root = "PregnantInfo";
+                sb.AppendLine($" from [{root}] ");
+                AppendRoute(sb, routers, root, templates);
                 return sb.ToString();
             }
         }
 
-        private string GetSelect(List<COBusinessEntityProperty> properties, Dictionary<string, string> tableAlias)
+        private void AppendRoute(StringBuilder sb, List<Router> routers, string fromName, List<BusinessEntityTemplate> templates)
         {
-            return "select " + string.Join(",", properties.Select(c => "[" + (tableAlias[c.From] ?? c.From) + "]." + c.ColumnName));
+            var tos = routers.Where(c => c.From == fromName);
+            if (tos == null)
+                return;
+            foreach (var item in tos)
+            {
+                if (item.IsFromTemplate)
+                {
+                    var template = templates.FirstOrDefault(c => c.Id == item.To.TrimStart("t").ToLong().Value);
+                    sb.AppendLine($"left join ({template.SQLConfig.SQL})as [{item.To}] on {string.Join(",", item.Ons.Select(o => $"[{item.From}].{o.FromField} = [{item.To}].{o.ToField}"))} ");
+                }
+                else
+                {
+                    sb.AppendLine($"left join [{item.To}] on {string.Join(",", item.Ons.Select(o => $"[{item.From}].{o.FromField} = [{item.To}].{o.ToField}"))} ");
+                }
+                AppendRoute(sb, routers, item.To, templates);
+            }
+        }
+
+        private string GetSelect(List<COBusinessEntityProperty> properties)
+        {
+            return "select " + string.Join(",", properties.Select(c => "[" + c.From + "]." + c.ColumnName));
         }
     }
+
+
 
     public class Routers : List<Router>
     {
@@ -274,6 +284,11 @@ namespace ResearchAPI.CORS.Common
         public RouteType RouteType { set; get; }
         public List<RouterOn> Ons { set; get; } = new List<RouterOn>();
         public bool IsFromTemplate { get; set; }
+
+        internal string GetSQL()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class RouterOn

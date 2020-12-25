@@ -48,5 +48,11 @@ namespace ResearchAPI.CORS.Repositories
             return _connection.Query<ProjectTaskWhere>("select * from [ProjectTaskWhere] where ProjectId = @ProjectId"
                 , new { projectId }, transaction: _transaction).ToList();
         }
+
+        internal List<ProjectTaskWhere> GetByTaskId(long taskId)
+        {
+            return _connection.Query<ProjectTaskWhere>("select * from [ProjectTaskWhere] where TaskId = @TaskId"
+                , new { taskId }, transaction: _transaction).ToList();
+        }
     }
 }

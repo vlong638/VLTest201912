@@ -45,11 +45,10 @@ namespace ResearchAPI.CORS.Repositories
                 , new { projectId, businessEntityId }, transaction: _transaction);
         }
 
-        internal List<GetProjectIndicatorModel> GetByProjectId(long projectId)
+        internal List<ProjectIndicator> GetByProjectId(long projectId)
         {
-            return _connection.Query<GetProjectIndicatorModel>("select * from [ProjectIndicator] where ProjectId = @ProjectId"
+            return _connection.Query<ProjectIndicator>("select * from [ProjectIndicator] where ProjectId = @ProjectId"
                 , new { projectId }, transaction: _transaction).ToList();
         }
-
     }
 }

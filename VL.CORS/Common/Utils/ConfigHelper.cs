@@ -40,6 +40,20 @@ namespace ResearchAPI.CORS.Common
             return new BusinessEntityTemplate(root);
         }
 
+        public static List<BusinessEntityTemplate> GetBusinessEntityTemplates()
+        {
+            var templates = new List<BusinessEntityTemplate>();
+            var directory = @"Configs/XMLConfigs/BusinessEntities";
+            var files = Directory.GetFiles(directory);
+            var bsfiles = files.Select(c => Path.GetFileName(c)).Where(c => c.StartsWith("Template_"));
+            foreach (var bsfile in bsfiles)
+            {
+                var template = ConfigHelper.GetBusinessEntityTemplate(directory, bsfile);
+                templates.Add(template);
+            }
+            return templates;
+        }
+
         public static COCustomBusinessEntity GetCustomBusinessEntity(string directory, string file)
         {
             var path = Path.Combine(AppContext.BaseDirectory, directory, file);
@@ -67,7 +81,7 @@ namespace ResearchAPI.CORS.Common
             var businessEntitiesCollection = new List<COBusinessEntities>();
             var directory = @"Configs/XMLConfigs/BusinessEntities";
             var files = Directory.GetFiles(directory);
-            var bsfiles = files.Select(c => Path.GetFileName(c)).Where(c => c.StartsWith("BusinessEntities"));
+            var bsfiles = files.Select(c => Path.GetFileName(c)).Where(c => c.StartsWith("BusinessEntities_"));
             foreach (var bsfile in bsfiles)
             {
                 var businessEntities = ConfigHelper.GetBusinessEntities(directory, bsfile);

@@ -44,6 +44,9 @@
     <None Update="Configs\XMLConfigs\BusinessEntities\Routers.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Configs\XMLConfigs\BusinessEntities\777202012230906.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Configs\XMLConfigs\BusinessEntities\Template_孕周检验.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

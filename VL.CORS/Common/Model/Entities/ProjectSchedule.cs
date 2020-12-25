@@ -25,10 +25,10 @@ namespace ResearchAPI.CORS.Common
 
     public enum ScheduleStatus
     {
-        None,
-        Ready,
-        Started,
-        Completed,
-        Failed,
+        None = 0,
+        Ready = 1,
+        Started = 2,
+        Completed = 3,
+        Failed = 4,
     }
 }

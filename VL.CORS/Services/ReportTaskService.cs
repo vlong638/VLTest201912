@@ -23,7 +23,7 @@ namespace ResearchAPI.Services
         DbContext ResearchDbContext { set; get; }
 
         CustomBusinessEntityPropertyRepository CustomBusinessEntityPropertyRepository { set; get; }
-        CustomBusinessEntityRepository CustomerBusinessEntityRepository { set; get; }
+        CustomBusinessEntityRepository CustomBusinessEntityRepository { set; get; }
         CustomBusinessEntityWhereRepository CustomBusinessEntityWhereRepository { set; get; }
         BusinessEntityPropertyRepository BusinessEntityPropertyRepository { set; get; }
         FavoriteProjectRepository FavoriteProjectRepository { set; get; }
@@ -47,7 +47,7 @@ namespace ResearchAPI.Services
 
             //repositories
             CustomBusinessEntityPropertyRepository = new CustomBusinessEntityPropertyRepository(ResearchDbContext);
-            CustomerBusinessEntityRepository = new CustomBusinessEntityRepository(ResearchDbContext);
+            CustomBusinessEntityRepository = new CustomBusinessEntityRepository(ResearchDbContext);
             CustomBusinessEntityWhereRepository = new CustomBusinessEntityWhereRepository(ResearchDbContext);
             BusinessEntityPropertyRepository = new BusinessEntityPropertyRepository(ResearchDbContext);
             FavoriteProjectRepository = new FavoriteProjectRepository(ResearchDbContext);
@@ -78,7 +78,7 @@ namespace ResearchAPI.Services
             return ResearchDbContext.DelegateNonTransaction(c =>
             {
                 var result = new GetProjectModel();
-                var project = ProjectRepository.GetAvailableProjectById(projectId);
+                var project = ProjectRepository.GetById(projectId);
                 if (project == null)
                 {
                     throw new NotImplementedException("项目不存在");
@@ -207,7 +207,7 @@ namespace ResearchAPI.Services
             }).ToList();
             return ResearchDbContext.DelegateTransaction(c =>
             {
-                var entityId = CustomerBusinessEntityRepository.InsertOne(entity);
+                var entityId = CustomBusinessEntityRepository.InsertOne(entity);
                 properties.ForEach(c =>
                 {
                     c.BusinessEntityId = entityId;
@@ -276,7 +276,7 @@ namespace ResearchAPI.Services
             };
             return ResearchDbContext.DelegateTransaction(c =>
             {
-                var oldProject = ProjectRepository.GetAvailableProjectById(project.Id);
+                var oldProject = ProjectRepository.GetById(project.Id);
                 if (oldProject == null)
                     throw new NotImplementedException("项目不存在");
                 var result = ProjectRepository.Update(project);
@@ -298,7 +298,13 @@ namespace ResearchAPI.Services
         {
             return ResearchDbContext.DelegateNonTransaction(c =>
             {
-                return ProjectIndicatorRepository.GetByProjectId(projectId);
+                return ProjectIndicatorRepository.GetByProjectId(projectId)
+                .Select(c =>
+                {
+                    var m = new GetProjectIndicatorModel();
+                    c.MapTo(m);
+                    return m;
+                }).ToList();
             });
         }
 
@@ -318,7 +324,7 @@ namespace ResearchAPI.Services
                 var exist = FavoriteProjectRepository.GetOne(favoriteProject);
                 if (exist != null)
                     throw new NotImplementedException("已添加收藏");
-                var project = ProjectRepository.GetAvailableProjectById(projectId);
+                var project = ProjectRepository.GetById(projectId);
                 if (project == null)
                     throw new NotImplementedException("项目不存在");
                 return FavoriteProjectRepository.InsertOne(favoriteProject) > 0;
@@ -402,6 +408,79 @@ namespace ResearchAPI.Services
                 {
                     c.Id = ProjectTaskWhereRepository.Insert(c);
                 });
+                return true;
+            });
+        }
+
+        internal ServiceResult<bool> StartSchedule(long scheduleId)
+        {
+            return ResearchDbContext.DelegateNonTransaction(c =>
+            {
+                var schedule = ProjectScheduleRepository.GetById(scheduleId);
+                if (schedule == null)
+                    throw new NotImplementedException("计划不存在");
+                var task = ProjectTaskRepository.GetById(schedule.TaskId);
+                if (task == null)
+                    throw new NotImplementedException("任务不存在");
+                var project = ProjectRepository.GetById(schedule.ProjectId);
+                if (project == null)
+                    throw new NotImplementedException("项目不存在");
+                var projectIndicators = ProjectIndicatorRepository.GetByProjectId(schedule.ProjectId);
+                var taskWheres = ProjectTaskWhereRepository.GetByTaskId(schedule.TaskId);
+                var customTaskWheres = taskWheres.Where(c => c.BusinessEntityId.ToString().StartsWith("3"));
+                var customBusinessEntities = customTaskWheres.Count() > 0
+                    ? CustomBusinessEntityRepository.GetByIds(customTaskWheres.Select(c => c.BusinessEntityId).Distinct().ToList())
+                    : new List<CustomBusinessEntity>();
+                var customBusinessEntityWheres = customTaskWheres.Count() > 0
+                    ? CustomBusinessEntityWhereRepository.GetByBusinessEntityIds(customTaskWheres.Select(c => c.BusinessEntityId).Distinct().ToList())
+                    : new List<CustomBusinessEntityWhere>();
+                var routers = ConfigHelper.GetRouters("Configs/XMLConfigs/BusinessEntities", "Routers.xml");
+                var templates = ConfigHelper.GetBusinessEntityTemplates();
+
+                //内核处理
+                var reportTask = new ReportTask(task.Name);
+                foreach (var entityName in projectIndicators.Select(c => c.EntityName).Distinct())
+                {
+                    var router = routers.FirstOrDefault(c => c.To == entityName);
+                    if (router!=null)
+                    {
+                        reportTask.Routers.Add(router);
+                    }
+                    else
+                    {
+                        var template = templates.FirstOrDefault(c => "t" + c.Id == entityName);
+                        if (template!=null)
+                        {
+                            router = template.Router;
+                            router.To = entityName;
+                            router.IsFromTemplate = true;
+                            reportTask.Routers.Add(router);
+                        }
+                    }
+                }
+                var templateIds = customBusinessEntities.Select(c => c.TemplateId);
+                reportTask.Templates.AddRange(templates.Where(c => templateIds.Contains(c.Id)));
+                reportTask.Properties.AddRange(projectIndicators.Select(c => new COBusinessEntityProperty()
+                {
+                    ColumnName = c.PropertyName,
+                    DisplayName = c.DisplayName,
+                    From = c.EntityName,
+                }));
+                reportTask.Conditions.AddRange(taskWheres.Select(c => new Field2ValueWhere()
+                {
+                    EntityName = c.EntityName,
+                    FieldName = c.PropertyName,
+                    Value = c.Value,
+                }));
+                reportTask.TemplateConditions.AddRange(customBusinessEntityWheres.Select(c => new Field2ValueWhere()
+                {
+                    EntityName = customBusinessEntities.First(d=>d.Id == c.BusinessEntityId).Name,
+                    FieldName = c.ComponentName,
+                    Value = c.Value,
+                }));
+                var parameters = reportTask.GetParameters();
+                var sql = reportTask.GetSQL();
+                var dataTable = SharedRepository.GetDataTable(sql, parameters);
                 return true;
             });
         }

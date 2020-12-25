@@ -469,6 +469,10 @@ namespace ResearchAPI.Controllers
         public APIResult<long> CommitTask([FromServices] ReportTaskService service, CommitTaskRequest request)
         {
             var serviceResult = service.CommitTask(request);
+            if (serviceResult.IsSuccess)
+            {
+                service.StartSchedule(serviceResult.Data);
+            }
             return new APIResult<long>(serviceResult);
         }
 

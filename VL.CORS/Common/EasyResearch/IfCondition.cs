@@ -22,6 +22,30 @@ namespace ResearchAPI.CORS.Common
             Text = WebUtility.HtmlDecode(element.Value);
         }
 
+        internal string GetSQL(List<Field2ValueWhere> wheres)
+        {
+            switch (Operator)
+            {
+                case "NotEmpty":
+                    var where = wheres.FirstOrDefault(c => c.FieldName == ComponentName);
+                    if (where != null && !where.Value.IsNullOrEmpty())
+                    {
+                        return Text;
+                    }
+                    break;
+                case "eq":
+                    where = wheres.FirstOrDefault(c => c.FieldName == ComponentName);
+                    if (where != null && where.Value == Value)
+                    {
+                        return Text;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            return "";
+        }
+
         internal string GetSQL(List<SQLConfigV3Where> wheres)
         {
             switch (Operator)

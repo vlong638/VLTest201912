@@ -21,7 +21,7 @@ namespace ResearchAPI.CORS.Repositories
                 .FirstOrDefault();
         }
 
-        public override Project GetAvailableProjectById(long id)
+        public override Project GetById(long id)
         {
             return _connection.Query<Project>("select * from [Project] where Id = @Id and IsDeleted = 0;"
                 , new { Id = id }, transaction: _transaction)

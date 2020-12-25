@@ -12,10 +12,6 @@ namespace ResearchAPI.CORS.Common
     /// </summary>
     public class DomainConstraits
     {
-        public DomainConstraits()
-        {
-        }
-
         public static long? AdminRoleId { private set; get; }
         public static long? MemberRoleId { private set; get; }
         public static long? OwnerRoleId { private set; get; }
@@ -27,6 +23,7 @@ namespace ResearchAPI.CORS.Common
         public static Dictionary<long, string> BusinessEntityDic { private set; get; }
         public static List<BusinessEntityProperty> BusinessEntityProperties { private set; get; }
         public static Dictionary<long, string> BusinessEntityPropertyDic { private set; get; }
+        public static Routers Routes { get; private set; }
         public static Dictionary<long, string> ViewAuthorizeTypes { private set; get; }
         public static Dictionary<string, string> LabOrders { get; private set; }
         public static List<IGrouping<string, VLKeyValue<string, string, string, string>>> LabResults { get; private set; }
@@ -45,9 +42,6 @@ namespace ResearchAPI.CORS.Common
             return values;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public enum KVType
         {
             /// <summary>
@@ -72,9 +66,6 @@ namespace ResearchAPI.CORS.Common
             BusinessType,
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public enum PKVType
         {
             /// <summary>
@@ -107,6 +98,7 @@ namespace ResearchAPI.CORS.Common
 
         internal static void InitData(ReportTaskService reportTaskService)
         {
+            #region BusinessEntity
             var businessEntitiesCollection = ConfigHelper.GetCOBusinessEntities();
             BusinessTypes = new List<BusinessType>();
             BusinessEntities = new List<BusinessEntity>();
@@ -140,14 +132,17 @@ namespace ResearchAPI.CORS.Common
             {
                 BusinessEntityPropertyDic.Add(item.Key, item.Value);
             }
+            Routes = ConfigHelper.GetRouters(@"Configs/XMLConfigs/BusinessEntities", "Routers.xml");
+            #endregion
 
-            ViewAuthorizeTypes= ConfigHelper.GetDictionary<long>("ViewAuthorizeType");
+            ViewAuthorizeTypes = ConfigHelper.GetDictionary<long>("ViewAuthorizeType");
             Departments = ConfigHelper.GetDictionary<long>("Department");
             Users = reportTaskService.GetUsersDictionary().Data;
             Roles = reportTaskService.GetRolesDictionary().Data;
             AdminRoleId = Roles.First(c => c.Value == "项目管理员").Key;
             MemberRoleId = Roles.First(c => c.Value == "项目成员").Key;
             OwnerRoleId = Roles.First(c => c.Value == "项目创建人").Key;
+
             //Labs
             var labs = ConfigHelper.GetJsonConfig<string, string, string, string>("Labs");
             var result = new Dictionary<string, string>();

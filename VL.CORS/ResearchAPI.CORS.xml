@@ -110,11 +110,6 @@
             
             </summary>
         </member>
-        <member name="T:ResearchAPI.CORS.Common.DomainConstraits.KVType">
-            <summary>
-            
-            </summary>
-        </member>
         <member name="F:ResearchAPI.CORS.Common.DomainConstraits.KVType.ViewAuthorizeType">
             <summary>
             浏览权限类型
@@ -138,11 +133,6 @@
         <member name="F:ResearchAPI.CORS.Common.DomainConstraits.KVType.BusinessType">
             <summary>
             业务对象类型
-            </summary>
-        </member>
-        <member name="T:ResearchAPI.CORS.Common.DomainConstraits.PKVType">
-            <summary>
-            
             </summary>
         </member>
         <member name="F:ResearchAPI.CORS.Common.DomainConstraits.PKVType.BusinessEntity">
@@ -186,7 +176,7 @@
             报告单元
             </summary>
         </member>
-        <member name="P:ResearchAPI.CORS.Common.ReportTask.MainConditions">
+        <member name="P:ResearchAPI.CORS.Common.ReportTask.Conditions">
             <summary>
             纳入标准
             </summary>
@@ -1413,6 +1403,14 @@
             <summary>
             
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ResearchAPI.CORS.Repositories.SharedRepository.GetDataTable(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            
+            </summary>
+            <param name="sql"></param>
+            <param name="parameters"></param>
             <returns></returns>
         </member>
         <member name="T:ResearchAPI.Controllers.TestContext">

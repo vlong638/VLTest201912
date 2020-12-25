@@ -96,5 +96,19 @@ namespace ResearchAPI.CORS.Repositories
                 return table;
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        public DataTable GetDataTable(string sql, Dictionary<string, object> parameters)
+        {
+            DataTable table = new DataTable("MyTable");
+            var reader = context.DbGroup.Connection.ExecuteReader(sql, parameters, transaction: _transaction);
+            table.Load(reader);
+            return table;
+        }
     }
 }

@@ -7,7 +7,7 @@ namespace ResearchAPI.CORS.Common
     /// <summary>
     /// 表对值 条件项
     /// </summary>
-    public class Field2ValueWhere : IWhere
+    public class Field2ValueWhere
     {
         public Field2ValueWhere(string entityName, string fieldName, WhereOperator @operator, string value = "", string valueFormat = "")
         {
@@ -18,9 +18,13 @@ namespace ResearchAPI.CORS.Common
             ValueFormat = valueFormat;
         }
 
+        public Field2ValueWhere()
+        {
+        }
+
         public string EntityName { get; set; }
         public string FieldName { get; set; }
-        public WhereOperator Operator { get; set; }
+        public WhereOperator Operator { get; set; } = WhereOperator.Equal;
         public string Value { get; set; }
         public string ValueFormat { get; set; }
 
@@ -45,11 +49,11 @@ namespace ResearchAPI.CORS.Common
             return string.Format(ValueFormat, Value);
         }
 
-        public string ToSQL(Dictionary<string, string> tableAlias)
+        public string ToSQL()
         {
             //TODO 这里理论上需要知道数据库的知识
             var field = new DBField();
-            return $"{tableAlias[EntityName]}.{FieldName} { Operator.ToSQL() } { GetParameterName() }";
+            return $"[{EntityName}].{FieldName} { Operator.ToSQL() } { GetParameterName() }";
         }
     }
 }
