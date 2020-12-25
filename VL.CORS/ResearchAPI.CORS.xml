@@ -1442,7 +1442,7 @@
             <param name="type">类型名称</param>
             <returns></returns>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetDropdownsWithParent(ResearchAPI.Services.ReportTaskService,System.String,System.Int64)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetDropdownsWithParent(ResearchAPI.Services.ReportTaskService,System.String,System.String)">
             <summary>
             下拉项
             </summary>

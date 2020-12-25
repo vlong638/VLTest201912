@@ -10,7 +10,7 @@
 	</BusinessEntity>
 	<SQLConfig>
 		<Wheres>
-			<Where ComponentName="检查单类别" DisplayName="检查单类别" DisplayType="3" Options="xxx:xxx,xxx:xxx" Required="true"/>
+			<Where ComponentName="检查单类别" DisplayName="检查单类别" DisplayType="3" formatter="'%@检查单类别%'" Required="true"/>
 			<Where ComponentName="检验类别" DisplayName="检验类别" DisplayType="3" Options="0148:葡萄糖,0193:血红蛋白" Required="true"/>
 			<Where ComponentName="起始孕周" DisplayName="起始孕周" DisplayType="5"/>
 			<Where ComponentName="截止孕周" DisplayName="截止孕周" DisplayType="5"/>
@@ -32,8 +32,9 @@
 				from LabOrder lo
 				left join LabResult lr on lo.Id = lr.orderid
 				left join PregnantInfo pi on lo.idcard = pi.idcard
-				where
-				<If Operator="NotEmpty" ComponentName="检验类别"> lr.itemid = @检验类别</If>
+				where 1=1
+				<If Operator="NotEmpty" ComponentName="检查单类别"> and lo.examcode like @检查单类别</If>
+				<If Operator="NotEmpty" ComponentName="检验类别"> and lr.itemid = @检验类别</If>
 				<If Operator="NotEmpty" ComponentName="起始孕周"> and lo.examtime &gt; @起始孕周 </If>
 				<If Operator="NotEmpty" ComponentName="截止孕周"> and lo.examtime &lt; @截止孕周 </If>
 				group by pi.idcard,pi.deliverydate

@@ -57,23 +57,26 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<List<VLKeyValue<string, long>>> GetDropdowns([FromServices] ReportTaskService service, string type)
+        public APIResult<List<VLKeyValue<string, string>>> GetDropdowns([FromServices] ReportTaskService service, string type)
         {
-            List<VLKeyValue<string, long>> values = new List<VLKeyValue<string, long>>();
+            List<VLKeyValue<string, string>> values = new List<VLKeyValue<string, string>>();
             switch (type)
             {
                 case "BusinessType":
-                    values.AddRange(DomainConstraits.BusinessTypes.Select(c => new VLKeyValue<string, long>(c.Name, c.Id)));
+                    values.AddRange(DomainConstraits.BusinessTypes.Select(c => new VLKeyValue<string, string>(c.Name, c.Id.ToString())));
                     return Success(values);
                 case "Member":
                     var result = service.GetAllUsersIdAndName();
                     foreach (var user in result.Data)
                     {
-                        values.Add(new VLKeyValue<string, long>(user.Value, user.Key));
+                        values.Add(new VLKeyValue<string, string>(user.Value, user.Key.ToString()));
                     }
                     return Success(values);
+                case "LabOrder":
+                    values.AddRange(DomainConstraits.LabOrders.Select(c => new VLKeyValue<string, string>(c.Value, c.Key)));
+                    return Success(values);
                 default:
-                    values = ConfigHelper.GetJsonConfig<long>(type);
+                    values = ConfigHelper.GetJsonConfig<string, string>(type);
                     return Success(values);
             }
         }
@@ -88,20 +91,25 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<List<VLKeyValue<string, long>>> GetDropdownsWithParent([FromServices] ReportTaskService service, string type, long parentId)
+        public APIResult<List<VLKeyValue<string, string>>> GetDropdownsWithParent([FromServices] ReportTaskService service, string type, string parentId)
         {
-            List<VLKeyValue<string, long>> values = new List<VLKeyValue<string, long>>();
+            List<VLKeyValue<string, string>> values = new List<VLKeyValue<string, string>>();
             switch (type)
             {
                 case "BusinessEntity":
                     values.AddRange(DomainConstraits.BusinessEntities
-                        .Where(c => c.BusinessTypeId == parentId)
-                        .Select(c => new VLKeyValue<string, long>(c.Name, c.Id)));
+                        .Where(c => c.BusinessTypeId == parentId.ToLong())
+                        .Select(c => new VLKeyValue<string, string>(c.Name, c.Id.ToString())));
                     return Success(values);
                 case "BusinessEntityProperty":
                     values.AddRange(DomainConstraits.BusinessEntityProperties
-                        .Where(c => c.BusinessEntityId == parentId)
-                        .Select(c => new VLKeyValue<string, long>(c.DisplayName, c.Id)));
+                        .Where(c => c.BusinessEntityId == parentId.ToLong())
+                        .Select(c => new VLKeyValue<string, string>(c.DisplayName, c.Id.ToString())));
+                    return Success(values);
+                case "LabResult":
+                    values.AddRange(DomainConstraits.LabResults
+                        .First(c => c.Key == parentId)
+                        .Select(c => new VLKeyValue<string, string>(c.Value, c.Key)));
                     return Success(values);
                 default:
                     throw new NotImplementedException("未支持该类型");

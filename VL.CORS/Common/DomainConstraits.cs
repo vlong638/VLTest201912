@@ -28,6 +28,8 @@ namespace ResearchAPI.CORS.Common
         public static List<BusinessEntityProperty> BusinessEntityProperties { private set; get; }
         public static Dictionary<long, string> BusinessEntityPropertyDic { private set; get; }
         public static Dictionary<long, string> ViewAuthorizeTypes { private set; get; }
+        public static Dictionary<string, string> LabOrders { get; private set; }
+        public static List<IGrouping<string, VLKeyValue<string, string, string, string>>> LabResults { get; private set; }
 
         internal static string RenderIdToText<T>(T id, Dictionary<T, string> source)
         {
@@ -146,6 +148,16 @@ namespace ResearchAPI.CORS.Common
             AdminRoleId = Roles.First(c => c.Value == "项目管理员").Key;
             MemberRoleId = Roles.First(c => c.Value == "项目成员").Key;
             OwnerRoleId = Roles.First(c => c.Value == "项目创建人").Key;
+            //Labs
+            var labs = ConfigHelper.GetJsonConfig<string, string, string, string>("Labs");
+            var result = new Dictionary<string, string>();
+            foreach (var kv in labs)
+            {
+                if (!result.ContainsKey(kv.ParentKey))
+                    result.Add(kv.ParentKey, kv.ParentValue);
+            }
+            LabOrders = result;
+            LabResults = labs.GroupBy(c => c.ParentValue).ToList();
         }
     }
 }
