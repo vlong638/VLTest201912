@@ -478,6 +478,7 @@ namespace ResearchAPI.Services
                     FieldName = c.ComponentName,
                     Value = c.Value,
                 }));
+                //string.Join("\r\n",parameters.Select(c=> "declare @"+c.Key+" nvarchar(50); set @"+c.Key+" = '"+ c.Value+"'"))
                 var parameters = reportTask.GetParameters();
                 var sql = reportTask.GetSQL();
                 var dataTable = SharedRepository.GetDataTable(sql, parameters);

@@ -1074,44 +1074,40 @@
             项目描述
             </summary>
         </member>
-        <member name="T:ResearchAPI.CORS.Common.GetBiefProjectModel">
+        <member name="T:ResearchAPI.CORS.Common.GetBriefProjectModel">
             <summary>
             
             </summary>
         </member>
-        <member name="P:ResearchAPI.CORS.Common.GetBiefProjectModel.CreatedAt">
+        <member name="M:ResearchAPI.CORS.Common.GetBriefProjectModel.#ctor(ResearchAPI.CORS.Common.GetProjectModel)">
             <summary>
-            创建日期
+            
+            </summary>
+            <param name="model"></param>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetBriefProjectModel.ViewAuthorizeTypeName">
+            <summary>
+            项目查看权限 名称
             </summary>
         </member>
-        <member name="P:ResearchAPI.CORS.Common.GetBiefProjectModel.LastModifiedAt">
+        <member name="P:ResearchAPI.CORS.Common.GetBriefProjectModel.CreateName">
             <summary>
-            最近更新时间
+            创建者 名称
             </summary>
         </member>
-        <member name="P:ResearchAPI.CORS.Common.GetBiefProjectModel.CreatorName">
+        <member name="P:ResearchAPI.CORS.Common.GetBriefProjectModel.DepartmentName">
             <summary>
-            创建者
+            关联科室 名称
             </summary>
         </member>
-        <member name="P:ResearchAPI.CORS.Common.GetBiefProjectModel.DepartmentId">
+        <member name="P:ResearchAPI.CORS.Common.GetBriefProjectModel.AdminNames">
             <summary>
-            关联科室
+            项目管理人员 名称
             </summary>
         </member>
-        <member name="P:ResearchAPI.CORS.Common.GetBiefProjectModel.AdminIds">
+        <member name="P:ResearchAPI.CORS.Common.GetBriefProjectModel.MemberNames">
             <summary>
-            项目管理人员
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.CORS.Common.GetBiefProjectModel.MemberIds">
-            <summary>
-            项目成员
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.CORS.Common.GetBiefProjectModel.ProjectDescription">
-            <summary>
-            项目描述
+            项目成员 名称
             </summary>
         </member>
         <member name="T:ResearchAPI.CORS.Common.GetBusinessEntityModel">
@@ -1162,6 +1158,31 @@
         <member name="P:ResearchAPI.CORS.Common.GetBusinessEntityPropertiesModel.IsSelected">
             <summary>
             是否勾选
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Common.GetIndicatorsResponse">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetIndicatorsResponse.IndicatorName">
+            <summary>
+            指标名称
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetIndicatorsResponse.IndicatorType">
+            <summary>
+            指标类别
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetIndicatorsResponse.ProjectName">
+            <summary>
+            项目名称
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetIndicatorsResponse.Rule">
+            <summary>
+            规则
             </summary>
         </member>
         <member name="T:ResearchAPI.CORS.Common.GetPagedProjectsModel">
@@ -1532,67 +1553,6 @@
             1.4.11.保存自定义指标
             </summary>
             <returns></returns>
-        </member>
-        <member name="T:ResearchAPI.Controllers.EasyResearchController.GetBriefProjectModel">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetBriefProjectModel.#ctor(ResearchAPI.CORS.Common.GetProjectModel)">
-            <summary>
-            
-            </summary>
-            <param name="model"></param>
-        </member>
-        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetBriefProjectModel.ViewAuthorizeTypeName">
-            <summary>
-            项目查看权限 名称
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetBriefProjectModel.CreateName">
-            <summary>
-            创建者 名称
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetBriefProjectModel.DepartmentName">
-            <summary>
-            关联科室 名称
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetBriefProjectModel.AdminNames">
-            <summary>
-            项目管理人员 名称
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetBriefProjectModel.MemberNames">
-            <summary>
-            项目成员 名称
-            </summary>
-        </member>
-        <member name="T:ResearchAPI.Controllers.EasyResearchController.GetIndicatorsResponse">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetIndicatorsResponse.IndicatorName">
-            <summary>
-            指标名称
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetIndicatorsResponse.IndicatorType">
-            <summary>
-            指标类别
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetIndicatorsResponse.ProjectName">
-            <summary>
-            项目名称
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.Controllers.EasyResearchController.GetIndicatorsResponse.Rule">
-            <summary>
-            规则
-            </summary>
         </member>
         <member name="M:ResearchAPI.Controllers.EasyResearchController.AddProjectIndicators(ResearchAPI.Services.ReportTaskService,ResearchAPI.CORS.Common.AddIndicatorsRequest)">
             <summary>

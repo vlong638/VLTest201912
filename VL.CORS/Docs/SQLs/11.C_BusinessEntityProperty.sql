@@ -13,7 +13,7 @@ CREATE TABLE [dbo].[BusinessEntityProperty](
 	[db_updatetime] [datetime] NULL,
 	-------------------------------------------下管控
 	-------------------------------------------下内容
-	[SourceName] nvarchar(20) NULL,
+	[TableName] nvarchar(20) NULL,
 	[ColumnName] nvarchar(20) NULL,
 	[DisplayName] nvarchar(20) NULL,
 	-------------------------------------------

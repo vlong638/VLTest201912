@@ -26,18 +26,18 @@
 			,lr.value
 			from
 			(
-				select pi.idcard,pi.deliverydate
-				<If Operator="eq" ComponentName="检查日期分组类别" Value="0"> ,min(lo.examtime) targetexamtime </If>
-				<If Operator="eq" ComponentName="检查日期分组类别" Value="1"> ,max(lo.examtime) targetexamtime </If>
+				select pi.idcard,pi.dateofprenatal
+				<If Operator="eq" ComponentName="多值时取值方式" Value="0"> ,min(lo.examtime) targetexamtime </If>
+				<If Operator="eq" ComponentName="多值时取值方式" Value="1"> ,max(lo.examtime) targetexamtime </If>
 				from LabOrder lo
-				left join LabResult lr on lo.Id = lr.orderid
+				left join LabResult lr on lo.orderid = lr.orderid
 				left join PregnantInfo pi on lo.idcard = pi.idcard
 				where 1=1
 				<If Operator="NotEmpty" ComponentName="检查单类别"> and lo.examcode like @检查单类别</If>
 				<If Operator="NotEmpty" ComponentName="检验类别"> and lr.itemid = @检验类别</If>
-				<If Operator="NotEmpty" ComponentName="起始孕周"> and lo.examtime &gt; @起始孕周 </If>
-				<If Operator="NotEmpty" ComponentName="截止孕周"> and lo.examtime &lt; @截止孕周 </If>
-				group by pi.idcard,pi.deliverydate
+				<If Operator="NotEmpty" ComponentName="起始孕周"> and datediff(week,pi.dateofprenatal,lo.examtime)+40 &gt;= @起始孕周 </If>
+				<If Operator="NotEmpty" ComponentName="截止孕周"> and datediff(week,pi.dateofprenatal,lo.examtime)+40 &lt;= @截止孕周 </If>
+				group by pi.idcard,pi.dateofprenatal
 			) as temp
 			left join LabOrder lo on temp.idcard = lo.idcard and temp.targetexamtime = lo.examtime
 			left join LabResult lr on lo.Id = lr.orderid

@@ -12,7 +12,7 @@ CREATE TABLE [dbo].[BusinessType](
 	[db_updatetime] [datetime] NULL,
 	-------------------------------------------下管控
 	-------------------------------------------下内容
-	[DisplayName] nvarchar(20) NULL,
+	[Name] nvarchar(20) NULL,
 	-------------------------------------------
 
 	CONSTRAINT[PK_BusinessType] PRIMARY KEY CLUSTERED 

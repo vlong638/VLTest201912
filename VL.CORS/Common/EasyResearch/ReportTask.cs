@@ -113,6 +113,10 @@ namespace ResearchAPI.CORS.Common
             {
                 args.Add(item.EntityName + "_" + item.FieldName, item.Value);
             }
+            foreach (var item in TemplateConditions)
+            {
+                args.Add(item.EntityName + "_" + item.FieldName, item.Value);
+            }
             return args;
         }
 
@@ -213,7 +217,7 @@ namespace ResearchAPI.CORS.Common
                 if (item.IsFromTemplate)
                 {
                     var template = templates.FirstOrDefault(c => c.Id == item.To.TrimStart("t").ToLong().Value);
-                    sb.AppendLine($"left join ({template.SQLConfig.SQL})as [{item.To}] on {string.Join(",", item.Ons.Select(o => $"[{item.From}].{o.FromField} = [{item.To}].{o.ToField}"))} ");
+                    sb.AppendLine($"left join ({template.SQLConfig.SQL.Replace("@","@"+item.To+"_")})as [{item.To}] on {string.Join(",", item.Ons.Select(o => $"[{item.From}].{o.FromField} = [{item.To}].{o.ToField}"))} ");
                 }
                 else
                 {
