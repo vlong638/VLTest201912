@@ -825,6 +825,46 @@
             项目查看权限
             </summary>
         </member>
+        <member name="F:ResearchAPI.CORS.Common.ActionType.EditProjectName">
+            <summary>
+            修改项目名称
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.ActionType.CreateProject">
+            <summary>
+            创建项目
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.ActionType.AddProjectManager">
+            <summary>
+            添加项目管理员
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.ActionType.DeleteProjectManager">
+            <summary>
+            删除项目管理员
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.ActionType.AddProjectMember">
+            <summary>
+            添加项目成员
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.ActionType.DeleteProjectMember">
+            <summary>
+            删除项目成员
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.ActionType.SetProjectDepartment">
+            <summary>
+            设置关联科室
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.ActionType.SetProjectViewAtuhorityType">
+            <summary>
+            设置项目查看权限
+            </summary>
+        </member>
         <member name="P:ResearchAPI.CORS.Common.AddIndicatorsRequest.ProjectId">
             <summary>
             项目Id
@@ -1064,7 +1104,7 @@
             项目成员
             </summary>
         </member>
-        <member name="P:ResearchAPI.CORS.Common.ProjectDTO.DepartmentId">
+        <member name="P:ResearchAPI.CORS.Common.ProjectDTO.DepartmentIds">
             <summary>
             关联科室
             </summary>
@@ -1300,7 +1340,7 @@
             创建人
             </summary>
         </member>
-        <member name="P:ResearchAPI.CORS.Common.GetProjectModel.DepartmentId">
+        <member name="P:ResearchAPI.CORS.Common.GetProjectModel.DepartmentIds">
             <summary>
             关联科室
             </summary>

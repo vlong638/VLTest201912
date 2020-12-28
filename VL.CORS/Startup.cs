@@ -30,7 +30,19 @@ namespace VL.CORS
             services.AddControllers();
 
             //允许跨域
-            services.AddCors(option => option.AddPolicy("AllCors", policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin()));//.AllowCredentials()
+            services.AddCors(option => option.AddPolicy("AllCors", policy => policy
+            //.AllowAnyOrigin()
+            .WithOrigins(
+                "http://localhost:63342" //文欣
+                , "http://192.168.50.109:63342" //文欣
+                , "http://localhost:8848" //一帆
+                , "http://localhost:14314" //vl
+                , "http://localhost" //
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials()
+            ));
 
             //服务接口管理
             services.AddSwaggerGen(p =>

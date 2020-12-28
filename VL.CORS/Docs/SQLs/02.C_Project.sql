@@ -12,7 +12,6 @@ CREATE TABLE [dbo].[Project](
 	IsDeleted char(1) default 0,
 	-------------------------------------------
 	[Name] nvarchar(20) NULL,
-	[DepartmentId] bigint NULL,
 	[ViewAuthorizeType] tinyint NULL,
 	[ProjectDescription] nvarchar(20) NULL,
 	-------------------------------------------

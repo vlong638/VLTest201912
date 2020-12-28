@@ -51,5 +51,6 @@ namespace ResearchAPI.CORS.Common
         /// 项目成员 名称
         /// </summary>
         public List<string> MemberNames { set; get; }
+        public List<string> DepartmentNames { get; set; }
     }
 }

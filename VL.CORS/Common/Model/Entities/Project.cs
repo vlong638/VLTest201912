@@ -10,7 +10,6 @@ namespace ResearchAPI.CORS.Common
 
         public long Id { set; get; }
         public string Name { set; get; }
-        public long? DepartmentId { set; get; }
         public int ViewAuthorizeType { set; get; }
         public string ProjectDescription { set; get; }
         public long CreatorId { set; get; }

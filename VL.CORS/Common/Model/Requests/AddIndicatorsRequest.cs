@@ -8,7 +8,6 @@ namespace ResearchAPI.CORS.Common
         /// 项目Id
         /// </summary>
         public long ProjectId { set; get; }
-
         /// <summary>
         /// 业务对象Id
         /// </summary>

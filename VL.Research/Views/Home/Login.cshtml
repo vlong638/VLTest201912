@@ -147,76 +147,95 @@
 <script>
     $(
         function () {
-            var projectId = 49;
+
+            var request = {};
+            request.ProjectId = 49;
+            request.BusinessEntityId = 101001;
+            request.BusinessEntityPropertyIds = [102001001, 102001002]
             $.ajax({
-                url: 'http://localhost:61696/api/EasyResearch/GetBriefProject',
+                url: 'http://192.168.50.128:8041/api/EasyResearch/AddProjectIndicators',
                 type: 'post',
                 dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(request),
+                //data:request,
+                success: function (resp) {
+                    console.log(resp.data);
+                }
+            })
+
+            var projectId = 49;
+            $.ajax({
+                url: 'http://192.168.50.128:8041/api/EasyResearch/GetBriefProject',
+                type: 'post',
+                dataType: 'json',
+                contentType: 'application/json',
                 data: { projectId },
                 success: function (resp) {
                     console.log(resp.data);
                 }
             })
 
-            var projectId = 49;
-            $.ajax({
-                url: 'http://localhost:61696/api/EasyResearch/GetProject',
-                type: 'post',
-                dataType: 'json',
-                data: { projectId },
-                success: function (resp) {
-                    console.log(resp.data);
-                }
-            })
 
-            var request = {};
-            request.page = 1;
-            request.limit = 5;
-            request.search = [];
-            request.search.push({ key: "Name", value: "2" });
-            request.search.push({ key: "DepartmentId", value: "1" });
-            $.ajax({
-                url: 'http://localhost:61696/api/EasyResearch/GetPagedProjects',
-                type: 'post',
-                dataType: 'json',
-                data: request,
-                success: function (resp) {
-                    console.log(resp.data);
-                }
-            })
+            //var projectId = 49;
+            //$.ajax({
+            //    url: 'http://localhost:61696/api/EasyResearch/GetProject',
+            //    type: 'post',
+            //    dataType: 'json',
+            //    data: { projectId },
+            //    success: function (resp) {
+            //        console.log(resp.data);
+            //    }
+            //})
 
-            var request = {};
-            request.page = 1;
-            request.limit = 5;
-            request.search = [];
-            request.search.push({ key: "Name", value: "1" });
-            request.search.push({ key: "DepartmentId", value: "1" });
-            request.search.push({ key: "CreateAt", value: "" });
-            $.ajax({
-                url: 'http://localhost:61696/api/EasyResearch/GetPagedProjects',
-                type: 'post',
-                dataType: 'json',
-                data: request,
-                success: function (resp) {
-                    console.log(resp.data);
-                }
-            })
+            //var request = {};
+            //request.page = 1;
+            //request.limit = 5;
+            //request.search = [];
+            //request.search.push({ key: "Name", value: "2" });
+            //request.search.push({ key: "DepartmentId", value: "1" });
+            //$.ajax({
+            //    url: 'http://localhost:61696/api/EasyResearch/GetPagedProjects',
+            //    type: 'post',
+            //    dataType: 'json',
+            //    data: request,
+            //    success: function (resp) {
+            //        console.log(resp.data);
+            //    }
+            //})
 
-            var request = {};
-            request.page = 1;
-            request.limit = 5;
-            request.search = [];
-            request.search.push({ key: "Name", value: "1" });
-            request.search.push({ key: "DepartmentId", value: "1" });
-            $.ajax({
-                url: 'http://localhost:61696/api/EasyResearch/GetPagedProjects',
-                type: 'post',
-                dataType: 'json',
-                data: request,
-                success: function (resp) {
-                    console.log(resp.data);
-                }
-            })
+            //var request = {};
+            //request.page = 1;
+            //request.limit = 5;
+            //request.search = [];
+            //request.search.push({ key: "Name", value: "1" });
+            //request.search.push({ key: "DepartmentId", value: "1" });
+            //request.search.push({ key: "CreateAt", value: "" });
+            //$.ajax({
+            //    url: 'http://localhost:61696/api/EasyResearch/GetPagedProjects',
+            //    type: 'post',
+            //    dataType: 'json',
+            //    data: request,
+            //    success: function (resp) {
+            //        console.log(resp.data);
+            //    }
+            //})
+
+            //var request = {};
+            //request.page = 1;
+            //request.limit = 5;
+            //request.search = [];
+            //request.search.push({ key: "Name", value: "1" });
+            //request.search.push({ key: "DepartmentId", value: "1" });
+            //$.ajax({
+            //    url: 'http://localhost:61696/api/EasyResearch/GetPagedProjects',
+            //    type: 'post',
+            //    dataType: 'json',
+            //    data: request,
+            //    success: function (resp) {
+            //        console.log(resp.data);
+            //    }
+            //})
 
             //var projectId = 1;
             //$.ajax({

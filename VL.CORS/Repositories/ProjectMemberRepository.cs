@@ -13,7 +13,7 @@ namespace ResearchAPI.CORS.Repositories
         {
         }
 
-        internal void CreateProjectMembers(List<ProjectMember> members)
+        internal void AddProjectMembers(List<ProjectMember> members)
         {
             foreach (var member in members)
             {

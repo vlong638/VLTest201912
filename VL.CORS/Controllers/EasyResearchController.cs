@@ -255,9 +255,8 @@ namespace ResearchAPI.Controllers
                 return new APIResult<GetBriefProjectModel>(null, serviceResult.Code, serviceResult.Message);
             var result = new GetBriefProjectModel(serviceResult.Data);
             result.ViewAuthorizeTypeName = DomainConstraits.RenderIdToText(result.ViewAuthorizeType, DomainConstraits.ViewAuthorizeTypes);
-            if (result.DepartmentId.HasValue)
-                result.DepartmentName = DomainConstraits.RenderIdToText(result.DepartmentId.Value, DomainConstraits.Departments);
-            result.AdminNames = DomainConstraits.RenderIdsToText<long>(result.AdminIds, DomainConstraits.Users);
+            result.DepartmentNames = DomainConstraits.RenderIdsToText(result.DepartmentIds, DomainConstraits.Departments);
+            result.AdminNames = DomainConstraits.RenderIdsToText(result.AdminIds, DomainConstraits.Users);
             result.CreateName = DomainConstraits.RenderIdToText(result.CreatorId.Value, DomainConstraits.Users);
             result.MemberNames = DomainConstraits.RenderIdsToText(result.MemberIds, DomainConstraits.Users);
             return new APIResult<GetBriefProjectModel>(result);

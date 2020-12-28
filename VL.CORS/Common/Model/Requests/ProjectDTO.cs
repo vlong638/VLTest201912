@@ -23,7 +23,11 @@ namespace ResearchAPI.CORS.Common
         /// <summary>
         /// 关联科室
         /// </summary>
-        public long DepartmentId { set; get; }
+        public List<long> DepartmentIds { set; get; }
+        ///// <summary>
+        ///// 关联科室
+        ///// </summary>
+        //public long DepartmentId { set; get; }
         /// <summary>
         /// 项目查看权限
         /// </summary>

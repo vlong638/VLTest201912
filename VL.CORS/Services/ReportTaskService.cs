@@ -27,6 +27,7 @@ namespace ResearchAPI.Services
         CustomBusinessEntityWhereRepository CustomBusinessEntityWhereRepository { set; get; }
         BusinessEntityPropertyRepository BusinessEntityPropertyRepository { set; get; }
         FavoriteProjectRepository FavoriteProjectRepository { set; get; }
+        ProjectDepartmentRepository ProjectDepartmentRepository { set; get; }
         ProjectRepository ProjectRepository { set; get; }
         ProjectScheduleRepository ProjectScheduleRepository { set; get; }
         ProjectTaskRepository ProjectTaskRepository { set; get; }
@@ -51,6 +52,7 @@ namespace ResearchAPI.Services
             CustomBusinessEntityWhereRepository = new CustomBusinessEntityWhereRepository(ResearchDbContext);
             BusinessEntityPropertyRepository = new BusinessEntityPropertyRepository(ResearchDbContext);
             FavoriteProjectRepository = new FavoriteProjectRepository(ResearchDbContext);
+            ProjectDepartmentRepository = new ProjectDepartmentRepository(ResearchDbContext);
             ProjectRepository = new ProjectRepository(ResearchDbContext);
             ProjectScheduleRepository = new ProjectScheduleRepository(ResearchDbContext);
             ProjectTaskRepository = new ProjectTaskRepository(ResearchDbContext);
@@ -85,19 +87,16 @@ namespace ResearchAPI.Services
                 }
                 result.ProjectId = project.Id;
                 result.ProjectName = project.Name;
-                result.DepartmentId = project.DepartmentId;
                 result.ViewAuthorizeType = project.ViewAuthorizeType;
                 result.ProjectDescription = project.ProjectDescription;
                 result.CreatorId = project.CreatorId;
                 result.CreatedAt = project.CreatedAt;
                 result.LastModifiedAt = project.LastModifiedAt;
                 result.LastModifiedBy = project.LastModifiedBy;
-                var adminIds = ProjectRepository.GetUserIdsByProjectIdAndRoleId(projectId, DomainConstraits.AdminRoleId.Value);
-                result.AdminIds = adminIds;
-                var memberIds = ProjectRepository.GetUserIdsByProjectIdAndRoleId(projectId, DomainConstraits.MemberRoleId.Value);
-                result.MemberIds = memberIds;
-                var isFavorite = FavoriteProjectRepository.GetOne(new FavoriteProject(project.Id, project.CreatorId));
-                result.IsFavorite = isFavorite != null;
+                result.AdminIds = ProjectRepository.GetUserIdsByProjectIdAndRoleId(projectId, DomainConstraits.AdminRoleId.Value);
+                result.MemberIds = ProjectRepository.GetUserIdsByProjectIdAndRoleId(projectId, DomainConstraits.MemberRoleId.Value);
+                result.DepartmentIds = ProjectDepartmentRepository.GetDepartmentIdsByProjectId(projectId);
+                result.IsFavorite = FavoriteProjectRepository.GetOne(new FavoriteProject(project.Id, project.CreatorId)) != null;
                 return result;
             });
         }
@@ -244,7 +243,6 @@ namespace ResearchAPI.Services
                 Name = request.ProjectName,
                 CreatedAt = DateTime.Now,
                 CreatorId = userid,
-                DepartmentId = request.DepartmentId,
                 ProjectDescription = request.ProjectDescription,
                 ViewAuthorizeType = request.ViewAuthorizeType,
             };
@@ -257,7 +255,9 @@ namespace ResearchAPI.Services
                     members.Add(new ProjectMember(projectId, adminId, DomainConstraits.AdminRoleId.Value));
                 foreach (var memberId in request.MemberIds ?? new List<long>())
                     members.Add(new ProjectMember(projectId, memberId, DomainConstraits.MemberRoleId.Value));
-                ProjectMemberRepository.CreateProjectMembers(members);
+                ProjectMemberRepository.AddProjectMembers(members);
+                var projectDepartments = request.DepartmentIds.Select(c => new ProjectDepartment() { ProjectId = projectId, DepartmentId = c }).ToList();
+                ProjectDepartmentRepository.AddProjectDepartments(projectDepartments);
                 return projectId;
             });
         }
@@ -270,7 +270,6 @@ namespace ResearchAPI.Services
                 Name = request.ProjectName,
                 CreatedAt = DateTime.Now,
                 CreatorId = userid,
-                DepartmentId = request.DepartmentId,
                 ProjectDescription = request.ProjectDescription,
                 ViewAuthorizeType = request.ViewAuthorizeType,
             };
@@ -290,7 +289,10 @@ namespace ResearchAPI.Services
                 foreach (var memberId in request.MemberIds)
                     members.Add(new ProjectMember(projectId, memberId, DomainConstraits.MemberRoleId.Value));
                 ProjectMemberRepository.DeleteByProjectId(projectId);
-                ProjectMemberRepository.CreateProjectMembers(members);
+                ProjectMemberRepository.AddProjectMembers(members);
+                var projectDepartments = request.DepartmentIds.Select(c => new ProjectDepartment() { ProjectId = projectId, DepartmentId = c }).ToList();
+                ProjectDepartmentRepository.DeleteByProjectId(projectId);
+                ProjectDepartmentRepository.AddProjectDepartments(projectDepartments);
                 return true;
             });
         }
