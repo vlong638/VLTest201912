@@ -15,12 +15,12 @@ namespace ResearchAPI.CORS.Common
             Id = element.Attribute(nameof(Id)).Value.ToLong().Value;
             DisplayName = element.Attribute(nameof(DisplayName))?.Value;
             From = element.Attribute(nameof(From))?.Value;
-            ColumnName = element.Attribute(nameof(ColumnName))?.Value;
+            SourceName = element.Attribute(nameof(SourceName))?.Value;
         }
 
         public long Id { set; get; }
         public string DisplayName { set; get; }
         public string From { set; get; }
-        public string ColumnName { set; get; }
+        public string SourceName { set; get; }
     }
 }

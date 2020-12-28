@@ -229,7 +229,7 @@ namespace ResearchAPI.CORS.Common
 
         private string GetSelect(List<COBusinessEntityProperty> properties)
         {
-            return "select " + string.Join(",", properties.Select(c => "[" + c.From + "]." + c.ColumnName));
+            return "select " + string.Join(",", properties.Select(c => "[" + c.From + "]." + c.SourceName));
         }
     }
 

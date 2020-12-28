@@ -12,6 +12,7 @@ CREATE TABLE [dbo].[CustomBusinessEntity](
 	[db_updatetime] [datetime] NULL,
 	-------------------------------------------
 	[Name] nvarchar(20) NULL,
+	[DisplayName] nvarchar(20) NULL,
 	-------------------------------------------
 	[CreatorBy] bigint NULL,
 	[CreatedAt] datetime NULL,

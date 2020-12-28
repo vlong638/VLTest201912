@@ -34,10 +34,9 @@ namespace VL.CORS
             //.AllowAnyOrigin()
             .WithOrigins(
                 "http://localhost:63342" //文欣
-                ,"http://127.0.0.1:63342" //文欣
 
                 , "http://localhost:8848" //一帆
-                , "http://127.0.0.1:8848" //一帆
+                //, "http://127.0.0.1:8848" //一帆 两个都有的时候会导致CORS无法正常启用
 
                 , "http://localhost:14314" //vl
             )

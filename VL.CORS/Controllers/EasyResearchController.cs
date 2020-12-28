@@ -166,7 +166,6 @@ namespace ResearchAPI.Controllers
         /// <summary>
         /// 1.2.1.新建项目
         /// </summary>
-        /// <returns>项目Id</returns>
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
@@ -180,8 +179,6 @@ namespace ResearchAPI.Controllers
         /// <summary>
         /// 1.2.5.收藏项目
         /// </summary>
-        /// <param name="projectId">项目Id</param>
-        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
@@ -195,7 +192,6 @@ namespace ResearchAPI.Controllers
         /// <summary>
         /// 1.2.6.解除收藏项目
         /// </summary>
-        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
@@ -209,7 +205,6 @@ namespace ResearchAPI.Controllers
         /// <summary>
         /// 1.3.2.编辑项目
         /// </summary>
-        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
@@ -223,8 +218,6 @@ namespace ResearchAPI.Controllers
         /// <summary>
         /// 1.3.4.获取操作记录 GetProjectOperateHistory
         /// </summary>
-        /// <param name="projectId"></param>
-        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
@@ -236,7 +229,6 @@ namespace ResearchAPI.Controllers
         /// <summary>
         /// 1.4.1.获取项目概要信息
         /// </summary>
-        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
@@ -249,7 +241,7 @@ namespace ResearchAPI.Controllers
             result.ViewAuthorizeTypeName = DomainConstraits.RenderIdToText(result.ViewAuthorizeType, DomainConstraits.ViewAuthorizeTypes);
             result.DepartmentNames = DomainConstraits.RenderIdsToText(result.DepartmentIds, DomainConstraits.Departments);
             result.AdminNames = DomainConstraits.RenderIdsToText(result.AdminIds, DomainConstraits.Users);
-            result.CreateName = DomainConstraits.RenderIdToText(result.CreatorId.Value, DomainConstraits.Users);
+            result.CreateName = DomainConstraits.RenderIdToText(result.CreatorId ?? 0, DomainConstraits.Users);
             result.MemberNames = DomainConstraits.RenderIdsToText(result.MemberIds, DomainConstraits.Users);
             return new APIResult<GetBriefProjectModel>(result);
         }

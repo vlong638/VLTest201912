@@ -10,6 +10,56 @@ namespace ResearchAPI.CORS.Common
     /// <summary>
     /// 
     /// </summary>
+    public enum KVType
+    {
+        /// <summary>
+        /// 浏览权限类型
+        /// </summary>
+        ViewAuthorizeType,
+        /// <summary>
+        /// 科室
+        /// </summary>
+        Department,
+        /// <summary>
+        /// 用户
+        /// </summary>
+        User,
+        /// <summary>
+        /// 角色
+        /// </summary>
+        Role,
+        /// <summary>
+        /// 业务对象类型
+        /// </summary>
+        BusinessType,
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public enum PKVType
+    {
+        /// <summary>
+        /// 业务对象
+        /// </summary>
+        BusinessEntity,
+        /// <summary>
+        /// 业务对象,数据源
+        /// </summary>
+        BusinessEntitySource,
+        /// <summary>
+        /// 业务对象属性
+        /// </summary>
+        BusinessEntityProperty,
+        /// <summary>
+        /// 业务对象属性,数据源
+        /// </summary>
+        BusinessEntityPropertySource,
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
     public class DomainConstraits
     {
         public static long? AdminRoleId { private set; get; }
@@ -21,15 +71,19 @@ namespace ResearchAPI.CORS.Common
         public static List<BusinessType> BusinessTypes { private set; get; }
         public static List<BusinessEntity> BusinessEntities { private set; get; }
         public static Dictionary<long, string> BusinessEntityDic { private set; get; }
+        public static Dictionary<long, string> BusinessEntitySourceDic { private set; get; }
         public static List<BusinessEntityProperty> BusinessEntityProperties { private set; get; }
         public static Dictionary<long, string> BusinessEntityPropertyDic { private set; get; }
+        public static Dictionary<long, string> BusinessEntityPropertySourceDic { private set; get; }
         public static Routers Routes { get; private set; }
         public static Dictionary<long, string> ViewAuthorizeTypes { private set; get; }
         public static Dictionary<string, string> LabOrders { get; private set; }
         public static List<IGrouping<string, VLKeyValue<string, string, string, string>>> LabResults { get; private set; }
 
-        internal static string RenderIdToText<T>(T id, Dictionary<T, string> source)
+        internal static string RenderIdToText<T>(T id, Dictionary<T, string> source) where T : IComparable
         {
+            if (id.Equals(default(T)))
+                return null;
             List<T> ids = new List<T>() { id };
             var values = RenderIdsToText(ids, source);
             return values.First();
@@ -37,47 +91,12 @@ namespace ResearchAPI.CORS.Common
 
         internal static List<string> RenderIdsToText<T>(List<T> ids, Dictionary<T, string> source)
         {
+            if (ids == null || ids.Count == 0)
+                return null;
             var dic = source;
             var values = ids.Select(c => dic.ContainsKey(c) ? dic[c] : c.ToString()).ToList();
             return values;
         }
-
-        public enum KVType
-        {
-            /// <summary>
-            /// 浏览权限类型
-            /// </summary>
-            ViewAuthorizeType,
-            /// <summary>
-            /// 科室
-            /// </summary>
-            Department,
-            /// <summary>
-            /// 用户
-            /// </summary>
-            User,
-            /// <summary>
-            /// 角色
-            /// </summary>
-            Role,
-            /// <summary>
-            /// 业务对象类型
-            /// </summary>
-            BusinessType,
-        }
-
-        public enum PKVType
-        {
-            /// <summary>
-            /// 业务对象
-            /// </summary>
-            BusinessEntity,
-            /// <summary>
-            /// 业务对象属性
-            /// </summary>
-            BusinessEntityProperty,
-        }
-
         internal static string RenderIdsToText(long id, PKVType kvType)
         {
             List<long> ids = new List<long>() { id };
@@ -93,8 +112,14 @@ namespace ResearchAPI.CORS.Common
                 case PKVType.BusinessEntity:
                     dic = BusinessEntityDic;
                     break;
+                case PKVType.BusinessEntitySource:
+                    dic = BusinessEntitySourceDic;
+                    break;
                 case PKVType.BusinessEntityProperty:
                     dic = BusinessEntityPropertyDic;
+                    break;
+                case PKVType.BusinessEntityPropertySource:
+                    dic = BusinessEntityPropertySourceDic;
                     break;
                 default:
                     break;
@@ -115,14 +140,14 @@ namespace ResearchAPI.CORS.Common
                 BusinessTypes.Add(new BusinessType(businessEntities.Id, businessEntities.BusinessType));
                 foreach (var businessEntity in businessEntities)
                 {
-                    BusinessEntities.Add(new BusinessEntity(businessEntity.Id, businessEntity.DisplayName, businessEntities.Id));
+                    BusinessEntities.Add(new BusinessEntity(businessEntity.Id, businessEntities.Id, businessEntity.DisplayName, businessEntity.SourceName));
                     foreach (var property in businessEntity.Properties)
                     {
                         BusinessEntityProperties.Add(new BusinessEntityProperty()
                         {
                             Id = property.Id,
                             TableName = property.From,
-                            ColumnName = property.ColumnName,
+                            ColumnName = property.SourceName,
                             DisplayName = property.DisplayName,
                             BusinessEntityId = businessEntity.Id,
                         });
@@ -134,10 +159,20 @@ namespace ResearchAPI.CORS.Common
             {
                 BusinessEntityDic.Add(item.Key, item.Value);
             }
+            BusinessEntitySourceDic = new Dictionary<long, string>();
+            foreach (var item in BusinessEntities.Select(c => new VLKeyValue<long, string>(c.Id, c.SourceName)))
+            {
+                BusinessEntitySourceDic.Add(item.Key, item.Value);
+            }
             BusinessEntityPropertyDic = new Dictionary<long, string>();
             foreach (var item in BusinessEntityProperties.Select(c => new VLKeyValue<long, string>(c.Id, c.DisplayName)))
             {
                 BusinessEntityPropertyDic.Add(item.Key, item.Value);
+            }
+            BusinessEntityPropertySourceDic = new Dictionary<long, string>();
+            foreach (var item in BusinessEntityProperties.Select(c => new VLKeyValue<long, string>(c.Id, c.ColumnName)))
+            {
+                BusinessEntityPropertySourceDic.Add(item.Key, item.Value);
             }
             Routes = ConfigHelper.GetRouters(@"Configs/XMLConfigs/BusinessEntities", "Routers.xml");
             #endregion

@@ -9,6 +9,10 @@ namespace ResearchAPI.CORS.Common
     public class CreateCustomIndicatorRequest
     {
         /// <summary>
+        /// 指标名称: 如 孕12-16周血红蛋白
+        /// </summary>
+        public string Name { set; get; }
+        /// <summary>
         /// 项目Id
         /// </summary>
         public long ProjectId { set; get; }

@@ -10,5 +10,6 @@ namespace ResearchAPI.CORS.Common
         public long Id { set; get; }
         public string Name { set; get; }
         public long TemplateId { set; get; }
+        public string DisplayName { get; internal set; }
     }
 }

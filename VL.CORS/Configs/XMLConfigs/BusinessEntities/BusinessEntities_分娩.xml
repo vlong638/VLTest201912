@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <BusinessEntities Id="102" BusinessType="分娩">
-	<BusinessEntity Id="102001" DisplayName ="孕妇档案">
+	<BusinessEntity Id="102001" DisplayName ="孕妇档案" SourceName="PregnantInfo">
 		<Properties>
-			<Property Id="102001001" DisplayName="姓名" From="PregnantInfo" ColumnName="PersonName" ColumnType="string"/>
-			<Property Id="102001002" DisplayName="生日" From="PregnantInfo" ColumnName="Birthday" ColumnType="string"/>
-			<Property Id="102001003" DisplayName="性别" From="PregnantInfo" ColumnName="Sex" ColumnType="string"/>
+			<Property Id="102001001" DisplayName="姓名" From="PregnantInfo" SourceName="PersonName" ColumnType="string"/>
+			<Property Id="102001002" DisplayName="生日" From="PregnantInfo" SourceName="Birthday" ColumnType="string"/>
+			<Property Id="102001003" DisplayName="性别" From="PregnantInfo" SourceName="Sex" ColumnType="string"/>
 		</Properties>
 	</BusinessEntity>
-	<BusinessEntity Id="102002" DisplayName ="产前检查">
+	<BusinessEntity Id="102002" DisplayName ="产前检查" SourceName="LabOrder">
 		<Properties>
-			<Property Id="102002001" DisplayName="检查日期" From="LabOrder" ColumnName="ExamTime" />
+			<Property Id="102002001" DisplayName="检查日期" From="LabOrder" SourceName="ExamTime" />
 		</Properties>
 	</BusinessEntity>
 </BusinessEntities>	

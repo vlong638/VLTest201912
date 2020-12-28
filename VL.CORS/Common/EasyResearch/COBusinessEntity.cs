@@ -16,12 +16,14 @@ namespace ResearchAPI.CORS.Common
         {
             Id = element.Attribute(nameof(Id)).Value.ToLong().Value;
             DisplayName = element.Attribute(nameof(DisplayName))?.Value;
+            SourceName = element.Attribute(nameof(SourceName))?.Value;
             Template = element.Attribute(nameof(Template))?.Value;
             Properties.AddRange(element.Descendants(COBusinessEntityProperty.ElementName).Select(c => new COBusinessEntityProperty(c)));
         }
 
         public long Id { set; get; }
         public string DisplayName { set; get; }
+        public string SourceName { set; get; }
         public List<COBusinessEntityProperty> Properties { set; get; } = new List<COBusinessEntityProperty>();
         public string Template { get; set; }
         public SQLConfigV3 SQLConfig { get; internal set; }

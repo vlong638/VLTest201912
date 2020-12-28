@@ -12,9 +12,9 @@ namespace ResearchAPI.CORS.Common
         public long BusinessEntityId { set; get; }
         public long BusinessEntityPropertyId { set; get; }
 
-        public string EntityName { set; get; }
-        public string PropertyName { set; get; }
-        public string DisplayName { set; get; }
+        public string EntitySourceName { set; get; }
+        public string PropertySourceName { set; get; }
+        public string PropertyDisplayName { set; get; }
 
         ///// <summary>
         ///// 字段别名名称

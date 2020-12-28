@@ -105,44 +105,64 @@
             
             </summary>
         </member>
-        <member name="T:ResearchAPI.CORS.Common.DomainConstraits">
+        <member name="T:ResearchAPI.CORS.Common.KVType">
             <summary>
             
             </summary>
         </member>
-        <member name="F:ResearchAPI.CORS.Common.DomainConstraits.KVType.ViewAuthorizeType">
+        <member name="F:ResearchAPI.CORS.Common.KVType.ViewAuthorizeType">
             <summary>
             浏览权限类型
             </summary>
         </member>
-        <member name="F:ResearchAPI.CORS.Common.DomainConstraits.KVType.Department">
+        <member name="F:ResearchAPI.CORS.Common.KVType.Department">
             <summary>
             科室
             </summary>
         </member>
-        <member name="F:ResearchAPI.CORS.Common.DomainConstraits.KVType.User">
+        <member name="F:ResearchAPI.CORS.Common.KVType.User">
             <summary>
             用户
             </summary>
         </member>
-        <member name="F:ResearchAPI.CORS.Common.DomainConstraits.KVType.Role">
+        <member name="F:ResearchAPI.CORS.Common.KVType.Role">
             <summary>
             角色
             </summary>
         </member>
-        <member name="F:ResearchAPI.CORS.Common.DomainConstraits.KVType.BusinessType">
+        <member name="F:ResearchAPI.CORS.Common.KVType.BusinessType">
             <summary>
             业务对象类型
             </summary>
         </member>
-        <member name="F:ResearchAPI.CORS.Common.DomainConstraits.PKVType.BusinessEntity">
+        <member name="T:ResearchAPI.CORS.Common.PKVType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.PKVType.BusinessEntity">
             <summary>
             业务对象
             </summary>
         </member>
-        <member name="F:ResearchAPI.CORS.Common.DomainConstraits.PKVType.BusinessEntityProperty">
+        <member name="F:ResearchAPI.CORS.Common.PKVType.BusinessEntitySource">
+            <summary>
+            业务对象,数据源
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.PKVType.BusinessEntityProperty">
             <summary>
             业务对象属性
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.PKVType.BusinessEntityPropertySource">
+            <summary>
+            业务对象属性,数据源
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Common.DomainConstraits">
+            <summary>
+            
             </summary>
         </member>
         <member name="F:ResearchAPI.CORS.Common.COBusinessEntities.ElementName">
@@ -940,6 +960,11 @@
             
             </summary>
         </member>
+        <member name="P:ResearchAPI.CORS.Common.CreateCustomIndicatorRequest.Name">
+            <summary>
+            指标名称: 如 孕12-16周血红蛋白
+            </summary>
+        </member>
         <member name="P:ResearchAPI.CORS.Common.CreateCustomIndicatorRequest.ProjectId">
             <summary>
             项目Id
@@ -1563,39 +1588,31 @@
             <summary>
             1.2.1.新建项目
             </summary>
-            <returns>项目Id</returns>
         </member>
         <member name="M:ResearchAPI.Controllers.EasyResearchController.AddFavoriteProject(ResearchAPI.CORS.Common.APIContext,ResearchAPI.Services.ReportTaskService,System.Int64)">
             <summary>
             1.2.5.收藏项目
             </summary>
-            <param name="projectId">项目Id</param>
-            <returns></returns>
         </member>
         <member name="M:ResearchAPI.Controllers.EasyResearchController.DeleteFavoriteProject(ResearchAPI.CORS.Common.APIContext,ResearchAPI.Services.ReportTaskService,System.Int64)">
             <summary>
             1.2.6.解除收藏项目
             </summary>
-            <returns></returns>
         </member>
         <member name="M:ResearchAPI.Controllers.EasyResearchController.EditProject(ResearchAPI.CORS.Common.APIContext,ResearchAPI.Services.ReportTaskService,ResearchAPI.CORS.Common.EditProjectRequest)">
             <summary>
             1.3.2.编辑项目
             </summary>
-            <returns></returns>
         </member>
         <member name="M:ResearchAPI.Controllers.EasyResearchController.GetProjectOperateHistory(System.Int64)">
             <summary>
             1.3.4.获取操作记录 GetProjectOperateHistory
             </summary>
-            <param name="projectId"></param>
-            <returns></returns>
         </member>
         <member name="M:ResearchAPI.Controllers.EasyResearchController.GetBriefProject(ResearchAPI.Services.ReportTaskService,System.Int64)">
             <summary>
             1.4.1.获取项目概要信息
             </summary>
-            <returns></returns>
         </member>
         <member name="M:ResearchAPI.Controllers.EasyResearchController.GetProjectIndicators(ResearchAPI.Services.ReportTaskService,System.Int64)">
             <summary>
