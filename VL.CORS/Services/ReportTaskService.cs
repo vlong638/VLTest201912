@@ -346,10 +346,12 @@ namespace ResearchAPI.Services
         internal ServiceResult<bool> AddProjectIndicators(AddIndicatorsRequest request)
         {
             //Data
-            var projectIndicators = request.Properties.Select(c =>
+            var projectIndicators = request.BusinessEntityPropertyIds.Select(c =>
             {
                 var projectIndicator = new ProjectIndicator();
                 c.MapTo(projectIndicator);
+                projectIndicator.EntityName = DomainConstraits.RenderIdsToText(request.BusinessEntityId, DomainConstraits.PKVType.BusinessEntity);
+                projectIndicator.PropertyName = DomainConstraits.RenderIdsToText(c, DomainConstraits.PKVType.BusinessEntityProperty);
                 projectIndicator.ProjectId = request.ProjectId;
                 projectIndicator.BusinessEntityId = request.BusinessEntityId;
                 return projectIndicator;
@@ -359,7 +361,7 @@ namespace ResearchAPI.Services
             {
                 ProjectIndicatorRepository.DeleteByEntityId(request.ProjectId, request.BusinessEntityId);
                 var successCount = ProjectIndicatorRepository.InsertBatch(projectIndicators);
-                return successCount == request.Properties.Count();
+                return successCount == request.BusinessEntityPropertyIds.Count();
             });
         }
 

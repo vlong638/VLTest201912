@@ -13,11 +13,15 @@ namespace ResearchAPI.CORS.Common
         /// 业务对象Id
         /// </summary>
         public long BusinessEntityId { set; get; }
-
         /// <summary>
-        /// 业务对象字段
+        /// 业务对象字段Id
         /// </summary>
-        public List<AddIndicatorPropertyModel> Properties { set; get; }
+        public List<long> BusinessEntityPropertyIds { set; get; }
+
+        ///// <summary>
+        ///// 业务对象字段
+        ///// </summary>
+        //public List<AddIndicatorPropertyModel> Properties { set; get; }
     }
 
     /// <summary>

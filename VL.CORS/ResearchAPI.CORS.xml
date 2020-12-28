@@ -140,6 +140,11 @@
             业务对象
             </summary>
         </member>
+        <member name="F:ResearchAPI.CORS.Common.DomainConstraits.PKVType.BusinessEntityProperty">
+            <summary>
+            业务对象属性
+            </summary>
+        </member>
         <member name="F:ResearchAPI.CORS.Common.COBusinessEntities.ElementName">
             <summary>
             
@@ -830,9 +835,9 @@
             业务对象Id
             </summary>
         </member>
-        <member name="P:ResearchAPI.CORS.Common.AddIndicatorsRequest.Properties">
+        <member name="P:ResearchAPI.CORS.Common.AddIndicatorsRequest.BusinessEntityPropertyIds">
             <summary>
-            业务对象字段
+            业务对象字段Id
             </summary>
         </member>
         <member name="T:ResearchAPI.CORS.Common.AddIndicatorPropertyModel">

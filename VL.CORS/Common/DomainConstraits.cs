@@ -72,6 +72,10 @@ namespace ResearchAPI.CORS.Common
             /// 业务对象
             /// </summary>
             BusinessEntity,
+            /// <summary>
+            /// 业务对象属性
+            /// </summary>
+            BusinessEntityProperty,
         }
 
         internal static string RenderIdsToText(long id, PKVType kvType)
@@ -88,6 +92,9 @@ namespace ResearchAPI.CORS.Common
             {
                 case PKVType.BusinessEntity:
                     dic = BusinessEntityDic;
+                    break;
+                case PKVType.BusinessEntityProperty:
+                    dic = BusinessEntityPropertyDic;
                     break;
                 default:
                     break;
