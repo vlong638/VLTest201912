@@ -13,7 +13,12 @@
 			</Wheres>
 			<SQLs> <!--UnitedBy="dizhibm"-->
 				<SQL>
-					select p.Id,p.Name,p.DepartmentId,p.CreatorId,p.CreatedAt,p.LastModifiedAt
+					select p.Id,p.Name,p.CreatorId,p.CreatedAt,p.LastModifiedAt
+					,(select convert(nvarchar(50),pd.departmentId)+ ','
+						from ProjectDepartment as pd
+						where pd.projectId = p.id
+						for xml path('')
+					) as departmentIds
 					from Project as p 
 					where p.IsDeleted = 0
 					<If Operator="NotEmpty" ComponentName="Name"> and p.name like @Name </If>

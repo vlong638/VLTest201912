@@ -11,7 +11,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ResearchAPI.Controllers
 {
@@ -271,12 +270,6 @@ namespace ResearchAPI.Controllers
         public APIResult<List<GetProjectIndicatorModel>> GetProjectIndicators([FromServices] ReportTaskService service, long projectId)
         {
             var result = service.GetProjectIndicators(projectId);
-            //result.Data.ForEach(c =>
-            //{
-            //    c.EntityName = DomainConstraits.RenderIdToText<long>(c.BusinessEntityId, DomainConstraits.BusinessEntityDic);
-            //    c.ColumnName = DomainConstraits.RenderIdToText<long>(c.BusinessEntityId, DomainConstraits.BusinessEntityDic);
-            //    c.ColumnNickName =
-            //});
             return new APIResult<List<GetProjectIndicatorModel>>(result);
         }
 
