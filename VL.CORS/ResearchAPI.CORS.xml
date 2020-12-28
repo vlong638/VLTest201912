@@ -1285,27 +1285,17 @@
             实体Id
             </summary>
         </member>
-        <member name="P:ResearchAPI.CORS.Common.GetProjectIndicatorModel.BusinessEntityName">
+        <member name="P:ResearchAPI.CORS.Common.GetProjectIndicatorModel.EntityName">
             <summary>
             实体名称 如`基本档案`
             </summary>
         </member>
-        <member name="P:ResearchAPI.CORS.Common.GetProjectIndicatorModel.SourceName">
-            <summary>
-            来源名称 如`PregnantInfo`
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.CORS.Common.GetProjectIndicatorModel.ColumnName">
-            <summary>
-            字段名称 如`Sex`
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.CORS.Common.GetProjectIndicatorModel.DisplayName">
+        <member name="P:ResearchAPI.CORS.Common.GetProjectIndicatorModel.PropertyName">
             <summary>
             显示名称 如`性别`
             </summary>
         </member>
-        <member name="P:ResearchAPI.CORS.Common.GetProjectIndicatorModel.ColumnNickName">
+        <member name="P:ResearchAPI.CORS.Common.GetProjectIndicatorModel.DisplayName">
             <summary>
             用户设置的别名
             </summary>
@@ -1553,7 +1543,6 @@
             <summary>
             1.2.6.解除收藏项目
             </summary>
-            <param name="projectId">项目Id</param>
             <returns></returns>
         </member>
         <member name="M:ResearchAPI.Controllers.EasyResearchController.EditProject(ResearchAPI.CORS.Common.APIContext,ResearchAPI.Services.ReportTaskService,ResearchAPI.CORS.Common.EditProjectRequest)">

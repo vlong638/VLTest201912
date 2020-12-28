@@ -202,7 +202,6 @@ namespace ResearchAPI.Controllers
         /// <summary>
         /// 1.2.6.解除收藏项目
         /// </summary>
-        /// <param name="projectId">项目Id</param>
         /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
@@ -272,7 +271,12 @@ namespace ResearchAPI.Controllers
         public APIResult<List<GetProjectIndicatorModel>> GetProjectIndicators([FromServices] ReportTaskService service, long projectId)
         {
             var result = service.GetProjectIndicators(projectId);
-            result.Data.ForEach(c => c.BusinessEntityName = DomainConstraits.RenderIdToText<long>(c.BusinessEntityId, DomainConstraits.BusinessEntityDic));
+            //result.Data.ForEach(c =>
+            //{
+            //    c.EntityName = DomainConstraits.RenderIdToText<long>(c.BusinessEntityId, DomainConstraits.BusinessEntityDic);
+            //    c.ColumnName = DomainConstraits.RenderIdToText<long>(c.BusinessEntityId, DomainConstraits.BusinessEntityDic);
+            //    c.ColumnNickName =
+            //});
             return new APIResult<List<GetProjectIndicatorModel>>(result);
         }
 

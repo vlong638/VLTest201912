@@ -20,24 +20,20 @@ namespace ResearchAPI.CORS.Common
         /// </summary>
         public long BusinessEntityId { set; get; }
         /// <summary>
+        /// 字段Id
+        /// </summary>
+        public long BusinessEntityPropertyId { set; get; }
+        /// <summary>
         /// 实体名称 如`基本档案`
         /// </summary>
-        public string BusinessEntityName { set; get; }
-        /// <summary>
-        /// 来源名称 如`PregnantInfo`
-        /// </summary>
-        public string SourceName { set; get; }
-        /// <summary>
-        /// 字段名称 如`Sex`
-        /// </summary>
-        public string ColumnName { set; get; }
+        public string EntityName { set; get; }
         /// <summary>
         /// 显示名称 如`性别`
         /// </summary>
-        public string DisplayName { set; get; }
+        public string PropertyName { set; get; }
         /// <summary>
         /// 用户设置的别名
         /// </summary>
-        public string ColumnNickName { set; get; }
+        public string DisplayName { set; get; }
     }
 }

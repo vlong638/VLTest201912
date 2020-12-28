@@ -354,6 +354,7 @@ namespace ResearchAPI.Services
                 c.MapTo(projectIndicator);
                 projectIndicator.EntityName = DomainConstraits.RenderIdsToText(request.BusinessEntityId, DomainConstraits.PKVType.BusinessEntity);
                 projectIndicator.PropertyName = DomainConstraits.RenderIdsToText(c, DomainConstraits.PKVType.BusinessEntityProperty);
+                projectIndicator.DisplayName = projectIndicator.PropertyName;
                 projectIndicator.ProjectId = request.ProjectId;
                 projectIndicator.BusinessEntityId = request.BusinessEntityId;
                 return projectIndicator;
