@@ -40,10 +40,6 @@ namespace ResearchAPI.CORS.Common
         /// </summary>
         public string CreateName { set; get; }
         /// <summary>
-        /// 关联科室 名称
-        /// </summary>
-        public string DepartmentName { set; get; }
-        /// <summary>
         /// 项目管理人员 名称
         /// </summary>
         public List<string> AdminNames { set; get; }
@@ -51,6 +47,9 @@ namespace ResearchAPI.CORS.Common
         /// 项目成员 名称
         /// </summary>
         public List<string> MemberNames { set; get; }
+        /// <summary>
+        /// 关联科室 名称
+        /// </summary>
         public List<string> DepartmentNames { get; set; }
     }
 }

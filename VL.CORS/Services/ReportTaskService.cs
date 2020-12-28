@@ -221,6 +221,9 @@ namespace ResearchAPI.Services
                 {
                     c.BusinessEntityId = entityId;
                     c.BusinessEntityPropertyId = properties.First(d => d.Name == c.PropertyName).Id;
+                    c.EntityName = DomainConstraits.RenderIdToText(c.BusinessEntityId, DomainConstraits.BusinessEntityDic);
+                    c.PropertyName = DomainConstraits.RenderIdToText(c.BusinessEntityPropertyId, DomainConstraits.BusinessEntityPropertyDic);
+                    c.DisplayName = c.PropertyName;
                     c.Id = ProjectIndicatorRepository.InsertOne(c);
                 });
                 return selectedProperties.Select(c => new BusinessEntityPropertyModel() { Id = c.Id, ColumnName = c.PropertyName }).ToList();

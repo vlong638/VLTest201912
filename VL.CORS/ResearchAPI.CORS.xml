@@ -1140,11 +1140,6 @@
             创建者 名称
             </summary>
         </member>
-        <member name="P:ResearchAPI.CORS.Common.GetBriefProjectModel.DepartmentName">
-            <summary>
-            关联科室 名称
-            </summary>
-        </member>
         <member name="P:ResearchAPI.CORS.Common.GetBriefProjectModel.AdminNames">
             <summary>
             项目管理人员 名称
@@ -1153,6 +1148,11 @@
         <member name="P:ResearchAPI.CORS.Common.GetBriefProjectModel.MemberNames">
             <summary>
             项目成员 名称
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetBriefProjectModel.DepartmentNames">
+            <summary>
+            关联科室 名称
             </summary>
         </member>
         <member name="T:ResearchAPI.CORS.Common.GetBusinessEntityModel">
@@ -1283,6 +1283,11 @@
         <member name="P:ResearchAPI.CORS.Common.GetProjectIndicatorModel.BusinessEntityId">
             <summary>
             实体Id
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetProjectIndicatorModel.BusinessEntityPropertyId">
+            <summary>
+            字段Id
             </summary>
         </member>
         <member name="P:ResearchAPI.CORS.Common.GetProjectIndicatorModel.EntityName">

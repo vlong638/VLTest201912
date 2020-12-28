@@ -287,7 +287,7 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<int> DeleteProjectIndicators([FromServices] ReportTaskService service, List<long> indicatorIds)
+        public APIResult<int> DeleteProjectIndicators([FromServices] ReportTaskService service, [FromBody] List<long> indicatorIds)
         {
             var result = service.DeleteProjectIndicators(indicatorIds);
             return new APIResult<int>(result);
