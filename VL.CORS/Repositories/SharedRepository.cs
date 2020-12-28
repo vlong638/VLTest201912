@@ -26,10 +26,10 @@ namespace ResearchAPI.CORS.Repositories
         /// 
         /// </summary>
         /// <returns></returns>
-        public int GetCommonSelectCount(SQLConfigV2 sqlConfig)
+        public int GetCommonSelectCount(SQLConfigV2Source config)
         {
-            var sql = sqlConfig.GetCountSQL();
-            var pars = sqlConfig.GetParams();
+            var sql = config.GetCountSQL();
+            var pars = config.GetParams();
             return context.DbGroup.Connection.ExecuteScalar<int>(sql, pars, transaction: _transaction);
         }
 

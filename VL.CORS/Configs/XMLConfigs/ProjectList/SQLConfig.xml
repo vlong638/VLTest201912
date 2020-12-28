@@ -7,7 +7,7 @@
 			</Properties>
 			<Wheres>
 				<Where ComponentName="Name" Formatter="%@Name%"></Where>
-				<Where ComponentName="DepartmentIds"/>
+				<Where ComponentName="DepartmentIds" DataType ="ArrayInt"/>
 				<Where ComponentName="CreatedAtStart"/>
 				<Where ComponentName="CreatedAtEnd"/>
 			</Wheres>
@@ -32,15 +32,18 @@
 				</SQL>
 			</SQLs>
 			<CountSQL>
-				select count(*)
-				from Project as p 
-				left join ProjectDepartment as pd on pd.projectId = p.id
-				where p.IsDeleted = 0
-				<If Operator="NotEmpty" ComponentName="Name"> and p.name like @Name </If>
-				<If Operator="NotEmpty" ComponentName="CreatedAtStart">and p.CreatedAt &gt;= @CreatedAtStart </If>
-				<If Operator="NotEmpty" ComponentName="CreatedAtEnd"> and p.CreatedAt &lt; @CreatedAtEnd </If>
-				<If Operator="NotEmpty" ComponentName="DepartmentIds"> and pd.DepartmentId in @DepartmentIds </If>
-				group by p.Id,p.Name,p.CreatorId,p.CreatedAt,p.LastModifiedAt
+				select count(1)
+				from (
+					select p.Id,p.Name,p.CreatorId,p.CreatedAt,p.LastModifiedAt
+					from Project as p 
+					left join ProjectDepartment as pd on pd.projectId = p.id
+					where p.IsDeleted = 0
+					<If Operator="NotEmpty" ComponentName="Name"> and p.name like @Name </If>
+					<If Operator="NotEmpty" ComponentName="CreatedAtStart">and p.CreatedAt &gt;= @CreatedAtStart </If>
+					<If Operator="NotEmpty" ComponentName="CreatedAtEnd"> and p.CreatedAt &lt; @CreatedAtEnd </If>
+					<If Operator="NotEmpty" ComponentName="DepartmentIds"> and pd.DepartmentId in @DepartmentIds </If>
+					group by p.Id,p.Name,p.CreatorId,p.CreatedAt,p.LastModifiedAt
+				) as t 
 			</CountSQL>
 		</Source>
 	</View>

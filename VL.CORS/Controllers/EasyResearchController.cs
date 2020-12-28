@@ -51,8 +51,6 @@ namespace ResearchAPI.Controllers
         /// 1.2.2.下拉项_项目成员
         /// 1.2.3.下拉项_关联科室
         /// </summary>
-        /// <param name="type">类型名称</param>
-        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
@@ -83,10 +81,6 @@ namespace ResearchAPI.Controllers
         /// <summary>
         /// 下拉项
         /// </summary>
-        /// <param name="service"></param>
-        /// <param name="type"></param>
-        /// <param name="parentId"></param>
-        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]

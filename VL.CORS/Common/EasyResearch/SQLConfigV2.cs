@@ -141,24 +141,6 @@ namespace ResearchAPI.CORS.Common
 
         #region 结果使用
 
-        internal string GetCountSQL()
-        {
-            return Source.GetCountSQL();
-        }
-
-        internal Dictionary<string, object> GetParams()
-        {
-            Dictionary<string, object> args = new Dictionary<string, object>();
-            foreach (var where in Source.Wheres)
-            {
-                if (where.IsOn)
-                {
-                    args.Add(where.ComponentName, where.Formatter.IsNullOrEmpty() ? where.Value : where.Formatter.Replace("@" + where.ComponentName, GetFormattedValue(where)));
-                }
-            }
-            return args;
-        }
-
         private static string GetFormattedValue(SQLConfigV2Where where)
         {
             if (where.Value.IsNullOrEmpty())
@@ -336,7 +318,21 @@ namespace ResearchAPI.CORS.Common
             {
                 if (where.IsOn)
                 {
-                    args.Add(where.ComponentName, where.Formatter.IsNullOrEmpty() ? where.Value : where.Formatter.Replace("@" + where.ComponentName, where.Value.ToString()));
+                    switch (where.DataType)
+                    {
+                        case "ArrayInt":
+                            var values = where.Value.Split(",").Select(c =>
+                            {
+                                var r = 0L;
+                                long.TryParse(c, out r);
+                                return r;
+                            });
+                            args.Add(where.ComponentName, values);
+                            break;
+                        default:
+                            args.Add(where.ComponentName, where.Formatter.IsNullOrEmpty() ? where.Value : where.Formatter.Replace("@" + where.ComponentName, where.Value.ToString()));
+                            break;
+                    }
                 }
             }
             return args;
@@ -829,6 +825,7 @@ namespace ResearchAPI.CORS.Common
         {
             ComponentName = element.Attribute(nameof(ComponentName))?.Value;
             Formatter = element.Attribute(nameof(Formatter))?.Value;
+            DataType = element.Attribute(nameof(DataType))?.Value;
             IsOn = element.Attribute(nameof(IsOn))?.Value.ToBool() ?? false;
             Required = element.Attribute(nameof(Required))?.Value.ToBool() ?? false;
             SQL = element.Value;
@@ -858,6 +855,10 @@ namespace ResearchAPI.CORS.Common
         /// 格式化
         /// </summary>
         public string Formatter { get; set; }
+        /// <summary>
+        /// 字段处理类型
+        /// </summary>
+        public string DataType { get; set; }
     }
 
     public class SQLConfigV2SQLs

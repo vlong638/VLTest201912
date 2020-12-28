@@ -162,7 +162,7 @@ namespace ResearchAPI.Services
             return ResearchDbContext.DelegateTransaction(c =>
             {
                 var list = SharedRepository.GetCommonSelect(sqlConfig.Source, sqlConfig.Skip, sqlConfig.Limit);
-                var count = SharedRepository.GetCommonSelectCount(sqlConfig);
+                var count = SharedRepository.GetCommonSelectCount(sqlConfig.Source);
                 sqlConfig.Source.DoTransforms(ref list);
                 return new VLPagerResult<List<Dictionary<string, object>>>() { List = list.ToList(), Count = count };
             });

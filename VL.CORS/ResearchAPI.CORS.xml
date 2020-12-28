@@ -435,6 +435,11 @@
             格式化
             </summary>
         </member>
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigV2Where.DataType">
+            <summary>
+            字段处理类型
+            </summary>
+        </member>
         <member name="M:ResearchAPI.CORS.Common.SQLConfigV2SQLs.#ctor(System.Xml.Linq.XElement)">
             <summary>
             
@@ -1483,7 +1488,7 @@
             </summary>
             <param name="context"></param>
         </member>
-        <member name="M:ResearchAPI.CORS.Repositories.SharedRepository.GetCommonSelectCount(ResearchAPI.CORS.Common.SQLConfigV2)">
+        <member name="M:ResearchAPI.CORS.Repositories.SharedRepository.GetCommonSelectCount(ResearchAPI.CORS.Common.SQLConfigV2Source)">
             <summary>
             
             </summary>
@@ -1527,17 +1532,11 @@
             1.2.2.下拉项_项目成员
             1.2.3.下拉项_关联科室
             </summary>
-            <param name="type">类型名称</param>
-            <returns></returns>
         </member>
         <member name="M:ResearchAPI.Controllers.EasyResearchController.GetDropdownsWithParent(ResearchAPI.Services.ReportTaskService,System.String,System.String)">
             <summary>
             下拉项
             </summary>
-            <param name="service"></param>
-            <param name="type"></param>
-            <param name="parentId"></param>
-            <returns></returns>
         </member>
         <member name="M:ResearchAPI.Controllers.EasyResearchController.GetFavoriteProjects(ResearchAPI.CORS.Common.APIContext,ResearchAPI.Services.ReportTaskService)">
             <summary>
