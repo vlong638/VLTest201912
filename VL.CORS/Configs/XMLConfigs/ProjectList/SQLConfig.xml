@@ -7,7 +7,7 @@
 			</Properties>
 			<Wheres>
 				<Where ComponentName="Name" Formatter="%@Name%"></Where>
-				<Where ComponentName="DepartmentId"/>
+				<Where ComponentName="DepartmentIds"/>
 				<Where ComponentName="CreatedAtStart"/>
 				<Where ComponentName="CreatedAtEnd"/>
 			</Wheres>
@@ -20,11 +20,13 @@
 						for xml path('')
 					) as departmentIds
 					from Project as p 
+					left join ProjectDepartment as pd on pd.projectId = p.id
 					where p.IsDeleted = 0
 					<If Operator="NotEmpty" ComponentName="Name"> and p.name like @Name </If>
-					<If Operator="NotEmpty" ComponentName="DepartmentId"> and p.DepartmentId = @DepartmentId </If>
 					<If Operator="NotEmpty" ComponentName="CreatedAtStart">and p.CreatedAt &gt;= @CreatedAtStart </If>
 					<If Operator="NotEmpty" ComponentName="CreatedAtEnd"> and p.CreatedAt &lt; @CreatedAtEnd </If>
+					<If Operator="NotEmpty" ComponentName="DepartmentIds"> and pd.DepartmentId in @DepartmentIds </If>
+					group by p.Id,p.Name,p.CreatorId,p.CreatedAt,p.LastModifiedAt
 					order by p.Id desc
 					@Pager
 				</SQL>
@@ -32,11 +34,13 @@
 			<CountSQL>
 				select count(*)
 				from Project as p 
+				left join ProjectDepartment as pd on pd.projectId = p.id
 				where p.IsDeleted = 0
 				<If Operator="NotEmpty" ComponentName="Name"> and p.name like @Name </If>
-				<If Operator="NotEmpty" ComponentName="DepartmentId"> and p.DepartmentId = @DepartmentId </If>
 				<If Operator="NotEmpty" ComponentName="CreatedAtStart">and p.CreatedAt &gt;= @CreatedAtStart </If>
 				<If Operator="NotEmpty" ComponentName="CreatedAtEnd"> and p.CreatedAt &lt; @CreatedAtEnd </If>
+				<If Operator="NotEmpty" ComponentName="DepartmentIds"> and pd.DepartmentId in @DepartmentIds </If>
+				group by p.Id,p.Name,p.CreatorId,p.CreatedAt,p.LastModifiedAt
 			</CountSQL>
 		</Source>
 	</View>

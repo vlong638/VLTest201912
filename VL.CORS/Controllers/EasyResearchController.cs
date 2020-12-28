@@ -329,6 +329,36 @@ namespace ResearchAPI.Controllers
             throw new NotImplementedException();
         }
 
+        ///// <summary>
+        ///// 1.4.11.保存自定义指标
+        ///// </summary>
+        ///// <returns></returns>
+        //[HttpPost]
+        //[AllowAnonymous]
+        //[EnableCors("AllCors")]
+        //public APIResult<List<BusinessEntityPropertyModel>> CreateCustomIndicator([FromServices] ReportTaskService service, [FromBody] CreateCustomIndicatorRequest request)
+        //{
+        //    switch (request.TargetArea)
+        //    {
+        //        case TargetArea.None:
+        //            break;
+        //        case TargetArea.Pregnant:
+        //            var template = ConfigHelper.GetBusinessEntityTemplate("Configs\\XMLConfigs\\BusinessEntities", "Template_孕周检验.xml");
+        //            request.Properties = new List<BusinessEntityPropertyModel>() {
+        //                new BusinessEntityPropertyModel(){ ColumnName = "Value"},
+        //            };
+        //            var result = service.CreateCustomIndicator(request, template);
+        //            return new APIResult<List<BusinessEntityPropertyModel>>(result);
+        //        case TargetArea.Woman:
+        //            break;
+        //        case TargetArea.Child:
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //    throw new NotImplementedException();
+        //}
+
         /// <summary>
         /// 1.4.13.保存指标
         /// </summary>
@@ -408,15 +438,15 @@ namespace ResearchAPI.Controllers
         public APIResult<List<GetTaskModel>> GetTasks([FromServices] ReportTaskService service, long projectId)
         {
             var serviceResult = service.GetTasks(projectId);
-            serviceResult.Data.ForEach(c =>
-            {
-                c.Wheres.ForEach(d =>
-                {
-                    ////TODO 补全显示用内容
-                    //d.OperatorName = DomainConstraits.RenderIdToText();
-                    //d.DisplayName = DomainConstraits.RenderIdToText();
-                });
-            });
+            //serviceResult.Data.ForEach(c =>
+            //{
+            //    c.Wheres.ForEach(d =>
+            //    {
+            //        //TODO 补全显示用内容
+            //        d.OperatorName = DomainConstraits.RenderIdToText();
+            //        d.DisplayName = DomainConstraits.RenderIdToText();
+            //    });
+            //});
             return new APIResult<List<GetTaskModel>>(serviceResult);
         }
 

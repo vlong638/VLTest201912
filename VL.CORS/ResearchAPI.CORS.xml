@@ -1064,6 +1064,35 @@
             搜索条件
             </summary>
         </member>
+        <member name="T:ResearchAPI.CORS.Common.GetCustomIndicatorRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetCustomIndicatorRequest.ProjectId">
+            <summary>
+            项目Id
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetCustomIndicatorRequest.TargetArea">
+            <summary>
+            目标人群
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetCustomIndicatorRequest.Search">
+            <summary>
+            搜索项
+            约定: 
+            孕产妇孕周检验模板: (@孕周小值-@孕周大值, @多次时分组:{0:最早,1:最晚,2:平均值,3:最小值,4:最大值})
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetCustomIndicatorRequest.Properties">
+            <summary>
+            添加的字段
+            默认为:检验值
+            可选有:检验值,检验日期,检验单号
+            </summary>
+        </member>
         <member name="T:ResearchAPI.CORS.Common.GetPagedProjectsRequest">
             <summary>
             

@@ -34,10 +34,12 @@ namespace VL.CORS
             //.AllowAnyOrigin()
             .WithOrigins(
                 "http://localhost:63342" //文欣
-                , "http://192.168.50.109:63342" //文欣
+                ,"http://127.0.0.1:63342" //文欣
+
                 , "http://localhost:8848" //一帆
+                , "http://127.0.0.1:8848" //一帆
+
                 , "http://localhost:14314" //vl
-                , "http://localhost" //
             )
             .AllowAnyHeader()
             .AllowAnyMethod()
