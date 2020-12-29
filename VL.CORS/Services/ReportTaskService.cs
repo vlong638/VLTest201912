@@ -322,7 +322,7 @@ namespace ResearchAPI.Services
                     m.DisplayName = c.PropertyDisplayName;
 
                     //自定义字段将无匹配内容,目前自定义字段只允许输入字符,默认为字符
-                    var coProperty= DomainConstraits.BusinessEntityProperties.FirstOrDefault(d => d.Id == c.BusinessEntityPropertyId);
+                    var coProperty = DomainConstraits.BusinessEntityProperties.FirstOrDefault(d => d.Id == c.BusinessEntityPropertyId);
                     m.ColumnType = coProperty?.ColumnType ?? ColumnType.String;
                     m.EnumType = coProperty?.EnumType;
                     return m;
@@ -370,7 +370,7 @@ namespace ResearchAPI.Services
             //Data
             var projectIndicators = request.BusinessEntityPropertyIds.Select(c =>
             {
-                var projectIndicator = new ProjectIndicator();               
+                var projectIndicator = new ProjectIndicator();
                 projectIndicator.ProjectId = request.ProjectId;
                 projectIndicator.BusinessEntityId = request.BusinessEntityId;
                 projectIndicator.BusinessEntityPropertyId = c;
@@ -390,9 +390,9 @@ namespace ResearchAPI.Services
 
         internal ServiceResult<long> CreateTask(CreateTaskRequest request)
         {
-            return ResearchDbContext.DelegateTransaction(c => 
+            return ResearchDbContext.DelegateTransaction(c =>
             {
-                if (request.CopyTaskId>0)
+                if (request.CopyTaskId > 0)
                 {
                     throw new NotImplementedException("未支持队列复制");
                 }
@@ -419,12 +419,13 @@ namespace ResearchAPI.Services
                     throw new NotImplementedException("队列不存在");
                 }
                 var projectIndicators = ProjectIndicatorRepository.GetByProjectId(projectTask.ProjectId);
-                if (projectIndicators.Count==0)
+                if (projectIndicators.Count == 0)
                 {
                     throw new NotImplementedException("项目指标缺失");
                 }
                 ProjectTaskWhereRepository.DeleteByTaskId(request.TaskId);
-                var wheres = request.Wheres.Select(c => {
+                var wheres = request.Wheres.Select(c =>
+                {
                     var indicator = projectIndicators.First(d => d.Id == c.IndicatorId);
                     var item = new ProjectTaskWhere()
                     {
@@ -461,7 +462,7 @@ namespace ResearchAPI.Services
                 if (project == null)
                     throw new NotImplementedException("项目不存在");
                 var projectIndicators = ProjectIndicatorRepository.GetByProjectId(schedule.ProjectId);
-                if (projectIndicators.Count==0)
+                if (projectIndicators.Count == 0)
                 {
                     throw new NotImplementedException("指标不存在");
                 }
@@ -477,65 +478,43 @@ namespace ResearchAPI.Services
                 var templates = ConfigHelper.GetBusinessEntityTemplates();
 
                 //内核处理
-                var reportTask = new ReportTask(task.Name);
-                foreach (var entityName in projectIndicators.Select(c => c.EntitySourceName).Distinct())
+                DataTable dataTable = null;
+                try
                 {
-                    var router = routers.FirstOrDefault(c => c.To == entityName);
-                    if (router!=null)
+                    var reportTask = new ReportTask(task.Name);
+                    reportTask.Update(projectIndicators, taskWheres, customBusinessEntities, customBusinessEntityWheres, routers, templates, reportTask);
+                    //string.Join("\r\n",parameters.Select(c=> "declare @"+c.Key+" nvarchar(50); set @"+c.Key+" = '"+ c.Value+"'"))
+                    var parameters = reportTask.GetParameters();
+                    var sql = reportTask.GetSQL();
+                    dataTable = SharedRepository.GetDataTable(sql, parameters);
+                    //转译处理结果
+                    var repeatCount = 0;
+                    foreach (DataColumn column in dataTable.Columns)
                     {
-                        reportTask.Routers.Add(router);
-                    }
-                    else
-                    {
-                        var template = templates.FirstOrDefault(c => "t" + c.Id == entityName);
-                        if (template!=null)
+                        var matchedColumn = projectIndicators.FirstOrDefault(c => c.EntitySourceName + "_" + c.PropertySourceName == column.ColumnName);
+                        var tempColumnName = matchedColumn.PropertyDisplayName;
+                        if (dataTable.Columns.Contains(tempColumnName))
                         {
-                            router = template.Router;
-                            router.To = entityName;
-                            router.IsFromTemplate = true;
-                            reportTask.Routers.Add(router);
+                            tempColumnName += ++repeatCount;
                         }
+                        column.ColumnName = tempColumnName;
                     }
+                    //输出处理结果
+                    var projectIndicators2 = projectIndicators;
+                    var filePath = $"{schedule.Id}_{DateTime.Now.ToString("yyyy_MM_dd_mm_hh_ss")}.xls";
+                    var fullPath = Path.Combine(FileHelper.GetDirectory("Export"), filePath);
+                    ExcelHelper.ExportDataTableToExcel(dataTable, fullPath);
+                    //更新处理任务状态
+                    ProjectScheduleRepository.UpdateResultFile(schedule.Id, "Export/" + filePath);
                 }
-                var templateIds = customBusinessEntities.Select(c => c.TemplateId);
-                reportTask.Templates.AddRange(templates.Where(c => templateIds.Contains(c.Id)));
-                reportTask.Properties.AddRange(projectIndicators.Select(c => new COBusinessEntityProperty()
+                catch (Exception ex)
                 {
-                    SourceName = c.PropertySourceName,
-                    DisplayName = c.PropertyDisplayName,
-                    From = c.EntitySourceName,
-                }));
-                reportTask.Conditions.AddRange(taskWheres.Select(c => new Field2ValueWhere()
-                {
-                    EntityName = c.EntityName,
-                    FieldName = c.PropertyName,
-                    Value = c.Value,
-                }));
-                reportTask.TemplateConditions.AddRange(customBusinessEntityWheres.Select(c => new Field2ValueWhere()
-                {
-                    EntityName = customBusinessEntities.First(d=>d.Id == c.BusinessEntityId).Name,
-                    FieldName = c.ComponentName,
-                    Value = c.Value,
-                }));
-                //string.Join("\r\n",parameters.Select(c=> "declare @"+c.Key+" nvarchar(50); set @"+c.Key+" = '"+ c.Value+"'"))
-                var parameters = reportTask.GetParameters();
-                var sql = reportTask.GetSQL();
-                var dataTable = SharedRepository.GetDataTable(sql, parameters);
-                //转译处理结果
-                foreach (var column in dataTable.Columns)
-                {
+                    //更新处理任务状态
+                    ProjectScheduleRepository.UpdateMessage(schedule.Id, ex.ToString());
                 }
-                //输出处理结果
-                var projectIndicators2 = projectIndicators;
-                var filePath = $"{schedule.Id}_{DateTime.Now.ToString("yyyy_MM_dd_mm_hh_ss")}.xls";
-                var fullPath = Path.Combine(FileHelper.GetDirectory("Export"), filePath);
-                ExcelHelper.ExportDataTableToExcel(dataTable, fullPath);
-                //更新处理任务状态
-                ProjectScheduleRepository.UpdateResultFile(schedule.Id, "Export/" + filePath);
                 return true;
             });
         }
-
         internal ServiceResult<bool> EditTaskName(EditTaskNameRequest request)
         {
             return ResearchDbContext.DelegateTransaction(c =>
@@ -580,7 +559,7 @@ namespace ResearchAPI.Services
             });
         }
 
-        internal ServiceResult<List<VLKeyValue<string,string>>> GetTaskNameAndIds(long projectId)
+        internal ServiceResult<List<VLKeyValue<string, string>>> GetTaskNameAndIds(long projectId)
         {
             return ResearchDbContext.DelegateNonTransaction(c =>
             {
@@ -613,7 +592,7 @@ namespace ResearchAPI.Services
             return ResearchDbContext.DelegateNonTransaction(c =>
             {
                 var taskStatus = ProjectScheduleRepository.GetTaskStatus(taskId);
-                if (taskStatus==null)
+                if (taskStatus == null)
                 {
                     throw new NotImplementedException("执行任务不存在");
                 }

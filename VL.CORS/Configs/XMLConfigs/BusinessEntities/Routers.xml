@@ -6,4 +6,7 @@
 	<Router From="LabOrder" FromAlias="lo" To="LabResult" ToAlias="lr" RouteType="LeftJoin">
 		<On FromField="OrderId" ToField="OrderId"/>
 	</Router>
+	<Router From="PregnantInfo" FromAlias="pi" To="Child" ToAlias="c" RouteType="LeftJoin">
+		<On FromField="Idcard" ToField="MotherIdcard"/>
+	</Router>
 </Routers>

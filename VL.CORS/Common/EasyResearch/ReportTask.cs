@@ -229,7 +229,50 @@ namespace ResearchAPI.CORS.Common
 
         private string GetSelect(List<COBusinessEntityProperty> properties)
         {
-            return "select " + string.Join(",", properties.Select(c => "[" + c.From + "]." + c.SourceName));
+            return "select " + string.Join(",", properties.Select(c => $"[{c.From}].{c.SourceName} as {c.From}_{c.SourceName}"));
+        }
+
+        public void Update(List<ProjectIndicator> projectIndicators, List<ProjectTaskWhere> taskWheres, List<CustomBusinessEntity> customBusinessEntities, List<CustomBusinessEntityWhere> customBusinessEntityWheres, Routers routers, List<BusinessEntityTemplate> templates, ReportTask reportTask)
+        {
+            foreach (var entityName in projectIndicators.Select(c => c.EntitySourceName).Distinct())
+            {
+                var router = routers.FirstOrDefault(c => c.To == entityName);
+                if (router != null)
+                {
+                    reportTask.Routers.Add(router);
+                }
+                else
+                {
+                    var template = templates.FirstOrDefault(c => "t" + c.Id == entityName);
+                    if (template != null)
+                    {
+                        router = template.Router;
+                        router.To = entityName;
+                        router.IsFromTemplate = true;
+                        reportTask.Routers.Add(router);
+                    }
+                }
+            }
+            var templateIds = customBusinessEntities.Select(c => c.TemplateId);
+            reportTask.Templates.AddRange(templates.Where(c => templateIds.Contains(c.Id)));
+            reportTask.Properties.AddRange(projectIndicators.Select(c => new COBusinessEntityProperty()
+            {
+                SourceName = c.PropertySourceName,
+                DisplayName = c.PropertyDisplayName,
+                From = c.EntitySourceName,
+            }));
+            reportTask.Conditions.AddRange(taskWheres.Select(c => new Field2ValueWhere()
+            {
+                EntityName = c.EntityName,
+                FieldName = c.PropertyName,
+                Value = c.Value,
+            }));
+            reportTask.TemplateConditions.AddRange(customBusinessEntityWheres.Select(c => new Field2ValueWhere()
+            {
+                EntityName = customBusinessEntities.First(d => d.Id == c.BusinessEntityId).Name,
+                FieldName = c.ComponentName,
+                Value = c.Value,
+            }));
         }
     }
 

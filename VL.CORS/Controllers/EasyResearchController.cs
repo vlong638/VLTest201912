@@ -438,15 +438,6 @@ namespace ResearchAPI.Controllers
         public APIResult<List<GetTaskModel>> GetTasks([FromServices] ReportTaskService service, long projectId)
         {
             var serviceResult = service.GetTasks(projectId);
-            //serviceResult.Data.ForEach(c =>
-            //{
-            //    c.Wheres.ForEach(d =>
-            //    {
-            //        //TODO 补全显示用内容
-            //        d.OperatorName = DomainConstraits.RenderIdToText();
-            //        d.DisplayName = DomainConstraits.RenderIdToText();
-            //    });
-            //});
             return new APIResult<List<GetTaskModel>>(serviceResult);
         }
 
@@ -482,7 +473,7 @@ namespace ResearchAPI.Controllers
             {
                 return null;
             }
-            FileStream fs = new FileStream(fullPath, FileMode.Open);
+            FileStream fs = new FileStream(fullPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             byte[] data = new byte[fs.Length];
             fs.Read(data, 0, data.Length);
             fs.Close();
