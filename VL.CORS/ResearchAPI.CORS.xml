@@ -1109,6 +1109,16 @@
             复制队列Id
             </summary>
         </member>
+        <member name="T:ResearchAPI.CORS.Common.DeleteProjectIndicatorRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.DeleteProjectIndicatorRequest.IndicatorId">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:ResearchAPI.CORS.Common.EditProjectRequest">
             <summary>
             编辑项目
@@ -1266,6 +1276,21 @@
         <member name="P:ResearchAPI.CORS.Common.ProjectDTO.ProjectDescription">
             <summary>
             项目描述
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Common.UpdateIndicatorNameRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.UpdateIndicatorNameRequest.IndicatorId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.UpdateIndicatorNameRequest.Name">
+            <summary>
+            
             </summary>
         </member>
         <member name="T:ResearchAPI.CORS.Common.GetBriefProjectModel">
@@ -1658,13 +1683,6 @@
             科研内核接口
             </summary>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.InitData(ResearchAPI.Services.ReportTaskService)">
-            <summary>
-            
-            </summary>
-            <param name="service"></param>
-            <returns></returns>
-        </member>
         <member name="M:ResearchAPI.Controllers.EasyResearchController.GetDropdowns(ResearchAPI.Services.ReportTaskService,System.String)">
             <summary>
             下拉项
@@ -1741,13 +1759,13 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.DeleteProjectIndicator(ResearchAPI.Services.ReportTaskService,System.Int64)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.DeleteProjectIndicator(ResearchAPI.Services.ReportTaskService,ResearchAPI.CORS.Common.DeleteProjectIndicatorRequest)">
             <summary>
             1.4.6.删除指标
             </summary>
             <returns></returns>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.UpdateIndicatorName(ResearchAPI.Services.ReportTaskService,System.Int64,System.String)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.UpdateIndicatorName(ResearchAPI.Services.ReportTaskService,ResearchAPI.CORS.Common.UpdateIndicatorNameRequest)">
             <summary>
             1.4.15.编辑指标名称
             </summary>
@@ -1815,6 +1833,11 @@
             <returns></returns>
         </member>
         <member name="T:ResearchAPI.Services.ReportTaskService">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.Services.ReportTaskService.#ctor(Autobots.Infrastracture.Common.DBSolution.DbContext)">
             <summary>
             
             </summary>

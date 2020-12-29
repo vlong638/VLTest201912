@@ -148,21 +148,21 @@
     $(
         function () {
 
-            var request = {};
-            request.ProjectId = 49;
-            request.BusinessEntityId = 101001;
-            request.BusinessEntityPropertyIds = [102001001, 102001002]
-            $.ajax({
-                url: 'http://192.168.50.128:8041/api/EasyResearch/AddProjectIndicators',
-                type: 'post',
-                dataType: 'json',
-                contentType: 'application/json',
-                data: JSON.stringify(request),
-                //data:request,
-                success: function (resp) {
-                    console.log(resp.data);
-                }
-            })
+            //var request = {};
+            //request.ProjectId = 49;
+            //request.BusinessEntityId = 101001;
+            //request.BusinessEntityPropertyIds = [102001001, 102001002]
+            //$.ajax({
+            //    url: 'http://192.168.50.128:8041/api/EasyResearch/AddProjectIndicators',
+            //    type: 'post',
+            //    dataType: 'json',
+            //    contentType: 'application/json',
+            //    data: JSON.stringify(request),
+            //    //data:request,
+            //    success: function (resp) {
+            //        console.log(resp.data);
+            //    }
+            //})
 
             var projectId = 49;
             $.ajax({
@@ -176,6 +176,18 @@
                 }
             })
 
+            var indicatorId = 53;
+            var name = '洒下';
+            $.ajax({
+                url: 'http://192.168.50.128:8041/api/EasyResearch/UpdateIndicatorName',
+                type: 'post',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: { indicatorId, name },
+                success: function (resp) {
+                    console.log(resp.data);
+                }
+            })
 
             //var projectId = 49;
             //$.ajax({

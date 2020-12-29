@@ -45,27 +45,39 @@ namespace ResearchAPI.Services
         /// <summary>
         /// 
         /// </summary>
+        internal ReportTaskService(DbContext DbContext)
+        {
+            ResearchDbContext = DbContext;
+            Init(DbContext);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
         public ReportTaskService(APIContext apiContext)
         {
             APIContext = apiContext;
             ResearchDbContext = APIContext?.GetDBContext(APIContraints.ResearchDbContext);
+            Init(ResearchDbContext);
+        }
 
+        private void Init(DbContext DbContext)
+        {
             //repositories
-            CustomBusinessEntityPropertyRepository = new CustomBusinessEntityPropertyRepository(ResearchDbContext);
-            CustomBusinessEntityRepository = new CustomBusinessEntityRepository(ResearchDbContext);
-            CustomBusinessEntityWhereRepository = new CustomBusinessEntityWhereRepository(ResearchDbContext);
-            BusinessEntityPropertyRepository = new BusinessEntityPropertyRepository(ResearchDbContext);
-            FavoriteProjectRepository = new FavoriteProjectRepository(ResearchDbContext);
-            ProjectDepartmentRepository = new ProjectDepartmentRepository(ResearchDbContext);
-            ProjectRepository = new ProjectRepository(ResearchDbContext);
-            ProjectScheduleRepository = new ProjectScheduleRepository(ResearchDbContext);
-            ProjectTaskRepository = new ProjectTaskRepository(ResearchDbContext);
-            ProjectTaskWhereRepository = new ProjectTaskWhereRepository(ResearchDbContext);
-            ProjectMemberRepository = new ProjectMemberRepository(ResearchDbContext);
-            ProjectIndicatorRepository = new ProjectIndicatorRepository(ResearchDbContext);
-            RoleRepository = new RoleRepository(ResearchDbContext);
-            SharedRepository = new SharedRepository(ResearchDbContext);
-            UserRepository = new UserRepository(ResearchDbContext);
+            CustomBusinessEntityPropertyRepository = new CustomBusinessEntityPropertyRepository(DbContext);
+            CustomBusinessEntityRepository = new CustomBusinessEntityRepository(DbContext);
+            CustomBusinessEntityWhereRepository = new CustomBusinessEntityWhereRepository(DbContext);
+            BusinessEntityPropertyRepository = new BusinessEntityPropertyRepository(DbContext);
+            FavoriteProjectRepository = new FavoriteProjectRepository(DbContext);
+            ProjectDepartmentRepository = new ProjectDepartmentRepository(DbContext);
+            ProjectRepository = new ProjectRepository(DbContext);
+            ProjectScheduleRepository = new ProjectScheduleRepository(DbContext);
+            ProjectTaskRepository = new ProjectTaskRepository(DbContext);
+            ProjectTaskWhereRepository = new ProjectTaskWhereRepository(DbContext);
+            ProjectMemberRepository = new ProjectMemberRepository(DbContext);
+            ProjectIndicatorRepository = new ProjectIndicatorRepository(DbContext);
+            RoleRepository = new RoleRepository(DbContext);
+            SharedRepository = new SharedRepository(DbContext);
+            UserRepository = new UserRepository(DbContext);
         }
 
         internal ServiceResult<List<VLKeyValue<string, long>>> GetFavoriteProjects(long userid)
@@ -272,7 +284,11 @@ namespace ResearchAPI.Services
         /// <returns></returns>
         internal ServiceResult<bool> UpdateIndicatorName(long indicatorId, string name)
         {
-            throw new NotImplementedException();
+            return ResearchDbContext.DelegateTransaction(c =>
+            {
+                var result = ProjectIndicatorRepository.UpdateIndicatorName(indicatorId, name);
+                return result;
+            });
         }
 
         internal ServiceResult<bool> EditProject(EditProjectRequest request, long userid)

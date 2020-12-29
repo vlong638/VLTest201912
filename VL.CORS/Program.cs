@@ -1,8 +1,10 @@
+using Autobots.Infrastracture.Common.DBSolution;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using ResearchAPI.CORS.Common;
 using ResearchAPI.Services;
+using System.Linq;
 
 namespace VL.CORS
 {
@@ -24,6 +26,10 @@ namespace VL.CORS
                 //常量配置
                 var configs = builder.Build();
                 APIContraints.DBConfig = configs.GetSection("DB").Get<DBConfig>();
+                //静态常量
+                var dbConnectiongString = APIContraints.DBConfig.ConnectionStrings.FirstOrDefault(c => c.Key == APIContraints.ResearchDbContext).Value;
+                var dbContext = new DbContext(DBHelper.GetDbConnection(dbConnectiongString));
+                DomainConstraits.InitData(new ReportTaskService(dbContext));
             })
             .ConfigureWebHostDefaults(webBuilder =>
             {

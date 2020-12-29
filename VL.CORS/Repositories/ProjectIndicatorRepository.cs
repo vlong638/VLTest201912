@@ -50,5 +50,11 @@ namespace ResearchAPI.CORS.Repositories
             return _connection.Query<ProjectIndicator>("select * from [ProjectIndicator] where ProjectId = @ProjectId"
                 , new { projectId }, transaction: _transaction).ToList();
         }
+
+        internal int UpdateIndicatorName(long indicatorId, string name)
+        {
+            return _connection.Execute("update ProjectIndicator set PropertyDisplayName = @name where id = @indicatorId"
+                , new { name, indicatorId }, transaction: _transaction);
+        }
     }
 }

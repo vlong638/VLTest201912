@@ -31,17 +31,17 @@ namespace ResearchAPI.Controllers
     {
         #region 通用,Dropdown
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="service"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public APIResult<bool> InitData([FromServices] ReportTaskService service)
-        {
-            DomainConstraits.InitData(service);
-            return new APIResult<bool>(true);
-        }
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="service"></param>
+        ///// <returns></returns>
+        //[HttpPost]
+        //public APIResult<bool> InitData([FromServices] ReportTaskService service)
+        //{
+        //    DomainConstraits.InitData(service);
+        //    return new APIResult<bool>(true);
+        //}
 
         /// <summary>
         /// 下拉项
@@ -280,9 +280,9 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<bool> DeleteProjectIndicator([FromServices] ReportTaskService service, long indicatorId)
+        public APIResult<bool> DeleteProjectIndicator([FromServices] ReportTaskService service, [FromBody] DeleteProjectIndicatorRequest request)
         {
-            var result = service.DeleteProjectIndicator(indicatorId);
+            var result = service.DeleteProjectIndicator(request.IndicatorId);
             return new APIResult<bool>(result);
         }
 
@@ -293,9 +293,9 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<bool> UpdateIndicatorName([FromServices] ReportTaskService service, long indicatorId, string name)
+        public APIResult<bool> UpdateIndicatorName([FromServices] ReportTaskService service, [FromBody] UpdateIndicatorNameRequest request)
         {
-            var result = service.UpdateIndicatorName(indicatorId, name);
+            var result = service.UpdateIndicatorName(request.IndicatorId, request.Name);
             return new APIResult<bool>(result);
         }
 
