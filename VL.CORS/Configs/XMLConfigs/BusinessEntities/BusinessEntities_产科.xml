@@ -2,29 +2,29 @@
 <BusinessEntities Id="101" BusinessType="产科">
 	<BusinessEntity Id="101001" DisplayName ="基本档案" SourceName="PregnantInfo">
 		<Properties>
-			<Property Id="101001001" DisplayName="姓名" From="PregnantInfo" SourceName="PersonName" ColumnType="string"/>
-			<Property Id="101001002" DisplayName="生日" From="PregnantInfo" SourceName="Birthday" ColumnType="string"/>
-			<Property Id="101001003" DisplayName="性别" From="PregnantInfo" SourceName="Sex" ColumnType="string"/>
+			<Property Id="101001001" DisplayName="姓名" From="PregnantInfo" SourceName="PersonName" ColumnType="String"/>
+			<Property Id="101001002" DisplayName="生日" From="PregnantInfo" SourceName="Birthday" ColumnType="DateTime"/>
+			<Property Id="101001003" DisplayName="性别" From="PregnantInfo" SourceName="Sex" ColumnType="Enum" EnumType="Sex"/>
 		</Properties>
 	</BusinessEntity>
 	<BusinessEntity Id="101002" DisplayName ="检查单" SourceName="LabOrder">
 		<Properties>
-			<Property Id="101002001" DisplayName="检查名称" From="LabOrder" SourceName="ExamName" />
-			<Property Id="101002002" DisplayName="检查日期" From="LabOrder" SourceName="ExamTime" />
+			<Property Id="101002001" DisplayName="检查名称" From="LabOrder" SourceName="ExamName" ColumnType="String" />
+			<Property Id="101002002" DisplayName="检查日期" From="LabOrder" SourceName="ExamTime" ColumnType="DateTime" />
 		</Properties>
 	</BusinessEntity>
 	<BusinessEntity Id="101003" DisplayName ="检验项" SourceName="LabResult">
 		<Properties>
-			<Property Id="101003001" DisplayName="检验类别" From="LabResult" SourceName="ItemId" />
-			<Property Id="101003002" DisplayName="检验名称" From="LabResult" SourceName="ItemName" />
-			<Property Id="101003003" DisplayName="检验结果" From="LabResult" SourceName="Value" />
+			<Property Id="101003001" DisplayName="检验类别" From="LabResult" SourceName="ItemId" ColumnType="String"/>
+			<Property Id="101003002" DisplayName="检验名称" From="LabResult" SourceName="ItemName" ColumnType="String"/>
+			<Property Id="101003003" DisplayName="检验结果" From="LabResult" SourceName="Value" ColumnType="Int"/>
 		</Properties>
 	</BusinessEntity>
 	<BusinessEntity Id="101004" DisplayName ="新生儿" SourceName="Child">
 		<Properties>
-			<Property Id="101004001" DisplayName="姓名" From="Child" SourceName="Name" />
-			<Property Id="101004002" DisplayName="生日" From="Child" SourceName="Birthday" />
-			<Property Id="101004003" DisplayName="性别" From="Child" SourceName="Sex" />
+			<Property Id="101004001" DisplayName="姓名" From="Child" SourceName="Name" ColumnType="String"/>
+			<Property Id="101004002" DisplayName="生日" From="Child" SourceName="Birthday" ColumnType="DateTime"/>
+			<Property Id="101004003" DisplayName="性别" From="Child" SourceName="Sex" ColumnType="Enum" EnumType="Sex"/>
 		</Properties>
 	</BusinessEntity>
 </BusinessEntities>	

@@ -74,9 +74,10 @@ namespace Tester
                 {
                     array[i] = new Random().Next(1000);
                 }
-                var times = 5;
-                var result = new List<int>();
-                //var profit = GetMaxProfit(array, 0, array.Length, times, out int s,out int end);
+                var nodes = new List<int>();
+                var results = new List<int>();
+                //var times = 5;
+                //var profit = GetMaxProfit(array, 0, array.Length, times, out int s, out int end);
 
 
 

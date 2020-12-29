@@ -14,7 +14,6 @@ using System.Linq;
 
 namespace ResearchAPI.Controllers
 {
-
     /// <summary>
     /// 
     /// </summary>
@@ -22,7 +21,6 @@ namespace ResearchAPI.Controllers
     {
         public const long UserId = 1;
     }
-
 
     /// <summary>
     /// 科研内核接口

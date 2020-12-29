@@ -800,6 +800,16 @@
             字段中文名称
             </summary>
         </member>
+        <member name="P:ResearchAPI.CORS.Common.BusinessEntityProperty.ColumnType">
+            <summary>
+            字段数据类型
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.BusinessEntityProperty.EnumType">
+            <summary>
+            枚举类型
+            </summary>
+        </member>
         <member name="P:ResearchAPI.CORS.Common.CustomBusinessEntityProperty.BusinessEntityId">
             <summary>
             业务对象Id
@@ -1414,34 +1424,49 @@
             
             </summary>
         </member>
-        <member name="P:ResearchAPI.CORS.Common.GetProjectIndicatorModel.ProjectId">
-            <summary>
-            项目Id
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.CORS.Common.GetProjectIndicatorModel.BusinessEntityId">
-            <summary>
-            实体Id
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.CORS.Common.GetProjectIndicatorModel.BusinessEntityPropertyId">
-            <summary>
-            字段Id
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.CORS.Common.GetProjectIndicatorModel.EntityName">
-            <summary>
-            实体名称 如`基本档案`
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.CORS.Common.GetProjectIndicatorModel.PropertyName">
-            <summary>
-            显示名称 如`性别`
-            </summary>
-        </member>
         <member name="P:ResearchAPI.CORS.Common.GetProjectIndicatorModel.DisplayName">
             <summary>
             用户设置的别名
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetProjectIndicatorModel.ColumnType">
+            <summary>
+            字段数据类型,前端需要知道比较类型
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetProjectIndicatorModel.EnumType">
+            <summary>
+            枚举类型
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Common.ColumnType">
+            <summary>
+            字段数据类型
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.ColumnType.None">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.ColumnType.String">
+            <summary>
+            字符
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.ColumnType.DateTime">
+            <summary>
+            日期
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.ColumnType.Int">
+            <summary>
+            数值
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.ColumnType.Enum">
+            <summary>
+            枚举
             </summary>
         </member>
         <member name="T:ResearchAPI.CORS.Common.GetProjectModel">

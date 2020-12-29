@@ -19,5 +19,13 @@
         /// 字段中文名称
         /// </summary>
         public string DisplayName { set; get; }
+        /// <summary>
+        /// 字段数据类型
+        /// </summary>
+        public ColumnType ColumnType { set; get; }
+        /// <summary>
+        /// 枚举类型
+        /// </summary>
+        public string EnumType { set; get; }
     }
 }

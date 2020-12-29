@@ -70,10 +70,10 @@ namespace ResearchAPI.CORS.Common
         public static Dictionary<long, string> Departments { private set; get; }
         public static List<BusinessType> BusinessTypes { private set; get; }
         public static List<BusinessEntity> BusinessEntities { private set; get; }
-        public static Dictionary<long, string> BusinessEntityDic { private set; get; }
+        public static Dictionary<long, string> BusinessEntityDisplayDic { private set; get; }
         public static Dictionary<long, string> BusinessEntitySourceDic { private set; get; }
         public static List<BusinessEntityProperty> BusinessEntityProperties { private set; get; }
-        public static Dictionary<long, string> BusinessEntityPropertyDic { private set; get; }
+        public static Dictionary<long, string> BusinessEntityPropertyDisplayDic { private set; get; }
         public static Dictionary<long, string> BusinessEntityPropertySourceDic { private set; get; }
         public static Routers Routes { get; private set; }
         public static Dictionary<long, string> ScheduleStatuss { get; private set; }
@@ -111,13 +111,13 @@ namespace ResearchAPI.CORS.Common
             switch (kvType)
             {
                 case PKVType.BusinessEntity:
-                    dic = BusinessEntityDic;
+                    dic = BusinessEntityDisplayDic;
                     break;
                 case PKVType.BusinessEntitySource:
                     dic = BusinessEntitySourceDic;
                     break;
                 case PKVType.BusinessEntityProperty:
-                    dic = BusinessEntityPropertyDic;
+                    dic = BusinessEntityPropertyDisplayDic;
                     break;
                 case PKVType.BusinessEntityPropertySource:
                     dic = BusinessEntityPropertySourceDic;
@@ -150,25 +150,27 @@ namespace ResearchAPI.CORS.Common
                             TableName = property.From,
                             ColumnName = property.SourceName,
                             DisplayName = property.DisplayName,
+                            ColumnType = property.ColumnType,
+                            EnumType = property.EnumType,
                             BusinessEntityId = businessEntity.Id,
                         });
                     }
                 }
             }
-            BusinessEntityDic = new Dictionary<long, string>();
+            BusinessEntityDisplayDic = new Dictionary<long, string>();
             foreach (var item in BusinessEntities.Select(c => new VLKeyValue<long, string>(c.Id, c.Name)))
             {
-                BusinessEntityDic.Add(item.Key, item.Value);
+                BusinessEntityDisplayDic.Add(item.Key, item.Value);
             }
             BusinessEntitySourceDic = new Dictionary<long, string>();
             foreach (var item in BusinessEntities.Select(c => new VLKeyValue<long, string>(c.Id, c.SourceName)))
             {
                 BusinessEntitySourceDic.Add(item.Key, item.Value);
             }
-            BusinessEntityPropertyDic = new Dictionary<long, string>();
+            BusinessEntityPropertyDisplayDic = new Dictionary<long, string>();
             foreach (var item in BusinessEntityProperties.Select(c => new VLKeyValue<long, string>(c.Id, c.DisplayName)))
             {
-                BusinessEntityPropertyDic.Add(item.Key, item.Value);
+                BusinessEntityPropertyDisplayDic.Add(item.Key, item.Value);
             }
             BusinessEntityPropertySourceDic = new Dictionary<long, string>();
             foreach (var item in BusinessEntityProperties.Select(c => new VLKeyValue<long, string>(c.Id, c.ColumnName)))

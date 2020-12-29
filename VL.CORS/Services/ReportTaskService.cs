@@ -90,6 +90,7 @@ namespace ResearchAPI.Services
                     throw new NotImplementedException("项目不存在");
                 }
                 project.MapTo(result);
+                result.ProjectName = project.Name;
                 result.AdminIds = ProjectRepository.GetUserIdsByProjectIdAndRoleId(projectId, DomainConstraits.AdminRoleId.Value);
                 result.MemberIds = ProjectRepository.GetUserIdsByProjectIdAndRoleId(projectId, DomainConstraits.MemberRoleId.Value);
                 result.DepartmentIds = ProjectDepartmentRepository.GetDepartmentIdsByProjectId(projectId);
@@ -319,8 +320,11 @@ namespace ResearchAPI.Services
                     var m = new GetProjectIndicatorModel();
                     c.MapTo(m);
                     m.DisplayName = c.PropertyDisplayName;
-                    m.PropertyName = DomainConstraits.RenderIdsToText(m.BusinessEntityPropertyId, PKVType.BusinessEntityPropertySource);
-                    m.EntityName = DomainConstraits.RenderIdsToText(m.BusinessEntityId, PKVType.BusinessEntitySource);
+                    var coProperty= DomainConstraits.BusinessEntityProperties.First(c => c.Id == c.Id);
+                    m.ColumnType = coProperty.ColumnType;
+                    m.EnumType = coProperty.EnumType;
+                    //m.PropertyName = DomainConstraits.RenderIdsToText(m.BusinessEntityPropertyId, PKVType.BusinessEntityPropertySource);
+                    //m.EntityName = DomainConstraits.RenderIdsToText(m.BusinessEntityId, PKVType.BusinessEntitySource);
                     return m;
                 }).ToList();
             });
@@ -414,16 +418,26 @@ namespace ResearchAPI.Services
                 {
                     throw new NotImplementedException("队列不存在");
                 }
-                ProjectTaskWhereRepository.DeleteByTaskId(request.TaskId);
-                var wheres = request.Wheres.Select(c => new ProjectTaskWhere()
+                var projectIndicators = ProjectIndicatorRepository.GetByProjectId(projectTask.ProjectId);
+                if (projectIndicators.Count==0)
                 {
-                    ProjectId = projectTask.ProjectId,
-                    TaskId = projectTask.Id,
-                    BusinessEntityId = c.BusinessEntityId,
-                    EntityName =c.EntityName,
-                    PropertyName = c.PropertyName,
-                    Operator = (ProjectTaskWhereOperator)Enum.Parse(typeof(ProjectTaskWhereOperator), c.Operator),
-                    Value = c.Value,
+                    throw new NotImplementedException("项目指标缺失");
+                }
+                ProjectTaskWhereRepository.DeleteByTaskId(request.TaskId);
+                var wheres = request.Wheres.Select(c => {
+                    var indicator = projectIndicators.First(d => d.Id == c.IndicatorId);
+                    var item = new ProjectTaskWhere()
+                    {
+                        ProjectId = projectTask.ProjectId,
+                        TaskId = projectTask.Id,
+                        BusinessEntityId = indicator.BusinessEntityId,
+                        BusinessEntityPropertyId = indicator.BusinessEntityPropertyId,
+                        EntityName = RenderIdToText(indicator.BusinessEntityId, BusinessEntitySourceDic),
+                        PropertyName = RenderIdToText(indicator.BusinessEntityPropertyId, BusinessEntityPropertySourceDic),
+                        Operator = (ProjectTaskWhereOperator)Enum.Parse(typeof(ProjectTaskWhereOperator), c.Operator),
+                        Value = c.Value,
+                    };
+                    return item;
                 }).ToList();
                 wheres.ForEach(c =>
                 {
@@ -507,13 +521,17 @@ namespace ResearchAPI.Services
                 var parameters = reportTask.GetParameters();
                 var sql = reportTask.GetSQL();
                 var dataTable = SharedRepository.GetDataTable(sql, parameters);
+                //转译处理结果
+                foreach (var column in dataTable.Columns)
+                {
+                }
                 //输出处理结果
                 var projectIndicators2 = projectIndicators;
                 var filePath = $"{schedule.Id}_{DateTime.Now.ToString("yyyy_MM_dd_mm_hh_ss")}.xls";
                 var fullPath = Path.Combine(FileHelper.GetDirectory("Export"), filePath);
                 ExcelHelper.ExportDataTableToExcel(dataTable, fullPath);
                 //更新处理任务状态
-                ProjectScheduleRepository.UpdateResultFile(schedule.Id, "Export" + filePath);
+                ProjectScheduleRepository.UpdateResultFile(schedule.Id, "Export/" + filePath);
                 return true;
             });
         }
