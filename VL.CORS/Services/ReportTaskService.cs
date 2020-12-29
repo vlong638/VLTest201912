@@ -320,12 +320,11 @@ namespace ResearchAPI.Services
                     var m = new GetProjectIndicatorModel();
                     c.MapTo(m);
                     m.DisplayName = c.PropertyDisplayName;
-                    //自定义字段将无匹配内容,目前自定义字段只允许输入字符
+
+                    //自定义字段将无匹配内容,目前自定义字段只允许输入字符,默认为字符
                     var coProperty= DomainConstraits.BusinessEntityProperties.FirstOrDefault(d => d.Id == c.BusinessEntityPropertyId);
                     m.ColumnType = coProperty?.ColumnType ?? ColumnType.String;
                     m.EnumType = coProperty?.EnumType;
-                    //m.PropertyName = DomainConstraits.RenderIdsToText(m.BusinessEntityPropertyId, PKVType.BusinessEntityPropertySource);
-                    //m.EntityName = DomainConstraits.RenderIdsToText(m.BusinessEntityId, PKVType.BusinessEntitySource);
                     return m;
                 }).ToList();
             });
@@ -578,6 +577,14 @@ namespace ResearchAPI.Services
                     }).ToList(),
                 }).ToList();
                 return result;
+            });
+        }
+
+        internal ServiceResult<List<VLKeyValue<string,string>>> GetTaskNameAndIds(long projectId)
+        {
+            return ResearchDbContext.DelegateNonTransaction(c =>
+            {
+                return ProjectTaskRepository.GetTaskNameAndIds(projectId);
             });
         }
 

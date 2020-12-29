@@ -87,6 +87,9 @@ namespace ResearchAPI.Controllers
             List<VLKeyValue<string, string>> values = new List<VLKeyValue<string, string>>();
             switch (type)
             {
+                case "ProjectTask":
+                    values.AddRange(service.GetTaskNameAndIds(parentId.ToLong().Value).Data);
+                    return Success(values);
                 case "BusinessEntity":
                     values.AddRange(DomainConstraits.BusinessEntities
                         .Where(c => c.BusinessTypeId == parentId.ToLong())

@@ -1,5 +1,6 @@
 ﻿using Autobots.Infrastracture.Common.DBSolution;
 using Autobots.Infrastracture.Common.RepositorySolution;
+using Autobots.Infrastracture.Common.ValuesSolution;
 using Dapper;
 using ResearchAPI.CORS.Common;
 using System;
@@ -51,6 +52,12 @@ namespace ResearchAPI.CORS.Repositories
         internal List<ProjectTask> GetByProjectId(long projectId)
         {
             return _connection.Query<ProjectTask>("select * from [ProjectTask] where projectId = @projectId and IsDeleted = 0"
+                , new { projectId }, transaction: _transaction).ToList();
+        }
+
+        internal List<VLKeyValue<string, string>> GetTaskNameAndIds(long projectId)
+        {
+            return _connection.Query<VLKeyValue<string, string>>("select id as [value],name as [key] from [ProjectTask] where projectId = @projectId and IsDeleted = 0"
                 , new { projectId }, transaction: _transaction).ToList();
         }
     }
