@@ -88,6 +88,7 @@ namespace ResearchAPI.CORS.Common
         {
             var currentUser = new CurrentUser();
             currentUser.UserId = TestContext.UserId;
+            currentUser.UserName = TestContext.UserName;
             return currentUser;
         }
 

@@ -860,14 +860,44 @@
             项目查看权限
             </summary>
         </member>
+        <member name="P:ResearchAPI.CORS.Common.ProjectLog.ProjectId">
+            <summary>
+            项目Id
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.ProjectLog.OperatorId">
+            <summary>
+            操作人
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.ProjectLog.CreatedAt">
+            <summary>
+            操作时间
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.ProjectLog.ActionType">
+            <summary>
+            操作类型
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.ProjectLog.Text">
+            <summary>
+            操作内容
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Common.ActionType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.ActionType.None">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="F:ResearchAPI.CORS.Common.ActionType.EditProjectName">
             <summary>
             修改项目名称
-            </summary>
-        </member>
-        <member name="F:ResearchAPI.CORS.Common.ActionType.CreateProject">
-            <summary>
-            创建项目
             </summary>
         </member>
         <member name="F:ResearchAPI.CORS.Common.ActionType.AddProjectManager">
@@ -890,7 +920,12 @@
             删除项目成员
             </summary>
         </member>
-        <member name="F:ResearchAPI.CORS.Common.ActionType.SetProjectDepartment">
+        <member name="F:ResearchAPI.CORS.Common.ActionType.AddProjectDepartment">
+            <summary>
+            设置关联科室
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.ActionType.DeleteProjectDepartment">
             <summary>
             设置关联科室
             </summary>
@@ -898,6 +933,51 @@
         <member name="F:ResearchAPI.CORS.Common.ActionType.SetProjectViewAtuhorityType">
             <summary>
             设置项目查看权限
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.ActionType.AddProjectIndicator">
+            <summary>
+            添加科研指标
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.ActionType.DeleteProjectIndicator">
+            <summary>
+            删除科研指标
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.ActionType.AddTask">
+            <summary>
+            添加科研队列
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.ActionType.DeleteTask">
+            <summary>
+            删除科研队列
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.ActionType.StartTask">
+            <summary>
+            执行科研队列
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.ActionType.DownloadTaskResult">
+            <summary>
+            下载科研队列
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.ActionType.AddTaskWhere">
+            <summary>
+            {用户}在科研队列{队列名称}中添加了条件{指标名称}
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.ActionType.DeleteTaskWhere">
+            <summary>
+            {用户}在科研队列{队列名称}中删除了条件{指标名称}
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.ActionType.EditTaskWhere">
+            <summary>
+            {用户}在科研队列{队列名称}中修改了条件{指标名称}
             </summary>
         </member>
         <member name="P:ResearchAPI.CORS.Common.ProjectTask.Name">
@@ -1642,6 +1722,13 @@
             
             </summary>
         </member>
+        <member name="M:ResearchAPI.CORS.Repositories.ProjectLogRepository.InsertOne(ResearchAPI.CORS.Common.ProjectLog)">
+            <summary>
+            
+            </summary>
+            <param name="ProjectLog"></param>
+            <returns></returns>
+        </member>
         <member name="T:ResearchAPI.CORS.Repositories.SharedRepository">
             <summary>
             
@@ -1783,7 +1870,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.CreateTask(ResearchAPI.Services.ReportTaskService,ResearchAPI.CORS.Common.CreateTaskRequest)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.CreateTask(ResearchAPI.CORS.Common.APIContext,ResearchAPI.Services.ReportTaskService,ResearchAPI.CORS.Common.CreateTaskRequest)">
             <summary>
             1.5.1.新增队列
             </summary>
@@ -1795,13 +1882,13 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.DeleteTask(ResearchAPI.Services.ReportTaskService,System.Int64)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.DeleteTask(ResearchAPI.CORS.Common.APIContext,ResearchAPI.Services.ReportTaskService,System.Int64)">
             <summary>
             1.5.3.删除队列
             </summary>
             <returns></returns>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.CommitTask(ResearchAPI.Services.ReportTaskService,ResearchAPI.CORS.Common.CommitTaskRequest)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.CommitTask(ResearchAPI.CORS.Common.APIContext,ResearchAPI.Services.ReportTaskService,ResearchAPI.CORS.Common.CommitTaskRequest)">
             <summary>
             1.5.4.执行队列
             </summary>

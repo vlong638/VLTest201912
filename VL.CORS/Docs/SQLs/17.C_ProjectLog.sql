@@ -16,6 +16,7 @@ CREATE TABLE [dbo].[ProjectLog](
 	-------------------------------------------下内容
 	[CreatedAt] Datetime NULL,
 	[ActionType] tinyint NULL,
+	[Text] text NULL,
 	-------------------------------------------
 	CONSTRAINT[PK_ProjectLog] PRIMARY KEY CLUSTERED 
 	(

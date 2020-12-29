@@ -33,6 +33,7 @@ namespace ResearchAPI.Services
         FavoriteProjectRepository FavoriteProjectRepository { set; get; }
         ProjectDepartmentRepository ProjectDepartmentRepository { set; get; }
         ProjectRepository ProjectRepository { set; get; }
+        ProjectLogRepository ProjectLogRepository { set; get; }
         ProjectScheduleRepository ProjectScheduleRepository { set; get; }
         ProjectTaskRepository ProjectTaskRepository { set; get; }
         ProjectTaskWhereRepository ProjectTaskWhereRepository { set; get; }
@@ -70,6 +71,7 @@ namespace ResearchAPI.Services
             FavoriteProjectRepository = new FavoriteProjectRepository(DbContext);
             ProjectDepartmentRepository = new ProjectDepartmentRepository(DbContext);
             ProjectRepository = new ProjectRepository(DbContext);
+            ProjectLogRepository = new ProjectLogRepository(DbContext);
             ProjectScheduleRepository = new ProjectScheduleRepository(DbContext);
             ProjectTaskRepository = new ProjectTaskRepository(DbContext);
             ProjectTaskWhereRepository = new ProjectTaskWhereRepository(DbContext);
@@ -286,7 +288,7 @@ namespace ResearchAPI.Services
         {
             return ResearchDbContext.DelegateTransaction(c =>
             {
-                var result = ProjectIndicatorRepository.UpdateIndicatorName(indicatorId, name);
+                var result = ProjectIndicatorRepository.UpdateIndicatorName(indicatorId, name) > 0;
                 return result;
             });
         }
@@ -369,6 +371,17 @@ namespace ResearchAPI.Services
             });
         }
 
+        internal ServiceResult<ProjectTask> GetTaskById(long taskId)
+        {
+            return ResearchDbContext.DelegateNonTransaction(c =>
+            {
+                var task = ProjectTaskRepository.GetById(taskId);
+                if (task == null)
+                    throw new NotImplementedException("队列不存在");
+                return task;
+            });
+        }
+
         internal ServiceResult<bool> DeleteFavoriteProject(long projectId, long userId)
         {
             return ResearchDbContext.DelegateNonTransaction(c =>
@@ -378,6 +391,20 @@ namespace ResearchAPI.Services
                 if (exist == null)
                     throw new NotImplementedException("收藏不存在");
                 return FavoriteProjectRepository.DeleteOne(favoriteProject) > 0;
+            });
+        }
+
+        internal ServiceResult<long> AddProjectLog(long userId, long projectId, ActionType actionType, string text)
+        {
+            return ResearchDbContext.DelegateTransaction(c =>
+            {
+                var projectLog = new ProjectLog() {
+                    OperatorId = userId,
+                    ProjectId = projectId,
+                    ActionType = actionType,
+                    Text = text,
+                };
+                return ProjectLogRepository.InsertOne(projectLog);
             });
         }
 
@@ -447,6 +474,7 @@ namespace ResearchAPI.Services
                     {
                         ProjectId = projectTask.ProjectId,
                         TaskId = projectTask.Id,
+                        IndicatorId = indicator.Id,
                         BusinessEntityId = indicator.BusinessEntityId,
                         BusinessEntityPropertyId = indicator.BusinessEntityPropertyId,
                         EntityName = RenderIdToText(indicator.BusinessEntityId, BusinessEntitySourceDic),
@@ -538,7 +566,6 @@ namespace ResearchAPI.Services
                 return ProjectTaskRepository.UpdateName(request.TaskId, request.TaskName) > 0;
             });
         }
-
         internal ServiceResult<bool> DeleteTask(long taskId)
         {
             return ResearchDbContext.DelegateTransaction(c =>
@@ -546,7 +573,6 @@ namespace ResearchAPI.Services
                 return ProjectTaskRepository.DeleteById(taskId);
             });
         }
-
         internal ServiceResult<List<GetTaskModel>> GetTasks(long projectId)
         {
             return ResearchDbContext.DelegateNonTransaction(c =>

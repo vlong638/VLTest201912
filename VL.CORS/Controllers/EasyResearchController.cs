@@ -20,6 +20,8 @@ namespace ResearchAPI.Controllers
     public class TestContext
     {
         public const long UserId = 1;
+
+        public const string UserName = "管理员";
     }
 
     /// <summary>
@@ -379,9 +381,18 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<long> CreateTask([FromServices] ReportTaskService service, [FromBody] CreateTaskRequest request)
+        public APIResult<long> CreateTask([FromServices] APIContext context, [FromServices] ReportTaskService service, [FromBody] CreateTaskRequest request)
         {
             var serviceResult = service.CreateTask(request);
+            if (serviceResult.IsSuccess)
+            {
+                var projectId = serviceResult.Data;
+                var taskName = request.TaskName;
+                var userId = context.GetCurrentUser().UserId;
+                var userName = context.GetCurrentUser().UserName;
+                var text = $"{userName}添加了科研队列:{taskName}";
+                service.AddProjectLog(userId, projectId, ActionType.AddTask, text);
+            }
             return new APIResult<long>(serviceResult);
         }
 
@@ -405,9 +416,21 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<bool> DeleteTask([FromServices] ReportTaskService service, long taskId)
+        public APIResult<bool> DeleteTask([FromServices] APIContext context, [FromServices] ReportTaskService service, long taskId)
         {
+            var task = service.GetTaskById(taskId);
+            if (!task.IsSuccess)
+                return new APIResult<bool>(false, task.Messages);
             var serviceResult = service.DeleteTask(taskId);
+            if (serviceResult.IsSuccess)
+            {
+                var projectId = task.Data.ProjectId;
+                var taskName = task.Data.Name;
+                var userId = context.GetCurrentUser().UserId;
+                var userName = context.GetCurrentUser().UserName;
+                var text = $"{userName}删除了科研队列:{taskName}";
+                service.AddProjectLog(userId, projectId, ActionType.AddTask, text);
+            }
             return new APIResult<bool>(serviceResult);
         }
 
@@ -418,12 +441,24 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<long> CommitTask([FromServices] ReportTaskService service, CommitTaskRequest request)
+        public APIResult<long> CommitTask([FromServices] APIContext context, [FromServices] ReportTaskService service, CommitTaskRequest request)
         {
+            var task = service.GetTaskById(request.TaskId);
+            if (!task.IsSuccess)
+                return new APIResult<long>(0, task.Messages);
             var serviceResult = service.CommitTask(request);
             if (serviceResult.IsSuccess)
             {
-                service.StartSchedule(serviceResult.Data);
+                var result = service.StartSchedule(serviceResult.Data);
+                if (result.IsSuccess)
+                {
+                    var projectId = request.ProjectId;
+                    var taskName = task.Data.Name;
+                    var userId = context.GetCurrentUser().UserId;
+                    var userName = context.GetCurrentUser().UserName;
+                    var text = $"{userName}执行了科研队列:{taskName}";
+                    service.AddProjectLog(userId, projectId, ActionType.AddTask, text);
+                }
             }
             return new APIResult<long>(serviceResult);
         }
@@ -465,7 +500,7 @@ namespace ResearchAPI.Controllers
         /// <param name="path"></param>
         /// <returns></returns>
         [HttpPost]
-        [ProducesResponseType(typeof(FileResult),0)]
+        [ProducesResponseType(typeof(FileResult), 0)]
         public FileResult Download(string path)
         {
             var fullPath = Path.Combine(AppContext.BaseDirectory, path);
@@ -478,7 +513,7 @@ namespace ResearchAPI.Controllers
             fs.Read(data, 0, data.Length);
             fs.Close();
             MemoryStream ms = new MemoryStream(data);
-            var mediaType = path.EndsWith(".xls")|| path.EndsWith(".xlsx") ? "application/msexcel" : "";
+            var mediaType = path.EndsWith(".xls") || path.EndsWith(".xlsx") ? "application/msexcel" : "";
             var actionresult = new FileStreamResult(ms, new Microsoft.Net.Http.Headers.MediaTypeHeaderValue(mediaType));
             actionresult.FileDownloadName = path;
             return actionresult;

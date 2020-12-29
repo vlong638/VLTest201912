@@ -11,6 +11,7 @@ namespace ResearchAPI.CORS.Common
         public long Id { set; get; }
         public long ProjectId { set; get; }
         public long TaskId { set; get; }
+        public long IndicatorId { set; get; }
         /// <summary>
         /// 实体Id
         /// </summary>
