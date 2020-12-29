@@ -17,5 +17,13 @@ namespace ResearchAPI.CORS.Common
         /// 执行比例
         /// </summary>
         public int ProcessingRate { set; get; }
+        /// <summary>
+        /// 可导出文件
+        /// </summary>
+        public string ResultFile { set; get; }
+        /// <summary>
+        /// 上一次执行完成时间
+        /// </summary>
+        public DateTime CompletedAt{ set; get; }
     }
 }

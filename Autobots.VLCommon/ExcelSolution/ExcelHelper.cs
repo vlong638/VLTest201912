@@ -1,12 +1,11 @@
 ﻿using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
 
-namespace VL.Consolo_Core.Common.ExcelSolution
+namespace Autobots.Infrastracture.Common.ExcelSolution
 {
     public static class ExcelHelper
     {
@@ -130,8 +129,6 @@ namespace VL.Consolo_Core.Common.ExcelSolution
             {
                 dataRow.CreateCell(column.Ordinal).SetCellValue(column.ColumnName);
             }
-
-
             //填充内容  
             for (int i = 0; i < dt.Rows.Count; i++)
             {
@@ -142,6 +139,7 @@ namespace VL.Consolo_Core.Common.ExcelSolution
                 }
             }
             workbook.Write(new FileStream(path, FileMode.Create, FileAccess.Write));
+            workbook.Close();
         }
         #endregion
     }

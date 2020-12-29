@@ -17,6 +17,7 @@ CREATE TABLE [dbo].[ProjectSchedule](
 	[Status] nvarchar(20) NULL,
 	[LastCompletedAt] Datetime NULL,
 	[ResultFile] nvarchar(20) NULL,
+	[Message] text COLLATE Chinese_PRC_CI_AS  NULL,
 	-------------------------------------------
 
 	CONSTRAINT[PK_ProjectSchedule] PRIMARY KEY CLUSTERED 

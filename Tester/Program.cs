@@ -66,6 +66,24 @@ namespace Tester
 
         static void Main(string[] args)
         {
+            if (true)
+            {
+                var count = 10;
+                var array = new int[count];
+                for (int i = 0; i < array.Length; i++)
+                {
+                    array[i] = new Random().Next(1000);
+                }
+                var times = 5;
+                var result = new List<int>();
+                //var profit = GetMaxProfit(array, 0, array.Length, times, out int s,out int end);
+
+
+
+
+
+            }
+
             if (false)
             {
                 var tstr = "leetcode";
@@ -196,6 +214,25 @@ namespace Tester
             }
             Console.ReadLine();
         }
+
+        //private static int GetMaxProfit(int[] array, int times,int[] breakPoints,bool isIncrease)
+        //{
+        //    int profit;
+        //    int start, end;
+        //    //处理计算
+        //    start = 4;
+        //    end = 7;
+        //    //处理结果
+        //    if (times==1)
+        //    {
+        //        profit = 66;
+        //    }
+        //    else
+        //    {
+        //        var profits = GetMaxProfit(breakPoints);
+        //        profit += Max(profits);
+        //    }
+        //}
 
         private static void AddBorder(IGrouping<string, Grouper> items, List<KeyValuePair<string, string>> validValues, int minweek, int maxweek, int border)
         {

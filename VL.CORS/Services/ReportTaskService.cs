@@ -1,4 +1,5 @@
 ﻿using Autobots.Infrastracture.Common.DBSolution;
+using Autobots.Infrastracture.Common.ExcelSolution;
 using Autobots.Infrastracture.Common.PagerSolution;
 using Autobots.Infrastracture.Common.ServiceSolution;
 using Autobots.Infrastracture.Common.ValuesSolution;
@@ -9,8 +10,10 @@ using ResearchAPI.CORS.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
+using VLAutobots.Infrastracture.Common.FileSolution;
 using static ResearchAPI.CORS.Common.DomainConstraits;
 
 namespace ResearchAPI.Services
@@ -260,6 +263,17 @@ namespace ResearchAPI.Services
             });
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="indicatorId"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        internal ServiceResult<bool> UpdateIndicatorName(long indicatorId, string name)
+        {
+            throw new NotImplementedException();
+        }
+
         internal ServiceResult<bool> EditProject(EditProjectRequest request, long userid)
         {
             var project = new Project()
@@ -408,7 +422,7 @@ namespace ResearchAPI.Services
                     BusinessEntityId = c.BusinessEntityId,
                     EntityName =c.EntityName,
                     PropertyName = c.PropertyName,
-                    Operator = c.Operator,
+                    Operator = (ProjectTaskWhereOperator)Enum.Parse(typeof(ProjectTaskWhereOperator), c.Operator),
                     Value = c.Value,
                 }).ToList();
                 wheres.ForEach(c =>
@@ -433,6 +447,10 @@ namespace ResearchAPI.Services
                 if (project == null)
                     throw new NotImplementedException("项目不存在");
                 var projectIndicators = ProjectIndicatorRepository.GetByProjectId(schedule.ProjectId);
+                if (projectIndicators.Count==0)
+                {
+                    throw new NotImplementedException("指标不存在");
+                }
                 var taskWheres = ProjectTaskWhereRepository.GetByTaskId(schedule.TaskId);
                 var customBusinessEntityIndicators = projectIndicators.Where(c => c.BusinessEntityId.ToString().StartsWith("3"));
                 var customBusinessEntities = customBusinessEntityIndicators.Count() > 0
@@ -490,7 +508,12 @@ namespace ResearchAPI.Services
                 var sql = reportTask.GetSQL();
                 var dataTable = SharedRepository.GetDataTable(sql, parameters);
                 //输出处理结果
+                var projectIndicators2 = projectIndicators;
+                var filePath = $"{schedule.Id}_{DateTime.Now.ToString("yyyy_MM_dd_mm_hh_ss")}.xls";
+                var fullPath = Path.Combine(FileHelper.GetDirectory("Export"), filePath);
+                ExcelHelper.ExportDataTableToExcel(dataTable, fullPath);
                 //更新处理任务状态
+                ProjectScheduleRepository.UpdateResultFile(schedule.Id, "Export" + filePath);
                 return true;
             });
         }
@@ -517,14 +540,21 @@ namespace ResearchAPI.Services
             {
                 var tasks = ProjectTaskRepository.GetByProjectId(projectId);
                 var taskWheres = ProjectTaskWhereRepository.GetByProjectId(projectId);
-                var result = tasks.Select(c => new GetTaskModel() {
-                    ProjectId = c.ProjectId,
-                    TaskId = c.Id,
-                    TaskName = c.Name,
-                    Wheres = taskWheres.Where(d => d.TaskId == c.Id)
-                    .Select(d => {
+                var taskSchedules = ProjectScheduleRepository.GetByProjectId(projectId);
+                var result = tasks.Select(d => new GetTaskModel()
+                {
+                    ProjectId = d.ProjectId,
+                    TaskId = d.Id,
+                    TaskName = d.Name,
+                    LastCompletedAt = taskSchedules.FirstOrDefault(e => e.TaskId == d.Id)?.LastCompletedAt,
+                    ResultFile = taskSchedules.FirstOrDefault(e => e.TaskId == d.Id)?.ResultFile,
+                    Wheres = taskWheres.Where(e => e.TaskId == d.Id)
+                    .Select(d =>
+                    {
                         var item = new GetTaskWhereModel();
                         d.MapTo(item);
+                        item.OperatorName = item.Operator.GetDescription();
+                        item.DisplayName = DomainConstraits.RenderIdsToText(item.BusinessEntityPropertyId, PKVType.BusinessEntityProperty);
                         return item;
                     }).ToList(),
                 }).ToList();

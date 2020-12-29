@@ -890,6 +890,51 @@
             设置项目查看权限
             </summary>
         </member>
+        <member name="P:ResearchAPI.CORS.Common.ProjectTask.Name">
+            <summary>
+            队列名称
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.ProjectTaskWhere.BusinessEntityId">
+            <summary>
+            实体Id
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.ProjectTaskWhere.BusinessEntityPropertyId">
+            <summary>
+            属性Id
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.ProjectTaskWhere.EntityName">
+            <summary>
+            实体名称
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.ProjectTaskWhere.PropertyName">
+            <summary>
+            属性名称
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.ProjectTaskWhere.Operator">
+            <summary>
+            操作符
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.ProjectTaskWhere.Value">
+            <summary>
+            值
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.ProjectTaskWhereOperator.none">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.ProjectTaskWhereOperator.eq">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:ResearchAPI.CORS.Common.AddIndicatorsRequest.ProjectId">
             <summary>
             项目Id
@@ -1062,6 +1107,41 @@
         <member name="P:ResearchAPI.CORS.Common.EditProjectRequest.ProjectId">
             <summary>
             项目Id
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetTaskModel.ProjectId">
+            <summary>
+            项目Id
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetTaskModel.TaskId">
+            <summary>
+            队列Id
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetTaskModel.TaskName">
+            <summary>
+            队列名称
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetTaskModel.Wheres">
+            <summary>
+            队列条件
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetTaskModel.ResultFile">
+            <summary>
+            可导出文件
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetTaskModel.LastCompletedAt">
+            <summary>
+            上一次执行完成时间
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Common.GetTaskWhereModel">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:ResearchAPI.CORS.Common.GetTaskWhereModel.OperatorName">
@@ -1459,6 +1539,16 @@
             执行比例
             </summary>
         </member>
+        <member name="P:ResearchAPI.CORS.Common.GetTaskStatusModel.ResultFile">
+            <summary>
+            可导出文件
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetTaskStatusModel.CompletedAt">
+            <summary>
+            上一次执行完成时间
+            </summary>
+        </member>
         <member name="M:ResearchAPI.CORS.Common.ConfigHelper.GetSQLConfigByDirectoryName(System.String)">
             <summary>
             获取 列表sql配置
@@ -1632,6 +1722,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.UpdateIndicatorName(ResearchAPI.Services.ReportTaskService,System.Int64,System.String)">
+            <summary>
+            1.4.15.编辑指标名称
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:ResearchAPI.Controllers.EasyResearchController.CreateCustomIndicator(ResearchAPI.Services.ReportTaskService,ResearchAPI.CORS.Common.CreateCustomIndicatorRequest)">
             <summary>
             1.4.11.保存自定义指标
@@ -1702,6 +1798,14 @@
             <summary>
             
             </summary>
+        </member>
+        <member name="M:ResearchAPI.Services.ReportTaskService.UpdateIndicatorName(System.Int64,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="indicatorId"></param>
+            <param name="name"></param>
+            <returns></returns>
         </member>
         <member name="T:ResearchAPI.Services.DbContextEX">
             <summary>

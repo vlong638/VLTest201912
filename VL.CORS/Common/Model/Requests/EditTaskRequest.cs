@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ResearchAPI.CORS.Common
 {
@@ -20,12 +21,36 @@ namespace ResearchAPI.CORS.Common
 
     public class GetTaskModel
     {
+        /// <summary>
+        /// 项目Id
+        /// </summary>
         public long ProjectId { set; get; }
+        /// <summary>
+        /// 队列Id
+        /// </summary>
         public long TaskId { set; get; }
+        /// <summary>
+        /// 队列名称
+        /// </summary>
         public string TaskName { set; get; }
+        /// <summary>
+        /// 队列条件
+        /// </summary>
         public List<GetTaskWhereModel> Wheres { set; get; }
+
+        /// <summary>
+        /// 可导出文件
+        /// </summary>
+        public string ResultFile { set; get; }
+        /// <summary>
+        /// 上一次执行完成时间
+        /// </summary>
+        public DateTime? LastCompletedAt { set; get; }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public class GetTaskWhereModel: ProjectTaskWhere
     {
         /// <summary>

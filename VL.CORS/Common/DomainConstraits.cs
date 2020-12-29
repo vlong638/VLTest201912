@@ -76,6 +76,7 @@ namespace ResearchAPI.CORS.Common
         public static Dictionary<long, string> BusinessEntityPropertyDic { private set; get; }
         public static Dictionary<long, string> BusinessEntityPropertySourceDic { private set; get; }
         public static Routers Routes { get; private set; }
+        public static Dictionary<long, string> ScheduleStatuss { get; private set; }
         public static Dictionary<long, string> ViewAuthorizeTypes { private set; get; }
         public static Dictionary<string, string> LabOrders { get; private set; }
         public static List<IGrouping<string, VLKeyValue<string, string, string, string>>> LabResults { get; private set; }
@@ -177,6 +178,7 @@ namespace ResearchAPI.CORS.Common
             Routes = ConfigHelper.GetRouters(@"Configs/XMLConfigs/BusinessEntities", "Routers.xml");
             #endregion
 
+            ScheduleStatuss  = ConfigHelper.GetDictionary<long>("ScheduleStatus"); 
             ViewAuthorizeTypes = ConfigHelper.GetDictionary<long>("ViewAuthorizeType");
             Departments = ConfigHelper.GetDictionary<long>("Department");
             Users = reportTaskService.GetUsersDictionary().Data;

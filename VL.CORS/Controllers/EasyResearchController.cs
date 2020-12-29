@@ -286,6 +286,19 @@ namespace ResearchAPI.Controllers
         }
 
         /// <summary>
+        /// 1.4.15.编辑指标名称
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [AllowAnonymous]
+        [EnableCors("AllCors")]
+        public APIResult<bool> UpdateIndicatorName([FromServices] ReportTaskService service, long indicatorId, string name)
+        {
+            var result = service.UpdateIndicatorName(indicatorId, name);
+            return new APIResult<bool>(result);
+        }
+
+        /// <summary>
         /// 1.4.11.保存自定义指标
         /// </summary>
         /// <returns></returns>
@@ -448,9 +461,7 @@ namespace ResearchAPI.Controllers
             var serviceResult = service.GetTaskStatus(taskId);
             if (serviceResult.IsSuccess)
             {
-                //TODO
-                //serviceResult.Data.ScheduleStatusName = DomainConstraits.RenderIdsToText();
-                //serviceResult.Data.ProcessingRate = Redis.GetCurrentProcessingRate(taskId);
+                serviceResult.Data.ScheduleStatusName = serviceResult.Data.ScheduleStatus.GetDescription();// DomainConstraits.RenderIdToText(serviceResult.Data.ScheduleStatus,);
                 serviceResult.Data.ProcessingRate = (serviceResult.Data.ScheduleStatus == ScheduleStatus.Completed ? 100 : 50);
             }
             return new APIResult<GetTaskStatusModel>(serviceResult);

@@ -10,6 +10,9 @@ namespace ResearchAPI.CORS.Common
 
         public long Id { set; get; }
         public long ProjectId { set; get; }
+        /// <summary>
+        /// 队列名称
+        /// </summary>
         public string Name { set; get; }
     }
 }

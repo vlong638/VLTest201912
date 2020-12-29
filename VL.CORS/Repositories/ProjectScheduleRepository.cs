@@ -38,8 +38,22 @@ namespace ResearchAPI.CORS.Repositories
 
         internal GetTaskStatusModel GetTaskStatus(long taskId)
         {
-            return _connection.Query<GetTaskStatusModel>("select top 1 Status as ScheduleStatus from [ProjectSchedule] where taskId = @taskId order by id desc"
+            return _connection.Query<GetTaskStatusModel>("select top 1 Status as ScheduleStatus,ResultFile,LastCompletedAt from [ProjectSchedule] where taskId = @taskId order by id desc"
                 , new { taskId }, transaction: _transaction).FirstOrDefault();
+        }
+
+        internal bool UpdateResultFile(long scheduleId,string resultFile)
+        {
+            return _connection.Execute("update [ProjectSchedule] set ResultFile = @ResultFile , Status = @Status, LastCompletedAt = GetDate() where Id = @ScheduleId"
+                , new { scheduleId, resultFile, Status = ScheduleStatus.Completed }, transaction: _transaction) > 0;
+        }
+
+        internal List<ProjectSchedule> GetByProjectId(long projectId)
+        {
+            return _connection.Query<ProjectSchedule>(@"select ps.* 
+from(select ProjectId, TaskId, max(id) maxId from ProjectSchedule where ProjectId = @ProjectId group by ProjectId, TaskId) as t
+left join ProjectSchedule ps on t.maxId = ps.id"
+                , new { projectId }, transaction: _transaction).ToList();
         }
     }
 }
