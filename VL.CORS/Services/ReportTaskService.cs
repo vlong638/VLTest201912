@@ -320,9 +320,10 @@ namespace ResearchAPI.Services
                     var m = new GetProjectIndicatorModel();
                     c.MapTo(m);
                     m.DisplayName = c.PropertyDisplayName;
-                    var coProperty= DomainConstraits.BusinessEntityProperties.First(c => c.Id == c.Id);
-                    m.ColumnType = coProperty.ColumnType;
-                    m.EnumType = coProperty.EnumType;
+                    //自定义字段将无匹配内容,目前自定义字段只允许输入字符
+                    var coProperty= DomainConstraits.BusinessEntityProperties.FirstOrDefault(d => d.Id == c.BusinessEntityPropertyId);
+                    m.ColumnType = coProperty?.ColumnType ?? ColumnType.String;
+                    m.EnumType = coProperty?.EnumType;
                     //m.PropertyName = DomainConstraits.RenderIdsToText(m.BusinessEntityPropertyId, PKVType.BusinessEntityPropertySource);
                     //m.EntityName = DomainConstraits.RenderIdsToText(m.BusinessEntityId, PKVType.BusinessEntitySource);
                     return m;

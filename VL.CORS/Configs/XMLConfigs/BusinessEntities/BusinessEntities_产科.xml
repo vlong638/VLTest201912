@@ -24,7 +24,7 @@
 		<Properties>
 			<Property Id="101004001" DisplayName="姓名" From="Child" SourceName="Name" ColumnType="String"/>
 			<Property Id="101004002" DisplayName="生日" From="Child" SourceName="Birthday" ColumnType="DateTime"/>
-			<Property Id="101004003" DisplayName="性别" From="Child" SourceName="Sex" ColumnType="Enum" EnumType="Sex"/>
+			<Property Id="101004003" DisplayName="性别" From="Child" SourceName="Sex" ColumnType="Enum" EnumType="ChildSex"/>
 		</Properties>
 	</BusinessEntity>
 </BusinessEntities>	
