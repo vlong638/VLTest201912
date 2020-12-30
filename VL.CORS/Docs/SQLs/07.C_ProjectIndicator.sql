@@ -14,8 +14,8 @@ CREATE TABLE [dbo].[ProjectIndicator](
 	[db_updatetime] [datetime] NULL,
 	-------------------------------------------
 	EntitySourceName nvarchar(20) NULL,
-	PropertySourceName nvarchar(20) NULL,
-	PropertyDisplayName nvarchar(20) NULL,
+	PropertySourceName nvarchar(50) NULL,
+	PropertyDisplayName nvarchar(50) NULL,
 	-------------------------------------------
 
 	CONSTRAINT[PK_ProjectIndicator] PRIMARY KEY CLUSTERED 

@@ -18,5 +18,13 @@
   {
     "key": "Enum",
     "value": 4
+  },
+  {
+    "key": "Decimal",
+    "value": 5
+  },
+  {
+    "key": "BigInt",
+    "value": 6
   }
 ]
