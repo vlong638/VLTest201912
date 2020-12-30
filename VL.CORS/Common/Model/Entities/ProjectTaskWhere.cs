@@ -37,6 +37,10 @@ namespace ResearchAPI.CORS.Common
         /// </summary>
         public string Value { set; get; }
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
     public enum ProjectTaskWhereOperator
     {
         /// <summary>
@@ -48,5 +52,33 @@ namespace ResearchAPI.CORS.Common
         /// </summary>
         [Description("等于")]
         eq =1,
+        /// <summary>
+        /// 
+        /// </summary>
+        like =2,
+        /// <summary>
+        /// 
+        /// </summary>
+        isNotNull=3,
+        /// <summary>
+        /// 
+        /// </summary>
+        isNull=4,
+        /// <summary>
+        /// GreatThan
+        /// </summary>
+        gt=5,
+        /// <summary>
+        /// LessThan
+        /// </summary>
+        lt=6,
+        /// <summary>
+        /// GreatOrEqualThan
+        /// </summary>
+        get=7,
+        /// <summary>
+        /// LessOrEqualThan
+        /// </summary>
+        let=8,
     }
 }

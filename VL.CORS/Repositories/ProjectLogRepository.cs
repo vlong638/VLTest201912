@@ -36,10 +36,10 @@ namespace ResearchAPI.CORS.Repositories
             return i;
         }
 
-        internal ProjectLog GetLastestByTaskId(long taskId)
+        internal List<ProjectLog> GetByProjectId(long projectId)
         {
-            return _connection.Query<ProjectLog>("select top 1 * from [ProjectLog] where taskId = @taskId order by id desc"
-                , new { taskId }, transaction: _transaction).FirstOrDefault();
+            return _connection.Query<ProjectLog>("select * from [ProjectLog] where projectId = @projectId order by id desc"
+                , new { projectId }, transaction: _transaction).ToList();
         }
     }
 }

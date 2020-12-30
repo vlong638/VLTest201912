@@ -243,6 +243,19 @@ namespace ResearchAPI.Services
             });
         }
 
+        internal ServiceResult<List<GetProjectOperateHistoryModel>> GetProjectOperateHistory(long projectId)
+        {
+            return ResearchDbContext.DelegateNonTransaction(c =>
+            {
+                var result = ProjectLogRepository.GetByProjectId(projectId).Select(d => new GetProjectOperateHistoryModel()
+                {
+                    OperateAt = d.CreatedAt,
+                    OperatorSummary = d.Text,
+                }).ToList();
+                return result;
+            });
+        }
+
         internal ServiceResult<bool> DeleteProjectIndicator(long indicatorId)
         {
             return ResearchDbContext.DelegateNonTransaction(c =>

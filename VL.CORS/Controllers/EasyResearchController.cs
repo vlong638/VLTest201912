@@ -89,6 +89,25 @@ namespace ResearchAPI.Controllers
             List<VLKeyValue<string, string>> values = new List<VLKeyValue<string, string>>();
             switch (type)
             {
+                case "Operator":
+                    switch (parentId)
+                    {
+                        case "1":
+                            values = ConfigHelper.GetJsonConfig<string, string>("Operator2String");
+                            break;
+                        case "2":
+                            values = ConfigHelper.GetJsonConfig<string, string>("Operator2DateTime");
+                            break;
+                        case "3":
+                            values = ConfigHelper.GetJsonConfig<string, string>("Operator2Int");
+                            break;
+                        case "4":
+                            values = ConfigHelper.GetJsonConfig<string, string>("Operator2Enum");
+                            break;
+                        default:
+                            break;
+                    }
+                    return Success(values);
                 case "ProjectTask":
                     values.AddRange(service.GetTaskNameAndIds(parentId.ToLong().Value).Data);
                     return Success(values);
@@ -224,9 +243,10 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<GetProjectOperateHistoryModel> GetProjectOperateHistory(long projectId)
+        public APIResult<List<GetProjectOperateHistoryModel>> GetProjectOperateHistory([FromServices] ReportTaskService service, long projectId)
         {
-            throw new NotImplementedException();
+            var serviceResult = service.GetProjectOperateHistory(projectId);
+            return new APIResult<List<GetProjectOperateHistoryModel>>(serviceResult);
         }
 
         /// <summary>
