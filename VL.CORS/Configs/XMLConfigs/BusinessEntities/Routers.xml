@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Routers>
 	<Router From="PregnantInfo" FromAlias="lo" To="MHC_VisitRecord" ToAlias="lr" RouteType="LeftJoin">
-		<On FromField="pregnantInfoId" ToField="pregnantInfoId"/>
+		<On FromField="Id" ToField="pregnantInfoId"/>
 	</Router>
 	<Router From="PregnantInfo" FromAlias="lo" To="MHC_FirstVisitRecord" ToAlias="lr" RouteType="LeftJoin">
-		<On FromField="pregnantInfoId" ToField="pregnantInfoId"/>
+		<On FromField="Id" ToField="pregnantInfoId"/>
 	</Router>
 	<Router From="PregnantInfo" FromAlias="pi" To="LabOrder" ToAlias="lo" RouteType="LeftJoin">
 		<On FromField="Idcard" ToField="Idcard"/>

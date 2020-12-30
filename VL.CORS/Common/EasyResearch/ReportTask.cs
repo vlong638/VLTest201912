@@ -131,6 +131,7 @@ namespace ResearchAPI.CORS.Common
 {GetSelect(properties)}
 {GetFrom(routers, properties, customBusinessEntities, templates)}
 {GetWhere(conditions)}
+{GetGroupBy(properties)}
 ";
             UpdateIf(ref sql, TemplateConditions);
             return sql;
@@ -230,6 +231,11 @@ namespace ResearchAPI.CORS.Common
         private string GetSelect(List<COBusinessEntityProperty> properties)
         {
             return "select " + string.Join(",", properties.Select(c => $"[{c.From}].{c.SourceName} as {c.From}_{c.SourceName}"));
+        }
+
+        private string GetGroupBy(List<COBusinessEntityProperty> properties)
+        {
+            return "group by " + string.Join(",", properties.Select(c => $"[{c.From}].{c.SourceName}"));
         }
 
         public void Update(List<ProjectIndicator> projectIndicators, List<ProjectTaskWhere> taskWheres, List<CustomBusinessEntity> customBusinessEntities, List<CustomBusinessEntityWhere> customBusinessEntityWheres, Routers routers, List<BusinessEntityTemplate> templates, ReportTask reportTask)
