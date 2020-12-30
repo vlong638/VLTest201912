@@ -86,11 +86,11 @@ namespace ResearchAPI.CORS.Common
             if (id.Equals(default(T)))
                 return null;
             List<T> ids = new List<T>() { id };
-            var values = RenderIdsToText(ids, source);
+            var values = RenderIdToText(ids, source);
             return values.First();
         }
 
-        internal static List<string> RenderIdsToText<T>(List<T> ids, Dictionary<T, string> source)
+        internal static List<string> RenderIdToText<T>(List<T> ids, Dictionary<T, string> source)
         {
             if (ids == null || ids.Count == 0)
                 return null;

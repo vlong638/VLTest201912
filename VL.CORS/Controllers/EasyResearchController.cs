@@ -197,26 +197,36 @@ namespace ResearchAPI.Controllers
             var result = service.CreateProject(request, userid);
             if (result.IsSuccess)
             {
-                ////项目名称
-                //var projectId = result.Data;
-                //var userId = context.GetCurrentUser().UserId;
-                //var userName = context.GetCurrentUser().UserName;
-                //var text = $"{userName}设置了项目名称:{request.ProjectName}";
-                //service.AddProjectLog(userId, projectId, ActionType.EditProjectName, text);
+                //{用户}设置了项目名称{项目名称}，
+                var projectId = result.Data;
+                var userId = context.GetCurrentUser().UserId;
+                var userName = context.GetCurrentUser().UserName;
+                var text = $"{userName}设置了项目名称:{request.ProjectName}";
+                service.AddProjectLog(userId, projectId, ActionType.EditProjectName, text);
 
-                ////{用户}添加了项目管理员{用户名}，
-                ////{用户}删除了项目管理员{用户名}，
-                ////{用户}添加了项目成员{用户名}，
-                ////{用户}删除了项目成员{用户名}，
-                ////{用户}添加了关联科室{科室名称}，
-                ////{用户}删除了关联科室{科室名称}，
-                ////{用户}修改项目查看权限为{权限名称}，
-                //var adminIds = request.AdminIds;
-                //var adminNames = DomainConstraits.RenderIdsToText(adminIds)
-                //var text = $"{userName}添加了项目管理员:{request.ProjectName}";
-                //service.AddProjectLog(userId, projectId, ActionType.AddProjectMember, text);
+                //{用户}添加了项目管理员{用户名}，
+                var adminIds = request.AdminIds;
+                var adminNames = DomainConstraits.RenderIdToText(adminIds, DomainConstraits.Users);
+                text = $"{userName}添加了项目管理员:{string.Join(",", adminNames)}";
+                service.AddProjectLog(userId, projectId, ActionType.AddProjectManager, text);
 
+                //{用户}添加了项目成员{用户名}，
+                var memberIds = request.MemberIds;
+                var memberNames = DomainConstraits.RenderIdToText(memberIds, DomainConstraits.Users);
+                text = $"{userName}添加了项目成员:{string.Join(",", memberNames)}";
+                service.AddProjectLog(userId, projectId, ActionType.AddProjectMember, text);
 
+                //{用户}添加了关联科室{科室名称}，
+                var departmentIds = request.DepartmentIds;
+                var departmentNames = DomainConstraits.RenderIdToText(departmentIds, DomainConstraits.Departments);
+                text = $"{userName}添加了关联科室:{string.Join(",", departmentNames)}";
+                service.AddProjectLog(userId, projectId, ActionType.AddProjectDepartment, text);
+
+                //{用户}修改项目查看权限为{权限名称}，
+                var viewAuthorizeType = request.ViewAuthorizeType;
+                var viewAuthorizeTypeName = DomainConstraits.RenderIdToText(viewAuthorizeType, DomainConstraits.ViewAuthorizeTypes);
+                text = $"{userName}设置了项目名称:{viewAuthorizeTypeName}";
+                service.AddProjectLog(userId, projectId, ActionType.SetProjectViewAtuhorityType, text);
             }
             return new APIResult<long>(result);
         }
@@ -285,10 +295,10 @@ namespace ResearchAPI.Controllers
                 return new APIResult<GetBriefProjectModel>(null, serviceResult.Code, serviceResult.Message);
             var result = new GetBriefProjectModel(serviceResult.Data);
             result.ViewAuthorizeTypeName = DomainConstraits.RenderIdToText(result.ViewAuthorizeType, DomainConstraits.ViewAuthorizeTypes);
-            result.DepartmentNames = DomainConstraits.RenderIdsToText(result.DepartmentIds, DomainConstraits.Departments);
-            result.AdminNames = DomainConstraits.RenderIdsToText(result.AdminIds, DomainConstraits.Users);
+            result.DepartmentNames = DomainConstraits.RenderIdToText(result.DepartmentIds, DomainConstraits.Departments);
+            result.AdminNames = DomainConstraits.RenderIdToText(result.AdminIds, DomainConstraits.Users);
             result.CreateName = DomainConstraits.RenderIdToText(result.CreatorId ?? 0, DomainConstraits.Users);
-            result.MemberNames = DomainConstraits.RenderIdsToText(result.MemberIds, DomainConstraits.Users);
+            result.MemberNames = DomainConstraits.RenderIdToText(result.MemberIds, DomainConstraits.Users);
             return new APIResult<GetBriefProjectModel>(result);
         }
 
