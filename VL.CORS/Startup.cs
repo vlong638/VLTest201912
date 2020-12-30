@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using ResearchAPI.CORS.Common;
 using ResearchAPI.Services;
 using System;
+using System.IO;
 
 namespace VL.CORS
 {
@@ -79,8 +81,10 @@ namespace VL.CORS
             //ÆôÓÃ¾²Ì¬ÎÄ¼þ
             app.UseStaticFiles(new StaticFileOptions()
             {
-                ServeUnknownFileTypes = true
-            });
+                ServeUnknownFileTypes = true,
+                FileProvider = new PhysicalFileProvider(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Export")),
+                RequestPath = "/Export"
+            });;
 
             //swagger
             app.UseSwagger();
