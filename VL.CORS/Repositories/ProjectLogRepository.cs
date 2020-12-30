@@ -41,5 +41,22 @@ namespace ResearchAPI.CORS.Repositories
             return _connection.Query<ProjectLog>("select * from [ProjectLog] where projectId = @projectId order by id desc"
                 , new { projectId }, transaction: _transaction).ToList();
         }
+
+        internal List<ProjectLog> GetProjectLogs(GetProjectOperateHistoryRequest request)
+        {
+            return _connection.Query<ProjectLog>(@$"select * from [ProjectLog] 
+where projectId = @projectId 
+{(request.OperateTimeStart.HasValue ? " and CreateAt>=@OperateTimeStart" : "")}
+{(request.OperateTimeEnd.HasValue ? " and CreateAt<=@OperateTimeEnd" : "")}
+{(request.OperatorId.HasValue && request.OperatorId != 0 ? " and OperatorId =@OperatorId" : "")}
+order by id desc"
+                , new
+                {
+                    projectId = request.ProjectId,
+                    OperateTimeStart = request.OperateTimeStart,
+                    OperateTimeEnd = request.OperateTimeEnd,
+                    OperatorId = request.OperatorId,
+                }, transaction: _transaction).ToList();
+        }
     }
 }

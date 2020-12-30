@@ -23,14 +23,14 @@ namespace ResearchAPI.CORS.Common
         ///// 字段Id
         ///// </summary>
         //public long BusinessEntityPropertyId { set; get; }
-        ///// <summary>
-        ///// 实体名称 如`基本档案`
-        ///// </summary>
-        //public string EntityName { set; get; }
-        ///// <summary>
-        ///// 显示名称 如`性别`
-        ///// </summary>
-        //public string PropertyName { set; get; }
+        /// <summary>
+        /// 实体名称 如`基本档案`
+        /// </summary>
+        public string EntityName { set; get; }
+        /// <summary>
+        /// 显示名称 如`性别`
+        /// </summary>
+        public string PropertyName { set; get; }
         /// <summary>
         /// 用户设置的别名
         /// </summary>

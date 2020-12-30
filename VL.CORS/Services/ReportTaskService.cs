@@ -90,6 +90,15 @@ namespace ResearchAPI.Services
             });
         }
 
+        internal ServiceResult<Dictionary<string, long>> GetProjectMemberIdAndName(long projectId)
+        {
+            return ResearchDbContext.DelegateNonTransaction(c =>
+            {
+                var users = ProjectMemberRepository.GetUsersByProjectId(projectId);
+                return users.ToDictionary(key => key.Name, value => value.Id);
+            });
+        }
+
         internal ServiceResult<GetProjectModel> GetProject(long projectId)
         {
             return ResearchDbContext.DelegateNonTransaction(c =>
@@ -240,11 +249,11 @@ namespace ResearchAPI.Services
             });
         }
 
-        internal ServiceResult<List<GetProjectOperateHistoryModel>> GetProjectOperateHistory(long projectId)
+        internal ServiceResult<List<GetProjectOperateHistoryModel>> GetProjectOperateHistory(GetProjectOperateHistoryRequest request)
         {
             return ResearchDbContext.DelegateNonTransaction(c =>
             {
-                var result = ProjectLogRepository.GetByProjectId(projectId).Select(d => new GetProjectOperateHistoryModel()
+                var result = ProjectLogRepository.GetProjectLogs(request).Select(d => new GetProjectOperateHistoryModel()
                 {
                     OperateAt = d.CreatedAt,
                     OperatorSummary = d.Text,
@@ -342,6 +351,8 @@ namespace ResearchAPI.Services
                     var m = new GetProjectIndicatorModel();
                     c.MapTo(m);
                     m.DisplayName = c.PropertyDisplayName;
+                    m.PropertyName = DomainConstraits.RenderIdToText(c.BusinessEntityPropertyId, DomainConstraits.BusinessEntityPropertyDisplayDic);
+                    m.EntityName = DomainConstraits.RenderIdToText(c.BusinessEntityId, DomainConstraits.BusinessEntityDisplayDic);
 
                     //自定义字段将无匹配内容,目前自定义字段只允许输入字符,默认为字符
                     var coProperty = DomainConstraits.BusinessEntityProperties.FirstOrDefault(d => d.Id == c.BusinessEntityPropertyId);

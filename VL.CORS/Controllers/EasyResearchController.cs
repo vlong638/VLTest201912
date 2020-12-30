@@ -111,6 +111,13 @@ namespace ResearchAPI.Controllers
                 case "ProjectTask":
                     values.AddRange(service.GetTaskNameAndIds(parentId.ToLong().Value).Data);
                     return Success(values);
+                case "ProjectMember":
+                    var result = service.GetProjectMemberIdAndName(parentId.ToLong().Value);
+                    foreach (var user in result.Data)
+                    {
+                        values.Add(new VLKeyValue<string, string>(user.Key, user.Value.ToString()));
+                    }
+                    return Success(values);
                 case "BusinessEntity":
                     values.AddRange(DomainConstraits.BusinessEntities
                         .Where(c => c.BusinessTypeId == parentId.ToLong())
@@ -276,9 +283,9 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<List<GetProjectOperateHistoryModel>> GetProjectOperateHistory([FromServices] ReportTaskService service, long projectId)
+        public APIResult<List<GetProjectOperateHistoryModel>> GetProjectOperateHistory([FromServices] ReportTaskService service, GetProjectOperateHistoryRequest request)
         {
-            var serviceResult = service.GetProjectOperateHistory(projectId);
+            var serviceResult = service.GetProjectOperateHistory(request);
             return new APIResult<List<GetProjectOperateHistoryModel>>(serviceResult);
         }
 
