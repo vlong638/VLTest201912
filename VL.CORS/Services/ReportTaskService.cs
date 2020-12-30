@@ -291,12 +291,6 @@ namespace ResearchAPI.Services
             });
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="indicatorId"></param>
-        /// <param name="name"></param>
-        /// <returns></returns>
         internal ServiceResult<bool> UpdateIndicatorName(long indicatorId, string name)
         {
             return ResearchDbContext.DelegateTransaction(c =>

@@ -33,7 +33,7 @@ namespace ResearchAPI.CORS.Repositories
 
         public int UpdateName(long id, string projectName)
         {
-            return _connection.Execute("update [ProjectTask] Name=@projectName where id = @id"
+            return _connection.Execute("update [ProjectTask] set Name=@projectName where id = @id"
                 , new { id, projectName }, transaction: _transaction);
         }
 
