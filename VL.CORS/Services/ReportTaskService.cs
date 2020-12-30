@@ -3,8 +3,6 @@ using Autobots.Infrastracture.Common.ExcelSolution;
 using Autobots.Infrastracture.Common.PagerSolution;
 using Autobots.Infrastracture.Common.ServiceSolution;
 using Autobots.Infrastracture.Common.ValuesSolution;
-using Microsoft.AspNetCore.Http;
-using ResearchAPI.Controllers;
 using ResearchAPI.CORS.Common;
 using ResearchAPI.CORS.Repositories;
 using System;
@@ -12,7 +10,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Text;
 using VLAutobots.Infrastracture.Common.FileSolution;
 using static ResearchAPI.CORS.Common.DomainConstraits;
 
@@ -424,9 +421,9 @@ namespace ResearchAPI.Services
                 projectIndicator.ProjectId = request.ProjectId;
                 projectIndicator.BusinessEntityId = request.BusinessEntityId;
                 projectIndicator.BusinessEntityPropertyId = c;
-                projectIndicator.EntitySourceName = DomainConstraits.RenderIdsToText(request.BusinessEntityId, PKVType.BusinessEntitySource);
-                projectIndicator.PropertySourceName = DomainConstraits.RenderIdsToText(c, PKVType.BusinessEntityPropertySource);
-                projectIndicator.PropertyDisplayName = DomainConstraits.RenderIdsToText(c, PKVType.BusinessEntityProperty);
+                projectIndicator.EntitySourceName = RenderIdToText(request.BusinessEntityId, BusinessEntitySourceDic);
+                projectIndicator.PropertySourceName = RenderIdToText(c, BusinessEntityPropertySourceDic);
+                projectIndicator.PropertyDisplayName = projectIndicator.PropertySourceName;
                 return projectIndicator;
             }).ToList();
             //Logic
@@ -588,6 +585,7 @@ namespace ResearchAPI.Services
             return ResearchDbContext.DelegateNonTransaction(c =>
             {
                 var tasks = ProjectTaskRepository.GetByProjectId(projectId);
+                var taskProperties = ProjectIndicatorRepository.GetByProjectId(projectId);
                 var taskWheres = ProjectTaskWhereRepository.GetByProjectId(projectId);
                 var taskSchedules = ProjectScheduleRepository.GetByProjectId(projectId);
                 var result = tasks.Select(d => new GetTaskModel()
@@ -598,12 +596,13 @@ namespace ResearchAPI.Services
                     LastCompletedAt = taskSchedules.FirstOrDefault(e => e.TaskId == d.Id)?.LastCompletedAt,
                     ResultFile = taskSchedules.FirstOrDefault(e => e.TaskId == d.Id)?.ResultFile,
                     Wheres = taskWheres.Where(e => e.TaskId == d.Id)
-                    .Select(d =>
+                    .Select(e =>
                     {
+                        var taskPropertiesDic = taskProperties.ToDictionary(key => key.BusinessEntityPropertyId, value => value.PropertyDisplayName);
                         var item = new GetTaskWhereModel();
-                        d.MapTo(item);
+                        e.MapTo(item);
                         item.OperatorName = item.Operator.GetDescription();
-                        item.DisplayName = DomainConstraits.RenderIdsToText(item.BusinessEntityPropertyId, PKVType.BusinessEntityProperty);
+                        item.DisplayName = RenderIdToText(item.BusinessEntityPropertyId, taskPropertiesDic);
                         return item;
                     }).ToList(),
                 }).ToList();

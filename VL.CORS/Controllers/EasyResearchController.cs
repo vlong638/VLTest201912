@@ -195,6 +195,29 @@ namespace ResearchAPI.Controllers
         {
             var userid = context.GetCurrentUser().UserId;
             var result = service.CreateProject(request, userid);
+            if (result.IsSuccess)
+            {
+                ////项目名称
+                //var projectId = result.Data;
+                //var userId = context.GetCurrentUser().UserId;
+                //var userName = context.GetCurrentUser().UserName;
+                //var text = $"{userName}设置了项目名称:{request.ProjectName}";
+                //service.AddProjectLog(userId, projectId, ActionType.EditProjectName, text);
+
+                ////{用户}添加了项目管理员{用户名}，
+                ////{用户}删除了项目管理员{用户名}，
+                ////{用户}添加了项目成员{用户名}，
+                ////{用户}删除了项目成员{用户名}，
+                ////{用户}添加了关联科室{科室名称}，
+                ////{用户}删除了关联科室{科室名称}，
+                ////{用户}修改项目查看权限为{权限名称}，
+                //var adminIds = request.AdminIds;
+                //var adminNames = DomainConstraits.RenderIdsToText(adminIds)
+                //var text = $"{userName}添加了项目管理员:{request.ProjectName}";
+                //service.AddProjectLog(userId, projectId, ActionType.AddProjectMember, text);
+
+
+            }
             return new APIResult<long>(result);
         }
 
