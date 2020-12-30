@@ -283,7 +283,7 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<List<GetProjectOperateHistoryModel>> GetProjectOperateHistory([FromServices] ReportTaskService service, GetProjectOperateHistoryRequest request)
+        public APIResult<List<GetProjectOperateHistoryModel>> GetProjectOperateHistory([FromServices] ReportTaskService service,[FromBody] GetProjectOperateHistoryRequest request)
         {
             var serviceResult = service.GetProjectOperateHistory(request);
             return new APIResult<List<GetProjectOperateHistoryModel>>(serviceResult);

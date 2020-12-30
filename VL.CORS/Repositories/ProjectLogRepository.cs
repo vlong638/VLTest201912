@@ -46,8 +46,8 @@ namespace ResearchAPI.CORS.Repositories
         {
             return _connection.Query<ProjectLog>(@$"select * from [ProjectLog] 
 where projectId = @projectId 
-{(request.OperateTimeStart.HasValue ? " and CreateAt>=@OperateTimeStart" : "")}
-{(request.OperateTimeEnd.HasValue ? " and CreateAt<=@OperateTimeEnd" : "")}
+{(request.OperateTimeStart.HasValue ? " and CreatedAt>=@OperateTimeStart" : "")}
+{(request.OperateTimeEnd.HasValue ? " and CreatedAt<=@OperateTimeEnd" : "")}
 {(request.OperatorId.HasValue && request.OperatorId != 0 ? " and OperatorId =@OperatorId" : "")}
 order by id desc"
                 , new
