@@ -225,7 +225,7 @@ namespace ResearchAPI.Controllers
                 //{用户}修改项目查看权限为{权限名称}，
                 var viewAuthorizeType = request.ViewAuthorizeType;
                 var viewAuthorizeTypeName = DomainConstraits.RenderIdToText(viewAuthorizeType, DomainConstraits.ViewAuthorizeTypes);
-                text = $"{userName}设置了项目名称:{viewAuthorizeTypeName}";
+                text = $"{userName}设置了项目查看权限:{viewAuthorizeTypeName}";
                 service.AddProjectLog(userId, projectId, ActionType.SetProjectViewAtuhorityType, text);
             }
             return new APIResult<long>(result);
