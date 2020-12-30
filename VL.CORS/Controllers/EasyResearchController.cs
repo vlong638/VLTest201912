@@ -406,7 +406,7 @@ namespace ResearchAPI.Controllers
             var serviceResult = service.CreateTask(request);
             if (serviceResult.IsSuccess)
             {
-                var projectId = serviceResult.Data;
+                var projectId = request.ProjectId;
                 var taskName = request.TaskName;
                 var userId = context.GetCurrentUser().UserId;
                 var userName = context.GetCurrentUser().UserName;

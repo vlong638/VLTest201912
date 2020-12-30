@@ -566,6 +566,7 @@ namespace ResearchAPI.Services
                 return true;
             });
         }
+
         internal ServiceResult<bool> EditTaskName(EditTaskNameRequest request)
         {
             return ResearchDbContext.DelegateTransaction(c =>
@@ -573,6 +574,7 @@ namespace ResearchAPI.Services
                 return ProjectTaskRepository.UpdateName(request.TaskId, request.TaskName) > 0;
             });
         }
+
         internal ServiceResult<bool> DeleteTask(long taskId)
         {
             return ResearchDbContext.DelegateTransaction(c =>
@@ -580,6 +582,7 @@ namespace ResearchAPI.Services
                 return ProjectTaskRepository.DeleteById(taskId);
             });
         }
+
         internal ServiceResult<List<GetTaskModel>> GetTasks(long projectId)
         {
             return ResearchDbContext.DelegateNonTransaction(c =>
