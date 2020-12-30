@@ -427,7 +427,7 @@ namespace ResearchAPI.Services
                 projectIndicator.BusinessEntityPropertyId = c;
                 projectIndicator.EntitySourceName = RenderIdToText(request.BusinessEntityId, BusinessEntitySourceDic);
                 projectIndicator.PropertySourceName = RenderIdToText(c, BusinessEntityPropertySourceDic);
-                projectIndicator.PropertyDisplayName = projectIndicator.PropertySourceName;
+                projectIndicator.PropertyDisplayName = RenderIdToText(c, BusinessEntityPropertyDisplayDic);
                 return projectIndicator;
             }).ToList();
             //Logic

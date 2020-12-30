@@ -164,6 +164,7 @@ namespace ResearchAPI.Controllers
         [EnableCors("AllCors")]
         public APIResult<VLPagerResult<List<Dictionary<string, object>>>> GetPagedProjects([FromServices] ReportTaskService service, [FromBody] GetCommonSelectRequest request)
         {
+            //TODO加入访问Id的控制
             var result = service.GetPagedResultBySQLConfig(request);
             return new APIResult<VLPagerResult<List<Dictionary<string, object>>>>(result);
         }
