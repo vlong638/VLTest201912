@@ -1,5 +1,6 @@
 ﻿using Autobots.Infrastracture.Common.DBSolution;
 using Autobots.Infrastracture.Common.RepositorySolution;
+using Autobots.Infrastracture.Common.ValuesSolution;
 using Dapper;
 using ResearchAPI.CORS.Common;
 using System;
@@ -44,17 +45,19 @@ namespace ResearchAPI.CORS.Repositories
 
         internal List<ProjectLog> GetProjectLogs(GetProjectOperateHistoryRequest request)
         {
+            var operatorTimeStart = request.OperateTimeStart?.ToDateTime();
+            var operateTimeEnd = request.OperateTimeEnd?.ToDateTime();
             return _connection.Query<ProjectLog>(@$"select * from [ProjectLog] 
 where projectId = @projectId 
-{(request.OperateTimeStart.HasValue ? " and CreatedAt>=@OperateTimeStart" : "")}
-{(request.OperateTimeEnd.HasValue ? " and CreatedAt<=@OperateTimeEnd" : "")}
+{(operatorTimeStart.HasValue ? " and CreatedAt>=@OperateTimeStart" : "")}
+{(operateTimeEnd.HasValue ? " and CreatedAt<=@OperateTimeEnd" : "")}
 {(request.OperatorId.HasValue && request.OperatorId != 0 ? " and OperatorId =@OperatorId" : "")}
 order by id desc"
                 , new
                 {
-                    projectId = request.ProjectId,
-                    OperateTimeStart = request.OperateTimeStart,
-                    OperateTimeEnd = request.OperateTimeEnd,
+                    ProjectId = request.ProjectId,
+                    OperateTimeStart = operatorTimeStart,
+                    OperateTimeEnd = operateTimeEnd,
                     OperatorId = request.OperatorId,
                 }, transaction: _transaction).ToList();
         }

@@ -15,11 +15,11 @@ namespace ResearchAPI.CORS.Common
         /// <summary>
         /// 
         /// </summary>
-        public DateTime? OperateTimeStart { set; get; }
+        public string OperateTimeStart { set; get; }
         /// <summary>
         /// 
         /// </summary>
-        public DateTime? OperateTimeEnd { set; get; }
+        public string OperateTimeEnd { set; get; }
         /// <summary>
         /// 
         /// </summary>
