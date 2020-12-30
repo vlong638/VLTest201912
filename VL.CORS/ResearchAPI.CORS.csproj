@@ -18,6 +18,15 @@
   <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
   <ItemGroup>
+    <None Remove="Docs\ForTest\9901_Data_PREGNANTINFO.sql" />
+    <None Remove="Docs\ForTest\9901_PREGNANTINFO.sql" />
+    <None Remove="Docs\ForTest\temp_1230_LabOrder.sql" />
+    <None Remove="Docs\ForTest\temp_1230_LabResult.sql" />
+    <None Remove="Docs\ForTest\temp_1230_MHC_VisitRecord.sql" />
+    <None Remove="Docs\ForTest\temp_1230_PregnantInfo.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="log4net" Version="2.0.12" />
     <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.6.3" />
@@ -36,9 +45,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Configs\XMLConfigs\BusinessEntities\BusinessEntities_分娩.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="Configs\XMLConfigs\BusinessEntities\BusinessEntities_产科.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -70,6 +76,7 @@
 
   <ItemGroup>
     <Folder Include="Common\Model\BOs\" />
+    <Folder Include="Docs\ForTest\" />
   </ItemGroup>
 
 

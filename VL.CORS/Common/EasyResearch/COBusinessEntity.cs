@@ -18,7 +18,7 @@ namespace ResearchAPI.CORS.Common
             DisplayName = element.Attribute(nameof(DisplayName))?.Value;
             SourceName = element.Attribute(nameof(SourceName))?.Value;
             Template = element.Attribute(nameof(Template))?.Value;
-            Properties.AddRange(element.Descendants(COBusinessEntityProperty.ElementName).Select(c => new COBusinessEntityProperty(c)));
+            Properties.AddRange(element.Descendants(COBusinessEntityProperty.ElementName).Select(c => new COBusinessEntityProperty(this,c)));
         }
 
         public long Id { set; get; }

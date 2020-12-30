@@ -133,24 +133,17 @@ namespace ResearchAPI.Services
             return ResearchDbContext.DelegateNonTransaction(c =>
             {
                 var result = UserRepository.GetAllUsers();
-                var dic = new Dictionary<long, string>();
-                foreach (var item in result)
-                {
-                    dic.Add(item.Id, item.Name);
-                }
-                return dic;
+                return result.ToDictionary(c => c.Id, c => c.Name);
             });
         }
 
         internal ServiceResult<Dictionary<long, string>> GetRolesDictionary()
         {
-            var result = RoleRepository.GetAllRoles();
-            var dic = new Dictionary<long, string>();
-            foreach (var item in result)
+            return ResearchDbContext.DelegateNonTransaction(c =>
             {
-                dic.Add(item.Id, item.Name);
-            }
-            return new ServiceResult<Dictionary<long, string>>(dic);
+                var result = RoleRepository.GetAllRoles();
+                return result.ToDictionary(c => c.Id, c => c.Name);
+            });
         }
 
         internal ServiceResult<List<User>> GetAllUsers()
@@ -599,14 +592,18 @@ namespace ResearchAPI.Services
                 var taskProperties = ProjectIndicatorRepository.GetByProjectId(projectId);
                 var taskWheres = ProjectTaskWhereRepository.GetByProjectId(projectId);
                 var taskSchedules = ProjectScheduleRepository.GetByProjectId(projectId);
-                var result = tasks.Select(d => new GetTaskModel()
-                {
-                    ProjectId = d.ProjectId,
-                    TaskId = d.Id,
-                    TaskName = d.Name,
-                    LastCompletedAt = taskSchedules.FirstOrDefault(e => e.TaskId == d.Id)?.LastCompletedAt,
-                    ResultFile = taskSchedules.FirstOrDefault(e => e.TaskId == d.Id)?.ResultFile,
-                    Wheres = taskWheres.Where(e => e.TaskId == d.Id)
+                var result = tasks.Select(d => {
+                    var schedule = taskSchedules.FirstOrDefault(e => e.TaskId == d.Id);
+                    var model = new GetTaskModel()
+                    {
+                        ProjectId = d.ProjectId,
+                        TaskId = d.Id,
+                        TaskName = d.Name,
+                        ScheduleStatus = schedule?.Status ?? ScheduleStatus.None,
+                        ScheduleStatusName = schedule?.Status.GetDescription(),
+                        LastCompletedAt = schedule?.LastCompletedAt,
+                        ResultFile = schedule?.ResultFile,
+                        Wheres = taskWheres.Where(e => e.TaskId == d.Id)
                     .Select(e =>
                     {
                         var taskPropertiesDic = taskProperties.ToDictionary(key => key.BusinessEntityPropertyId, value => value.PropertyDisplayName);
@@ -616,6 +613,8 @@ namespace ResearchAPI.Services
                         item.DisplayName = RenderIdToText(item.BusinessEntityPropertyId, taskPropertiesDic);
                         return item;
                     }).ToList(),
+                    };
+                    return model;
                 }).ToList();
                 return result;
             });

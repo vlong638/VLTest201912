@@ -69,5 +69,13 @@ namespace ResearchAPI.CORS.Common
         /// 枚举
         /// </summary>
         Enum = 4,
+        /// <summary>
+        /// 十进制数值
+        /// </summary>
+        Decimal = 5,
+        /// <summary>
+        /// 长数值
+        /// </summary>
+        BigInt = 6,
     }
 }

@@ -980,6 +980,26 @@
             {用户}在科研队列{队列名称}中修改了条件{指标名称}
             </summary>
         </member>
+        <member name="F:ResearchAPI.CORS.Common.ScheduleStatus.Ready">
+            <summary>
+            等待执行
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.ScheduleStatus.Started">
+            <summary>
+            正在执行
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.ScheduleStatus.Completed">
+            <summary>
+            执行成功
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.ScheduleStatus.Failed">
+            <summary>
+            执行失败
+            </summary>
+        </member>
         <member name="P:ResearchAPI.CORS.Common.ProjectTask.Name">
             <summary>
             队列名称
@@ -1267,6 +1287,16 @@
         <member name="P:ResearchAPI.CORS.Common.GetTaskModel.Wheres">
             <summary>
             队列条件
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetTaskModel.ScheduleStatus">
+            <summary>
+            执行状态
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetTaskModel.ScheduleStatusName">
+            <summary>
+            执行状态_文本
             </summary>
         </member>
         <member name="P:ResearchAPI.CORS.Common.GetTaskModel.ResultFile">
@@ -1647,6 +1677,16 @@
         <member name="F:ResearchAPI.CORS.Common.ColumnType.Enum">
             <summary>
             枚举
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.ColumnType.Decimal">
+            <summary>
+            十进制数值
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.ColumnType.BigInt">
+            <summary>
+            长数值
             </summary>
         </member>
         <member name="T:ResearchAPI.CORS.Common.GetProjectModel">

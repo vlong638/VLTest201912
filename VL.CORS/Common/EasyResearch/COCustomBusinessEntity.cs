@@ -15,7 +15,7 @@ namespace ResearchAPI.CORS.Common
         {
             ReportName = element.Attribute(nameof(ReportName))?.Value;
             Template = element.Attribute(nameof(Template))?.Value;
-            Properties.AddRange(element.Descendants(COBusinessEntityProperty.ElementName).Select(c => new COBusinessEntityProperty(c)));
+            Properties.AddRange(element.Descendants(COBusinessEntityProperty.ElementName).Select(c => new COBusinessEntityProperty(null, c)));
         }
 
         public string ReportName { set; get; }

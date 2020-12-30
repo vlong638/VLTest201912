@@ -10,11 +10,11 @@ namespace ResearchAPI.CORS.Common
         public COBusinessEntityProperty()
         {
         }
-        public COBusinessEntityProperty(XElement element)
+        public COBusinessEntityProperty(COBusinessEntity cOBusinessEntity, XElement element)
         {
+            From = cOBusinessEntity.SourceName;
             Id = element.Attribute(nameof(Id)).Value.ToLong().Value;
             DisplayName = element.Attribute(nameof(DisplayName))?.Value;
-            From = element.Attribute(nameof(From))?.Value;
             SourceName = element.Attribute(nameof(SourceName))?.Value;
             ColumnType = element.Attribute(nameof(ColumnType))?.Value.ToEnum<ColumnType>() ?? ColumnType.None;
             EnumType = element.Attribute(nameof(EnumType))?.Value;

@@ -41,6 +41,14 @@ namespace ResearchAPI.CORS.Common
         public List<GetTaskWhereModel> Wheres { set; get; }
 
         /// <summary>
+        /// 执行状态
+        /// </summary>
+        public ScheduleStatus ScheduleStatus { set; get; }
+        /// <summary>
+        /// 执行状态_文本
+        /// </summary>
+        public string ScheduleStatusName { set; get; }
+        /// <summary>
         /// 可导出文件
         /// </summary>
         public string ResultFile { set; get; }
