@@ -18,6 +18,6 @@ namespace ResearchAPI.CORS.Common
         /// <summary>
         /// 复制队列Id
         /// </summary>
-        public long CopyTaskId { get; set; }
+        public long? CopyTaskId { get; set; }
     }
 }

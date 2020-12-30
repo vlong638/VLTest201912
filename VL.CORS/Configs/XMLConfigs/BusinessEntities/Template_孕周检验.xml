@@ -11,7 +11,7 @@
 	<SQLConfig>
 		<Wheres>
 			<Where ComponentName="检查单类别" DisplayName="检查单类别" DisplayType="3" formatter="'%@检查单类别%'" Required="true"/>
-			<Where ComponentName="检验类别" DisplayName="检验类别" DisplayType="3" Options="0148:葡萄糖,0193:血红蛋白" Required="true"/>
+			<Where ComponentName="检验类别" DisplayName="检验类别" DisplayType="3" Required="true"/>
 			<Where ComponentName="起始孕周" DisplayName="起始孕周" DisplayType="5"/>
 			<Where ComponentName="截止孕周" DisplayName="截止孕周" DisplayType="5"/>
 			<Where ComponentName="多值时取值方式" DisplayName="多值时取值方式" DisplayType="3" Options="0:最早,1:最晚,2:最小,3:最大,4:平均" Required="true"/>
@@ -33,18 +33,19 @@
 				left join LabResult lr on lo.orderid = lr.orderid
 				left join PregnantInfo pi on lo.idcard = pi.idcard
 				where 1=1
-				<If Operator="NotEmpty" ComponentName="检查单类别"> and lo.examcode like @检查单类别</If>
 				<If Operator="NotEmpty" ComponentName="检验类别"> and lr.itemid = @检验类别</If>
 				<If Operator="NotEmpty" ComponentName="起始孕周"> and datediff(week,pi.dateofprenatal,lo.examtime)+40 &gt;= @起始孕周 </If>
 				<If Operator="NotEmpty" ComponentName="截止孕周"> and datediff(week,pi.dateofprenatal,lo.examtime)+40 &lt;= @截止孕周 </If>
 				group by pi.idcard,pi.dateofprenatal
 			) as temp
 			left join LabOrder lo on temp.idcard = lo.idcard and temp.targetexamtime = lo.examtime
-			left join LabResult lr on lo.Id = lr.orderid
+			left join LabResult lr on lo.orderid = lr.orderid
+			<If Operator="NotEmpty" ComponentName="检验类别"> and lr.itemid = @检验类别</If>
 			where 1 = 1
 			<If Operator="NotEmpty" ComponentName="检验结果小于"> and lr.value &lt; @检验结果小于 </If>
 			<If Operator="NotEmpty" ComponentName="检验结果大于"> and lr.value &gt; @检验结果大于 </If>
 		</SQL>
+		<!--<If Operator="NotEmpty" ComponentName="检查单类别"> and lo.examcode like @检查单类别</If>-->
 	</SQLConfig>
 	<Router From="PregnantInfo" FromAlias="pi" RouteType="LeftJoin">
 		<!--ToAlias="ReportName"-->

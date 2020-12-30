@@ -443,7 +443,7 @@ namespace ResearchAPI.Services
         {
             return ResearchDbContext.DelegateTransaction(c =>
             {
-                if (request.CopyTaskId > 0)
+                if (request.CopyTaskId.HasValue && request.CopyTaskId > 0)
                 {
                     throw new NotImplementedException("未支持队列复制");
                 }
