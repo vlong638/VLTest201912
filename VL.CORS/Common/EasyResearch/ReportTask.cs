@@ -215,10 +215,10 @@ namespace ResearchAPI.CORS.Common
                 return;
             foreach (var item in tos)
             {
-                if (item.IsFromTemplate)
+                if (item.TemplateId > 0)
                 {
-                    var template = templates.FirstOrDefault(c => c.Id == item.To.TrimStart("t").ToLong().Value);
-                    sb.AppendLine($"left join ({template.SQLConfig.SQL.Replace("@","@"+item.To+"_")})as [{item.To}] on {string.Join(",", item.Ons.Select(o => $"[{item.From}].{o.FromField} = [{item.To}].{o.ToField}"))} ");
+                    var template = templates.FirstOrDefault(c => c.Id == item.TemplateId);
+                    sb.AppendLine($"left join ({template.SQLConfig.SQL.Replace("@", "@" + item.To + "_")})as [{item.To}] on {string.Join(",", item.Ons.Select(o => $"[{item.From}].{o.FromField} = [{item.To}].{o.ToField}"))} ");
                 }
                 else
                 {
@@ -230,7 +230,7 @@ namespace ResearchAPI.CORS.Common
 
         private string GetSelect(List<COBusinessEntityProperty> properties)
         {
-            return "select " + string.Join(",", properties.Select(c => $"[{c.From}].{c.SourceName} as {c.From}_{c.SourceName}"));
+            return "select " + string.Join(",", properties.Select(c => $"[{c.From}].{c.SourceName} as {c.GetFieldAlias()}"));
         }
 
         private string GetGroupBy(List<COBusinessEntityProperty> properties)
@@ -240,33 +240,52 @@ namespace ResearchAPI.CORS.Common
 
         public void Update(List<ProjectIndicator> projectIndicators, List<ProjectTaskWhere> taskWheres, List<CustomBusinessEntity> customBusinessEntities, List<CustomBusinessEntityWhere> customBusinessEntityWheres, Routers routers, List<BusinessEntityTemplate> templates, ReportTask reportTask)
         {
-            foreach (var entityName in projectIndicators.Select(c => c.EntitySourceName).Distinct())
+            foreach (var item in projectIndicators)
             {
-                var router = routers.FirstOrDefault(c => c.To == entityName);
-                if (router != null)
+                var custom = customBusinessEntities.FirstOrDefault(c => c.Id == item.BusinessEntityId);
+                if (custom != null)
                 {
-                    reportTask.Routers.Add(router);
+                    //Router
+                    var template = templates.FirstOrDefault(c => c.Id == custom.TemplateId);
+                    if (template != null)
+                    {
+                        var router = new Router();
+                        template.Router.MapTo(router);
+                        router.To = item.GetUniqueEntitySourceName();
+                        router.TemplateId = template.Id;
+                        reportTask.Routers.Add(router);
+                    }
+                    //Tempalte
+                    reportTask.Templates.Add(template);
+                    //Property
+                    reportTask.Properties.Add(new COBusinessEntityProperty()
+                    {
+                        SourceName = item.PropertySourceName,
+                        DisplayName = item.PropertyDisplayName,
+                        From = item.GetUniqueEntitySourceName(),
+                    });
                 }
                 else
                 {
-                    var template = templates.FirstOrDefault(c => "t" + c.Id == entityName);
-                    if (template != null)
-                    {
-                        router = template.Router;
-                        router.To = entityName;
-                        router.IsFromTemplate = true;
+                    //Router
+                    var router = routers.FirstOrDefault(c => c.To == item.EntitySourceName);
+                    if (router != null)
                         reportTask.Routers.Add(router);
-                    }
+                    //Property
+                    reportTask.Properties.Add(new COBusinessEntityProperty()
+                    {
+                        SourceName = item.PropertySourceName,
+                        DisplayName = item.PropertyDisplayName,
+                        From = item.EntitySourceName,
+                    });
                 }
             }
-            var templateIds = customBusinessEntities.Select(c => c.TemplateId);
-            reportTask.Templates.AddRange(templates.Where(c => templateIds.Contains(c.Id)));
-            reportTask.Properties.AddRange(projectIndicators.Select(c => new COBusinessEntityProperty()
-            {
-                SourceName = c.PropertySourceName,
-                DisplayName = c.PropertyDisplayName,
-                From = c.EntitySourceName,
-            }));
+            //reportTask.Properties.AddRange(projectIndicators.Select(c => new COBusinessEntityProperty()
+            //{
+            //    SourceName = c.PropertySourceName,
+            //    DisplayName = c.PropertyDisplayName,
+            //    From = c.EntitySourceName,
+            //}));
             reportTask.Conditions.AddRange(taskWheres.Select(c => new Field2ValueWhere()
             {
                 EntityName = c.EntityName,
@@ -276,7 +295,7 @@ namespace ResearchAPI.CORS.Common
             }));
             reportTask.TemplateConditions.AddRange(customBusinessEntityWheres.Select(c => new Field2ValueWhere()
             {
-                EntityName = customBusinessEntities.First(d => d.Id == c.BusinessEntityId).Name,
+                EntityName = customBusinessEntities.First(d => d.Id == c.BusinessEntityId).Id.ToString(),
                 FieldName = c.ComponentName,
                 Value = c.Value,
             }));
@@ -337,7 +356,7 @@ namespace ResearchAPI.CORS.Common
         public string ToAlias { set; get; }
         public RouteType RouteType { set; get; }
         public List<RouterOn> Ons { set; get; } = new List<RouterOn>();
-        public bool IsFromTemplate { get; set; }
+        public long TemplateId { get; set; }
 
         internal string GetSQL()
         {

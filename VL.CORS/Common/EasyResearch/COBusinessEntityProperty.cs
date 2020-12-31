@@ -1,4 +1,5 @@
 ﻿using Autobots.Infrastracture.Common.ValuesSolution;
+using System;
 using System.Xml.Linq;
 
 namespace ResearchAPI.CORS.Common
@@ -26,5 +27,10 @@ namespace ResearchAPI.CORS.Common
         public string SourceName { set; get; }
         public ColumnType ColumnType { set; get; }
         public string EnumType { set; get; }
+
+        internal string GetFieldAlias()
+        {
+            return $"[{ From}_{ SourceName}]";
+        }
     }
 }

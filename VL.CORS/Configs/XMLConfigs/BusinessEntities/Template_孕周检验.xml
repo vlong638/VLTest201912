@@ -1,4 +1,4 @@
-﻿<BusinessEntityTemplate Id="777202012230906" ConnectionString="FYPTConnectionString">
+﻿<BusinessEntityTemplate Id="20201222103157" ConnectionString="FYPTConnectionString">
 	<BusinessEntity Id="20201222103157" DisplayName ="">
 		<Properties>
 			<!--From="CustomBusinessEntity.ReportName"--> 

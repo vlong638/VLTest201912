@@ -1,4 +1,5 @@
 ﻿using Dapper.Contrib.Extensions;
+using System;
 
 namespace ResearchAPI.CORS.Common
 {
@@ -15,6 +16,24 @@ namespace ResearchAPI.CORS.Common
         public string EntitySourceName { set; get; }
         public string PropertySourceName { set; get; }
         public string PropertyDisplayName { set; get; }
+
+
+        internal string GetUniqueEntitySourceName()
+        {
+            if (IsTemplate())
+            {
+                return BusinessEntityId.ToString();
+            }
+            else
+            {
+                return EntitySourceName;
+            }
+        }
+
+        private bool IsTemplate()
+        {
+            return BusinessEntityId.ToString().StartsWith("3");
+        }
 
         ///// <summary>
         ///// 字段别名名称

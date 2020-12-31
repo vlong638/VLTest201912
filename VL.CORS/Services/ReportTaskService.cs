@@ -543,7 +543,9 @@ namespace ResearchAPI.Services
                     var repeatCount = 0;
                     foreach (DataColumn column in dataTable.Columns)
                     {
+                        //TODO Fix
                         var matchedColumn = projectIndicators.FirstOrDefault(c => c.EntitySourceName + "_" + c.PropertySourceName == column.ColumnName);
+                        matchedColumn = matchedColumn?? projectIndicators.FirstOrDefault(c => c.BusinessEntityId + "_" + c.PropertySourceName == column.ColumnName);
                         var tempColumnName = matchedColumn.PropertyDisplayName;
                         if (dataTable.Columns.Contains(tempColumnName))
                         {
