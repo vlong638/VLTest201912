@@ -271,6 +271,7 @@ namespace ResearchAPI.CORS.Common
             {
                 EntityName = c.EntityName,
                 FieldName = c.PropertyName,
+                Operator = (WhereOperator)Enum.Parse(typeof(WhereOperator), ((int)c.Operator).ToString()),
                 Value = c.Value,
             }));
             reportTask.TemplateConditions.AddRange(customBusinessEntityWheres.Select(c => new Field2ValueWhere()
