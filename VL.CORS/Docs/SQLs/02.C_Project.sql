@@ -13,7 +13,7 @@ CREATE TABLE [dbo].[Project](
 	-------------------------------------------
 	[Name] nvarchar(20) NULL,
 	[ViewAuthorizeType] tinyint NULL,
-	[ProjectDescription] nvarchar(20) NULL,
+	[ProjectDescription] nvarchar(200) NULL,
 	-------------------------------------------
 	[CreatorId] bigint NULL,
 	[CreatedAt] datetime NULL,

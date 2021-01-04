@@ -1,15 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Routers>
-	<Router From="PregnantInfo" FromAlias="lo" To="MHC_VisitRecord" ToAlias="lr" RouteType="LeftJoin">
+	<Router From="PregnantInfo" To="MHC_VisitRecord" RouteType="LeftJoin">
 		<On FromField="Id" ToField="pregnantInfoId"/>
 	</Router>
-	<Router From="PregnantInfo" FromAlias="lo" To="MHC_FirstVisitRecord" ToAlias="lr" RouteType="LeftJoin">
+	<Router From="PregnantInfo" To="MHC_FirstVisitRecord" RouteType="LeftJoin">
 		<On FromField="Id" ToField="pregnantInfoId"/>
 	</Router>
-	<Router From="PregnantInfo" FromAlias="pi" To="LabOrder" ToAlias="lo" RouteType="LeftJoin">
+	<Router From="PregnantInfo" To="HighRiskReport" RouteType="LeftJoin">
+		<On FromField="Id" ToField="pregnantInfoId"/>
+	</Router>
+	<Router From="PregnantInfo" To="MHC_HighRiskReason" RouteType="LeftJoin">
+		<On FromField="Id" ToField="pregnantInfoId"/>
+	</Router>
+	
+	<Router From="PregnantInfo" To="LabOrder" RouteType="LeftJoin">
 		<On FromField="Idcard" ToField="Idcard"/>
 	</Router>
-	<Router From="LabOrder" FromAlias="pi" To="LabResult" ToAlias="c" RouteType="LeftJoin">
+	<Router From="LabOrder" To="LabResult" RouteType="LeftJoin">
 		<On FromField="OrderId" ToField="OrderId"/>
 	</Router>
 </Routers>

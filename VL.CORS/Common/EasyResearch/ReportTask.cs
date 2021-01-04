@@ -148,30 +148,6 @@ namespace ResearchAPI.CORS.Common
             }
         }
 
-        private Dictionary<string, string> GetTableAlias(List<Router> routers, List<COBusinessEntityProperty> properties)
-        {
-            var result = new Dictionary<string, string>();
-            if (routers.Count == 0)
-            {
-                var tableName = properties.First().From;
-                result.Add(tableName, tableName);
-            }
-            else
-            {
-                foreach (var router in routers)
-                {
-                    if (!result.ContainsKey(router.From))
-                    {
-                        result.Add(router.From, router.FromAlias);
-                    }
-                    if (!result.ContainsKey(router.To))
-                    {
-                        result.Add(router.To, router.ToAlias);
-                    }
-                }
-            }
-            return result;
-        }
         private string GetWhere(List<Field2ValueWhere> conditions)
         {
             if (conditions.Count == 0)
@@ -344,17 +320,13 @@ namespace ResearchAPI.CORS.Common
         public Router(XElement element)
         {
             From = element.Attribute(nameof(From))?.Value;
-            FromAlias = element.Attribute(nameof(FromAlias))?.Value;
             To = element.Attribute(nameof(To))?.Value;
-            ToAlias = element.Attribute(nameof(ToAlias))?.Value;
             RouteType = element.Attribute(nameof(RouteType))?.Value.ToEnum<RouteType>() ?? RouteType.None;
             Ons = element.Descendants(RouterOn.ElementName).Select(c => new RouterOn(c)).ToList();
         }
 
         public string From { set; get; }
-        public string FromAlias { set; get; }
         public string To { set; get; }
-        public string ToAlias { set; get; }
         public RouteType RouteType { set; get; }
         public List<RouterOn> Ons { set; get; } = new List<RouterOn>();
         public long TemplateId { get; set; }
@@ -386,10 +358,5 @@ namespace ResearchAPI.CORS.Common
 
         public string FromField { set; get; }
         public string ToField { set; get; }
-
-        internal string ToSQL(Router c)
-        {
-            return $@"{c.FromAlias}.{FromField} = {c.ToAlias}.{ToField}";
-        }
     }
 }
