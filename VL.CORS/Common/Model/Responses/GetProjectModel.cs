@@ -27,7 +27,7 @@ namespace ResearchAPI.CORS.Common
         /// <summary>
         /// 创建人
         /// </summary>
-        public long? CreatorId { set; get; }
+        public long CreatorId { set; get; }
         /// <summary>
         /// 关联科室
         /// </summary>

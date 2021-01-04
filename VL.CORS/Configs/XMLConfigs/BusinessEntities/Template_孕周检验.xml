@@ -27,8 +27,8 @@
 			from
 			(
 				select pi.idcard,pi.dateofprenatal
-				<If Operator="eq" ComponentName="多值时取值方式" Value="0"> ,min(lo.examtime) targetexamtime </If>
-				<If Operator="eq" ComponentName="多值时取值方式" Value="1"> ,max(lo.examtime) targetexamtime </If>
+				<If Operator="eq" ComponentName="多值时取值方式" Value="1"> ,min(lo.examtime) targetexamtime </If>
+				<If Operator="eq" ComponentName="多值时取值方式" Value="2"> ,max(lo.examtime) targetexamtime </If>
 				from LabOrder lo
 				left join LabResult lr on lo.orderid = lr.orderid
 				left join PregnantInfo pi on lo.idcard = pi.idcard

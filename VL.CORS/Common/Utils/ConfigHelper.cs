@@ -79,7 +79,7 @@ namespace ResearchAPI.CORS.Common
         internal static List<COBusinessEntities> GetCOBusinessEntities()
         {
             var businessEntitiesCollection = new List<COBusinessEntities>();
-            var directory = @"Configs/XMLConfigs/BusinessEntities";
+            var directory = @"Configs\XMLConfigs\BusinessEntities";
             var files = Directory.GetFiles(directory);
             var bsfiles = files.Select(c => Path.GetFileName(c)).Where(c => c.StartsWith("BusinessEntities_"));
             foreach (var bsfile in bsfiles)

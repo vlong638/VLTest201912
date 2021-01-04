@@ -115,6 +115,7 @@ namespace ResearchAPI.Services
                 result.MemberIds = ProjectRepository.GetUserIdsByProjectIdAndRoleId(projectId, DomainConstraits.MemberRoleId.Value);
                 result.DepartmentIds = ProjectDepartmentRepository.GetDepartmentIdsByProjectId(projectId);
                 result.IsFavorite = FavoriteProjectRepository.GetOne(new FavoriteProject(project.Id, project.CreatorId)) != null;
+                result.CreatorId = project.CreatorId;
                 return result;
             });
         }
