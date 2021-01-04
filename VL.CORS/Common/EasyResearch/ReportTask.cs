@@ -218,11 +218,11 @@ namespace ResearchAPI.CORS.Common
                 if (item.TemplateId > 0)
                 {
                     var template = templates.FirstOrDefault(c => c.Id == item.TemplateId);
-                    sb.AppendLine($"left join ({template.SQLConfig.SQL.Replace("@", "@" + item.To + "_")})as [{item.To}] on {string.Join(",", item.Ons.Select(o => $"[{item.From}].{o.FromField} = [{item.To}].{o.ToField}"))} ");
+                    sb.AppendLine($"left join ({template.SQLConfig.SQL.Replace("@", "@" + item.To + "_")})as [{item.To}] on {string.Join(" and ", item.Ons.Select(o => $"[{item.From}].{o.FromField} = [{item.To}].{o.ToField}"))} ");
                 }
                 else
                 {
-                    sb.AppendLine($"left join [{item.To}] on {string.Join(",", item.Ons.Select(o => $"[{item.From}].{o.FromField} = [{item.To}].{o.ToField}"))} ");
+                    sb.AppendLine($"left join [{item.To}] on {string.Join(" and ", item.Ons.Select(o => $"[{item.From}].{o.FromField} = [{item.To}].{o.ToField}"))} ");
                 }
                 AppendRoute(sb, routers, item.To, templates);
             }

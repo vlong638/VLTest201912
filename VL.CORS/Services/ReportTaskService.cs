@@ -527,7 +527,7 @@ namespace ResearchAPI.Services
                 var customBusinessEntityWheres = customBusinessEntityIndicators.Count() > 0
                     ? CustomBusinessEntityWhereRepository.GetByBusinessEntityIds(customBusinessEntityIndicators.Select(c => c.BusinessEntityId).Distinct().ToList())
                     : new List<CustomBusinessEntityWhere>();
-                var routers = ConfigHelper.GetRouters("Configs/XMLConfigs/BusinessEntities", "Routers.xml");
+                var defaultRouters = ConfigHelper.GetRouters("Configs/XMLConfigs/BusinessEntities", "Routers.xml");
                 var templates = ConfigHelper.GetBusinessEntityTemplates();
 
                 //内核处理
@@ -535,7 +535,7 @@ namespace ResearchAPI.Services
                 try
                 {
                     var reportTask = new ReportTask(task.Name);
-                    reportTask.Update(projectIndicators, taskWheres, customBusinessEntities, customBusinessEntityWheres, routers, templates, reportTask);
+                    reportTask.Update(projectIndicators, taskWheres, customBusinessEntities, customBusinessEntityWheres, defaultRouters, templates, reportTask);
                     //string.Join("\r\n",parameters.Select(c=> "declare @"+c.Key+" nvarchar(50); set @"+c.Key+" = '"+ c.Value+"'"))
                     var parameters = reportTask.GetParameters();
                     var sql = reportTask.GetSQL();

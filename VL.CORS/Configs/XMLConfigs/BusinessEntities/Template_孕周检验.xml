@@ -20,6 +20,7 @@
 		</Wheres>
 		<SQL>
 			select temp.idcard
+			,temp.dateofprenatal
 			,lo.examname
 			,lo.examtime
 			,lr.itemname
@@ -43,12 +44,9 @@
 			<If Operator="NotEmpty" ComponentName="检验类别"> and lr.itemid = @检验类别</If>
 			where 1 = 1
 		</SQL>
-			<!--<If Operator="NotEmpty" ComponentName="检验结果小于"> and lr.value &lt; @检验结果小于 </If>
-			<If Operator="NotEmpty" ComponentName="检验结果大于"> and lr.value &gt; @检验结果大于 </If>-->
-		<!--<If Operator="NotEmpty" ComponentName="检查单类别"> and lo.examcode like @检查单类别</If>-->
 	</SQLConfig>
 	<Router From="PregnantInfo" FromAlias="pi" RouteType="LeftJoin">
-		<!--ToAlias="ReportName"-->
 		<On FromField="Idcard" ToField="Idcard"/>
+		<On FromField="DateOfPrenatal" ToField="DateOfPrenatal"/>
 	</Router>
 </BusinessEntityTemplate>
