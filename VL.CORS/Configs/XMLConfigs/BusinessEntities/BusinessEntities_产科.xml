@@ -2,6 +2,10 @@
 <BusinessEntities Id="101" BusinessType="产科">
 	<BusinessEntity Id="101001" DisplayName ="基本档案" SourceName="PregnantInfo">
 		<Properties>
+			<Property Id="101001186" DisplayName="孕妇姓名" SourceName="personname" ColumnType="String"/>
+			<Property Id="101001033" DisplayName="预产期" SourceName="dateofprenatal" ColumnType="DateTime"/>
+			<Property Id="101001239" DisplayName="性别" SourceName="sexcode" ColumnType="Enum" EnumType="SEXCODE"/>
+			<Property Id="101001070" DisplayName="身高(cm)" SourceName="height" ColumnType="Decimal"/>
 			<Property Id="101001001" DisplayName="畸形儿次数" SourceName="abnormality" ColumnType="Int"/>
 			<Property Id="101001002" DisplayName="流产次数" SourceName="abortiontimes" ColumnType="Int"/>
 			<Property Id="101001003" DisplayName="联系地址" SourceName="address" ColumnType="String"/>
@@ -34,7 +38,6 @@
 			<Property Id="101001030" DisplayName="周期" SourceName="cycle" ColumnType="Int"/>
 			<Property Id="101001031" DisplayName="周期-上限" SourceName="cyclemax" ColumnType="Int"/>
 			<Property Id="101001032" DisplayName="周期-下限" SourceName="cyclemin" ColumnType="Int"/>
-			<Property Id="101001033" DisplayName="预产期" SourceName="dateofprenatal" ColumnType="DateTime"/>
 			<Property Id="101001034" DisplayName="预产期修正标志" SourceName="dateofprenatalflag" ColumnType="Int"/>
 			<Property Id="101001035" DisplayName="预产期修改原因" SourceName="dateofprenatalmodifyreason" ColumnType="String"/>
 			<Property Id="101001036" DisplayName="预产期详述" SourceName="dateofprenataltext" ColumnType="String"/>
@@ -71,7 +74,6 @@
 			<Property Id="101001067" DisplayName="妇科手术史" SourceName="gynecologyopstext" ColumnType="String"/>
 			<Property Id="101001068" DisplayName="基本情况-全面健康体检" SourceName="HealthCheck" ColumnType="Int"/>
 			<Property Id="101001069" DisplayName="生殖健康服务证发放地 " SourceName="healthplace" ColumnType="Enum" EnumType="HEALTHPLACE"/>
-			<Property Id="101001070" DisplayName="身高(cm)" SourceName="height" ColumnType="Decimal"/>
 			<Property Id="101001071" DisplayName="遗传家族史" SourceName="heredityfamilyhistory" ColumnType="String"/>
 			<Property Id="101001072" DisplayName="遗传家族史" SourceName="heredityfamilyhistorytext" ColumnType="String"/>
 			<Property Id="101001073" DisplayName="户籍地址" SourceName="homeaddress" ColumnType="String"/>
@@ -187,7 +189,6 @@
 			<Property Id="101001183" DisplayName="病人id" SourceName="patientid" ColumnType="String"/>
 			<Property Id="101001184" DisplayName="基本情况-常住地" SourceName="PermanentResidence" ColumnType="Int"/>
 			<Property Id="101001185" DisplayName="个人史 " SourceName="personnalhistory" ColumnType="String"/>
-			<Property Id="101001186" DisplayName="孕妇姓名" SourceName="personname" ColumnType="String"/>
 			<Property Id="101001187" DisplayName="家庭电话" SourceName="phonenumber" ColumnType="String"/>
 			<Property Id="101001188" DisplayName="证件照编号" SourceName="photo" ColumnType="String"/>
 			<Property Id="101001189" DisplayName="健康档案编号" SourceName="phrid" ColumnType="String"/>
@@ -240,7 +241,6 @@
 			<Property Id="101001236" DisplayName="计划表" SourceName="schedule" ColumnType="String"/>
 			<Property Id="101001237" DisplayName="基本情况-定居月份" SourceName="SettleMonth" ColumnType="Int"/>
 			<Property Id="101001238" DisplayName="基本情况-定居年份" SourceName="SettleYear" ColumnType="Int"/>
-			<Property Id="101001239" DisplayName="性别" SourceName="sexcode" ColumnType="Enum" EnumType="SEXCODE"/>
 			<Property Id="101001240" DisplayName="吸烟 " SourceName="smoking" ColumnType="Enum" EnumType="SHIFOU"/>
 			<Property Id="101001241" DisplayName="吸烟详述 " SourceName="smokingtext" ColumnType="String"/>
 			<Property Id="101001242" DisplayName="来源单位" SourceName="sourceunit" ColumnType="Enum" EnumType="InstitutionaCodeAll"/>

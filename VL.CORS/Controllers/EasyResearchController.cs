@@ -305,7 +305,7 @@ namespace ResearchAPI.Controllers
             result.ViewAuthorizeTypeName = DomainConstraits.RenderIdToText(result.ViewAuthorizeType, DomainConstraits.ViewAuthorizeTypes);
             result.DepartmentNames = DomainConstraits.RenderIdToText(result.DepartmentIds, DomainConstraits.Departments);
             result.AdminNames = DomainConstraits.RenderIdToText(result.AdminIds, DomainConstraits.Users);
-            result.CreateName = DomainConstraits.RenderIdToText(result.CreatorId ?? 0, DomainConstraits.Users);
+            result.CreateName = DomainConstraits.RenderIdToText(result.CreatorId, DomainConstraits.Users);
             result.MemberNames = DomainConstraits.RenderIdToText(result.MemberIds, DomainConstraits.Users);
             return new APIResult<GetBriefProjectModel>(result);
         }
