@@ -42,6 +42,12 @@ namespace ResearchAPI.CORS.Repositories
                 , new { taskId }, transaction: _transaction).FirstOrDefault();
         }
 
+        internal bool UpdateSchedule(long scheduleId, ScheduleStatus status, string resultFile, string message)
+        {
+            return _connection.Execute("update [ProjectSchedule] set ResultFile = @ResultFile , Message = @message , Status = @Status, LastCompletedAt = GetDate() where Id = @ScheduleId"
+                , new { scheduleId, resultFile, Status = status, message }, transaction: _transaction) > 0;
+        }
+
         internal bool UpdateResultFile(long scheduleId, string resultFile)
         {
             return _connection.Execute("update [ProjectSchedule] set ResultFile = @ResultFile , Status = @Status, LastCompletedAt = GetDate() where Id = @ScheduleId"

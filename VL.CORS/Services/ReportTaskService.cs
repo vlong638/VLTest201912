@@ -530,6 +530,9 @@ namespace ResearchAPI.Services
                 var defaultRouters = ConfigHelper.GetRouters("Configs/XMLConfigs/BusinessEntities", "Routers.xml");
                 var templates = ConfigHelper.GetBusinessEntityTemplates();
 
+                //更新处理任务状态
+                ProjectScheduleRepository.UpdateSchedule(schedule.Id, ScheduleStatus.Started, "", "任务正在执行中");
+
                 //内核处理
                 DataTable dataTable = null;
                 try
@@ -560,12 +563,12 @@ namespace ResearchAPI.Services
                     var fullPath = Path.Combine(FileHelper.GetDirectory("Export"), filePath);
                     ExcelHelper.ExportDataTableToExcel(dataTable, fullPath);
                     //更新处理任务状态
-                    ProjectScheduleRepository.UpdateResultFile(schedule.Id, "Export/" + filePath);
+                    ProjectScheduleRepository.UpdateSchedule(schedule.Id, ScheduleStatus.Completed, "Export/" + filePath, "");
                 }
                 catch (Exception ex)
                 {
                     //更新处理任务状态
-                    ProjectScheduleRepository.UpdateMessage(schedule.Id, ex.ToString());
+                    ProjectScheduleRepository.UpdateSchedule(schedule.Id, ScheduleStatus.Failed, "", ex.ToString());
                 }
                 return true;
             });

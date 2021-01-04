@@ -253,6 +253,7 @@ namespace ResearchAPI.CORS.Common
                         template.Router.MapTo(router);
                         router.To = item.GetUniqueEntitySourceName();
                         router.TemplateId = template.Id;
+                        if (!reportTask.Routers.Contains(router))
                         reportTask.Routers.Add(router);
                     }
                     //Tempalte
@@ -269,7 +270,7 @@ namespace ResearchAPI.CORS.Common
                 {
                     //Router
                     var router = routers.FirstOrDefault(c => c.To == item.EntitySourceName);
-                    if (router != null)
+                    if (router != null&& !reportTask.Routers.Contains(router))
                         reportTask.Routers.Add(router);
                     //Property
                     reportTask.Properties.Add(new COBusinessEntityProperty()

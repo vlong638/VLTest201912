@@ -266,6 +266,12 @@
 	</BusinessEntity>
 	<BusinessEntity Id="101002" DisplayName ="产检" SourceName="MHC_VisitRecord">
 		<Properties>
+			<Property Id="101002247" DisplayName="检查时间" SourceName="visitdate" ColumnType="DateTime"/>
+			<Property Id="101002029" DisplayName="检查孕周" SourceName="checkweek" ColumnType="String"/>
+			<Property Id="101002027" DisplayName="检查孕天" SourceName="checkday" ColumnType="String"/>
+			<Property Id="101002253" DisplayName="体重(kg)" SourceName="weight" ColumnType="Decimal"/>
+			<Property Id="101002030" DisplayName="主诉" SourceName="chiefcomplaint" ColumnType="String"/>
+			<Property Id="101002087" DisplayName="主诊断" SourceName="maindiagnosis" ColumnType="Enum" EnumType="MAINDIAGNOSIS"/>
 			<Property Id="101002001" DisplayName="腹围(cm)" SourceName="abdomencircumference" ColumnType="Decimal"/>
 			<Property Id="101002002" DisplayName="羊水指数" SourceName="afi" ColumnType="String"/>
 			<Property Id="101002003" DisplayName="尿蛋白" SourceName="albuminuria" ColumnType="String"/>
@@ -291,13 +297,10 @@
 			<Property Id="101002023" DisplayName="宫颈硬度" SourceName="cervicalhard" ColumnType="String"/>
 			<Property Id="101002024" DisplayName="宫颈管消退" SourceName="cervicalreg" ColumnType="String"/>
 			<Property Id="101002025" DisplayName="宫颈是否正常" SourceName="cervix" ColumnType="Enum" EnumType="SHIFOUZC"/>
-			<Property Id="101002026" DisplayName="宫颈异常描述" SourceName="cervixtext" ColumnType="String"/>
-			<Property Id="101002027" DisplayName="检查孕天" SourceName="checkday" ColumnType="String"/>
-			<Property Id="101002028" DisplayName="弃用" SourceName="checkid" ColumnType="Int"/>
-			<Property Id="101002029" DisplayName="检查孕周" SourceName="checkweek" ColumnType="String"/>
-			<Property Id="101002030" DisplayName="主诉" SourceName="chiefcomplaint" ColumnType="String"/>
-			<Property Id="101002031" DisplayName="沟通能力筛选" SourceName="comunicationeva" ColumnType="Enum" EnumType="YICHANGZC"/>
 			<Property Id="101002032" DisplayName="创建时间" SourceName="createtime" ColumnType="DateTime"/>
+			<Property Id="101002026" DisplayName="宫颈异常描述" SourceName="cervixtext" ColumnType="String"/>
+			<Property Id="101002028" DisplayName="弃用" SourceName="checkid" ColumnType="Int"/>
+			<Property Id="101002031" DisplayName="沟通能力筛选" SourceName="comunicationeva" ColumnType="Enum" EnumType="YICHANGZC"/>
 			<Property Id="101002033" DisplayName="舒张压(mmhg)" SourceName="dbp" ColumnType="Int"/>
 			<Property Id="101002034" DisplayName="上传至上及传输平台日期" SourceName="deliverydate" ColumnType="DateTime"/>
 			<Property Id="101002035" DisplayName="上级传输平台唯一标志" SourceName="deliveryid" ColumnType="String"/>
@@ -352,7 +355,6 @@
 			<Property Id="101002084" DisplayName="失访原因" SourceName="lostreason" ColumnType="String"/>
 			<Property Id="101002085" DisplayName="肺部是否正常" SourceName="lungs" ColumnType="Enum" EnumType="SHIFOUZC"/>
 			<Property Id="101002086" DisplayName="肺部异常详述" SourceName="lungstext" ColumnType="String"/>
-			<Property Id="101002087" DisplayName="主诊断" SourceName="maindiagnosis" ColumnType="Enum" EnumType="MAINDIAGNOSIS"/>
 			<Property Id="101002088" DisplayName="处理标志" SourceName="mark" ColumnType="String"/>
 			<Property Id="101002089" DisplayName="就诊科室编号" SourceName="mechanism" ColumnType="String"/>
 			<Property Id="101002090" DisplayName="是否用药" SourceName="medication" ColumnType="Enum" EnumType="YOUWU"/>
@@ -512,13 +514,11 @@
 			<Property Id="101002244" DisplayName="阴道分娩 " SourceName="vaginaldeliverynum" ColumnType="Int"/>
 			<Property Id="101002245" DisplayName="阴道异常描述" SourceName="vaginatext" ColumnType="String"/>
 			<Property Id="101002246" DisplayName="葡萄胎次数" SourceName="vesicularmole" ColumnType="Int"/>
-			<Property Id="101002247" DisplayName="检查时间" SourceName="visitdate" ColumnType="DateTime"/>
 			<Property Id="101002248" DisplayName="产检ID" SourceName="visitid" ColumnType="String"/>
 			<Property Id="101002249" DisplayName="随访方式" SourceName="visitmode" ColumnType="Enum" EnumType="VISITMODE"/>
 			<Property Id="101002250" DisplayName="随访结果" SourceName="visitresult" ColumnType="Enum" EnumType="VISITRESULT"/>
 			<Property Id="101002251" DisplayName="外阴是否正常" SourceName="vulva" ColumnType="Enum" EnumType="SHIFOUZC"/>
 			<Property Id="101002252" DisplayName="外阴异常描述" SourceName="vulvatext" ColumnType="String"/>
-			<Property Id="101002253" DisplayName="体重(kg)" SourceName="weight" ColumnType="Decimal"/>
 			<Property Id="101002254" DisplayName="基础体重(kg)" SourceName="weight" ColumnType="Decimal"/>
 			<Property Id="101002255" DisplayName="体重异常" SourceName="weightflag" ColumnType="Enum" EnumType="YOUWU"/>
 			<Property Id="101002256" DisplayName="职业类别" SourceName="workcode" ColumnType="Enum" EnumType="WORKCODE"/>
