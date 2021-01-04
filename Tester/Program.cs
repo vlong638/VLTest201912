@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Tester
@@ -64,18 +65,35 @@ namespace Tester
             public string Name { set; get; }
         }
 
+
         static void Main(string[] args)
         {
             if (true)
             {
-                var count = 10;
-                var array = new int[count];
-                for (int i = 0; i < array.Length; i++)
+                var array = new int[] { 2,1,2,1,0,1,2 };
+
+                //var count = 100;
+                //var array = new int[count];
+                //Random random = new Random();
+                //for (int i = 0; i < array.Length; i++)
+                //{
+                //    array[i] = random.Next(1000);
+                //}
+                var rs = new VLRanges(array)
                 {
-                    array[i] = new Random().Next(1000);
+                    Array = array,
+                };
+                var k = 2;
+                rs.GetProfits(k);
+                rs.Ranges = rs.Ranges.OrderBy(c => c.Left).ToList();
+                var profits = rs.Ranges.Where(c => c.Profit > 0).ToList();
+                var sum = 0;
+                foreach (var profit in profits)
+                {
+                    sum += profit.Profit;
                 }
-                var nodes = new List<int>();
-                var results = new List<int>();
+                //var sum = profits.Sum(c => c.Profit);
+
                 //var times = 5;
                 //var profit = GetMaxProfit(array, 0, array.Length, times, out int s, out int end);
 
@@ -215,6 +233,180 @@ namespace Tester
             }
             Console.ReadLine();
         }
+        class VLRanges
+        {
+            public VLRanges(int[] array)
+            {
+                Array = array;
+            }
+
+            public int[] Array { set; get; }
+            public List<VLRange> Ranges { set; get; } = new List<VLRange>();
+
+            internal void GetProfits(int count)
+            {
+                while (count > 0)
+                {
+                    AddOne();
+                    count--;
+                }
+            }
+
+            private void AddOne()
+            {
+                if (Ranges.Count == 0)
+                {
+                    var left = 0;
+                    var right = Array.Length - 1;
+                    var maxProfit = 0;
+                    var maxProfitLeft = 0;
+                    var maxProfitRight = 0;
+                    for (int i = left; i <= right; i++)
+                    {
+                        for (int j = i + 1; j <= right; j++)
+                        {
+                            var profit = Array[j] - Array[i];
+                            if (profit > maxProfit)
+                            {
+                                maxProfit = profit;
+                                maxProfitLeft = i;
+                                maxProfitRight = j;
+                            }
+                        }
+                    }
+                    if (maxProfitLeft != left)
+                    {
+                        Ranges.Add(new VLRange(0, maxProfitLeft));
+                    }
+                    Ranges.Add(new VLRange(maxProfitLeft, maxProfitRight, maxProfit));
+                    if (maxProfitRight != right)
+                    {
+                        Ranges.Add(new VLRange(maxProfitRight, right));
+                    }
+                }
+                else
+                {
+                    foreach (var range in Ranges)
+                    {
+                        if (range.NextProfit == 0)
+                        {
+                            range.GetNextProfit(Array);
+                        }
+                    }
+                    var maxProfit = Ranges.Max(c => c.NextProfit);
+                    if (maxProfit == 0)
+                    {
+                        return;
+                        throw new NotImplementedException("投资次数无法用尽");
+                    }
+                    var currentRange = Ranges.First(c => c.NextProfit == maxProfit);
+                    currentRange.GetNextProfit(Array);
+                    Ranges.Remove(currentRange);
+                    Ranges.AddRange(currentRange.Split(Array));
+                }
+            }
+        }
+
+        class VLRange
+        {
+            public VLRange(int start, int end)
+            {
+                Left = start;
+                Right = end;
+            }
+
+            public VLRange(int start, int end, int profit) : this(start, end)
+            {
+                Profit = profit;
+            }
+
+            public int Left { set; get; }
+            public int Right { set; get; }
+            public int Profit { set; get; }
+
+            public bool DoAsc { set; get; }
+            public int NextProfit { set; get; }
+            public int NextLeft { set; get; }
+            public int NextRight { set; get; }
+
+            internal void GetNextProfit(int[] array)
+            {
+                var left = Left;
+                var right = Right;
+                var maxProfit = 0;
+                var maxProfitLeft = 0;
+                var maxProfitRight = 0;
+                for (int i = left; i <= right; i++)
+                {
+                    for (int j = i + 1; j <= right; j++)
+                    {
+                        if (Profit>0)
+                        {
+                            var profit = array[i] - array[j];
+                            if (profit > maxProfit)
+                            {
+                                if (Left == i && Right == j)
+                                    continue;
+
+                                maxProfit = profit;
+                                maxProfitLeft = i;
+                                maxProfitRight = j;
+                            }
+                        }
+                        else
+                        {
+                            var profit = array[j] - array[i];
+                            if (profit > maxProfit)
+                            {
+                                if (Left == i && Right == j)
+                                    continue;
+
+                                maxProfit = profit;
+                                maxProfitLeft = i;
+                                maxProfitRight = j;
+                            }
+                        }
+                    }
+                }
+                NextProfit = maxProfit;
+                NextLeft = maxProfitLeft;
+                NextRight = maxProfitRight;
+            }
+
+            internal List<VLRange> Split(int[] array)
+            {
+                if (Profit <= 0)
+                {
+                    GetNextProfit(array);
+                    var result = new List<VLRange>();
+                    if (NextLeft != Left)
+                    {
+                        result.Add(new VLRange(Left, NextLeft, array[NextLeft] - array[Left]));
+                    }
+                    result.Add(new VLRange(NextLeft, NextRight, array[NextRight] - array[NextLeft]));
+                    if (NextRight != Right)
+                    {
+                        result.Add(new VLRange(NextRight, Right, array[Right] - array[NextRight]));
+                    }
+                    return result;
+                }
+                else
+                {
+                    var result = new List<VLRange>();
+                    if (Left != NextLeft)
+                    {
+                        result.Add(new VLRange(Left, NextLeft, array[NextLeft] - array[Left]));
+                    }
+                    result.Add(new VLRange(NextLeft, NextRight, array[NextRight] - array[NextLeft]));
+                    if (Right != NextRight)
+                    {
+                        result.Add(new VLRange(NextRight, Right, array[Right] - array[NextRight]));
+                    }
+                    return result;
+                }
+            }
+        }
+
 
         //private static int GetMaxProfit(int[] array, int times,int[] breakPoints,bool isIncrease)
         //{
