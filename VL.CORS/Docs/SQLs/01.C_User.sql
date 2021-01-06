@@ -11,7 +11,7 @@ CREATE TABLE [dbo].[User](
 	[db_createtime] [datetime] DEFAULT CURRENT_TIMESTAMP,
 	[db_updatetime] [datetime] NULL,
 	-------------------------------------------下管控
-	IsDeleted char(1) default 0,
+	IsDeleted bit default 0,
 	-------------------------------------------下内容
 	[Name] nvarchar(20) NULL,
 	[Password] nvarchar(32) NULL,

@@ -39,7 +39,7 @@ namespace ResearchAPI.CORS.Repositories
         internal User GetByUserNameAndPassword(string userName, string password)
         {
             return _connection.Query<User>("select * from [User] where Name = @userName and Password = @password and IsDeleted = 0;"
-                , new { userName, password, IsDeleted = false }
+                , new { userName, password }
                 , transaction: _transaction)
                 .FirstOrDefault();
         }

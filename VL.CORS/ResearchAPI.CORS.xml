@@ -1849,6 +1849,16 @@
             用户名
             </summary>
         </member>
+        <member name="P:ResearchAPI.CORS.Common.GetUserModel.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetUserModel.IsDeleted">
+            <summary>
+            是否已删除
+            </summary>
+        </member>
         <member name="P:ResearchAPI.CORS.Common.GetUserModel.Roles">
             <summary>
             用户角色
