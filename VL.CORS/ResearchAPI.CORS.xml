@@ -1814,6 +1814,18 @@
             上一次执行完成时间
             </summary>
         </member>
+        <member name="T:ResearchAPI.CORS.Common.AuthHeaderFilter">
+            <summary>
+            自定义header扩展
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Common.AuthHeaderFilter.Apply(Microsoft.OpenApi.Models.OpenApiOperation,Swashbuckle.AspNetCore.SwaggerGen.OperationFilterContext)">
+            <summary>
+            
+            </summary>
+            <param name="operation"></param>
+            <param name="context"></param>
+        </member>
         <member name="M:ResearchAPI.CORS.Common.ConfigHelper.GetSQLConfigByDirectoryName(System.String)">
             <summary>
             获取 列表sql配置
