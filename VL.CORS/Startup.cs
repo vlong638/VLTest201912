@@ -52,6 +52,7 @@ namespace VL.CORS
             //服务接口管理
             services.AddSwaggerGen(p =>
             {
+                p.OperationFilter<AuthHeaderFilter>();
                 p.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "ResearchAPI", Version = "v1" });
                 p.IncludeXmlComments(AppDomain.CurrentDomain.BaseDirectory + "ResearchAPI.CORS.xml");
                 p.CustomSchemaIds(x => x.FullName);

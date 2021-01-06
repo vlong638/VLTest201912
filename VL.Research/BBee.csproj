@@ -92,6 +92,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="CommonLibrary">
+      <HintPath>..\VL.WindowsFormsApp\dlls\CommonLibrary.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Update="configs\config.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
