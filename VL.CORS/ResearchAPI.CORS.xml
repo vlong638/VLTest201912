@@ -1090,6 +1090,26 @@
             LessOrEqualThan
             </summary>
         </member>
+        <member name="T:ResearchAPI.CORS.Common.RoleCategory">
+            <summary>
+            角色类型
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.RoleCategory.None">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.RoleCategory.ProjectRole">
+            <summary>
+            项目内角色
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.RoleCategory.SystemRole">
+            <summary>
+            系统角色
+            </summary>
+        </member>
         <member name="P:ResearchAPI.CORS.Common.AddIndicatorsRequest.ProjectId">
             <summary>
             项目Id
@@ -1814,6 +1834,41 @@
             上一次执行完成时间
             </summary>
         </member>
+        <member name="T:ResearchAPI.CORS.Common.GetUserModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetUserModel.UserId">
+            <summary>
+            用户Id
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetUserModel.UserName">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetUserModel.Roles">
+            <summary>
+            用户角色
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Common.GetUserRoleModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetUserRoleModel.RoleId">
+            <summary>
+            角色Id
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetUserRoleModel.RoleName">
+            <summary>
+            角色名称
+            </summary>
+        </member>
         <member name="T:ResearchAPI.CORS.Common.AuthHeaderFilter">
             <summary>
             自定义header扩展
@@ -1871,7 +1926,13 @@
         </member>
         <member name="M:ResearchAPI.CORS.Controllers.HomeController.Login(ResearchAPI.CORS.Common.APIContext,ResearchAPI.CORS.Services.AccountService,ResearchAPI.CORS.Common.LoginRequest)">
             <summary>
-            
+            登陆
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ResearchAPI.CORS.Controllers.HomeController.GetUsers(ResearchAPI.CORS.Services.AccountService,System.Int32,System.Int32,System.String,System.String)">
+            <summary>
+            获取用户管理列表
             </summary>
             <returns></returns>
         </member>
@@ -1885,6 +1946,13 @@
             
             </summary>
             <param name="ProjectLog"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ResearchAPI.CORS.Repositories.RoleRepository.GetSystemRolesByUserIds(System.Collections.Generic.List{System.Int64})">
+            <summary>
+            根据用户Id获取用户角色集合
+            </summary>
+            <param name="userIds"></param>
             <returns></returns>
         </member>
         <member name="T:ResearchAPI.CORS.Repositories.SharedRepository">

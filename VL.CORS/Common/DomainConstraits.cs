@@ -184,7 +184,7 @@ namespace ResearchAPI.CORS.Common
             ViewAuthorizeTypes = ConfigHelper.GetDictionary<long>("ViewAuthorizeType");
             Departments = ConfigHelper.GetDictionary<long>("Department");
             Users = reportTaskService.GetUsersDictionary().Data;
-            Roles = reportTaskService.GetRolesDictionary().Data;
+            Roles = reportTaskService.GetProjectRolesDictionary().Data;
             AdminRoleId = Roles.First(c => c.Value == "项目管理员").Key;
             MemberRoleId = Roles.First(c => c.Value == "项目成员").Key;
             OwnerRoleId = Roles.First(c => c.Value == "项目创建人").Key;

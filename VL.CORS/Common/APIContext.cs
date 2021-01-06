@@ -96,6 +96,8 @@ namespace ResearchAPI.CORS.Common
             if (sessionId.FirstOrDefault().IsNullOrEmpty())
                 return null;
             var currentUser = RedisCache.Get<CurrentUser>(sessionId);
+            if (currentUser == null)
+                throw new NotImplementedException("当前用户不存在");
             return currentUser;
         }
 
@@ -103,6 +105,7 @@ namespace ResearchAPI.CORS.Common
         {
             var sessionId = currentUser.GetSessionId();
             RedisCache.Set(sessionId, currentUser, DateTime.Now.AddMinutes(30));
+            //var currentUser = RedisCache.Get<CurrentUser>(sessionId);
             return sessionId;
         }
 

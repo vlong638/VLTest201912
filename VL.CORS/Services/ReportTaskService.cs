@@ -138,11 +138,11 @@ namespace ResearchAPI.CORS.Services
             });
         }
 
-        internal ServiceResult<Dictionary<long, string>> GetRolesDictionary()
+        internal ServiceResult<Dictionary<long, string>> GetProjectRolesDictionary()
         {
             return ResearchDbContext.DelegateNonTransaction(c =>
             {
-                var result = RoleRepository.GetAllRoles();
+                var result = RoleRepository.GetAllProjectRoles();
                 return result.ToDictionary(c => c.Id, c => c.Name);
             });
         }
@@ -361,7 +361,7 @@ namespace ResearchAPI.CORS.Services
         {
             return ResearchDbContext.DelegateNonTransaction(c =>
             {
-                return RoleRepository.GetAllRoles();
+                return RoleRepository.GetAllProjectRoles();
             });
         }
 

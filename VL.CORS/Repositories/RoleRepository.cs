@@ -16,16 +16,35 @@ namespace ResearchAPI.CORS.Repositories
         {
         }
 
-        public List<Role> GetAllRoles()
+        public List<Role> GetAllProjectRoles()
         {
-            return _connection.Query<Role>("select * from [Role];", transaction: _transaction)
+            return _connection.Query<Role>("select * from [Role] where Category = @Category;"
+                , new { Category = RoleCategory.ProjectRole }, transaction: _transaction)
+                .ToList();
+        }
+
+        /// <summary>
+        /// 根据用户Id获取用户角色集合
+        /// </summary>
+        /// <param name="userIds"></param>
+        /// <returns></returns>
+        public List<UserRoleModel> GetSystemRolesByUserIds(List<long> userIds)
+        {
+            return _connection.Query<UserRoleModel>($@"select ur.UserId,ur.RoleId,r.Name as RoleName
+from UserRole ur
+left join Role r on ur.roleId = r.id
+where r.Category = @Category
+and ur.userId in @userIds", new { Category = RoleCategory.SystemRole, userIds }, transaction: _transaction)
                 .ToList();
         }
     }
 
-    public class UserFavoriteRoleModel
+    public class UserRoleModel
     {
+        public long UserId { set; get; }
         public long RoleId { set; get; }
         public string RoleName { set; get; }
     }
+
+
 }

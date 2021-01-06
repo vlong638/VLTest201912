@@ -10,5 +10,25 @@ namespace ResearchAPI.CORS.Common
 
         public long Id { set; get; }
         public string Name { set; get; }
+        public RoleCategory Category { set; get; }
+    }
+
+    /// <summary>
+    /// 角色类型
+    /// </summary>
+    public enum RoleCategory
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        None = 0,
+        /// <summary>
+        /// 项目内角色
+        /// </summary>
+        ProjectRole = 1,
+        /// <summary>
+        /// 系统角色
+        /// </summary>
+        SystemRole = 2,
     }
 }
