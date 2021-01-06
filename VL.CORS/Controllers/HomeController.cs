@@ -76,6 +76,7 @@ namespace ResearchAPI.CORS.Controllers
         {
             var result = service.EditUser(new User()
             {
+                Id= request.UserId,
                 NickName = request.NickName,
                 Sex = request.Sex,
                 Phone = request.Phone

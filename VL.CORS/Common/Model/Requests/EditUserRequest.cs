@@ -8,6 +8,10 @@ namespace ResearchAPI.CORS.Common
     public class EditUserRequest
     {
         /// <summary>
+        /// 
+        /// </summary>
+        public long UserId { set; get; }
+        /// <summary>
         /// 昵称
         /// </summary>
         public string NickName { set; get; }
