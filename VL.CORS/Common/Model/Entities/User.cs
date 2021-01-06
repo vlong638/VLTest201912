@@ -1,5 +1,6 @@
 ﻿using Dapper.Contrib.Extensions;
 using System;
+using System.ComponentModel;
 
 namespace ResearchAPI.CORS.Common
 {
@@ -18,6 +19,9 @@ namespace ResearchAPI.CORS.Common
         public DateTime CreatedAt { set; get; }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public enum Sex
     {
         /// <summary>
@@ -27,10 +31,12 @@ namespace ResearchAPI.CORS.Common
         /// <summary>
         /// 
         /// </summary>
+        [Description("男")]
         Man = 1,
         /// <summary>
         /// 
         /// </summary>
+        [Description("女")]
         Woman = 2,
     }
 }

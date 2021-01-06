@@ -293,10 +293,10 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<GetBriefProjectModel> GetBriefProject([FromServices] APIContext context, [FromServices] ReportTaskService service, long projectId)
+        public APIResult<GetBriefProjectModel> GetBriefProject([FromServices] APIContext context, [FromServices] ReportTaskService service, [FromBody] GetBriefProjectRequest request)
         {
             var currentUser = context.GetCurrentUser();
-            var serviceResult = service.GetProject(projectId);
+            var serviceResult = service.GetProject(request.ProjectId);
             if (!serviceResult.IsSuccess)
                 return new APIResult<GetBriefProjectModel>(null, serviceResult.Code, serviceResult.Message);
             var result = new GetBriefProjectModel(serviceResult.Data);

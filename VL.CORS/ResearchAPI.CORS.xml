@@ -1110,6 +1110,11 @@
             系统角色
             </summary>
         </member>
+        <member name="T:ResearchAPI.CORS.Common.Sex">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="F:ResearchAPI.CORS.Common.Sex.None">
             <summary>
             
@@ -1424,6 +1429,11 @@
             角色Id
             </summary>
         </member>
+        <member name="P:ResearchAPI.CORS.Common.GetBriefProjectRequest.ProjectId">
+            <summary>
+            项目Id
+            </summary>
+        </member>
         <member name="T:ResearchAPI.CORS.Common.GetCommonSelectRequest">
             <summary>
             统一查询入参结构
@@ -1541,6 +1551,31 @@
         <member name="P:ResearchAPI.CORS.Common.GetProjectOperateHistoryRequest.OperatorId">
             <summary>
             
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Common.GetUsersRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetUsersRequest.Page">
+            <summary>
+            页码
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetUsersRequest.Limit">
+            <summary>
+            页面显示数量
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetUsersRequest.UserName">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetUsersRequest.NickName">
+            <summary>
+            昵称
             </summary>
         </member>
         <member name="T:ResearchAPI.CORS.Common.LogicDeleteUserRequest">
@@ -1979,6 +2014,26 @@
             是否已删除
             </summary>
         </member>
+        <member name="P:ResearchAPI.CORS.Common.GetUserModel.Sex">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetUserModel.Sex_Text">
+            <summary>
+            性别文本
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetUserModel.Phone">
+            <summary>
+            手机号码
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetUserModel.CreatedAt">
+            <summary>
+            创建时间
+            </summary>
+        </member>
         <member name="P:ResearchAPI.CORS.Common.GetUserModel.Roles">
             <summary>
             用户角色
@@ -2060,36 +2115,11 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:ResearchAPI.CORS.Controllers.HomeController.GetUsers(ResearchAPI.CORS.Services.AccountService,ResearchAPI.CORS.Controllers.HomeController.GetUsersRequest)">
+        <member name="M:ResearchAPI.CORS.Controllers.HomeController.GetUsers(ResearchAPI.CORS.Services.AccountService,ResearchAPI.CORS.Common.GetUsersRequest)">
             <summary>
             获取用户管理列表
             </summary>
             <returns></returns>
-        </member>
-        <member name="T:ResearchAPI.CORS.Controllers.HomeController.GetUsersRequest">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.CORS.Controllers.HomeController.GetUsersRequest.Page">
-            <summary>
-            页码
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.CORS.Controllers.HomeController.GetUsersRequest.Limit">
-            <summary>
-            页面显示数量
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.CORS.Controllers.HomeController.GetUsersRequest.UserName">
-            <summary>
-            用户名
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.CORS.Controllers.HomeController.GetUsersRequest.NickName">
-            <summary>
-            昵称
-            </summary>
         </member>
         <member name="M:ResearchAPI.CORS.Controllers.HomeController.CreateUser(ResearchAPI.CORS.Services.AccountService,ResearchAPI.CORS.Common.CreateUserRequest)">
             <summary>
@@ -2279,7 +2309,7 @@
             1.3.4.获取操作记录 GetProjectOperateHistory
             </summary>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetBriefProject(ResearchAPI.CORS.Common.APIContext,ResearchAPI.CORS.Services.ReportTaskService,System.Int64)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetBriefProject(ResearchAPI.CORS.Common.APIContext,ResearchAPI.CORS.Services.ReportTaskService,ResearchAPI.CORS.Common.GetBriefProjectRequest)">
             <summary>
             1.4.1.获取项目概要信息
             </summary>

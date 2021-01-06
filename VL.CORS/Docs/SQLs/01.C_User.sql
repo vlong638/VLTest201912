@@ -13,9 +13,12 @@ CREATE TABLE [dbo].[User](
 	-------------------------------------------下管控
 	IsDeleted bit default 0,
 	-------------------------------------------下内容
-	[Name] nvarchar(20) NULL,
-	[Password] nvarchar(32) NULL,
-	[NickName] nvarchar(20) NULL,
+	[Name] nvarchar(20) COLLATE Chinese_PRC_CI_AS  NULL,
+	[Password] nvarchar(32) COLLATE Chinese_PRC_CI_AS  NULL,
+	[NickName] nvarchar(20) COLLATE Chinese_PRC_CI_AS  NULL,
+	[Phone] nvarchar(20) COLLATE Chinese_PRC_CI_AS  NULL,
+	[Sex] tinyint  NULL,
+	[CreatedAt] datetime  NULL
 	-------------------------------------------
 	CONSTRAINT[PK_User] PRIMARY KEY CLUSTERED 
 	(

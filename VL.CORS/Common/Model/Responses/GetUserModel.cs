@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ResearchAPI.CORS.Common
 {
@@ -23,6 +24,22 @@ namespace ResearchAPI.CORS.Common
         /// 是否已删除
         /// </summary>
         public bool IsDeleted { set; get; }
+        /// <summary>
+        /// 性别
+        /// </summary>
+        public Sex Sex { set; get; }
+        /// <summary>
+        /// 性别文本
+        /// </summary>
+        public string Sex_Text { set; get; }
+        /// <summary>
+        /// 手机号码
+        /// </summary>
+        public string Phone { set; get; }
+        /// <summary>
+        /// 创建时间
+        /// </summary>
+        public DateTime CreatedAt { set; get; }
         /// <summary>
         /// 用户角色
         /// </summary>
