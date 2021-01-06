@@ -43,7 +43,7 @@ VALUES (@name, @password, @nickname, @phone, @sex, @isdeleted);SELECT @@IDENTITY
                 .ToList();
         }
 
-        internal User GetByUserName(string userName)
+        internal User GetByName(string userName)
         {
             return _connection.Query<User>("select * from [User] where Name = @UserName;"
                 , new { userName}

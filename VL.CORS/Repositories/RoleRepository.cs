@@ -1,5 +1,6 @@
 ﻿using Autobots.Infrastracture.Common.DBSolution;
 using Autobots.Infrastracture.Common.RepositorySolution;
+using Autobots.Infrastracture.Common.ValuesSolution;
 using Dapper;
 using ResearchAPI.CORS.Common;
 using System;
@@ -43,6 +44,48 @@ and ur.userId in @userIds", new { Category = RoleCategory.SystemRole, userIds },
             return _connection.Query<Role>("select * from [Role] where Category = @Category;"
                 , new { Category = RoleCategory.SystemRole }, transaction: _transaction)
                 .ToList();
+        }
+
+        internal Role GetByName(string name)
+        {
+            return _connection.Query<Role>("select * from [Role] where Name = @Name;"
+                , new { name }
+                , transaction: _transaction)
+                .FirstOrDefault();
+        }
+
+        internal long InsertOne(Role role)
+        {
+            return _connection.ExecuteScalar<long>(@"INSERT INTO [Role]([Name]) VALUES (@name);SELECT @@IDENTITY;"
+                , role, transaction: _transaction);
+        }
+
+        internal List<Role> GetPagedRoles(int page, int limit, string name)
+        {
+            var sql = @$"
+select *
+from [Role]
+where 1=1
+{ (name.IsNullOrEmpty() ? "" : " and name like @name")}
+order by id desc
+offset {(page - 1) * limit} rows fetch next {limit} rows only
+";
+            return _connection.Query<Role>(sql
+                , new { page, limit, name = $"%{name}%" }
+                , transaction: _transaction)
+                .ToList();
+        }
+        internal int GetPagedRolesCount( string name)
+        {
+            var sql = @$"
+select count(*)
+from [Role]
+where 1=1
+{ (name.IsNullOrEmpty() ? "" : " and name like @name")}
+";
+            return _connection.ExecuteScalar<int>(sql
+                , new { name = $"%{name}%" }
+                , transaction: _transaction);
         }
     }
 

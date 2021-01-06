@@ -33,6 +33,7 @@ namespace ResearchAPI.CORS.Controllers
             return new APIResult<string>(null, result.Messages);
         }
 
+        #region User
         /// <summary>
         /// 获取用户管理列表
         /// </summary>
@@ -104,6 +105,113 @@ namespace ResearchAPI.CORS.Controllers
         {
             var result = service.LogicUndoDeleteUser(request.UserId);
             return new APIResult<bool>(result);
+        } 
+        #endregion
+
+        #region Role
+
+        /// <summary>
+        /// 获取角色管理列表
+        /// </summary>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpPost]
+        public APIResult<VLPagerResult<List<GetRoleModel>>> GetRoles([FromServices] AccountService service, [FromBody] GetRolesRequest request)
+        {
+            var result = service.GetPagedRoles(request.Page, request.Limit, request.RoleName);
+            return new APIResult<VLPagerResult<List<GetRoleModel>>>(result);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public class GetRolesRequest
+        {
+            /// <summary>
+            /// 页码
+            /// </summary>
+            public int Page { set; get; }
+            /// <summary>
+            /// 页面显示数量
+            /// </summary>
+            public int Limit { set; get; }
+            /// <summary>
+            /// 角色名称
+            /// </summary>
+            public string RoleName { set; get; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public class CreateRoleRequest
+        {
+            /// <summary>
+            /// 角色
+            /// </summary>
+            public string RoleName { set; get; }
+        }
+
+        /// <summary>
+        /// 新建角色
+        /// </summary>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpPost]
+        public APIResult<long> CreateRole([FromServices] AccountService service, [FromBody] CreateRoleRequest request)
+        {
+            var result = service.CreateRole(new Role()
+            {
+                Name = request.RoleName,
+                Category = RoleCategory.SystemRole,
+            });
+            return new APIResult<long>(result);
+        }
+
+        /// <summary>
+        /// 编辑角色
+        /// </summary>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpPost]
+        public APIResult<bool> EditRole([FromServices] AccountService service, [FromBody] EditRoleRequest request)
+        {
+            var result = service.EditRole(new Role()
+            {
+                Id = request.RoleId,
+                Name = request.RoleName,
+            });
+            return new APIResult<bool>(result);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public class EditRoleRequest
+        {
+            /// <summary>
+            /// 角色Id
+            /// </summary>
+            public long RoleId { set; get; }
+            /// <summary>
+            /// 角色名称
+            /// </summary>
+            public string RoleName { set; get; }
+        }
+
+        /// <summary>
+        /// 删除角色
+        /// </summary>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpPost]
+        public APIResult<bool> DeleteRole([FromServices] AccountService service, [FromBody] DeleteRoleRequest request)
+        {
+            var result = service.DeleteRole(request.RoleId);
+            return new APIResult<bool>(result);
+        }
+
+        #endregion
+
     }
 }

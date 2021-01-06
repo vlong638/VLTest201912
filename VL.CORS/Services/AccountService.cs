@@ -98,7 +98,7 @@ namespace ResearchAPI.CORS.Services
             return ResearchDbContext.DelegateTransaction(c =>
             {
                 user.CreatedAt = DateTime.Now;
-                var repeat = UserRepository.GetByUserName(user.Name);
+                var repeat = UserRepository.GetByName(user.Name);
                 if (repeat != null)
                 { 
                     throw new NotImplementedException("用户名已存在");
@@ -110,6 +110,20 @@ namespace ResearchAPI.CORS.Services
                     UserRoleRepository.Insert(userRole);
                 }
                 return id;
+            });
+        }
+
+        internal ServiceResult<VLPagerResult<List<GetRoleModel>>> GetPagedRoles(int page, int limit, string roleName)
+        {
+            return ResearchDbContext.DelegateTransaction(c =>
+            {
+                var list = RoleRepository.GetPagedRoles(page, limit, roleName).Select(c => new GetRoleModel()
+                {
+                    RoleId = c.Id,
+                    RoleName = c.Name,
+                }).ToList();
+                var count = RoleRepository.GetPagedRolesCount(roleName);
+                return new VLPagerResult<List<GetRoleModel>>() { List = list, Count = count };
             });
         }
 
@@ -136,7 +150,11 @@ namespace ResearchAPI.CORS.Services
             return ResearchDbContext.DelegateTransaction(c =>
             {
                 newUser.CreatedAt = DateTime.Now;
-                var user = UserRepository.GetByUserName(newUser.Name);
+                var user = UserRepository.GetById(newUser.Id);
+                if (user == null)
+                {
+                    throw new Exception("用户不存在");
+                }
                 user.NickName = newUser.NickName;
                 user.Sex = newUser.Sex;
                 user.Phone = newUser.Phone;
@@ -148,6 +166,44 @@ namespace ResearchAPI.CORS.Services
                     UserRoleRepository.Insert(userRole);
                 }
                 return true;
+            });
+        }
+
+        internal ServiceResult<bool> EditRole(Role newRole)
+        {
+            return ResearchDbContext.DelegateTransaction(c =>
+            {
+                var role = RoleRepository.GetByName(newRole.Name);
+                if (role != null)
+                {
+                    throw new Exception("角色名已被使用");
+                }
+                var result = RoleRepository.Update(newRole);
+                return result;
+            });
+        }
+
+        internal ServiceResult<bool> DeleteRole(long roleId)
+        {
+            return ResearchDbContext.DelegateTransaction(c =>
+            {
+                var result1 = UserRoleRepository.DeleteByRoleId(roleId);
+                var result2 = RoleRepository.DeleteById(roleId);
+                return result2;
+            });
+        }
+
+        internal ServiceResult<long> CreateRole(Role role)
+        {
+            return ResearchDbContext.DelegateTransaction(c =>
+            {
+                var repeat = RoleRepository.GetByName(role.Name);
+                if (repeat != null)
+                {
+                    throw new NotImplementedException("角色名称已存在");
+                }
+                var id = RoleRepository.InsertOne(role);
+                return id;
             });
         }
     }

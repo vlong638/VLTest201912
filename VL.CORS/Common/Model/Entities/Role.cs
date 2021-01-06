@@ -8,6 +8,14 @@ namespace ResearchAPI.CORS.Common
     {
         public const string TableName = "Role";
 
+        public Role()
+        {
+        }
+        public Role(string roleName)
+        {
+            Name = roleName;
+        }
+
         public long Id { set; get; }
         public string Name { set; get; }
         public RoleCategory Category { set; get; }

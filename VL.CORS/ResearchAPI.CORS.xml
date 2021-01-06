@@ -1339,6 +1339,16 @@
             
             </summary>
         </member>
+        <member name="T:ResearchAPI.CORS.Common.DeleteRoleRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.DeleteRoleRequest.RoleId">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:ResearchAPI.CORS.Common.EditProjectRequest">
             <summary>
             编辑项目
@@ -1427,6 +1437,11 @@
         <member name="P:ResearchAPI.CORS.Common.EditUserRequest.RoleIds">
             <summary>
             角色Id
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Common.GetBriefProjectRequest">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:ResearchAPI.CORS.Common.GetBriefProjectRequest.ProjectId">
@@ -1964,6 +1979,21 @@
             操作概要描述
             </summary>
         </member>
+        <member name="T:ResearchAPI.CORS.Common.GetRoleModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetRoleModel.RoleId">
+            <summary>
+            角色Id
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetRoleModel.RoleName">
+            <summary>
+            角色名称
+            </summary>
+        </member>
         <member name="P:ResearchAPI.CORS.Common.GetTaskStatusModel.ScheduleStatus">
             <summary>
             执行状态
@@ -2142,6 +2172,75 @@
         <member name="M:ResearchAPI.CORS.Controllers.HomeController.LogicUndoDeleteUser(ResearchAPI.CORS.Services.AccountService,ResearchAPI.CORS.Common.LogicUndoDeleteUserRequest)">
             <summary>
             逻辑启用用户
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ResearchAPI.CORS.Controllers.HomeController.GetRoles(ResearchAPI.CORS.Services.AccountService,ResearchAPI.CORS.Controllers.HomeController.GetRolesRequest)">
+            <summary>
+            获取角色管理列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:ResearchAPI.CORS.Controllers.HomeController.GetRolesRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Controllers.HomeController.GetRolesRequest.Page">
+            <summary>
+            页码
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Controllers.HomeController.GetRolesRequest.Limit">
+            <summary>
+            页面显示数量
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Controllers.HomeController.GetRolesRequest.RoleName">
+            <summary>
+            角色名称
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Controllers.HomeController.CreateRoleRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Controllers.HomeController.CreateRoleRequest.RoleName">
+            <summary>
+            角色
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Controllers.HomeController.CreateRole(ResearchAPI.CORS.Services.AccountService,ResearchAPI.CORS.Controllers.HomeController.CreateRoleRequest)">
+            <summary>
+            新建角色
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ResearchAPI.CORS.Controllers.HomeController.EditRole(ResearchAPI.CORS.Services.AccountService,ResearchAPI.CORS.Controllers.HomeController.EditRoleRequest)">
+            <summary>
+            编辑角色
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:ResearchAPI.CORS.Controllers.HomeController.EditRoleRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Controllers.HomeController.EditRoleRequest.RoleId">
+            <summary>
+            角色Id
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Controllers.HomeController.EditRoleRequest.RoleName">
+            <summary>
+            角色名称
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Controllers.HomeController.DeleteRole(ResearchAPI.CORS.Services.AccountService,ResearchAPI.CORS.Common.DeleteRoleRequest)">
+            <summary>
+            删除角色
             </summary>
             <returns></returns>
         </member>
