@@ -22,10 +22,17 @@ VALUES (@name, @password, @nickname, @phone, @sex, @isdeleted, @CreatedAt);SELEC
                 , user, transaction: _transaction);
         }
 
-        internal User GetBy(string userName)
+        internal User GetByName(string userName)
         {
             return _connection.Query<User>("select * from [User] where Name = @userName;"
                 , new { userName }, transaction: _transaction)
+                .FirstOrDefault();
+        }
+
+        internal User GetById(long userId)
+        {
+            return _connection.Query<User>("select * from [User] where Id = @userId;"
+                , new { userId }, transaction: _transaction)
                 .FirstOrDefault();
         }
 
@@ -41,14 +48,6 @@ VALUES (@name, @password, @nickname, @phone, @sex, @isdeleted, @CreatedAt);SELEC
             return _connection.Query<User>("select Id,Name from [User] ;" 
                 , transaction: _transaction)
                 .ToList();
-        }
-
-        internal User GetByName(string userName)
-        {
-            return _connection.Query<User>("select * from [User] where Name = @UserName;"
-                , new { userName}
-                , transaction: _transaction)
-                .FirstOrDefault();
         }
 
         internal User GetByUserNameAndPassword(string userName, string password)
@@ -94,6 +93,13 @@ where 1=1
         {
             return _connection.Execute("update [User] set IsDeleted = @toStatus where id = @userId and IsDeleted =@fromStatus;"
                 , new { userId, fromStatus, toStatus }
+                , transaction: _transaction);
+        }
+
+        internal int UpdateUserInfo(User user)
+        {
+            return _connection.Execute("update [User] set NickName = @NickName,Sex = @Sex,Phone=@Phone where id = @id;"
+                , user
                 , transaction: _transaction);
         }
     }

@@ -150,7 +150,11 @@ namespace ResearchAPI.CORS.Services
                 user.NickName = newUser.NickName;
                 user.Sex = newUser.Sex;
                 user.Phone = newUser.Phone;
-                UserRepository.Update(user);
+                var result = UserRepository.UpdateUserInfo(user);
+                if (result == 0)
+                {
+                    throw new Exception("用户信息更新失败");
+                }
                 UserRoleRepository.DeleteByUserId(user.Id);
                 var userRoles = roleIds.Select(c => new UserRole() { UserId = newUser.Id, RoleId = c });
                 foreach (var userRole in userRoles)
