@@ -1543,6 +1543,26 @@
             
             </summary>
         </member>
+        <member name="T:ResearchAPI.CORS.Common.LogicDeleteUserRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.LogicDeleteUserRequest.UserId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Common.LogicUndoDeleteUserRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.LogicUndoDeleteUserRequest.UserId">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:ResearchAPI.CORS.Common.LoginRequest">
             <summary>
             
@@ -2080,6 +2100,18 @@
         <member name="M:ResearchAPI.CORS.Controllers.HomeController.EditUser(ResearchAPI.CORS.Services.AccountService,ResearchAPI.CORS.Common.EditUserRequest)">
             <summary>
             编辑用户
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ResearchAPI.CORS.Controllers.HomeController.LogicDeleteUser(ResearchAPI.CORS.Services.AccountService,ResearchAPI.CORS.Common.LogicDeleteUserRequest)">
+            <summary>
+            逻辑删除用户
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ResearchAPI.CORS.Controllers.HomeController.LogicUndoDeleteUser(ResearchAPI.CORS.Services.AccountService,ResearchAPI.CORS.Common.LogicUndoDeleteUserRequest)">
+            <summary>
+            逻辑启用用户
             </summary>
             <returns></returns>
         </member>

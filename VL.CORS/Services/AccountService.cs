@@ -102,6 +102,24 @@ namespace ResearchAPI.CORS.Services
             });
         }
 
+        internal ServiceResult<bool> LogicDeleteUser(long userId)
+        {
+            return ResearchDbContext.DelegateTransaction(c =>
+            {
+                var result = UserRepository.UpdateUserStatus(userId, IsDeleted: true);
+                return result > 0;
+            });
+        }
+
+        internal ServiceResult<bool> LogicUndoDeleteUser(long userId)
+        {
+            return ResearchDbContext.DelegateTransaction(c =>
+            {
+                var result = UserRepository.UpdateUserStatus(userId, IsDeleted: true);
+                return result > 0;
+            });
+        }
+
         internal ServiceResult<bool> EditUser(User newUser, List<long> roleIds)
         {
             return ResearchDbContext.DelegateTransaction(c =>

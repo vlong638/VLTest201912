@@ -89,5 +89,12 @@ where 1=1
                 , new { name = $"%{username}%" }
                 , transaction: _transaction);
         }
+
+        internal int UpdateUserStatus(long userId, bool IsDeleted)
+        {
+            return _connection.Execute("update [User] set IsDeleted = @IsDeleted where id = @userId;"
+                , new { userId, IsDeleted }
+                , transaction: _transaction);
+        }
     }
 }
