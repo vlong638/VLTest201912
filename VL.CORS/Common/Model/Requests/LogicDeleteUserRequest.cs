@@ -11,5 +11,9 @@ namespace ResearchAPI.CORS.Common
         /// 
         /// </summary>
         public long UserId { set; get; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool CurrentStatus { set; get; }
     }
 }

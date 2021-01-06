@@ -91,22 +91,11 @@ namespace ResearchAPI.CORS.Controllers
         /// <returns></returns>
         [AllowAnonymous]
         [HttpPost]
-        public APIResult<bool> LogicDeleteUser([FromServices] AccountService service, [FromBody] LogicDeleteUserRequest request)
+        public APIResult<bool> UpdateUserStatus([FromServices] AccountService service, [FromBody] LogicDeleteUserRequest request)
         {
-            var result = service.LogicDeleteUser(request.UserId);
+            var result = service.UpdateUserStatus(request.UserId,request.CurrentStatus);
             return new APIResult<bool>(result);
         }
-        /// <summary>
-        /// 逻辑启用用户
-        /// </summary>
-        /// <returns></returns>
-        [AllowAnonymous]
-        [HttpPost]
-        public APIResult<bool> LogicUndoDeleteUser([FromServices] AccountService service, [FromBody] LogicUndoDeleteUserRequest request)
-        {
-            var result = service.LogicUndoDeleteUser(request.UserId);
-            return new APIResult<bool>(result);
-        } 
         #endregion
 
         #region Role

@@ -1419,6 +1419,11 @@
             
             </summary>
         </member>
+        <member name="P:ResearchAPI.CORS.Common.EditUserRequest.UserId">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:ResearchAPI.CORS.Common.EditUserRequest.NickName">
             <summary>
             昵称

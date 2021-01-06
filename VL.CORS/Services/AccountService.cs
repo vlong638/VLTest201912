@@ -78,6 +78,7 @@ namespace ResearchAPI.CORS.Services
                     var m = new GetUserModel()
                     {
                         UserId = c.Id,
+                        UserName = c.Name,
                     };
                     c.MapTo(m);
                     m.Sex_Text = m.Sex.GetDescription();
@@ -103,7 +104,7 @@ namespace ResearchAPI.CORS.Services
                 { 
                     throw new NotImplementedException("用户名已存在");
                 }
-                var id = UserRepository.InsertOne(user);
+                var id = UserRepository.Insert(user);
                 var userRoles = roleIds.Select(c => new UserRole() { UserId = id, RoleId = c });
                 foreach (var userRole in userRoles)
                 {
@@ -127,20 +128,11 @@ namespace ResearchAPI.CORS.Services
             });
         }
 
-        internal ServiceResult<bool> LogicDeleteUser(long userId)
+        internal ServiceResult<bool> UpdateUserStatus(long userId, bool currentStatus)
         {
             return ResearchDbContext.DelegateTransaction(c =>
             {
-                var result = UserRepository.UpdateUserStatus(userId, IsDeleted: true);
-                return result > 0;
-            });
-        }
-
-        internal ServiceResult<bool> LogicUndoDeleteUser(long userId)
-        {
-            return ResearchDbContext.DelegateTransaction(c =>
-            {
-                var result = UserRepository.UpdateUserStatus(userId, IsDeleted: true);
+                var result = UserRepository.UpdateUserStatus(userId, fromStatus: currentStatus, toStatus: !currentStatus);
                 return result > 0;
             });
         }

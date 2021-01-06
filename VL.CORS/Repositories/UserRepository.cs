@@ -17,8 +17,8 @@ namespace ResearchAPI.CORS.Repositories
 
         internal long InsertOne(User user)
         {
-            return _connection.ExecuteScalar<long>(@"INSERT INTO [User]([Name], [Password], [NickName], [Phone], [Sex], [IsDeleted]) 
-VALUES (@name, @password, @nickname, @phone, @sex, @isdeleted);SELECT @@IDENTITY;"
+            return _connection.ExecuteScalar<long>(@"INSERT INTO [User]([Name], [Password], [NickName], [Phone], [Sex], [IsDeleted], [CreatedAt]) 
+VALUES (@name, @password, @nickname, @phone, @sex, @isdeleted, @CreatedAt);SELECT @@IDENTITY;"
                 , user, transaction: _transaction);
         }
 
@@ -90,10 +90,10 @@ where 1=1
                 , transaction: _transaction);
         }
 
-        internal int UpdateUserStatus(long userId, bool IsDeleted)
+        internal int UpdateUserStatus(long userId, bool fromStatus, bool toStatus)
         {
-            return _connection.Execute("update [User] set IsDeleted = @IsDeleted where id = @userId;"
-                , new { userId, IsDeleted }
+            return _connection.Execute("update [User] set IsDeleted = @toStatus where id = @userId and IsDeleted =@fromStatus;"
+                , new { userId, fromStatus, toStatus }
                 , transaction: _transaction);
         }
     }
