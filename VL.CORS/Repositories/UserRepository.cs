@@ -47,7 +47,7 @@ namespace ResearchAPI.CORS.Repositories
         internal List<User> GetPagedUsers(int page, int limit, string username, string nickname)
         {
             var sql = @$"
-select id,name 
+select id,name,nickname,isDeleted
 from [User]
 where 1=1
 { (username.IsNullOrEmpty()?"":" and name like @name")}

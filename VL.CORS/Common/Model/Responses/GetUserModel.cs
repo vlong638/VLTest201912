@@ -16,6 +16,14 @@ namespace ResearchAPI.CORS.Common
         /// </summary>
         public string UserName { set; get; }
         /// <summary>
+        /// 昵称
+        /// </summary>
+        public string NickName { set; get; }
+        /// <summary>
+        /// 是否已删除
+        /// </summary>
+        public bool IsDeleted { set; get; }
+        /// <summary>
         /// 用户角色
         /// </summary>
         public List<GetUserRoleModel> Roles { set; get; }

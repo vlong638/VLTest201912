@@ -63,7 +63,13 @@ namespace ResearchAPI.CORS.Services
         {
             return ResearchDbContext.DelegateTransaction(c =>
             {
-                var list = UserRepository.GetPagedUsers(page, limit, username, nickname).Select(c => new GetUserModel() { UserId = c.Id, UserName = c.Name }).ToList();
+                var list = UserRepository.GetPagedUsers(page, limit, username, nickname).Select(c => new GetUserModel()
+                {
+                    UserId = c.Id,
+                    UserName = c.Name,
+                    NickName = c.NickName,
+                    IsDeleted = c.IsDeleted,
+                }).ToList();
                 var userRoles = RoleRepository.GetSystemRolesByUserIds(list.Select(c => c.UserId).ToList());
                 list.ForEach(c =>
                 {
