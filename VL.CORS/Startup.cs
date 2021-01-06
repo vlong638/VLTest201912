@@ -1,3 +1,4 @@
+using Autobots.Infrastracture.Common.RedisSolution;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -6,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using ResearchAPI.CORS.Common;
-using ResearchAPI.Services;
+using ResearchAPI.CORS.Services;
 using System;
 using System.IO;
 
@@ -29,6 +30,8 @@ namespace VL.CORS
             services.AddScoped<APIContext>();
             //services.AddSingleton<DomainConstraits, DomainConstraits>();
             services.AddScoped<ReportTaskService, ReportTaskService>();
+            services.AddScoped<AccountService, AccountService>();
+            services.AddSingleton(p => new RedisCache(Configuration["Redis:ConnectionString"], Configuration["Redis:Prefix"]));
             services.AddControllers();
 
             //允许跨域
@@ -37,6 +40,7 @@ namespace VL.CORS
             .WithOrigins(
                 "http://localhost:63342" //文欣
                 , "http://localhost:8848" //一帆
+                , "http://192.168.50.172:8848" //一帆
                 , "http://localhost:14314" //vl
                 , "http://localhost:8065" //vl
             )

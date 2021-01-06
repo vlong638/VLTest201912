@@ -1,6 +1,5 @@
 ﻿using Autobots.Infrastracture.Common.ValuesSolution;
-using ResearchAPI.Controllers;
-using ResearchAPI.Services;
+using ResearchAPI.CORS.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;

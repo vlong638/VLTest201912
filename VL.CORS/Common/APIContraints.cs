@@ -1,6 +1,4 @@
-﻿using ResearchAPI.Services;
-
-namespace ResearchAPI.CORS.Common
+﻿namespace ResearchAPI.CORS.Common
 {
     /// <summary>
     /// 静态量,常量

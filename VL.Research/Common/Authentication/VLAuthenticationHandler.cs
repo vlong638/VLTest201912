@@ -10,7 +10,7 @@ namespace BBee.Common
         public AuthenticationScheme Scheme { get; private set; }
         protected HttpContext Context { get; private set; }
 
-        public const string Cookie_AuthName = "vlcookie";
+        public const string Cookie_AuthName = "VLcookie";
         public const string ShemeName = "vlsheme";
 
         public Task InitializeAsync(AuthenticationScheme scheme, Microsoft.AspNetCore.Http.HttpContext context)

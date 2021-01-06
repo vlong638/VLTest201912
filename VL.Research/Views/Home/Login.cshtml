@@ -145,8 +145,45 @@
 
 <script type="text/javascript" src="../../../assets/js/jquery-3.5.1.js"></script>
 <script>
+    function setCookie(name, value, interval) {
+        var Days = 30;
+        var exp = new Date();
+        exp.setTime(exp.getTime() + interval * 1000);
+        document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString();
+    }
+
     $(
         function () {
+            var request = {};
+            request.UserName = 'admin';
+            request.Password = '123456';
+            request.RememberMe = false;
+            var token = "";
+            $.ajax({
+                url: 'http://localhost:61696/api/Home/Login',
+                type: 'post',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(request),
+                success: function (resp) {
+                    token = resp.data;
+                    console.log(resp.data);
+
+                    var projectId = 49;
+                    $.ajax({
+                        headers: { "VLSession": token },
+                        url: 'http://localhost:61696/api/EasyResearch/GetBriefProject',
+                        type: 'post',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        data: { projectId },
+                        success: function (resp) {
+                            console.log(resp.data);
+                        }
+                    })
+                }
+            })
+
 
             //var request = {};
             //request.ProjectId = 49;
@@ -164,30 +201,30 @@
             //    }
             //})
 
-            var projectId = 49;
-            $.ajax({
-                url: 'http://192.168.50.128:8041/api/EasyResearch/GetBriefProject',
-                type: 'post',
-                dataType: 'json',
-                contentType: 'application/json',
-                data: { projectId },
-                success: function (resp) {
-                    console.log(resp.data);
-                }
-            })
+            //var projectId = 49;
+            //$.ajax({
+            //    url: 'http://192.168.50.128:8041/api/EasyResearch/GetBriefProject',
+            //    type: 'post',
+            //    dataType: 'json',
+            //    contentType: 'application/json',
+            //    data: { projectId },
+            //    success: function (resp) {
+            //        console.log(resp.data);
+            //    }
+            //})
 
-            var indicatorId = 53;
-            var name = '洒下';
-            $.ajax({
-                url: 'http://192.168.50.128:8041/api/EasyResearch/UpdateIndicatorName',
-                type: 'post',
-                dataType: 'json',
-                contentType: 'application/json',
-                data: { indicatorId, name },
-                success: function (resp) {
-                    console.log(resp.data);
-                }
-            })
+            //var indicatorId = 53;
+            //var name = '洒下';
+            //$.ajax({
+            //    url: 'http://192.168.50.128:8041/api/EasyResearch/UpdateIndicatorName',
+            //    type: 'post',
+            //    dataType: 'json',
+            //    contentType: 'application/json',
+            //    data: { indicatorId, name },
+            //    success: function (resp) {
+            //        console.log(resp.data);
+            //    }
+            //})
 
             //var projectId = 49;
             //$.ajax({

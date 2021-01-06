@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using ResearchAPI.CORS.Common;
-using ResearchAPI.Services;
+using ResearchAPI.CORS.Services;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -32,18 +32,6 @@ namespace ResearchAPI.Controllers
     public class EasyResearchController : APIBaseController
     {
         #region 通用,Dropdown
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="service"></param>
-        ///// <returns></returns>
-        //[HttpPost]
-        //public APIResult<bool> InitData([FromServices] ReportTaskService service)
-        //{
-        //    DomainConstraits.InitData(service);
-        //    return new APIResult<bool>(true);
-        //}
 
         /// <summary>
         /// 下拉项
@@ -284,7 +272,7 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<List<GetProjectOperateHistoryModel>> GetProjectOperateHistory([FromServices] ReportTaskService service,[FromBody] GetProjectOperateHistoryRequest request)
+        public APIResult<List<GetProjectOperateHistoryModel>> GetProjectOperateHistory([FromServices] ReportTaskService service, [FromBody] GetProjectOperateHistoryRequest request)
         {
             var serviceResult = service.GetProjectOperateHistory(request);
             return new APIResult<List<GetProjectOperateHistoryModel>>(serviceResult);
@@ -296,8 +284,9 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<GetBriefProjectModel> GetBriefProject([FromServices] ReportTaskService service, long projectId)
+        public APIResult<GetBriefProjectModel> GetBriefProject([FromServices] APIContext context, [FromServices] ReportTaskService service, long projectId)
         {
+            var currentUser = context.GetCurrentUser();
             var serviceResult = service.GetProject(projectId);
             if (!serviceResult.IsSuccess)
                 return new APIResult<GetBriefProjectModel>(null, serviceResult.Code, serviceResult.Message);

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using ResearchAPI.CORS.Common;
-using ResearchAPI.Services;
+using ResearchAPI.CORS.Services;
 using System.Linq;
 
 namespace VL.CORS

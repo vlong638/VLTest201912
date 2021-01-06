@@ -67,7 +67,12 @@
             
             </summary>
         </member>
-        <member name="M:ResearchAPI.CORS.Common.APIContext.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+        <member name="P:ResearchAPI.CORS.Common.APIContext.RedisCache">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Common.APIContext.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Autobots.Infrastracture.Common.RedisSolution.RedisCache)">
             <summary>
             
             </summary>
@@ -1418,6 +1423,21 @@
             
             </summary>
         </member>
+        <member name="T:ResearchAPI.CORS.Common.LoginRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.LoginRequest.UserName">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.LoginRequest.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
         <member name="T:ResearchAPI.CORS.Common.ProjectDTO">
             <summary>
             项目信息
@@ -1832,6 +1852,17 @@
             DHF日志
             </summary>
         </member>
+        <member name="T:ResearchAPI.CORS.Controllers.HomeController">
+            <summary>
+            账户权限接口
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Controllers.HomeController.Login(ResearchAPI.CORS.Common.APIContext,ResearchAPI.CORS.Services.AccountService,ResearchAPI.CORS.Common.LoginRequest)">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:ResearchAPI.CORS.Repositories.ProjectIndicatorRepository">
             <summary>
             
@@ -1875,6 +1906,51 @@
             <param name="parameters"></param>
             <returns></returns>
         </member>
+        <member name="T:ResearchAPI.CORS.Services.AccountService">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Services.AccountService.#ctor(Autobots.Infrastracture.Common.DBSolution.DbContext)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Services.AccountService.#ctor(ResearchAPI.CORS.Common.APIContext)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Services.ReportTaskService">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Services.ReportTaskService.#ctor(Autobots.Infrastracture.Common.DBSolution.DbContext)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Services.ReportTaskService.#ctor(ResearchAPI.CORS.Common.APIContext)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Services.DbContextEX">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Services.DbContextEX.DelegateTransaction``1(Autobots.Infrastracture.Common.DBSolution.DbContext,System.Func{Autobots.Infrastracture.Common.DBSolution.DbContext,``0})">
+            <summary>
+            扩展事务(服务层)通用处理
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Services.DbContextEX.DelegateNonTransaction``1(Autobots.Infrastracture.Common.DBSolution.DbContext,System.Func{Autobots.Infrastracture.Common.DBSolution.DbContext,``0})">
+            <summary>
+            扩展事务(服务层)通用处理
+            </summary>
+        </member>
         <member name="T:ResearchAPI.Controllers.TestContext">
             <summary>
             
@@ -1885,7 +1961,7 @@
             科研内核接口
             </summary>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetDropdowns(ResearchAPI.Services.ReportTaskService,System.String)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetDropdowns(ResearchAPI.CORS.Services.ReportTaskService,System.String)">
             <summary>
             下拉项
             1.1.2.下拉项_科室
@@ -1893,129 +1969,129 @@
             1.2.3.下拉项_关联科室
             </summary>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetDropdownsWithParent(ResearchAPI.Services.ReportTaskService,System.String,System.String)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetDropdownsWithParent(ResearchAPI.CORS.Services.ReportTaskService,System.String,System.String)">
             <summary>
             下拉项
             </summary>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetFavoriteProjects(ResearchAPI.CORS.Common.APIContext,ResearchAPI.Services.ReportTaskService)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetFavoriteProjects(ResearchAPI.CORS.Common.APIContext,ResearchAPI.CORS.Services.ReportTaskService)">
             <summary>
             1.1.0.获取项目列表(菜单)
             </summary>
             <returns>Key:项目名称,Value:项目Id</returns>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetPagedProjects(ResearchAPI.Services.ReportTaskService,ResearchAPI.CORS.Common.GetCommonSelectRequest)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetPagedProjects(ResearchAPI.CORS.Services.ReportTaskService,ResearchAPI.CORS.Common.GetCommonSelectRequest)">
             <summary>
             1.1.1.获取项目列表
             </summary>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetProject(ResearchAPI.Services.ReportTaskService,System.Int64)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetProject(ResearchAPI.CORS.Services.ReportTaskService,System.Int64)">
             <summary>
             1.1.3.获取项目详情
             </summary>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.DeleteProject(ResearchAPI.Services.ReportTaskService,System.Int64)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.DeleteProject(ResearchAPI.CORS.Services.ReportTaskService,System.Int64)">
             <summary>
             1.1.4.删除项目
             </summary>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.CreateProject(ResearchAPI.CORS.Common.APIContext,ResearchAPI.Services.ReportTaskService,ResearchAPI.CORS.Common.CreateProjectRequest)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.CreateProject(ResearchAPI.CORS.Common.APIContext,ResearchAPI.CORS.Services.ReportTaskService,ResearchAPI.CORS.Common.CreateProjectRequest)">
             <summary>
             1.2.1.新建项目
             </summary>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.AddFavoriteProject(ResearchAPI.CORS.Common.APIContext,ResearchAPI.Services.ReportTaskService,System.Int64)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.AddFavoriteProject(ResearchAPI.CORS.Common.APIContext,ResearchAPI.CORS.Services.ReportTaskService,System.Int64)">
             <summary>
             1.2.5.收藏项目
             </summary>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.DeleteFavoriteProject(ResearchAPI.CORS.Common.APIContext,ResearchAPI.Services.ReportTaskService,System.Int64)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.DeleteFavoriteProject(ResearchAPI.CORS.Common.APIContext,ResearchAPI.CORS.Services.ReportTaskService,System.Int64)">
             <summary>
             1.2.6.解除收藏项目
             </summary>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.EditProject(ResearchAPI.CORS.Common.APIContext,ResearchAPI.Services.ReportTaskService,ResearchAPI.CORS.Common.EditProjectRequest)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.EditProject(ResearchAPI.CORS.Common.APIContext,ResearchAPI.CORS.Services.ReportTaskService,ResearchAPI.CORS.Common.EditProjectRequest)">
             <summary>
             1.3.2.编辑项目
             </summary>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetProjectOperateHistory(ResearchAPI.Services.ReportTaskService,ResearchAPI.CORS.Common.GetProjectOperateHistoryRequest)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetProjectOperateHistory(ResearchAPI.CORS.Services.ReportTaskService,ResearchAPI.CORS.Common.GetProjectOperateHistoryRequest)">
             <summary>
             1.3.4.获取操作记录 GetProjectOperateHistory
             </summary>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetBriefProject(ResearchAPI.Services.ReportTaskService,System.Int64)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetBriefProject(ResearchAPI.CORS.Common.APIContext,ResearchAPI.CORS.Services.ReportTaskService,System.Int64)">
             <summary>
             1.4.1.获取项目概要信息
             </summary>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetProjectIndicators(ResearchAPI.Services.ReportTaskService,System.Int64)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetProjectIndicators(ResearchAPI.CORS.Services.ReportTaskService,System.Int64)">
             <summary>
             1.4.2.获取指标集合
             </summary>
             <returns></returns>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.DeleteProjectIndicators(ResearchAPI.Services.ReportTaskService,System.Collections.Generic.List{System.Int64})">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.DeleteProjectIndicators(ResearchAPI.CORS.Services.ReportTaskService,System.Collections.Generic.List{System.Int64})">
             <summary>
             1.4.5.删除指标(批量)
             </summary>
             <returns></returns>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.DeleteProjectIndicator(ResearchAPI.Services.ReportTaskService,ResearchAPI.CORS.Common.DeleteProjectIndicatorRequest)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.DeleteProjectIndicator(ResearchAPI.CORS.Services.ReportTaskService,ResearchAPI.CORS.Common.DeleteProjectIndicatorRequest)">
             <summary>
             1.4.6.删除指标
             </summary>
             <returns></returns>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.UpdateIndicatorName(ResearchAPI.Services.ReportTaskService,ResearchAPI.CORS.Common.UpdateIndicatorNameRequest)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.UpdateIndicatorName(ResearchAPI.CORS.Services.ReportTaskService,ResearchAPI.CORS.Common.UpdateIndicatorNameRequest)">
             <summary>
             1.4.15.编辑指标名称
             </summary>
             <returns></returns>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.CreateCustomIndicator(ResearchAPI.Services.ReportTaskService,ResearchAPI.CORS.Common.CreateCustomIndicatorRequest)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.CreateCustomIndicator(ResearchAPI.CORS.Services.ReportTaskService,ResearchAPI.CORS.Common.CreateCustomIndicatorRequest)">
             <summary>
             1.4.11.保存自定义指标
             </summary>
             <returns></returns>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.AddProjectIndicators(ResearchAPI.Services.ReportTaskService,ResearchAPI.CORS.Common.AddIndicatorsRequest)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.AddProjectIndicators(ResearchAPI.CORS.Services.ReportTaskService,ResearchAPI.CORS.Common.AddIndicatorsRequest)">
             <summary>
             1.4.13.保存指标
             </summary>
             <returns></returns>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.CreateTask(ResearchAPI.CORS.Common.APIContext,ResearchAPI.Services.ReportTaskService,ResearchAPI.CORS.Common.CreateTaskRequest)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.CreateTask(ResearchAPI.CORS.Common.APIContext,ResearchAPI.CORS.Services.ReportTaskService,ResearchAPI.CORS.Common.CreateTaskRequest)">
             <summary>
             1.5.1.新增队列
             </summary>
             <returns></returns>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.EditTask(ResearchAPI.Services.ReportTaskService,ResearchAPI.CORS.Common.EditTaskRequest)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.EditTask(ResearchAPI.CORS.Services.ReportTaskService,ResearchAPI.CORS.Common.EditTaskRequest)">
             <summary>
             1.5.2.编辑队列
             </summary>
             <returns></returns>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.DeleteTask(ResearchAPI.CORS.Common.APIContext,ResearchAPI.Services.ReportTaskService,System.Int64)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.DeleteTask(ResearchAPI.CORS.Common.APIContext,ResearchAPI.CORS.Services.ReportTaskService,System.Int64)">
             <summary>
             1.5.3.删除队列
             </summary>
             <returns></returns>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.CommitTask(ResearchAPI.CORS.Common.APIContext,ResearchAPI.Services.ReportTaskService,ResearchAPI.CORS.Common.CommitTaskRequest)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.CommitTask(ResearchAPI.CORS.Common.APIContext,ResearchAPI.CORS.Services.ReportTaskService,ResearchAPI.CORS.Common.CommitTaskRequest)">
             <summary>
             1.5.4.执行队列
             </summary>
             <returns></returns>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetTasks(ResearchAPI.Services.ReportTaskService,System.Int64)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetTasks(ResearchAPI.CORS.Services.ReportTaskService,System.Int64)">
             <summary>
             1.5.5.查看队列集合
             </summary>
             <returns></returns>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetTaskStatus(ResearchAPI.Services.ReportTaskService,System.Int64)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetTaskStatus(ResearchAPI.CORS.Services.ReportTaskService,System.Int64)">
             <summary>
             1.5.6.查看队列状态
             </summary>
@@ -2028,41 +2104,11 @@
             <param name="path"></param>
             <returns></returns>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.EditTaskName(ResearchAPI.Services.ReportTaskService,ResearchAPI.CORS.Common.EditTaskNameRequest)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.EditTaskName(ResearchAPI.CORS.Services.ReportTaskService,ResearchAPI.CORS.Common.EditTaskNameRequest)">
             <summary>
             1.5.9.编辑队列名称
             </summary>
             <returns></returns>
-        </member>
-        <member name="T:ResearchAPI.Services.ReportTaskService">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:ResearchAPI.Services.ReportTaskService.#ctor(Autobots.Infrastracture.Common.DBSolution.DbContext)">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:ResearchAPI.Services.ReportTaskService.#ctor(ResearchAPI.CORS.Common.APIContext)">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="T:ResearchAPI.Services.DbContextEX">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:ResearchAPI.Services.DbContextEX.DelegateTransaction``1(Autobots.Infrastracture.Common.DBSolution.DbContext,System.Func{Autobots.Infrastracture.Common.DBSolution.DbContext,``0})">
-            <summary>
-            扩展事务(服务层)通用处理
-            </summary>
-        </member>
-        <member name="M:ResearchAPI.Services.DbContextEX.DelegateNonTransaction``1(Autobots.Infrastracture.Common.DBSolution.DbContext,System.Func{Autobots.Infrastracture.Common.DBSolution.DbContext,``0})">
-            <summary>
-            扩展事务(服务层)通用处理
-            </summary>
         </member>
     </members>
 </doc>

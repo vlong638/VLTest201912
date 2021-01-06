@@ -1,5 +1,8 @@
 ﻿using Autobots.Infrastracture.Common.DBSolution;
+using Autobots.Infrastracture.Common.RedisSolution;
+using Autobots.Infrastracture.Common.ValuesSolution;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Primitives;
 using ResearchAPI.Controllers;
 using System;
 using System.Linq;
@@ -21,10 +24,11 @@ namespace ResearchAPI.CORS.Common
         /// </summary>
         public HttpContext HttpContext { set { HttpContextAccessor.HttpContext = value; } get { return HttpContextAccessor.HttpContext; } }
 
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        //public RedisCache RedisCache { set; get; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public RedisCache RedisCache { set; get; }
+
         ///// <summary>
         ///// 获取当前用户信息
         ///// </summary>
@@ -47,9 +51,10 @@ namespace ResearchAPI.CORS.Common
         /// <summary>
         /// 
         /// </summary>
-        public APIContext(IHttpContextAccessor httpContext) : base()
+        public APIContext(IHttpContextAccessor httpContext, RedisCache redisCache) : base()
         {
             HttpContextAccessor = httpContext;
+            RedisCache = redisCache;
         }
 
         #region Common
@@ -86,10 +91,19 @@ namespace ResearchAPI.CORS.Common
 
         internal CurrentUser GetCurrentUser()
         {
-            var currentUser = new CurrentUser();
-            currentUser.UserId = TestContext.UserId;
-            currentUser.UserName = TestContext.UserName;
+            StringValues sessionId = StringValues.Empty;
+            HttpContext.Request.Headers.TryGetValue("VLSession", out sessionId);
+            if (sessionId.FirstOrDefault().IsNullOrEmpty())
+                return null;
+            var currentUser = RedisCache.Get<CurrentUser>(sessionId);
             return currentUser;
+        }
+
+        internal string SetCurrentUser(CurrentUser currentUser)
+        {
+            var sessionId = currentUser.GetSessionId();
+            RedisCache.Set(sessionId, currentUser, DateTime.Now.AddMinutes(30));
+            return sessionId;
         }
 
         #endregion

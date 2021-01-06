@@ -13,7 +13,7 @@ using System.Linq;
 using VLAutobots.Infrastracture.Common.FileSolution;
 using static ResearchAPI.CORS.Common.DomainConstraits;
 
-namespace ResearchAPI.Services
+namespace ResearchAPI.CORS.Services
 {
     /// <summary>
     /// 
