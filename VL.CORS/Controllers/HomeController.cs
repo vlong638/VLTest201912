@@ -39,10 +39,84 @@ namespace ResearchAPI.CORS.Controllers
         /// <returns></returns>
         [AllowAnonymous]
         [HttpPost]
-        public APIResult<VLPagerResult<List<GetUserModel>>> GetUsers([FromServices] AccountService service, int page,int limit, string username, string nickname)
+        public APIResult<VLPagerResult<List<GetUserModel>>> GetUsers([FromServices] AccountService service, [FromBody] GetUsersRequest request)
         {
-            var result = service.GetPagedUsers(page, limit, username, nickname);
+            var result = service.GetPagedUsers(request.Page, request.Limit, request.UserName, request.NickName);
             return new APIResult<VLPagerResult<List<GetUserModel>>>(result);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public class GetUsersRequest
+        {
+            /// <summary>
+            /// 页码
+            /// </summary>
+            public int Page { set; get; }
+            /// <summary>
+            /// 页面显示数量
+            /// </summary>
+            public int Limit { set; get; }
+            /// <summary>
+            /// 用户名
+            /// </summary>
+            public string UserName { set; get; }
+            /// <summary>
+            /// 昵称
+            /// </summary>
+            public string NickName { set; get; }
+        }
+
+        /// <summary>
+        /// 新建用户
+        /// </summary>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpPost]
+        public APIResult<long> CreateUser([FromServices] AccountService service, [FromBody] CreateUserRequest request)
+        {
+            var result = service.CreateUser(new User()
+            {
+                Name = request.UserName,
+                Password = request.Password,
+                NickName = request.NickName,
+                Sex = request.Sex,
+                Phone = request.Phone
+            }, request.RoleIds
+            );
+            return new APIResult<long>(result);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public class CreateUserRequest
+        {
+            /// <summary>
+            /// 用户名
+            /// </summary>
+            public string UserName { set; get; }
+            /// <summary>
+            /// 密码
+            /// </summary>
+            public string Password { set; get; }
+            /// <summary>
+            /// 昵称
+            /// </summary>
+            public string NickName { set; get; }
+            /// <summary>
+            /// 性别
+            /// </summary>
+            public Sex Sex { set; get; }
+            /// <summary>
+            /// 手机号
+            /// </summary>
+            public string Phone { set; get; }
+            /// <summary>
+            /// 角色Id
+            /// </summary>
+            public List<long> RoleIds { set; get; }
         }
     }
 }

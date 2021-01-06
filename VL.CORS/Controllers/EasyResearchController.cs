@@ -42,10 +42,10 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<List<VLKeyValue<string, string>>> GetDropdowns([FromServices] ReportTaskService service, string type)
+        public APIResult<List<VLKeyValue<string, string>>> GetDropdowns([FromServices] ReportTaskService service, [FromBody] GetDropdownsRequest request)
         {
             List<VLKeyValue<string, string>> values = new List<VLKeyValue<string, string>>();
-            switch (type)
+            switch (request.Type)
             {
                 case "BusinessType":
                     values.AddRange(DomainConstraits.BusinessTypes.Select(c => new VLKeyValue<string, string>(c.Name, c.Id.ToString())));
@@ -61,7 +61,7 @@ namespace ResearchAPI.Controllers
                     values.AddRange(DomainConstraits.LabOrders.Select(c => new VLKeyValue<string, string>(c.Value, c.Key)));
                     return Success(values);
                 default:
-                    values = ConfigHelper.GetJsonConfig<string, string>(type);
+                    values = ConfigHelper.GetJsonConfig<string, string>(request.Type);
                     return Success(values);
             }
         }
@@ -72,8 +72,10 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<List<VLKeyValue<string, string>>> GetDropdownsWithParent([FromServices] ReportTaskService service, string type, string parentId)
+        public APIResult<List<VLKeyValue<string, string>>> GetDropdownsWithParent([FromServices] ReportTaskService service, [FromBody] GetDropdownsWithParentRequest request)
         {
+            var type = request.Type;
+            var parentId = request.ParentId;
             List<VLKeyValue<string, string>> values = new List<VLKeyValue<string, string>>();
             switch (type)
             {

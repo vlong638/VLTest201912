@@ -1110,6 +1110,21 @@
             系统角色
             </summary>
         </member>
+        <member name="F:ResearchAPI.CORS.Common.Sex.None">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.Sex.Man">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.Sex.Woman">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:ResearchAPI.CORS.Common.AddIndicatorsRequest.ProjectId">
             <summary>
             项目Id
@@ -1396,6 +1411,31 @@
             添加的字段
             默认为:检验值
             可选有:检验值,检验日期,检验单号
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Common.GetDropdownsRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetDropdownsRequest.Type">
+            <summary>
+            获取键值的类型
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Common.GetDropdownsWithParentRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetDropdownsWithParentRequest.Type">
+            <summary>
+            获取键值的类型
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetDropdownsWithParentRequest.ParentId">
+            <summary>
+            父节点Id
             </summary>
         </member>
         <member name="T:ResearchAPI.CORS.Common.GetPagedProjectsRequest">
@@ -1940,11 +1980,77 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:ResearchAPI.CORS.Controllers.HomeController.GetUsers(ResearchAPI.CORS.Services.AccountService,System.Int32,System.Int32,System.String,System.String)">
+        <member name="M:ResearchAPI.CORS.Controllers.HomeController.GetUsers(ResearchAPI.CORS.Services.AccountService,ResearchAPI.CORS.Controllers.HomeController.GetUsersRequest)">
             <summary>
             获取用户管理列表
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:ResearchAPI.CORS.Controllers.HomeController.GetUsersRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Controllers.HomeController.GetUsersRequest.Page">
+            <summary>
+            页码
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Controllers.HomeController.GetUsersRequest.Limit">
+            <summary>
+            页面显示数量
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Controllers.HomeController.GetUsersRequest.UserName">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Controllers.HomeController.GetUsersRequest.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Controllers.HomeController.CreateUser(ResearchAPI.CORS.Services.AccountService,ResearchAPI.CORS.Controllers.HomeController.CreateUserRequest)">
+            <summary>
+            新建用户
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:ResearchAPI.CORS.Controllers.HomeController.CreateUserRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Controllers.HomeController.CreateUserRequest.UserName">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Controllers.HomeController.CreateUserRequest.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Controllers.HomeController.CreateUserRequest.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Controllers.HomeController.CreateUserRequest.Sex">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Controllers.HomeController.CreateUserRequest.Phone">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Controllers.HomeController.CreateUserRequest.RoleIds">
+            <summary>
+            角色Id
+            </summary>
         </member>
         <member name="T:ResearchAPI.CORS.Repositories.ProjectIndicatorRepository">
             <summary>
@@ -2051,7 +2157,7 @@
             科研内核接口
             </summary>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetDropdowns(ResearchAPI.CORS.Services.ReportTaskService,System.String)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetDropdowns(ResearchAPI.CORS.Services.ReportTaskService,ResearchAPI.CORS.Common.GetDropdownsRequest)">
             <summary>
             下拉项
             1.1.2.下拉项_科室
@@ -2059,7 +2165,7 @@
             1.2.3.下拉项_关联科室
             </summary>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetDropdownsWithParent(ResearchAPI.CORS.Services.ReportTaskService,System.String,System.String)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetDropdownsWithParent(ResearchAPI.CORS.Services.ReportTaskService,ResearchAPI.CORS.Common.GetDropdownsWithParentRequest)">
             <summary>
             下拉项
             </summary>

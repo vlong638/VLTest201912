@@ -19,6 +19,7 @@ namespace ResearchAPI.CORS.Services
         DbContext ResearchDbContext { set; get; }
 
         UserRepository UserRepository { set; get; }
+        UserRoleRepository UserRoleRepository { set; get; }
         RoleRepository RoleRepository { set; get; }
 
         /// <summary>
@@ -43,6 +44,7 @@ namespace ResearchAPI.CORS.Services
         {
             //repositories
             UserRepository = new UserRepository(DbContext);
+            UserRoleRepository = new UserRoleRepository(DbContext);
             RoleRepository = new RoleRepository(DbContext);
         }
 
@@ -50,7 +52,7 @@ namespace ResearchAPI.CORS.Services
         {
             return ResearchDbContext.DelegateNonTransaction(c =>
             {
-                var user = UserRepository.GetByUserNameAndPassword(userName, password.ToMD5());
+                var user = UserRepository.GetByUserNameAndPassword(userName, password);
                 if (user==null)
                 {
                     throw new NotImplementedException("用户不存在或密码错误");
@@ -77,6 +79,26 @@ namespace ResearchAPI.CORS.Services
                 });
                 var count = UserRepository.GetPagedUserCount(username, nickname);
                 return new VLPagerResult<List<GetUserModel>>() { List = list, Count = count };
+            });
+        }
+
+        internal ServiceResult<long> CreateUser(User user, List<long> roleIds)
+        {
+            return ResearchDbContext.DelegateTransaction(c =>
+            {
+                user.CreatedAt = DateTime.Now;
+                var repeat = UserRepository.GetByUserName(user.Name);
+                if (repeat != null)
+                { 
+                    throw new NotImplementedException("用户名已存在");
+                }
+                var id = UserRepository.InsertOne(user);
+                var userRoles = roleIds.Select(c => new UserRole() { UserId = id, RoleId = c });
+                foreach (var userRole in userRoles)
+                {
+                    UserRoleRepository.Insert(userRole);
+                }
+                return id;
             });
         }
     }
