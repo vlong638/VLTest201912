@@ -61,6 +61,15 @@ namespace ResearchAPI.CORS.Services
             });
         }
 
+        internal ServiceResult<Dictionary<long, string>> GetAllRolesIdAndName()
+        {
+            return ResearchDbContext.DelegateNonTransaction(c =>
+            {
+                var result = RoleRepository.GetAllSystemRoles();
+                return result.ToDictionary(c => c.Id, c => c.Name);
+            });
+        }
+
         internal ServiceResult<VLPagerResult<List<GetUserModel>>> GetPagedUsers(int page,int limit,string username,string nickname)
         {
             return ResearchDbContext.DelegateTransaction(c =>

@@ -2220,7 +2220,7 @@
             科研内核接口
             </summary>
         </member>
-        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetDropdowns(ResearchAPI.CORS.Services.ReportTaskService,ResearchAPI.CORS.Common.GetDropdownsRequest)">
+        <member name="M:ResearchAPI.Controllers.EasyResearchController.GetDropdowns(ResearchAPI.CORS.Services.AccountService,ResearchAPI.CORS.Services.ReportTaskService,ResearchAPI.CORS.Common.GetDropdownsRequest)">
             <summary>
             下拉项
             1.1.2.下拉项_科室

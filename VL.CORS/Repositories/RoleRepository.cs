@@ -37,6 +37,13 @@ where r.Category = @Category
 and ur.userId in @userIds", new { Category = RoleCategory.SystemRole, userIds }, transaction: _transaction)
                 .ToList();
         }
+
+        public List<Role> GetAllSystemRoles()
+        {
+            return _connection.Query<Role>("select * from [Role] where Category = @Category;"
+                , new { Category = RoleCategory.SystemRole }, transaction: _transaction)
+                .ToList();
+        }
     }
 
     public class UserRoleModel

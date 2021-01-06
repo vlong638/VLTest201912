@@ -42,16 +42,23 @@ namespace ResearchAPI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<List<VLKeyValue<string, string>>> GetDropdowns([FromServices] ReportTaskService service, [FromBody] GetDropdownsRequest request)
+        public APIResult<List<VLKeyValue<string, string>>> GetDropdowns([FromServices] AccountService accountService, [FromServices] ReportTaskService reportTaskService, [FromBody] GetDropdownsRequest request)
         {
             List<VLKeyValue<string, string>> values = new List<VLKeyValue<string, string>>();
             switch (request.Type)
             {
+                case "SystemRole":
+                    var result1624 = accountService.GetAllRolesIdAndName();
+                    foreach (var item in result1624.Data)
+                    {
+                        values.Add(new VLKeyValue<string, string>(item.Value, item.Key.ToString()));
+                    }
+                    return Success(values);
                 case "BusinessType":
                     values.AddRange(DomainConstraits.BusinessTypes.Select(c => new VLKeyValue<string, string>(c.Name, c.Id.ToString())));
                     return Success(values);
                 case "Member":
-                    var result = service.GetAllUsersIdAndName();
+                    var result = reportTaskService.GetAllUsersIdAndName();
                     foreach (var user in result.Data)
                     {
                         values.Add(new VLKeyValue<string, string>(user.Value, user.Key.ToString()));
