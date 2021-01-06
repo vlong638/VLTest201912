@@ -74,5 +74,12 @@ where 1=1
                 , new { name = $"%{UserRolename}%" }
                 , transaction: _transaction);
         }
+
+        internal int DeleteByUserId(long userId)
+        {
+            return _connection.Execute("delete from [UserRole] where UserId = @UserId;"
+                , new { userId }
+                , transaction: _transaction);
+        }
     }
 }

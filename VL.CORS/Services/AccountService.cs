@@ -101,5 +101,25 @@ namespace ResearchAPI.CORS.Services
                 return id;
             });
         }
+
+        internal ServiceResult<bool> EditUser(User newUser, List<long> roleIds)
+        {
+            return ResearchDbContext.DelegateTransaction(c =>
+            {
+                newUser.CreatedAt = DateTime.Now;
+                var user = UserRepository.GetByUserName(newUser.Name);
+                user.NickName = newUser.NickName;
+                user.Sex = newUser.Sex;
+                user.Phone = newUser.Phone;
+                UserRepository.Update(user);
+                UserRoleRepository.DeleteByUserId(user.Id);
+                var userRoles = roleIds.Select(c => new UserRole() { UserId = newUser.Id, RoleId = c });
+                foreach (var userRole in userRoles)
+                {
+                    UserRoleRepository.Insert(userRole);
+                }
+                return true;
+            });
+        }
     }
 }

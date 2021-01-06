@@ -1289,6 +1289,41 @@
             复制队列Id
             </summary>
         </member>
+        <member name="T:ResearchAPI.CORS.Common.CreateUserRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.CreateUserRequest.UserName">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.CreateUserRequest.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.CreateUserRequest.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.CreateUserRequest.Sex">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.CreateUserRequest.Phone">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.CreateUserRequest.RoleIds">
+            <summary>
+            角色Id
+            </summary>
+        </member>
         <member name="T:ResearchAPI.CORS.Common.DeleteProjectIndicatorRequest">
             <summary>
             
@@ -1362,6 +1397,31 @@
         <member name="P:ResearchAPI.CORS.Common.GetTaskWhereModel.DisplayName">
             <summary>
             属性的显示名称
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Common.EditUserRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.EditUserRequest.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.EditUserRequest.Sex">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.EditUserRequest.Phone">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.EditUserRequest.RoleIds">
+            <summary>
+            角色Id
             </summary>
         </member>
         <member name="T:ResearchAPI.CORS.Common.GetCommonSelectRequest">
@@ -2011,46 +2071,17 @@
             昵称
             </summary>
         </member>
-        <member name="M:ResearchAPI.CORS.Controllers.HomeController.CreateUser(ResearchAPI.CORS.Services.AccountService,ResearchAPI.CORS.Controllers.HomeController.CreateUserRequest)">
+        <member name="M:ResearchAPI.CORS.Controllers.HomeController.CreateUser(ResearchAPI.CORS.Services.AccountService,ResearchAPI.CORS.Common.CreateUserRequest)">
             <summary>
             新建用户
             </summary>
             <returns></returns>
         </member>
-        <member name="T:ResearchAPI.CORS.Controllers.HomeController.CreateUserRequest">
+        <member name="M:ResearchAPI.CORS.Controllers.HomeController.EditUser(ResearchAPI.CORS.Services.AccountService,ResearchAPI.CORS.Common.EditUserRequest)">
             <summary>
-            
+            编辑用户
             </summary>
-        </member>
-        <member name="P:ResearchAPI.CORS.Controllers.HomeController.CreateUserRequest.UserName">
-            <summary>
-            用户名
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.CORS.Controllers.HomeController.CreateUserRequest.Password">
-            <summary>
-            密码
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.CORS.Controllers.HomeController.CreateUserRequest.NickName">
-            <summary>
-            昵称
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.CORS.Controllers.HomeController.CreateUserRequest.Sex">
-            <summary>
-            性别
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.CORS.Controllers.HomeController.CreateUserRequest.Phone">
-            <summary>
-            手机号
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.CORS.Controllers.HomeController.CreateUserRequest.RoleIds">
-            <summary>
-            角色Id
-            </summary>
+            <returns></returns>
         </member>
         <member name="T:ResearchAPI.CORS.Repositories.ProjectIndicatorRepository">
             <summary>
