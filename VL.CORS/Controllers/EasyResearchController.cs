@@ -12,7 +12,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 
-namespace ResearchAPI.Controllers
+namespace ResearchAPI.CORS.Controllers
 {
     /// <summary>
     /// 
@@ -35,9 +35,6 @@ namespace ResearchAPI.Controllers
 
         /// <summary>
         /// 下拉项
-        /// 1.1.2.下拉项_科室
-        /// 1.2.2.下拉项_项目成员
-        /// 1.2.3.下拉项_关联科室
         /// </summary>
         [HttpPost]
         [AllowAnonymous]
@@ -58,10 +55,10 @@ namespace ResearchAPI.Controllers
                     var authorities = typeof(SystemAuthority).GetAllEnums<SystemAuthority>();
                     values.AddRange(authorities.Select(c => new VLKeyValue<string, string>(c.ToString(), ((int)c).ToString())));
                     return Success(values);
-                case "BusinessType":
+                case "BusinessType"://业务类别
                     values.AddRange(DomainConstraits.BusinessTypes.Select(c => new VLKeyValue<string, string>(c.Name, c.Id.ToString())));
                     return Success(values);
-                case "Member":
+                case "Member"://项目成员
                     var result = reportTaskService.GetAllUsersIdAndName();
                     foreach (var user in result.Data)
                     {
@@ -74,6 +71,40 @@ namespace ResearchAPI.Controllers
                 default:
                     values = ConfigHelper.GetJsonConfig<string, string>(request.Type);
                     return Success(values);
+            }
+        }
+
+        /// <summary>
+        /// 下拉项
+        /// </summary>
+        [HttpPost]
+        [AllowAnonymous]
+        [EnableCors("AllCors")]
+        public APIResult<List<VLKeyValue<string, string, string, string>>> GetTreeDropdowns([FromServices] AccountService accountService, [FromBody] GetDropdownsRequest request)
+        {
+            return Success(GetTreeDropdowns(request.Type));
+        }
+
+        static internal List<VLKeyValue<string, string, string, string>> GetTreeDropdowns(string type)
+        {
+            List<VLKeyValue<string, string, string, string>> values = new List<VLKeyValue<string, string, string, string>>();
+            switch (type)
+            {
+                case "SystemAuthority":
+                    var authorities = typeof(SystemAuthority).GetAllEnums<SystemAuthority>();
+                    var kvs = authorities.Select(c => new VLKeyValue<string, string>(c.ToString(), ((int)c).ToString())).ToList();
+                    var pkvs = new List<VLKeyValue<string, string>>(){
+                        new VLKeyValue<string, string>( "项目管理", "101" ),
+                        new VLKeyValue<string, string>( "账户角色管理", "999" ),
+                    };
+                    values.AddRange(kvs.Select(c =>
+                    {
+                        var parent = pkvs.FirstOrDefault(p => c.Value.StartsWith(p.Value));
+                        return new VLKeyValue<string, string, string, string>(parent.Key, parent.Value, c.Key, c.Value);
+                    }));
+                    return values;
+                default:
+                    throw new NotImplementedException("未实现");
             }
         }
 

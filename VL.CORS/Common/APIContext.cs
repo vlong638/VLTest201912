@@ -3,7 +3,6 @@ using Autobots.Infrastracture.Common.RedisSolution;
 using Autobots.Infrastracture.Common.ValuesSolution;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
-using ResearchAPI.Controllers;
 using System;
 using System.Linq;
 using System.Text;

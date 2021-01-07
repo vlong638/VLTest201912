@@ -97,38 +97,6 @@ namespace ResearchAPI.CORS.Common
             var values = ids.Select(c => dic.ContainsKey(c) ? dic[c] : c.ToString()).ToList();
             return values;
         }
-
-        //internal static string RenderIdsToText(long id, PKVType kvType)
-        //{
-        //    List<long> ids = new List<long>() { id };
-        //    var values = RenderIdsToText(ids, kvType);
-        //    return values.First();
-        //}
-
-        //internal static List<string> RenderIdsToText(List<long> ids, PKVType kvType)
-        //{
-        //    Dictionary<long, string> dic = null;
-        //    switch (kvType)
-        //    {
-        //        case PKVType.BusinessEntity:
-        //            dic = BusinessEntityDisplayDic;
-        //            break;
-        //        case PKVType.BusinessEntitySource:
-        //            dic = BusinessEntitySourceDic;
-        //            break;
-        //        case PKVType.BusinessEntityProperty:
-        //            dic = BusinessEntityPropertyDisplayDic;
-        //            break;
-        //        case PKVType.BusinessEntityPropertySource:
-        //            dic = BusinessEntityPropertySourceDic;
-        //            break;
-        //        default:
-        //            break;
-        //    }
-        //    var values = ids.Select(c => dic.ContainsKey(c) ? dic[c] : c.ToString()).ToList();
-        //    return values;
-        //}
-
         internal static void InitData(ReportTaskService reportTaskService)
         {
             #region BusinessEntity

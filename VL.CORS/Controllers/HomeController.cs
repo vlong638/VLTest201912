@@ -7,6 +7,7 @@ using ResearchAPI.CORS.Common;
 using ResearchAPI.CORS.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ResearchAPI.CORS.Controllers
 {
@@ -214,6 +215,31 @@ namespace ResearchAPI.CORS.Controllers
         }
 
         /// <summary>
+        /// 获取角色权限
+        /// </summary>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpPost]
+        public APIResult<List<GetTreeRoleAuthoritiesModel>> GetTreeRoleAuthorities([FromServices] AccountService service, [FromBody] GetRoleAuthoritiesRequest request)
+        {
+            var currentRoleAuthorities = service.GetRoleAuthorities(request.RoleId);
+            if (!currentRoleAuthorities.IsSuccess)
+            {
+                return new APIResult<List<GetTreeRoleAuthoritiesModel>>(null, currentRoleAuthorities.Messages);
+            }
+            var roleAuthorities = EasyResearchController.GetTreeDropdowns("SystemAuthority");
+            var result = roleAuthorities.Select(c =>
+            {
+                var m = new GetTreeRoleAuthoritiesModel();
+                c.MapTo(m);
+                var id = m.Value.ToLong();
+                m.IsSelect = currentRoleAuthorities.Data.FirstOrDefault(c => c.AuthorityId == id) != null;
+                return m;
+            }).ToList();
+            return Success(result);
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         public class GetRoleAuthoritiesRequest
@@ -222,6 +248,18 @@ namespace ResearchAPI.CORS.Controllers
             /// 角色Id
             /// </summary>
             public long RoleId { set; get; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public class GetTreeRoleAuthoritiesModel
+        {
+            public string ParentKey { set; get; }
+            public string ParentValue { set; get; }
+            public string Key { set; get; }
+            public string Value { set; get; }
+            public bool IsSelect { set; get; }
         }
 
         /// <summary>
