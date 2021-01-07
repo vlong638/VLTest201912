@@ -95,12 +95,16 @@ namespace ResearchAPI.CORS.Controllers
                     var kvs = authorities.Select(c => new VLKeyValue<string, string>(c.ToString(), ((int)c).ToString())).ToList();
                     var pkvs = new List<VLKeyValue<string, string>>(){
                         new VLKeyValue<string, string>( "项目管理", "101" ),
-                        new VLKeyValue<string, string>( "账户角色管理", "999" ),
+                        new VLKeyValue<string, string>( "用户角色管理", "999" ),
                     };
                     values.AddRange(kvs.Select(c =>
                     {
                         var parent = pkvs.FirstOrDefault(p => c.Value.StartsWith(p.Value));
                         return new VLKeyValue<string, string, string, string>(parent.Key, parent.Value, c.Key, c.Value);
+                    }));
+                    values.AddRange(pkvs.Select(c =>
+                    {
+                        return new VLKeyValue<string, string, string, string>("", "", c.Key, c.Value);
                     }));
                     return values;
                 default:
