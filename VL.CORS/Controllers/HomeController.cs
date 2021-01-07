@@ -201,6 +201,57 @@ namespace ResearchAPI.CORS.Controllers
             return new APIResult<bool>(result);
         }
 
+        /// <summary>
+        /// 获取角色权限
+        /// </summary>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpPost]
+        public APIResult<List<RoleAuthority>> GetRoleAuthorities([FromServices] AccountService service, [FromBody] GetRoleAuthoritiesRequest request)
+        {
+            var result = service.GetRoleAuthorities(request.RoleId);
+            return new APIResult<List<RoleAuthority>>(result);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public class GetRoleAuthoritiesRequest
+        {
+            /// <summary>
+            /// 角色Id
+            /// </summary>
+            public long RoleId { set; get; }
+        }
+
+        /// <summary>
+        /// 编辑角色权限
+        /// </summary>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpPost]
+        public APIResult<bool> EditRoleAuthorities([FromServices] AccountService service, [FromBody] EditRoleAuthoritiesRequest request)
+        {
+            var result = service.EditRoleAuthorities(request.RoleId, request.AuthorityIds);
+            return new APIResult<bool>(result);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public class EditRoleAuthoritiesRequest
+        {
+            /// <summary>
+            /// 角色Id
+            /// </summary>
+            public long RoleId { set; get; }
+            /// <summary>
+            /// 角色Id
+            /// </summary>
+            public List<long> AuthorityIds { set; get; }
+        }
+
+
         #endregion
 
     }

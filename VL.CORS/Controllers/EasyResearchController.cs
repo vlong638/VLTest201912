@@ -54,6 +54,10 @@ namespace ResearchAPI.Controllers
                         values.Add(new VLKeyValue<string, string>(item.Value, item.Key.ToString()));
                     }
                     return Success(values);
+                case "SystemAuthority":
+                    var authorities = typeof(SystemAuthority).GetAllEnums<SystemAuthority>();
+                    values.AddRange(authorities.Select(c => new VLKeyValue<string, string>(c.ToString(), ((int)c).ToString())));
+                    return Success(values);
                 case "BusinessType":
                     values.AddRange(DomainConstraits.BusinessTypes.Select(c => new VLKeyValue<string, string>(c.Name, c.Id.ToString())));
                     return Success(values);

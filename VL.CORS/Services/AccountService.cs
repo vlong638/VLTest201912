@@ -20,6 +20,7 @@ namespace ResearchAPI.CORS.Services
 
         UserRepository UserRepository { set; get; }
         UserRoleRepository UserRoleRepository { set; get; }
+        RoleAuthorityRepository RoleAuthorityRepository { set; get; }
         RoleRepository RoleRepository { set; get; }
 
         /// <summary>
@@ -45,6 +46,7 @@ namespace ResearchAPI.CORS.Services
             //repositories
             UserRepository = new UserRepository(DbContext);
             UserRoleRepository = new UserRoleRepository(DbContext);
+            RoleAuthorityRepository = new RoleAuthorityRepository(DbContext);
             RoleRepository = new RoleRepository(DbContext);
         }
 
@@ -200,6 +202,25 @@ namespace ResearchAPI.CORS.Services
                 }
                 var id = RoleRepository.InsertOne(role);
                 return id;
+            });
+        }
+
+        internal ServiceResult<List<RoleAuthority>> GetRoleAuthorities(long roleId)
+        {
+            return ResearchDbContext.DelegateNonTransaction(c =>
+            {
+                var roleAuthorities = RoleAuthorityRepository.GetByRoleIds(roleId);
+                return roleAuthorities;
+            });
+        }
+
+        internal ServiceResult<bool> EditRoleAuthorities(long roleId, List<long> authorityIds)
+        {
+            return ResearchDbContext.DelegateTransaction(c =>
+            {
+                var result = RoleAuthorityRepository.DeleteByRoleId(roleId);
+                result = RoleAuthorityRepository.BatchInsert(roleId, authorityIds);
+                return result == authorityIds.Count();
             });
         }
     }

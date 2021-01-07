@@ -1110,6 +1110,13 @@
             系统角色
             </summary>
         </member>
+        <member name="T:ResearchAPI.CORS.Common.SystemAuthority">
+            <summary>
+            权限 
+            前三位代表业务系统,后三位表示模块内功能模块,后三位表示功能模块内细分功能
+            通用功能为000
+            </summary>
+        </member>
         <member name="T:ResearchAPI.CORS.Common.Sex">
             <summary>
             
@@ -2247,6 +2254,43 @@
             删除角色
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:ResearchAPI.CORS.Controllers.HomeController.GetRoleAuthorities(ResearchAPI.CORS.Services.AccountService,ResearchAPI.CORS.Controllers.HomeController.GetRoleAuthoritiesRequest)">
+            <summary>
+            获取角色权限
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:ResearchAPI.CORS.Controllers.HomeController.GetRoleAuthoritiesRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Controllers.HomeController.GetRoleAuthoritiesRequest.RoleId">
+            <summary>
+            角色Id
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Controllers.HomeController.EditRoleAuthorities(ResearchAPI.CORS.Services.AccountService,ResearchAPI.CORS.Controllers.HomeController.EditRoleAuthoritiesRequest)">
+            <summary>
+            编辑角色权限
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:ResearchAPI.CORS.Controllers.HomeController.EditRoleAuthoritiesRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Controllers.HomeController.EditRoleAuthoritiesRequest.RoleId">
+            <summary>
+            角色Id
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Controllers.HomeController.EditRoleAuthoritiesRequest.AuthorityIds">
+            <summary>
+            角色Id
+            </summary>
         </member>
         <member name="T:ResearchAPI.CORS.Repositories.ProjectIndicatorRepository">
             <summary>

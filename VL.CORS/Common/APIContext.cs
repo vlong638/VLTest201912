@@ -104,7 +104,7 @@ namespace ResearchAPI.CORS.Common
         internal string SetCurrentUser(CurrentUser currentUser)
         {
             var sessionId = currentUser.GetSessionId();
-            RedisCache.Set(sessionId, currentUser, DateTime.Now.AddMinutes(30));
+            RedisCache.Set(sessionId, currentUser, DateTime.Now.AddHours(24));//TODO 这里时效应该是30分钟 根据用户操作来更新
             //var currentUser = RedisCache.Get<CurrentUser>(sessionId);
             return sessionId;
         }
