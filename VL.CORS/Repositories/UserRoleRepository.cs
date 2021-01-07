@@ -15,6 +15,13 @@ namespace ResearchAPI.CORS.Repositories
         {
         }
 
+        public int BatchInsert(long userId, List<long> roleIds)
+        {
+            return _connection.Execute(@$"insert into UserRole (userId,roleId) values 
+{string.Join(",", roleIds.Select(c => $"({userId},{c})"))}"
+                , transaction: _transaction);
+        }
+
         internal UserRole GetBy(string UserRoleName)
         {
             return _connection.Query<UserRole>("select * from [UserRole] where Name = @UserRoleName;"

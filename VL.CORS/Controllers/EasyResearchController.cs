@@ -211,10 +211,22 @@ namespace ResearchAPI.CORS.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<GetProjectModel> GetProject([FromServices] ReportTaskService service, long projectId)
+
+        public APIResult<GetProjectModel> GetProject([FromServices] ReportTaskService service, SimpleProjectRequest request)
         {
-            var result = service.GetProject(projectId);
+            var result = service.GetProject(request.ProjectId);
             return new APIResult<GetProjectModel>(result);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public class SimpleProjectRequest
+        {
+            /// <summary>
+            /// 项目Id
+            /// </summary>
+            public long ProjectId { set; get; }
         }
 
         /// <summary>
@@ -223,9 +235,9 @@ namespace ResearchAPI.CORS.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<bool> DeleteProject([FromServices] ReportTaskService service, long projectId)
+        public APIResult<bool> DeleteProject([FromServices] ReportTaskService service, SimpleProjectRequest request)
         {
-            var result = service.DeleteProject(projectId);
+            var result = service.DeleteProject(request.ProjectId);
             return new APIResult<bool>(result);
         }
 
@@ -281,10 +293,10 @@ namespace ResearchAPI.CORS.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<bool> AddFavoriteProject([FromServices] APIContext context, [FromServices] ReportTaskService service, long projectId)
+        public APIResult<bool> AddFavoriteProject([FromServices] APIContext context, [FromServices] ReportTaskService service, SimpleProjectRequest request)
         {
             var userId = context.GetCurrentUser().UserId;
-            var result = service.AddFavoriteProject(projectId, userId);
+            var result = service.AddFavoriteProject(request.ProjectId, userId);
             return new APIResult<bool>(result);
         }
 
@@ -294,10 +306,10 @@ namespace ResearchAPI.CORS.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<bool> DeleteFavoriteProject([FromServices] APIContext context, [FromServices] ReportTaskService service, long projectId)
+        public APIResult<bool> DeleteFavoriteProject([FromServices] APIContext context, [FromServices] ReportTaskService service, SimpleProjectRequest request)
         {
             var userId = context.GetCurrentUser().UserId;
-            var result = service.DeleteFavoriteProject(projectId, userId);
+            var result = service.DeleteFavoriteProject(request.ProjectId, userId);
             return new APIResult<bool>(result);
         }
 
@@ -354,9 +366,9 @@ namespace ResearchAPI.CORS.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<List<GetProjectIndicatorModel>> GetProjectIndicators([FromServices] ReportTaskService service, long projectId)
+        public APIResult<List<GetProjectIndicatorModel>> GetProjectIndicators([FromServices] ReportTaskService service, SimpleProjectRequest request)
         {
-            var result = service.GetProjectIndicators(projectId);
+            var result = service.GetProjectIndicators(request.ProjectId);
             return new APIResult<List<GetProjectIndicatorModel>>(result);
         }
 
@@ -367,10 +379,21 @@ namespace ResearchAPI.CORS.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<int> DeleteProjectIndicators([FromServices] ReportTaskService service, [FromBody] List<long> indicatorIds)
+        public APIResult<int> DeleteProjectIndicators([FromServices] ReportTaskService service, [FromBody] DeleteProjectIndicatorsRequest request)
         {
-            var result = service.DeleteProjectIndicators(indicatorIds);
+            var result = service.DeleteProjectIndicators(request.IndicatorIds);
             return new APIResult<int>(result);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public class DeleteProjectIndicatorsRequest
+        {
+            /// <summary>
+            /// 项目Id
+            /// </summary>
+            public List<long> IndicatorIds { set; get; }
         }
 
         /// <summary>
@@ -514,12 +537,12 @@ namespace ResearchAPI.CORS.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<bool> DeleteTask([FromServices] APIContext context, [FromServices] ReportTaskService service, long taskId)
+        public APIResult<bool> DeleteTask([FromServices] APIContext context, [FromServices] ReportTaskService service, SimpleTaskRequest request)
         {
-            var task = service.GetTaskById(taskId);
+            var task = service.GetTaskById(request.TaskId);
             if (!task.IsSuccess)
                 return new APIResult<bool>(false, task.Messages);
-            var serviceResult = service.DeleteTask(taskId);
+            var serviceResult = service.DeleteTask(request.TaskId);
             if (serviceResult.IsSuccess)
             {
                 var projectId = task.Data.ProjectId;
@@ -530,6 +553,17 @@ namespace ResearchAPI.CORS.Controllers
                 service.AddProjectLog(userId, projectId, ActionType.AddTask, text);
             }
             return new APIResult<bool>(serviceResult);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public class SimpleTaskRequest
+        {
+            /// <summary>
+            /// 项目Id
+            /// </summary>
+            public long TaskId { set; get; }
         }
 
         /// <summary>
@@ -568,9 +602,9 @@ namespace ResearchAPI.CORS.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<List<GetTaskModel>> GetTasks([FromServices] ReportTaskService service, long projectId)
+        public APIResult<List<GetTaskModel>> GetTasks([FromServices] ReportTaskService service, SimpleProjectRequest request)
         {
-            var serviceResult = service.GetTasks(projectId);
+            var serviceResult = service.GetTasks(request.ProjectId);
             return new APIResult<List<GetTaskModel>>(serviceResult);
         }
 
@@ -581,9 +615,9 @@ namespace ResearchAPI.CORS.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<GetTaskStatusModel> GetTaskStatus([FromServices] ReportTaskService service, long taskId)
+        public APIResult<GetTaskStatusModel> GetTaskStatus([FromServices] ReportTaskService service, SimpleTaskRequest request)
         {
-            var serviceResult = service.GetTaskStatus(taskId);
+            var serviceResult = service.GetTaskStatus(request.TaskId);
             if (serviceResult.IsSuccess)
             {
                 serviceResult.Data.ScheduleStatusName = serviceResult.Data.ScheduleStatus.GetDescription();// DomainConstraits.RenderIdToText(serviceResult.Data.ScheduleStatus,);

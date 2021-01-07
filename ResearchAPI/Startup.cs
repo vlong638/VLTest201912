@@ -71,7 +71,6 @@ namespace ResearchAPI
             {
                 p.SwaggerEndpoint("/swagger/v1/swagger.json", "VL API");
             });
-
         }
     }
 }

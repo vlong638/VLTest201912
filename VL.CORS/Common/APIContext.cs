@@ -28,25 +28,6 @@ namespace ResearchAPI.CORS.Common
         /// </summary>
         public RedisCache RedisCache { set; get; }
 
-        ///// <summary>
-        ///// 获取当前用户信息
-        ///// </summary>
-        ///// <returns></returns>
-        //public CurrentUser GetCurrentUser()
-        //{
-        //    var sessionId = CurrentUser.GetSessionId(HttpContext);
-        //    return CurrentUser.GetCurrentUser(RedisCache, sessionId);
-        //}
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        //public APIContext(IHttpContextAccessor httpContext, RedisCache redisCache) : base()
-        //{
-        //    HttpContextAccessor = httpContext;
-        //    RedisCache = redisCache;
-        //}
-
         /// <summary>
         /// 
         /// </summary>
@@ -90,22 +71,12 @@ namespace ResearchAPI.CORS.Common
 
         internal CurrentUser GetCurrentUser()
         {
-            StringValues sessionId = StringValues.Empty;
-            HttpContext.Request.Headers.TryGetValue("VLSession", out sessionId);
-            if (sessionId.FirstOrDefault().IsNullOrEmpty())
-                return null;
-            var currentUser = RedisCache.Get<CurrentUser>(sessionId);
-            if (currentUser == null)
-                throw new NotImplementedException("当前用户不存在");
-            return currentUser;
+            return CurrentUser.GetCurrentUser(HttpContext, RedisCache);
         }
 
         internal string SetCurrentUser(CurrentUser currentUser)
         {
-            var sessionId = currentUser.GetSessionId();
-            RedisCache.Set(sessionId, currentUser, DateTime.Now.AddHours(24));//TODO 这里时效应该是30分钟 根据用户操作来更新
-            //var currentUser = RedisCache.Get<CurrentUser>(sessionId);
-            return sessionId;
+            return CurrentUser.SetCurrentUser(RedisCache, currentUser);
         }
 
         #endregion

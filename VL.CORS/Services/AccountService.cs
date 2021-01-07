@@ -103,16 +103,12 @@ namespace ResearchAPI.CORS.Services
                 user.CreatedAt = DateTime.Now;
                 var repeat = UserRepository.GetByName(user.Name);
                 if (repeat != null)
-                { 
+                {
                     throw new NotImplementedException("用户名已存在");
                 }
-                var id = UserRepository.Insert(user);
-                var userRoles = roleIds.Select(c => new UserRole() { UserId = id, RoleId = c });
-                foreach (var userRole in userRoles)
-                {
-                    UserRoleRepository.Insert(userRole);
-                }
-                return id;
+                var userId = UserRepository.InsertOne(user);
+                UserRoleRepository.BatchInsert(userId, roleIds);
+                return userId;
             });
         }
 
@@ -219,8 +215,9 @@ namespace ResearchAPI.CORS.Services
             return ResearchDbContext.DelegateTransaction(c =>
             {
                 var result = RoleAuthorityRepository.DeleteByRoleId(roleId);
-                result = RoleAuthorityRepository.BatchInsert(roleId, authorityIds);
-                return result == authorityIds.Count();
+                if (authorityIds.Count > 0)
+                    result = RoleAuthorityRepository.BatchInsert(roleId, authorityIds);
+                return true;
             });
         }
     }

@@ -15,6 +15,7 @@ namespace ResearchAPI.CORS.Controllers
     /// 账户权限接口
     /// </summary>
     [Route("api/[controller]/[action]")]
+    [VLActionFilter]
     public class HomeController : APIBaseController
     {
         /// <summary>
@@ -51,8 +52,8 @@ namespace ResearchAPI.CORS.Controllers
         /// 新建用户
         /// </summary>
         /// <returns></returns>
-        [AllowAnonymous]
         [HttpPost]
+        [VLActionFilter(SystemAuthority.新增用户)]
         public APIResult<long> CreateUser([FromServices] AccountService service, [FromBody] CreateUserRequest request)
         {
             var result = service.CreateUser(new User()
@@ -292,5 +293,15 @@ namespace ResearchAPI.CORS.Controllers
 
         #endregion
 
+        /// <summary>
+        /// 授权测试
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [VLActionFilter(SystemAuthority.新增用户)]
+        public APIResult<long> TestCreateRoleAuthorize([FromServices] AccountService service, [FromBody] CreateRoleRequest request)
+        {
+            return new APIResult<long>(1);
+        }
     }
 }

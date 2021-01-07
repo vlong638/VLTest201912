@@ -32,7 +32,12 @@ namespace VL.CORS
             services.AddScoped<ReportTaskService, ReportTaskService>();
             services.AddScoped<AccountService, AccountService>();
             services.AddSingleton(p => new RedisCache(Configuration["Redis:ConnectionString"], Configuration["Redis:Prefix"]));
-            services.AddControllers();
+
+            //¼øÈ¨
+            services.AddControllers(option =>
+            {
+                //option.Filters.Add(typeof(VLActionFilterAttribute));
+            });
 
             //ÔÊÐí¿çÓò
             services.AddCors(option => option.AddPolicy("AllCors", policy => policy
