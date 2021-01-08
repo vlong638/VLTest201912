@@ -95,5 +95,16 @@ where 1=1
                 , new { roleId }
                 , transaction: _transaction);
         }
+
+        internal List<long> GetSystemAuthorityIds(long userId)
+        {
+            return _connection.Query<long>(@"
+select ra.AuthorityId from UserRole ur 
+left join RoleAuthority ra on ur.RoleId = ra.RoleId
+where ur.UserId = @UserId
+group by ra.AuthorityId"
+                , new { userId }
+                , transaction: _transaction).ToList();
+        }
     }
 }

@@ -220,5 +220,13 @@ namespace ResearchAPI.CORS.Services
                 return true;
             });
         }
+
+        internal ServiceResult<List<long>> GetSystemAuthorityIds(long userId)
+        {
+            return ResearchDbContext.DelegateNonTransaction(c =>
+            {
+                return UserRoleRepository.GetSystemAuthorityIds(userId);
+            });
+        }
     }
 }

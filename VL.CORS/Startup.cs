@@ -28,10 +28,12 @@ namespace VL.CORS
             //服务注册
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<APIContext>();
-            //services.AddSingleton<DomainConstraits, DomainConstraits>();
             services.AddScoped<ReportTaskService, ReportTaskService>();
             services.AddScoped<AccountService, AccountService>();
             services.AddSingleton(p => new RedisCache(Configuration["Redis:ConnectionString"], Configuration["Redis:Prefix"]));
+
+            //部分传参困难 临时解决
+            StaticAPIContext.RedisCache = new RedisCache(Configuration["Redis:ConnectionString"], Configuration["Redis:Prefix"]);
 
             //鉴权
             services.AddControllers(option =>

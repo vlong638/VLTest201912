@@ -3,6 +3,7 @@ using Autobots.Infrastracture.Common.ValuesSolution;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ResearchAPI.CORS.Common
@@ -20,6 +21,7 @@ namespace ResearchAPI.CORS.Common
 
         public long UserId { set; get; }
         public string UserName { set; get; }
+        public List<long> UserAuthorityIds { get; set; }
 
         public string GetSessionId() {
             return UserId + "_" + (UserId + DateTime.Now.ToString()).ToMD5();
@@ -41,6 +43,7 @@ namespace ResearchAPI.CORS.Common
         {
             var sessionId = currentUser.GetSessionId();
             redisCache.Set(sessionId, currentUser, DateTime.Now.AddHours(24));//TODO 这里时效应该是30分钟 根据用户操作来更新
+            //var test = redisCache.Get<CurrentUser>(sessionId);
             return sessionId;
         }
     }

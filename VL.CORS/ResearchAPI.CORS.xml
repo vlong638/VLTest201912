@@ -100,27 +100,38 @@
             数据库配置
             </summary>
         </member>
-        <member name="T:ResearchAPI.CORS.Common.VLActionFilterAttribute">
+        <member name="T:ResearchAPI.CORS.Common.VLAuthenticationAttribute">
             <summary>
             
             </summary>
         </member>
-        <member name="M:ResearchAPI.CORS.Common.VLActionFilterAttribute.#ctor(ResearchAPI.CORS.Common.SystemAuthority[])">
+        <member name="M:ResearchAPI.CORS.Common.VLAuthenticationAttribute.#ctor">
             <summary>
             
             </summary>
         </member>
-        <member name="P:ResearchAPI.CORS.Common.VLActionFilterAttribute.Authorities">
+        <member name="M:ResearchAPI.CORS.Common.VLAuthenticationAttribute.OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="T:ResearchAPI.CORS.Common.VLAuthorizeAttribute">
             <summary>
             
             </summary>
         </member>
-        <member name="P:ResearchAPI.CORS.Common.VLActionFilterAttribute.APIContext">
+        <member name="M:ResearchAPI.CORS.Common.VLAuthorizeAttribute.#ctor(ResearchAPI.CORS.Common.SystemAuthority[])">
             <summary>
             
             </summary>
         </member>
-        <member name="M:ResearchAPI.CORS.Common.VLActionFilterAttribute.OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+        <member name="P:ResearchAPI.CORS.Common.VLAuthorizeAttribute.Authorities">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Common.VLAuthorizeAttribute.OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
             <summary>
             
             </summary>
@@ -2113,6 +2124,16 @@
         <member name="P:ResearchAPI.CORS.Common.GetUserRoleModel.RoleName">
             <summary>
             角色名称
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Common.StaticAPIContext">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.StaticAPIContext.RedisCache">
+            <summary>
+            
             </summary>
         </member>
         <member name="T:ResearchAPI.CORS.Common.AuthHeaderFilter">

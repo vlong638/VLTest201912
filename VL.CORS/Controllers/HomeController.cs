@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ResearchAPI.CORS.Common;
 using ResearchAPI.CORS.Services;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,7 +14,7 @@ namespace ResearchAPI.CORS.Controllers
     /// 账户权限接口
     /// </summary>
     [Route("api/[controller]/[action]")]
-    [VLActionFilter]
+    [VLAuthentication]
     public class HomeController : APIBaseController
     {
         /// <summary>
@@ -29,7 +28,10 @@ namespace ResearchAPI.CORS.Controllers
             var result = service.PasswordSignIn(request.UserName, request.Password);
             if (result.IsSuccess)
             {
-                var token = apiContext.SetCurrentUser(new CurrentUser(result.Data));
+                var currentUser = new CurrentUser(result.Data);
+                var userAuthorityIds = service.GetSystemAuthorityIds(currentUser.UserId);
+                currentUser.UserAuthorityIds = userAuthorityIds.Data;
+                var token = apiContext.SetCurrentUser(currentUser);
                 return new APIResult<string>(token, result.Messages);
             }
             return new APIResult<string>(null, result.Messages);
@@ -53,7 +55,7 @@ namespace ResearchAPI.CORS.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        [VLActionFilter(SystemAuthority.新增用户)]
+        [VLAuthorize(SystemAuthority.新增用户)]
         public APIResult<long> CreateUser([FromServices] AccountService service, [FromBody] CreateUserRequest request)
         {
             var result = service.CreateUser(new User()
@@ -78,7 +80,7 @@ namespace ResearchAPI.CORS.Controllers
         {
             var result = service.EditUser(new User()
             {
-                Id= request.UserId,
+                Id = request.UserId,
                 NickName = request.NickName,
                 Sex = request.Sex,
                 Phone = request.Phone
@@ -95,7 +97,7 @@ namespace ResearchAPI.CORS.Controllers
         [HttpPost]
         public APIResult<bool> UpdateUserStatus([FromServices] AccountService service, [FromBody] LogicDeleteUserRequest request)
         {
-            var result = service.UpdateUserStatus(request.UserId,request.CurrentStatus);
+            var result = service.UpdateUserStatus(request.UserId, request.CurrentStatus);
             return new APIResult<bool>(result);
         }
         #endregion
@@ -290,7 +292,6 @@ namespace ResearchAPI.CORS.Controllers
             public List<long> AuthorityIds { set; get; }
         }
 
-
         #endregion
 
         /// <summary>
@@ -298,7 +299,7 @@ namespace ResearchAPI.CORS.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        [VLActionFilter(SystemAuthority.新增用户)]
+        [VLAuthorize(SystemAuthority.新增用户)]
         public APIResult<long> TestCreateRoleAuthorize([FromServices] AccountService service, [FromBody] CreateRoleRequest request)
         {
             return new APIResult<long>(1);
