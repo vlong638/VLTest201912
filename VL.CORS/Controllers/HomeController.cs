@@ -66,6 +66,7 @@ namespace ResearchAPI.CORS.Controllers
                 Sex = request.Sex,
                 Phone = request.Phone
             }, request.RoleIds
+            , request.DepartmentIds
             );
             return new APIResult<long>(result);
         }

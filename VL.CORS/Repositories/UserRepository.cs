@@ -53,7 +53,7 @@ VALUES (@name, @password, @nickname, @phone, @sex, @isdeleted, @CreatedAt);SELEC
         internal User GetByUserNameAndPassword(string userName, string password)
         {
             return _connection.Query<User>("select * from [User] where Name = @UserName and Password = @Password and IsDeleted = 0;"
-                , new { userName, Password = password.ToMD5() }
+                , new { userName, password }
                 , transaction: _transaction)
                 .FirstOrDefault();
         }

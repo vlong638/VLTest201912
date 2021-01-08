@@ -12,7 +12,7 @@ namespace FrameworkTest.Business.SDMockCommit
     public partial class VLConstraints
     {
 
-        public readonly static Dictionary<string, string> HighRisks = new Dictionary<string, string>()
+        public readonly static Dictionary<string, string> FS_HighRisks = new Dictionary<string, string>()
         {
             {"1",@"年龄：≤18岁"},
             {"2",@"年龄：&gt;35岁"},
@@ -164,7 +164,8 @@ namespace FrameworkTest.Business.SDMockCommit
         public readonly static List<HighRisksMapper> HighRisksMapper = new List<HighRisksMapper>()
         {
             //Hele高危  FS高危
-            new HighRisksMapper() { HLId ="a160101",FSId= "2"},
+            new HighRisksMapper() { HLId ="a160112",FSId= "1"},
+            new HighRisksMapper() { HLId ="a160111",FSId= "2"},
             new HighRisksMapper() { HLId ="a160102",FSId= "48"},
             new HighRisksMapper() { HLId ="a160104",FSId= "10"},
             new HighRisksMapper() { HLId ="a160104",FSId= "11"},
@@ -172,8 +173,8 @@ namespace FrameworkTest.Business.SDMockCommit
             new HighRisksMapper() { HLId ="a160104",FSId= "13"},
             new HighRisksMapper() { HLId ="a160104",FSId= "14"},
             new HighRisksMapper() { HLId ="a160104",FSId= "9"},
-            new HighRisksMapper() { HLId ="a160105",FSId= "4"},
-            new HighRisksMapper() { HLId ="a160105",FSId= "5"},
+            new HighRisksMapper() { HLId ="a160114",FSId= "4"},
+            new HighRisksMapper() { HLId ="a160113",FSId= "5"},
             new HighRisksMapper() { HLId ="a160106",FSId= "15"},
             new HighRisksMapper() { HLId ="a160106",FSId= "16"},
             new HighRisksMapper() { HLId ="a160107",FSId= "18"},
@@ -284,17 +285,16 @@ namespace FrameworkTest.Business.SDMockCommit
             new HighRisksMapper() { HLId ="z160104",FSId= "134"},
             new HighRisksMapper() { HLId ="z160105",FSId= "136"},
             new HighRisksMapper() { HLId ="z160106",FSId= "137"},
-            new HighRisksMapper() { HLId ="a160101",FSId= "1"},
 
-            //修正用匹配扩展
-            //BMI
-            new HighRisksMapper() { HLId ="4",FSId= "4"},//<18.5
-            new HighRisksMapper() { HLId ="6",FSId= "6"},//>=28
-            new HighRisksMapper() { HLId ="5",FSId= "5"},//>>25
-            //age
-            new HighRisksMapper() { HLId ="1",FSId= "1"},// <= 18岁
-            new HighRisksMapper() { HLId ="2",FSId= "2"},// >  35岁
-            new HighRisksMapper() { HLId ="3",FSId= "3"},// >= 40岁
+            ////修正用匹配扩展
+            ////BMI
+            //new HighRisksMapper() { HLId ="4",FSId= "4"},//<18.5
+            //new HighRisksMapper() { HLId ="6",FSId= "6"},//>=28
+            //new HighRisksMapper() { HLId ="5",FSId= "5"},//>>25
+            ////age
+            //new HighRisksMapper() { HLId ="1",FSId= "1"},// <= 18岁
+            //new HighRisksMapper() { HLId ="2",FSId= "2"},// >  35岁
+            //new HighRisksMapper() { HLId ="3",FSId= "3"},// >= 40岁
         };
         
         //注意特殊值有

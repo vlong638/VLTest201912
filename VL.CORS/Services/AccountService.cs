@@ -18,6 +18,7 @@ namespace ResearchAPI.CORS.Services
         APIContext APIContext { get; set; }
         DbContext ResearchDbContext { set; get; }
 
+        UserDepartmentRepository UserDepartmentRepository { set; get; }
         UserRepository UserRepository { set; get; }
         UserRoleRepository UserRoleRepository { set; get; }
         RoleAuthorityRepository RoleAuthorityRepository { set; get; }
@@ -44,6 +45,7 @@ namespace ResearchAPI.CORS.Services
         private void Init(DbContext DbContext)
         {
             //repositories
+            UserDepartmentRepository = new UserDepartmentRepository(DbContext);
             UserRepository = new UserRepository(DbContext);
             UserRoleRepository = new UserRoleRepository(DbContext);
             RoleAuthorityRepository = new RoleAuthorityRepository(DbContext);
@@ -54,8 +56,8 @@ namespace ResearchAPI.CORS.Services
         {
             return ResearchDbContext.DelegateNonTransaction(c =>
             {
-                var user = UserRepository.GetByUserNameAndPassword(userName, password);
-                if (user==null)
+                var user = UserRepository.GetByUserNameAndPassword(userName, password.ToMD5());
+                if (user == null)
                 {
                     throw new NotImplementedException("用户不存在或密码错误");
                 }
@@ -72,11 +74,12 @@ namespace ResearchAPI.CORS.Services
             });
         }
 
-        internal ServiceResult<VLPagerResult<List<GetUserModel>>> GetPagedUsers(int page,int limit,string username,string nickname)
+        internal ServiceResult<VLPagerResult<List<GetUserModel>>> GetPagedUsers(int page, int limit, string username, string nickname)
         {
             return ResearchDbContext.DelegateTransaction(c =>
             {
-                var list = UserRepository.GetPagedUsers(page, limit, username, nickname).Select(c => {
+                var list = UserRepository.GetPagedUsers(page, limit, username, nickname).Select(c =>
+                {
                     var m = new GetUserModel()
                     {
                         UserId = c.Id,
@@ -96,11 +99,12 @@ namespace ResearchAPI.CORS.Services
             });
         }
 
-        internal ServiceResult<long> CreateUser(User user, List<long> roleIds)
+        internal ServiceResult<long> CreateUser(User user, List<long> roleIds, List<long> departmentIds)
         {
             return ResearchDbContext.DelegateTransaction(c =>
             {
                 user.CreatedAt = DateTime.Now;
+                user.Password = user.Password.ToMD5();
                 var repeat = UserRepository.GetByName(user.Name);
                 if (repeat != null)
                 {
@@ -108,6 +112,7 @@ namespace ResearchAPI.CORS.Services
                 }
                 var userId = UserRepository.InsertOne(user);
                 UserRoleRepository.BatchInsert(userId, roleIds);
+                UserDepartmentRepository.BatchInsert(userId, departmentIds);
                 return userId;
             });
         }
@@ -135,7 +140,7 @@ namespace ResearchAPI.CORS.Services
             });
         }
 
-        internal ServiceResult<bool> EditUser(User newUser, List<long> roleIds)
+        internal ServiceResult<bool> EditUser(User newUser, List<long> roleIds, List<long> departmentIds)
         {
             return ResearchDbContext.DelegateTransaction(c =>
             {
@@ -153,12 +158,10 @@ namespace ResearchAPI.CORS.Services
                 {
                     throw new Exception("用户信息更新失败");
                 }
-                UserRoleRepository.DeleteByUserId(user.Id);
-                var userRoles = roleIds.Select(c => new UserRole() { UserId = newUser.Id, RoleId = c });
-                foreach (var userRole in userRoles)
-                {
-                    UserRoleRepository.Insert(userRole);
-                }
+                UserRoleRepository.DeleteByUserId(newUser.Id);
+                UserRoleRepository.BatchInsert(newUser.Id, roleIds);
+                UserDepartmentRepository.DeleteByUserId(newUser.Id);
+                UserDepartmentRepository.BatchInsert(newUser.Id, departmentIds);
                 return true;
             });
         }
