@@ -2418,6 +2418,28 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:ResearchAPI.CORS.Controllers.HomeController.GetUserInfo(ResearchAPI.CORS.Common.APIContext,ResearchAPI.CORS.Services.AccountService)">
+            <summary>
+            获取登陆用户信息
+            </summary>
+            <param name="apiContext"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ResearchAPI.CORS.Controllers.HomeController.UserModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Controllers.HomeController.UserModel.UserName">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Controllers.HomeController.UserModel.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
         <member name="M:ResearchAPI.CORS.Controllers.HomeController.GetUsers(ResearchAPI.CORS.Services.AccountService,ResearchAPI.CORS.Common.GetUsersRequest)">
             <summary>
             获取用户管理列表

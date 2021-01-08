@@ -38,6 +38,37 @@ namespace ResearchAPI.CORS.Controllers
         }
 
         #region User
+
+        /// <summary>
+        /// 获取登陆用户信息
+        /// </summary>
+        /// <param name="apiContext"></param>
+        /// <returns></returns>
+        public APIResult<UserModel> GetUserInfo([FromServices] APIContext apiContext, [FromServices] AccountService service)
+        {
+            var userInfo = service.GetUserInfo(apiContext.GetCurrentUser().UserId);
+            var user = new UserModel() {
+                UserName = userInfo.Data.Name,
+                NickName = userInfo.Data.NickName,
+            };
+            return new APIResult<UserModel>(user);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public class UserModel
+        {
+            /// <summary>
+            /// 用户名
+            /// </summary>
+            public string UserName { set; get; }
+            /// <summary>
+            /// 昵称
+            /// </summary>
+            public string NickName { set; get; }
+        }
+
         /// <summary>
         /// 获取用户管理列表
         /// </summary>

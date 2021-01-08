@@ -52,6 +52,19 @@ namespace ResearchAPI.CORS.Services
             RoleRepository = new RoleRepository(DbContext);
         }
 
+        internal ServiceResult<User> GetUserInfo(long userId)
+        {
+            return ResearchDbContext.DelegateNonTransaction(c =>
+            {
+                var user = UserRepository.GetById(userId);
+                if (user == null)
+                {
+                    throw new NotImplementedException("用户不存在");
+                }
+                return user;
+            });
+        }
+
         internal ServiceResult<User> PasswordSignIn(string userName, string password)
         {
             return ResearchDbContext.DelegateNonTransaction(c =>
