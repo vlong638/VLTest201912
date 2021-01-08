@@ -44,8 +44,12 @@ namespace ResearchAPI.CORS.Common
         /// 用户角色
         /// </summary>
         public List<GetUserRoleModel> Roles { set; get; }
-
+        /// <summary>
+        /// 用户机构
+        /// </summary>
+        public List<GetUserDepartmentModel> Departments { set; get; }
     }
+
     /// <summary>
     /// 
     /// </summary>
@@ -60,5 +64,20 @@ namespace ResearchAPI.CORS.Common
         /// </summary>
         public string RoleName { set; get; }
 
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public class GetUserDepartmentModel
+    {
+        /// <summary>
+        /// 机构Id
+        /// </summary>
+        public long DepartmentId { set; get; }
+        /// <summary>
+        /// 机构名称
+        /// </summary>
+        public string DepartmentName { set; get; }
     }
 }

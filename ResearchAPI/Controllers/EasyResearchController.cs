@@ -1,5 +1,5 @@
 ﻿using Autobots.Infrastracture.Common.ControllerSolution;
-using Autobots.Infrastracture.Common.FileSolution;
+using Autobots.Infrastracture.Common.PagerSolution;
 using Autobots.Infrastracture.Common.ValuesSolution;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +7,6 @@ using ResearchAPI.Common;
 using ResearchAPI.Services;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
 
 namespace ResearchAPI.Controllers

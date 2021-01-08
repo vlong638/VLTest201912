@@ -89,10 +89,13 @@ namespace ResearchAPI.CORS.Services
                     m.Sex_Text = m.Sex.GetDescription();
                     return m;
                 }).ToList();
-                var userRoles = RoleRepository.GetSystemRolesByUserIds(list.Select(c => c.UserId).ToList());
+                var userIds = list.Select(c => c.UserId).ToList();
+                var userDepartments = UserDepartmentRepository.GetByUserIds(userIds);
+                var userRoles = RoleRepository.GetSystemRolesByUserIds(userIds);
                 list.ForEach(c =>
                 {
                     c.Roles = userRoles.Where(ur => ur.UserId == c.UserId).Select(ur => new GetUserRoleModel() { RoleId = ur.RoleId, RoleName = ur.RoleName }).ToList();
+                    c.Departments = userDepartments.Where(ur => ur.UserId == c.UserId).Select(ur => new GetUserDepartmentModel() { DepartmentId = ur.DepartmentId, DepartmentName = DomainConstraits.RenderIdToText(ur.DepartmentId, DomainConstraits.Departments) }).ToList();
                 });
                 var count = UserRepository.GetPagedUserCount(username, nickname);
                 return new VLPagerResult<List<GetUserModel>>() { List = list, Count = count };

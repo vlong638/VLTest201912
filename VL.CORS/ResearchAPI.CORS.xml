@@ -2121,6 +2121,11 @@
             用户角色
             </summary>
         </member>
+        <member name="P:ResearchAPI.CORS.Common.GetUserModel.Departments">
+            <summary>
+            用户机构
+            </summary>
+        </member>
         <member name="T:ResearchAPI.CORS.Common.GetUserRoleModel">
             <summary>
             
@@ -2134,6 +2139,21 @@
         <member name="P:ResearchAPI.CORS.Common.GetUserRoleModel.RoleName">
             <summary>
             角色名称
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Common.GetUserDepartmentModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetUserDepartmentModel.DepartmentId">
+            <summary>
+            机构Id
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetUserDepartmentModel.DepartmentName">
+            <summary>
+            机构名称
             </summary>
         </member>
         <member name="T:ResearchAPI.CORS.Common.StaticAPIContext">
@@ -2593,6 +2613,13 @@
             </summary>
             <param name="sql"></param>
             <param name="parameters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ResearchAPI.CORS.Repositories.UserDepartmentRepository.GetByUserIds(System.Collections.Generic.List{System.Int64})">
+            <summary>
+            根据用户Id获取用户角色集合
+            </summary>
+            <param name="userIds"></param>
             <returns></returns>
         </member>
         <member name="T:ResearchAPI.CORS.Services.AccountService">
