@@ -202,6 +202,10 @@ namespace ResearchAPI.CORS.Controllers
         public APIResult<VLPagerResult<List<Dictionary<string, object>>>> GetPagedProjects([FromServices] APIContext context, [FromServices] ReportTaskService service, [FromBody] GetCommonSelectRequest request)
         {
             var currentUser = context.GetCurrentUser();
+            if (request.search == null)
+            {
+                request.search = new List<VLKeyValue>();
+            }
             request.search.Add(new VLKeyValue("UserId", currentUser.UserId.ToString()));
             var result = service.GetPagedResultBySQLConfig(request);
             return new APIResult<VLPagerResult<List<Dictionary<string, object>>>>(result);
@@ -288,7 +292,6 @@ namespace ResearchAPI.CORS.Controllers
             }
             return new APIResult<long>(result);
         }
-
         /// <summary>
         /// 1.2.5.收藏项目
         /// </summary>
