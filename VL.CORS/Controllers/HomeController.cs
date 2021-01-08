@@ -42,8 +42,8 @@ namespace ResearchAPI.CORS.Controllers
         /// <summary>
         /// 获取登陆用户信息
         /// </summary>
-        /// <param name="apiContext"></param>
-        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpPost]
         public APIResult<UserModel> GetUserInfo([FromServices] APIContext apiContext, [FromServices] AccountService service)
         {
             var userInfo = service.GetUserInfo(apiContext.GetCurrentUser().UserId);

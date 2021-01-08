@@ -2422,8 +2422,6 @@
             <summary>
             获取登陆用户信息
             </summary>
-            <param name="apiContext"></param>
-            <returns></returns>
         </member>
         <member name="T:ResearchAPI.CORS.Controllers.HomeController.UserModel">
             <summary>
