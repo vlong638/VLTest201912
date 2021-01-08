@@ -40,6 +40,7 @@ namespace VL.CORS
             //¼øÈ¨
             services.AddControllers(option =>
             {
+                option.Filters.Add(typeof(GlobalExceptionFilter));
                 //option.Filters.Add(typeof(VLActionFilterAttribute));
             }).AddJsonOptions(config =>
             {
