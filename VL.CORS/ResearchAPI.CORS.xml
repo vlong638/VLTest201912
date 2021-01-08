@@ -2227,7 +2227,7 @@
             </summary>
             <returns>Key:项目名称,Value:项目Id</returns>
         </member>
-        <member name="M:ResearchAPI.CORS.Controllers.EasyResearchController.GetPagedProjects(ResearchAPI.CORS.Services.ReportTaskService,ResearchAPI.CORS.Common.GetCommonSelectRequest)">
+        <member name="M:ResearchAPI.CORS.Controllers.EasyResearchController.GetPagedProjects(ResearchAPI.CORS.Common.APIContext,ResearchAPI.CORS.Services.ReportTaskService,ResearchAPI.CORS.Common.GetCommonSelectRequest)">
             <summary>
             1.1.1.获取项目列表
             </summary>

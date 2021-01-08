@@ -199,9 +199,10 @@ namespace ResearchAPI.CORS.Controllers
         [HttpPost]
         [EnableCors("AllCors")]
         [VLAuthorize(SystemAuthority.查看项目列表)]
-        public APIResult<VLPagerResult<List<Dictionary<string, object>>>> GetPagedProjects([FromServices] ReportTaskService service, [FromBody] GetCommonSelectRequest request)
+        public APIResult<VLPagerResult<List<Dictionary<string, object>>>> GetPagedProjects([FromServices] APIContext context, [FromServices] ReportTaskService service, [FromBody] GetCommonSelectRequest request)
         {
-            //TODO加入访问Id的控制
+            var currentUser = context.GetCurrentUser();
+            request.search.Add(new VLKeyValue("UserId", currentUser.UserId.ToString()));
             var result = service.GetPagedResultBySQLConfig(request);
             return new APIResult<VLPagerResult<List<Dictionary<string, object>>>>(result);
         }

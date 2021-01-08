@@ -7,6 +7,7 @@
 			</Properties>
 			<Wheres>
 				<Where ComponentName="Name" Formatter="%@Name%"></Where>
+				<Where ComponentName="UserId"></Where>
 				<Where ComponentName="DepartmentIds" DataType ="ArrayInt"/>
 				<Where ComponentName="CreatedAtStart"/>
 				<Where ComponentName="CreatedAtEnd"/>
@@ -20,8 +21,15 @@
 						for xml path('')
 					) as departmentIds
 					from Project as p 
+					left join ProjectMember as pm on pm.ProjectId = p.Id 
 					left join ProjectDepartment as pd on pd.projectId = p.id
+					left join UserDepartment as ud on ud.DepartmentId = pd.DepartmentId
 					where p.IsDeleted = 0
+					and (
+						p.ViewAuthorizeType = 1
+						or (p.ViewAuthorizeType in (2,3) and pm.UserId = @UserId)
+						or (p.ViewAuthorizeType = 3 and ud.UserId = @UserId)
+					)		
 					<If Operator="NotEmpty" ComponentName="Name"> and p.name like @Name </If>
 					<If Operator="NotEmpty" ComponentName="CreatedAtStart">and p.CreatedAt &gt;= @CreatedAtStart </If>
 					<If Operator="NotEmpty" ComponentName="CreatedAtEnd"> and p.CreatedAt &lt; @CreatedAtEnd </If>
@@ -36,8 +44,15 @@
 				from (
 					select p.Id,p.Name,p.CreatorId,p.CreatedAt,p.LastModifiedAt
 					from Project as p 
+					left join ProjectMember as pm on pm.ProjectId = p.Id 
 					left join ProjectDepartment as pd on pd.projectId = p.id
+					left join UserDepartment as ud on ud.DepartmentId = pd.DepartmentId
 					where p.IsDeleted = 0
+					and (
+						p.ViewAuthorizeType = 1
+						or (p.ViewAuthorizeType in (2,3) and pm.UserId = @UserId)
+						or (p.ViewAuthorizeType = 3 and ud.UserId = @UserId)
+					)	
 					<If Operator="NotEmpty" ComponentName="Name"> and p.name like @Name </If>
 					<If Operator="NotEmpty" ComponentName="CreatedAtStart">and p.CreatedAt &gt;= @CreatedAtStart </If>
 					<If Operator="NotEmpty" ComponentName="CreatedAtEnd"> and p.CreatedAt &lt; @CreatedAtEnd </If>
