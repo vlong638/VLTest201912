@@ -137,6 +137,17 @@
             </summary>
             <param name="context"></param>
         </member>
+        <member name="T:ResearchAPI.CORS.Common.GlobalExceptionFilter">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Common.GlobalExceptionFilter.OnException(Microsoft.AspNetCore.Mvc.Filters.ExceptionContext)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+        </member>
         <member name="T:ResearchAPI.CORS.Common.DBConfig">
             <summary>
             配置样例

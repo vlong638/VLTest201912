@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Autobots.Infrastracture.Common.ControllerSolution;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -82,6 +84,21 @@ namespace ResearchAPI.CORS.Common
             base.OnActionExecuting(context);
         }
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public class GlobalExceptionFilter : IExceptionFilter
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        public void OnException(ExceptionContext context)
+        {
+            Exception ex = context.Exception;
+            context.ExceptionHandled = true;
+            context.Result = new JsonResult(new APIResult(500, ex.Message));
+        }
+    }
 }
-
-
