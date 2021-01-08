@@ -28,6 +28,7 @@ namespace ResearchAPI.CORS.Controllers
     /// 科研内核接口
     /// </summary>
     //[ApiController]
+    [VLAuthentication]
     [Route("api/[controller]/[action]")]
     public class EasyResearchController : APIBaseController
     {
@@ -196,8 +197,8 @@ namespace ResearchAPI.CORS.Controllers
         /// 1.1.1.获取项目列表
         /// </summary>
         [HttpPost]
-        [AllowAnonymous]
         [EnableCors("AllCors")]
+        [VLAuthorize(SystemAuthority.查看项目列表)]
         public APIResult<VLPagerResult<List<Dictionary<string, object>>>> GetPagedProjects([FromServices] ReportTaskService service, [FromBody] GetCommonSelectRequest request)
         {
             //TODO加入访问Id的控制

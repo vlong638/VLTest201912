@@ -13,8 +13,8 @@ namespace ResearchAPI.CORS.Controllers
     /// <summary>
     /// 账户权限接口
     /// </summary>
-    [Route("api/[controller]/[action]")]
     [VLAuthentication]
+    [Route("api/[controller]/[action]")]
     public class HomeController : APIBaseController
     {
         /// <summary>
@@ -74,8 +74,8 @@ namespace ResearchAPI.CORS.Controllers
         /// 编辑用户
         /// </summary>
         /// <returns></returns>
-        [AllowAnonymous]
         [HttpPost]
+        [VLAuthorize(SystemAuthority.修改用户信息)]
         public APIResult<bool> EditUser([FromServices] AccountService service, [FromBody] EditUserRequest request)
         {
             var result = service.EditUser(new User()
@@ -93,8 +93,8 @@ namespace ResearchAPI.CORS.Controllers
         /// 逻辑删除用户
         /// </summary>
         /// <returns></returns>
-        [AllowAnonymous]
         [HttpPost]
+        [VLAuthorize(SystemAuthority.锁定用户状态)]
         public APIResult<bool> UpdateUserStatus([FromServices] AccountService service, [FromBody] LogicDeleteUserRequest request)
         {
             var result = service.UpdateUserStatus(request.UserId, request.CurrentStatus);
@@ -150,8 +150,8 @@ namespace ResearchAPI.CORS.Controllers
         /// 新建角色
         /// </summary>
         /// <returns></returns>
-        [AllowAnonymous]
         [HttpPost]
+        [VLAuthorize(SystemAuthority.新增角色)]
         public APIResult<long> CreateRole([FromServices] AccountService service, [FromBody] CreateRoleRequest request)
         {
             var result = service.CreateRole(new Role()
@@ -166,8 +166,8 @@ namespace ResearchAPI.CORS.Controllers
         /// 编辑角色
         /// </summary>
         /// <returns></returns>
-        [AllowAnonymous]
         [HttpPost]
+        [VLAuthorize(SystemAuthority.修改角色信息)]
         public APIResult<bool> EditRole([FromServices] AccountService service, [FromBody] EditRoleRequest request)
         {
             var result = service.EditRole(new Role()
@@ -197,8 +197,8 @@ namespace ResearchAPI.CORS.Controllers
         /// 删除角色
         /// </summary>
         /// <returns></returns>
-        [AllowAnonymous]
         [HttpPost]
+        [VLAuthorize(SystemAuthority.删除角色)]
         public APIResult<bool> DeleteRole([FromServices] AccountService service, [FromBody] DeleteRoleRequest request)
         {
             var result = service.DeleteRole(request.RoleId);
@@ -269,8 +269,8 @@ namespace ResearchAPI.CORS.Controllers
         /// 编辑角色权限
         /// </summary>
         /// <returns></returns>
-        [AllowAnonymous]
         [HttpPost]
+        [VLAuthorize(SystemAuthority.编辑角色权限)]
         public APIResult<bool> EditRoleAuthorities([FromServices] AccountService service, [FromBody] EditRoleAuthoritiesRequest request)
         {
             var result = service.EditRoleAuthorities(request.RoleId, request.AuthorityIds);
