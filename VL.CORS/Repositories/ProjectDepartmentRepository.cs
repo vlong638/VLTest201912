@@ -14,12 +14,11 @@ namespace ResearchAPI.CORS.Repositories
         {
         }
 
-        internal void AddProjectDepartments(List<ProjectDepartment> members)
+        internal int BatchInsert(List<ProjectDepartment> items)
         {
-            foreach (var member in members)
-            {
-                Insert(member);
-            }
+            return _connection.Execute(@$"insert into ProjectDepartment (ProjectId,DepartmentId) values 
+{string.Join(",", items.Select(c => $"({c.ProjectId},{ c.DepartmentId})"))}"
+                , transaction: _transaction);
         }
 
         internal bool DeleteByProjectId(long projectId)

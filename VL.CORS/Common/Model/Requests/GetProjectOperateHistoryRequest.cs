@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace ResearchAPI.CORS.Common
 {
@@ -15,11 +14,11 @@ namespace ResearchAPI.CORS.Common
         /// <summary>
         /// 
         /// </summary>
-        public string OperateTimeStart { set; get; }
+        public DateTime? OperateTimeStart { set; get; }
         /// <summary>
         /// 
         /// </summary>
-        public string OperateTimeEnd { set; get; }
+        public DateTime? OperateTimeEnd { set; get; }
         /// <summary>
         /// 
         /// </summary>

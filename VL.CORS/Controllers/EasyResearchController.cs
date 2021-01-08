@@ -269,20 +269,29 @@ namespace ResearchAPI.CORS.Controllers
                 //{用户}添加了项目管理员{用户名}，
                 var adminIds = request.AdminIds;
                 var adminNames = DomainConstraits.RenderIdToText(adminIds, DomainConstraits.Users);
-                text = $"{userName}添加了项目管理员:{string.Join(",", adminNames)}";
-                service.AddProjectLog(userId, projectId, ActionType.AddProjectManager, text);
+                if (adminNames != null && adminNames.Count > 0)
+                {
+                    text = $"{userName}添加了项目管理员:{string.Join(",", adminNames)}";
+                    service.AddProjectLog(userId, projectId, ActionType.AddProjectManager, text);
+                }
 
                 //{用户}添加了项目成员{用户名}，
                 var memberIds = request.MemberIds;
                 var memberNames = DomainConstraits.RenderIdToText(memberIds, DomainConstraits.Users);
-                text = $"{userName}添加了项目成员:{string.Join(",", memberNames)}";
-                service.AddProjectLog(userId, projectId, ActionType.AddProjectMember, text);
+                if (memberNames != null && memberNames.Count > 0)
+                {
+                    text = $"{userName}添加了项目成员:{string.Join(",", memberNames)}";
+                    service.AddProjectLog(userId, projectId, ActionType.AddProjectMember, text);
+                }
 
                 //{用户}添加了关联科室{科室名称}，
                 var departmentIds = request.DepartmentIds;
                 var departmentNames = DomainConstraits.RenderIdToText(departmentIds, DomainConstraits.Departments);
-                text = $"{userName}添加了关联科室:{string.Join(",", departmentNames)}";
-                service.AddProjectLog(userId, projectId, ActionType.AddProjectDepartment, text);
+                if (departmentNames!=null && departmentNames.Count>0)
+                {
+                    text = $"{userName}添加了关联科室:{string.Join(",", departmentNames)}";
+                    service.AddProjectLog(userId, projectId, ActionType.AddProjectDepartment, text);
+                }
 
                 //{用户}修改项目查看权限为{权限名称}，
                 var viewAuthorizeType = request.ViewAuthorizeType;
@@ -578,7 +587,7 @@ namespace ResearchAPI.CORS.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<long> CommitTask([FromServices] APIContext context, [FromServices] ReportTaskService service, CommitTaskRequest request)
+        public APIResult<long> CommitTask([FromServices] APIContext context, [FromServices] ReportTaskService service, [FromBody] CommitTaskRequest request)
         {
             var task = service.GetTaskById(request.TaskId);
             if (!task.IsSuccess)

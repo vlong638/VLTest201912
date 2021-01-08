@@ -284,9 +284,9 @@ namespace ResearchAPI.CORS.Services
                     members.Add(new ProjectMember(projectId, adminId, DomainConstraits.AdminRoleId.Value));
                 foreach (var memberId in request.MemberIds ?? new List<long>())
                     members.Add(new ProjectMember(projectId, memberId, DomainConstraits.MemberRoleId.Value));
-                ProjectMemberRepository.AddProjectMembers(members);
+                ProjectMemberRepository.BatchInsert(members);
                 var projectDepartments = request.DepartmentIds.Select(c => new ProjectDepartment() { ProjectId = projectId, DepartmentId = c }).ToList();
-                ProjectDepartmentRepository.AddProjectDepartments(projectDepartments);
+                ProjectDepartmentRepository.BatchInsert(projectDepartments);
                 return projectId;
             });
         }
@@ -327,10 +327,10 @@ namespace ResearchAPI.CORS.Services
                 foreach (var memberId in request.MemberIds)
                     members.Add(new ProjectMember(projectId, memberId, DomainConstraits.MemberRoleId.Value));
                 ProjectMemberRepository.DeleteByProjectId(projectId);
-                ProjectMemberRepository.AddProjectMembers(members);
+                ProjectMemberRepository.BatchInsert(members);
                 var projectDepartments = request.DepartmentIds.Select(c => new ProjectDepartment() { ProjectId = projectId, DepartmentId = c }).ToList();
                 ProjectDepartmentRepository.DeleteByProjectId(projectId);
-                ProjectDepartmentRepository.AddProjectDepartments(projectDepartments);
+                ProjectDepartmentRepository.BatchInsert(projectDepartments);
                 return true;
             });
         }

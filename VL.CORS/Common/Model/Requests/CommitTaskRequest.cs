@@ -22,6 +22,6 @@ namespace ResearchAPI.CORS.Common
         /// <summary>
         /// 指定的执行时间
         /// </summary>
-        public DateTime StartAt { set; get; }
+        public DateTime? StartAt { set; get; }
     }
 }

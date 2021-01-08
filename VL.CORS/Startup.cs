@@ -10,6 +10,8 @@ using ResearchAPI.CORS.Common;
 using ResearchAPI.CORS.Services;
 using System;
 using System.IO;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 
 namespace VL.CORS
 {
@@ -39,6 +41,13 @@ namespace VL.CORS
             services.AddControllers(option =>
             {
                 //option.Filters.Add(typeof(VLActionFilterAttribute));
+            }).AddJsonOptions(config =>
+            {
+                //此设定解决JsonResult中文被编码的问题
+                config.JsonSerializerOptions.Encoder = JavaScriptEncoder.Create(UnicodeRanges.All);
+
+                config.JsonSerializerOptions.Converters.Add(new DateTimeConverter());
+                config.JsonSerializerOptions.Converters.Add(new DateTimeNullableConvert());
             });
 
             //允许跨域

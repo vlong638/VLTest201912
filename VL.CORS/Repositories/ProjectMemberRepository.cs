@@ -15,12 +15,11 @@ namespace ResearchAPI.CORS.Repositories
         {
         }
 
-        internal void AddProjectMembers(List<ProjectMember> members)
+        internal int BatchInsert(List<ProjectMember> items)
         {
-            foreach (var member in members)
-            {
-                Insert(member);
-            }
+            return _connection.Execute(@$"insert into ProjectMember (ProjectId,UserId,RoleId) values 
+{string.Join(",", items.Select(c => $"({c.ProjectId},{c.UserId},{c.RoleId})"))}"
+                , transaction: _transaction);
         }
 
         internal bool DeleteByProjectId(long projectId)
