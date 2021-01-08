@@ -112,11 +112,11 @@ namespace ResearchAPI.CORS.Services
             });
         }
 
-        internal ServiceResult<VLPagerResult<List<GetRoleModel>>> GetPagedRoles(int page, int limit, string roleName)
+        internal ServiceResult<VLPagerResult<List<GetRoleModel>>> GetPagedSystemRoles(int page, int limit, string roleName)
         {
             return ResearchDbContext.DelegateTransaction(c =>
             {
-                var list = RoleRepository.GetPagedRoles(page, limit, roleName).Select(c => new GetRoleModel()
+                var list = RoleRepository.GetPagedSystemRoles(page, limit, roleName).Select(c => new GetRoleModel()
                 {
                     RoleId = c.Id,
                     RoleName = c.Name,

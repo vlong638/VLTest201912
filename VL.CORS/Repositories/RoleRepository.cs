@@ -56,22 +56,23 @@ and ur.userId in @userIds", new { Category = RoleCategory.SystemRole, userIds },
 
         internal long InsertOne(Role role)
         {
-            return _connection.ExecuteScalar<long>(@"INSERT INTO [Role]([Name]) VALUES (@name);SELECT @@IDENTITY;"
+            return _connection.ExecuteScalar<long>(@"INSERT INTO [Role]([Name],Category) VALUES (@name,@Category);SELECT @@IDENTITY;"
                 , role, transaction: _transaction);
         }
 
-        internal List<Role> GetPagedRoles(int page, int limit, string name)
+        internal List<Role> GetPagedSystemRoles(int page, int limit, string name)
         {
             var sql = @$"
 select *
 from [Role]
 where 1=1
+and Category = @Category
 { (name.IsNullOrEmpty() ? "" : " and name like @name")}
 order by id desc
 offset {(page - 1) * limit} rows fetch next {limit} rows only
 ";
             return _connection.Query<Role>(sql
-                , new { page, limit, name = $"%{name}%" }
+                , new { page, limit, name = $"%{name}%", Category= RoleCategory.SystemRole }
                 , transaction: _transaction)
                 .ToList();
         }

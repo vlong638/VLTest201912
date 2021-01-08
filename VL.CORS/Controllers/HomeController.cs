@@ -112,7 +112,7 @@ namespace ResearchAPI.CORS.Controllers
         [HttpPost]
         public APIResult<VLPagerResult<List<GetRoleModel>>> GetRoles([FromServices] AccountService service, [FromBody] GetRolesRequest request)
         {
-            var result = service.GetPagedRoles(request.Page, request.Limit, request.RoleName);
+            var result = service.GetPagedSystemRoles(request.Page, request.Limit, request.RoleName);
             return new APIResult<VLPagerResult<List<GetRoleModel>>>(result);
         }
 
