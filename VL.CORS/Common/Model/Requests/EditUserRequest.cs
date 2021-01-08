@@ -27,5 +27,9 @@ namespace ResearchAPI.CORS.Common
         /// 角色Id
         /// </summary>
         public List<long> RoleIds { set; get; }
+        /// <summary>
+        /// 机构Id
+        /// </summary>
+        public List<long> DepartmentIds { set; get; }
     }
 }

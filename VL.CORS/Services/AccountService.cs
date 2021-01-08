@@ -99,6 +99,11 @@ namespace ResearchAPI.CORS.Services
             });
         }
 
+        internal object EditUser(User user, List<long> roleIds, object departmentIds)
+        {
+            throw new NotImplementedException();
+        }
+
         internal ServiceResult<long> CreateUser(User user, List<long> roleIds, List<long> departmentIds)
         {
             return ResearchDbContext.DelegateTransaction(c =>

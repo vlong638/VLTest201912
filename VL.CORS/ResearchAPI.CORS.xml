@@ -1361,6 +1361,11 @@
             角色Id
             </summary>
         </member>
+        <member name="P:ResearchAPI.CORS.Common.CreateUserRequest.DepartmentIds">
+            <summary>
+            机构Id
+            </summary>
+        </member>
         <member name="T:ResearchAPI.CORS.Common.DeleteProjectIndicatorRequest">
             <summary>
             
@@ -1474,6 +1479,11 @@
         <member name="P:ResearchAPI.CORS.Common.EditUserRequest.RoleIds">
             <summary>
             角色Id
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.EditUserRequest.DepartmentIds">
+            <summary>
+            机构Id
             </summary>
         </member>
         <member name="T:ResearchAPI.CORS.Common.GetBriefProjectRequest">
