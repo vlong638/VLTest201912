@@ -51,10 +51,48 @@ namespace ResearchAPI.CORS.Repositories
                 , new { projectId }, transaction: _transaction).ToList();
         }
 
+        internal List<ProjectIndicatorDisplayModel> GetProjectIndicatorDisplayModelByProjectId(long projectId)
+        {
+            return _connection.Query<ProjectIndicatorDisplayModel>(@"
+select cbe.displayName TemplateDisplayName
+,cbep.displayname TemplatePropertyDisplayName
+,cbep.ColumnType TemplatePropertColumnType
+,cbep.EnumType TemplatePropertEnumType
+,pi.* from [ProjectIndicator] pi
+left join CustomBusinessEntity cbe on pi.BusinessEntityId =cbe.id
+left join CustomBusinessEntityProperty cbep on pi.BusinessEntityPropertyId =cbep.id
+where ProjectId = @ProjectId
+"
+                , new { projectId }, transaction: _transaction).ToList();
+        }
+
         internal int UpdateIndicatorName(long indicatorId, string name)
         {
             return _connection.Execute("update ProjectIndicator set PropertyDisplayName = @name where id = @indicatorId"
                 , new { name, indicatorId }, transaction: _transaction);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public class ProjectIndicatorDisplayModel : ProjectIndicator
+        {
+            /// <summary>
+            /// 模板的业务对象显示名称
+            /// </summary>
+            public string TemplateDisplayName { set; get; }
+            /// <summary>
+            /// 模板的指标显示名称
+            /// </summary>
+            public string TemplatePropertyDisplayName { set; get; }
+            /// <summary>
+            /// 模板的指标字段类型
+            /// </summary>
+            public ColumnType TemplatePropertColumnType { set; get; }
+            /// <summary>
+            /// 模板的指标枚举类型
+            /// </summary>
+            public string TemplatePropertEnumType { set; get; }
         }
     }
 }

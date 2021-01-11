@@ -25,10 +25,12 @@ namespace ResearchAPI.CORS.Common
         //public long BusinessEntityPropertyId { set; get; }
         /// <summary>
         /// 实体名称 如`基本档案`
+        /// 即: EntityDisplayName
         /// </summary>
         public string EntityName { set; get; }
         /// <summary>
         /// 显示名称 如`性别`
+        /// 即: PropertyDisplayName
         /// </summary>
         public string PropertyName { set; get; }
         /// <summary>

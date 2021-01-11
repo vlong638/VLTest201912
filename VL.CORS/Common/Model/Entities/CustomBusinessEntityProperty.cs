@@ -24,5 +24,13 @@ namespace ResearchAPI.CORS.Common
         /// 字段中文名称
         /// </summary>
         public string DisplayName { set; get; }
+        /// <summary>
+        /// 模板的指标字段类型
+        /// </summary>
+        public ColumnType ColumnType { set; get; }
+        /// <summary>
+        /// 模板的指标枚举类型
+        /// </summary>
+        public string EnumType { set; get; }
     }
 }

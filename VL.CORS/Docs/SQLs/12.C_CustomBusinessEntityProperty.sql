@@ -15,6 +15,8 @@ CREATE TABLE [dbo].[CustomBusinessEntityProperty](
 	[EntityName] nvarchar(20) NULL,
 	[Name] nvarchar(20) NULL,
 	[DisplayName] nvarchar(20) NULL,
+	[ColumnType] TinyInt NULL,
+	[EnumType] nvarchar(20) NULL,
 	-------------------------------------------
 	[CreatorBy] bigint NULL,
 	[CreatedAt] datetime NULL,

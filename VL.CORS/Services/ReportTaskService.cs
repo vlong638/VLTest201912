@@ -199,7 +199,7 @@ namespace ResearchAPI.CORS.Services
                     var customBE = new CustomBusinessEntity()
                     {
                         Name = "t" + template.Id,
-                        DisplayName = "",//request.Name,
+                        DisplayName = template.BusinessEntity.DisplayName,
                         TemplateId = template.Id
                     };
                     var customBEProperties = template.BusinessEntity.Properties.Select(c => new CustomBusinessEntityProperty()
@@ -207,6 +207,8 @@ namespace ResearchAPI.CORS.Services
                         EntityName = customBE.Name,
                         Name = c.SourceName,
                         DisplayName = c.DisplayName,
+                        ColumnType = c.ColumnType,
+                        EnumType = c.EnumType
                     }).ToList();
                     var customBEWheres = request.Search.Select(c => new CustomBusinessEntityWhere()
                     {
@@ -259,9 +261,6 @@ namespace ResearchAPI.CORS.Services
                 {
                     c.BusinessEntityId = entityId;
                     c.BusinessEntityPropertyId = customBEProperties.First(d => d.Name == c.PropertySourceName).Id;
-                    //c.EntitySourceName = customBE.Name;
-                    //c.PropertySourceName = c.PropertySourceName;
-                    //c.PropertyDisplayName = customBE.DisplayName;
                     c.Id = ProjectIndicatorRepository.InsertOne(c);
                 });
                 return projectProperties.Select(c => new BusinessEntityPropertyModel() { Id = c.Id, ColumnName = c.PropertySourceName }).ToList();
@@ -363,19 +362,26 @@ namespace ResearchAPI.CORS.Services
         {
             return ResearchDbContext.DelegateNonTransaction(c =>
             {
-                return ProjectIndicatorRepository.GetByProjectId(projectId)
-                .Select(c =>
+                var projectIndicators = ProjectIndicatorRepository.GetProjectIndicatorDisplayModelByProjectId(projectId);
+                return projectIndicators.Select(c =>
                 {
                     var m = new GetProjectIndicatorModel();
                     c.MapTo(m);
                     m.DisplayName = c.PropertyDisplayName;
-                    m.PropertyName = DomainConstraits.RenderIdToText(c.BusinessEntityPropertyId, DomainConstraits.BusinessEntityPropertyDisplayDic);
-                    m.EntityName = DomainConstraits.RenderIdToText(c.BusinessEntityId, DomainConstraits.BusinessEntityDisplayDic);
-
-                    //自定义字段将无匹配内容,目前自定义字段只允许输入字符,默认为字符
-                    var coProperty = DomainConstraits.BusinessEntityProperties.FirstOrDefault(d => d.Id == c.BusinessEntityPropertyId);
-                    m.ColumnType = coProperty?.ColumnType ?? ColumnType.String;
-                    m.EnumType = coProperty?.EnumType;
+                    if (c.IsTemplate())
+                    {
+                        m.EntityName = c.TemplateDisplayName;
+                        m.PropertyName = c.TemplatePropertyDisplayName;
+                        m.ColumnType = c.TemplatePropertColumnType;
+                    }
+                    else
+                    {
+                        m.PropertyName = DomainConstraits.RenderIdToText(c.BusinessEntityPropertyId, DomainConstraits.BusinessEntityPropertyDisplayDic);
+                        m.EntityName = DomainConstraits.RenderIdToText(c.BusinessEntityId, DomainConstraits.BusinessEntityDisplayDic);
+                        var coProperty = DomainConstraits.BusinessEntityProperties.FirstOrDefault(d => d.Id == c.BusinessEntityPropertyId);
+                        m.ColumnType = coProperty?.ColumnType ?? ColumnType.String;
+                        m.EnumType = coProperty?.EnumType;
+                    }
                     return m;
                 }).ToList();
             });

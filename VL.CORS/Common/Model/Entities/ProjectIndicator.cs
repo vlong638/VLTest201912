@@ -30,7 +30,7 @@ namespace ResearchAPI.CORS.Common
             }
         }
 
-        private bool IsTemplate()
+        internal bool IsTemplate() //特别注意 3序列用于模板
         {
             return BusinessEntityId.ToString().StartsWith("3");
         }

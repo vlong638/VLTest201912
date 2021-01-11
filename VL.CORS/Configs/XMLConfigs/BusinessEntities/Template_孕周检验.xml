@@ -1,11 +1,11 @@
 ﻿<BusinessEntityTemplate Id="20201222103157" ConnectionString="FYPTConnectionString">
-	<BusinessEntity Id="20201222103157" DisplayName ="">
+	<BusinessEntity Id="20201222103157" DisplayName ="孕周期检验模板">
 		<Properties>
 			<!--From="CustomBusinessEntity.ReportName"--> 
-			<Property Id="20201222103157001" DisplayName="检查名称" SourceName="ExamName"/>
-			<Property Id="20201222103157002" DisplayName="检查日期" SourceName="ExamTime"/>
-			<Property Id="20201222103157003" DisplayName="检验名称" SourceName="ItemName"/>
-			<Property Id="20201222103157004" DisplayName="检验结果" SourceName="Value"/>
+			<Property Id="20201222103157001" DisplayName="检查名称" SourceName="ExamName" ColumnType="String"/>
+			<Property Id="20201222103157002" DisplayName="检查日期" SourceName="ExamTime" ColumnType="DateTime"/>
+			<Property Id="20201222103157003" DisplayName="检验名称" SourceName="ItemName" ColumnType="String"/>
+			<Property Id="20201222103157004" DisplayName="检验结果" SourceName="Value" ColumnType="Int"/>
 		</Properties>
 	</BusinessEntity>
 	<SQLConfig>

@@ -871,6 +871,16 @@
             字段中文名称
             </summary>
         </member>
+        <member name="P:ResearchAPI.CORS.Common.CustomBusinessEntityProperty.ColumnType">
+            <summary>
+            模板的指标字段类型
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.CustomBusinessEntityProperty.EnumType">
+            <summary>
+            模板的指标枚举类型
+            </summary>
+        </member>
         <member name="P:ResearchAPI.CORS.Common.CustomBusinessEntityWhere.BusinessEntityId">
             <summary>
             业务对象Id
@@ -1930,11 +1940,13 @@
         <member name="P:ResearchAPI.CORS.Common.GetProjectIndicatorModel.EntityName">
             <summary>
             实体名称 如`基本档案`
+            即: EntityDisplayName
             </summary>
         </member>
         <member name="P:ResearchAPI.CORS.Common.GetProjectIndicatorModel.PropertyName">
             <summary>
             显示名称 如`性别`
+            即: PropertyDisplayName
             </summary>
         </member>
         <member name="P:ResearchAPI.CORS.Common.GetProjectIndicatorModel.DisplayName">
@@ -2629,6 +2641,31 @@
         <member name="T:ResearchAPI.CORS.Repositories.ProjectIndicatorRepository">
             <summary>
             
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Repositories.ProjectIndicatorRepository.ProjectIndicatorDisplayModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Repositories.ProjectIndicatorRepository.ProjectIndicatorDisplayModel.TemplateDisplayName">
+            <summary>
+            模板的业务对象显示名称
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Repositories.ProjectIndicatorRepository.ProjectIndicatorDisplayModel.TemplatePropertyDisplayName">
+            <summary>
+            模板的指标显示名称
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Repositories.ProjectIndicatorRepository.ProjectIndicatorDisplayModel.TemplatePropertColumnType">
+            <summary>
+            模板的指标字段类型
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Repositories.ProjectIndicatorRepository.ProjectIndicatorDisplayModel.TemplatePropertEnumType">
+            <summary>
+            模板的指标枚举类型
             </summary>
         </member>
         <member name="M:ResearchAPI.CORS.Repositories.ProjectLogRepository.InsertOne(ResearchAPI.CORS.Common.ProjectLog)">
