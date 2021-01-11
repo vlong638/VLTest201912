@@ -1243,11 +1243,6 @@
             
             </summary>
         </member>
-        <member name="P:ResearchAPI.CORS.Common.CreateCustomIndicatorRequest.Name">
-            <summary>
-            指标名称: 如 孕12-16周血红蛋白
-            </summary>
-        </member>
         <member name="P:ResearchAPI.CORS.Common.CreateCustomIndicatorRequest.ProjectId">
             <summary>
             项目Id
@@ -1272,9 +1267,44 @@
             可选有:检验值,检验日期,检验单号
             </summary>
         </member>
+        <member name="P:ResearchAPI.CORS.Common.CreateCustomIndicatorRequest.PeriodTemplates">
+            <summary>
+            时间周期模板
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Common.BusinessEntityPeriodTemplate">
+            <summary>
+            时间周期模板
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.BusinessEntityPeriodTemplate.StartAtComponentName">
+            <summary>
+            起始参数名
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.BusinessEntityPeriodTemplate.StartAt">
+            <summary>
+            起始
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.BusinessEntityPeriodTemplate.EndAtComponentName">
+            <summary>
+            截止参数名
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.BusinessEntityPeriodTemplate.EndAt">
+            <summary>
+            截止
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.BusinessEntityPeriodTemplate.PropertyDisplayName">
+            <summary>
+            字段显示名称
+            </summary>
+        </member>
         <member name="T:ResearchAPI.CORS.Common.BusinessEntityPropertyModel">
             <summary>
-            
+            选择的属性
             </summary>
         </member>
         <member name="P:ResearchAPI.CORS.Common.BusinessEntityPropertyModel.Id">

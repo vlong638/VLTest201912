@@ -8,10 +8,10 @@ namespace ResearchAPI.CORS.Common
     /// </summary>
     public class CreateCustomIndicatorRequest
     {
-        /// <summary>
-        /// 指标名称: 如 孕12-16周血红蛋白
-        /// </summary>
-        public string Name { set; get; }
+        ///// <summary>
+        ///// 指标名称: 如 孕12-16周血红蛋白
+        ///// </summary>
+        //public string Name { set; get; }
         /// <summary>
         /// 项目Id
         /// </summary>
@@ -32,10 +32,41 @@ namespace ResearchAPI.CORS.Common
         /// 可选有:检验值,检验日期,检验单号
         /// </summary>
         internal List<BusinessEntityPropertyModel> Properties { set; get; }
+        /// <summary>
+        /// 时间周期模板
+        /// </summary>
+        public List<BusinessEntityPeriodTemplate> PeriodTemplates { set; get; }
     }
 
     /// <summary>
-    /// 
+    /// 时间周期模板
+    /// </summary>
+    public class BusinessEntityPeriodTemplate
+    {
+        /// <summary>
+        /// 起始参数名
+        /// </summary>
+        public string StartAtComponentName { set; get; }
+        /// <summary>
+        /// 起始
+        /// </summary>
+        public string StartAt { set; get; }
+        /// <summary>
+        /// 截止参数名
+        /// </summary>
+        public string EndAtComponentName { set; get; }
+        /// <summary>
+        /// 截止
+        /// </summary>
+        public string EndAt { set; get; }
+        /// <summary>
+        /// 字段显示名称
+        /// </summary>
+        public string PropertyDisplayName{set;get;}
+    }
+
+    /// <summary>
+    /// 选择的属性
     /// </summary>
     public class BusinessEntityPropertyModel
     {

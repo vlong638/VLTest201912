@@ -191,56 +191,80 @@ namespace ResearchAPI.CORS.Services
 
         internal ServiceResult<List<BusinessEntityPropertyModel>> CreateCustomIndicator(CreateCustomIndicatorRequest request, BusinessEntityTemplate template)
         {
-            var entity = new CustomBusinessEntity()
-            {
-                Name = "t" + template.Id,
-                DisplayName = request.Name,
-                TemplateId = template.Id
-            };
-            var properties = template.BusinessEntity.Properties.Select(c => new CustomBusinessEntityProperty()
-            {
-                EntityName = entity.Name,
-                Name = c.SourceName,
-                DisplayName = c.DisplayName,
-            }).ToList();
-            var wheres = request.Search.Select(c => new CustomBusinessEntityWhere()
-            {
-                ComponentName = c.Key,
-                Value = c.Value,
-                DisplayName = template.SQLConfig.Wheres.First(d => d.ComponentName == c.Key).DisplayName,
-                Operator = "eq",
-            }).ToList();
-            var selectedProperties = request.Properties.Select(c => new ProjectIndicator()
-            {
-                ProjectId = request.ProjectId,
-                EntitySourceName = entity.Name,
-                PropertySourceName = c.ColumnName,
-                PropertyDisplayName = properties.First(d => d.Name == c.ColumnName).DisplayName,
-            }).ToList();
             return ResearchDbContext.DelegateTransaction(c =>
             {
-                var entityId = CustomBusinessEntityRepository.InsertOne(entity);
-                properties.ForEach(c =>
+                List<BusinessEntityPropertyModel> results = new List<BusinessEntityPropertyModel>();
+                foreach (var periodTemplate in request.PeriodTemplates)
+                {
+                    var customBE = new CustomBusinessEntity()
+                    {
+                        Name = "t" + template.Id,
+                        DisplayName = "",//request.Name,
+                        TemplateId = template.Id
+                    };
+                    var customBEProperties = template.BusinessEntity.Properties.Select(c => new CustomBusinessEntityProperty()
+                    {
+                        EntityName = customBE.Name,
+                        Name = c.SourceName,
+                        DisplayName = c.DisplayName,
+                    }).ToList();
+                    var customBEWheres = request.Search.Select(c => new CustomBusinessEntityWhere()
+                    {
+                        ComponentName = c.Key,
+                        Value = c.Value,
+                        DisplayName = template.SQLConfig.Wheres.First(d => d.ComponentName == c.Key).DisplayName,
+                        Operator = "eq",
+                    }).ToList();
+                    customBEWheres.Add(new CustomBusinessEntityWhere()
+                    {
+                        ComponentName = periodTemplate.StartAtComponentName,
+                        Value = periodTemplate.StartAt,
+                        DisplayName = template.SQLConfig.Wheres.First(d => d.ComponentName == periodTemplate.StartAtComponentName).DisplayName,
+                        Operator = "eq",
+                    });
+                    customBEWheres.Add(new CustomBusinessEntityWhere()
+                    {
+                        ComponentName = periodTemplate.EndAtComponentName,
+                        Value = periodTemplate.EndAt,
+                        DisplayName = template.SQLConfig.Wheres.First(d => d.ComponentName == periodTemplate.EndAtComponentName).DisplayName,
+                        Operator = "eq",
+                    });
+                    var projectProperties = request.Properties.Select(c => new ProjectIndicator()
+                    {
+                        ProjectId = request.ProjectId,
+                        EntitySourceName = customBE.Name,
+                        PropertySourceName = c.ColumnName,
+                        PropertyDisplayName = periodTemplate.PropertyDisplayName,//customBEProperties.First(d => d.Name == c.ColumnName).DisplayName,
+                    }).ToList();
+                    results.AddRange(CreateCustomProjectIndicator(customBE, customBEProperties, customBEWheres, projectProperties));
+                }
+                return results;
+            });
+        }
+
+        private List<BusinessEntityPropertyModel> CreateCustomProjectIndicator(CustomBusinessEntity customBE, List<CustomBusinessEntityProperty> customBEProperties, List<CustomBusinessEntityWhere> customBEWheres, List<ProjectIndicator> projectProperties)
+        {
+                var entityId = CustomBusinessEntityRepository.InsertOne(customBE);
+                customBEProperties.ForEach(c =>
                 {
                     c.BusinessEntityId = entityId;
                     c.Id = CustomBusinessEntityPropertyRepository.InsertOne(c);
                 });
-                wheres.ForEach(c =>
+                customBEWheres.ForEach(c =>
                 {
                     c.BusinessEntityId = entityId;
                     c.Id = CustomBusinessEntityWhereRepository.InsertOne(c);
                 });
-                selectedProperties.ForEach(c =>
+                projectProperties.ForEach(c =>
                 {
                     c.BusinessEntityId = entityId;
-                    c.BusinessEntityPropertyId = properties.First(d => d.Name == c.PropertySourceName).Id;
-                    c.EntitySourceName = entity.Name;
-                    c.PropertySourceName = c.PropertySourceName;
-                    c.PropertyDisplayName = entity.DisplayName;
+                    c.BusinessEntityPropertyId = customBEProperties.First(d => d.Name == c.PropertySourceName).Id;
+                    //c.EntitySourceName = customBE.Name;
+                    //c.PropertySourceName = c.PropertySourceName;
+                    //c.PropertyDisplayName = customBE.DisplayName;
                     c.Id = ProjectIndicatorRepository.InsertOne(c);
                 });
-                return selectedProperties.Select(c => new BusinessEntityPropertyModel() { Id = c.Id, ColumnName = c.PropertySourceName }).ToList();
-            });
+                return projectProperties.Select(c => new BusinessEntityPropertyModel() { Id = c.Id, ColumnName = c.PropertySourceName }).ToList();
         }
 
         internal ServiceResult<List<GetProjectOperateHistoryModel>> GetProjectOperateHistory(GetProjectOperateHistoryRequest request)
