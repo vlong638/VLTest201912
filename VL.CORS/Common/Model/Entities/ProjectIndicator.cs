@@ -12,6 +12,7 @@ namespace ResearchAPI.CORS.Common
         public long ProjectId { set; get; }
         public long BusinessEntityId { set; get; }
         public long BusinessEntityPropertyId { set; get; }
+        public long TemplateId { set; get; }
 
         public string EntitySourceName { set; get; }
         public string PropertySourceName { set; get; }
@@ -30,9 +31,9 @@ namespace ResearchAPI.CORS.Common
             }
         }
 
-        internal bool IsTemplate() //特别注意 3序列用于模板
+        internal bool IsTemplate()
         {
-            return BusinessEntityId.ToString().StartsWith("3");
+            return TemplateId > 0;
         }
 
         ///// <summary>

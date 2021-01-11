@@ -606,6 +606,10 @@ namespace ResearchAPI.CORS.Controllers
                     var text = $"{userName}执行了科研队列:{taskName}";
                     service.AddProjectLog(userId, projectId, ActionType.AddTask, text);
                 }
+                else
+                {
+                    return new APIResult<long>(serviceResult.Data, result.Messages);
+                }
             }
             return new APIResult<long>(serviceResult);
         }

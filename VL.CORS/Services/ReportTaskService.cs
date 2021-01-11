@@ -198,7 +198,6 @@ namespace ResearchAPI.CORS.Services
                 {
                     var customBE = new CustomBusinessEntity()
                     {
-                        Name = "t" + template.Id,
                         DisplayName = template.BusinessEntity.DisplayName,
                         TemplateId = template.Id
                     };
@@ -233,8 +232,8 @@ namespace ResearchAPI.CORS.Services
                     });
                     var projectProperties = request.Properties.Select(c => new ProjectIndicator()
                     {
+                        TemplateId = template.Id,
                         ProjectId = request.ProjectId,
-                        EntitySourceName = customBE.Name,
                         PropertySourceName = c.ColumnName,
                         PropertyDisplayName = periodTemplate.PropertyDisplayName,//customBEProperties.First(d => d.Name == c.ColumnName).DisplayName,
                     }).ToList();
@@ -246,24 +245,25 @@ namespace ResearchAPI.CORS.Services
 
         private List<BusinessEntityPropertyModel> CreateCustomProjectIndicator(CustomBusinessEntity customBE, List<CustomBusinessEntityProperty> customBEProperties, List<CustomBusinessEntityWhere> customBEWheres, List<ProjectIndicator> projectProperties)
         {
-                var entityId = CustomBusinessEntityRepository.InsertOne(customBE);
-                customBEProperties.ForEach(c =>
-                {
-                    c.BusinessEntityId = entityId;
-                    c.Id = CustomBusinessEntityPropertyRepository.InsertOne(c);
-                });
-                customBEWheres.ForEach(c =>
-                {
-                    c.BusinessEntityId = entityId;
-                    c.Id = CustomBusinessEntityWhereRepository.InsertOne(c);
-                });
-                projectProperties.ForEach(c =>
-                {
-                    c.BusinessEntityId = entityId;
-                    c.BusinessEntityPropertyId = customBEProperties.First(d => d.Name == c.PropertySourceName).Id;
-                    c.Id = ProjectIndicatorRepository.InsertOne(c);
-                });
-                return projectProperties.Select(c => new BusinessEntityPropertyModel() { Id = c.Id, ColumnName = c.PropertySourceName }).ToList();
+            var entityId = CustomBusinessEntityRepository.InsertOne(customBE);
+            customBEProperties.ForEach(c =>
+            {
+                c.BusinessEntityId = entityId;
+                c.Id = CustomBusinessEntityPropertyRepository.InsertOne(c);
+            });
+            customBEWheres.ForEach(c =>
+            {
+                c.BusinessEntityId = entityId;
+                c.Id = CustomBusinessEntityWhereRepository.InsertOne(c);
+            });
+            projectProperties.ForEach(c =>
+            {
+                c.BusinessEntityId = entityId;
+                c.EntitySourceName = entityId.ToString();
+                c.BusinessEntityPropertyId = customBEProperties.First(d => d.Name == c.PropertySourceName).Id;
+                c.Id = ProjectIndicatorRepository.InsertOne(c);
+            });
+            return projectProperties.Select(c => new BusinessEntityPropertyModel() { Id = c.Id, ColumnName = c.PropertySourceName }).ToList();
         }
 
         internal ServiceResult<List<GetProjectOperateHistoryModel>> GetProjectOperateHistory(GetProjectOperateHistoryRequest request)
@@ -437,7 +437,8 @@ namespace ResearchAPI.CORS.Services
         {
             return ResearchDbContext.DelegateTransaction(c =>
             {
-                var projectLog = new ProjectLog() {
+                var projectLog = new ProjectLog()
+                {
                     OperatorId = userId,
                     ProjectId = projectId,
                     ActionType = actionType,
@@ -500,15 +501,19 @@ namespace ResearchAPI.CORS.Services
                 {
                     throw new NotImplementedException("队列不存在");
                 }
-                var projectIndicators = ProjectIndicatorRepository.GetByProjectId(projectTask.ProjectId);
+                var projectIndicators = ProjectIndicatorRepository.GetProjectIndicatorDisplayModelByProjectId(projectTask.ProjectId);
                 if (projectIndicators.Count == 0)
                 {
-                    throw new NotImplementedException("项目指标缺失");
+                    throw new NotImplementedException("无项目指标");
                 }
                 ProjectTaskWhereRepository.DeleteByTaskId(request.TaskId);
                 var wheres = request.Wheres.Select(c =>
                 {
-                    var indicator = projectIndicators.First(d => d.Id == c.IndicatorId);
+                    var indicator = projectIndicators.FirstOrDefault(d => d.Id == c.IndicatorId);
+                    if (indicator == null)
+                    {
+                        throw new NotImplementedException("项目指标缺失");
+                    }
                     var item = new ProjectTaskWhere()
                     {
                         ProjectId = projectTask.ProjectId,
@@ -516,11 +521,19 @@ namespace ResearchAPI.CORS.Services
                         IndicatorId = indicator.Id,
                         BusinessEntityId = indicator.BusinessEntityId,
                         BusinessEntityPropertyId = indicator.BusinessEntityPropertyId,
-                        EntityName = RenderIdToText(indicator.BusinessEntityId, BusinessEntitySourceDic),
-                        PropertyName = RenderIdToText(indicator.BusinessEntityPropertyId, BusinessEntityPropertySourceDic),
                         Operator = (ProjectTaskWhereOperator)Enum.Parse(typeof(ProjectTaskWhereOperator), c.Operator),
                         Value = c.Value,
                     };
+                    if (!indicator.IsTemplate())
+                    {
+                        item.EntityName = RenderIdToText(indicator.BusinessEntityId, BusinessEntitySourceDic);
+                        item.PropertyName = RenderIdToText(indicator.BusinessEntityPropertyId, BusinessEntityPropertySourceDic);
+                    }
+                    else
+                    {
+                        item.EntityName = indicator.EntitySourceName;
+                        item.PropertyName = indicator.PropertySourceName;
+                    }
                     return item;
                 }).ToList();
                 wheres.ForEach(c =>
@@ -538,35 +551,36 @@ namespace ResearchAPI.CORS.Services
                 var schedule = ProjectScheduleRepository.GetById(scheduleId);
                 if (schedule == null)
                     throw new NotImplementedException("计划不存在");
-                var task = ProjectTaskRepository.GetById(schedule.TaskId);
-                if (task == null)
-                    throw new NotImplementedException("任务不存在");
-                var project = ProjectRepository.GetById(schedule.ProjectId);
-                if (project == null)
-                    throw new NotImplementedException("项目不存在");
-                var projectIndicators = ProjectIndicatorRepository.GetByProjectId(schedule.ProjectId);
-                if (projectIndicators.Count == 0)
-                {
-                    throw new NotImplementedException("指标不存在");
-                }
-                var taskWheres = ProjectTaskWhereRepository.GetByTaskId(schedule.TaskId);
-                var customBusinessEntityIndicators = projectIndicators.Where(c => c.BusinessEntityId.ToString().StartsWith("3"));
-                var customBusinessEntities = customBusinessEntityIndicators.Count() > 0
-                    ? CustomBusinessEntityRepository.GetByIds(customBusinessEntityIndicators.Select(c => c.BusinessEntityId).Distinct().ToList())
-                    : new List<CustomBusinessEntity>();
-                var customBusinessEntityWheres = customBusinessEntityIndicators.Count() > 0
-                    ? CustomBusinessEntityWhereRepository.GetByBusinessEntityIds(customBusinessEntityIndicators.Select(c => c.BusinessEntityId).Distinct().ToList())
-                    : new List<CustomBusinessEntityWhere>();
-                var defaultRouters = ConfigHelper.GetRouters("Configs/XMLConfigs/BusinessEntities", "Routers.xml");
-                var templates = ConfigHelper.GetBusinessEntityTemplates();
-
-                //更新处理任务状态
-                ProjectScheduleRepository.UpdateSchedule(schedule.Id, ScheduleStatus.Started, "", "任务正在执行中");
-
-                //内核处理
-                DataTable dataTable = null;
                 try
                 {
+                    //更新处理任务状态
+                    ProjectScheduleRepository.UpdateSchedule(schedule.Id, ScheduleStatus.Started, "", "任务正在执行中");
+
+                    //必要信息整理
+                    var task = ProjectTaskRepository.GetById(schedule.TaskId);
+                    if (task == null)
+                        throw new NotImplementedException("任务不存在");
+                    var project = ProjectRepository.GetById(schedule.ProjectId);
+                    if (project == null)
+                        throw new NotImplementedException("项目不存在");
+                    var projectIndicators = ProjectIndicatorRepository.GetByProjectId(schedule.ProjectId);
+                    if (projectIndicators.Count == 0)
+                    {
+                        throw new NotImplementedException("指标不存在");
+                    }
+                    var taskWheres = ProjectTaskWhereRepository.GetByTaskId(schedule.TaskId);
+                    var customBusinessEntityIndicators = projectIndicators.Where(c => c.BusinessEntityId.ToString().StartsWith("3"));
+                    var customBusinessEntities = customBusinessEntityIndicators.Count() > 0
+                        ? CustomBusinessEntityRepository.GetByIds(customBusinessEntityIndicators.Select(c => c.BusinessEntityId).Distinct().ToList())
+                        : new List<CustomBusinessEntity>();
+                    var customBusinessEntityWheres = customBusinessEntityIndicators.Count() > 0
+                        ? CustomBusinessEntityWhereRepository.GetByBusinessEntityIds(customBusinessEntityIndicators.Select(c => c.BusinessEntityId).Distinct().ToList())
+                        : new List<CustomBusinessEntityWhere>();
+                    var defaultRouters = ConfigHelper.GetRouters("Configs/XMLConfigs/BusinessEntities", "Routers.xml");
+                    var templates = ConfigHelper.GetBusinessEntityTemplates();
+
+                    //内核处理
+                    DataTable dataTable = null;
                     var reportTask = new ReportTask(task.Name);
                     reportTask.Update(projectIndicators, taskWheres, customBusinessEntities, customBusinessEntityWheres, defaultRouters, templates, reportTask);
                     //string.Join("\r\n",parameters.Select(c=> "declare @"+c.Key+" nvarchar(50); set @"+c.Key+" = '"+ c.Value+"'"))
@@ -579,7 +593,7 @@ namespace ResearchAPI.CORS.Services
                     {
                         //TODO Fix
                         var matchedColumn = projectIndicators.FirstOrDefault(c => c.EntitySourceName + "_" + c.PropertySourceName == column.ColumnName);
-                        matchedColumn = matchedColumn?? projectIndicators.FirstOrDefault(c => c.BusinessEntityId + "_" + c.PropertySourceName == column.ColumnName);
+                        matchedColumn = matchedColumn ?? projectIndicators.FirstOrDefault(c => c.BusinessEntityId + "_" + c.PropertySourceName == column.ColumnName);
                         var tempColumnName = matchedColumn.PropertyDisplayName;
                         if (dataTable.Columns.Contains(tempColumnName))
                         {
@@ -599,6 +613,7 @@ namespace ResearchAPI.CORS.Services
                 {
                     //更新处理任务状态
                     ProjectScheduleRepository.UpdateSchedule(schedule.Id, ScheduleStatus.Failed, "", ex.ToString());
+                    throw ex;
                 }
                 return true;
             });
@@ -628,7 +643,8 @@ namespace ResearchAPI.CORS.Services
                 var taskProperties = ProjectIndicatorRepository.GetByProjectId(projectId);
                 var taskWheres = ProjectTaskWhereRepository.GetByProjectId(projectId);
                 var taskSchedules = ProjectScheduleRepository.GetByProjectId(projectId);
-                var result = tasks.Select(d => {
+                var result = tasks.Select(d =>
+                {
                     var schedule = taskSchedules.FirstOrDefault(e => e.TaskId == d.Id);
                     var model = new GetTaskModel()
                     {

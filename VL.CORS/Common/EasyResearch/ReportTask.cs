@@ -111,7 +111,7 @@ namespace ResearchAPI.CORS.Common
             Dictionary<string, object> args = new Dictionary<string, object>();
             foreach (var item in Conditions)
             {
-                args.Add(item.EntityName + "_" + item.FieldName, item.Value);
+                args.Add(item.GetParameterName(), item.Value);
             }
             foreach (var item in TemplateConditions)
             {
