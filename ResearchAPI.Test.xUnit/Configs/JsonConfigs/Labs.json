@@ -1,0 +1,3836 @@
+﻿[
+  {
+    "parentkey": "TORCH",
+    "parentvalue": "27453",
+    "key": "单纯疱疹病毒2型IgG(酶免法）",
+    "Value": "9361"
+  },
+  {
+    "parentkey": "白带常规",
+    "parentvalue": "27896",
+    "key": "滴虫",
+    "Value": "0229"
+  },
+  {
+    "parentkey": "白带常规苷酶酯酶H2O2",
+    "parentvalue": "29060",
+    "key": "霉菌",
+    "Value": "0230"
+  },
+  {
+    "parentkey": "白带常规苷酶酯酶H2O2",
+    "parentvalue": "29060",
+    "key": "唾液酸苷酶",
+    "Value": "0233"
+  },
+  {
+    "parentkey": "白带常规苷酶酯酶H2O2",
+    "parentvalue": "29060",
+    "key": "线索细胞",
+    "Value": "0231"
+  },
+  {
+    "parentkey": "病毒性肝炎检测",
+    "parentvalue": "32158",
+    "key": "丙型肝炎病毒IgG抗体(酶免法）",
+    "Value": "0237"
+  },
+  {
+    "parentkey": "病毒性肝炎检测",
+    "parentvalue": "32158",
+    "key": "乙肝表面抗体(酶免法）",
+    "Value": "0289"
+  },
+  {
+    "parentkey": "电解质六",
+    "parentvalue": "27384",
+    "key": "钠",
+    "Value": "0179"
+  },
+  {
+    "parentkey": "肝功",
+    "parentvalue": "27854",
+    "key": "总蛋白",
+    "Value": "0153"
+  },
+  {
+    "parentkey": "红细胞不规则抗体筛查",
+    "parentvalue": "33587",
+    "key": "红细胞不规则抗体筛查",
+    "Value": "0625"
+  },
+  {
+    "parentkey": "急诊电解质",
+    "parentvalue": "27967",
+    "key": "钾",
+    "Value": "0180"
+  },
+  {
+    "parentkey": "急诊尿常规",
+    "parentvalue": "14192",
+    "key": "尿胆原（干化学法）",
+    "Value": "0218"
+  },
+  {
+    "parentkey": "急诊尿常规",
+    "parentvalue": "14192",
+    "key": "透明管型",
+    "Value": "0225"
+  },
+  {
+    "parentkey": "急诊尿常规",
+    "parentvalue": "14192",
+    "key": "小圆上皮细胞",
+    "Value": "0320"
+  },
+  {
+    "parentkey": "急诊尿常规",
+    "parentvalue": "14192",
+    "key": "粘液丝（镜检）",
+    "Value": "0227"
+  },
+  {
+    "parentkey": "急诊凝血4项",
+    "parentvalue": "32270",
+    "key": "国际标准化比值",
+    "Value": "0244"
+  },
+  {
+    "parentkey": "急诊凝血功能5项",
+    "parentvalue": "32520",
+    "key": "凝血酶时间",
+    "Value": "0305"
+  },
+  {
+    "parentkey": "急诊凝血功能5项",
+    "parentvalue": "32520",
+    "key": "凝血酶时间对照",
+    "Value": "0306"
+  },
+  {
+    "parentkey": "急诊生化（钱江）",
+    "parentvalue": "32155",
+    "key": "脂血指数",
+    "Value": "0461"
+  },
+  {
+    "parentkey": "急诊血常规",
+    "parentvalue": "32262",
+    "key": "单核细胞数",
+    "Value": "0190"
+  },
+  {
+    "parentkey": "急诊血常规",
+    "parentvalue": "32262",
+    "key": "嗜碱性粒细胞数",
+    "Value": "0192"
+  },
+  {
+    "parentkey": "甲功三",
+    "parentvalue": "27394",
+    "key": "游离甲状腺素",
+    "Value": "0248"
+  },
+  {
+    "parentkey": "甲功五",
+    "parentvalue": "27392",
+    "key": "人促甲状腺激素",
+    "Value": "0249"
+  },
+  {
+    "parentkey": "降钙素原定量检测",
+    "parentvalue": "30711",
+    "key": "降钙素原",
+    "Value": "0557"
+  },
+  {
+    "parentkey": "免疫五项",
+    "parentvalue": "27422",
+    "key": "免疫球蛋白A",
+    "Value": "0413"
+  },
+  {
+    "parentkey": "免疫五项",
+    "parentvalue": "27422",
+    "key": "免疫球蛋白G",
+    "Value": "0412"
+  },
+  {
+    "parentkey": "尿常规",
+    "parentvalue": "30831",
+    "key": "葡萄糖（干化学法）",
+    "Value": "0212"
+  },
+  {
+    "parentkey": "生化类检查",
+    "parentvalue": "32153",
+    "key": "丙氨酸氨基转移酶",
+    "Value": "0149"
+  },
+  {
+    "parentkey": "生化类检查",
+    "parentvalue": "32153",
+    "key": "载脂蛋白A1",
+    "Value": "0167"
+  },
+  {
+    "parentkey": "生化类检查【2】（钱江）",
+    "parentvalue": "33186",
+    "key": "丙氨酸氨基转移酶",
+    "Value": "0149"
+  },
+  {
+    "parentkey": "生化类检查【2】（钱江）",
+    "parentvalue": "33186",
+    "key": "间接胆红素",
+    "Value": "0156"
+  },
+  {
+    "parentkey": "生化筛查",
+    "parentvalue": "27849",
+    "key": "肌酐",
+    "Value": "0159"
+  },
+  {
+    "parentkey": "生化筛查",
+    "parentvalue": "27849",
+    "key": "尿素",
+    "Value": "0158"
+  },
+  {
+    "parentkey": "铁蛋白",
+    "parentvalue": "13841",
+    "key": "铁蛋白",
+    "Value": "0258"
+  },
+  {
+    "parentkey": "血常规+CRP",
+    "parentvalue": "28836",
+    "key": "中性粒细胞数",
+    "Value": "0188"
+  },
+  {
+    "parentkey": "血常规+CRP+网织",
+    "parentvalue": "32267",
+    "key": "平均血红蛋白含量",
+    "Value": "0197"
+  },
+  {
+    "parentkey": "血常规+CRP+网织",
+    "parentvalue": "32267",
+    "key": "血小板分布宽度",
+    "Value": "0203"
+  },
+  {
+    "parentkey": "血型鉴定",
+    "parentvalue": "29277",
+    "key": "ABO血型",
+    "Value": "0401"
+  },
+  {
+    "parentkey": "一般细菌培养及鉴定",
+    "parentvalue": "13879",
+    "key": "大肠埃希菌",
+    "Value": "7184"
+  },
+  {
+    "parentkey": "一般细菌培养及鉴定",
+    "parentvalue": "13879",
+    "key": "庆大霉素",
+    "Value": "8044"
+  },
+  {
+    "parentkey": "阴道分泌物一般细菌、真菌培养及鉴定",
+    "parentvalue": "29760",
+    "key": "利奈唑胺",
+    "Value": "X534"
+  },
+  {
+    "parentkey": "肿瘤五项",
+    "parentvalue": "32179",
+    "key": "癌胚抗原",
+    "Value": "0253"
+  },
+  {
+    "parentkey": "自身抗体检测（外送）",
+    "parentvalue": "27432",
+    "key": "ds-DNA(RIA)",
+    "Value": "9130"
+  },
+  {
+    "parentkey": "TORCH",
+    "parentvalue": "27453",
+    "key": "巨细胞病毒IgM",
+    "Value": "0542"
+  },
+  {
+    "parentkey": "白带常规",
+    "parentvalue": "27896",
+    "key": "酸碱度",
+    "Value": "0506"
+  },
+  {
+    "parentkey": "病毒性肝炎检测",
+    "parentvalue": "32158",
+    "key": "乙肝核心抗体IgG(酶免法）",
+    "Value": "0292"
+  },
+  {
+    "parentkey": "电解质六",
+    "parentvalue": "27384",
+    "key": "钾",
+    "Value": "0180"
+  },
+  {
+    "parentkey": "电解质三",
+    "parentvalue": "27853",
+    "key": "氯",
+    "Value": "0181"
+  },
+  {
+    "parentkey": "肝功",
+    "parentvalue": "27854",
+    "key": "球蛋白",
+    "Value": "0056"
+  },
+  {
+    "parentkey": "急诊电解质",
+    "parentvalue": "27967",
+    "key": "钠",
+    "Value": "0179"
+  },
+  {
+    "parentkey": "急诊尿常规",
+    "parentvalue": "14192",
+    "key": "白细胞",
+    "Value": "0313"
+  },
+  {
+    "parentkey": "急诊尿常规",
+    "parentvalue": "14192",
+    "key": "管型",
+    "Value": "0778"
+  },
+  {
+    "parentkey": "急诊尿常规",
+    "parentvalue": "14192",
+    "key": "红细胞",
+    "Value": "0311"
+  },
+  {
+    "parentkey": "急诊生化（钱江）",
+    "parentvalue": "32155",
+    "key": "钠",
+    "Value": "0179"
+  },
+  {
+    "parentkey": "急诊血常规",
+    "parentvalue": "32262",
+    "key": "红细胞压积",
+    "Value": "0195"
+  },
+  {
+    "parentkey": "急诊血常规+CRP",
+    "parentvalue": "28829",
+    "key": "红细胞压积",
+    "Value": "0195"
+  },
+  {
+    "parentkey": "甲功三",
+    "parentvalue": "27394",
+    "key": "人促甲状腺激素",
+    "Value": "0249"
+  },
+  {
+    "parentkey": "尿常规",
+    "parentvalue": "30831",
+    "key": ".镜下上皮细胞",
+    "Value": "0316"
+  },
+  {
+    "parentkey": "尿常规",
+    "parentvalue": "30831",
+    "key": "上皮细胞（镜检）",
+    "Value": "0224"
+  },
+  {
+    "parentkey": "尿常规",
+    "parentvalue": "30831",
+    "key": "浊度",
+    "Value": "0780"
+  },
+  {
+    "parentkey": "尿妊娠试验",
+    "parentvalue": "13638",
+    "key": "尿妊娠试验",
+    "Value": "0325"
+  },
+  {
+    "parentkey": "凝血功能4项",
+    "parentvalue": "29798",
+    "key": "部分凝血活酶时间",
+    "Value": "0303"
+  },
+  {
+    "parentkey": "凝血功能5项（钱江）",
+    "parentvalue": "32269",
+    "key": "纤维蛋白原",
+    "Value": "0307"
+  },
+  {
+    "parentkey": "人乳头瘤病毒分型(HPV分型)_宫颈",
+    "parentvalue": "31155",
+    "key": "人乳头瘤病毒其它12型",
+    "Value": "0614"
+  },
+  {
+    "parentkey": "生化类检查",
+    "parentvalue": "32153",
+    "key": "甘胆酸",
+    "Value": "0266"
+  },
+  {
+    "parentkey": "生化类检查",
+    "parentvalue": "32153",
+    "key": "果糖胺",
+    "Value": "0161"
+  },
+  {
+    "parentkey": "生化类检查【2】（钱江）",
+    "parentvalue": "33186",
+    "key": "尿素",
+    "Value": "0158"
+  },
+  {
+    "parentkey": "生化筛查",
+    "parentvalue": "27849",
+    "key": "钾",
+    "Value": "0180"
+  },
+  {
+    "parentkey": "生化筛查",
+    "parentvalue": "27849",
+    "key": "间接胆红素",
+    "Value": "0156"
+  },
+  {
+    "parentkey": "输血血样检测",
+    "parentvalue": "33588",
+    "key": "RhD血型",
+    "Value": "0402"
+  },
+  {
+    "parentkey": "微量元素（外送）",
+    "parentvalue": "27441",
+    "key": "全血铜",
+    "Value": "0444"
+  },
+  {
+    "parentkey": "无乳链球菌筛查",
+    "parentvalue": "31695",
+    "key": "无乳链球菌(B群)",
+    "Value": "7465"
+  },
+  {
+    "parentkey": "血常规+CRP",
+    "parentvalue": "28836",
+    "key": "全血C反应蛋白",
+    "Value": "0417"
+  },
+  {
+    "parentkey": "血常规+CRP",
+    "parentvalue": "28836",
+    "key": "嗜碱性粒细胞",
+    "Value": "0187"
+  },
+  {
+    "parentkey": "一般细菌培养及鉴定",
+    "parentvalue": "13879",
+    "key": "ESBL检测",
+    "Value": "8037"
+  },
+  {
+    "parentkey": "一般细菌培养及鉴定",
+    "parentvalue": "13879",
+    "key": "氨曲南",
+    "Value": "8008"
+  },
+  {
+    "parentkey": "阴道分泌物一般细菌、真菌培养及鉴定",
+    "parentvalue": "29760",
+    "key": "喹奴普汀/达福普汀",
+    "Value": "X171"
+  },
+  {
+    "parentkey": "24h尿蛋白定量",
+    "parentvalue": "13622",
+    "key": "24小时尿量",
+    "Value": "0293"
+  },
+  {
+    "parentkey": "AFP",
+    "parentvalue": "27796",
+    "key": "甲胎蛋白",
+    "Value": "0252"
+  },
+  {
+    "parentkey": "AMH（抗缪勒氏管激素）（钱江）",
+    "parentvalue": "32917",
+    "key": "抗缪勒管激素",
+    "Value": "0515"
+  },
+  {
+    "parentkey": "E2",
+    "parentvalue": "13669",
+    "key": "雌二醇",
+    "Value": "0263"
+  },
+  {
+    "parentkey": "HCG",
+    "parentvalue": "27411",
+    "key": "β-HCG",
+    "Value": "0267"
+  },
+  {
+    "parentkey": "TORCH",
+    "parentvalue": "27453",
+    "key": "风疹病毒IgG",
+    "Value": "0541"
+  },
+  {
+    "parentkey": "病毒性肝炎检测",
+    "parentvalue": "32158",
+    "key": "乙肝表面抗原(酶免法）",
+    "Value": "0288"
+  },
+  {
+    "parentkey": "电解质三",
+    "parentvalue": "27853",
+    "key": "钠",
+    "Value": "0179"
+  },
+  {
+    "parentkey": "急诊生化（钱江）",
+    "parentvalue": "32155",
+    "key": "β-羟基丁酸",
+    "Value": "0615"
+  },
+  {
+    "parentkey": "急诊血常规",
+    "parentvalue": "32262",
+    "key": "红细胞",
+    "Value": "0012"
+  },
+  {
+    "parentkey": "急诊血常规+CRP",
+    "parentvalue": "28829",
+    "key": "超敏C反应蛋白",
+    "Value": "0417"
+  },
+  {
+    "parentkey": "急诊血常规+CRP",
+    "parentvalue": "28829",
+    "key": "平均血红蛋白浓度",
+    "Value": "0198"
+  },
+  {
+    "parentkey": "急诊血常规+CRP",
+    "parentvalue": "28829",
+    "key": "全血C反应蛋白",
+    "Value": "0417"
+  },
+  {
+    "parentkey": "急诊血常规+CRP",
+    "parentvalue": "28829",
+    "key": "血红蛋白",
+    "Value": "0193"
+  },
+  {
+    "parentkey": "甲功五",
+    "parentvalue": "27392",
+    "key": "总三碘甲状腺原氨酸",
+    "Value": "0245"
+  },
+  {
+    "parentkey": "尿常规",
+    "parentvalue": "30831",
+    "key": "结晶",
+    "Value": "0322"
+  },
+  {
+    "parentkey": "凝血功能4项",
+    "parentvalue": "29798",
+    "key": "纤维蛋白原",
+    "Value": "0307"
+  },
+  {
+    "parentkey": "凝血功能5项（钱江）",
+    "parentvalue": "32269",
+    "key": "凝血酶原时间",
+    "Value": "0243"
+  },
+  {
+    "parentkey": "生化类检查【2】（钱江）",
+    "parentvalue": "33186",
+    "key": "r-谷氨酰基转移酶",
+    "Value": "0151"
+  },
+  {
+    "parentkey": "生化类检查【2】（钱江）",
+    "parentvalue": "33186",
+    "key": "总蛋白",
+    "Value": "0153"
+  },
+  {
+    "parentkey": "生化筛查",
+    "parentvalue": "27849",
+    "key": "总蛋白",
+    "Value": "0153"
+  },
+  {
+    "parentkey": "微量元素",
+    "parentvalue": "27441",
+    "key": "全血铅",
+    "Value": "0443"
+  },
+  {
+    "parentkey": "维生素D(D2+D3)",
+    "parentvalue": "0000002421",
+    "key": "25-羟基维生素D2",
+    "Value": "9696"
+  },
+  {
+    "parentkey": "血常规",
+    "parentvalue": "32279",
+    "key": "嗜碱性粒细胞数",
+    "Value": "0192"
+  },
+  {
+    "parentkey": "血常规+CRP",
+    "parentvalue": "28836",
+    "key": "嗜碱性粒细胞数",
+    "Value": "0192"
+  },
+  {
+    "parentkey": "血常规+CRP+网织",
+    "parentvalue": "32267",
+    "key": "平均血小板体积",
+    "Value": "0202"
+  },
+  {
+    "parentkey": "血常规+CRP+网织",
+    "parentvalue": "32267",
+    "key": "中性粒细胞",
+    "Value": "0183"
+  },
+  {
+    "parentkey": "血气分析全套(钱江)",
+    "parentvalue": "34278",
+    "key": "二氧化碳分压",
+    "Value": "0563"
+  },
+  {
+    "parentkey": "血气分析全套(钱江)",
+    "parentvalue": "34278",
+    "key": "酸碱度.",
+    "Value": "J135"
+  },
+  {
+    "parentkey": "血型鉴定",
+    "parentvalue": "33586",
+    "key": "ABO血型",
+    "Value": "0401"
+  },
+  {
+    "parentkey": "血脂",
+    "parentvalue": "32259",
+    "key": "低密度脂蛋白胆固醇",
+    "Value": "0170"
+  },
+  {
+    "parentkey": "一般细菌培养及鉴定",
+    "parentvalue": "13879",
+    "key": "利奈唑胺",
+    "Value": "X534"
+  },
+  {
+    "parentkey": "阴道分泌物一般细菌、真菌培养及鉴定",
+    "parentvalue": "29760",
+    "key": "庆大霉素500",
+    "Value": "X435"
+  },
+  {
+    "parentkey": "阴道分泌物支原体培养及药敏",
+    "parentvalue": "29758",
+    "key": "左旋氧氟沙星",
+    "Value": "8054"
+  },
+  {
+    "parentkey": "（艾）微量元素（外送）",
+    "parentvalue": "27441",
+    "key": "全血铅",
+    "Value": "0443"
+  },
+  {
+    "parentkey": "白带常规苷酶酯酶H2O2",
+    "parentvalue": "29060",
+    "key": "念珠菌",
+    "Value": "0230"
+  },
+  {
+    "parentkey": "丙肝(IgG)",
+    "parentvalue": "13991",
+    "key": "丙型肝炎病毒IgG抗体",
+    "Value": "0237"
+  },
+  {
+    "parentkey": "电解质六",
+    "parentvalue": "27384",
+    "key": "镁",
+    "Value": "0164"
+  },
+  {
+    "parentkey": "粪便常规+隐血试验",
+    "parentvalue": "32257",
+    "key": "白细胞",
+    "Value": "0205"
+  },
+  {
+    "parentkey": "红细胞沉降率测定(ESR)",
+    "parentvalue": "14179",
+    "key": "血沉",
+    "Value": "0324"
+  },
+  {
+    "parentkey": "急诊尿常规",
+    "parentvalue": "14192",
+    "key": "尿蛋白（干化学法）",
+    "Value": "0216"
+  },
+  {
+    "parentkey": "急诊尿常规",
+    "parentvalue": "14192",
+    "key": "葡萄糖（干化学法）",
+    "Value": "0212"
+  },
+  {
+    "parentkey": "急诊凝血4项",
+    "parentvalue": "32270",
+    "key": "凝血酶原时间",
+    "Value": "0243"
+  },
+  {
+    "parentkey": "急诊生化（钱江）",
+    "parentvalue": "32155",
+    "key": "总蛋白",
+    "Value": "0153"
+  },
+  {
+    "parentkey": "急诊血常规",
+    "parentvalue": "32262",
+    "key": "嗜酸性粒细胞数",
+    "Value": "0191"
+  },
+  {
+    "parentkey": "急诊血常规",
+    "parentvalue": "32262",
+    "key": "中性粒细胞",
+    "Value": "0183"
+  },
+  {
+    "parentkey": "急诊血常规+CRP",
+    "parentvalue": "28829",
+    "key": "中性粒细胞数",
+    "Value": "0188"
+  },
+  {
+    "parentkey": "尿常规",
+    "parentvalue": "30831",
+    "key": "尿胆原（干化学法）",
+    "Value": "0218"
+  },
+  {
+    "parentkey": "凝血功能5项（钱江）",
+    "parentvalue": "32269",
+    "key": "APTT对照",
+    "Value": "0304"
+  },
+  {
+    "parentkey": "贫血三项(钱江)",
+    "parentvalue": "32909",
+    "key": "铁蛋白",
+    "Value": "0258"
+  },
+  {
+    "parentkey": "生化类检查",
+    "parentvalue": "32153",
+    "key": "脂蛋白（a）",
+    "Value": "0171"
+  },
+  {
+    "parentkey": "生化类检查【2】（钱江）",
+    "parentvalue": "33186",
+    "key": "白球比值",
+    "Value": "0039"
+  },
+  {
+    "parentkey": "生化类检查【2】（钱江）",
+    "parentvalue": "33186",
+    "key": "乳酸脱氢酶",
+    "Value": "0174"
+  },
+  {
+    "parentkey": "输血血样检测",
+    "parentvalue": "33588",
+    "key": "红细胞不规则抗体筛查",
+    "Value": "0625"
+  },
+  {
+    "parentkey": "糖化血红蛋白测定",
+    "parentvalue": "13481",
+    "key": "糖化血红蛋白",
+    "Value": "0660"
+  },
+  {
+    "parentkey": "微量元素（外送）",
+    "parentvalue": "27441",
+    "key": "全血镁",
+    "Value": "0447"
+  },
+  {
+    "parentkey": "性激素六项",
+    "parentvalue": "27415",
+    "key": "睾酮",
+    "Value": "0265"
+  },
+  {
+    "parentkey": "性激素六项",
+    "parentvalue": "27415",
+    "key": "泌乳素",
+    "Value": "0262"
+  },
+  {
+    "parentkey": "血常规+CRP",
+    "parentvalue": "28836",
+    "key": "单核细胞数",
+    "Value": "0190"
+  },
+  {
+    "parentkey": "血常规+CRP",
+    "parentvalue": "28836",
+    "key": "淋巴细胞",
+    "Value": "0184"
+  },
+  {
+    "parentkey": "血常规+CRP",
+    "parentvalue": "28836",
+    "key": "平均血红蛋白含量",
+    "Value": "0197"
+  },
+  {
+    "parentkey": "血常规+CRP",
+    "parentvalue": "28836",
+    "key": "平均血红蛋白浓度",
+    "Value": "0198"
+  },
+  {
+    "parentkey": "血常规+CRP+网织",
+    "parentvalue": "32267",
+    "key": "中性粒细胞数",
+    "Value": "0188"
+  },
+  {
+    "parentkey": "血气分析全套(钱江)",
+    "parentvalue": "34278",
+    "key": "标准碳酸氢根",
+    "Value": "0578"
+  },
+  {
+    "parentkey": "血气分析全套(钱江)",
+    "parentvalue": "34278",
+    "key": "二氧化碳总量",
+    "Value": "0567"
+  },
+  {
+    "parentkey": "阴道分泌物一般细菌、真菌培养及鉴定",
+    "parentvalue": "29760",
+    "key": "培养未检到真菌",
+    "Value": "X030"
+  },
+  {
+    "parentkey": "阴道分泌物一般细菌、真菌培养及鉴定",
+    "parentvalue": "29760",
+    "key": "青霉素",
+    "Value": "X143"
+  },
+  {
+    "parentkey": "阴道分泌物一般细菌真菌培养及药敏（门诊）",
+    "parentvalue": "31964",
+    "key": "培养未检到真菌",
+    "Value": "X030"
+  },
+  {
+    "parentkey": "阴道分泌物支原体培养及药敏",
+    "parentvalue": "29758",
+    "key": "人型支原体",
+    "Value": "X215"
+  },
+  {
+    "parentkey": "TORCH",
+    "parentvalue": "27453",
+    "key": "单纯疱疹病毒1型IgM(酶免法）",
+    "Value": "1108"
+  },
+  {
+    "parentkey": "粪便常规+隐血试验",
+    "parentvalue": "32257",
+    "key": "脓球",
+    "Value": "0207"
+  },
+  {
+    "parentkey": "弓形虫抗体",
+    "parentvalue": "32549",
+    "key": "弓形虫IgM",
+    "Value": "0549"
+  },
+  {
+    "parentkey": "急诊尿常规",
+    "parentvalue": "14192",
+    "key": "白细胞（镜检）",
+    "Value": "0222"
+  },
+  {
+    "parentkey": "急诊尿常规",
+    "parentvalue": "14192",
+    "key": "白细胞酯酶（干化学法）",
+    "Value": "0220"
+  },
+  {
+    "parentkey": "急诊尿常规",
+    "parentvalue": "14192",
+    "key": "病理管型",
+    "Value": "0319"
+  },
+  {
+    "parentkey": "急诊生化（钱江）",
+    "parentvalue": "32155",
+    "key": "白球比值",
+    "Value": "0039"
+  },
+  {
+    "parentkey": "急诊生化（钱江）",
+    "parentvalue": "32155",
+    "key": "镁",
+    "Value": "0164"
+  },
+  {
+    "parentkey": "急诊生化（钱江）",
+    "parentvalue": "32155",
+    "key": "总胆红素",
+    "Value": "0155"
+  },
+  {
+    "parentkey": "急诊血常规",
+    "parentvalue": "32262",
+    "key": "红细胞分布宽度",
+    "Value": "0199"
+  },
+  {
+    "parentkey": "急诊血常规",
+    "parentvalue": "32262",
+    "key": "淋巴细胞数",
+    "Value": "0189"
+  },
+  {
+    "parentkey": "急诊血常规+CRP",
+    "parentvalue": "28829",
+    "key": "嗜碱性粒细胞",
+    "Value": "0187"
+  },
+  {
+    "parentkey": "洁尿一般细菌培养及鉴定",
+    "parentvalue": "29755",
+    "key": "培养48小时无细菌生长",
+    "Value": "0691"
+  },
+  {
+    "parentkey": "抗磷脂相关抗体（外送",
+    "parentvalue": "31672",
+    "key": "抗心磷脂抗体(IgG)",
+    "Value": "9131"
+  },
+  {
+    "parentkey": "尿常规",
+    "parentvalue": "30831",
+    "key": ".镜下红细胞",
+    "Value": "0312"
+  },
+  {
+    "parentkey": "尿常规",
+    "parentvalue": "30831",
+    "key": "PH值（干化学法)",
+    "Value": "0210"
+  },
+  {
+    "parentkey": "尿常规",
+    "parentvalue": "30831",
+    "key": "红细胞信息",
+    "Value": "0323"
+  },
+  {
+    "parentkey": "尿常规",
+    "parentvalue": "30831",
+    "key": "亚硝酸盐(干化学法）",
+    "Value": "0211"
+  },
+  {
+    "parentkey": "尿常规",
+    "parentvalue": "30831",
+    "key": "颜色",
+    "Value": "0779"
+  },
+  {
+    "parentkey": "生化类检查",
+    "parentvalue": "32153",
+    "key": "r-谷氨酰基转移酶",
+    "Value": "0151"
+  },
+  {
+    "parentkey": "生化类检查【2】（钱江）",
+    "parentvalue": "33186",
+    "key": "尿酸",
+    "Value": "0160"
+  },
+  {
+    "parentkey": "生化类检查【2】（钱江）",
+    "parentvalue": "33186",
+    "key": "脂蛋白（a）",
+    "Value": "0171"
+  },
+  {
+    "parentkey": "生化筛查",
+    "parentvalue": "27849",
+    "key": "甘油三酯",
+    "Value": "0165"
+  },
+  {
+    "parentkey": "生化筛查",
+    "parentvalue": "27849",
+    "key": "直接胆红素",
+    "Value": "0157"
+  },
+  {
+    "parentkey": "微量元素（外送）",
+    "parentvalue": "27441",
+    "key": "全血铅",
+    "Value": "0443"
+  },
+  {
+    "parentkey": "无乳链球菌筛查",
+    "parentvalue": "31695",
+    "key": "培养未检到无乳链球菌",
+    "Value": "0643"
+  },
+  {
+    "parentkey": "血常规+CRP+网织",
+    "parentvalue": "32267",
+    "key": "超敏C反应蛋白",
+    "Value": "0417"
+  },
+  {
+    "parentkey": "血常规+CRP+网织",
+    "parentvalue": "32267",
+    "key": "血小板",
+    "Value": "0200"
+  },
+  {
+    "parentkey": "血气分析全套(钱江)",
+    "parentvalue": "34278",
+    "key": "离子氯",
+    "Value": "0576"
+  },
+  {
+    "parentkey": "血气分析全套(钱江)",
+    "parentvalue": "34278",
+    "key": "氧饱和度",
+    "Value": "0569"
+  },
+  {
+    "parentkey": "血型鉴定",
+    "parentvalue": "33586",
+    "key": "RhD血型",
+    "Value": "0402"
+  },
+  {
+    "parentkey": "血脂",
+    "parentvalue": "32259",
+    "key": "总胆固醇",
+    "Value": "0166"
+  },
+  {
+    "parentkey": "一般细菌培养及鉴定",
+    "parentvalue": "13879",
+    "key": "阿莫西林/克拉维酸",
+    "Value": "8003"
+  },
+  {
+    "parentkey": "一般细菌培养及鉴定",
+    "parentvalue": "13879",
+    "key": "氨苄西林",
+    "Value": "8002"
+  },
+  {
+    "parentkey": "一般细菌培养及鉴定",
+    "parentvalue": "13879",
+    "key": "复方新诺明",
+    "Value": "8086"
+  },
+  {
+    "parentkey": "一般细菌培养及鉴定",
+    "parentvalue": "13879",
+    "key": "培养无细菌生长",
+    "Value": "X028"
+  },
+  {
+    "parentkey": "一般细菌培养及鉴定",
+    "parentvalue": "13879",
+    "key": "左旋氧氟沙星",
+    "Value": "8054"
+  },
+  {
+    "parentkey": "阴道分泌物支原体培养及药敏",
+    "parentvalue": "29758",
+    "key": "氧氟沙星",
+    "Value": "8065"
+  },
+  {
+    "parentkey": "自身抗体检测（外送）",
+    "parentvalue": "27432",
+    "key": "ANA",
+    "Value": "9117"
+  },
+  {
+    "parentkey": "自身抗体检测（外送）",
+    "parentvalue": "27432",
+    "key": "SCL-70",
+    "Value": "9119"
+  },
+  {
+    "parentkey": "GLU/2",
+    "parentvalue": "28831",
+    "key": "餐后2小时血糖",
+    "Value": "0298"
+  },
+  {
+    "parentkey": "大便沙门、志贺、真菌培养及鉴定",
+    "parentvalue": "29745",
+    "key": "培养未检到真菌",
+    "Value": "X030"
+  },
+  {
+    "parentkey": "粪便常规+隐血试验",
+    "parentvalue": "32257",
+    "key": "红细胞",
+    "Value": "0206"
+  },
+  {
+    "parentkey": "肝功",
+    "parentvalue": "27854",
+    "key": "直接胆红素",
+    "Value": "0157"
+  },
+  {
+    "parentkey": "急诊尿常规",
+    "parentvalue": "14192",
+    "key": ".白细胞",
+    "Value": "0313"
+  },
+  {
+    "parentkey": "急诊尿常规",
+    "parentvalue": "14192",
+    "key": ".镜下红细胞",
+    "Value": "0312"
+  },
+  {
+    "parentkey": "急诊尿常规",
+    "parentvalue": "14192",
+    "key": "尿酮体（干化学法）",
+    "Value": "0219"
+  },
+  {
+    "parentkey": "急诊尿常规",
+    "parentvalue": "14192",
+    "key": "脓球（镜检）",
+    "Value": "0223"
+  },
+  {
+    "parentkey": "急诊凝血4项",
+    "parentvalue": "32270",
+    "key": "凝血酶时间对照",
+    "Value": "0306"
+  },
+  {
+    "parentkey": "急诊凝血功能5项",
+    "parentvalue": "32520",
+    "key": "凝血酶原时间对照",
+    "Value": "0302"
+  },
+  {
+    "parentkey": "急诊生化（钱江）",
+    "parentvalue": "32155",
+    "key": "白蛋白",
+    "Value": "0154"
+  },
+  {
+    "parentkey": "急诊血常规",
+    "parentvalue": "32262",
+    "key": "单核细胞",
+    "Value": "0185"
+  },
+  {
+    "parentkey": "急诊血常规",
+    "parentvalue": "32262",
+    "key": "平均红细胞体积",
+    "Value": "0196"
+  },
+  {
+    "parentkey": "急诊血常规",
+    "parentvalue": "32262",
+    "key": "血小板压积",
+    "Value": "0201"
+  },
+  {
+    "parentkey": "急诊血常规+CRP",
+    "parentvalue": "28829",
+    "key": "嗜酸性粒细胞",
+    "Value": "0186"
+  },
+  {
+    "parentkey": "尿常规",
+    "parentvalue": "30831",
+    "key": ".镜下非病理管型",
+    "Value": "0318"
+  },
+  {
+    "parentkey": "尿常规",
+    "parentvalue": "30831",
+    "key": "酵母",
+    "Value": "0321"
+  },
+  {
+    "parentkey": "尿常规",
+    "parentvalue": "30831",
+    "key": "脓球（镜检）",
+    "Value": "0223"
+  },
+  {
+    "parentkey": "尿常规",
+    "parentvalue": "30831",
+    "key": "小圆上皮细胞",
+    "Value": "0320"
+  },
+  {
+    "parentkey": "凝血功能4项",
+    "parentvalue": "29798",
+    "key": "APTT对照",
+    "Value": "0304"
+  },
+  {
+    "parentkey": "生化类检查",
+    "parentvalue": "32153",
+    "key": "钾",
+    "Value": "0180"
+  },
+  {
+    "parentkey": "生化类检查【2】（钱江）",
+    "parentvalue": "33186",
+    "key": "肌酐",
+    "Value": "0159"
+  },
+  {
+    "parentkey": "生化类检查【2】（钱江）",
+    "parentvalue": "33186",
+    "key": "总胆汁酸",
+    "Value": "0272"
+  },
+  {
+    "parentkey": "生化筛查",
+    "parentvalue": "27849",
+    "key": "葡萄糖",
+    "Value": "0148"
+  },
+  {
+    "parentkey": "微量元素",
+    "parentvalue": "27441",
+    "key": "全血镁",
+    "Value": "0447"
+  },
+  {
+    "parentkey": "新冠病毒抗体检测（钱江）",
+    "parentvalue": "34512",
+    "key": "新型冠状病毒抗体IgG",
+    "Value": "0760"
+  },
+  {
+    "parentkey": "新型冠状病毒抗体检测",
+    "parentvalue": "34711",
+    "key": "新型冠状病毒抗体IgG",
+    "Value": "0760"
+  },
+  {
+    "parentkey": "血常规+CRP",
+    "parentvalue": "28836",
+    "key": "血小板分布宽度",
+    "Value": "0203"
+  },
+  {
+    "parentkey": "血气分析全套(钱江)",
+    "parentvalue": "34278",
+    "key": "校准氧分压",
+    "Value": "0566"
+  },
+  {
+    "parentkey": "血粘度",
+    "parentvalue": "27459",
+    "key": "全血粘度低切5（5/s）",
+    "Value": "0484"
+  },
+  {
+    "parentkey": "血粘度",
+    "parentvalue": "27459",
+    "key": "血浆粘度",
+    "Value": "0471"
+  },
+  {
+    "parentkey": "一般细菌培养及鉴定",
+    "parentvalue": "13879",
+    "key": "头孢吡肟",
+    "Value": "8040"
+  },
+  {
+    "parentkey": "阴道分泌物支原体培养及药敏",
+    "parentvalue": "29758",
+    "key": "四环素",
+    "Value": "8092"
+  },
+  {
+    "parentkey": "AMY",
+    "parentvalue": "13732",
+    "key": "血淀粉酶",
+    "Value": "0175"
+  },
+  {
+    "parentkey": "IgG抗D效价",
+    "parentvalue": "29713",
+    "key": "Rh系统意外抗体",
+    "Value": "0408"
+  },
+  {
+    "parentkey": "TORCH",
+    "parentvalue": "27453",
+    "key": "风疹病毒IgM",
+    "Value": "0540"
+  },
+  {
+    "parentkey": "病毒性肝炎检测",
+    "parentvalue": "32158",
+    "key": "乙肝e抗原(酶免法）",
+    "Value": "0290"
+  },
+  {
+    "parentkey": "肝功",
+    "parentvalue": "27854",
+    "key": "间接胆红素",
+    "Value": "0156"
+  },
+  {
+    "parentkey": "急诊尿常规",
+    "parentvalue": "14192",
+    "key": "浊度",
+    "Value": "0780"
+  },
+  {
+    "parentkey": "急诊凝血4项",
+    "parentvalue": "32270",
+    "key": "部分凝血活酶时间",
+    "Value": "0303"
+  },
+  {
+    "parentkey": "急诊凝血功能5项",
+    "parentvalue": "32520",
+    "key": "纤维蛋白原",
+    "Value": "0307"
+  },
+  {
+    "parentkey": "急诊血常规",
+    "parentvalue": "32262",
+    "key": "平均血小板体积",
+    "Value": "0202"
+  },
+  {
+    "parentkey": "急诊血常规",
+    "parentvalue": "32262",
+    "key": "血红蛋白",
+    "Value": "0193"
+  },
+  {
+    "parentkey": "急诊血常规",
+    "parentvalue": "32262",
+    "key": "血小板",
+    "Value": "0200"
+  },
+  {
+    "parentkey": "急诊血常规+CRP",
+    "parentvalue": "28829",
+    "key": "单核细胞数",
+    "Value": "0190"
+  },
+  {
+    "parentkey": "急诊血常规+CRP",
+    "parentvalue": "28829",
+    "key": "嗜碱性粒细胞数",
+    "Value": "0192"
+  },
+  {
+    "parentkey": "甲功三",
+    "parentvalue": "27394",
+    "key": "TSH",
+    "Value": "0249"
+  },
+  {
+    "parentkey": "尿常规",
+    "parentvalue": "30831",
+    "key": ".白细胞",
+    "Value": "0313"
+  },
+  {
+    "parentkey": "尿常规",
+    "parentvalue": "30831",
+    "key": "白细胞酯酶（干化学法）",
+    "Value": "0220"
+  },
+  {
+    "parentkey": "尿常规",
+    "parentvalue": "30831",
+    "key": "尿蛋白（干化学法）",
+    "Value": "0216"
+  },
+  {
+    "parentkey": "尿常规",
+    "parentvalue": "30831",
+    "key": "尿酮体（干化学法）",
+    "Value": "0219"
+  },
+  {
+    "parentkey": "凝血功能4项",
+    "parentvalue": "29798",
+    "key": "凝血酶原时间",
+    "Value": "0243"
+  },
+  {
+    "parentkey": "凝血功能5项（钱江）",
+    "parentvalue": "32269",
+    "key": "D-二聚体",
+    "Value": "0308"
+  },
+  {
+    "parentkey": "凝血功能5项（钱江）",
+    "parentvalue": "32269",
+    "key": "凝血酶时间",
+    "Value": "0305"
+  },
+  {
+    "parentkey": "人乳头瘤病毒分型(HPV分型)_宫颈",
+    "parentvalue": "31155",
+    "key": "人乳头瘤病毒16型DNA",
+    "Value": "0384"
+  },
+  {
+    "parentkey": "人乳头瘤病毒分型(HPV分型)_宫颈",
+    "parentvalue": "31155",
+    "key": "人乳头瘤病毒18型DNA",
+    "Value": "0385"
+  },
+  {
+    "parentkey": "生化类检查",
+    "parentvalue": "32153",
+    "key": "白蛋白",
+    "Value": "0154"
+  },
+  {
+    "parentkey": "生化类检查",
+    "parentvalue": "32153",
+    "key": "磷",
+    "Value": "0163"
+  },
+  {
+    "parentkey": "生化类检查",
+    "parentvalue": "32153",
+    "key": "尿素",
+    "Value": "0158"
+  },
+  {
+    "parentkey": "生化类检查【2】（钱江）",
+    "parentvalue": "33186",
+    "key": "甘油三酯",
+    "Value": "0165"
+  },
+  {
+    "parentkey": "生化类检查【2】（钱江）",
+    "parentvalue": "33186",
+    "key": "果糖胺",
+    "Value": "0161"
+  },
+  {
+    "parentkey": "生化类检查【2】（钱江）",
+    "parentvalue": "33186",
+    "key": "氯",
+    "Value": "0181"
+  },
+  {
+    "parentkey": "血常规+CRP+网织",
+    "parentvalue": "32267",
+    "key": "淋巴细胞",
+    "Value": "0184"
+  },
+  {
+    "parentkey": "血浆鱼精蛋白副凝试验(3P)",
+    "parentvalue": "13484",
+    "key": "硫酸鱼精蛋白副凝固试验",
+    "Value": "0309"
+  },
+  {
+    "parentkey": "血气分析全套(钱江)",
+    "parentvalue": "34278",
+    "key": "离子钙",
+    "Value": "0575"
+  },
+  {
+    "parentkey": "血气分析全套(钱江)",
+    "parentvalue": "34278",
+    "key": "实际剩余碱",
+    "Value": "0579"
+  },
+  {
+    "parentkey": "血气分析全套(钱江)",
+    "parentvalue": "34278",
+    "key": "血氧总量",
+    "Value": "0568"
+  },
+  {
+    "parentkey": "血粘度",
+    "parentvalue": "27459",
+    "key": "全血粘度高切200（200/s）",
+    "Value": "0470"
+  },
+  {
+    "parentkey": "一般细菌培养及鉴定",
+    "parentvalue": "13879",
+    "key": "替加环素",
+    "Value": "X568"
+  },
+  {
+    "parentkey": "乙型肝炎DNA测定",
+    "parentvalue": "14023",
+    "key": "乙肝病毒DNA",
+    "Value": "0350"
+  },
+  {
+    "parentkey": "阴道分泌物一般细菌、真菌培养及鉴定",
+    "parentvalue": "29760",
+    "key": "呋喃妥因",
+    "Value": "X147"
+  },
+  {
+    "parentkey": "阴道分泌物支原体培养及药敏",
+    "parentvalue": "29758",
+    "key": "交沙霉素",
+    "Value": "X225"
+  },
+  {
+    "parentkey": "阴道分泌物支原体培养及药敏",
+    "parentvalue": "29758",
+    "key": "克拉霉素",
+    "Value": "8021"
+  },
+  {
+    "parentkey": "阴道分泌物支原体培养及药敏",
+    "parentvalue": "29758",
+    "key": "美满霉素",
+    "Value": "X240"
+  },
+  {
+    "parentkey": "肿瘤五项",
+    "parentvalue": "32179",
+    "key": "甲胎蛋白",
+    "Value": "0252"
+  },
+  {
+    "parentkey": "自身抗体检测（外送）",
+    "parentvalue": "27432",
+    "key": "抗线粒体抗体",
+    "Value": "9216"
+  },
+  {
+    "parentkey": "（艾）微量元素（外送）",
+    "parentvalue": "27441",
+    "key": "全血铁",
+    "Value": "0445"
+  },
+  {
+    "parentkey": "TORCH",
+    "parentvalue": "27453",
+    "key": "单纯疱疹病毒1型IgG(酶免法）",
+    "Value": "1104"
+  },
+  {
+    "parentkey": "TORCH",
+    "parentvalue": "27453",
+    "key": "单纯疱疹病毒2型IgM(酶免法）",
+    "Value": "9122"
+  },
+  {
+    "parentkey": "白带常规",
+    "parentvalue": "27896",
+    "key": "念珠菌",
+    "Value": "0230"
+  },
+  {
+    "parentkey": "肝功",
+    "parentvalue": "27854",
+    "key": "白球比值",
+    "Value": "0039"
+  },
+  {
+    "parentkey": "急诊尿常规",
+    "parentvalue": "14192",
+    "key": "PH值（干化学法)",
+    "Value": "0210"
+  },
+  {
+    "parentkey": "急诊尿常规",
+    "parentvalue": "14192",
+    "key": "亚硝酸盐(干化学法）",
+    "Value": "0211"
+  },
+  {
+    "parentkey": "急诊血常规+CRP",
+    "parentvalue": "28829",
+    "key": "白细胞",
+    "Value": "0182"
+  },
+  {
+    "parentkey": "急诊血常规+CRP",
+    "parentvalue": "28829",
+    "key": "淋巴细胞数",
+    "Value": "0189"
+  },
+  {
+    "parentkey": "甲功三",
+    "parentvalue": "27394",
+    "key": "游离三碘甲状腺原氨酸",
+    "Value": "0247"
+  },
+  {
+    "parentkey": "洁尿一般细菌培养及鉴定",
+    "parentvalue": "29755",
+    "key": "白念珠菌",
+    "Value": "X188"
+  },
+  {
+    "parentkey": "洁尿一般细菌培养及鉴定",
+    "parentvalue": "29755",
+    "key": "三种及以上细菌生长，判定污染。",
+    "Value": "0697"
+  },
+  {
+    "parentkey": "免疫五项",
+    "parentvalue": "27422",
+    "key": "补体C4",
+    "Value": "0416"
+  },
+  {
+    "parentkey": "尿常规",
+    "parentvalue": "30831",
+    "key": "病理管型",
+    "Value": "0319"
+  },
+  {
+    "parentkey": "尿常规",
+    "parentvalue": "30831",
+    "key": "管型",
+    "Value": "0778"
+  },
+  {
+    "parentkey": "凝血功能4项",
+    "parentvalue": "29798",
+    "key": "凝血酶时间",
+    "Value": "0305"
+  },
+  {
+    "parentkey": "生化类检查",
+    "parentvalue": "32153",
+    "key": "类风湿因子",
+    "Value": "0177"
+  },
+  {
+    "parentkey": "生化类检查",
+    "parentvalue": "32153",
+    "key": "钠",
+    "Value": "0179"
+  },
+  {
+    "parentkey": "生化类检查",
+    "parentvalue": "32153",
+    "key": "天门冬氨酸氨基转移酶",
+    "Value": "0150"
+  },
+  {
+    "parentkey": "生化类检查【2】（钱江）",
+    "parentvalue": "33186",
+    "key": "球蛋白",
+    "Value": "0056"
+  },
+  {
+    "parentkey": "生化筛查",
+    "parentvalue": "27849",
+    "key": "球蛋白",
+    "Value": "0056"
+  },
+  {
+    "parentkey": "生化筛查",
+    "parentvalue": "27849",
+    "key": "总胆固醇",
+    "Value": "0166"
+  },
+  {
+    "parentkey": "微量元素",
+    "parentvalue": "27441",
+    "key": "全血铜",
+    "Value": "0444"
+  },
+  {
+    "parentkey": "性激素六项",
+    "parentvalue": "27415",
+    "key": "黄体生成素",
+    "Value": "0261"
+  },
+  {
+    "parentkey": "血常规",
+    "parentvalue": "32279",
+    "key": "嗜碱性粒细胞",
+    "Value": "0187"
+  },
+  {
+    "parentkey": "血常规",
+    "parentvalue": "32279",
+    "key": "血小板压积",
+    "Value": "0201"
+  },
+  {
+    "parentkey": "血常规+CRP",
+    "parentvalue": "28836",
+    "key": "红细胞分布宽度",
+    "Value": "0199"
+  },
+  {
+    "parentkey": "血常规+CRP",
+    "parentvalue": "28836",
+    "key": "嗜酸性粒细胞数",
+    "Value": "0191"
+  },
+  {
+    "parentkey": "血常规+CRP",
+    "parentvalue": "28836",
+    "key": "中性粒细胞",
+    "Value": "0183"
+  },
+  {
+    "parentkey": "血常规+CRP+网织",
+    "parentvalue": "32267",
+    "key": "白细胞",
+    "Value": "0182"
+  },
+  {
+    "parentkey": "血常规+CRP+网织",
+    "parentvalue": "32267",
+    "key": "单核细胞",
+    "Value": "0185"
+  },
+  {
+    "parentkey": "血常规+CRP+网织",
+    "parentvalue": "32267",
+    "key": "嗜碱性粒细胞数",
+    "Value": "0192"
+  },
+  {
+    "parentkey": "血型鉴定",
+    "parentvalue": "33586",
+    "key": "RH血型",
+    "Value": "0402"
+  },
+  {
+    "parentkey": "血粘度",
+    "parentvalue": "27459",
+    "key": "全血粘度中切30（30/s）",
+    "Value": "0469"
+  },
+  {
+    "parentkey": "一般细菌培养及鉴定",
+    "parentvalue": "13879",
+    "key": "阿米卡星",
+    "Value": "8006"
+  },
+  {
+    "parentkey": "一般细菌培养及鉴定",
+    "parentvalue": "13879",
+    "key": "万古霉素",
+    "Value": "8098"
+  },
+  {
+    "parentkey": "阴道分泌物一般细菌、真菌培养及鉴定",
+    "parentvalue": "29760",
+    "key": "链霉素2000",
+    "Value": "X021"
+  },
+  {
+    "parentkey": "阴道分泌物一般细菌、真菌培养及鉴定",
+    "parentvalue": "29760",
+    "key": "万古霉素",
+    "Value": "8098"
+  },
+  {
+    "parentkey": "肿瘤四项",
+    "parentvalue": "32272",
+    "key": "癌抗原15-3",
+    "Value": "0256"
+  },
+  {
+    "parentkey": "自身抗体检测（外送）",
+    "parentvalue": "27432",
+    "key": "着丝点抗体",
+    "Value": "9212"
+  },
+  {
+    "parentkey": "（艾）微量元素（外送）",
+    "parentvalue": "27441",
+    "key": "全血钙",
+    "Value": "0446"
+  },
+  {
+    "parentkey": "D-二聚体",
+    "parentvalue": "29799",
+    "key": "D-二聚体",
+    "Value": "0308"
+  },
+  {
+    "parentkey": "HCG稀释",
+    "parentvalue": "27412",
+    "key": "β-HCG",
+    "Value": "0267"
+  },
+  {
+    "parentkey": "TORCH",
+    "parentvalue": "27453",
+    "key": "弓形虫IgM",
+    "Value": "0549"
+  },
+  {
+    "parentkey": "白带常规",
+    "parentvalue": "27896",
+    "key": "霉菌",
+    "Value": "0230"
+  },
+  {
+    "parentkey": "白带常规苷酶酯酶H2O2",
+    "parentvalue": "29060",
+    "key": "滴虫",
+    "Value": "0229"
+  },
+  {
+    "parentkey": "病毒性肝炎检测",
+    "parentvalue": "32158",
+    "key": "甲型肝炎病毒lgM抗体(酶免法）",
+    "Value": "0236"
+  },
+  {
+    "parentkey": "病毒性肝炎检测",
+    "parentvalue": "32158",
+    "key": "乙肝e抗体(酶免法）",
+    "Value": "0291"
+  },
+  {
+    "parentkey": "肝功",
+    "parentvalue": "27854",
+    "key": "r-谷氨酰基转移酶",
+    "Value": "0151"
+  },
+  {
+    "parentkey": "急诊尿常规",
+    "parentvalue": "14192",
+    "key": "酵母",
+    "Value": "0321"
+  },
+  {
+    "parentkey": "急诊生化（钱江）",
+    "parentvalue": "32155",
+    "key": "钙",
+    "Value": "0162"
+  },
+  {
+    "parentkey": "急诊生化（钱江）",
+    "parentvalue": "32155",
+    "key": "尿素",
+    "Value": "0158"
+  },
+  {
+    "parentkey": "急诊血常规",
+    "parentvalue": "32262",
+    "key": "白细胞",
+    "Value": "0182"
+  },
+  {
+    "parentkey": "急诊血常规",
+    "parentvalue": "32262",
+    "key": "平均血红蛋白含量",
+    "Value": "0197"
+  },
+  {
+    "parentkey": "急诊血常规",
+    "parentvalue": "32262",
+    "key": "嗜酸性粒细胞",
+    "Value": "0186"
+  },
+  {
+    "parentkey": "急诊血常规+CRP",
+    "parentvalue": "28829",
+    "key": "单核细胞",
+    "Value": "0185"
+  },
+  {
+    "parentkey": "急诊血常规+CRP",
+    "parentvalue": "28829",
+    "key": "嗜酸性粒细胞数",
+    "Value": "0191"
+  },
+  {
+    "parentkey": "甲功三",
+    "parentvalue": "27394",
+    "key": "FT3",
+    "Value": "0247"
+  },
+  {
+    "parentkey": "抗磷脂相关抗体（外送",
+    "parentvalue": "31672",
+    "key": "抗心磷脂抗体(IgA)",
+    "Value": "J726"
+  },
+  {
+    "parentkey": "尿常规",
+    "parentvalue": "30831",
+    "key": ".镜下白细胞",
+    "Value": "0314"
+  },
+  {
+    "parentkey": "尿常规",
+    "parentvalue": "30831",
+    "key": "透明管型（镜检）",
+    "Value": "0225"
+  },
+  {
+    "parentkey": "尿常规",
+    "parentvalue": "30831",
+    "key": "粘液丝（镜检）",
+    "Value": "0227"
+  },
+  {
+    "parentkey": "凝血功能4项",
+    "parentvalue": "29798",
+    "key": "凝血酶原时间对照",
+    "Value": "0302"
+  },
+  {
+    "parentkey": "凝血功能5项（钱江）",
+    "parentvalue": "32269",
+    "key": "部分凝血活酶时间",
+    "Value": "0303"
+  },
+  {
+    "parentkey": "生化类检查",
+    "parentvalue": "32153",
+    "key": "β-羟基丁酸",
+    "Value": "0615"
+  },
+  {
+    "parentkey": "生化类检查",
+    "parentvalue": "32153",
+    "key": "葡萄糖",
+    "Value": "0148"
+  },
+  {
+    "parentkey": "生化类检查【2】（钱江）",
+    "parentvalue": "33186",
+    "key": "直接胆红素",
+    "Value": "0157"
+  },
+  {
+    "parentkey": "输血血样检测",
+    "parentvalue": "33588",
+    "key": "红细胞不规则抗体",
+    "Value": "0625"
+  },
+  {
+    "parentkey": "微量元素",
+    "parentvalue": "27441",
+    "key": "全血锌",
+    "Value": "0442"
+  },
+  {
+    "parentkey": "维生素D(D2+D3)",
+    "parentvalue": "0000002421",
+    "key": "25-羟基维生素D，D2+D3",
+    "Value": "9695"
+  },
+  {
+    "parentkey": "新冠病毒核酸检测（钱",
+    "parentvalue": "34513",
+    "key": "2019-nCov核酸检测",
+    "Value": "0762"
+  },
+  {
+    "parentkey": "血常规",
+    "parentvalue": "32279",
+    "key": "淋巴细胞",
+    "Value": "0184"
+  },
+  {
+    "parentkey": "血常规",
+    "parentvalue": "32279",
+    "key": "平均血小板体积",
+    "Value": "0202"
+  },
+  {
+    "parentkey": "血常规",
+    "parentvalue": "32279",
+    "key": "血小板分布宽度",
+    "Value": "0203"
+  },
+  {
+    "parentkey": "血常规+CRP+网织",
+    "parentvalue": "32267",
+    "key": "平均红细胞体积",
+    "Value": "0196"
+  },
+  {
+    "parentkey": "血常规+CRP+网织",
+    "parentvalue": "32267",
+    "key": "血小板压积",
+    "Value": "0201"
+  },
+  {
+    "parentkey": "血气分析全套(钱江)",
+    "parentvalue": "34278",
+    "key": "肺泡动脉氧分压差",
+    "Value": "0716"
+  },
+  {
+    "parentkey": "血气分析全套(钱江)",
+    "parentvalue": "34278",
+    "key": "红细胞压积",
+    "Value": "0570"
+  },
+  {
+    "parentkey": "血气分析全套(钱江)",
+    "parentvalue": "34278",
+    "key": "氧分压",
+    "Value": "0565"
+  },
+  {
+    "parentkey": "血脂",
+    "parentvalue": "32259",
+    "key": "高密度脂蛋白胆固醇",
+    "Value": "0169"
+  },
+  {
+    "parentkey": "一般细菌培养及鉴定",
+    "parentvalue": "13879",
+    "key": "哌拉西林/他唑巴坦",
+    "Value": "8097"
+  },
+  {
+    "parentkey": "一般细菌培养及鉴定",
+    "parentvalue": "13879",
+    "key": "头孢西丁",
+    "Value": "X032"
+  },
+  {
+    "parentkey": "一般细菌培养及鉴定（单增）",
+    "parentvalue": "0000002281",
+    "key": "未检到单核细胞增生李斯特菌",
+    "Value": "0659"
+  },
+  {
+    "parentkey": "阴道分泌物一般细菌、真菌培养及鉴定",
+    "parentvalue": "29760",
+    "key": "环丙沙星",
+    "Value": "8020"
+  },
+  {
+    "parentkey": "阴道分泌物一般细菌、真菌培养及鉴定",
+    "parentvalue": "29760",
+    "key": "正常菌群生长",
+    "Value": "X025"
+  },
+  {
+    "parentkey": "阴道分泌物一般细菌真菌培养及药敏（门诊）",
+    "parentvalue": "31964",
+    "key": "白念珠菌",
+    "Value": "X188"
+  },
+  {
+    "parentkey": "阴道分泌物支原体培养及药敏",
+    "parentvalue": "29758",
+    "key": "红霉素",
+    "Value": "8034"
+  },
+  {
+    "parentkey": "阴道分泌物支原体培养及药敏",
+    "parentvalue": "29758",
+    "key": "环丙沙星",
+    "Value": "8020"
+  },
+  {
+    "parentkey": "肿瘤四项",
+    "parentvalue": "32272",
+    "key": "癌胚抗原",
+    "Value": "0253"
+  },
+  {
+    "parentkey": "肿瘤五项",
+    "parentvalue": "32179",
+    "key": "CA15-3",
+    "Value": "0256"
+  },
+  {
+    "parentkey": "肿瘤五项",
+    "parentvalue": "32179",
+    "key": "CA19-9",
+    "Value": "0254"
+  },
+  {
+    "parentkey": "自身抗体检测（外送）",
+    "parentvalue": "27432",
+    "key": "Vimentin抗体",
+    "Value": "9215"
+  },
+  {
+    "parentkey": "GLU/1",
+    "parentvalue": "28834",
+    "key": "餐后1小时血糖",
+    "Value": "0296"
+  },
+  {
+    "parentkey": "白带常规苷酶酯酶H2O2",
+    "parentvalue": "29060",
+    "key": "过氧化氢酶",
+    "Value": "0232"
+  },
+  {
+    "parentkey": "促甲状腺素受体抗体测",
+    "parentvalue": "13470",
+    "key": "促甲状腺素受体抗体TRAB",
+    "Value": "J624"
+  },
+  {
+    "parentkey": "电解质六",
+    "parentvalue": "27384",
+    "key": "钙",
+    "Value": "0162"
+  },
+  {
+    "parentkey": "电解质六",
+    "parentvalue": "27384",
+    "key": "磷",
+    "Value": "0163"
+  },
+  {
+    "parentkey": "电解质三",
+    "parentvalue": "27853",
+    "key": "钾",
+    "Value": "0180"
+  },
+  {
+    "parentkey": "肝功",
+    "parentvalue": "27854",
+    "key": "丙氨酸氨基转移酶",
+    "Value": "0149"
+  },
+  {
+    "parentkey": "急诊尿常规",
+    "parentvalue": "14192",
+    "key": ".镜下上皮细胞",
+    "Value": "0316"
+  },
+  {
+    "parentkey": "急诊尿常规",
+    "parentvalue": "14192",
+    "key": "上皮细胞（镜检）",
+    "Value": "0224"
+  },
+  {
+    "parentkey": "急诊尿常规",
+    "parentvalue": "14192",
+    "key": "隐血（干化学法）",
+    "Value": "0215"
+  },
+  {
+    "parentkey": "急诊凝血4项",
+    "parentvalue": "32270",
+    "key": "凝血酶原时间对照",
+    "Value": "0302"
+  },
+  {
+    "parentkey": "急诊凝血功能5项",
+    "parentvalue": "32520",
+    "key": "凝血酶原时间",
+    "Value": "0243"
+  },
+  {
+    "parentkey": "急诊生化（钱江）",
+    "parentvalue": "32155",
+    "key": "直接胆红素",
+    "Value": "0157"
+  },
+  {
+    "parentkey": "急诊血常规",
+    "parentvalue": "32262",
+    "key": "淋巴细胞",
+    "Value": "0184"
+  },
+  {
+    "parentkey": "急诊血常规",
+    "parentvalue": "32262",
+    "key": "血小板分布宽度",
+    "Value": "0203"
+  },
+  {
+    "parentkey": "抗磷脂相关抗体（外送",
+    "parentvalue": "31672",
+    "key": "抗β2糖蛋白1抗体(IgM)",
+    "Value": "J729"
+  },
+  {
+    "parentkey": "尿常规",
+    "parentvalue": "30831",
+    "key": "白细胞（镜检）",
+    "Value": "0222"
+  },
+  {
+    "parentkey": "尿淀粉酶",
+    "parentvalue": "32285",
+    "key": "尿淀粉酶",
+    "Value": "0276"
+  },
+  {
+    "parentkey": "凝血功能4项",
+    "parentvalue": "29798",
+    "key": "凝血酶时间对照",
+    "Value": "0306"
+  },
+  {
+    "parentkey": "凝血功能5项（钱江）",
+    "parentvalue": "32269",
+    "key": "凝血酶时间对照",
+    "Value": "0306"
+  },
+  {
+    "parentkey": "生化类检查",
+    "parentvalue": "32153",
+    "key": "氯",
+    "Value": "0181"
+  },
+  {
+    "parentkey": "生化类检查【2】（钱江）",
+    "parentvalue": "33186",
+    "key": "高密度脂蛋白胆固醇",
+    "Value": "0169"
+  },
+  {
+    "parentkey": "生化类检查【2】（钱江）",
+    "parentvalue": "33186",
+    "key": "肌酸激酶同工酶MB",
+    "Value": "0173"
+  },
+  {
+    "parentkey": "生化筛查",
+    "parentvalue": "27849",
+    "key": "白球比值",
+    "Value": "0039"
+  },
+  {
+    "parentkey": "生化筛查",
+    "parentvalue": "27849",
+    "key": "钠",
+    "Value": "0179"
+  },
+  {
+    "parentkey": "生化筛查",
+    "parentvalue": "27849",
+    "key": "尿酸",
+    "Value": "0160"
+  },
+  {
+    "parentkey": "生化筛查",
+    "parentvalue": "27849",
+    "key": "总胆红素",
+    "Value": "0155"
+  },
+  {
+    "parentkey": "微量元素（外送）",
+    "parentvalue": "27441",
+    "key": "全血钙",
+    "Value": "0446"
+  },
+  {
+    "parentkey": "血常规",
+    "parentvalue": "32279",
+    "key": "白细胞",
+    "Value": "0182"
+  },
+  {
+    "parentkey": "血常规",
+    "parentvalue": "32279",
+    "key": "嗜酸性粒细胞",
+    "Value": "0186"
+  },
+  {
+    "parentkey": "血常规+CRP+网织",
+    "parentvalue": "32267",
+    "key": "单核细胞数",
+    "Value": "0190"
+  },
+  {
+    "parentkey": "血常规+CRP+网织",
+    "parentvalue": "32267",
+    "key": "淋巴细胞数",
+    "Value": "0189"
+  },
+  {
+    "parentkey": "血常规+CRP+网织",
+    "parentvalue": "32267",
+    "key": "平均血红蛋白浓度",
+    "Value": "0198"
+  },
+  {
+    "parentkey": "一般细菌培养及鉴定",
+    "parentvalue": "13879",
+    "key": "厄他培南",
+    "Value": "X538"
+  },
+  {
+    "parentkey": "胰岛素0h",
+    "parentvalue": "14954",
+    "key": "胰岛素0h",
+    "Value": "0422"
+  },
+  {
+    "parentkey": "阴道分泌物支原体培养及药敏",
+    "parentvalue": "29758",
+    "key": "培养未检到支原体",
+    "Value": "X070"
+  },
+  {
+    "parentkey": "阴道分泌物支原体培养及药敏",
+    "parentvalue": "29758",
+    "key": "强力霉素",
+    "Value": "8033"
+  },
+  {
+    "parentkey": "自身抗体检测（外送）",
+    "parentvalue": "27432",
+    "key": "SS-A",
+    "Value": "9226"
+  },
+  {
+    "parentkey": "自身抗体检测（外送）",
+    "parentvalue": "27432",
+    "key": "板层素抗体",
+    "Value": "9211"
+  },
+  {
+    "parentkey": "自身抗体检测（外送）",
+    "parentvalue": "27432",
+    "key": "抗肌动蛋白抗体",
+    "Value": "4507"
+  },
+  {
+    "parentkey": "自身抗体检测（外送）",
+    "parentvalue": "27432",
+    "key": "组蛋白抗体",
+    "Value": "9228"
+  },
+  {
+    "parentkey": "白带常规苷酶酯酶H2O2",
+    "parentvalue": "29060",
+    "key": "唾液酸",
+    "Value": "0233"
+  },
+  {
+    "parentkey": "电解质六",
+    "parentvalue": "27384",
+    "key": "氯",
+    "Value": "0181"
+  },
+  {
+    "parentkey": "急诊尿常规",
+    "parentvalue": "14192",
+    "key": ".红细胞",
+    "Value": "0311"
+  },
+  {
+    "parentkey": "急诊尿常规",
+    "parentvalue": "14192",
+    "key": "尿比重（干化学法）",
+    "Value": "0214"
+  },
+  {
+    "parentkey": "急诊生化（钱江）",
+    "parentvalue": "32155",
+    "key": "肌酐",
+    "Value": "0159"
+  },
+  {
+    "parentkey": "急诊生化（钱江）",
+    "parentvalue": "32155",
+    "key": "球蛋白",
+    "Value": "0056"
+  },
+  {
+    "parentkey": "急诊生化（钱江）",
+    "parentvalue": "32155",
+    "key": "溶血指数",
+    "Value": "0463"
+  },
+  {
+    "parentkey": "尿常规",
+    "parentvalue": "30831",
+    "key": ".上皮细胞",
+    "Value": "0315"
+  },
+  {
+    "parentkey": "尿常规",
+    "parentvalue": "30831",
+    "key": "病理管型(镜检)",
+    "Value": "0319"
+  },
+  {
+    "parentkey": "凝血功能5项（钱江）",
+    "parentvalue": "32269",
+    "key": "凝血酶原时间对照",
+    "Value": "0302"
+  },
+  {
+    "parentkey": "生化类检查",
+    "parentvalue": "32153",
+    "key": "肌酸激酶",
+    "Value": "0172"
+  },
+  {
+    "parentkey": "生化类检查",
+    "parentvalue": "32153",
+    "key": "间接胆红素",
+    "Value": "0156"
+  },
+  {
+    "parentkey": "生化类检查",
+    "parentvalue": "32153",
+    "key": "血淀粉酶",
+    "Value": "0175"
+  },
+  {
+    "parentkey": "生化类检查",
+    "parentvalue": "32153",
+    "key": "直接胆红素",
+    "Value": "0157"
+  },
+  {
+    "parentkey": "生化类检查【2】（钱江）",
+    "parentvalue": "33186",
+    "key": "白蛋白",
+    "Value": "0154"
+  },
+  {
+    "parentkey": "生化类检查【2】（钱江）",
+    "parentvalue": "33186",
+    "key": "钾",
+    "Value": "0180"
+  },
+  {
+    "parentkey": "生化类检查【2】（钱江）",
+    "parentvalue": "33186",
+    "key": "载脂蛋白A1",
+    "Value": "0167"
+  },
+  {
+    "parentkey": "涂片找羊水结晶",
+    "parentvalue": "29022",
+    "key": "涂片找羊水结晶",
+    "Value": "0617"
+  },
+  {
+    "parentkey": "血常规",
+    "parentvalue": "32279",
+    "key": "红细胞分布宽度",
+    "Value": "0199"
+  },
+  {
+    "parentkey": "血常规",
+    "parentvalue": "32279",
+    "key": "红细胞压积",
+    "Value": "0195"
+  },
+  {
+    "parentkey": "血常规",
+    "parentvalue": "32279",
+    "key": "平均血红蛋白浓度",
+    "Value": "0198"
+  },
+  {
+    "parentkey": "血常规",
+    "parentvalue": "32279",
+    "key": "血红蛋白",
+    "Value": "0193"
+  },
+  {
+    "parentkey": "血常规+CRP",
+    "parentvalue": "28836",
+    "key": "平均红细胞体积",
+    "Value": "0196"
+  },
+  {
+    "parentkey": "血常规+CRP",
+    "parentvalue": "28836",
+    "key": "血小板",
+    "Value": "0200"
+  },
+  {
+    "parentkey": "血常规+CRP",
+    "parentvalue": "28836",
+    "key": "血小板压积",
+    "Value": "0201"
+  },
+  {
+    "parentkey": "血气分析全套(钱江)",
+    "parentvalue": "34278",
+    "key": "标准剩余碱",
+    "Value": "0580"
+  },
+  {
+    "parentkey": "血气分析全套(钱江)",
+    "parentvalue": "34278",
+    "key": "校准二氧化碳分压",
+    "Value": "0564"
+  },
+  {
+    "parentkey": "阴道分泌物淋球菌培养及鉴定",
+    "parentvalue": "29759",
+    "key": "培养72小时无淋病奈瑟菌生长",
+    "Value": "0690"
+  },
+  {
+    "parentkey": "肿瘤四项",
+    "parentvalue": "32272",
+    "key": "糖类抗原19-9",
+    "Value": "0254"
+  },
+  {
+    "parentkey": "自身抗体检测（外送）",
+    "parentvalue": "27432",
+    "key": "SM",
+    "Value": "9225"
+  },
+  {
+    "parentkey": "24h尿蛋白定量",
+    "parentvalue": "13622",
+    "key": "24小时尿蛋白",
+    "Value": "0280"
+  },
+  {
+    "parentkey": "白带常规",
+    "parentvalue": "27896",
+    "key": "清洁度",
+    "Value": "0435"
+  },
+  {
+    "parentkey": "白带常规苷酶酯酶H2O2",
+    "parentvalue": "29060",
+    "key": "白细胞酯酶",
+    "Value": "0234"
+  },
+  {
+    "parentkey": "病毒性肝炎检测",
+    "parentvalue": "32158",
+    "key": "戊型肝炎病毒IgG抗体(酶免法）",
+    "Value": "0239"
+  },
+  {
+    "parentkey": "弓形虫抗体",
+    "parentvalue": "32549",
+    "key": "弓形虫IgG",
+    "Value": "0539"
+  },
+  {
+    "parentkey": "急诊尿常规",
+    "parentvalue": "14192",
+    "key": ".上皮细胞",
+    "Value": "0315"
+  },
+  {
+    "parentkey": "急诊尿常规",
+    "parentvalue": "14192",
+    "key": "尿胆红素（干化学法）",
+    "Value": "0217"
+  },
+  {
+    "parentkey": "急诊尿常规",
+    "parentvalue": "14192",
+    "key": "颜色",
+    "Value": "0779"
+  },
+  {
+    "parentkey": "急诊凝血4项",
+    "parentvalue": "32270",
+    "key": "APTT对照",
+    "Value": "0304"
+  },
+  {
+    "parentkey": "急诊凝血4项",
+    "parentvalue": "32270",
+    "key": "纤维蛋白原",
+    "Value": "0307"
+  },
+  {
+    "parentkey": "急诊生化（钱江）",
+    "parentvalue": "32155",
+    "key": "间接胆红素",
+    "Value": "0156"
+  },
+  {
+    "parentkey": "急诊生化（钱江）",
+    "parentvalue": "32155",
+    "key": "氯",
+    "Value": "0181"
+  },
+  {
+    "parentkey": "急诊血常规+CRP",
+    "parentvalue": "28829",
+    "key": "淋巴细胞",
+    "Value": "0184"
+  },
+  {
+    "parentkey": "急诊血常规+CRP",
+    "parentvalue": "28829",
+    "key": "平均血红蛋白含量",
+    "Value": "0197"
+  },
+  {
+    "parentkey": "急诊血常规+CRP",
+    "parentvalue": "28829",
+    "key": "平均血小板体积",
+    "Value": "0202"
+  },
+  {
+    "parentkey": "急诊血常规+CRP",
+    "parentvalue": "28829",
+    "key": "血小板分布宽度",
+    "Value": "0203"
+  },
+  {
+    "parentkey": "急诊血常规+CRP",
+    "parentvalue": "28829",
+    "key": "中性粒细胞",
+    "Value": "0183"
+  },
+  {
+    "parentkey": "甲功五",
+    "parentvalue": "27392",
+    "key": "总甲状腺素",
+    "Value": "0246"
+  },
+  {
+    "parentkey": "巨细胞病毒抗体",
+    "parentvalue": "32551",
+    "key": "巨细胞病毒IgG",
+    "Value": "0543"
+  },
+  {
+    "parentkey": "巨细胞病毒抗体",
+    "parentvalue": "32551",
+    "key": "巨细胞病毒IgM",
+    "Value": "0542"
+  },
+  {
+    "parentkey": "抗磷脂相关抗体（外送",
+    "parentvalue": "31672",
+    "key": "抗心磷脂抗体(IgM)",
+    "Value": "J727"
+  },
+  {
+    "parentkey": "凝血功能4项",
+    "parentvalue": "29798",
+    "key": "国际标准化比值",
+    "Value": "0244"
+  },
+  {
+    "parentkey": "生化类检查",
+    "parentvalue": "32153",
+    "key": "白球比值",
+    "Value": "0039"
+  },
+  {
+    "parentkey": "生化类检查",
+    "parentvalue": "32153",
+    "key": "镁",
+    "Value": "0164"
+  },
+  {
+    "parentkey": "生化类检查",
+    "parentvalue": "32153",
+    "key": "球蛋白",
+    "Value": "0056"
+  },
+  {
+    "parentkey": "生化类检查",
+    "parentvalue": "32153",
+    "key": "载脂蛋白B",
+    "Value": "0168"
+  },
+  {
+    "parentkey": "生化类检查【2】（钱江）",
+    "parentvalue": "33186",
+    "key": "磷",
+    "Value": "0163"
+  },
+  {
+    "parentkey": "微量元素（外送）",
+    "parentvalue": "27441",
+    "key": "全血铁",
+    "Value": "0445"
+  },
+  {
+    "parentkey": "微量元素（外送）",
+    "parentvalue": "27441",
+    "key": "全血锌",
+    "Value": "0442"
+  },
+  {
+    "parentkey": "性激素六项",
+    "parentvalue": "27415",
+    "key": "雌二醇",
+    "Value": "0263"
+  },
+  {
+    "parentkey": "性激素六项",
+    "parentvalue": "27415",
+    "key": "孕酮",
+    "Value": "0264"
+  },
+  {
+    "parentkey": "血常规",
+    "parentvalue": "32279",
+    "key": "单核细胞",
+    "Value": "0185"
+  },
+  {
+    "parentkey": "血常规",
+    "parentvalue": "32279",
+    "key": "红细胞",
+    "Value": "0012"
+  },
+  {
+    "parentkey": "血常规+CRP",
+    "parentvalue": "28836",
+    "key": "白细胞",
+    "Value": "0182"
+  },
+  {
+    "parentkey": "血常规+CRP",
+    "parentvalue": "28836",
+    "key": "单核细胞",
+    "Value": "0185"
+  },
+  {
+    "parentkey": "血常规+CRP",
+    "parentvalue": "28836",
+    "key": "嗜酸性粒细胞",
+    "Value": "0186"
+  },
+  {
+    "parentkey": "血常规+CRP+网织",
+    "parentvalue": "32267",
+    "key": "红细胞分布宽度",
+    "Value": "0199"
+  },
+  {
+    "parentkey": "血常规+CRP+网织",
+    "parentvalue": "32267",
+    "key": "嗜酸性粒细胞数",
+    "Value": "0191"
+  },
+  {
+    "parentkey": "血常规+CRP+网织",
+    "parentvalue": "32267",
+    "key": "血红蛋白",
+    "Value": "0193"
+  },
+  {
+    "parentkey": "血气分析全套(钱江)",
+    "parentvalue": "34278",
+    "key": "乳酸",
+    "Value": "0572"
+  },
+  {
+    "parentkey": "血型鉴定",
+    "parentvalue": "29277",
+    "key": "RH血型",
+    "Value": "0402"
+  },
+  {
+    "parentkey": "血粘度",
+    "parentvalue": "27459",
+    "key": "全血粘度低切1（1/s）",
+    "Value": "0485"
+  },
+  {
+    "parentkey": "一般细菌培养及鉴定",
+    "parentvalue": "13879",
+    "key": "莫西沙星",
+    "Value": "X430"
+  },
+  {
+    "parentkey": "一般细菌培养及鉴定",
+    "parentvalue": "13879",
+    "key": "四环素",
+    "Value": "8092"
+  },
+  {
+    "parentkey": "一般细菌培养及鉴定",
+    "parentvalue": "13879",
+    "key": "无乳链球菌(B群)",
+    "Value": "7465"
+  },
+  {
+    "parentkey": "阴道分泌物一般细菌、真菌培养及鉴定",
+    "parentvalue": "29760",
+    "key": "替加环素",
+    "Value": "X568"
+  },
+  {
+    "parentkey": "阴道分泌物衣原体检查",
+    "parentvalue": "29757",
+    "key": "未检到衣原体",
+    "Value": "X326"
+  },
+  {
+    "parentkey": "阴道分泌物支原体培养及药敏",
+    "parentvalue": "29758",
+    "key": "阿奇霉素",
+    "Value": "X236"
+  },
+  {
+    "parentkey": "肿瘤四项",
+    "parentvalue": "32272",
+    "key": "糖类抗原125",
+    "Value": "0255"
+  },
+  {
+    "parentkey": "自身抗体检测（外送）",
+    "parentvalue": "27432",
+    "key": "抗核糖体抗体",
+    "Value": "9214"
+  },
+  {
+    "parentkey": "（艾）微量元素（外送）",
+    "parentvalue": "27441",
+    "key": "全血铜",
+    "Value": "0444"
+  },
+  {
+    "parentkey": "TORCH",
+    "parentvalue": "27453",
+    "key": "巨细胞病毒IgG",
+    "Value": "0543"
+  },
+  {
+    "parentkey": "急诊电解质",
+    "parentvalue": "27967",
+    "key": "氯",
+    "Value": "0181"
+  },
+  {
+    "parentkey": "急诊凝血功能5项",
+    "parentvalue": "32520",
+    "key": "APTT对照",
+    "Value": "0304"
+  },
+  {
+    "parentkey": "急诊凝血功能5项",
+    "parentvalue": "32520",
+    "key": "部分凝血活酶时间",
+    "Value": "0303"
+  },
+  {
+    "parentkey": "急诊生化（钱江）",
+    "parentvalue": "32155",
+    "key": "丙氨酸氨基转移酶",
+    "Value": "0149"
+  },
+  {
+    "parentkey": "急诊生化（钱江）",
+    "parentvalue": "32155",
+    "key": "黄疸指数",
+    "Value": "0462"
+  },
+  {
+    "parentkey": "急诊生化（钱江）",
+    "parentvalue": "32155",
+    "key": "钾",
+    "Value": "0180"
+  },
+  {
+    "parentkey": "急诊血常规",
+    "parentvalue": "32262",
+    "key": "平均血红蛋白浓度",
+    "Value": "0198"
+  },
+  {
+    "parentkey": "甲功五",
+    "parentvalue": "27392",
+    "key": "游离甲状腺素",
+    "Value": "0248"
+  },
+  {
+    "parentkey": "甲功五",
+    "parentvalue": "27392",
+    "key": "游离三碘甲状腺原氨酸",
+    "Value": "0247"
+  },
+  {
+    "parentkey": "巨细胞病毒DNA_血液（",
+    "parentvalue": "29191",
+    "key": "巨细胞病毒DNA",
+    "Value": "J115"
+  },
+  {
+    "parentkey": "尿常规",
+    "parentvalue": "30831",
+    "key": "白细胞（干化学法）",
+    "Value": "0220"
+  },
+  {
+    "parentkey": "尿常规",
+    "parentvalue": "30831",
+    "key": "管型（镜检）",
+    "Value": "0225"
+  },
+  {
+    "parentkey": "贫血三项(钱江)",
+    "parentvalue": "32909",
+    "key": "维生素B12",
+    "Value": "0259"
+  },
+  {
+    "parentkey": "生化类检查",
+    "parentvalue": "32153",
+    "key": "高密度脂蛋白胆固醇",
+    "Value": "0169"
+  },
+  {
+    "parentkey": "生化类检查",
+    "parentvalue": "32153",
+    "key": "抗链球菌溶血素O",
+    "Value": "0176"
+  },
+  {
+    "parentkey": "生化类检查【2】（钱江）",
+    "parentvalue": "33186",
+    "key": "甘胆酸",
+    "Value": "0266"
+  },
+  {
+    "parentkey": "生化类检查【2】（钱江）",
+    "parentvalue": "33186",
+    "key": "钠",
+    "Value": "0179"
+  },
+  {
+    "parentkey": "生化类检查【2】（钱江）",
+    "parentvalue": "33186",
+    "key": "天门冬氨酸氨基转移酶",
+    "Value": "0150"
+  },
+  {
+    "parentkey": "生化类检查【2】（钱江）",
+    "parentvalue": "33186",
+    "key": "载脂蛋白B",
+    "Value": "0168"
+  },
+  {
+    "parentkey": "生化筛查",
+    "parentvalue": "27849",
+    "key": "氯",
+    "Value": "0181"
+  },
+  {
+    "parentkey": "糖化血红蛋白测定（外",
+    "parentvalue": "13481",
+    "key": "HbA1c",
+    "Value": "9250"
+  },
+  {
+    "parentkey": "微量元素",
+    "parentvalue": "27441",
+    "key": "全血铁",
+    "Value": "0445"
+  },
+  {
+    "parentkey": "新型冠状病毒抗体检测",
+    "parentvalue": "34711",
+    "key": "新型冠状病毒抗体IgM",
+    "Value": "0761"
+  },
+  {
+    "parentkey": "血常规",
+    "parentvalue": "32279",
+    "key": "单核细胞数",
+    "Value": "0190"
+  },
+  {
+    "parentkey": "血常规",
+    "parentvalue": "32279",
+    "key": "平均血红蛋白含量",
+    "Value": "0197"
+  },
+  {
+    "parentkey": "血常规+CRP",
+    "parentvalue": "28836",
+    "key": "超敏C反应蛋白",
+    "Value": "0417"
+  },
+  {
+    "parentkey": "血常规+CRP+网织",
+    "parentvalue": "32267",
+    "key": "红细胞压积",
+    "Value": "0195"
+  },
+  {
+    "parentkey": "血常规+CRP+网织",
+    "parentvalue": "32267",
+    "key": "网织红细胞",
+    "Value": "0310"
+  },
+  {
+    "parentkey": "血气分析全套(钱江)",
+    "parentvalue": "34278",
+    "key": "离子钾",
+    "Value": "0573"
+  },
+  {
+    "parentkey": "血气分析全套(钱江)",
+    "parentvalue": "34278",
+    "key": "实际碳酸氢根",
+    "Value": "0577"
+  },
+  {
+    "parentkey": "血脂",
+    "parentvalue": "32259",
+    "key": "甘油三酯",
+    "Value": "0165"
+  },
+  {
+    "parentkey": "阴道分泌物一般细菌、真菌培养及鉴定",
+    "parentvalue": "29760",
+    "key": "白念珠菌",
+    "Value": "X188"
+  },
+  {
+    "parentkey": "阴道分泌物一般细菌、真菌培养及鉴定",
+    "parentvalue": "29760",
+    "key": "四环素",
+    "Value": "8092"
+  },
+  {
+    "parentkey": "阴道分泌物一般细菌真菌培养及药敏（门诊）",
+    "parentvalue": "31964",
+    "key": "正常菌群生长",
+    "Value": "X025"
+  },
+  {
+    "parentkey": "自身抗体检测（外送）",
+    "parentvalue": "27432",
+    "key": "Jo-1",
+    "Value": "9200"
+  },
+  {
+    "parentkey": "自身抗体检测（外送）",
+    "parentvalue": "27432",
+    "key": "PM-Scl抗体",
+    "Value": "9217"
+  },
+  {
+    "parentkey": "（艾）微量元素（外送）",
+    "parentvalue": "27441",
+    "key": "全血锌",
+    "Value": "0442"
+  },
+  {
+    "parentkey": "GLU",
+    "parentvalue": "13479",
+    "key": "葡萄糖",
+    "Value": "0148"
+  },
+  {
+    "parentkey": "白带常规苷酶酯酶H2O2",
+    "parentvalue": "29060",
+    "key": "过氧化氢浓度",
+    "Value": "0232"
+  },
+  {
+    "parentkey": "白带常规苷酶酯酶H2O2",
+    "parentvalue": "29060",
+    "key": "酸碱度",
+    "Value": "0506"
+  },
+  {
+    "parentkey": "肝功",
+    "parentvalue": "27854",
+    "key": "白蛋白",
+    "Value": "0154"
+  },
+  {
+    "parentkey": "急诊尿常规",
+    "parentvalue": "14192",
+    "key": "结晶",
+    "Value": "0322"
+  },
+  {
+    "parentkey": "急诊尿常规",
+    "parentvalue": "14192",
+    "key": "上皮细胞",
+    "Value": "0315"
+  },
+  {
+    "parentkey": "急诊凝血功能5项",
+    "parentvalue": "32520",
+    "key": "D-二聚体",
+    "Value": "0308"
+  },
+  {
+    "parentkey": "急诊血常规+CRP",
+    "parentvalue": "28829",
+    "key": "红细胞",
+    "Value": "0012"
+  },
+  {
+    "parentkey": "急诊血常规+CRP",
+    "parentvalue": "28829",
+    "key": "红细胞分布宽度",
+    "Value": "0199"
+  },
+  {
+    "parentkey": "急诊血常规+CRP",
+    "parentvalue": "28829",
+    "key": "血小板",
+    "Value": "0200"
+  },
+  {
+    "parentkey": "间接抗人球蛋白试验",
+    "parentvalue": "13550",
+    "key": "间接抗人球蛋白试验",
+    "Value": "0404"
+  },
+  {
+    "parentkey": "免疫五项",
+    "parentvalue": "27422",
+    "key": "补体C3",
+    "Value": "0415"
+  },
+  {
+    "parentkey": "免疫五项",
+    "parentvalue": "27422",
+    "key": "免疫球蛋白M",
+    "Value": "0414"
+  },
+  {
+    "parentkey": "尿常规",
+    "parentvalue": "30831",
+    "key": "白细胞",
+    "Value": "0313"
+  },
+  {
+    "parentkey": "尿常规",
+    "parentvalue": "30831",
+    "key": "红细胞",
+    "Value": "0311"
+  },
+  {
+    "parentkey": "尿常规",
+    "parentvalue": "30831",
+    "key": "红细胞（镜检）",
+    "Value": "0221"
+  },
+  {
+    "parentkey": "尿常规",
+    "parentvalue": "30831",
+    "key": "尿比重（干化学法）",
+    "Value": "0214"
+  },
+  {
+    "parentkey": "生化类检查",
+    "parentvalue": "32153",
+    "key": "超敏C反应蛋白",
+    "Value": "0271"
+  },
+  {
+    "parentkey": "生化类检查",
+    "parentvalue": "32153",
+    "key": "乳酸脱氢酶",
+    "Value": "0174"
+  },
+  {
+    "parentkey": "生化类检查",
+    "parentvalue": "32153",
+    "key": "同型半胱氨酸",
+    "Value": "0178"
+  },
+  {
+    "parentkey": "生化类检查",
+    "parentvalue": "32153",
+    "key": "总胆固醇",
+    "Value": "0166"
+  },
+  {
+    "parentkey": "生化类检查",
+    "parentvalue": "32153",
+    "key": "总蛋白",
+    "Value": "0153"
+  },
+  {
+    "parentkey": "生化类检查【2】（钱江）",
+    "parentvalue": "33186",
+    "key": "低密度脂蛋白胆固醇",
+    "Value": "0170"
+  },
+  {
+    "parentkey": "生化类检查【2】（钱江）",
+    "parentvalue": "33186",
+    "key": "肌酸激酶",
+    "Value": "0172"
+  },
+  {
+    "parentkey": "生化类检查【2】（钱江）",
+    "parentvalue": "33186",
+    "key": "碱性磷酸酶",
+    "Value": "0152"
+  },
+  {
+    "parentkey": "生化类检查【2】（钱江）",
+    "parentvalue": "33186",
+    "key": "镁",
+    "Value": "0164"
+  },
+  {
+    "parentkey": "生化类检查【2】（钱江）",
+    "parentvalue": "33186",
+    "key": "葡萄糖",
+    "Value": "0148"
+  },
+  {
+    "parentkey": "生化类检查【2】（钱江）",
+    "parentvalue": "33186",
+    "key": "血淀粉酶",
+    "Value": "0175"
+  },
+  {
+    "parentkey": "生化筛查",
+    "parentvalue": "27849",
+    "key": "白蛋白",
+    "Value": "0154"
+  },
+  {
+    "parentkey": "输血血样检测",
+    "parentvalue": "33588",
+    "key": "RH血型",
+    "Value": "0402"
+  },
+  {
+    "parentkey": "微量元素",
+    "parentvalue": "27441",
+    "key": "全血钙",
+    "Value": "0446"
+  },
+  {
+    "parentkey": "维生素D(D2+D3)",
+    "parentvalue": "0000002421",
+    "key": "25-羟基维生素D3",
+    "Value": "9697"
+  },
+  {
+    "parentkey": "血常规",
+    "parentvalue": "32279",
+    "key": "平均红细胞体积",
+    "Value": "0196"
+  },
+  {
+    "parentkey": "血常规",
+    "parentvalue": "32279",
+    "key": "中性粒细胞",
+    "Value": "0183"
+  },
+  {
+    "parentkey": "血常规",
+    "parentvalue": "32279",
+    "key": "中性粒细胞数",
+    "Value": "0188"
+  },
+  {
+    "parentkey": "血常规+CRP",
+    "parentvalue": "28836",
+    "key": "红细胞压积",
+    "Value": "0195"
+  },
+  {
+    "parentkey": "血常规+CRP+网织",
+    "parentvalue": "32267",
+    "key": "红细胞",
+    "Value": "0012"
+  },
+  {
+    "parentkey": "血常规+CRP+网织",
+    "parentvalue": "32267",
+    "key": "嗜碱性粒细胞",
+    "Value": "0187"
+  },
+  {
+    "parentkey": "血气分析全套(钱江)",
+    "parentvalue": "34278",
+    "key": "阴离子间隙",
+    "Value": "0581"
+  },
+  {
+    "parentkey": "一般细菌培养及鉴定",
+    "parentvalue": "13879",
+    "key": "泰能",
+    "Value": "8050"
+  },
+  {
+    "parentkey": "一般细菌培养及鉴定",
+    "parentvalue": "13879",
+    "key": "妥布霉素",
+    "Value": "8095"
+  },
+  {
+    "parentkey": "阴道分泌物一般细菌、真菌培养及鉴定",
+    "parentvalue": "29760",
+    "key": "光滑念珠菌",
+    "Value": "7097"
+  },
+  {
+    "parentkey": "阴道分泌物一般细菌、真菌培养及鉴定",
+    "parentvalue": "29760",
+    "key": "红霉素",
+    "Value": "8034"
+  },
+  {
+    "parentkey": "阴道分泌物支原体培养及药敏",
+    "parentvalue": "29758",
+    "key": "罗红霉素",
+    "Value": "X235"
+  },
+  {
+    "parentkey": "自身抗体检测（外送）",
+    "parentvalue": "27432",
+    "key": "抗PCNA抗体",
+    "Value": "J318"
+  },
+  {
+    "parentkey": "自身抗体检测（外送）",
+    "parentvalue": "27432",
+    "key": "抗核小体抗体",
+    "Value": "9213"
+  },
+  {
+    "parentkey": "HCG稀释",
+    "parentvalue": "27412",
+    "key": "高稀释度β-HCG",
+    "Value": "0269"
+  },
+  {
+    "parentkey": "TORCH",
+    "parentvalue": "27453",
+    "key": "弓形虫IgG",
+    "Value": "0539"
+  },
+  {
+    "parentkey": "白带常规",
+    "parentvalue": "27896",
+    "key": "线索细胞",
+    "Value": "0231"
+  },
+  {
+    "parentkey": "病毒性肝炎检测",
+    "parentvalue": "32158",
+    "key": "戊型肝炎病毒IgM抗体(酶免法）",
+    "Value": "0238"
+  },
+  {
+    "parentkey": "粪便常规+隐血试验",
+    "parentvalue": "32257",
+    "key": "大便隐血",
+    "Value": "0208"
+  },
+  {
+    "parentkey": "粪便常规+隐血试验",
+    "parentvalue": "32257",
+    "key": "外观性状",
+    "Value": "0204"
+  },
+  {
+    "parentkey": "肝功",
+    "parentvalue": "27854",
+    "key": "碱性磷酸酶",
+    "Value": "0152"
+  },
+  {
+    "parentkey": "肝功",
+    "parentvalue": "27854",
+    "key": "天门冬氨酸氨基转移酶",
+    "Value": "0150"
+  },
+  {
+    "parentkey": "急诊尿常规",
+    "parentvalue": "14192",
+    "key": ".镜下白细胞",
+    "Value": "0314"
+  },
+  {
+    "parentkey": "急诊尿常规",
+    "parentvalue": "14192",
+    "key": "白细胞（干化学法）",
+    "Value": "0220"
+  },
+  {
+    "parentkey": "急诊凝血4项",
+    "parentvalue": "32270",
+    "key": "凝血酶时间",
+    "Value": "0305"
+  },
+  {
+    "parentkey": "急诊生化（钱江）",
+    "parentvalue": "32155",
+    "key": "葡萄糖",
+    "Value": "0148"
+  },
+  {
+    "parentkey": "急诊血常规",
+    "parentvalue": "32262",
+    "key": "嗜碱性粒细胞",
+    "Value": "0187"
+  },
+  {
+    "parentkey": "急诊血常规+CRP",
+    "parentvalue": "28829",
+    "key": "平均红细胞体积",
+    "Value": "0196"
+  },
+  {
+    "parentkey": "甲功三",
+    "parentvalue": "27394",
+    "key": "FT4",
+    "Value": "0248"
+  },
+  {
+    "parentkey": "抗磷脂相关抗体（外送",
+    "parentvalue": "31672",
+    "key": "抗β2糖蛋白1抗体(IgG)",
+    "Value": "J728"
+  },
+  {
+    "parentkey": "尿常规",
+    "parentvalue": "30831",
+    "key": ".非病理管型",
+    "Value": "0317"
+  },
+  {
+    "parentkey": "尿常规",
+    "parentvalue": "30831",
+    "key": "上皮细胞",
+    "Value": "0315"
+  },
+  {
+    "parentkey": "尿常规",
+    "parentvalue": "30831",
+    "key": "维生素C（干化学法）",
+    "Value": "0213"
+  },
+  {
+    "parentkey": "贫血三项(钱江)",
+    "parentvalue": "32909",
+    "key": "叶酸",
+    "Value": "0257"
+  },
+  {
+    "parentkey": "生化类检查",
+    "parentvalue": "32153",
+    "key": "低密度脂蛋白胆固醇",
+    "Value": "0170"
+  },
+  {
+    "parentkey": "生化类检查",
+    "parentvalue": "32153",
+    "key": "钙",
+    "Value": "0162"
+  },
+  {
+    "parentkey": "生化类检查",
+    "parentvalue": "32153",
+    "key": "肌酐",
+    "Value": "0159"
+  },
+  {
+    "parentkey": "生化类检查",
+    "parentvalue": "32153",
+    "key": "碱性磷酸酶",
+    "Value": "0152"
+  },
+  {
+    "parentkey": "生化类检查",
+    "parentvalue": "32153",
+    "key": "尿酸",
+    "Value": "0160"
+  },
+  {
+    "parentkey": "生化类检查",
+    "parentvalue": "32153",
+    "key": "总胆红素",
+    "Value": "0155"
+  },
+  {
+    "parentkey": "生化类检查【2】（钱江）",
+    "parentvalue": "33186",
+    "key": "总胆固醇",
+    "Value": "0166"
+  },
+  {
+    "parentkey": "生化筛查",
+    "parentvalue": "27849",
+    "key": "丙氨酸氨基转移酶",
+    "Value": "0149"
+  },
+  {
+    "parentkey": "新冠病毒抗体检测（钱江）",
+    "parentvalue": "34512",
+    "key": "新型冠状病毒抗体IgM",
+    "Value": "0761"
+  },
+  {
+    "parentkey": "性激素六项",
+    "parentvalue": "27415",
+    "key": "促卵泡激素",
+    "Value": "0260"
+  },
+  {
+    "parentkey": "血常规",
+    "parentvalue": "32279",
+    "key": "嗜酸性粒细胞数",
+    "Value": "0191"
+  },
+  {
+    "parentkey": "血常规+CRP",
+    "parentvalue": "28836",
+    "key": "平均血小板体积",
+    "Value": "0202"
+  },
+  {
+    "parentkey": "血气分析全套(钱江)",
+    "parentvalue": "34278",
+    "key": "离子钠",
+    "Value": "0574"
+  },
+  {
+    "parentkey": "血气分析全套(钱江)",
+    "parentvalue": "34278",
+    "key": "血红蛋白",
+    "Value": "0571"
+  },
+  {
+    "parentkey": "一般细菌培养及鉴定",
+    "parentvalue": "13879",
+    "key": "呋喃妥因",
+    "Value": "X147"
+  },
+  {
+    "parentkey": "阴道分泌物一般细菌、真菌培养及鉴定",
+    "parentvalue": "29760",
+    "key": "粪肠球菌",
+    "Value": "X180"
+  },
+  {
+    "parentkey": "阴道分泌物一般细菌、真菌培养及鉴定",
+    "parentvalue": "29760",
+    "key": "左旋氧氟沙星",
+    "Value": "8054"
+  },
+  {
+    "parentkey": "阴道分泌物支原体培养及药敏",
+    "parentvalue": "29758",
+    "key": "解脲支原体",
+    "Value": "X227"
+  },
+  {
+    "parentkey": "肿瘤五项",
+    "parentvalue": "32179",
+    "key": "CA125",
+    "Value": "0255"
+  },
+  {
+    "parentkey": "自身抗体检测（外送）",
+    "parentvalue": "27432",
+    "key": "SS-B",
+    "Value": "9227"
+  },
+  {
+    "parentkey": "自身抗体检测（外送）",
+    "parentvalue": "27432",
+    "key": "U1RNP",
+    "Value": "9224"
+  },
+  {
+    "parentkey": "（艾）微量元素（外送）",
+    "parentvalue": "27441",
+    "key": "全血镁",
+    "Value": "0447"
+  },
+  {
+    "parentkey": "uE3",
+    "parentvalue": "13667",
+    "key": "未结合雌三醇",
+    "Value": "0431"
+  },
+  {
+    "parentkey": "白带常规苷酶酯酶H2O2",
+    "parentvalue": "29060",
+    "key": "过氧化氢",
+    "Value": "0232"
+  },
+  {
+    "parentkey": "白带常规苷酶酯酶H2O2",
+    "parentvalue": "29060",
+    "key": "清洁度",
+    "Value": "0435"
+  },
+  {
+    "parentkey": "大便沙门、志贺、真菌培养及鉴定",
+    "parentvalue": "29745",
+    "key": "培养未检到志贺氏沙门氏菌属",
+    "Value": "X026"
+  },
+  {
+    "parentkey": "肝功",
+    "parentvalue": "27854",
+    "key": "总胆红素",
+    "Value": "0155"
+  },
+  {
+    "parentkey": "急诊尿常规",
+    "parentvalue": "14192",
+    "key": "红细胞（镜检）",
+    "Value": "0221"
+  },
+  {
+    "parentkey": "急诊凝血功能5项",
+    "parentvalue": "32520",
+    "key": "国际标准化比值",
+    "Value": "0244"
+  },
+  {
+    "parentkey": "急诊血常规",
+    "parentvalue": "32262",
+    "key": "中性粒细胞数",
+    "Value": "0188"
+  },
+  {
+    "parentkey": "急诊血常规+CRP",
+    "parentvalue": "28829",
+    "key": "血小板压积",
+    "Value": "0201"
+  },
+  {
+    "parentkey": "尿常规",
+    "parentvalue": "30831",
+    "key": ".红细胞",
+    "Value": "0311"
+  },
+  {
+    "parentkey": "尿常规",
+    "parentvalue": "30831",
+    "key": "结晶（镜检）",
+    "Value": "0226"
+  },
+  {
+    "parentkey": "尿常规",
+    "parentvalue": "30831",
+    "key": "尿胆红素（干化学法）",
+    "Value": "0217"
+  },
+  {
+    "parentkey": "尿常规",
+    "parentvalue": "30831",
+    "key": "透明管型",
+    "Value": "0225"
+  },
+  {
+    "parentkey": "尿常规",
+    "parentvalue": "30831",
+    "key": "隐血（干化学法）",
+    "Value": "0215"
+  },
+  {
+    "parentkey": "凝血功能5项（钱江）",
+    "parentvalue": "32269",
+    "key": "国际标准化比值",
+    "Value": "0244"
+  },
+  {
+    "parentkey": "生化类检查",
+    "parentvalue": "32153",
+    "key": "甘油三酯",
+    "Value": "0165"
+  },
+  {
+    "parentkey": "生化类检查",
+    "parentvalue": "32153",
+    "key": "肌酸激酶同工酶MB",
+    "Value": "0173"
+  },
+  {
+    "parentkey": "生化类检查",
+    "parentvalue": "32153",
+    "key": "总胆汁酸",
+    "Value": "0272"
+  },
+  {
+    "parentkey": "生化类检查【2】（钱江）",
+    "parentvalue": "33186",
+    "key": "钙",
+    "Value": "0162"
+  },
+  {
+    "parentkey": "生化类检查【2】（钱江）",
+    "parentvalue": "33186",
+    "key": "总胆红素",
+    "Value": "0155"
+  },
+  {
+    "parentkey": "生化筛查",
+    "parentvalue": "27849",
+    "key": "高密度脂蛋白胆固醇",
+    "Value": "0169"
+  },
+  {
+    "parentkey": "输血血样检测",
+    "parentvalue": "33588",
+    "key": "ABO血型",
+    "Value": "0401"
+  },
+  {
+    "parentkey": "血常规",
+    "parentvalue": "32279",
+    "key": "淋巴细胞数",
+    "Value": "0189"
+  },
+  {
+    "parentkey": "血常规",
+    "parentvalue": "32279",
+    "key": "血小板",
+    "Value": "0200"
+  },
+  {
+    "parentkey": "血常规+CRP",
+    "parentvalue": "28836",
+    "key": "红细胞",
+    "Value": "0012"
+  },
+  {
+    "parentkey": "血常规+CRP",
+    "parentvalue": "28836",
+    "key": "淋巴细胞数",
+    "Value": "0189"
+  },
+  {
+    "parentkey": "血常规+CRP",
+    "parentvalue": "28836",
+    "key": "血红蛋白",
+    "Value": "0193"
+  },
+  {
+    "parentkey": "血常规+CRP+网织",
+    "parentvalue": "32267",
+    "key": "嗜酸性粒细胞",
+    "Value": "0186"
+  },
+  {
+    "parentkey": "血气分析全套(钱江)",
+    "parentvalue": "34278",
+    "key": "体温校正酸碱度.",
+    "Value": "J149"
+  },
+  {
+    "parentkey": "一般细菌培养及鉴定",
+    "parentvalue": "13879",
+    "key": "环丙沙星",
+    "Value": "8020"
+  },
+  {
+    "parentkey": "一般细菌培养及鉴定",
+    "parentvalue": "13879",
+    "key": "喹奴普汀/达福普汀",
+    "Value": "X171"
+  },
+  {
+    "parentkey": "一般细菌培养及鉴定",
+    "parentvalue": "13879",
+    "key": "氯洁霉素",
+    "Value": "8014"
+  },
+  {
+    "parentkey": "一般细菌培养及鉴定",
+    "parentvalue": "13879",
+    "key": "青霉素",
+    "Value": "X143"
+  },
+  {
+    "parentkey": "一般细菌培养及鉴定",
+    "parentvalue": "13879",
+    "key": "头孢曲松",
+    "Value": "8031"
+  },
+  {
+    "parentkey": "阴道分泌物一般细菌、真菌培养及鉴定",
+    "parentvalue": "29760",
+    "key": "氨苄西林",
+    "Value": "8002"
+  },
+  {
+    "parentkey": "阴道分泌物支原体培养及药敏",
+    "parentvalue": "29758",
+    "key": "司帕沙星",
+    "Value": "8084"
+  },
+  {
+    "parentkey": "自身抗体检测（外送）",
+    "parentvalue": "27432",
+    "key": "线粒体抗体-2型",
+    "Value": "9192"
+  }
+]

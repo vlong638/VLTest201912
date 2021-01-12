@@ -1,0 +1,52 @@
+﻿<BusinessEntityTemplate Id="20201222103157" ConnectionString="FYPTConnectionString">
+	<BusinessEntity Id="20201222103157" DisplayName ="孕周期检验模板">
+		<Properties>
+			<!--From="CustomBusinessEntity.ReportName"--> 
+			<Property Id="20201222103157001" DisplayName="检查名称" SourceName="ExamName" ColumnType="String"/>
+			<Property Id="20201222103157002" DisplayName="检查日期" SourceName="ExamTime" ColumnType="DateTime"/>
+			<Property Id="20201222103157003" DisplayName="检验名称" SourceName="ItemName" ColumnType="String"/>
+			<Property Id="20201222103157004" DisplayName="检验结果" SourceName="Value" ColumnType="Int"/>
+		</Properties>
+	</BusinessEntity>
+	<SQLConfig>
+		<Wheres>
+			<Where ComponentName="检查单类别" DisplayName="检查单类别" DisplayType="3" formatter="'%@检查单类别%'" Required="true"/>
+			<Where ComponentName="检验类别" DisplayName="检验类别" DisplayType="3" Required="true"/>
+			<Where ComponentName="起始孕周" DisplayName="起始孕周" DisplayType="5"/>
+			<Where ComponentName="截止孕周" DisplayName="截止孕周" DisplayType="5"/>
+			<Where ComponentName="多值时取值方式" DisplayName="多值时取值方式" DisplayType="3" Options="1:最早,2:最晚,3:最小,4:最大,5:平均" Required="true"/>
+			<Where ComponentName="检验结果小于" DisplayName="检验结果小于" DisplayType="1"/>
+			<Where ComponentName="检验结果大于" DisplayName="检验结果大于" DisplayType="1"/>
+		</Wheres>
+		<SQL>
+			select temp.idcard
+			,temp.dateofprenatal
+			,lo.examname
+			,lo.examtime
+			,lr.itemname
+			,lr.value
+			from
+			(
+				select pi.idcard,pi.dateofprenatal
+				<If Operator="eq" ComponentName="多值时取值方式" Value="1"> ,min(lo.examtime) targetexamtime </If>
+				<If Operator="eq" ComponentName="多值时取值方式" Value="2"> ,max(lo.examtime) targetexamtime </If>
+				from LabOrder lo
+				left join LabResult lr on lo.orderid = lr.orderid
+				left join PregnantInfo pi on lo.idcard = pi.idcard
+				where 1=1
+				<If Operator="NotEmpty" ComponentName="检验类别"> and lr.itemid = @检验类别</If>
+				<If Operator="NotEmpty" ComponentName="起始孕周"> and datediff(week,pi.dateofprenatal,lo.examtime)+40 &gt;= @起始孕周 </If>
+				<If Operator="NotEmpty" ComponentName="截止孕周"> and datediff(week,pi.dateofprenatal,lo.examtime)+40 &lt;= @截止孕周 </If>
+				group by pi.idcard,pi.dateofprenatal
+			) as temp
+			left join LabOrder lo on temp.idcard = lo.idcard and temp.targetexamtime = lo.examtime
+			left join LabResult lr on lo.orderid = lr.orderid
+			<If Operator="NotEmpty" ComponentName="检验类别"> and lr.itemid = @检验类别</If>
+			where 1 = 1
+		</SQL>
+	</SQLConfig>
+	<Router From="PregnantInfo" FromAlias="pi" RouteType="LeftJoin">
+		<On FromField="Idcard" ToField="Idcard"/>
+		<On FromField="DateOfPrenatal" ToField="DateOfPrenatal"/>
+	</Router>
+</BusinessEntityTemplate>

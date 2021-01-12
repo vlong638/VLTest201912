@@ -1,0 +1,14 @@
+{
+  "DB": {
+    "ConnectionStrings": [
+      {
+        "Key": "ResearchConnectionString",
+        "Value": "Data Source=127.0.0.1,1433;Initial Catalog=VLTest;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sa;Password=123"
+      }
+    ]
+  },
+  "Redis": {
+    "ConnectionString": "127.0.0.1:6379",
+    "Prefix": "ResearchAPI.CORS"
+  }
+}
