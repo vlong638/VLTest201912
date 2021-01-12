@@ -2305,7 +2305,7 @@
             1.1.1.获取项目列表
             </summary>
         </member>
-        <member name="M:ResearchAPI.CORS.Controllers.EasyResearchController.GetProject(ResearchAPI.CORS.Services.ReportTaskService,ResearchAPI.CORS.Controllers.EasyResearchController.SimpleProjectRequest)">
+        <member name="M:ResearchAPI.CORS.Controllers.EasyResearchController.GetProject(ResearchAPI.CORS.Common.APIContext,ResearchAPI.CORS.Services.ReportTaskService,ResearchAPI.CORS.Controllers.EasyResearchController.SimpleProjectRequest)">
             <summary>
             1.1.3.获取项目详情
             </summary>

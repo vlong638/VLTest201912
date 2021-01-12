@@ -99,7 +99,7 @@ namespace ResearchAPI.CORS.Services
             });
         }
 
-        internal ServiceResult<GetProjectModel> GetProject(long projectId)
+        internal ServiceResult<GetProjectModel> GetProject(long projectId, long userId)
         {
             return ResearchDbContext.DelegateNonTransaction(c =>
             {
@@ -114,7 +114,7 @@ namespace ResearchAPI.CORS.Services
                 result.AdminIds = ProjectRepository.GetUserIdsByProjectIdAndRoleId(projectId, DomainConstraits.AdminRoleId.Value);
                 result.MemberIds = ProjectRepository.GetUserIdsByProjectIdAndRoleId(projectId, DomainConstraits.MemberRoleId.Value);
                 result.DepartmentIds = ProjectDepartmentRepository.GetDepartmentIdsByProjectId(projectId);
-                result.IsFavorite = FavoriteProjectRepository.GetOne(new FavoriteProject(project.Id, project.CreatorId)) != null;
+                result.IsFavorite = FavoriteProjectRepository.GetOne(new FavoriteProject(project.Id, userId)) != null;
                 result.CreatorId = project.CreatorId;
                 return result;
             });
