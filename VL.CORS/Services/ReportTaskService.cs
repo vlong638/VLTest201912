@@ -43,7 +43,7 @@ namespace ResearchAPI.CORS.Services
         /// <summary>
         /// 
         /// </summary>
-        internal ReportTaskService(DbContext DbContext)
+        public ReportTaskService(DbContext DbContext)
         {
             ResearchDbContext = DbContext;
             Init(DbContext);

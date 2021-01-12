@@ -256,13 +256,15 @@ namespace ResearchAPI.CORS.Controllers
         [EnableCors("AllCors")]
         public APIResult<long> CreateProject([FromServices] APIContext context, [FromServices] ReportTaskService service, [FromBody] CreateProjectRequest request)
         {
-            var userid = context.GetCurrentUser().UserId;
-            var result = service.CreateProject(request, userid);
+            var userId = context.GetCurrentUser().UserId;
+            var result = service.CreateProject(request, userId);
             if (result.IsSuccess)
             {
-                //{用户}设置了项目名称{项目名称}，
                 var projectId = result.Data;
-                var userId = context.GetCurrentUser().UserId;
+                //新建的项目自动收藏
+                service.AddFavoriteProject(projectId, userId);
+
+                //{用户}设置了项目名称{项目名称}，
                 var userName = context.GetCurrentUser().UserName;
                 var text = $"{userName}设置了项目名称:{request.ProjectName}";
                 service.AddProjectLog(userId, projectId, ActionType.EditProjectName, text);

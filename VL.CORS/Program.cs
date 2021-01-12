@@ -6,7 +6,7 @@ using ResearchAPI.CORS.Common;
 using ResearchAPI.CORS.Services;
 using System.Linq;
 
-namespace VL.CORS
+namespace ResearchAPI.CORS
 {
     public class Program
     {

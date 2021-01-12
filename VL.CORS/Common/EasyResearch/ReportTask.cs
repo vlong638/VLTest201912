@@ -111,7 +111,23 @@ namespace ResearchAPI.CORS.Common
             Dictionary<string, object> args = new Dictionary<string, object>();
             foreach (var item in Conditions)
             {
-                args.Add(item.GetParameterName(), item.Value);
+                switch (item.Operator)
+                {
+                    case WhereOperator.Like:
+                        args.Add(item.GetParameterName(), $"%{item.Value}%");
+                        break;
+                    case WhereOperator.None:
+                    case WhereOperator.Equal:
+                    case WhereOperator.IsNotNull:
+                    case WhereOperator.IsNull:
+                    case WhereOperator.GreatThan:
+                    case WhereOperator.LessThan:
+                    case WhereOperator.GreatOrEqualThan:
+                    case WhereOperator.LessOrEqualThan:
+                    default:
+                        args.Add(item.GetParameterName(), item.Value);
+                        break;
+                }
             }
             foreach (var item in TemplateConditions)
             {

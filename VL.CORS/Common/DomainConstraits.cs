@@ -97,7 +97,7 @@ namespace ResearchAPI.CORS.Common
             var values = ids.Select(c => dic.ContainsKey(c) ? dic[c] : c.ToString()).ToList();
             return values;
         }
-        internal static void InitData(ReportTaskService reportTaskService)
+        public static void InitData(ReportTaskService reportTaskService)
         {
             #region BusinessEntity
             var businessEntitiesCollection = ConfigHelper.GetCOBusinessEntities();
