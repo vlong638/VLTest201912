@@ -6,6 +6,9 @@ using System.Xml.Linq;
 
 namespace ResearchAPI.CORS.Common
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class IfCondition
     {
         public static string ElementName = "If";
@@ -14,6 +17,10 @@ namespace ResearchAPI.CORS.Common
         public string Value { set; get; }
         public string Text { set; get; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="element"></param>
         public IfCondition(XElement element)
         {
             Operator = element.Attribute(nameof(Operator)).Value;

@@ -244,6 +244,17 @@
             表对值 条件项
             </summary>
         </member>
+        <member name="T:ResearchAPI.CORS.Common.IfCondition">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Common.IfCondition.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            
+            </summary>
+            <param name="element"></param>
+        </member>
         <member name="T:ResearchAPI.CORS.Common.IWhere">
             <summary>
             筛选条件接口
@@ -658,6 +669,76 @@
             <summary>
             
             </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Common.SQLEntity">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Common.SQLEntity.GetSQL(System.Collections.Generic.List{ResearchAPI.CORS.Common.Field2ValueWhere})">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Common.RawSQL">
+            <summary>
+            纯SQL
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Common.RawSQL.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.RawSQL.SQL">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Common.RawSQL.GetSQL(System.Collections.Generic.List{ResearchAPI.CORS.Common.Field2ValueWhere})">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:ResearchAPI.CORS.Common.IfSQL">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Common.IfSQL.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="sql"></param>
+        </member>
+        <member name="M:ResearchAPI.CORS.Common.IfSQL.GetSQL(System.Collections.Generic.List{ResearchAPI.CORS.Common.Field2ValueWhere})">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:ResearchAPI.CORS.Common.RootSQL">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Common.RootSQL.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="sql"></param>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.RootSQL.SQLEntities">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Common.RootSQL.GetSQL(System.Collections.Generic.List{ResearchAPI.CORS.Common.Field2ValueWhere})">
+            <summary>
+            
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:ResearchAPI.CORS.Common.SQLConfigV3">
             <summary>

@@ -1,5 +1,11 @@
 ﻿[
   {
+    "parentkey": "血常规",
+    "parentvalue": "32279",
+    "key": "嗜碱性粒细胞数",
+    "Value": "0192"
+  },
+  {
     "parentkey": "TORCH",
     "parentvalue": "27453",
     "key": "单纯疱疹病毒2型IgG(酶免法）",
@@ -598,12 +604,6 @@
     "parentvalue": "0000002421",
     "key": "25-羟基维生素D2",
     "Value": "9696"
-  },
-  {
-    "parentkey": "血常规",
-    "parentvalue": "32279",
-    "key": "嗜碱性粒细胞数",
-    "Value": "0192"
   },
   {
     "parentkey": "血常规+CRP",

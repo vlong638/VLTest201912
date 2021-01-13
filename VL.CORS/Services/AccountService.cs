@@ -196,8 +196,7 @@ namespace ResearchAPI.CORS.Services
                 {
                     throw new Exception("角色名已被使用");
                 }
-                var result = RoleRepository.Update(newRole);
-                return result;
+                return RoleRepository.UpdateRoleName(newRole.Id,newRole.Name)>0;
             });
         }
 

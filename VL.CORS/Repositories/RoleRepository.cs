@@ -88,6 +88,12 @@ where 1=1
                 , new { name = $"%{name}%" }
                 , transaction: _transaction);
         }
+
+        internal int UpdateRoleName(long id, string name)
+        {
+            return _connection.Execute(@"update Role Set Name =@Name where id = @Id;"
+                , new { id, name }, transaction: _transaction);
+        }
     }
 
     public class UserRoleModel

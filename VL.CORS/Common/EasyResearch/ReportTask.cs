@@ -141,12 +141,12 @@ namespace ResearchAPI.CORS.Common
             var customBusinessEntities = CustomBusinessEntities;
             var properties = Properties;
             var routers = Routers;
-            var conditions = Conditions;
+            var wheres = Conditions;
             var templates = Templates;
             var sql = $@"
 {GetSelect(properties)}
-{GetFrom(routers, properties, customBusinessEntities, templates)}
-{GetWhere(conditions)}
+{GetFrom(routers, properties, customBusinessEntities, templates, TemplateConditions)}
+{GetWhere(wheres)}
 {GetGroupBy(properties)}
 ";
             UpdateIf(ref sql, TemplateConditions);
@@ -183,7 +183,7 @@ namespace ResearchAPI.CORS.Common
             }
         }
 
-        private string GetFrom(List<Router> routers, List<COBusinessEntityProperty> properties, COCustomBusinessEntitySet customBusinessEntities, List<BusinessEntityTemplate> templates)
+        private string GetFrom(List<Router> routers, List<COBusinessEntityProperty> properties, COCustomBusinessEntitySet customBusinessEntities, List<BusinessEntityTemplate> templates, List<Field2ValueWhere> templateWheres)
         {
             if (routers.Count == 0)
             {
@@ -195,12 +195,12 @@ namespace ResearchAPI.CORS.Common
                 StringBuilder sb = new StringBuilder();
                 var root = "PregnantInfo";
                 sb.AppendLine($" from [{root}] ");
-                AppendRoute(sb, routers, root, templates);
+                AppendRoute(sb, routers, root, templates, templateWheres);
                 return sb.ToString();
             }
         }
 
-        private void AppendRoute(StringBuilder sb, List<Router> routers, string fromName, List<BusinessEntityTemplate> templates)
+        private void AppendRoute(StringBuilder sb, List<Router> routers, string fromName, List<BusinessEntityTemplate> templates, List<Field2ValueWhere> templateWheres)
         {
             var tos = routers.Where(c => c.From == fromName);
             if (tos == null)
@@ -210,13 +210,13 @@ namespace ResearchAPI.CORS.Common
                 if (item.TemplateId > 0)
                 {
                     var template = templates.FirstOrDefault(c => c.Id == item.TemplateId);
-                    sb.AppendLine($"left join ({template.SQLConfig.SQL.Replace("@", "@" + item.To + "_")})as [{item.To}] on {string.Join(" and ", item.Ons.Select(o => $"[{item.From}].{o.FromField} = [{item.To}].{o.ToField}"))} ");
+                    sb.AppendLine($"left join ({template.SQLConfig.SQL.GetSQL(templateWheres).Replace("@", "@" + item.To + "_")})as [{item.To}] on {string.Join(" and ", item.Ons.Select(o => $"[{item.From}].{o.FromField} = [{item.To}].{o.ToField}"))} ");
                 }
                 else
                 {
                     sb.AppendLine($"left join [{item.To}] on {string.Join(" and ", item.Ons.Select(o => $"[{item.From}].{o.FromField} = [{item.To}].{o.ToField}"))} ");
                 }
-                AppendRoute(sb, routers, item.To, templates);
+                AppendRoute(sb, routers, item.To, templates, templateWheres);
             }
         }
 

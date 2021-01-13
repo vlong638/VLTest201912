@@ -21,6 +21,199 @@ namespace Autobots.Infrastracture.Common.ValuesSolution
 
         #region string
 
+        /// <summary>
+        /// 兼容嵌套
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
+        public static string GetNestedContent(this string str, string start, string end)
+        {
+            var temp = "";//临时字符串,用以判断起止
+            var startAt = 0;
+            var cStart = start.ToCharArray();
+            for (int i = 0; i < str.Length; i++)
+            {
+                var c = str[i];
+                if (cStart.Contains(c))
+                {
+                    if (start[temp.Length] != c)
+                    {
+                        temp = start[0] == c ? c.ToString() : "";
+
+                    }
+                    else
+                    {
+                        temp += c;
+                        if (temp == start)
+                        {
+                            startAt = i + 1;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    temp = "";
+                }
+            }
+            temp = "";
+            var endAt = 0;
+            var cEnd = end.ToCharArray();
+            for (int i = str.Length - 1; i > startAt; i--)
+            {
+                var c = str[i];
+                if (cEnd.Contains(c))
+                {
+                    if (end[end.Length - temp.Length - 1] != c)
+                    {
+                        temp = end[end.Length - 1] == c ? c.ToString() : "";
+
+                    }
+                    else
+                    {
+                        temp = c + temp;
+                        if (temp == end)
+                        {
+                            endAt = i;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    temp = "";
+                }
+            }
+            return str.Substring(startAt, endAt - startAt);
+        }
+
+        /// <summary>
+        /// 兼容嵌套
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
+        public static List<string> SplitByMatchesWithNested(this string str, string start, string end)
+        {
+            List<string> result = new List<string>();
+            var temp = "";//临时字符串,用以判断起止
+            var tempStart = "";
+            var tempEnd = "";
+            var subStart = 0;
+            var cStart = start.ToCharArray();
+            var cEnd = end.ToCharArray();
+            var isStart = false;
+            var current = "";//当前内容项
+            foreach (var c in str)
+            {
+                current += c;
+
+                if (!isStart && cStart.Contains(c))
+                {
+
+                    if (start[temp.Length] != c)
+                    {
+                        temp = start[0] == c ? c.ToString() : "";
+
+                    }
+                    else
+                    {
+                        temp += c;
+                        if (temp == start)
+                        {
+                            isStart = true;
+                            result.Add(current.TrimEnd(start));
+                            temp = "";
+                            current = start;
+                        }
+                    }
+                    continue;
+                }
+                else if (isStart && (cStart.Contains(c) || cEnd.Contains(c)))
+                {
+                    if (cStart.Contains(c))
+                    {
+                        if (start[tempStart.Length] != c)
+                        {
+                            tempStart = start[0] == c ? c.ToString() : "";
+                        }
+                        else
+                        {
+                            tempStart += c;
+                            if (tempStart == start)
+                            {
+                                subStart++;
+                                tempStart = "";
+                                continue;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        tempStart = "";
+                    }
+                    if(cEnd.Contains(c))
+                    {
+                        if (subStart != 0)
+                        {
+                            if (end[tempEnd.Length] != c)
+                            {
+                                tempEnd = end[0] == c ? c.ToString() : "";
+
+                            }
+                            else
+                            {
+                                tempEnd += c;
+                                if (tempEnd == end)
+                                {
+                                    subStart--;
+                                    tempEnd = "";
+                                    continue;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (end[temp.Length] != c)
+                            {
+                                temp = end[0] == c ? c.ToString() : "";
+
+                            }
+                            else
+                            {
+                                temp += c;
+                                if (temp == end)
+                                {
+                                    isStart = false;
+                                    result.Add(current);
+                                    temp = "";
+                                    current = "";
+                                    continue;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        tempEnd = "";
+                        temp = "";
+                    }
+                }
+                else
+                {
+                    temp = "";
+                }
+            }
+            if (!current.IsNullOrEmpty())
+            {
+                result.Add(current);
+            }
+            return result;
+        }
+
         public static List<string> GetMatches(this string str, string start, string end)
         {
             List<string> result = new List<string>();

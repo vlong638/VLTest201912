@@ -1,4 +1,5 @@
 using Autobots.Infrastracture.Common.DBSolution;
+using Autobots.Infrastracture.Common.ValuesSolution;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -12,6 +13,9 @@ namespace ResearchAPI.CORS
     {
         public static void Main(string[] args)
         {
+            var template = ConfigHelper.GetBusinessEntityTemplate("Configs\\XMLConfigs\\BusinessEntities", "Template_‘–÷‹ºÏ—È.xml");
+
+
             CreateHostBuilder(args).Build().Run();
         }
 

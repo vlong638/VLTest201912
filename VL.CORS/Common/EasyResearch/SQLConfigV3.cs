@@ -7,6 +7,173 @@ using System.Xml.Linq;
 namespace ResearchAPI.CORS.Common
 {
     /// <summary>
+    /// 
+    /// </summary>
+    public interface SQLEntity {
+        /// <summary>
+        /// 
+        /// </summary>
+        string GetSQL(List<Field2ValueWhere> wheres);
+    }
+    /// <summary>
+    /// 纯SQL
+    /// </summary>
+    public class RawSQL : SQLEntity
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        public RawSQL(string sql)
+        {
+            this.SQL = sql;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string SQL{ get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public string GetSQL(List<Field2ValueWhere> wheres)
+        {
+            return WebUtility.HtmlDecode(SQL);
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public class IfSQL : SQLEntity
+    {
+        internal static string ElementName = "If";
+        internal string Operator { set; get; }
+        internal string ComponentName { set; get; }
+        internal string Value { set; get; }
+        internal List<SQLEntity> SQLEntities { get; } = new List<SQLEntity>();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sql"></param>
+        public IfSQL(string sql)
+        {
+            var xItem = new XDocument(new XElement("root", XElement.Parse(sql)));
+            var element = xItem.Descendants(IfCondition.ElementName).First();
+            Operator = element.Attribute(nameof(Operator)).Value;
+            ComponentName = element.Attribute(nameof(ComponentName))?.Value;
+            Value = element.Attribute(nameof(Value))?.Value;
+
+            var nestedContent = element.ToString().GetNestedContent(">", "</If>");
+            var splitMatched = nestedContent.SplitByMatchesWithNested("<If", "</If>");
+            if (splitMatched.Count>0)
+            {
+                foreach (var item in splitMatched)
+                {
+                    if (item.StartsWith("<If"))
+                    {
+                        SQLEntities.Add(new IfSQL(item));
+                    }
+                    else
+                    {
+                        SQLEntities.Add(new RawSQL(item));
+                    }
+                }
+            }
+            else
+            {
+                SQLEntities.Add(new RawSQL(nestedContent));
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public string GetSQL(List<Field2ValueWhere> wheres)
+        {
+            if (Pass(wheres))
+            {
+                return string.Join(" ", SQLEntities.Select(c => c.GetSQL(wheres)));
+            }
+            else
+            {
+                return "";
+            }
+        }
+
+        private bool Pass(List<Field2ValueWhere> wheres)
+        {
+            switch (Operator)
+            {
+                case "NotEmpty":
+                    var where = wheres.FirstOrDefault(c => c.FieldName == ComponentName);
+                    if (where != null && !where.Value.IsNullOrEmpty())
+                    {
+                        return true;
+                    }
+                    break;
+                case "eq":
+                    where = wheres.FirstOrDefault(c => c.FieldName == ComponentName);
+                    if (where != null && where.Value == Value)
+                    {
+                        return true;
+                    }
+                    break;
+                case "in":
+                    where = wheres.FirstOrDefault(c => c.FieldName == ComponentName);
+                    if (where != null && Value.Split(",").Contains(where.Value))
+                    {
+                        return true;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public class RootSQL : SQLEntity {
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sql"></param>
+        public RootSQL(string sql)
+        {
+            var result = sql.SplitByMatchesWithNested("<If", "</If>");
+            foreach (var item in result)
+            {
+                if (item.StartsWith("<If"))
+                {
+                    SQLEntities.Add(new IfSQL(item));
+                }
+                else
+                {
+                    SQLEntities.Add(new RawSQL(item));
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public List<SQLEntity> SQLEntities { get; } = new List<SQLEntity>();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public string GetSQL(List<Field2ValueWhere> wheres)
+        {
+            return string.Join(" ", SQLEntities.Select(c => c.GetSQL(wheres)));
+        }
+    }
+
+    /// <summary>
     /// 查询sql配置
     /// </summary>
     public class SQLConfigV3
@@ -29,7 +196,7 @@ namespace ResearchAPI.CORS.Common
         /// <summary>
         /// 预设SQL
         /// </summary>
-        public string SQL { set; get; }
+        public RootSQL SQL { set; get; }
 
         /// <summary>
         /// 
@@ -45,7 +212,8 @@ namespace ResearchAPI.CORS.Common
         public SQLConfigV3(XElement element)
         {
             Wheres = element.Descendants(SQLConfigV3Where.ElementName).Select(c => new SQLConfigV3Where(c)).ToList();
-            SQL = element.Descendants(nameof(SQL))?.FirstOrDefault().ToString().TrimStart("<SQL>").TrimEnd("</SQL>");
+            var sql = element.Descendants(nameof(SQL))?.FirstOrDefault().ToString().TrimStart("<SQL>").TrimEnd("</SQL>");
+            SQL = new RootSQL(sql);
 
             //SQL = WebUtility.HtmlDecode(SQL);
             //CountSQL = WebUtility.HtmlDecode(CountSQL);
