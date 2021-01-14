@@ -19,10 +19,10 @@ namespace ResearchAPI.CORS.Common
         ///// 实体Id
         ///// </summary>
         //public long BusinessEntityId { set; get; }
-        ///// <summary>
-        ///// 字段Id
-        ///// </summary>
-        //public long BusinessEntityPropertyId { set; get; }
+        /// <summary>
+        /// 字段Id
+        /// </summary>
+        public long BusinessEntityPropertyId { set; get; }
         /// <summary>
         /// 实体名称 如`基本档案`
         /// 即: EntityDisplayName

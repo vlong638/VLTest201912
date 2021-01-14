@@ -368,6 +368,7 @@ namespace ResearchAPI.CORS.Services
                     var m = new GetProjectIndicatorModel();
                     c.MapTo(m);
                     m.DisplayName = c.PropertyDisplayName;
+                    m.BusinessEntityPropertyId = c.BusinessEntityPropertyId;
                     if (c.IsTemplate())
                     {
                         m.EntityName = c.TemplateDisplayName;

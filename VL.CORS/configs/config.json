@@ -3,7 +3,7 @@
     "ConnectionStrings": [
       {
         "Key": "ResearchConnectionString",
-        "Value": "Data Source=127.0.0.1,1433;Initial Catalog=VLTest;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sa;Password=123",
+        "Value": "Data Source=127.0.0.1,1433;Initial Catalog=VLTest;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sa;Password=123"
         //"Value": "Data Source192.189.101.181,1433;Initial Catalog=Research;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=HZFYUSER;Password=HZFYPWD"
       }
     ]
@@ -11,5 +11,33 @@
   "Redis": {
     "ConnectionString": "127.0.0.1:6379",
     "Prefix": "ResearchAPI.CORS"
+  },
+  "CORS": {
+    "Origins": [
+      {
+        "Key": "ÎÄÐÀ",
+        "Value": "http://localhost:63342"
+      },
+      {
+        "Key": "Ò»·«",
+        "Value": "http://localhost:8848"
+      },
+      {
+        "Key": "Ò»·«",
+        "Value": "http://192.168.50.172:8848"
+      },
+      {
+        "Key": "vl",
+        "Value": "http://localhost:14314"
+      },
+      {
+        "Key": "vl",
+        "Value": "http://localhost:8065"
+      },
+      {
+        "Key": "190",
+        "Value": "http://localhost:8042"
+      }
+    ]
   }
 }

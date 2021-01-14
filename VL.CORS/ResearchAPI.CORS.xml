@@ -148,16 +148,6 @@
             </summary>
             <param name="context"></param>
         </member>
-        <member name="T:ResearchAPI.CORS.Common.DBConfig">
-            <summary>
-            配置样例
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.CORS.Common.DBConfig.ConnectionStrings">
-            <summary>
-            
-            </summary>
-        </member>
         <member name="T:ResearchAPI.CORS.Common.KVType">
             <summary>
             
@@ -889,6 +879,26 @@
         <member name="T:ResearchAPI.CORS.Common.WhereSet">
             <summary>
             条件集
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Common.CORSConfig">
+            <summary>
+            配置样例
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.CORSConfig.Origins">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Common.DBConfig">
+            <summary>
+            配置样例
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.DBConfig.ConnectionStrings">
+            <summary>
+            
             </summary>
         </member>
         <member name="T:ResearchAPI.CORS.Common.DropDownItem">
@@ -2027,6 +2037,11 @@
         <member name="P:ResearchAPI.CORS.Common.GetProjectIndicatorModel.Id">
             <summary>
             
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetProjectIndicatorModel.BusinessEntityPropertyId">
+            <summary>
+            字段Id
             </summary>
         </member>
         <member name="P:ResearchAPI.CORS.Common.GetProjectIndicatorModel.EntityName">

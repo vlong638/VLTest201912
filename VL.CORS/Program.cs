@@ -13,9 +13,6 @@ namespace ResearchAPI.CORS
     {
         public static void Main(string[] args)
         {
-            var template = ConfigHelper.GetBusinessEntityTemplate("Configs\\XMLConfigs\\BusinessEntities", "Template_‘–÷‹ºÏ—È.xml");
-
-
             CreateHostBuilder(args).Build().Run();
         }
 
