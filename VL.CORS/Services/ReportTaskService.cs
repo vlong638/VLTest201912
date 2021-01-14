@@ -586,6 +586,7 @@ namespace ResearchAPI.CORS.Services
                     //string.Join("\r\n",parameters.Select(c=> "declare @"+c.Key+" nvarchar(50); set @"+c.Key+" = '"+ c.Value+"'"))
                     var parameters = reportTask.GetParameters();
                     var sql = reportTask.GetSQL();
+                    Log4NetLogger.LogSQL(sql, parameters);
                     dataTable = SharedRepository.GetDataTable(sql, parameters);
                     //转译处理结果
                     var repeatCount = 0;

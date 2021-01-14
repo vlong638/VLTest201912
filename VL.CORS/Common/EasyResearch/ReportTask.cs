@@ -29,6 +29,42 @@ namespace ResearchAPI.CORS.Common
         public COBusinessEntity BusinessEntity { set; get; }
         public SQLConfigV3 SQLConfig { set; get; }
         public Router Router { set; get; }
+
+        internal BusinessEntityTemplate Clone()
+        {
+            return new BusinessEntityTemplate()
+            {
+                Id = this.Id,
+                ConnectionString = this.ConnectionString,
+                BusinessEntity = new COBusinessEntity() { 
+                    DisplayName= this.BusinessEntity.DisplayName,
+                    Id= this.BusinessEntity.Id,
+                    Properties= this.BusinessEntity.Properties,
+                    SourceName= this.BusinessEntity.SourceName,
+                    SQLConfig= this.BusinessEntity.SQLConfig,
+                    Template= this.BusinessEntity.Template,
+                },
+                Router = this.Router,
+                SQLConfig = new SQLConfigV3()
+                {
+                    OrderBys = this.SQLConfig.OrderBys,
+                    PageIndex = this.SQLConfig.PageIndex,
+                    PageSize = this.SQLConfig.PageSize,
+                    RawSQL = this.SQLConfig.RawSQL,
+                    SQLEntity = this.SQLConfig.SQLEntity,
+                    Wheres = this.SQLConfig.Wheres.Select(c => new SQLConfigV3Where()
+                    {
+                        ComponentName = c.ComponentName,
+                        DisplayName = c.DisplayName,
+                        Formatter = c.Formatter,
+                        IsOn = c.IsOn,
+                        Required = c.Required,
+                        SQL = c.SQL,
+                        Value = c.Value,
+                    }).ToList(),
+                }
+            };
+        }
     }
 
     public class BusinessContext
@@ -209,8 +245,8 @@ namespace ResearchAPI.CORS.Common
             {
                 if (item.TemplateId > 0)
                 {
-                    var template = templates.FirstOrDefault(c => c.Id == item.TemplateId);
-                    sb.AppendLine($"left join ({template.SQLConfig.SQL.GetSQL(templateWheres).Replace("@", "@" + item.To + "_")})as [{item.To}] on {string.Join(" and ", item.Ons.Select(o => $"[{item.From}].{o.FromField} = [{item.To}].{o.ToField}"))} ");
+                    var template = templates.FirstOrDefault(c => c.Id == item.TemplateId && c.BusinessEntity.SourceName == item.To);
+                    sb.AppendLine($"left join ({template.SQLConfig.SQLEntity.GetSQL(templateWheres).Replace("@", "@" + item.To + "_")})as [{item.To}] on {string.Join(" and ", item.Ons.Select(o => $"[{item.From}].{o.FromField} = [{item.To}].{o.ToField}"))} ");
                 }
                 else
                 {
@@ -238,18 +274,25 @@ namespace ResearchAPI.CORS.Common
                 if (custom != null)
                 {
                     //Router
-                    var template = templates.FirstOrDefault(c => c.Id == custom.TemplateId);
-                    if (template != null)
+                    var orientTemplate = templates.FirstOrDefault(c => c.Id == custom.TemplateId);
+                    if (orientTemplate != null)
                     {
+                        var template = orientTemplate.Clone();
                         var router = new Router();
                         template.Router.MapTo(router);
-                        router.To = item.GetUniqueEntitySourceName();
+                        var entitySourceName = item.GetUniqueEntitySourceName();
+                        router.To = entitySourceName;
+
+                        template.BusinessEntity.SourceName = entitySourceName;
+                        template.SQLConfig.UpdateEntitySourceName(entitySourceName);
+
                         router.TemplateId = template.Id;
                         if (!reportTask.Routers.Contains(router))
-                        reportTask.Routers.Add(router);
+                            reportTask.Routers.Add(router);
+
+                        //Tempalte
+                        reportTask.Templates.Add(template);
                     }
-                    //Tempalte
-                    reportTask.Templates.Add(template);
                     //Property
                     reportTask.Properties.Add(new COBusinessEntityProperty()
                     {
@@ -262,7 +305,7 @@ namespace ResearchAPI.CORS.Common
                 {
                     //Router
                     var router = routers.FirstOrDefault(c => c.To == item.EntitySourceName);
-                    if (router != null&& !reportTask.Routers.Contains(router))
+                    if (router != null && !reportTask.Routers.Contains(router))
                         reportTask.Routers.Add(router);
                     //Property
                     reportTask.Properties.Add(new COBusinessEntityProperty()

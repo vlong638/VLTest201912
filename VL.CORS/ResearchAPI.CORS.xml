@@ -760,9 +760,14 @@
             页面排序项
             </summary>
         </member>
-        <member name="P:ResearchAPI.CORS.Common.SQLConfigV3.SQL">
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigV3.SQLEntity">
             <summary>
             预设SQL
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.SQLConfigV3.RawSQL">
+            <summary>
+            原始SQL
             </summary>
         </member>
         <member name="M:ResearchAPI.CORS.Common.SQLConfigV3.#ctor">

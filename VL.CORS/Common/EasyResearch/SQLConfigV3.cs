@@ -107,21 +107,21 @@ namespace ResearchAPI.CORS.Common
             switch (Operator)
             {
                 case "NotEmpty":
-                    var where = wheres.FirstOrDefault(c => c.FieldName == ComponentName);
+                    var where = wheres.FirstOrDefault(c => c.EntityName + "_" + c.FieldName == ComponentName);
                     if (where != null && !where.Value.IsNullOrEmpty())
                     {
                         return true;
                     }
                     break;
                 case "eq":
-                    where = wheres.FirstOrDefault(c => c.FieldName == ComponentName);
+                    where = wheres.FirstOrDefault(c => c.EntityName + "_" + c.FieldName == ComponentName);
                     if (where != null && where.Value == Value)
                     {
                         return true;
                     }
                     break;
                 case "in":
-                    where = wheres.FirstOrDefault(c => c.FieldName == ComponentName);
+                    where = wheres.FirstOrDefault(c => c.EntityName + "_" + c.FieldName == ComponentName);
                     if (where != null && Value.Split(",").Contains(where.Value))
                     {
                         return true;
@@ -196,7 +196,11 @@ namespace ResearchAPI.CORS.Common
         /// <summary>
         /// 预设SQL
         /// </summary>
-        public RootSQL SQL { set; get; }
+        public RootSQL SQLEntity { set; get; }
+        /// <summary>
+        /// 原始SQL
+        /// </summary>
+        public string RawSQL { set; get; }
 
         /// <summary>
         /// 
@@ -212,8 +216,9 @@ namespace ResearchAPI.CORS.Common
         public SQLConfigV3(XElement element)
         {
             Wheres = element.Descendants(SQLConfigV3Where.ElementName).Select(c => new SQLConfigV3Where(c)).ToList();
-            var sql = element.Descendants(nameof(SQL))?.FirstOrDefault().ToString().TrimStart("<SQL>").TrimEnd("</SQL>");
-            SQL = new RootSQL(sql);
+            var sql = element.Descendants("SQL")?.FirstOrDefault().ToString().TrimStart("<SQL>").TrimEnd("</SQL>");
+            RawSQL = sql;
+            SQLEntity = new RootSQL(sql);
 
             //SQL = WebUtility.HtmlDecode(SQL);
             //CountSQL = WebUtility.HtmlDecode(CountSQL);
@@ -279,6 +284,17 @@ namespace ResearchAPI.CORS.Common
                     whereConfig.Value = where.Value;
                 }
             }
+        }
+
+        internal void UpdateEntitySourceName(string entitySourceName)
+        {
+            foreach (var where in Wheres)
+            {
+                where.ComponentName = entitySourceName + "_" + where.ComponentName;
+            }
+
+            var newSQL = RawSQL.Replace(@"ComponentName=""", @"ComponentName=""" + entitySourceName + "_");
+            SQLEntity = new RootSQL(newSQL);
         }
 
         #endregion

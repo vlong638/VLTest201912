@@ -10,6 +10,10 @@ namespace ResearchAPI.CORS.Common
         /// </summary>
         public const string ElementName = "Where";
 
+        public SQLConfigV3Where()
+        {
+        }
+
         /// <summary>
         /// 
         /// </summary>
