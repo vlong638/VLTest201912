@@ -554,6 +554,7 @@ namespace ResearchAPI.CORS.Services
                     throw new NotImplementedException("计划不存在");
                 try
                 {
+                    Log4NetLogger.Info("开始数据导出");
                     //更新处理任务状态
                     ProjectScheduleRepository.UpdateSchedule(schedule.Id, ScheduleStatus.Started, "", "任务正在执行中");
 
@@ -584,11 +585,13 @@ namespace ResearchAPI.CORS.Services
                     DataTable dataTable = null;
                     var reportTask = new ReportTask(task.Name);
                     reportTask.Update(projectIndicators, taskWheres, customBusinessEntities, customBusinessEntityWheres, defaultRouters, templates, reportTask);
+                    Log4NetLogger.Info("引擎装载成功");
                     //string.Join("\r\n",parameters.Select(c=> "declare @"+c.Key+" nvarchar(50); set @"+c.Key+" = '"+ c.Value+"'"))
                     var parameters = reportTask.GetParameters();
                     var sql = reportTask.GetSQL();
                     Log4NetLogger.LogSQL(sql, parameters);
                     dataTable = SharedRepository.GetDataTable(sql, parameters);
+                    Log4NetLogger.Info("查询数据成功");
                     //转译处理结果
                     var repeatCount = 0;
                     foreach (DataColumn column in dataTable.Columns)
@@ -605,9 +608,11 @@ namespace ResearchAPI.CORS.Services
                     }
                     //输出处理结果
                     var projectIndicators2 = projectIndicators;
-                    var filePath = $"{schedule.Id}_{DateTime.Now.ToString("yyyy_MM_dd_mm_hh_ss")}.xls";
+                    var filePath = $"{schedule.Id}_{DateTime.Now.ToString("yyyy_MM_dd_mm_hh_ss")}.xlsx";
                     var fullPath = Path.Combine(FileHelper.GetDirectory("Export"), filePath);
+                    Log4NetLogger.Info("开始数据导出");
                     ExcelHelper.ExportDataTableToExcel(dataTable, fullPath);
+                    Log4NetLogger.Info("导出数据成功");
                     //更新处理任务状态
                     ProjectScheduleRepository.UpdateSchedule(schedule.Id, ScheduleStatus.Completed, "Export/" + filePath, "");
                 }

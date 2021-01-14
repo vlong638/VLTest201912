@@ -2,18 +2,18 @@
 
 --User
 truncate table [user]
-insert into [user] (name,password) values ('admin','e10adc3949ba59abbe56e057f0f883e')
-insert into [user] (name,password) values ('test01','e10adc3949ba59abbe56e057f0f883e')
-insert into [user] (name,password) values ('test02','e10adc3949ba59abbe56e057f0f883e')
-insert into [user] (name,password) values ('test03','e10adc3949ba59abbe56e057f0f883e')
-insert into [user] (name,password) values ('test04','e10adc3949ba59abbe56e057f0f883e')
+insert into [user] (name,password) values ('admin','e10adc3949ba59abbe56e057f20f883e')
+insert into [user] (name,password) values ('test01','e10adc3949ba59abbe56e057f20f883e')
+insert into [user] (name,password) values ('test02','e10adc3949ba59abbe56e057f20f883e')
+insert into [user] (name,password) values ('test03','e10adc3949ba59abbe56e057f20f883e')
+insert into [user] (name,password) values ('test04','e10adc3949ba59abbe56e057f20f883e')
 select * from [user];
 
 --Role
 truncate table [role]
-insert into role (name) values('项目创建人')
-insert into role (name) values('项目管理员')
-insert into role (name) values('项目成员')
+insert into role (name,category) values('项目创建人',1)
+insert into role (name,category) values('项目管理员',1)
+insert into role (name,category) values('项目成员',1)
 select * from  [role];
 
 --Authority

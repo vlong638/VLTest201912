@@ -1,5 +1,5 @@
-﻿using NPOI.HSSF.UserModel;
-using NPOI.SS.UserModel;
+﻿using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -121,7 +121,7 @@ namespace Autobots.Infrastracture.Common.ExcelSolution
         #region Excel
         public static void ExportDataTableToExcel(this DataTable dt, string path)
         {
-            HSSFWorkbook workbook = new HSSFWorkbook();
+            var workbook = new XSSFWorkbook();
             string sheetName = "Sheet1";
             ISheet sheet = workbook.CreateSheet(sheetName);
             IRow dataRow = sheet.CreateRow(0);
