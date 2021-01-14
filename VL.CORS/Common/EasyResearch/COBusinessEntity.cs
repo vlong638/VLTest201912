@@ -9,8 +9,15 @@ namespace ResearchAPI.CORS.Common
     {
         public const string ElementName = "BusinessEntity";
 
-        public COBusinessEntity()
+        public COBusinessEntity(COBusinessEntity businessEntity)
         {
+            this.Id = businessEntity.Id;
+            this.DisplayName = businessEntity.DisplayName;
+            this.SourceName = businessEntity.SourceName;
+            this.Template = businessEntity.Template;
+            this.Properties = businessEntity.Properties.Select(c => new COBusinessEntityProperty(c)).ToList();
+            this.SQLConfig = new SQLConfigV3(businessEntity.SQLConfig);
+
         }
         public COBusinessEntity(XElement element)
         {

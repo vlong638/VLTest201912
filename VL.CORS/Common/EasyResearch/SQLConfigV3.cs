@@ -207,8 +207,9 @@ namespace ResearchAPI.CORS.Common
         /// </summary>
         public SQLConfigV3()
         {
-
+            
         }
+
         /// <summary>
         /// 
         /// </summary>
@@ -218,11 +219,24 @@ namespace ResearchAPI.CORS.Common
             Wheres = element.Descendants(SQLConfigV3Where.ElementName).Select(c => new SQLConfigV3Where(c)).ToList();
             var sql = element.Descendants("SQL")?.FirstOrDefault().ToString().TrimStart("<SQL>").TrimEnd("</SQL>");
             RawSQL = sql;
-            SQLEntity = new RootSQL(sql);
+            SQLEntity = new RootSQL(RawSQL);
 
             //SQL = WebUtility.HtmlDecode(SQL);
             //CountSQL = WebUtility.HtmlDecode(CountSQL);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="c"></param>
+        public SQLConfigV3(SQLConfigV3 c)
+        {
+            Wheres = c.Wheres.Select(c => new SQLConfigV3Where(c)).ToList();
+            RawSQL = c.RawSQL;
+            SQLEntity = new RootSQL(RawSQL);            
+        }
+
+
         #endregion
 
         public string GetListSQL(string sql, int skip = 0, int limit = 0)

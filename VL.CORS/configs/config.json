@@ -3,7 +3,8 @@
     "ConnectionStrings": [
       {
         "Key": "ResearchConnectionString",
-        "Value": "Data Source=127.0.0.1,1433;Initial Catalog=VLTest;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sa;Password=123"
+        "Value": "Data Source=127.0.0.1,1433;Initial Catalog=VLTest;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sa;Password=123",
+        //"Value": "Data Source192.189.101.181,1433;Initial Catalog=Research;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=HZFYUSER;Password=HZFYPWD"
       }
     ]
   },

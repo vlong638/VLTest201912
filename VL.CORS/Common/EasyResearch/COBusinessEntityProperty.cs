@@ -11,6 +11,17 @@ namespace ResearchAPI.CORS.Common
         public COBusinessEntityProperty()
         {
         }
+
+        public COBusinessEntityProperty(COBusinessEntityProperty c)
+        {
+            From = c.SourceName;
+            Id = c.Id;
+            DisplayName = c.DisplayName;
+            SourceName = c.SourceName;
+            ColumnType = c.ColumnType;
+            EnumType = c.EnumType;
+        }
+
         public COBusinessEntityProperty(COBusinessEntity cOBusinessEntity, XElement element)
         {
             From = cOBusinessEntity.SourceName;

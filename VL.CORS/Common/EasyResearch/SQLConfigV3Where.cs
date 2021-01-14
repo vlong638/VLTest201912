@@ -14,6 +14,16 @@ namespace ResearchAPI.CORS.Common
         {
         }
 
+        public SQLConfigV3Where(SQLConfigV3Where c)
+        {
+            ComponentName = c.ComponentName;
+            DisplayName = c.DisplayName;
+            Formatter = c.Formatter;
+            IsOn = c.IsOn;
+            Required = c.Required;
+            SQL = c.SQL;
+        }
+
         /// <summary>
         /// 
         /// </summary>

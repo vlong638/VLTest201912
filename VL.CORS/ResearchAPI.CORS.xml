@@ -781,6 +781,12 @@
             </summary>
             <param name="element"></param>
         </member>
+        <member name="M:ResearchAPI.CORS.Common.SQLConfigV3.#ctor(ResearchAPI.CORS.Common.SQLConfigV3)">
+            <summary>
+            
+            </summary>
+            <param name="c"></param>
+        </member>
         <member name="T:ResearchAPI.CORS.Common.SQLConfigV3OrderBy">
             <summary>
             

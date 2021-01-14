@@ -36,33 +36,9 @@ namespace ResearchAPI.CORS.Common
             {
                 Id = this.Id,
                 ConnectionString = this.ConnectionString,
-                BusinessEntity = new COBusinessEntity() { 
-                    DisplayName= this.BusinessEntity.DisplayName,
-                    Id= this.BusinessEntity.Id,
-                    Properties= this.BusinessEntity.Properties,
-                    SourceName= this.BusinessEntity.SourceName,
-                    SQLConfig= this.BusinessEntity.SQLConfig,
-                    Template= this.BusinessEntity.Template,
-                },
+                BusinessEntity = new COBusinessEntity(this.BusinessEntity),
                 Router = this.Router,
-                SQLConfig = new SQLConfigV3()
-                {
-                    OrderBys = this.SQLConfig.OrderBys,
-                    PageIndex = this.SQLConfig.PageIndex,
-                    PageSize = this.SQLConfig.PageSize,
-                    RawSQL = this.SQLConfig.RawSQL,
-                    SQLEntity = this.SQLConfig.SQLEntity,
-                    Wheres = this.SQLConfig.Wheres.Select(c => new SQLConfigV3Where()
-                    {
-                        ComponentName = c.ComponentName,
-                        DisplayName = c.DisplayName,
-                        Formatter = c.Formatter,
-                        IsOn = c.IsOn,
-                        Required = c.Required,
-                        SQL = c.SQL,
-                        Value = c.Value,
-                    }).ToList(),
-                }
+                SQLConfig = new SQLConfigV3(this.SQLConfig),
             };
         }
     }
