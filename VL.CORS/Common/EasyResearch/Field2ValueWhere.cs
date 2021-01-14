@@ -37,7 +37,7 @@ namespace ResearchAPI.CORS.Common
 
         public string GetParameterName()
         {
-            return $@"@{EntityName}_{Operator.ToString()}_{FieldName}";
+            return $@"{EntityName}_{Operator.ToString()}_{FieldName}";
         }
 
         public string GetValue()
@@ -53,7 +53,7 @@ namespace ResearchAPI.CORS.Common
         {
             //TODO 这里理论上需要知道数据库的知识
             var field = new DBField();
-            return $"[{EntityName}].[{FieldName}] { Operator.ToSQL() } { GetParameterName() }";
+            return $"[{EntityName}].[{FieldName}] { Operator.ToSQL() } @{ GetParameterName() }";
         }
     }
 }

@@ -4,6 +4,7 @@ using Dapper;
 using ResearchAPI.CORS.Common;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 
 namespace ResearchAPI.CORS.Repositories
@@ -106,7 +107,13 @@ namespace ResearchAPI.CORS.Repositories
         public DataTable GetDataTable(string sql, Dictionary<string, object> parameters)
         {
             DataTable table = new DataTable("MyTable");
-            var reader = context.DbGroup.Connection.ExecuteReader(sql, parameters, transaction: _transaction);
+            context.DbGroup.Command.CommandTimeout = 1800;
+
+            //System.Data.SqlClient.SqlDataAdapter da = new System.Data.SqlClient.SqlDataAdapter();
+            //da.SelectCommand = (SqlCommand)context.DbGroup.Command;
+            //da.Fill(table);
+
+            var reader = context.DbGroup.Connection.ExecuteReader(sql, parameters, commandTimeout: 1800, transaction: _transaction);
             table.Load(reader);
             return table;
         }

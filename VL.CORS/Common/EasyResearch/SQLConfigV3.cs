@@ -231,6 +231,9 @@ namespace ResearchAPI.CORS.Common
         /// <param name="c"></param>
         public SQLConfigV3(SQLConfigV3 c)
         {
+            if (c == null)
+                return;
+
             Wheres = c.Wheres.Select(c => new SQLConfigV3Where(c)).ToList();
             RawSQL = c.RawSQL;
             SQLEntity = new RootSQL(RawSQL);            
