@@ -79,6 +79,8 @@ namespace ResearchAPI.CORS.Common
         public static Dictionary<long, string> ViewAuthorizeTypes { private set; get; }
         public static Dictionary<string, string> LabOrders { get; private set; }
         public static List<IGrouping<string, VLKeyValue<string, string, string, string>>> LabResults { get; private set; }
+        public static List<BusinessEntityTemplate> Templates { get; private set; }
+
 
         internal static string RenderIdToText<T>(T id, Dictionary<T, string> source) where T : IComparable
         {
@@ -167,6 +169,10 @@ namespace ResearchAPI.CORS.Common
             }
             LabOrders = result;
             LabResults = labs.GroupBy(c => c.ParentValue).ToList();
+
+            //Templates
+            Templates = new List<BusinessEntityTemplate>();
+            Templates.Add(ConfigHelper.GetBusinessEntityTemplate("Configs\\XMLConfigs\\BusinessEntities", "Template_孕周检验.xml"));
         }
     }
 }

@@ -1028,8 +1028,8 @@
 			<Property Id="101008029" DisplayName="孕周" SourceName="pregweek" ColumnType="Int"/>
 			<Property Id="101008027" DisplayName="孕天" SourceName="pregday" ColumnType="Int"/>
 			<Property Id="101008008" DisplayName="诊断" SourceName="diagnosis" ColumnType="String"/>
-			<Property Id="101008013" DisplayName="高危等级" SourceName="highrisklevel" ColumnType="Enum" EnumType="HIGHRISKLEVEL"/>
-			<Property Id="101008014" DisplayName="高危因素" SourceName="highriskreason" ColumnType="String"/>
+			<!--<Property Id="101008013" DisplayName="高危等级" SourceName="highrisklevel" ColumnType="Enum" EnumType="HIGHRISKLEVEL"/>
+			<Property Id="101008014" DisplayName="高危因素" SourceName="highriskreason" ColumnType="String"/>-->
 			<Property Id="101008001" DisplayName="病情摘要" SourceName="abstractinfo" ColumnType="String"/>
 			<Property Id="101008034" DisplayName="联系电话" SourceName="reportcontact" ColumnType="String"/>
 			
@@ -1074,6 +1074,7 @@
 	<BusinessEntity Id="101009" DisplayName ="高危因素" SourceName="MHC_HighRiskReason">
 		<Properties>
 			<Property Id="101009011" DisplayName="身份证号" SourceName="idcard" ColumnType="String"/>
+			
 			<Property Id="101009006" DisplayName="高危等级" SourceName="HighRiskLevel" ColumnType="Enum" EnumType="HIGHRISKLEVEL"/>
 			<Property Id="101009008" DisplayName="高危因素" SourceName="HighRiskReasonText" ColumnType="String"/>
 			<Property Id="101009009" DisplayName="高危评分" SourceName="HighRiskScore" ColumnType="Int"/>

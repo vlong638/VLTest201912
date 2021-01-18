@@ -1419,7 +1419,7 @@
             选择的属性
             </summary>
         </member>
-        <member name="P:ResearchAPI.CORS.Common.BusinessEntityPropertyModel.Id">
+        <member name="P:ResearchAPI.CORS.Common.BusinessEntityPropertyModel.TemplatePropertyId">
             <summary>
             字段Id
             </summary>

@@ -6,6 +6,18 @@
     "Value": "0192"
   },
   {
+    "parentkey": "甲功三+uE3+贫血三项(钱江)+甲状腺抗体",
+    "parentvalue": "10036856",
+    "key": "TG-Ab",
+    "Value": "0250"
+  },
+  {
+    "parentkey": "甲功三+uE3+贫血三项(钱江)+甲状腺抗体",
+    "parentvalue": "10036856",
+    "key": "TPO-Ab",
+    "Value": "0251"
+  },
+  {
     "parentkey": "TORCH",
     "parentvalue": "27453",
     "key": "单纯疱疹病毒2型IgG(酶免法）",
@@ -554,7 +566,7 @@
   {
     "parentkey": "甲功五",
     "parentvalue": "27392",
-    "key": "总三碘甲状腺原氨酸",
+    "key": "总三碘甲状腺原氨酸(T3)",
     "Value": "0245"
   },
   {
@@ -2654,7 +2666,7 @@
   {
     "parentkey": "甲功五",
     "parentvalue": "27392",
-    "key": "总甲状腺素",
+    "key": "总甲状腺素(T5)",
     "Value": "0246"
   },
   {

@@ -170,6 +170,22 @@ namespace ResearchAPI.CORS.Controllers
                         .First(c => c.Key == parentId)
                         .Select(c => new VLKeyValue<string, string>(c.Value, c.Key)));
                     return Success(values);
+                case "TemplateProperty":
+                    switch (parentId)
+                    {
+                        case"20201222103157": //Template_孕周检验.xml
+                            var template = DomainConstraits.Templates.FirstOrDefault(c => c.Id == parentId.ToLong());
+                            if (template==null)
+                            {
+                                throw new NotImplementedException("模板不存在");
+                            }
+                            var properties = template.BusinessEntity.Properties
+                                .Select(c => new VLKeyValue<string, string>() { Key = c.DisplayName, Value = c.Id.ToString() })
+                                .ToList();
+                            return Success(properties);
+                        default:
+                            throw new NotImplementedException("未支持该parentId");
+                    }
                 default:
                     throw new NotImplementedException("未支持该类型");
             }
@@ -453,11 +469,8 @@ namespace ResearchAPI.CORS.Controllers
             {
                 case TargetArea.None:
                     break;
-                case TargetArea.Pregnant:
-                    var template = ConfigHelper.GetBusinessEntityTemplate("Configs\\XMLConfigs\\BusinessEntities", "Template_孕周检验.xml");
-                    request.Properties = new List<BusinessEntityPropertyModel>() {
-                        new BusinessEntityPropertyModel(){ ColumnName = "Value"},
-                    };
+                case TargetArea.PregnantLabResult:
+                    var template = DomainConstraits.Templates.First(c => c.BusinessEntity.Id == 20201222103157);
                     var result = service.CreateCustomIndicator(request, template);
                     return new APIResult<List<BusinessEntityPropertyModel>>(result);
                 case TargetArea.Woman:

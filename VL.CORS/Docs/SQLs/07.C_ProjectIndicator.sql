@@ -11,6 +11,7 @@ CREATE TABLE [dbo].[ProjectIndicator](
 	[BusinessEntityId][bigint] NOT NULL,
 	[BusinessEntityPropertyId][bigint] NOT NULL,
 	[TemplateId][bigint] NOT NULL,
+	[TemplatePropertyId][bigint] NOT NULL,
 	[db_createtime] [datetime] DEFAULT CURRENT_TIMESTAMP,
 	[db_updatetime] [datetime] NULL,
 	-------------------------------------------

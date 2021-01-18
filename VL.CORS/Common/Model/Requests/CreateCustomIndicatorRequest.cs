@@ -73,11 +73,7 @@ namespace ResearchAPI.CORS.Common
         /// <summary>
         /// 字段Id
         /// </summary>
-        public long Id { set; get; }
-        /// <summary>
-        /// 字段名称
-        /// </summary>
-        public string ColumnName { set; get; }
+        public long TemplatePropertyId { set; get; }
     }
 
     /// <summary>
@@ -90,9 +86,9 @@ namespace ResearchAPI.CORS.Common
         /// </summary>
         None = 0,
         /// <summary>
-        /// 
+        /// 孕期检验模板
         /// </summary>
-        Pregnant,
+        PregnantLabResult,
         /// <summary>
         /// 
         /// </summary>
