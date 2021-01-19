@@ -31,7 +31,7 @@ namespace ResearchAPI.CORS.Common
         /// 默认为:检验值
         /// 可选有:检验值,检验日期,检验单号
         /// </summary>
-        internal List<BusinessEntityPropertyModel> Properties { set; get; }
+        public List<BusinessEntityPropertyModel> Properties { set; get; }
         /// <summary>
         /// 时间周期模板
         /// </summary>

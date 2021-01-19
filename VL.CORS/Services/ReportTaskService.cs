@@ -209,7 +209,9 @@ namespace ResearchAPI.CORS.Services
                         Name = c.SourceName,
                         DisplayName = c.DisplayName,
                         ColumnType = c.ColumnType,
-                        EnumType = c.EnumType
+                        EnumType = c.EnumType,
+                        TemplateId = template.Id,
+                        TemplatePropertyId = c.Id,
                     }).ToList();
                     //自定义实体条件
                     //普通传参
@@ -236,15 +238,16 @@ namespace ResearchAPI.CORS.Services
                         Operator = "eq",
                     });
                     //项目属性
-                    var projectProperties = request.Properties.Select(c => {
+                    var projectProperties = request.Properties.Select(c =>
+                    {
                         var templateProperty = template.BusinessEntity.Properties.First(d => d.Id == c.TemplatePropertyId);
                         return new ProjectIndicator()
                         {
                             TemplateId = template.Id,
+                            TemplatePropertyId = templateProperty.Id,
                             ProjectId = request.ProjectId,
-                            TemplatePropertyId = c.TemplatePropertyId,
                             PropertySourceName = templateProperty.SourceName,
-                            PropertyDisplayName = templateProperty.DisplayName,
+                            PropertyDisplayName = periodTemplate.PropertyDisplayName + "_" + templateProperty.DisplayName,
                         };
                     }).ToList();
                     results.AddRange(CreateCustomProjectIndicator(templateBE, templateBEProperties, templateBEWheres, projectProperties));
@@ -269,11 +272,14 @@ namespace ResearchAPI.CORS.Services
             projectProperties.ForEach(c =>
             {
                 c.BusinessEntityId = entityId;
+                c.BusinessEntityPropertyId = templateBEProperties.First(d => d.TemplatePropertyId == c.TemplatePropertyId).Id;
                 c.EntitySourceName = entityId.ToString();
-                //c.PropertySourceName = templateBEProperties.First(d => d.Id == c.Id).SourceName;
                 c.Id = ProjectIndicatorRepository.InsertOne(c);
             });
-            return projectProperties.Select(c => new BusinessEntityPropertyModel() { TemplatePropertyId = c.Id, ColumnName = c.PropertySourceName }).ToList();
+            return projectProperties.Select(c => new BusinessEntityPropertyModel()
+            {
+                TemplatePropertyId = c.Id,
+            }).ToList();
         }
 
         internal ServiceResult<List<GetProjectOperateHistoryModel>> GetProjectOperateHistory(GetProjectOperateHistoryRequest request)

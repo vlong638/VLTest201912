@@ -8,6 +8,8 @@ GO
 CREATE TABLE [dbo].[CustomBusinessEntityProperty](
 	[Id][bigint] IDENTITY(300000000, 2) NOT NULL,
 	[BusinessEntityId][bigint] NOT NULL,
+	TemplateId[bigint] NOT NULL,
+	TemplatePropertyId[bigint] NOT NULL,
 	-------------------------------------------上关联
 	[db_createtime] [datetime] DEFAULT CURRENT_TIMESTAMP,
 	[db_updatetime] [datetime] NULL,

@@ -12,6 +12,9 @@ namespace ResearchAPI.CORS.Common
         /// 业务对象Id
         /// </summary>
         public long BusinessEntityId { set; get; }
+        public long TemplateId { set; get; }
+        public long TemplatePropertyId { set; get; }
+
         /// <summary>
         /// 来源对象名称: 表或临时表或视图
         /// </summary>

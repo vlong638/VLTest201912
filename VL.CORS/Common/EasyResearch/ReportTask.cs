@@ -244,30 +244,34 @@ namespace ResearchAPI.CORS.Common
 
         public void Update(List<ProjectIndicator> projectIndicators, List<ProjectTaskWhere> taskWheres, List<CustomBusinessEntity> customBusinessEntities, List<CustomBusinessEntityWhere> customBusinessEntityWheres, Routers routers, List<BusinessEntityTemplate> templates, ReportTask reportTask)
         {
+            List<long> businessEntityIds = new List<long>();
             foreach (var item in projectIndicators)
             {
                 var custom = customBusinessEntities.FirstOrDefault(c => c.Id == item.BusinessEntityId);
                 if (custom != null)
                 {
-                    //Router
-                    var orientTemplate = templates.FirstOrDefault(c => c.Id == custom.TemplateId);
-                    if (orientTemplate != null)
+                    if (!businessEntityIds.Exists(c => c == item.BusinessEntityId))
                     {
-                        var template = orientTemplate.Clone();
-                        var router = new Router();
-                        template.Router.MapTo(router);
-                        var entitySourceName = item.GetUniqueEntitySourceName();
-                        router.To = entitySourceName;
+                        var orientTemplate = templates.FirstOrDefault(c => c.Id == custom.TemplateId);
+                        if (orientTemplate != null)
+                        {
+                            //Router
+                            var template = orientTemplate.Clone();
+                            var router = new Router();
+                            template.Router.MapTo(router);
+                            var entitySourceName = item.GetUniqueEntitySourceName();
+                            router.To = entitySourceName;
 
-                        template.BusinessEntity.SourceName = entitySourceName;
-                        template.SQLConfig.UpdateEntitySourceName(entitySourceName);
+                            template.BusinessEntity.SourceName = entitySourceName;
+                            template.SQLConfig.UpdateEntitySourceName(entitySourceName);
 
-                        router.TemplateId = template.Id;
-                        if (!reportTask.Routers.Contains(router))
-                            reportTask.Routers.Add(router);
+                            router.TemplateId = template.Id;
+                            if (!reportTask.Routers.Contains(router))
+                                reportTask.Routers.Add(router);
 
-                        //Tempalte
-                        reportTask.Templates.Add(template);
+                            //Tempalte
+                            reportTask.Templates.Add(template);
+                        }
                     }
                     //Property
                     reportTask.Properties.Add(new COBusinessEntityProperty()
@@ -291,6 +295,7 @@ namespace ResearchAPI.CORS.Common
                         From = item.EntitySourceName,
                     });
                 }
+                businessEntityIds.Add(item.BusinessEntityId);
             }
             //reportTask.Properties.AddRange(projectIndicators.Select(c => new COBusinessEntityProperty()
             //{

@@ -1424,11 +1424,6 @@
             字段Id
             </summary>
         </member>
-        <member name="P:ResearchAPI.CORS.Common.BusinessEntityPropertyModel.ColumnName">
-            <summary>
-            字段名称
-            </summary>
-        </member>
         <member name="T:ResearchAPI.CORS.Common.TargetArea">
             <summary>
             
@@ -1439,9 +1434,9 @@
             
             </summary>
         </member>
-        <member name="F:ResearchAPI.CORS.Common.TargetArea.Pregnant">
+        <member name="F:ResearchAPI.CORS.Common.TargetArea.PregnantLabResult">
             <summary>
-            
+            孕期检验模板
             </summary>
         </member>
         <member name="F:ResearchAPI.CORS.Common.TargetArea.Woman">

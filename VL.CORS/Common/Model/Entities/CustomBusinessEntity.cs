@@ -8,8 +8,9 @@ namespace ResearchAPI.CORS.Common
         public const string TableName = "CustomBusinessEntity";
 
         public long Id { set; get; }
-        public string Name { set; get; }
         public long TemplateId { set; get; }
+
+        public string Name { set; get; }
         public string DisplayName { get; internal set; }
     }
 }

@@ -32,6 +32,10 @@
       },
       {
         "Key": "vl",
+        "Value": "http://192.168.50.128:8042"
+      },
+      {
+        "Key": "vl",
         "Value": "http://localhost:8065"
       },
       {

@@ -13,7 +13,7 @@ namespace ResearchAPI.CORS.Common
         public long BusinessEntityId { set; get; }
         public long BusinessEntityPropertyId { set; get; }
         public long TemplateId { set; get; }
-        public long TemplatePropertyId { get; internal set; }
+        public long TemplatePropertyId { get; set; }
         public string EntitySourceName { set; get; }
         public string PropertySourceName { set; get; }
         public string PropertyDisplayName { set; get; }
