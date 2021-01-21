@@ -107,15 +107,19 @@ namespace ResearchAPI.CORS.Repositories
         public DataTable GetDataTable(string sql, Dictionary<string, object> parameters)
         {
             DataTable table = new DataTable("MyTable");
-            context.DbGroup.Command.CommandTimeout = 1800;
-
-            //System.Data.SqlClient.SqlDataAdapter da = new System.Data.SqlClient.SqlDataAdapter();
-            //da.SelectCommand = (SqlCommand)context.DbGroup.Command;
-            //da.Fill(table);
-
-            var reader = context.DbGroup.Connection.ExecuteReader(sql, parameters, commandTimeout: 1800, transaction: _transaction);
+            var reader = context.DbGroup.Connection.ExecuteReader(sql, parameters, commandTimeout: 3600, transaction: _transaction);
             table.Load(reader);
             return table;
+        }
+
+        internal int CreateTempTable(string sql, Dictionary<string, object> parameters)
+        {
+            return context.DbGroup.Connection.Execute(sql, parameters, commandTimeout: 3600, transaction: _transaction);
+        }
+
+        internal object DropTempTable(string alias)
+        {
+            return context.DbGroup.Connection.Execute($"drop table {alias}", null, commandTimeout: 3600, transaction: _transaction);
         }
     }
 }

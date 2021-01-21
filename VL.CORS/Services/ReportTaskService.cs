@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Text;
 using VLAutobots.Infrastracture.Common.FileSolution;
 using static ResearchAPI.CORS.Common.DomainConstraits;
 
@@ -603,11 +604,39 @@ namespace ResearchAPI.CORS.Services
                     reportTask.Update(projectIndicators, taskWheres, customBusinessEntities, customBusinessEntityWheres, defaultRouters, templates, reportTask);
                     Log4NetLogger.Info("引擎装载成功");
                     //string.Join("\r\n",parameters.Select(c=> "declare @"+c.Key+" nvarchar(50); set @"+c.Key+" = '"+ c.Value+"'"))
+
+                    //将核心报表结果处理拆分成几个环节
+                    //1.临时表准备
+                    //2.核心数据报表
+                    //3.临时表清理
+                    //4.结果输出
+
                     var parameters = reportTask.GetParameters();
-                    var sql = reportTask.GetSQL();
-                    Log4NetLogger.LogSQL(sql, parameters);
-                    dataTable = SharedRepository.GetDataTable(sql, parameters);
+                    var mainSQL = reportTask.GetSQL();
+                    //1.临时表准备
+                    var tempTables = reportTask.TempTables;
+                    var sqlLog = new StringBuilder();
+                    for (int i = 0; i < tempTables.Count(); i++)
+                    {
+                        var tempTable = tempTables[i];
+                        sqlLog.AppendLine(tempTable.SQL);
+                        var result = SharedRepository.CreateTempTable(tempTable.SQL, parameters);
+                        ProjectScheduleRepository.UpdateSchedule(schedule.Id, ScheduleStatus.Started, "", $"执行中,创建临时表{i + 1}/{tempTables.Count()}");
+                    }
+                    //2.核心数据报表
+                    sqlLog.Append(mainSQL);
+                    dataTable = SharedRepository.GetDataTable(mainSQL, parameters);
+                    //3.临时表清理
+                    for (int i = 0; i < tempTables.Count(); i++)
+                    {
+                        var tempTable = tempTables[i];
+                        sqlLog.AppendLine($"drop table {tempTable.Alias}");
+                        var result = SharedRepository.DropTempTable(tempTable.Alias);
+                        ProjectScheduleRepository.UpdateSchedule(schedule.Id, ScheduleStatus.Started, "", $"执行中,清理临时表{i + 1}/{tempTables.Count()}");
+                    }
+                    Log4NetLogger.LogSQL(sqlLog.ToString(), parameters);
                     Log4NetLogger.Info("查询数据成功");
+                    //4.结果输出
                     //转译处理结果
                     var repeatCount = 0;
                     foreach (DataColumn column in dataTable.Columns)

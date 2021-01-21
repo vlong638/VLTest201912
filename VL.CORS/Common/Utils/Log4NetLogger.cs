@@ -81,8 +81,7 @@ namespace ResearchAPI.CORS.Common
             {
                 foreach (var par in pars)
                 {
-                    sb.AppendLine($"declare @{par.Key} nvarchar(50)");
-                    sb.AppendLine($" set @{par.Key} = '{par.Value}'");
+                    sb.AppendLine($"declare @{par.Key} nvarchar(50);  set @{par.Key} = '{par.Value}' ");
                 }
             }
             sb.Append(sql);

@@ -265,6 +265,11 @@
             排除标准
             </summary>
         </member>
+        <member name="P:ResearchAPI.CORS.Common.ReportTask.TempTables">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="F:ResearchAPI.CORS.Common.Routers.ElementName">
             <summary>
             

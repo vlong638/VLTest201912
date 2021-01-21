@@ -195,6 +195,11 @@ namespace ResearchAPI.CORS.Common
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public List<TempTable> TempTables { set; get; } = new List<TempTable>();
+
         private string GetFrom(List<Router> routers, List<COBusinessEntityProperty> properties, COCustomBusinessEntitySet customBusinessEntities, List<BusinessEntityTemplate> templates, List<Field2ValueWhere> templateWheres)
         {
             if (routers.Count == 0)
@@ -222,7 +227,14 @@ namespace ResearchAPI.CORS.Common
                 if (item.TemplateId > 0)
                 {
                     var template = templates.FirstOrDefault(c => c.Id == item.TemplateId && c.BusinessEntity.SourceName == item.To);
-                    sb.AppendLine($"left join ({template.SQLConfig.SQLEntity.GetSQL(templateWheres).Replace("@", "@" + item.To + "_")})as [{item.To}] on {string.Join(" and ", item.Ons.Select(o => $"[{item.From}].{o.FromField} = [{item.To}].{o.ToField}"))} ");
+                    var alias = "temp_" + item.To + "_" + Guid.NewGuid().ToString().Replace('-', '_'); //加GUID避免临时表撞表
+                    var tempTalbe = new TempTable()
+                    {
+                        Alias = alias, 
+                        SQL = $"select t.* into {alias} from ({ template.SQLConfig.SQLEntity.GetSQL(templateWheres).Replace("@", "@" + item.To + "_") }) as t"
+                    };
+                    TempTables.Add(tempTalbe);
+                    sb.AppendLine($"left join {tempTalbe.Alias} as [{item.To}] on {string.Join(" and ", item.Ons.Select(o => $"[{item.From}].{o.FromField} = [{item.To}].{o.ToField}"))} ");
                 }
                 else
                 {
@@ -319,7 +331,11 @@ namespace ResearchAPI.CORS.Common
         }
     }
 
-
+    public class TempTable
+    {
+        public string Alias { set; get; }
+        public string SQL { set; get; }
+    }
 
     public class Routers : List<Router>
     {
