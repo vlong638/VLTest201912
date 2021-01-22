@@ -104,31 +104,49 @@ namespace ResearchAPI.CORS.Common
         internal static List<VLKeyValue<T1, T2>> GetJsonConfig<T1,T2>(string type)
         {
             List<VLKeyValue<T1, T2>> values = new List<VLKeyValue<T1, T2>>();
-            var file = (Path.Combine(AppContext.BaseDirectory, "Configs/JsonConfigs", type + ".json"));
-            if (!System.IO.File.Exists(file))
+            var data = GetJsonFileData(type);
+            if (data.IsNullOrEmpty())
             {
                 values.Add(new VLKeyValue<T1, T2>(default(T1), default(T2)));
-                System.IO.File.WriteAllText(file, Newtonsoft.Json.JsonConvert.SerializeObject(values));
                 return values;
             }
-            var data = System.IO.File.ReadAllText(file);
-            values = Newtonsoft.Json.JsonConvert.DeserializeObject<List<VLKeyValue<T1, T2>>>(data);
-            return values;
+            else
+            {
+                values = Newtonsoft.Json.JsonConvert.DeserializeObject<List<VLKeyValue<T1, T2>>>(data);
+                return values;
+            }
         }
+
+        static string GetJsonFileData(string type)
+        {
+            var directories = Directory.GetDirectories(Path.Combine(AppContext.BaseDirectory, "Configs\\JsonConfigs"));
+            foreach (var directory in directories)
+            {
+                var file = (Path.Combine(directory, type + ".json"));
+                if (System.IO.File.Exists(file))
+                {
+                    var data = System.IO.File.ReadAllText(file);
+                    return data;
+                }
+            }
+            return "";
+        }
+
 
         internal static List<VLKeyValue<T1, T2,T3,T4>> GetJsonConfig<T1, T2, T3, T4>(string type)
         {
             List<VLKeyValue<T1, T2, T3, T4>> values = new List<VLKeyValue<T1, T2, T3, T4>>();
-            var file = (Path.Combine(AppContext.BaseDirectory, "Configs/JsonConfigs", type + ".json"));
-            if (!System.IO.File.Exists(file))
+            var data = GetJsonFileData(type);
+            if (data.IsNullOrEmpty())
             {
                 values.Add(new VLKeyValue<T1, T2, T3, T4>(default(T1), default(T2), default(T3), default(T4)));
-                System.IO.File.WriteAllText(file, Newtonsoft.Json.JsonConvert.SerializeObject(values));
                 return values;
             }
-            var data = System.IO.File.ReadAllText(file);
-            values = Newtonsoft.Json.JsonConvert.DeserializeObject<List<VLKeyValue<T1, T2, T3, T4>>>(data);
-            return values;
+            else
+            {
+                values = Newtonsoft.Json.JsonConvert.DeserializeObject<List<VLKeyValue<T1, T2, T3, T4>>>(data);
+                return values;
+            }
         }
     }
 }

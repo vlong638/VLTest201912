@@ -88,11 +88,11 @@ namespace ResearchAPI.CORS.Common
         /// <summary>
         /// 孕期检验模板
         /// </summary>
-        PregnantLabResult,
+        PregnantLabResult =1,
         /// <summary>
         /// 
         /// </summary>
-        Woman,
+        PregnantVisitRecord = 2,
         /// <summary>
         /// 
         /// </summary>

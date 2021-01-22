@@ -473,7 +473,7 @@ namespace ResearchAPI.CORS.Controllers
                     var template = DomainConstraits.Templates.First(c => c.BusinessEntity.Id == 20201222103157);
                     var result = service.CreateCustomIndicator(request, template);
                     return new APIResult<List<BusinessEntityPropertyModel>>(result);
-                case TargetArea.Woman:
+                case TargetArea.PregnantVisitRecord:
                     break;
                 case TargetArea.Child:
                     break;
