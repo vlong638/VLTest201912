@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace Autobots.Infrastracture.Common.ValuesSolution
@@ -25,6 +27,24 @@ namespace Autobots.Infrastracture.Common.ValuesSolution
                     matchedProperty.SetValue(to, fromProperty.GetValue(from));
                 }
             }
+        }
+
+        public static string RenderIdToText<T>(this T id, Dictionary<T, string> source) where T : IComparable
+        {
+            if (id.Equals(default(T)))
+                return null;
+            List<T> ids = new List<T>() { id };
+            var values = RenderIdToText(ids, source);
+            return values.First();
+        }
+
+        public static List<string> RenderIdToText<T>(this List<T> ids, Dictionary<T, string> source)
+        {
+            if (ids == null || ids.Count == 0)
+                return null;
+            var dic = source;
+            var values = ids.Select(c => dic.ContainsKey(c) ? dic[c] : c.ToString()).ToList();
+            return values;
         }
     }
 }

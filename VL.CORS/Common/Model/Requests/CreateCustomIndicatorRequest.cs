@@ -1,5 +1,7 @@
 ﻿using Autobots.Infrastracture.Common.ValuesSolution;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ResearchAPI.CORS.Common
 {
@@ -36,6 +38,19 @@ namespace ResearchAPI.CORS.Common
         /// 时间周期模板
         /// </summary>
         public List<BusinessEntityPeriodTemplate> PeriodTemplates { set; get; }
+
+        internal string GetRuleDisplayName()
+        {
+            return Search.First(c => c.Key == "多值时取值方式")
+                .Value.RenderIdToText(
+                new Dictionary<string, string>(){
+                { "1","最早"},
+                { "2","最晚"},
+                { "3","最小"},
+                { "4","最大"},
+                { "5","平均"}
+            });
+        }
     }
 
     /// <summary>
@@ -59,10 +74,6 @@ namespace ResearchAPI.CORS.Common
         /// 截止
         /// </summary>
         public string EndAt { set; get; }
-        /// <summary>
-        /// 字段显示名称
-        /// </summary>
-        public string PropertyDisplayName{set;get;}
     }
 
     /// <summary>

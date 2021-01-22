@@ -248,7 +248,7 @@ namespace ResearchAPI.CORS.Services
                             TemplatePropertyId = templateProperty.Id,
                             ProjectId = request.ProjectId,
                             PropertySourceName = templateProperty.SourceName,
-                            PropertyDisplayName = periodTemplate.PropertyDisplayName + "_" + templateProperty.DisplayName,
+                            PropertyDisplayName =$"{periodTemplate.StartAt}_{periodTemplate.EndAt}_{templateProperty.DisplayName}_{request.GetRuleDisplayName()}"  ,
                         };
                     }).ToList();
                     results.AddRange(CreateCustomProjectIndicator(templateBE, templateBEProperties, templateBEWheres, projectProperties));
