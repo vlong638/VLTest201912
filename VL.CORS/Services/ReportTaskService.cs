@@ -241,7 +241,9 @@ namespace ResearchAPI.CORS.Services
                     //项目属性
                     var projectProperties = request.Properties.Select(c =>
                     {
-                        var templateProperty = template.BusinessEntity.Properties.First(d => d.Id == c.TemplatePropertyId);
+                        var templateProperty = template.BusinessEntity.Properties.FirstOrDefault(d => d.Id == c.TemplatePropertyId);
+                        if (templateProperty == null)
+                            throw new NotImplementedException($"无效的模板属性:{ c.TemplatePropertyId}");
                         return new ProjectIndicator()
                         {
                             TemplateId = template.Id,

@@ -85,6 +85,10 @@ namespace ResearchAPI.CORS.Common
         {
             return id.RenderIdToText(source);
         }
+        internal static List<string> RenderIdToText<T>(List<T> ids, Dictionary<T, string> source)
+        {
+            return ids.RenderIdToText(source);
+        }
 
         public static void InitData(ReportTaskService reportTaskService)
         {
@@ -159,6 +163,7 @@ namespace ResearchAPI.CORS.Common
 
             //Templates
             Templates = new List<BusinessEntityTemplate>();
+            Templates.Add(ConfigHelper.GetBusinessEntityTemplate("Configs\\XMLConfigs\\BusinessEntities", "Template_孕周产检.xml"));
             Templates.Add(ConfigHelper.GetBusinessEntityTemplate("Configs\\XMLConfigs\\BusinessEntities", "Template_孕周检验.xml"));
         }
     }

@@ -1,0 +1,285 @@
+﻿<BusinessEntityTemplate Id="202001221034" ConnectionString="FYPTConnectionString">
+	<BusinessEntity Id="202001221034" DisplayName ="孕周期产检模板">
+		<Properties>
+			<!--From="CustomBusinessEntity.ReportName"--> 
+			
+			<Property Id="202001221034247" DisplayName="检查时间" SourceName="visitdate" ColumnType="DateTime"/>
+			<Property Id="202001221034029" DisplayName="检查孕周" SourceName="checkweek" ColumnType="Int"/>
+			<Property Id="202001221034027" DisplayName="检查孕天" SourceName="checkday" ColumnType="Int"/>
+			<Property Id="202001221034030" DisplayName="主诉" SourceName="chiefcomplaint" ColumnType="String"/>
+			<Property Id="202001221034087" DisplayName="主诊断" SourceName="maindiagnosis" ColumnType="Enum" EnumType="MAINDIAGNOSIS"/>
+			<Property Id="202001221034206" DisplayName="次诊断" SourceName="secondarydiagnosis" ColumnType="String"/>
+			<Property Id="202001221034033" DisplayName="舒张压(mmhg)" SourceName="dbp" ColumnType="Int"/>
+			<Property Id="202001221034204" DisplayName="收缩压(mmhg)" SourceName="sbp" ColumnType="Int"/>			
+			<Property Id="202001221034001" DisplayName="腹围(cm)" SourceName="abdomencircumference" ColumnType="Decimal"/>			
+			<Property Id="202001221034002" DisplayName="羊水指数" SourceName="afi" ColumnType="String"/>			
+			<Property Id="202001221034003" DisplayName="尿蛋白" SourceName="albuminuria" ColumnType="String"/>
+			<Property Id="202001221034004" DisplayName="尿蛋白检查日期" SourceName="albuminuriacheckdate" ColumnType="DateTime"/>
+			<Property Id="202001221034005" DisplayName="羊水性状" SourceName="amnioticfluidcharacter" ColumnType="Enum" EnumType="AMNIOTICFLUIDCHARACTER"/>
+			<Property Id="202001221034006" DisplayName="羊水垂直深度" SourceName="amnioticfluiddepth" ColumnType="String"/>
+			<Property Id="202001221034009" DisplayName="胎儿心超诊断日期" SourceName="bbheartbultrasonicdate" ColumnType="DateTime"/>
+			<Property Id="202001221034010" DisplayName="胎儿心超诊断" SourceName="bbheartbultrasonicdiagnosis" ColumnType="String"/>
+			<Property Id="202001221034011" DisplayName="胎儿心超诊断单号" SourceName="bbheartbultrasonicid" ColumnType="String"/>
+			<Property Id="202001221034012" DisplayName="宫颈bishop评分" SourceName="bishopscore" ColumnType="Int"/>
+			<Property Id="202001221034013" DisplayName="血糖" SourceName="bloodsugar" ColumnType="String"/>
+			<Property Id="202001221034016" DisplayName="血压异常" SourceName="bpflag" ColumnType="Enum" EnumType="YOUWU"/>
+			<Property Id="202001221034017" DisplayName="破水" SourceName="brokenwater" ColumnType="Enum" EnumType="YOUWU"/>
+			<!--字段不存在-->
+			<!--<Property Id="202001221034007" DisplayName="附件是否正常" SourceName="appendages" ColumnType="Enum" EnumType="SHIFOUZC"/>-->
+			<!--<Property Id="202001221034008" DisplayName="附件异常描述" SourceName="appendagestext" ColumnType="String"/>-->
+			<!--<Property Id="202001221034014" DisplayName="餐后2h血糖" SourceName="bloodsugar2" ColumnType="String"/>-->
+			<!--<Property Id="202001221034015" DisplayName="血糖检查日期" SourceName="bloodsugarcheckdate" ColumnType="DateTime"/>-->
+			<!--字段未启用-->
+			<!--<Property Id="202001221034018" DisplayName="B超诊断日期" SourceName="bultrasonicdate" ColumnType="DateTime"/>
+			<Property Id="202001221034019" DisplayName="B超诊断" SourceName="bultrasonicdiagnosis" ColumnType="String"/>
+			<Property Id="202001221034020" DisplayName="B超检查单号" SourceName="bultrasonicid" ColumnType="String"/>
+			<Property Id="202001221034021" DisplayName="终止管理原因" SourceName="cancellationreason" ColumnType="String"/>
+			<Property Id="202001221034022" DisplayName="分类" SourceName="category" ColumnType="Enum" EnumType="YOUWU"/>
+			<Property Id="202001221034023" DisplayName="宫颈硬度" SourceName="cervicalhard" ColumnType="String"/>
+			<Property Id="202001221034024" DisplayName="宫颈管消退" SourceName="cervicalreg" ColumnType="String"/>
+			<Property Id="202001221034025" DisplayName="宫颈是否正常" SourceName="cervix" ColumnType="Enum" EnumType="SHIFOUZC"/>
+			<Property Id="202001221034026" DisplayName="宫颈异常描述" SourceName="cervixtext" ColumnType="String"/>
+			<Property Id="202001221034031" DisplayName="沟通能力筛选" SourceName="comunicationeva" ColumnType="Enum" EnumType="YICHANGZC"/>
+			<Property Id="202001221034042" DisplayName="社会经济评估（经济状况）" SourceName="economiceva" ColumnType="String"/>
+			<Property Id="202001221034043" DisplayName="浮肿" SourceName="edemastatus" ColumnType="Enum" EnumType="EDEMASTATUS"/>
+			<Property Id="202001221034046" DisplayName="急诊分级" SourceName="emergrade" ColumnType="Enum" EnumType="EMERGRADE"/>
+			<Property Id="202001221034047" DisplayName="异常描述" SourceName="exceptiondesc" ColumnType="String"/>
+			<Property Id="202001221034048" DisplayName="跌倒评估" SourceName="falleva" ColumnType="String"/>
+			<Property Id="202001221034049" DisplayName="胎心异常" SourceName="fetalheartflag" ColumnType="String"/>
+			<Property Id="202001221034050" DisplayName="胎心率(次/分）" SourceName="fetalheartrate" ColumnType="Int"/>
+			<Property Id="202001221034051" DisplayName="胎动" SourceName="fetalmove" ColumnType="Enum" EnumType="FETALMOVE"/>
+			<Property Id="202001221034052" DisplayName="胎方位" SourceName="fetalposition" ColumnType="Enum" EnumType="POSITION"/>
+			<Property Id="202001221034053" DisplayName="胎位异常" SourceName="fetalpositionflag" ColumnType="String"/>
+			<Property Id="202001221034056" DisplayName="总体评估" SourceName="generalcomment" ColumnType="String"/>
+			<Property Id="202001221034057" DisplayName="指导" SourceName="guide" ColumnType="String"/>
+			<Property Id="202001221034058" DisplayName="血红蛋白" SourceName="haemoglobin" ColumnType="Enum" EnumType="TESTRESULT"/>
+			<Property Id="202001221034059" DisplayName="血红蛋白检查日期" SourceName="haemoglobincheckdate" ColumnType="DateTime"/>
+			<Property Id="202001221034060" DisplayName="心脏是否正常" SourceName="heart" ColumnType="Enum" EnumType="SHIFOUZC"/>
+			<Property Id="202001221034061" DisplayName="心超诊断日期" SourceName="heartbultrasonicdate" ColumnType="DateTime"/>
+			<Property Id="202001221034062" DisplayName="心超诊断" SourceName="heartbultrasonicdiagnosis" ColumnType="String"/>
+			<Property Id="202001221034063" DisplayName="心超检查单号" SourceName="heartbultrasonicid" ColumnType="String"/>
+			<Property Id="202001221034064" DisplayName="脉搏" SourceName="heartrate" ColumnType="Int"/>
+			<Property Id="202001221034065" DisplayName="心脏异常详述" SourceName="hearttext" ColumnType="String"/>
+			<Property Id="202001221034066" DisplayName="宫高(cm)" SourceName="heightfundusuterus" ColumnType="Decimal"/>
+			<Property Id="202001221034067" DisplayName="宫高异常" SourceName="heightfundusuterusflag" ColumnType="Enum" EnumType="YOUWU"/>
+			<Property Id="202001221034068" DisplayName="高危字典" SourceName="highriskdic" ColumnType="String"/>
+			<Property Id="202001221034069" DisplayName="高危评级" SourceName="highrisklevel" ColumnType="Enum" EnumType="HIGHRISKLEVEL"/>
+			<Property Id="202001221034070" DisplayName="高危因素" SourceName="highriskreason" ColumnType="String"/>
+			<Property Id="202001221034071" DisplayName="随访规则" SourceName="highriskruleday" ColumnType="String"/>
+			<Property Id="202001221034072" DisplayName="随访规则" SourceName="highriskruleweek" ColumnType="String"/>
+			<Property Id="202001221034203" DisplayName="收缩压(mmHg)" SourceName="sbp" ColumnType="Int"/>
+			<Property Id="202001221034073" DisplayName="高危评分" SourceName="highriskscore" ColumnType="Int"/>
+			<Property Id="202001221034076" DisplayName="身份证" SourceName="idcard" ColumnType="String"/>
+			<Property Id="202001221034077" DisplayName="是否失访" SourceName="iflost" ColumnType="Enum" EnumType="SHIFOU"/>
+			<Property Id="202001221034082" DisplayName="学习意愿评估" SourceName="learningeva" ColumnType="Enum" EnumType="LEARNINGEVA"/>
+			<Property Id="202001221034083" DisplayName="肝功能" SourceName="liverfunction" ColumnType="Enum" EnumType="LIVERFUNCTION"/>
+			<Property Id="202001221034084" DisplayName="失访原因" SourceName="lostreason" ColumnType="String"/>
+			<Property Id="202001221034085" DisplayName="肺部是否正常" SourceName="lungs" ColumnType="Enum" EnumType="SHIFOUZC"/>
+			<Property Id="202001221034086" DisplayName="肺部异常详述" SourceName="lungstext" ColumnType="String"/>
+			<Property Id="202001221034090" DisplayName="是否用药" SourceName="medication" ColumnType="Enum" EnumType="YOUWU"/>
+			<Property Id="202001221034091" DisplayName="用药记录" SourceName="medicationlog" ColumnType="String"/>
+			<Property Id="202001221034094" DisplayName="本人电话" SourceName="mobilenumber" ColumnType="String"/>
+			<Property Id="202001221034095" DisplayName="胎心监护" SourceName="monitor" ColumnType="Enum" EnumType="MONITOR"/>
+			<Property Id="202001221034096" DisplayName="多胎字典" SourceName="multifetal" ColumnType="String"/>
+			<Property Id="202001221034097" DisplayName="国籍" SourceName="nationalitycode" ColumnType="Enum" EnumType="NATIONALITYCODE"/>
+			<Property Id="202001221034098" DisplayName="民族" SourceName="nationcode" ColumnType="Enum" EnumType="NATIONCODE"/>
+			<Property Id="202001221034099" DisplayName="孕妇民族名称 " SourceName="nationtext" ColumnType="String"/>
+			<Property Id="202001221034100" DisplayName="自然流产次数" SourceName="naturalabortion" ColumnType="Int"/>
+			<Property Id="202001221034101" DisplayName="死亡儿次数" SourceName="newbrondied" ColumnType="Int"/>
+			<Property Id="202001221034102" DisplayName="营养评估" SourceName="nutritioneva" ColumnType="Enum" EnumType="NUTRITIONEVA"/>
+			<Property Id="202001221034103" DisplayName="中期引产次数" SourceName="odinopoeia" ColumnType="Int"/>
+			<Property Id="202001221034104" DisplayName="宫口开大" SourceName="openpalace" ColumnType="String"/>
+			<Property Id="202001221034105" DisplayName="手术史" SourceName="operationhistory" ColumnType="String"/>
+			<Property Id="202001221034106" DisplayName="其他体格检查" SourceName="otherbodyexam" ColumnType="String"/>
+			<Property Id="202001221034107" DisplayName="其他检验检查" SourceName="othercommonexam" ColumnType="String"/>
+			<Property Id="202001221034108" DisplayName="其他化验描述" SourceName="otherexam" ColumnType="String"/>
+			<Property Id="202001221034109" DisplayName="孕妇其他家族病史 " SourceName="otherfamilyhistory" ColumnType="String"/>
+			<Property Id="202001221034110" DisplayName="孕妇其他家族史详述 " SourceName="otherfamilyhistorytext" ColumnType="String"/>
+			<Property Id="202001221034111" DisplayName="其他危险因素" SourceName="otherhighreasons" ColumnType="String"/>
+			<Property Id="202001221034112" DisplayName="其他手术史 " SourceName="otheroperationhistory" ColumnType="Enum" EnumType="YOUWUBX"/>
+			<Property Id="202001221034113" DisplayName="其他手术史详述 " SourceName="otheroperationhistorytext" ColumnType="String"/>
+			<Property Id="202001221034114" DisplayName="其他个人史 " SourceName="otherpersonnalhistory" ColumnType="Enum" EnumType="YOUWUBX"/>
+			<Property Id="202001221034115" DisplayName="其他个人史详述 " SourceName="otherpersonnalhistorytext" ColumnType="String"/>
+			<Property Id="202001221034116" DisplayName="其他检查" SourceName="othertest" ColumnType="String"/>
+			<Property Id="202001221034117" DisplayName="过期产次数" SourceName="overdelivery" ColumnType="Int"/>
+			<Property Id="202001221034118" DisplayName="孕妇归属地" SourceName="ownerarea" ColumnType="Enum" EnumType="OWNERAREA"/>
+			<Property Id="202001221034119" DisplayName="疼痛评估" SourceName="paineva" ColumnType="Enum" EnumType="PAINEVA"/>
+			<Property Id="202001221034120" DisplayName="宫口" SourceName="palacemouth" ColumnType="Enum" EnumType="PALACEMOUTH"/>
+			<Property Id="202001221034121" DisplayName="产次" SourceName="parity" ColumnType="String"/>
+			<Property Id="202001221034122" DisplayName="既往病史" SourceName="pasthistory" ColumnType="String"/>
+			<Property Id="202001221034123" DisplayName="既往病史详述" SourceName="pasthistorytext" ColumnType="Enum" EnumType="PASTHISTORYTEXT"/>
+			<Property Id="202001221034124" DisplayName="既往病史详述值，逗号相隔" SourceName="pasthistoryval" ColumnType="String"/>
+			<Property Id="202001221034125" DisplayName="医保卡号" SourceName="patientaccount" ColumnType="String"/>
+			<Property Id="202001221034127" DisplayName="基本情况-常住地" SourceName="PermanentResidence" ColumnType="Int"/>
+			<Property Id="202001221034128" DisplayName="个人史 " SourceName="personnalhistory" ColumnType="String"/>
+			<Property Id="202001221034129" DisplayName="孕妇姓名" SourceName="personname" ColumnType="String"/>
+			<Property Id="202001221034130" DisplayName="ph项目" SourceName="ph" ColumnType="Enum" EnumType="PH"/>
+			<Property Id="202001221034131" DisplayName="家庭电话" SourceName="phonenumber" ColumnType="String"/>
+			<Property Id="202001221034132" DisplayName="证件照编号" SourceName="photo" ColumnType="String"/>
+			<Property Id="202001221034133" DisplayName="健康档案编号" SourceName="phrid" ColumnType="String"/>
+			<Property Id="202001221034134" DisplayName="妊高症" SourceName="pih" ColumnType="Enum" EnumType="YOUWU"/>
+			<Property Id="202001221034135" DisplayName="计划时间" SourceName="plandate" ColumnType="DateTime"/>
+			<Property Id="202001221034136" DisplayName="毒物接触史" SourceName="poisontouchhis" ColumnType="String"/>
+			<Property Id="202001221034137" DisplayName="接触有毒有害物质详述 " SourceName="poisontouchhistext" ColumnType="String"/>
+			<Property Id="202001221034138" DisplayName="产前出血" SourceName="preblood" ColumnType="Enum" EnumType="SHIFOU"/>
+			<Property Id="202001221034139" DisplayName="前次分娩日期" SourceName="predeliverydate" ColumnType="DateTime"/>
+			<Property Id="202001221034140" DisplayName="前次分娩方式" SourceName="predeliverymode" ColumnType="Enum" EnumType="PREDELIVERYMODE"/>
+			<Property Id="202001221034142" DisplayName="前妊娠终止日期" SourceName="pregestationdate" ColumnType="DateTime"/>
+			<Property Id="202001221034143" DisplayName="前次终止方式" SourceName="pregestationmode" ColumnType="Enum" EnumType="PREGESTATIONMODE"/>
+			<Property Id="202001221034144" DisplayName="孕产史 " SourceName="pregnancyhistory" ColumnType="String"/>
+			<Property Id="202001221034145" DisplayName="妊娠分类" SourceName="pregnancytype" ColumnType="Enum" EnumType="SHUZICHENGDU"/>
+			<Property Id="202001221034147" DisplayName="孕产史" SourceName="pregnanthistory" ColumnType="String"/>
+			<Property Id="202001221034151" DisplayName="状态" SourceName="pregnantstatus" ColumnType="Enum" EnumType="PREGNANTSTATUS"/>
+			<Property Id="202001221034152" DisplayName="先露位置" SourceName="presentationpos" ColumnType="String"/>
+			<Property Id="202001221034153" DisplayName="现病史" SourceName="presenthistory" ColumnType="String"/>
+			<Property Id="202001221034155" DisplayName="现病史异常详述 " SourceName="presenthistorytext" ColumnType="String"/>
+			<Property Id="202001221034156" DisplayName="先露" SourceName="presentposition" ColumnType="Enum" EnumType="PRESENTPOSITION"/>
+			<Property Id="202001221034157" DisplayName="早产次数" SourceName="preterm" ColumnType="Int"/>
+			<Property Id="202001221034158" DisplayName="早产次数" SourceName="pretermbirthtimes" ColumnType="Int"/>
+			<Property Id="202001221034159" DisplayName="打印宫缩" SourceName="printgs" ColumnType="String"/>
+			<Property Id="202001221034161" DisplayName="领用情况-发放单位" SourceName="ProvideUnit" ColumnType="String"/>
+			<Property Id="202001221034162" DisplayName="心理评估" SourceName="psyeva" ColumnType="Enum" EnumType="PSYEVA"/>
+			<Property Id="202001221034163" DisplayName="基本情况-基本公共卫生" SourceName="PublicHealth" ColumnType="Int"/>
+			<Property Id="202001221034164" DisplayName="脉搏" SourceName="pulse" ColumnType="Int"/>
+			<Property Id="202001221034165" DisplayName="胎动次数" SourceName="quickeningtimes" ColumnType="Int"/>
+			<Property Id="202001221034166" DisplayName="药物流产次数" SourceName="qwetimes" ColumnType="Int"/>
+			<Property Id="202001221034167" DisplayName="接触放射线 " SourceName="radiation" ColumnType="Enum" EnumType="YOUWUBX"/>
+			<Property Id="202001221034168" DisplayName="接触放射线详述 " SourceName="radiationtext" ColumnType="String"/>
+			<Property Id="202001221034169" DisplayName="居(暂)住地址" SourceName="realregioncode" ColumnType="String"/>
+			<Property Id="202001221034170" DisplayName="领用情况-领取时间" SourceName="ReceiveDate" ColumnType="DateTime"/>
+			<Property Id="202001221034171" DisplayName="领用情况-领取数量" SourceName="ReceiveNumber" ColumnType="Int"/>
+			<Property Id="202001221034172" DisplayName="领用情况-备注" SourceName="ReceiveRemark" ColumnType="String"/>
+			<Property Id="202001221034173" DisplayName="康复需求" SourceName="recovereva" ColumnType="Enum" EnumType="YOUWU"/>
+			<Property Id="202001221034174" DisplayName="转诊" SourceName="referral" ColumnType="Enum" EnumType="YOUWU"/>
+			<Property Id="202001221034175" DisplayName="转诊机构" SourceName="referralagencies" ColumnType="String"/>
+			<Property Id="202001221034176" DisplayName="转诊日期" SourceName="referraldate" ColumnType="DateTime"/>
+			<Property Id="202001221034177" DisplayName="转诊科室" SourceName="referraldepartment" ColumnType="String"/>
+			<Property Id="202001221034178" DisplayName="转诊原因" SourceName="referralreasons" ColumnType="String"/>
+			<Property Id="202001221034179" DisplayName="户籍标志" SourceName="registeredpermanent" ColumnType="Enum" EnumType="REGISTEREDPERMANENT"/>
+			<Property Id="202001221034180" DisplayName="户口类型 " SourceName="registrationtype" ColumnType="Enum" EnumType="REGISTRATIONTYPE"/>
+			<Property Id="202001221034191" DisplayName="居(暂)住地址-文本" SourceName="residencecode" ColumnType="String"/>
+			<Property Id="202001221034192" DisplayName="办居住证日期" SourceName="residencepermit" ColumnType="DateTime"/>
+			<Property Id="202001221034193" DisplayName="妇保医生姓名" SourceName="responsedoctorname" ColumnType="String"/>
+			<Property Id="202001221034194" DisplayName="产休地" SourceName="restregioncode" ColumnType="String"/>
+			<Property Id="202001221034195" DisplayName="孕妇产后联系电话" SourceName="restregionmobilenumber" ColumnType="String"/>
+			<Property Id="202001221034196" DisplayName="产休地名称" SourceName="restregionname" ColumnType="String"/>
+			<Property Id="202001221034197" DisplayName="产后休养地址电话 " SourceName="restregionphone" ColumnType="String"/>
+			<Property Id="202001221034198" DisplayName="产后休养地址" SourceName="restregiontext" ColumnType="Enum" EnumType="行政区划编码"/>
+			<Property Id="202001221034199" DisplayName="智障 " SourceName="retarded" ColumnType="Enum" EnumType="YOUWUBX"/>
+			<Property Id="202001221034200" DisplayName="智障程度 " SourceName="retardedlevel" ColumnType="Enum" EnumType="CHENGDU"/>
+			<Property Id="202001221034201" DisplayName="智障详述 " SourceName="retardedtext" ColumnType="String"/>
+			<Property Id="202001221034202" DisplayName="RH血型" SourceName="rhbloodcode" ColumnType="Enum" EnumType="RHBLOODCODE"/>
+			<Property Id="202001221034205" DisplayName="计划表" SourceName="schedule" ColumnType="String"/>
+			<Property Id="202001221034207" DisplayName="自觉症状描述" SourceName="selffeelsymptom" ColumnType="Enum" EnumType="SELFFEELSYMPTOM"/>
+			<Property Id="202001221034208" DisplayName="自觉症状异常" SourceName="selffeelsymptomflag" ColumnType="Enum" EnumType="YOUWU"/>
+			<Property Id="202001221034209" DisplayName="基本情况-定居月份" SourceName="SettleMonth" ColumnType="Int"/>
+			<Property Id="202001221034210" DisplayName="基本情况-定居年份" SourceName="SettleYear" ColumnType="Int"/>
+			<Property Id="202001221034211" DisplayName="性别" SourceName="sexcode" ColumnType="Enum" EnumType="SEXCODE"/>
+			<Property Id="202001221034212" DisplayName="吸烟 " SourceName="smoking" ColumnType="Enum" EnumType="SHIFOU"/>
+			<Property Id="202001221034213" DisplayName="吸烟详述 " SourceName="smokingtext" ColumnType="String"/>
+			<Property Id="202001221034214" DisplayName="社会经济评估（社会支持）" SourceName="socialeva" ColumnType="String"/>
+			<Property Id="202001221034215" DisplayName="心肺听诊" SourceName="sound" ColumnType="Enum" EnumType="SOUND"/>
+			<Property Id="202001221034218" DisplayName="特殊人群评估" SourceName="specialeva" ColumnType="String"/>
+			<Property Id="202001221034221" DisplayName="状态" SourceName="status" ColumnType="Enum" EnumType="0正常 1结案"/>
+			<Property Id="202001221034222" DisplayName="处理建议" SourceName="suggestion" ColumnType="String"/>
+			<Property Id="202001221034223" DisplayName="处理建议分类字典" SourceName="suggestionsortlist" ColumnType="String"/>
+			<Property Id="202001221034224" DisplayName="中医证型" SourceName="tcmsyndrome" ColumnType="String"/>
+			<Property Id="202001221034225" DisplayName="体温" SourceName="temperature" ColumnType="String"/>
+			<Property Id="202001221034226" DisplayName="足月产次数" SourceName="termbirthtimes" ColumnType="Int"/>
+			<Property Id="202001221034227" DisplayName="腹部触诊" SourceName="touchdiagnosis" ColumnType="Enum" EnumType="TOUCHDIAGNOSIS"/>
+			<Property Id="202001221034228" DisplayName="本次怀孕方式" SourceName="tpregnancymanner" ColumnType="Enum" EnumType="TPREGNANCYMANNER"/>
+			<Property Id="202001221034229" DisplayName="本次怀孕详情" SourceName="tpregnancymanner_text" ColumnType="String"/>
+			<Property Id="202001221034230" DisplayName="人工流产次数" SourceName="trafficflow" ColumnType="Int"/>
+			<Property Id="202001221034231" DisplayName="外伤史 " SourceName="traumahistory" ColumnType="Enum" EnumType="YOUWUBX"/>
+			<Property Id="202001221034232" DisplayName="外伤史详述 " SourceName="traumahistorytext" ColumnType="String"/>
+			<Property Id="202001221034233" DisplayName="(无)异常孕产史" SourceName="unusualbone" ColumnType="String"/>
+			<Property Id="202001221034238" DisplayName="宫缩" SourceName="uterinecontraction" ColumnType="Enum" EnumType="UTERINECONTRACTION"/>
+			<Property Id="202001221034239" DisplayName="子宫是否正常" SourceName="uterus" ColumnType="Enum" EnumType="SHIFOUZC"/>
+			<Property Id="202001221034240" DisplayName="宫口位置" SourceName="uterusloc" ColumnType="String"/>
+			<Property Id="202001221034241" DisplayName="子宫异常描述" SourceName="uterustext" ColumnType="String"/>
+			<Property Id="202001221034242" DisplayName="阴道是否正常" SourceName="vagina" ColumnType="Enum" EnumType="SHIFOUZC"/>
+			<Property Id="202001221034243" DisplayName="阴道流血" SourceName="vaginalbleeding" ColumnType="Enum" EnumType="VAGINALBLEEDING"/>
+			<Property Id="202001221034244" DisplayName="阴道分娩 " SourceName="vaginaldeliverynum" ColumnType="Int"/>
+			<Property Id="202001221034245" DisplayName="阴道异常描述" SourceName="vaginatext" ColumnType="String"/>
+			<Property Id="202001221034246" DisplayName="葡萄胎次数" SourceName="vesicularmole" ColumnType="Int"/>
+			<Property Id="202001221034249" DisplayName="随访方式" SourceName="visitmode" ColumnType="Enum" EnumType="VISITMODE"/>
+			<Property Id="202001221034250" DisplayName="随访结果" SourceName="visitresult" ColumnType="Enum" EnumType="VISITRESULT"/>
+			<Property Id="202001221034251" DisplayName="外阴是否正常" SourceName="vulva" ColumnType="Enum" EnumType="SHIFOUZC"/>
+			<Property Id="202001221034252" DisplayName="外阴异常描述" SourceName="vulvatext" ColumnType="String"/>
+			<Property Id="202001221034253" DisplayName="体重(kg)" SourceName="weight" ColumnType="Decimal"/>
+			<Property Id="202001221034254" DisplayName="基础体重(kg)" SourceName="weight" ColumnType="Decimal"/>
+			<Property Id="202001221034255" DisplayName="体重异常" SourceName="weightflag" ColumnType="Enum" EnumType="YOUWU"/>
+			<Property Id="202001221034256" DisplayName="职业类别" SourceName="workcode" ColumnType="Enum" EnumType="WORKCODE"/>
+			<Property Id="202001221034257" DisplayName="职业" SourceName="workname" ColumnType="String"/>
+			<Property Id="202001221034258" DisplayName="工作单位" SourceName="workplace" ColumnType="String"/>
+			<Property Id="202001221034259" DisplayName="衔接" SourceName="xianjie" ColumnType="Enum" EnumType="XIANJIE"/>
+			<Property Id="202001221034260" DisplayName="邮政编码" SourceName="zipcode" ColumnType="String"/>-->
+		</Properties>
+	</BusinessEntity>
+	<SQLConfig>
+		<Wheres>
+			<Where ComponentName="起始孕周" DisplayName="起始孕周" DisplayType="5"/>
+			<Where ComponentName="截止孕周" DisplayName="截止孕周" DisplayType="5"/>
+			<Where ComponentName="多值时取值方式" DisplayName="多值时取值方式" DisplayType="3" Options="1:最早,2:最晚,3:最小,4:最大,5:平均" Required="true"/>
+		</Wheres>
+		<SQL>
+			<If Operator="in" ComponentName="多值时取值方式" Value="1,2">
+				select * from (				
+					select temp.idcard
+					,temp.dateofprenatal
+					,datediff(week,temp.dateofprenatal,temp.visitdate)+40 as IssueWeek
+					,vr.visitdate,vr.checkweek,vr.checkday,vr.chiefcomplaint,vr.maindiagnosis,vr.secondarydiagnosis,vr.dbp,vr.sbp
+					,vr.abdomencircumference,vr.afi,vr.albuminuria,vr.albuminuriacheckdate,vr.amnioticfluidcharacter,vr.amnioticfluiddepth
+					,vr.bbheartbultrasonicdate,vr.bbheartbultrasonicdiagnosis,vr.bbheartbultrasonicid
+					,vr.bishopscore,vr.bloodsugar
+					,vr.bpflag,vr.brokenwater
+					from
+					(
+							select pi.idcard,pi.dateofprenatal
+							<If Operator="eq" ComponentName="多值时取值方式" Value="1"> ,min(vr.visitdate) visitdate </If>
+							<If Operator="eq" ComponentName="多值时取值方式" Value="2"> ,max(vr.visitdate) visitdate </If>
+							from MHC_VisitRecord vr
+							left join PregnantInfo pi on vr.idcard = pi.idcard
+							where 1=1
+							and datediff(week,pi.dateofprenatal,vr.visitdate)+40 &gt;= @起始孕周
+							and datediff(week,pi.dateofprenatal,vr.visitdate)+40 &lt;= @截止孕周
+							group by pi.idcard,pi.dateofprenatal
+					) as temp
+					left join MHC_VisitRecord vr on temp.idcard = vr.idcard and temp.visitdate = vr.visitdate
+				) as vr
+				group by idcard,dateofprenatal,IssueWeek
+					,vr.visitdate,vr.checkweek,vr.checkday,vr.chiefcomplaint,vr.maindiagnosis,vr.secondarydiagnosis,vr.dbp,vr.sbp
+					,vr.abdomencircumference,vr.afi,vr.albuminuria,vr.albuminuriacheckdate,vr.amnioticfluidcharacter,vr.amnioticfluiddepth
+					,vr.bbheartbultrasonicdate,vr.bbheartbultrasonicdiagnosis,vr.bbheartbultrasonicid
+					,vr.bishopscore,vr.bloodsugar
+					,vr.bpflag,vr.brokenwater
+			</If>
+		</SQL>
+	</SQLConfig>
+	<Router From="PregnantInfo" FromAlias="pi" RouteType="LeftJoin">
+		<On FromField="Idcard" ToField="Idcard"/>
+		<On FromField="DateOfPrenatal" ToField="DateOfPrenatal"/>
+	</Router>
+</BusinessEntityTemplate>
+
+
+			<!--<If Operator="in" ComponentName="多值时取值方式" Value="3,4,5">
+				select * from (				
+					select pi.idcard
+					,pi.dateofprenatal
+					,datediff(week,pi.dateofprenatal,lo.examtime)+40 as ExamWeek
+					<If Operator="eq" ComponentName="多值时取值方式" Value="3"> ,min(convert(decimal,lr.value)) as value </If>
+					<If Operator="eq" ComponentName="多值时取值方式" Value="4"> ,max(convert(decimal,lr.value)) as value </If>
+					<If Operator="eq" ComponentName="多值时取值方式" Value="5"> ,avg(convert(decimal,lr.value)) as value </If>
+					from LabOrder lo
+					left join LabResult lr on lo.orderid = lr.orderid
+					left join PregnantInfo pi on lo.idcard = pi.idcard
+					where 1=1
+					<If Operator="NotEmpty" ComponentName="检验类别"> and lr.itemid = @检验类别</If>
+					<If Operator="NotEmpty" ComponentName="起始孕周"> and datediff(week,pi.dateofprenatal,lo.examtime)+40 &gt;= @起始孕周 </If>
+					<If Operator="NotEmpty" ComponentName="截止孕周"> and datediff(week,pi.dateofprenatal,lo.examtime)+40 &lt;= @截止孕周 </If>
+					group by pi.idcard,pi.dateofprenatal
+				) as temp2
+				where value is not null
+				group by idcard,dateofprenatal,ExamWeek,value
+			</If>-->

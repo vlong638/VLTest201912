@@ -1,9 +1,9 @@
-﻿<BusinessEntityTemplate Id="20201222103157" ConnectionString="FYPTConnectionString">
-	<BusinessEntity Id="20201222103157" DisplayName ="孕周期检验模板">
+﻿<BusinessEntityTemplate Id="202012221031" ConnectionString="FYPTConnectionString">
+	<BusinessEntity Id="202012221031" DisplayName ="孕周期检验模板">
 		<Properties>
 			<!--From="CustomBusinessEntity.ReportName"--> 
-			<Property Id="20201222103157002" DisplayName="检验孕周" SourceName="ExamWeek" ColumnType="Int"/>
-			<Property Id="20201222103157004" DisplayName="检验结果" SourceName="Value" ColumnType="Int"/>
+			<Property Id="202012221031002" DisplayName="检验孕周" SourceName="ExamWeek" ColumnType="Int"/>
+			<Property Id="202012221031004" DisplayName="检验结果" SourceName="Value" ColumnType="Int"/>
 		</Properties>
 	</BusinessEntity>
 	<SQLConfig>

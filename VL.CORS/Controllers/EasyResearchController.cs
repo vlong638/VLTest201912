@@ -173,7 +173,8 @@ namespace ResearchAPI.CORS.Controllers
                 case "TemplateProperty":
                     switch (parentId)
                     {
-                        case"20201222103157": //Template_孕周检验.xml
+                        case "202012221031": //Template_孕周检验.xml
+                        case "202001221034": //Template_孕周检验.xml
                             var template = DomainConstraits.Templates.FirstOrDefault(c => c.Id == parentId.ToLong());
                             if (template==null)
                             {
@@ -470,11 +471,13 @@ namespace ResearchAPI.CORS.Controllers
                 case TargetArea.None:
                     break;
                 case TargetArea.PregnantLabResult:
-                    var template = DomainConstraits.Templates.First(c => c.BusinessEntity.Id == 20201222103157);
+                    var template = DomainConstraits.Templates.First(c => c.BusinessEntity.Id == 202012221031);
                     var result = service.CreateCustomIndicator(request, template);
                     return new APIResult<List<BusinessEntityPropertyModel>>(result);
                 case TargetArea.PregnantVisitRecord:
-                    break;
+                    template = DomainConstraits.Templates.First(c => c.BusinessEntity.Id == 202001221034);
+                    result = service.CreateCustomIndicator(request, template);
+                    return new APIResult<List<BusinessEntityPropertyModel>>(result);
                 case TargetArea.Child:
                     break;
                 default:
@@ -529,6 +532,49 @@ namespace ResearchAPI.CORS.Controllers
         {
             var serviceResult = service.EditTask(request);
             return new APIResult<bool>(serviceResult);
+        }
+
+        /// <summary>
+        /// 01/22 编辑队列
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [AllowAnonymous]
+        [EnableCors("AllCors")]
+        public APIResult<bool> EditTaskV2([FromServices] ReportTaskService service, [FromBody] EditTaskV2Request request)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public class EditTaskV2Request
+        {
+            /// <summary>
+            /// 
+            /// </summary>
+            public long TaskId { set; get; }
+            /// <summary>
+            /// 
+            /// </summary>
+            public List<EditTaskWhereModel> Wheres { set; get; }
+        }
+
+        /// <summary>
+        /// 组合条件
+        /// </summary>
+        public class GroupedConditions
+        {
+            /// <summary>
+            /// And Or
+            /// </summary>
+            public bool IsAnd { set; get; }
+
+            /// <summary>
+            /// 条件项目
+            /// </summary>
+            public List<EditTaskWhereModel> Conditions { set; get; }
         }
 
         /// <summary>

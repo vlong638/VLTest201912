@@ -44,11 +44,11 @@ namespace ResearchAPI.CORS.Common
             return Search.First(c => c.Key == "多值时取值方式")
                 .Value.RenderIdToText(
                 new Dictionary<string, string>(){
-                { "1","最早"},
-                { "2","最晚"},
-                { "3","最小"},
-                { "4","最大"},
-                { "5","平均"}
+                { "1","最早值"},
+                { "2","最晚值"},
+                { "3","最小值"},
+                { "4","最大值"},
+                { "5","平均值"}
             });
         }
     }
@@ -101,7 +101,7 @@ namespace ResearchAPI.CORS.Common
         /// </summary>
         PregnantLabResult =1,
         /// <summary>
-        /// 
+        /// 孕期产检模板
         /// </summary>
         PregnantVisitRecord = 2,
         /// <summary>

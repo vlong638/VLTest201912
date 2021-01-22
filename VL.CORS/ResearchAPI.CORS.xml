@@ -1414,11 +1414,6 @@
             截止
             </summary>
         </member>
-        <member name="P:ResearchAPI.CORS.Common.BusinessEntityPeriodTemplate.PropertyDisplayName">
-            <summary>
-            字段显示名称
-            </summary>
-        </member>
         <member name="T:ResearchAPI.CORS.Common.BusinessEntityPropertyModel">
             <summary>
             选择的属性
@@ -1446,7 +1441,7 @@
         </member>
         <member name="F:ResearchAPI.CORS.Common.TargetArea.PregnantVisitRecord">
             <summary>
-            
+            孕期产检模板
             </summary>
         </member>
         <member name="F:ResearchAPI.CORS.Common.TargetArea.Child">
@@ -2519,6 +2514,42 @@
             1.5.2.编辑队列
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:ResearchAPI.CORS.Controllers.EasyResearchController.EditTaskV2(ResearchAPI.CORS.Services.ReportTaskService,ResearchAPI.CORS.Controllers.EasyResearchController.EditTaskV2Request)">
+            <summary>
+            01/22 编辑队列
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:ResearchAPI.CORS.Controllers.EasyResearchController.EditTaskV2Request">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Controllers.EasyResearchController.EditTaskV2Request.TaskId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Controllers.EasyResearchController.EditTaskV2Request.Wheres">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Controllers.EasyResearchController.GroupedConditions">
+            <summary>
+            组合条件
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Controllers.EasyResearchController.GroupedConditions.IsAnd">
+            <summary>
+            And Or
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Controllers.EasyResearchController.GroupedConditions.Conditions">
+            <summary>
+            条件项目
+            </summary>
         </member>
         <member name="M:ResearchAPI.CORS.Controllers.EasyResearchController.DeleteTask(ResearchAPI.CORS.Common.APIContext,ResearchAPI.CORS.Services.ReportTaskService,ResearchAPI.CORS.Controllers.EasyResearchController.SimpleTaskRequest)">
             <summary>
