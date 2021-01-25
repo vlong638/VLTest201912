@@ -1,4 +1,6 @@
 ﻿using Dapper.Contrib.Extensions;
+using ResearchAPI.CORS.Repositories;
+using System;
 using System.ComponentModel;
 
 namespace ResearchAPI.CORS.Common
@@ -7,6 +9,18 @@ namespace ResearchAPI.CORS.Common
     public class ProjectTaskWhere
     {
         public const string TableName = "ProjectTaskWhere";
+
+        public ProjectTaskWhere()
+        {
+        }
+        public ProjectTaskWhere(GroupedCondition c)
+        {
+            //this.c = c;
+        }
+        public ProjectTaskWhere(EditTaskWhereModel where)
+        {
+            //this.where = where;
+        }
 
         public long Id { set; get; }
         public long ProjectId { set; get; }
@@ -36,6 +50,22 @@ namespace ResearchAPI.CORS.Common
         /// 值
         /// </summary>
         public string Value { set; get; }
+        /// <summary>
+        /// 节点类型
+        /// </summary>
+        public ProjectTaskWhereCategory WhereCategory { set; get; }
+        /// <summary>
+        /// 父节点
+        /// </summary>
+        public long? ParentId { set; get; }
+    }
+
+    public enum ProjectTaskWhereCategory
+    {
+        None = 0,
+        Indicator = 1,
+        GroupAnd = 2,
+        GroupOr = 3,
     }
 
     /// <summary>

@@ -4,6 +4,7 @@ using Autobots.Infrastracture.Common.PagerSolution;
 using Autobots.Infrastracture.Common.ServiceSolution;
 using Autobots.Infrastracture.Common.ValuesSolution;
 using ResearchAPI.CORS.Common;
+using ResearchAPI.CORS.Controllers;
 using ResearchAPI.CORS.Repositories;
 using System;
 using System.Collections.Generic;
@@ -509,6 +510,66 @@ namespace ResearchAPI.CORS.Services
                     task.Id = ProjectTaskRepository.Insert(task);
                     return task.Id;
                 }
+            });
+        }
+
+        internal ServiceResult<bool> EditTaskV2(EditTaskV2Request request)
+        {
+            return ResearchDbContext.DelegateTransaction(c =>
+            {
+                //ProjectTask
+                var projectTask = ProjectTaskRepository.GetById(request.TaskId);
+                if (projectTask == null)
+                {
+                    throw new NotImplementedException("队列不存在");
+                }
+                //ProjectIndicator
+                var projectIndicators = ProjectIndicatorRepository.GetProjectIndicatorDisplayModelByProjectId(projectTask.ProjectId);
+                if (projectIndicators.Count == 0)
+                {
+                    throw new NotImplementedException("无项目指标");
+                }
+                //ProjectTaskWhere
+                ProjectTaskWhereRepository.DeleteByTaskId(request.TaskId);
+                request.GroupedCondition.CreateTaskWhere(null, projectTask, projectIndicators, ProjectTaskWhereRepository);
+                return true;
+
+
+
+                //var wheres = request.Wheres.Select(c =>
+                //{
+                //    var indicator = projectIndicators.FirstOrDefault(d => d.Id == c.IndicatorId);
+                //    if (indicator == null)
+                //    {
+                //        throw new NotImplementedException("项目指标缺失");
+                //    }
+                //    var item = new ProjectTaskWhere()
+                //    {
+                //        ProjectId = projectTask.ProjectId,
+                //        TaskId = projectTask.Id,
+                //        IndicatorId = indicator.Id,
+                //        BusinessEntityId = indicator.BusinessEntityId,
+                //        BusinessEntityPropertyId = indicator.BusinessEntityPropertyId,
+                //        Operator = (ProjectTaskWhereOperator)Enum.Parse(typeof(ProjectTaskWhereOperator), c.Operator),
+                //        Value = c.Value,
+                //    };
+                //    if (!indicator.IsTemplate())
+                //    {
+                //        item.EntityName = RenderIdToText(indicator.BusinessEntityId, BusinessEntitySourceDic);
+                //        item.PropertyName = RenderIdToText(indicator.BusinessEntityPropertyId, BusinessEntityPropertySourceDic);
+                //    }
+                //    else
+                //    {
+                //        item.EntityName = indicator.EntitySourceName;
+                //        item.PropertyName = indicator.PropertySourceName;
+                //    }
+                //    return item;
+                //}).ToList();
+                //wheres.ForEach(c =>
+                //{
+                //    c.Id = ProjectTaskWhereRepository.Insert(c);
+                //});
+                //return true;
             });
         }
 

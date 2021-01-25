@@ -543,38 +543,8 @@ namespace ResearchAPI.CORS.Controllers
         [EnableCors("AllCors")]
         public APIResult<bool> EditTaskV2([FromServices] ReportTaskService service, [FromBody] EditTaskV2Request request)
         {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public class EditTaskV2Request
-        {
-            /// <summary>
-            /// 
-            /// </summary>
-            public long TaskId { set; get; }
-            /// <summary>
-            /// 
-            /// </summary>
-            public List<EditTaskWhereModel> Wheres { set; get; }
-        }
-
-        /// <summary>
-        /// 组合条件
-        /// </summary>
-        public class GroupedConditions
-        {
-            /// <summary>
-            /// And Or
-            /// </summary>
-            public bool IsAnd { set; get; }
-
-            /// <summary>
-            /// 条件项目
-            /// </summary>
-            public List<EditTaskWhereModel> Conditions { set; get; }
+            var serviceResult = service.EditTaskV2(request);
+            return new APIResult<bool>(serviceResult);
         }
 
         /// <summary>
@@ -659,6 +629,19 @@ namespace ResearchAPI.CORS.Controllers
             return new APIResult<List<GetTaskModel>>(serviceResult);
         }
 
+        ///// <summary>
+        ///// 1.5.5.查看队列集合
+        ///// </summary>
+        ///// <returns></returns>
+        //[HttpPost]
+        //[AllowAnonymous]
+        //[EnableCors("AllCors")]
+        //public APIResult<List<GetTaskV2Model>> GetTasksV2([FromServices] ReportTaskService service, [FromBody] SimpleProjectRequest request)
+        //{
+        //    var serviceResult = service.GetTasks(request.ProjectId);
+        //    return new APIResult<List<GetTaskModel>>(serviceResult);
+        //}
+
         /// <summary>
         /// 1.5.6.查看队列状态
         /// </summary>
@@ -671,7 +654,8 @@ namespace ResearchAPI.CORS.Controllers
             var serviceResult = service.GetTaskStatus(request.TaskId);
             if (serviceResult.IsSuccess)
             {
-                serviceResult.Data.ScheduleStatusName = serviceResult.Data.ScheduleStatus.GetDescription();// DomainConstraits.RenderIdToText(serviceResult.Data.ScheduleStatus,);
+                serviceResult.Data.ScheduleStatusName = serviceResult.Data.ScheduleStatus.GetDescription();
+                // DomainConstraits.RenderIdToText(serviceResult.Data.ScheduleStatus,);
                 serviceResult.Data.ProcessingRate = (serviceResult.Data.ScheduleStatus == ScheduleStatus.Completed ? 100 : 50);
             }
             return new APIResult<GetTaskStatusModel>(serviceResult);

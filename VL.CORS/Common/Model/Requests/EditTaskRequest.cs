@@ -11,11 +11,6 @@ namespace ResearchAPI.CORS.Common
 
     public class EditTaskWhereModel
     {
-        //public long BusinessEntityId { set; get; }
-        //public long BusinessEntityPropertyId { set; get; }
-        //public string EntityName { set; get; }
-        //public string PropertyName { set; get; }
-
         public long IndicatorId { set; get; }
         public string Operator { set; get; }
         public string Value { set; get; }
