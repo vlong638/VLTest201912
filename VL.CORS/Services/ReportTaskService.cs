@@ -625,6 +625,7 @@ namespace ResearchAPI.CORS.Services
             });
         }
 
+
         internal ServiceResult<bool> StartSchedule(long scheduleId)
         {
             return ResearchDbContext.DelegateNonTransaction(c =>
@@ -650,7 +651,11 @@ namespace ResearchAPI.CORS.Services
                     {
                         throw new NotImplementedException("指标不存在");
                     }
+
+                    var taskProperties = ProjectIndicatorRepository.GetByProjectId(project.Id);
                     var taskWheres = ProjectTaskWhereRepository.GetByTaskId(schedule.TaskId);
+                    var root = taskWheres.FirstOrDefault(c => c.ParentId == null);
+                    var groupedCondition = root != null ? new BOGroupedCondition(root, taskProperties, taskWheres) : null;
                     var customBusinessEntityIndicators = projectIndicators.Where(c => c.BusinessEntityId.ToString().StartsWith("3"));
                     var customBusinessEntities = customBusinessEntityIndicators.Count() > 0
                         ? CustomBusinessEntityRepository.GetByIds(customBusinessEntityIndicators.Select(c => c.BusinessEntityId).Distinct().ToList())
@@ -664,7 +669,7 @@ namespace ResearchAPI.CORS.Services
                     //内核处理
                     DataTable dataTable = null;
                     var reportTask = new ReportTask(task.Name);
-                    reportTask.Update(projectIndicators, taskWheres, customBusinessEntities, customBusinessEntityWheres, defaultRouters, templates, reportTask);
+                    reportTask.Update(projectIndicators, taskWheres, groupedCondition, customBusinessEntities, customBusinessEntityWheres, defaultRouters, templates, reportTask);
                     Log4NetLogger.Info("引擎装载成功");
                     //string.Join("\r\n",parameters.Select(c=> "declare @"+c.Key+" nvarchar(50); set @"+c.Key+" = '"+ c.Value+"'"))
 
@@ -747,6 +752,38 @@ namespace ResearchAPI.CORS.Services
             return ResearchDbContext.DelegateTransaction(c =>
             {
                 return ProjectTaskRepository.DeleteById(taskId);
+            });
+        }
+
+        internal ServiceResult<List<GetTaskV2Model>> GetTasksV2(long projectId)
+        {
+            return ResearchDbContext.DelegateNonTransaction(c =>
+            {
+                var tasks = ProjectTaskRepository.GetByProjectId(projectId);
+                var taskProperties = ProjectIndicatorRepository.GetByProjectId(projectId);
+                var taskWheres = ProjectTaskWhereRepository.GetByProjectId(projectId);
+                var taskSchedules = ProjectScheduleRepository.GetByProjectId(projectId);
+                var result = tasks.Select(d =>
+                {
+                    var schedule = taskSchedules.FirstOrDefault(e => e.TaskId == d.Id);
+                    var model = new GetTaskV2Model()
+                    {
+                        ProjectId = d.ProjectId,
+                        TaskId = d.Id,
+                        TaskName = d.Name,
+                        ScheduleStatus = schedule?.Status ?? ScheduleStatus.None,
+                        ScheduleStatusName = schedule?.Status.GetDescription(),
+                        LastCompletedAt = schedule?.LastCompletedAt,
+                        ResultFile = schedule?.ResultFile,
+                    };
+                    var current = taskWheres.FirstOrDefault(c => c.ParentId == null);
+                    if (current != null)
+                    {
+                        model.GroupedCondition = new GetTaskV2GroupedCondition(current, taskProperties, taskWheres);
+                    }
+                    return model;
+                }).ToList();
+                return result;
             });
         }
 

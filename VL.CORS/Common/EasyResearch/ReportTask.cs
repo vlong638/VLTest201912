@@ -82,6 +82,14 @@ namespace ResearchAPI.CORS.Common
         /// 纳入标准
         /// </summary>
         public List<Field2ValueWhere> Conditions { get; set; } = new List<Field2ValueWhere>();
+        /// <summary>
+        /// 纳入标准V2
+        /// </summary>
+        public BOGroupedCondition GroupedCondition { get; set; }
+        
+        /// <summary>
+        /// 模板用筛选条件
+        /// </summary>
         public List<Field2ValueWhere> TemplateConditions { get; set; } = new List<Field2ValueWhere>();
         /// <summary>
         /// 排除标准
@@ -125,10 +133,11 @@ namespace ResearchAPI.CORS.Common
             {
                 switch (item.Operator)
                 {
+                    case WhereOperator.None:
+                        break;
                     case WhereOperator.Like:
                         args.Add(item.GetParameterName(), $"%{item.Value}%");
                         break;
-                    case WhereOperator.None:
                     case WhereOperator.Equal:
                     case WhereOperator.IsNotNull:
                     case WhereOperator.IsNull:
@@ -153,7 +162,7 @@ namespace ResearchAPI.CORS.Common
             var customBusinessEntities = CustomBusinessEntities;
             var properties = Properties;
             var routers = Routers;
-            var wheres = Conditions;
+            var wheres = GroupedCondition;
             var templates = Templates;
             var sql = $@"
 {GetSelect(properties)}
@@ -176,9 +185,9 @@ namespace ResearchAPI.CORS.Common
             }
         }
 
-        private string GetWhere(List<Field2ValueWhere> conditions)
+        private string GetWhere(BOGroupedCondition conditions)
         {
-            if (conditions.Count == 0)
+            if (conditions == null)
             {
                 return "";
             }
@@ -186,11 +195,7 @@ namespace ResearchAPI.CORS.Common
             {
                 StringBuilder sb = new StringBuilder();
                 sb.Append("where 1=1 ");
-                foreach (var condition in conditions)
-                {
-                    var sql = condition.ToSQL();
-                    sb.Append(" and " + sql);
-                }
+                sb.Append("and " + conditions.GetSQL());
                 return sb.ToString();
             }
         }
@@ -254,7 +259,18 @@ namespace ResearchAPI.CORS.Common
             return "group by " + string.Join(",", properties.Select(c => $"[{c.From}].{c.SourceName}"));
         }
 
-        public void Update(List<ProjectIndicator> projectIndicators, List<ProjectTaskWhere> taskWheres, List<CustomBusinessEntity> customBusinessEntities, List<CustomBusinessEntityWhere> customBusinessEntityWheres, Routers routers, List<BusinessEntityTemplate> templates, ReportTask reportTask)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectIndicators"></param>
+        /// <param name="taskWheres"></param>
+        /// <param name="groupedCondition"></param>
+        /// <param name="customBusinessEntities"></param>
+        /// <param name="customBusinessEntityWheres"></param>
+        /// <param name="routers"></param>
+        /// <param name="templates"></param>
+        /// <param name="reportTask"></param>
+        public void Update(List<ProjectIndicator> projectIndicators, List<ProjectTaskWhere> taskWheres, BOGroupedCondition groupedCondition, List<CustomBusinessEntity> customBusinessEntities, List<CustomBusinessEntityWhere> customBusinessEntityWheres, Routers routers, List<BusinessEntityTemplate> templates, ReportTask reportTask)
         {
             List<long> businessEntityIds = new List<long>();
             foreach (var item in projectIndicators)
@@ -309,12 +325,8 @@ namespace ResearchAPI.CORS.Common
                 }
                 businessEntityIds.Add(item.BusinessEntityId);
             }
-            //reportTask.Properties.AddRange(projectIndicators.Select(c => new COBusinessEntityProperty()
-            //{
-            //    SourceName = c.PropertySourceName,
-            //    DisplayName = c.PropertyDisplayName,
-            //    From = c.EntitySourceName,
-            //}));
+
+            reportTask.GroupedCondition = groupedCondition;
             reportTask.Conditions.AddRange(taskWheres.Select(c => new Field2ValueWhere()
             {
                 EntityName = c.EntityName,
@@ -328,6 +340,7 @@ namespace ResearchAPI.CORS.Common
                 FieldName = c.ComponentName,
                 Value = c.Value,
             }));
+
         }
     }
 

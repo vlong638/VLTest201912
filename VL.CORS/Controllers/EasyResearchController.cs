@@ -629,18 +629,18 @@ namespace ResearchAPI.CORS.Controllers
             return new APIResult<List<GetTaskModel>>(serviceResult);
         }
 
-        ///// <summary>
-        ///// 1.5.5.查看队列集合
-        ///// </summary>
-        ///// <returns></returns>
-        //[HttpPost]
-        //[AllowAnonymous]
-        //[EnableCors("AllCors")]
-        //public APIResult<List<GetTaskV2Model>> GetTasksV2([FromServices] ReportTaskService service, [FromBody] SimpleProjectRequest request)
-        //{
-        //    var serviceResult = service.GetTasks(request.ProjectId);
-        //    return new APIResult<List<GetTaskModel>>(serviceResult);
-        //}
+        /// <summary>
+        /// 1.5.5.查看队列集合
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [AllowAnonymous]
+        [EnableCors("AllCors")]
+        public APIResult<List<GetTaskV2Model>> GetTasksV2([FromServices] ReportTaskService service, [FromBody] SimpleProjectRequest request)
+        {
+            var serviceResult = service.GetTasksV2(request.ProjectId);
+            return new APIResult<List<GetTaskV2Model>>(serviceResult);
+        }
 
         /// <summary>
         /// 1.5.6.查看队列状态
@@ -655,7 +655,6 @@ namespace ResearchAPI.CORS.Controllers
             if (serviceResult.IsSuccess)
             {
                 serviceResult.Data.ScheduleStatusName = serviceResult.Data.ScheduleStatus.GetDescription();
-                // DomainConstraits.RenderIdToText(serviceResult.Data.ScheduleStatus,);
                 serviceResult.Data.ProcessingRate = (serviceResult.Data.ScheduleStatus == ScheduleStatus.Completed ? 100 : 50);
             }
             return new APIResult<GetTaskStatusModel>(serviceResult);

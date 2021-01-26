@@ -260,6 +260,16 @@
             纳入标准
             </summary>
         </member>
+        <member name="P:ResearchAPI.CORS.Common.ReportTask.GroupedCondition">
+            <summary>
+            纳入标准V2
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.ReportTask.TemplateConditions">
+            <summary>
+            模板用筛选条件
+            </summary>
+        </member>
         <member name="P:ResearchAPI.CORS.Common.ReportTask.ExceptionConditions">
             <summary>
             排除标准
@@ -269,6 +279,19 @@
             <summary>
             
             </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Common.ReportTask.Update(System.Collections.Generic.List{ResearchAPI.CORS.Common.ProjectIndicator},System.Collections.Generic.List{ResearchAPI.CORS.Common.ProjectTaskWhere},ResearchAPI.CORS.Common.BOGroupedCondition,System.Collections.Generic.List{ResearchAPI.CORS.Common.CustomBusinessEntity},System.Collections.Generic.List{ResearchAPI.CORS.Common.CustomBusinessEntityWhere},ResearchAPI.CORS.Common.Routers,System.Collections.Generic.List{ResearchAPI.CORS.Common.BusinessEntityTemplate},ResearchAPI.CORS.Common.ReportTask)">
+            <summary>
+            
+            </summary>
+            <param name="projectIndicators"></param>
+            <param name="taskWheres"></param>
+            <param name="groupedCondition"></param>
+            <param name="customBusinessEntities"></param>
+            <param name="customBusinessEntityWheres"></param>
+            <param name="routers"></param>
+            <param name="templates"></param>
+            <param name="reportTask"></param>
         </member>
         <member name="F:ResearchAPI.CORS.Common.Routers.ElementName">
             <summary>
@@ -1193,6 +1216,16 @@
             值
             </summary>
         </member>
+        <member name="P:ResearchAPI.CORS.Common.ProjectTaskWhere.WhereCategory">
+            <summary>
+            节点类型
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.ProjectTaskWhere.ParentId">
+            <summary>
+            父节点
+            </summary>
+        </member>
         <member name="T:ResearchAPI.CORS.Common.ProjectTaskWhereOperator">
             <summary>
             
@@ -1544,61 +1577,6 @@
             项目Id
             </summary>
         </member>
-        <member name="P:ResearchAPI.CORS.Common.GetTaskModel.ProjectId">
-            <summary>
-            项目Id
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.CORS.Common.GetTaskModel.TaskId">
-            <summary>
-            队列Id
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.CORS.Common.GetTaskModel.TaskName">
-            <summary>
-            队列名称
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.CORS.Common.GetTaskModel.Wheres">
-            <summary>
-            队列条件
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.CORS.Common.GetTaskModel.ScheduleStatus">
-            <summary>
-            执行状态
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.CORS.Common.GetTaskModel.ScheduleStatusName">
-            <summary>
-            执行状态_文本
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.CORS.Common.GetTaskModel.ResultFile">
-            <summary>
-            可导出文件
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.CORS.Common.GetTaskModel.LastCompletedAt">
-            <summary>
-            上一次执行完成时间
-            </summary>
-        </member>
-        <member name="T:ResearchAPI.CORS.Common.GetTaskWhereModel">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.CORS.Common.GetTaskWhereModel.OperatorName">
-            <summary>
-            操作类型的显示名称
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.CORS.Common.GetTaskWhereModel.DisplayName">
-            <summary>
-            属性的显示名称
-            </summary>
-        </member>
         <member name="T:ResearchAPI.CORS.Common.EditTaskV2Request">
             <summary>
             
@@ -1614,24 +1592,24 @@
             
             </summary>
         </member>
-        <member name="T:ResearchAPI.CORS.Common.GroupedCondition">
+        <member name="T:ResearchAPI.CORS.Common.EditTaskV2GroupedCondition">
             <summary>
             组合条件
             </summary>
         </member>
-        <member name="P:ResearchAPI.CORS.Common.GroupedCondition.IsAnd">
+        <member name="P:ResearchAPI.CORS.Common.EditTaskV2GroupedCondition.IsAnd">
             <summary>
             组合方式: 
             true为And 
             false为Or
             </summary>
         </member>
-        <member name="P:ResearchAPI.CORS.Common.GroupedCondition.WhereConditions">
+        <member name="P:ResearchAPI.CORS.Common.EditTaskV2GroupedCondition.WhereConditions">
             <summary>
             条件项目
             </summary>
         </member>
-        <member name="P:ResearchAPI.CORS.Common.GroupedCondition.GroupedConditions">
+        <member name="P:ResearchAPI.CORS.Common.EditTaskV2GroupedCondition.GroupedConditions">
             <summary>
             条件项目
             </summary>
@@ -1898,6 +1876,31 @@
         <member name="P:ResearchAPI.CORS.Common.ProjectDTO.ProjectDescription">
             <summary>
             项目描述
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Common.ProjectIndicatorDisplayModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.ProjectIndicatorDisplayModel.TemplateDisplayName">
+            <summary>
+            模板的业务对象显示名称
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.ProjectIndicatorDisplayModel.TemplatePropertyDisplayName">
+            <summary>
+            模板的指标显示名称
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.ProjectIndicatorDisplayModel.TemplatePropertColumnType">
+            <summary>
+            模板的指标字段类型
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.ProjectIndicatorDisplayModel.TemplatePropertEnumType">
+            <summary>
+            模板的指标枚举类型
             </summary>
         </member>
         <member name="T:ResearchAPI.CORS.Common.UpdateIndicatorNameRequest">
@@ -2238,6 +2241,66 @@
             角色名称
             </summary>
         </member>
+        <member name="T:ResearchAPI.CORS.Common.GetTaskModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetTaskModel.ProjectId">
+            <summary>
+            项目Id
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetTaskModel.TaskId">
+            <summary>
+            队列Id
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetTaskModel.TaskName">
+            <summary>
+            队列名称
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetTaskModel.Wheres">
+            <summary>
+            队列条件
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetTaskModel.ScheduleStatus">
+            <summary>
+            执行状态
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetTaskModel.ScheduleStatusName">
+            <summary>
+            执行状态_文本
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetTaskModel.ResultFile">
+            <summary>
+            可导出文件
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetTaskModel.LastCompletedAt">
+            <summary>
+            上一次执行完成时间
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Common.GetTaskWhereModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetTaskWhereModel.OperatorName">
+            <summary>
+            操作类型的显示名称
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetTaskWhereModel.DisplayName">
+            <summary>
+            属性的显示名称
+            </summary>
+        </member>
         <member name="P:ResearchAPI.CORS.Common.GetTaskStatusModel.ScheduleStatus">
             <summary>
             执行状态
@@ -2262,6 +2325,167 @@
             <summary>
             上一次执行完成时间
             </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Common.GetTaskV2Model">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetTaskV2Model.ProjectId">
+            <summary>
+            项目Id
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetTaskV2Model.TaskId">
+            <summary>
+            队列Id
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetTaskV2Model.TaskName">
+            <summary>
+            队列名称
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetTaskV2Model.GroupedCondition">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetTaskV2Model.ScheduleStatus">
+            <summary>
+            执行状态
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetTaskV2Model.ScheduleStatusName">
+            <summary>
+            执行状态_文本
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetTaskV2Model.ResultFile">
+            <summary>
+            可导出文件
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetTaskV2Model.LastCompletedAt">
+            <summary>
+            上一次执行完成时间
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Common.GetTaskV2WhereCondition">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetTaskV2WhereCondition.IndicatorId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetTaskV2WhereCondition.IndicatorName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetTaskV2WhereCondition.Operator">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetTaskV2WhereCondition.OperatorName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetTaskV2WhereCondition.Value">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Common.GetTaskV2GroupedCondition">
+            <summary>
+            组合条件
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Common.GetTaskV2GroupedCondition.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Common.GetTaskV2GroupedCondition.#ctor(ResearchAPI.CORS.Common.ProjectTaskWhere,System.Collections.Generic.List{ResearchAPI.CORS.Common.ProjectIndicator},System.Collections.Generic.List{ResearchAPI.CORS.Common.ProjectTaskWhere})">
+            <summary>
+            
+            </summary>
+            <param name="current"></param>
+            <param name="taskProperties"></param>
+            <param name="taskWheres"></param>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetTaskV2GroupedCondition.IsAnd">
+            <summary>
+            组合方式: 
+            true为And 
+            false为Or
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetTaskV2GroupedCondition.WhereConditions">
+            <summary>
+            条件项目
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetTaskV2GroupedCondition.GroupedConditions">
+            <summary>
+            条件项目
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Common.BOWhereCondition">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Common.BOWhereCondition.#ctor(ResearchAPI.CORS.Common.ProjectTaskWhere)">
+            <summary>
+            
+            </summary>
+            <param name="c"></param>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.BOWhereCondition.Field2ValueWhere">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Common.BOGroupedCondition">
+            <summary>
+            组合条件
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.BOGroupedCondition.ProjectTaskWhere">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.BOGroupedCondition.IsAnd">
+            <summary>
+            组合方式: 
+            true为And 
+            false为Or
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.BOGroupedCondition.WhereConditions">
+            <summary>
+            条件项目
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.BOGroupedCondition.GroupedConditions">
+            <summary>
+            条件项目
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Common.BOGroupedCondition.#ctor(ResearchAPI.CORS.Common.ProjectTaskWhere,System.Collections.Generic.List{ResearchAPI.CORS.Common.ProjectIndicator},System.Collections.Generic.List{ResearchAPI.CORS.Common.ProjectTaskWhere})">
+            <summary>
+            
+            </summary>
+            <param name="current"></param>
+            <param name="taskProperties"></param>
+            <param name="taskWheres"></param>
         </member>
         <member name="T:ResearchAPI.CORS.Common.GetUserModel">
             <summary>
@@ -2586,6 +2810,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:ResearchAPI.CORS.Controllers.EasyResearchController.GetTasksV2(ResearchAPI.CORS.Services.ReportTaskService,ResearchAPI.CORS.Controllers.EasyResearchController.SimpleProjectRequest)">
+            <summary>
+            1.5.5.查看队列集合
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:ResearchAPI.CORS.Controllers.EasyResearchController.GetTaskStatus(ResearchAPI.CORS.Services.ReportTaskService,ResearchAPI.CORS.Controllers.EasyResearchController.SimpleTaskRequest)">
             <summary>
             1.5.6.查看队列状态
@@ -2786,31 +3016,6 @@
         <member name="T:ResearchAPI.CORS.Repositories.ProjectIndicatorRepository">
             <summary>
             
-            </summary>
-        </member>
-        <member name="T:ResearchAPI.CORS.Repositories.ProjectIndicatorRepository.ProjectIndicatorDisplayModel">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.CORS.Repositories.ProjectIndicatorRepository.ProjectIndicatorDisplayModel.TemplateDisplayName">
-            <summary>
-            模板的业务对象显示名称
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.CORS.Repositories.ProjectIndicatorRepository.ProjectIndicatorDisplayModel.TemplatePropertyDisplayName">
-            <summary>
-            模板的指标显示名称
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.CORS.Repositories.ProjectIndicatorRepository.ProjectIndicatorDisplayModel.TemplatePropertColumnType">
-            <summary>
-            模板的指标字段类型
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.CORS.Repositories.ProjectIndicatorRepository.ProjectIndicatorDisplayModel.TemplatePropertEnumType">
-            <summary>
-            模板的指标枚举类型
             </summary>
         </member>
         <member name="M:ResearchAPI.CORS.Repositories.ProjectLogRepository.InsertOne(ResearchAPI.CORS.Common.ProjectLog)">

@@ -13,11 +13,11 @@ namespace ResearchAPI.CORS.Common
         public ProjectTaskWhere()
         {
         }
-        public ProjectTaskWhere(GroupedCondition c)
+        public ProjectTaskWhere(EditTaskV2GroupedCondition c)
         {
             //this.c = c;
         }
-        public ProjectTaskWhere(EditTaskWhereModel where)
+        public ProjectTaskWhere(EditTaskWhereCondition where)
         {
             //this.where = where;
         }
@@ -58,6 +58,11 @@ namespace ResearchAPI.CORS.Common
         /// 父节点
         /// </summary>
         public long? ParentId { set; get; }
+
+        internal string GetSQL()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public enum ProjectTaskWhereCategory

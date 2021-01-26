@@ -17,14 +17,18 @@ namespace ResearchAPI.CORS.Common
         /// <summary>
         /// 
         /// </summary>
-        public GroupedCondition GroupedCondition { set; get; }
+        public EditTaskV2GroupedCondition GroupedCondition { set; get; }
     }
 
     /// <summary>
     /// 组合条件
     /// </summary>
-    public class GroupedCondition
+    public class EditTaskV2GroupedCondition
     {
+        public EditTaskV2GroupedCondition()
+        {
+        }
+
         /// <summary>
         /// 组合方式: 
         /// true为And 
@@ -34,11 +38,11 @@ namespace ResearchAPI.CORS.Common
         /// <summary>
         /// 条件项目
         /// </summary>
-        public List<EditTaskWhereModel> WhereConditions { set; get; } = new List<EditTaskWhereModel>();
+        public List<EditTaskWhereCondition> WhereConditions { set; get; } = new List<EditTaskWhereCondition>();
         /// <summary>
         /// 条件项目
         /// </summary>
-        public List<GroupedCondition> GroupedConditions { set; get; } = new List<GroupedCondition>();
+        public List<EditTaskV2GroupedCondition> GroupedConditions { set; get; } = new List<EditTaskV2GroupedCondition>();
 
         internal bool CreateTaskWhere(ProjectTaskWhere c, ProjectTask projectTask, List<ProjectIndicatorDisplayModel> projectIndicators, ProjectTaskWhereRepository projectTaskWhereRepository)
         {
@@ -69,6 +73,7 @@ namespace ResearchAPI.CORS.Common
                     BusinessEntityPropertyId = indicator.BusinessEntityPropertyId,
                     Operator = (ProjectTaskWhereOperator)Enum.Parse(typeof(ProjectTaskWhereOperator), where.Operator),
                     Value = where.Value,
+                    WhereCategory = ProjectTaskWhereCategory.Indicator,
                 };
                 if (!indicator.IsTemplate())
                 {
