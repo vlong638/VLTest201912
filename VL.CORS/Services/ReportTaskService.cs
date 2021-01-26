@@ -533,43 +533,6 @@ namespace ResearchAPI.CORS.Services
                 ProjectTaskWhereRepository.DeleteByTaskId(request.TaskId);
                 request.GroupedCondition.CreateTaskWhere(null, projectTask, projectIndicators, ProjectTaskWhereRepository);
                 return true;
-
-
-
-                //var wheres = request.Wheres.Select(c =>
-                //{
-                //    var indicator = projectIndicators.FirstOrDefault(d => d.Id == c.IndicatorId);
-                //    if (indicator == null)
-                //    {
-                //        throw new NotImplementedException("项目指标缺失");
-                //    }
-                //    var item = new ProjectTaskWhere()
-                //    {
-                //        ProjectId = projectTask.ProjectId,
-                //        TaskId = projectTask.Id,
-                //        IndicatorId = indicator.Id,
-                //        BusinessEntityId = indicator.BusinessEntityId,
-                //        BusinessEntityPropertyId = indicator.BusinessEntityPropertyId,
-                //        Operator = (ProjectTaskWhereOperator)Enum.Parse(typeof(ProjectTaskWhereOperator), c.Operator),
-                //        Value = c.Value,
-                //    };
-                //    if (!indicator.IsTemplate())
-                //    {
-                //        item.EntityName = RenderIdToText(indicator.BusinessEntityId, BusinessEntitySourceDic);
-                //        item.PropertyName = RenderIdToText(indicator.BusinessEntityPropertyId, BusinessEntityPropertySourceDic);
-                //    }
-                //    else
-                //    {
-                //        item.EntityName = indicator.EntitySourceName;
-                //        item.PropertyName = indicator.PropertySourceName;
-                //    }
-                //    return item;
-                //}).ToList();
-                //wheres.ForEach(c =>
-                //{
-                //    c.Id = ProjectTaskWhereRepository.Insert(c);
-                //});
-                //return true;
             });
         }
 

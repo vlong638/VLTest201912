@@ -215,7 +215,8 @@ namespace ResearchAPI.CORS.Common
             else
             {
                 StringBuilder sb = new StringBuilder();
-                var root = "PregnantInfo";
+                //var root = "PregnantInfo";
+                var root = "PF_GeneralInfo";
                 sb.AppendLine($" from [{root}] ");
                 AppendRoute(sb, routers, root, templates, templateWheres);
                 return sb.ToString();

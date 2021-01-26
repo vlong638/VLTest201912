@@ -19,4 +19,23 @@
 	<Router From="LabOrder" To="LabResult" RouteType="LeftJoin">
 		<On FromField="OrderId" ToField="OrderId"/>
 	</Router>
+
+	<Router From="PF_GeneralInfo" To="PF_PregnancyHistory" RouteType="LeftJoin">
+		<On FromField="idcard" ToField="idcard"/>
+	</Router>
+	<Router From="PF_GeneralInfo" To="PF_SpecialSituation" RouteType="LeftJoin">
+		<On FromField="id" ToField="generalinfoid"/>
+	</Router>
+	<Router From="PF_GeneralInfo" To="PF_FunctionEvaluation" RouteType="LeftJoin">
+		<On FromField="id" ToField="generalinfoid"/>
+	</Router>
+	<Router From="PF_GeneralInfo" To="PF_VisitRecord" RouteType="LeftJoin">
+		<On FromField="id" ToField="generalinfoid"/>
+	</Router>
+	<Router From="PF_GeneralInfo" To="PF_TreatmentRecord" RouteType="LeftJoin">
+		<On FromField="id" ToField="generalinfoid"/>
+	</Router>
+	<Router From="PF_GeneralInfo" To="PF_TreatmentDetail" RouteType="LeftJoin">
+		<On FromField="id" ToField="generalinfoid"/>
+	</Router>
 </Routers>
