@@ -43,5 +43,9 @@
         "Value": "http://localhost:8042"
       }
     ]
+  },
+  "EasyResearch": {
+    "MainRoute": "PregnantInfo"
+    //"MainRoute": "PF_GeneralInfo"
   }
 }

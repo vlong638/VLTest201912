@@ -929,6 +929,16 @@
             
             </summary>
         </member>
+        <member name="T:ResearchAPI.CORS.Common.EasyResearchConfig">
+            <summary>
+            配置样例
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.EasyResearchConfig.MainRoute">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:ResearchAPI.CORS.Common.DropDownItem">
             <summary>
             下拉项

@@ -1,5 +1,4 @@
 using Autobots.Infrastracture.Common.DBSolution;
-using Autobots.Infrastracture.Common.ValuesSolution;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -27,6 +26,7 @@ namespace ResearchAPI.CORS
                 //常量配置
                 var configs = builder.Build();
                 APIContraints.DBConfig = configs.GetSection("DB").Get<DBConfig>();
+                APIContraints.EasyResearchConfig = configs.GetSection("EasyResearch").Get<EasyResearchConfig>();
                 //静态常量
                 var dbConnectiongString = APIContraints.DBConfig.ConnectionStrings.FirstOrDefault(c => c.Key == APIContraints.ResearchDbContext).Value;
                 var dbContext = new DbContext(DBHelper.GetDbConnection(dbConnectiongString));
