@@ -28,7 +28,7 @@
 						u.momname,
 						u.childname,
 						u.homeaddresstext,
-						CASE WHEN u.childsex == 1 THEN '男' WHEN u.childsex == 2 THEN '女' ELSE '不详' as childsex,
+						CASE WHEN u.childsex = 1 THEN '男' WHEN u.childsex = 2 THEN '女' ELSE '不详' end as childsex,
 						u.birthday,
 						CASE WHEN u.birthweight IS NOT NULL THEN u.birthweight WHEN cg.birthWeight IS NOT NULL THEN cg.birthweight ELSE null END as birthweight,
 						cg.gestation,
