@@ -739,10 +739,11 @@ namespace ResearchAPI.CORS.Services
                         LastCompletedAt = schedule?.LastCompletedAt,
                         ResultFile = schedule?.ResultFile,
                     };
-                    var current = taskWheres.FirstOrDefault(c => c.ParentId == null);
+                    var currentTaskWheres = taskWheres.Where(q => q.TaskId == d.Id).ToList();
+                    var current = currentTaskWheres.FirstOrDefault(c => c.ParentId == null);
                     if (current != null)
                     {
-                        model.GroupedCondition = new GetTaskV2GroupedCondition(current, taskProperties, taskWheres);
+                        model.GroupedCondition = new GetTaskV2GroupedCondition(current, taskProperties, currentTaskWheres);
                     }
                     return model;
                 }).ToList();

@@ -58,11 +58,6 @@ namespace ResearchAPI.CORS.Common
         /// 父节点
         /// </summary>
         public long? ParentId { set; get; }
-
-        internal string GetSQL()
-        {
-            throw new NotImplementedException();
-        }
     }
 
     public enum ProjectTaskWhereCategory
