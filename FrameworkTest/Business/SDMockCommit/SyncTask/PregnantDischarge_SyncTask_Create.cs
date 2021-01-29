@@ -29,8 +29,7 @@ namespace FrameworkTest.Business.SDMockCommit
             };
             try
             {
-                //获取列表数据
-                var listData = Context.FSService.GetPregnantInHospitalList(userInfo, sourceData.inp_no, ref logger);
+                var listData = Context.FSService.GetPregnantInHospitalList(userInfo, sourceData.inp_no, ref logger);//获取列表数据
                 if (listData == null)
                 {
                     syncOrder.SyncStatus = SyncStatus.Error;
@@ -38,26 +37,19 @@ namespace FrameworkTest.Business.SDMockCommit
                     syncOrder.Id = context.ESBService.SaveSyncOrder(syncOrder);
                     return;
                 }
-                //获得诊断信息
-                var diagnosis = Context.ESBService.GetDiagnosisByPatientIdAndINPNo(sourceData.SourceData.inp_no, sourceData.SourceData.visit_id);
-                //有死亡风险的不作上传
-                if (VLConstraints.HasDeadDiagnosis(diagnosis))
+                var diagnosis = Context.ESBService.GetDiagnosisByPatientIdAndINPNo(sourceData.SourceData.inp_no, sourceData.SourceData.visit_id);//获得诊断信息
+                if (VLConstraints.HasDeadDiagnosis(diagnosis))//有死亡风险的不作上传
                 {
                     syncOrder.SyncStatus = SyncStatus.DeadDiagnosis;
                     syncOrder.ErrorMessage = SyncStatus.DeadDiagnosis.GetDescription();
                     syncOrder.Id = context.ESBService.SaveSyncOrder(syncOrder);
                     return;
                 }
-                //获取住院数据
-                var pregnantDischargeData = Context.FSService.GetPregnantDischarge(userInfo, listData.FMMainId, ref logger);
-                //获取高危因素
-                var highRisks = Context.PregnantService.GetLatestHighRisksByIdCard(sourceData.SourceData.idcard);
-                //获取医嘱信息
-                var advices = Context.ESBService.GetAdvicesByPatientId(sourceData.SourceData.inp_no);
-                //获取检验结果
-                var inspections = Context.ESBService.GetInspectionsByPatientId(sourceData.SourceData.inp_no);
-                //数据更新
-                var pregnantDischargeToCreate = new CQJL_WOMAN_FORM_SAVE_Data();
+                var pregnantDischargeData = Context.FSService.GetPregnantDischarge(userInfo, listData.FMMainId, ref logger);//获取住院数据
+                var highRisks = Context.PregnantService.GetLatestHighRisksByIdCard(sourceData.SourceData.idcard);//获取高危因素
+                var advices = Context.ESBService.GetAdvicesByPatientId(sourceData.SourceData.inp_no);//获取医嘱信息
+                var inspections = Context.ESBService.GetInspectionsByPatientId(sourceData.SourceData.inp_no);//获取检验结果
+                var pregnantDischargeToCreate = new CQJL_WOMAN_FORM_SAVE_Data();//数据更新
                 if (pregnantDischargeData != null)
                 {
                     syncOrder.SyncStatus = SyncStatus.Existed;
@@ -70,10 +62,8 @@ namespace FrameworkTest.Business.SDMockCommit
                     pregnantDischargeToCreate.Init(userInfo, sourceData, listData.FMMainId);
                 }
                 pregnantDischargeToCreate.Update(sourceData, highRisks, diagnosis, advices, inspections);
-                //创建住院数据
-                var result = Context.FSService.SavePregnantDischarge(userInfo, listData, pregnantDischargeToCreate, pregnantDischargeData?.DischargeId ?? "null", ref logger);
-                //保存同步记录2
-                syncOrder.Id = context.ESBService.SaveSyncOrder(syncOrder);
+                var result = Context.FSService.SavePregnantDischarge(userInfo, listData, pregnantDischargeToCreate, pregnantDischargeData?.DischargeId ?? "null", ref logger);//创建住院数据
+                syncOrder.Id = context.ESBService.SaveSyncOrder(syncOrder);//保存同步记录2
             }
             catch (Exception ex)
             {
