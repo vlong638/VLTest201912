@@ -136,6 +136,8 @@ namespace ResearchAPI.CORS.Controllers
                             values = ConfigHelper.GetJsonConfig<string, string>("Operator2DateTime");
                             break;
                         case "3":
+                        case "5":
+                        case "6":
                             values = ConfigHelper.GetJsonConfig<string, string>("Operator2Int");
                             break;
                         case "4":
