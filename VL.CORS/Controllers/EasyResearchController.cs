@@ -126,7 +126,7 @@ namespace ResearchAPI.CORS.Controllers
             List<VLKeyValue<string, string>> values = new List<VLKeyValue<string, string>>();
             switch (type)
             {
-                case "Operator":
+                case "Operator": //Parent:ColumnType
                     switch (parentId)
                     {
                         case "1":
@@ -145,32 +145,32 @@ namespace ResearchAPI.CORS.Controllers
                             break;
                     }
                     return Success(values);
-                case "ProjectTask":
+                case "ProjectTask": //Parent:ProjectId
                     values.AddRange(service.GetTaskNameAndIds(parentId.ToLong().Value).Data);
                     return Success(values);
-                case "ProjectMember":
+                case "ProjectMember"://Parent:ProjectId
                     var result = service.GetProjectMemberIdAndName(parentId.ToLong().Value);
                     foreach (var user in result.Data)
                     {
                         values.Add(new VLKeyValue<string, string>(user.Key, user.Value.ToString()));
                     }
                     return Success(values);
-                case "BusinessEntity":
+                case "BusinessEntity"://Parent:BusinessEntities.Id
                     values.AddRange(DomainConstraits.BusinessEntities
                         .Where(c => c.BusinessTypeId == parentId.ToLong())
                         .Select(c => new VLKeyValue<string, string>(c.Name, c.Id.ToString())));
                     return Success(values);
-                case "BusinessEntityProperty":
+                case "BusinessEntityProperty"://Parent:BusinessEntity.Id
                     values.AddRange(DomainConstraits.BusinessEntityProperties
                         .Where(c => c.BusinessEntityId == parentId.ToLong())
                         .Select(c => new VLKeyValue<string, string>(c.DisplayName, c.Id.ToString())));
                     return Success(values);
-                case "LabResult":
+                case "LabResult"://Parent:Labs.parentvalue
                     values.AddRange(DomainConstraits.LabResults
                         .First(c => c.Key == parentId)
                         .Select(c => new VLKeyValue<string, string>(c.Value, c.Key)));
                     return Success(values);
-                case "TemplateProperty":
+                case "TemplateProperty"://Parent:BusinessEntityTemplate.Id
                     switch (parentId)
                     {
                         case "202012221031": //Template_孕周检验.xml

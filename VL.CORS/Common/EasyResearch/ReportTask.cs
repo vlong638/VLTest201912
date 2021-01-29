@@ -195,7 +195,8 @@ namespace ResearchAPI.CORS.Common
             {
                 StringBuilder sb = new StringBuilder();
                 sb.Append("where 1=1 ");
-                sb.Append("and " + conditions.GetSQL());
+                var conditionSQL = conditions.GetSQL();
+                sb.Append(conditionSQL.IsNullOrEmpty() ? "" : "and " + conditionSQL);//TODO 空条件处理
                 return sb.ToString();
             }
         }

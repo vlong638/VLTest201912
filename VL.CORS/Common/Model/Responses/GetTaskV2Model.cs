@@ -233,7 +233,12 @@ namespace ResearchAPI.CORS.Common
             List<string> items = new List<string>();
             items.AddRange(WhereConditions.Select(c => c.GetSQL()));
             items.AddRange(GroupedConditions.Select(c=>c.GetSQL()));
+            if (items.Count==0)
+            {
+                return "";
+            }
             return $"({string.Join(IsAnd ? " and " : " or ", items)})";
         }
     }
 }
+
