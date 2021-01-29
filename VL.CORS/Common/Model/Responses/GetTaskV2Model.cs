@@ -109,7 +109,7 @@ namespace ResearchAPI.CORS.Common
                 WhereConditions.Add(new GetTaskV2WhereCondition()
                 {
                     IndicatorId = where.IndicatorId,
-                    IndicatorName = DomainConstraits.RenderIdToText(where.IndicatorId, taskProperties.ToDictionary(key => key.BusinessEntityPropertyId, value => value.PropertyDisplayName)),
+                    IndicatorName = DomainConstraits.RenderIdToText(where.IndicatorId, taskProperties.ToDictionary(key => key.Id, value => value.PropertyDisplayName)),
                     Operator = where.Operator.ToString(),
                     OperatorName = where.Operator.GetDescription(),
                     Value = where.Value,

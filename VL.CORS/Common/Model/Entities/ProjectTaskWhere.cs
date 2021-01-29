@@ -85,30 +85,37 @@ namespace ResearchAPI.CORS.Common
         /// <summary>
         /// 
         /// </summary>
+        [Description("包含")]
         like =2,
         /// <summary>
         /// 
         /// </summary>
-        isNotNull=3,
+        [Description("非空")]
+        isNotNull =3,
         /// <summary>
         /// 
         /// </summary>
-        isNull=4,
+        [Description("为空")]
+        isNull =4,
         /// <summary>
         /// GreatThan
         /// </summary>
-        gt=5,
+        [Description("大于")]
+        gt =5,
         /// <summary>
         /// LessThan
         /// </summary>
-        lt=6,
+        [Description("小于")]
+        lt =6,
         /// <summary>
         /// GreatOrEqualThan
         /// </summary>
-        get=7,
+        [Description("大于或等于")]
+        get =7,
         /// <summary>
         /// LessOrEqualThan
         /// </summary>
-        let=8,
+        [Description("小于或等于")]
+        let =8,
     }
 }
