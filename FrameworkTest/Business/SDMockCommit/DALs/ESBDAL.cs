@@ -55,7 +55,7 @@ select top 1 ''
 ,fm.inp_no,fm.visit_id,fm.FMRQDate,fm.FMFSData,fm.ZCJGData ,fm.TWData ,fm.XYData ,fm.RFQKData ,fm.gdgddata ,fm.hyskdata ,fm.ELUData ,fm.CLJZDData 
 from HELEESB.dbo.V_FWPT_GY_ZHUYUANFM fm
 left join HL_Pregnant.dbo.SyncForFS s5 on s5.TargetType = 5 and s5.SourceId = fm.inp_no
-left join HELEESB.dbo.V_FWPT_GY_BINGRENXXZY br on br.bingrenid = fm.inp_no
+left join HELEESB.dbo.V_FWPT_GY_BINGRENXXZY br on br.bingrenid = fm.inp_no and br.liushuih=fm.visit_id
 left join HL_Pregnant.dbo.PregnantInfo pi on pi.idcard = br.shenfenzh
 where s5.id is null
 and br.chuyuanrqfixed is not null
@@ -74,7 +74,7 @@ select top 1 ''
 ,fm.inp_no,fm.visit_id,fm.FMRQDate,fm.FMFSData,fm.ZCJGData ,fm.TWData ,fm.XYData ,fm.RFQKData ,fm.gdgddata ,fm.hyskdata ,fm.ELUData ,fm.CLJZDData 
 from HELEESB.dbo.V_FWPT_GY_ZHUYUANFM fm
 left join HL_Pregnant.dbo.SyncForFS s5 on s5.TargetType = 5 and s5.SourceId = fm.inp_no
-left join HELEESB.dbo.V_FWPT_GY_BINGRENXXZY br on br.bingrenid = fm.inp_no
+left join HELEESB.dbo.V_FWPT_GY_BINGRENXXZY br on br.bingrenid = fm.inp_no and br.liushuih=fm.visit_id
 left join HL_Pregnant.dbo.PregnantInfo pi on pi.idcard = br.shenfenzh
 where s5.id is not null and s5.SyncStatus = 2
 and br.chuyuanrqfixed is not null
@@ -104,7 +104,7 @@ select top 1 ''
 ,yr.wydata --母乳喂养
 from HELEESB.dbo.V_FWPT_GY_ZHUYUANFMYE yr
 left join HELEESB.dbo.V_FWPT_GY_ZHUYUANFM fm on yr.inp_no = fm.inp_no
-left join HELEESB.dbo.V_FWPT_GY_BINGRENXXZY br on br.bingrenid = yr.inp_no
+left join HELEESB.dbo.V_FWPT_GY_BINGRENXXZY br on br.bingrenid = yr.inp_no and br.liushuih=fm.visit_id
 left join HL_Pregnant.dbo.SyncForFS s6 on s6.TargetType = 6 and s6.SourceId = fm.inp_no
 where s6.id is null
 and br.chuyuanrqfixed is not null
@@ -131,7 +131,7 @@ select top 1 ''
 ,yr.wydata --母乳喂养
 from HELEESB.dbo.V_FWPT_GY_ZHUYUANFMYE yr
 left join HELEESB.dbo.V_FWPT_GY_ZHUYUANFM fm on yr.inp_no = fm.inp_no
-left join HELEESB.dbo.V_FWPT_GY_BINGRENXXZY br on br.bingrenid = yr.inp_no
+left join HELEESB.dbo.V_FWPT_GY_BINGRENXXZY br on br.bingrenid = yr.inp_no and br.liushuih=fm.visit_id
 left join HL_Pregnant.dbo.SyncForFS s6 on s6.TargetType = 6 and s6.SourceId = fm.inp_no
 where s6.id is not null and s6.SyncStatus = 2
 and br.chuyuanrqfixed is not null
