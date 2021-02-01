@@ -72,6 +72,7 @@ namespace FrameworkTest.Business.SDMockCommit
                     syncOrder.Id = context.ESBService.SaveSyncOrder(syncOrder);
                     return;
                 }
+                //提交佛山
                 var result = Context.FSService.SavePregnantDischarge(userInfo, listData, pregnantDischargeToCreate, pregnantDischargeData?.DischargeId ?? "null", ref logger);//创建住院数据
                 syncOrder.Id = context.ESBService.SaveSyncOrder(syncOrder);//保存同步记录2
             }
