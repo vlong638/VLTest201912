@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.UI.WebControls;
 
 namespace FrameworkTest.Business.SDMockCommit
 {
@@ -118,6 +117,11 @@ namespace FrameworkTest.Business.SDMockCommit
             this.D47 = data.D53;
             this.D48 = data.D54;
             this.D49 = data.D55;
+        }
+
+        internal ValidateResult Validate()
+        {
+            return new ValidateResult(ValidateResultCode.Success, "");
         }
 
         internal void Update(PregnantDischarge_SourceData sourceData, List<HighRiskEntity> highRisks, IEnumerable<Diagnosis> diagnosis, List<Advice> advices, List<Inspection> inspections)

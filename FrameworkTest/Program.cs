@@ -42,17 +42,18 @@ namespace FrameworkTest
 
         static void Main(string[] args)
         {
-            if (false)
-            {
-                var container = new CookieContainer();
-                var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/CQJL_LIST&sUserID=35021069&sParams=null$45608491-9$2$%E7%8E%8B%E9%A6%99%E7%8E%89$P$P$4406";
-                var postData = "pageIndex=0&pageSize=1000&sortField=&sortOrder=";
-                var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
-                Console.WriteLine(result);
+            //if (false)
+            //{
+            //    var container = new CookieContainer();
+            //    var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/CQJL_LIST&sUserID=35021069&sParams=null$45608491-9$2$%E7%8E%8B%E9%A6%99%E7%8E%89$P$P$4406";
+            //    var postData = "pageIndex=0&pageSize=1000&sortField=&sortOrder=";
+            //    var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            //    Console.WriteLine(result);
 
-                //var postData = new { pageIndex = 0, pageSize = 20, sortField = "", sortOrder = "" }.ToJson();
-                //var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/json; charset=UTF-8");
-            }
+            //    //var postData = new { pageIndex = 0, pageSize = 20, sortField = "", sortOrder = "" }.ToJson();
+            //    //var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/json; charset=UTF-8");
+            //}
+
             //Console.ReadLine();
 
             //var cjson = FileHelper.ReadAllText(FileHelper.GetDirectory("Configs"), "config.json");
