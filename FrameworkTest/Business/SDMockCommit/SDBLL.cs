@@ -36,6 +36,33 @@ namespace FrameworkTest.Business.SDMockCommit
             OrgName = "佛山市妇幼保健院",
             EncodeUserName = HttpUtility.UrlEncode("赵卓姝"),
         };
+        public static List<UserInfo> UserInfos = new List<UserInfo>()
+        {
+             new UserInfo()
+            {
+                UserId = "35000169",
+                UserName = "曾韵",
+                OrgId = "45608491-9",
+                OrgName = "佛山市顺德区妇幼保健院",
+                EncodeUserName = HttpUtility.UrlEncode("曾韵"),
+             },
+             new UserInfo()
+            {
+                UserId = "35000864",
+                UserName = "柯国女",
+                OrgId = "45608491-9",
+                OrgName = "佛山市顺德区妇幼保健院",
+                EncodeUserName = HttpUtility.UrlEncode("柯国女"),
+             },
+             new UserInfo()
+            {
+                UserId = "35021006",
+                UserName = "欧阳凤霞",
+                OrgId = "45608491-9",
+                OrgName = "佛山市顺德区妇幼保健院",
+                EncodeUserName = HttpUtility.UrlEncode("欧阳凤霞"),
+             }
+        };
 
         private DbContext DBContext;
 

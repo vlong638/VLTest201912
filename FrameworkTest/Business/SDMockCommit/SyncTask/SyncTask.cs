@@ -62,5 +62,30 @@ namespace FrameworkTest.Business.SDMockCommit
                 System.Threading.Thread.Sleep(interval);
             }
         }
+        public virtual void Start_Auto_DoWork(ServiceContext context, List<UserInfo> userInfos, int interval = 1000 * 10)
+        {
+            while (true)
+            {
+                var userInfo = userInfos[new Random().Next(0, userInfos.Count - 1)];
+                try
+                {
+                    
+
+                    var sourceDatas = GetSourceDatas(userInfo);
+                    foreach (var sourceData in sourceDatas)
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        DoLogOnGetSource?.Invoke(sourceData);
+                        DoWork(context, userInfo, sourceData, ref sb);
+                        DoLogOnWork?.Invoke(sourceData, sb);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Log4NetLogger.Warn("任务出现异常,当前用户信息" + userInfo.ToJson(), ex);
+                }
+                System.Threading.Thread.Sleep(interval);
+            }
+        }
     }
 }

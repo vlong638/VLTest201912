@@ -73,12 +73,12 @@ namespace ResearchAPI.CORS
                 //.AllowAnyOrigin()
                 .WithOrigins(
                     Configuration.GetSection("CORS").Get<CORSConfig>().Origins.Select(c => c.Value).ToArray()
-                //"http://localhost:63342" //文欣
-                //, "http://localhost:8848" //一帆
-                //, "http://192.168.50.172:8848" //一帆
-                //, "http://192.168.50.174:8848" //一帆
-                //, "http://localhost:14314" //vl
-                //, "http://localhost:8065" //vl
+                    //"http://localhost:63342" //文欣
+                    //, "http://localhost:8848" //一帆
+                    //, "http://192.168.50.172:8848" //一帆
+                    //, "http://192.168.50.174:8848" //一帆
+                    //, "http://localhost:14314" //vl
+                    //, "http://localhost:8065" //vl
                 )
                 .AllowAnyHeader()
                 .AllowAnyMethod()
