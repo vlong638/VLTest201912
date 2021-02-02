@@ -9,8 +9,8 @@ namespace FrameworkTest.Business.SDMockCommit
 {
     public class PregnantDAL
     {
-        public const string limiter = "DATEADD(day,-1 ,getdate())";
-        //const string limiter = "'2020-11-01'";
+        //public const string limiter = "DATEADD(day,-1 ,getdate())";
+        public const string limiter = "'2021-01-01'";
 
         #region SyncOrder
 

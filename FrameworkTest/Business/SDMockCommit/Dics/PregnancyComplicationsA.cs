@@ -94,11 +94,11 @@ namespace FrameworkTest.Business.SDMockCommit
                 pregnancyComplications.Add("6");
                 pregnancyComplications.Add("9");
             }
-            if (pregnancyComplications.Count==0)
+            if (pregnancyComplications.Count == 0)
             {
                 pregnancyComplications.Add("1");
             }
-            return string.Join(",",pregnancyComplications);
+            return string.Join(",", pregnancyComplications);
         }
     }
 }

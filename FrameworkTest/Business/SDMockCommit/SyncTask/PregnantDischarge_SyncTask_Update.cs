@@ -62,6 +62,15 @@ namespace FrameworkTest.Business.SDMockCommit
                 }
                 pregnantDischargeToCreate.Update(pregnantDischargeData);
                 pregnantDischargeToCreate.Update(sourceData, highRisks, diagnosis, advices, inspections);
+                //数据有效性校验
+                var validResult = pregnantDischargeToCreate.Validate();
+                if (validResult.Code != ValidateResultCode.Success)
+                {
+                    syncOrder.SyncStatus = SyncStatus.Invalid;
+                    syncOrder.ErrorMessage = validResult.Message;
+                    syncOrder.Id = context.ESBService.SaveSyncOrder(syncOrder);
+                    return;
+                }
                 //创建住院数据
                 var result = Context.FSService.SavePregnantDischarge(userInfo, listData, pregnantDischargeToCreate, pregnantDischargeData?.DischargeId ?? "null", ref logger);
                 //保存同步记录

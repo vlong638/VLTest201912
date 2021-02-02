@@ -1,6 +1,8 @@
-﻿using NPOI.OpenXmlFormats.Dml;
+﻿using FrameworkTest.Business.SDMockCommit;
+using NPOI.OpenXmlFormats.Dml;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
@@ -26,6 +28,17 @@ namespace FrameworkTest.Common.ValuesSolution
         #endregion
 
         #region string
+
+        public static PropertyDescriptor GetProperty(this object type, string propertyName)
+        {
+            return TypeDescriptor.GetProperties(type.GetType())[propertyName];
+        }
+        public static string GetDescription(this PropertyDescriptor property)
+        {
+            DescriptionAttribute description = property == null ? null : property.Attributes[typeof(DescriptionAttribute)] as DescriptionAttribute;
+            var str = description == null ? "" : description.Description;
+            return str;
+        }
 
         public static bool IsNullOrEmpty(this string str)
         {

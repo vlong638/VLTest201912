@@ -50,7 +50,7 @@ namespace FrameworkTest.Business.SDMockCommit
                 //获取住院数据
                 var ChildDischargeData = Context.FSService.GetChildDischarge(userInfo, listData.FMMainId, ref logger);
                 //数据更新
-                var ChildDischargeToCreate = new CQJL_CHILD_FORM_SAVE_Data();
+                var childDischargeToCreate = new CQJL_CHILD_FORM_SAVE_Data();
                 if (ChildDischargeData == null)
                 {
                     syncOrder.SyncStatus = SyncStatus.NotExisted;
@@ -60,11 +60,20 @@ namespace FrameworkTest.Business.SDMockCommit
                 }
                 else
                 {
-                    ChildDischargeToCreate.Update(ChildDischargeData);
+                    childDischargeToCreate.Update(ChildDischargeData);
                 }
-                ChildDischargeToCreate.Update(sourceData, diagnosis, birthDefects);
+                childDischargeToCreate.Update(sourceData, diagnosis, birthDefects);
+                //数据有效性校验
+                var validResult = childDischargeToCreate.Validate();
+                if (validResult.Code != ValidateResultCode.Success)
+                {
+                    syncOrder.SyncStatus = SyncStatus.Invalid;
+                    syncOrder.ErrorMessage = validResult.Message;
+                    syncOrder.Id = context.ESBService.SaveSyncOrder(syncOrder);
+                    return;
+                }
                 //创建住院数据
-                var result = Context.FSService.SaveChildDischarge(userInfo, ChildDischargeToCreate, listData.FMMainId, ref logger);
+                var result = Context.FSService.SaveChildDischarge(userInfo, childDischargeToCreate, listData.FMMainId, ref logger);
                 //保存同步记录
                 syncOrder.Id = context.ESBService.SaveSyncOrder(syncOrder);
             }

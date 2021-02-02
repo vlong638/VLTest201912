@@ -1,6 +1,7 @@
 ﻿using FrameworkTest.Common.ValuesSolution;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 
 namespace FrameworkTest.Business.SDMockCommit
@@ -106,7 +107,7 @@ namespace FrameworkTest.Business.SDMockCommit
             this.D24 = "";//:"1", 高危因素值集    //默认`无高危因素`
             if (birthDefects.Count > 0)
             {
-                this.D12 = "2" ;//:"1", 出生缺陷
+                this.D12 = "2";//:"1", 出生缺陷
                 this.D13 = string.Join(",", birthDefects.Select(c => c.GetRemark()).Where(c => c.IsNotNullOrEmpty()));//:"", 类型
             }
             else
@@ -140,23 +141,54 @@ namespace FrameworkTest.Business.SDMockCommit
             this.D32 = "";//:"",
         }
 
+        internal ValidateResult Validate()
+        {
+            var result = new ValidateResult(ValidateResultCode.Success, "");
+            if (D1.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D1))));
+            if (D2.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D2))));
+            if (D3.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D3))));
+            if (D4.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D4))));
+            if (D5.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D5))));
+            if (D6.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D6))));
+            if (D7.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D7))));
+            if (D8.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D8))));
+            if (D9.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D9))));
+            if (D12.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D12))));
+            //if (D24.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D24))));
+            if (D25.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D25))));
+            if (D26.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D26))));
+            if (D28.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D28))));
+            if (D29.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D29))));
+            return result;
+        }
+
         public void Init(UserInfo userInfo)
         {
             this.D22 = userInfo.UserName;
             this.D23 = DateTime.Now.ToString(VLConstraints.DateTime.DateFormatter);//:"2020-07-20",	创建时间 需做格式修正
         }
 
+        [Description("住院号")]
         public string D1 { set; get; }//:"0000265533", 住院号
+        [Description("儿童姓名")]
         public string D2 { set; get; }//:"蓝艳云婴", 儿童姓名
+        [Description("性别")]
         public string D3 { set; get; }//:"2", 性别
+        [Description("日龄")]
         public string D4 { set; get; }//:"66", 日龄
+        [Description("产妇姓名")]
         public string D5 { set; get; }//:"蓝艳云", 产妇姓名
+        [Description("本次胎次")]
         public string D6 { set; get; }//:"1", 本次胎次
+        [Description("出院日期")]
         public string D7 { set; get; }//:"2020-07-30", 出院日期 需做格式修正
+        [Description("脐带")]
         public string D8 { set; get; }//:"1", 脐带
+        [Description("黄疸")]
         public string D9 { set; get; }//:"1", 黄疸
         public string D10 { set; get; }//:"", 总胆红素
         public string D11 { set; get; }//:"无高危因素,颅内出血", 高危因素文本集
+        [Description("出生缺陷")]
         public string D12 { set; get; }//:"1", 出生缺陷
         public string D13 { set; get; }//:"", 类型
         public string D14 { set; get; }//:"2", 窒息抢救是否成功
@@ -164,16 +196,22 @@ namespace FrameworkTest.Business.SDMockCommit
         public string D16 { set; get; }//:"777", 死亡原因
         public string D17 { set; get; }//:"666", 转诊原因
         public string D18 { set; get; }//:"4406", 拟转入机构
+        [Description("出院诊断")]
         public string D19 { set; get; }//:"888", 出院诊断
         public string D20 { set; get; }//:"1", 新生儿听力筛查
         public string D21 { set; get; }//:"2", 乙肝免疫球蛋白注射
         public string D22 { set; get; }//:"赵卓姝", 医生姓名 //Init
         public string D23 { set; get; }//:"2020-07-20",	创建时间 需做格式修正
+        [Description("高危因素")]
         public string D24 { set; get; }//:"1,7", 高危因素值集
+        [Description("出生窒息")]
         public string D25 { set; get; }//:"1", 出生窒息
+        [Description("黄疸部位")]
         public string D26 { set; get; }//:"", 黄疸部位
         public string D27 { set; get; }//:"2020-07-23 10:38", 乙肝疫苗注射时间 需做格式修正
+        [Description("母乳喂养")]
         public string D28 { set; get; }//:"1", 母乳喂养
+        [Description("母乳喂养早接触")]
         public string D29 { set; get; }//:"2", 母乳喂养早接触
         public string D30 { set; get; }//:"2020-07-24 10:34", 乙肝免疫球蛋白接种时间  需做格式修正
         public string D31 { set; get; }//:"",

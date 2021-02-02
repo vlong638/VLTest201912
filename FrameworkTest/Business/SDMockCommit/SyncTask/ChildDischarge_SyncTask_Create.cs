@@ -68,6 +68,15 @@ namespace FrameworkTest.Business.SDMockCommit
                     childDischargeToCreate.Init(userInfo);
                 }
                 childDischargeToCreate.Update(sourceData, diagnosis, birthDefects);
+                //数据有效性校验
+                var validResult = childDischargeToCreate.Validate();
+                if (validResult.Code != ValidateResultCode.Success)
+                {
+                    syncOrder.SyncStatus = SyncStatus.Invalid;
+                    syncOrder.ErrorMessage = validResult.Message;
+                    syncOrder.Id = context.ESBService.SaveSyncOrder(syncOrder);
+                    return;
+                }
                 //创建住院数据
                 var result = Context.FSService.SaveChildDischarge(userInfo, childDischargeToCreate, listData.FMMainId, ref logger);
                 //保存同步记录

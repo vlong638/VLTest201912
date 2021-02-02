@@ -17,6 +17,7 @@ using FrameworkTest.Research;
 using NPOI.XSSF.UserModel;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
@@ -42,6 +43,14 @@ namespace FrameworkTest
 
         static void Main(string[] args)
         {
+            var obj = new CQJL_WOMAN_FORM_SAVE_Data();
+            //var resul22t = TypeDescriptor.GetProperties(typeof(CQJL_WOMAN_FORM_SAVE_Data))[nameof(obj.D1)]
+            //    .GetDescription();
+            //var resul32t = obj.GetProperty(nameof(obj.D1)).GetDescription();
+            //var ttt = SubFunctionCategory.女方信息.GetDescription();
+            //var tt2 = obj.D1.GetDescription();
+
+
             //if (false)
             //{
             //    var container = new CookieContainer();

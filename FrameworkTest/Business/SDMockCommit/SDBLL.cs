@@ -61,6 +61,14 @@ namespace FrameworkTest.Business.SDMockCommit
                 OrgId = "45608491-9",
                 OrgName = "佛山市顺德区妇幼保健院",
                 EncodeUserName = HttpUtility.UrlEncode("欧阳凤霞"),
+             },
+             new UserInfo()
+            {
+                UserId = "35000761",
+                UserName = "王若曦",
+                OrgId = "45608491-9",
+                OrgName = "佛山市顺德区妇幼保健院",
+                EncodeUserName = HttpUtility.UrlEncode("王若曦"),
              }
         };
 
