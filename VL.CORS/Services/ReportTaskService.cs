@@ -240,6 +240,12 @@ namespace ResearchAPI.CORS.Services
                         Operator = "eq",
                     });
                     //项目属性
+                    var itemPrefix = "";
+                    var itemId = request.Search.FirstOrDefault(c => c.Key == "检验类别")?.Value ?? "";
+                    if (!itemId.IsNullOrEmpty())
+                    {
+                        itemPrefix = "_" + DomainConstraits.RenderIdToText(itemId, DomainConstraits.LabResultItems);
+                    }
                     var projectProperties = request.Properties.Select(c =>
                     {
                         var templateProperty = template.BusinessEntity.Properties.FirstOrDefault(d => d.Id == c.TemplatePropertyId);
@@ -251,7 +257,7 @@ namespace ResearchAPI.CORS.Services
                             TemplatePropertyId = templateProperty.Id,
                             ProjectId = request.ProjectId,
                             PropertySourceName = templateProperty.SourceName,
-                            PropertyDisplayName =$"{periodTemplate.StartAt}_{periodTemplate.EndAt}_{templateProperty.DisplayName}_{request.GetRuleDisplayName()}"  ,
+                            PropertyDisplayName =$"{periodTemplate.StartAt}_{periodTemplate.EndAt}{itemPrefix}_{templateProperty.DisplayName}_{request.GetRuleDisplayName()}"  ,
                         };
                     }).ToList();
                     results.AddRange(CreateCustomProjectIndicator(templateBE, templateBEProperties, templateBEWheres, projectProperties));
