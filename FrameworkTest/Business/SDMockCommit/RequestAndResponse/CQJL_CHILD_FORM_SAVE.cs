@@ -154,6 +154,7 @@ namespace FrameworkTest.Business.SDMockCommit
             if (D8.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D8))));
             if (D9.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D9))));
             if (D12.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D12))));
+            if (D19.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D19))));
             //if (D24.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D24))));
             if (D25.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D25))));
             if (D26.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D26))));
