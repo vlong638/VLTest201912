@@ -25,7 +25,7 @@ namespace FrameworkTest.Business.SDMockCommit
             var syncOrder = Context.PregnantService.GetSyncOrder(sourceData.TargetType, sourceData.SourceId);
             syncOrder.SyncTime = DateTime.Now;
             syncOrder.SyncStatus = SyncStatus.Success;
-            syncOrder.ErrorMessage = SyncStatus.Success.GetDescription();
+            syncOrder.OperateType = OperateType.Edit;
             try
             {
                 //获取 关键Id

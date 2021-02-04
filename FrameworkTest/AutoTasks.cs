@@ -39,44 +39,62 @@ namespace FrameworkTest
         //static DateTime LastEditTimeOf_PregnantInfo_SyncTask_Create;
         //static DateTime LastEditTimeOf_PregnantInfo_SyncTask_Create;
 
+        //LastWorkTimeOf_PregnantInfo_SyncTask_Create = DateTime.Now.AddSeconds(-10);
+        //while (true)
+        //{
+        //    Console.WriteLine("任务存活检测");
+
+        //    DelegateEvent("孕妇档案-新建", ref LastWorkTimeOf_PregnantInfo_SyncTask_Create, () =>
+        //    {
+        //        LastWorkTimeOf_PregnantInfo_SyncTask_Create = DateTime.Now;
+        //        Console.WriteLine("异常终止,{0}", LastWorkTimeOf_PregnantInfo_SyncTask_Create);
+        //        throw new NotImplementedException("222");
+
+        //        var context = new ServiceContext();
+        //        var syncTask = new PregnantInfo_SyncTask_Create(context);
+        //        syncTask.DoLogOnGetSource = (sourceData) =>
+        //        {
+        //            StringBuilder sb = new StringBuilder();
+        //            sb.AppendLine(sourceData.ToJson());
+        //            var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Create-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
+        //            File.WriteAllText(file, sb.ToString());
+        //            Console.WriteLine($"result:{file}");
+        //        };
+        //        syncTask.DoLogOnWork = (sourceData, sb) =>
+        //        {
+        //            var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Create-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
+        //            File.WriteAllText(file, sb.ToString());
+        //            Console.WriteLine($"result:{file}");
+        //        };
+        //        syncTask.Start_Auto_DoWork(context, SDBLL.UserInfos, 30 * 1000);
+        //    });
+
+        //    System.Threading.Thread.Sleep(3 * 1000);
+        //}
+        //Console.ReadLine();
+        //return;
+
 
         static void Main(string[] args)
         {
-            //LastWorkTimeOf_PregnantInfo_SyncTask_Create = DateTime.Now.AddSeconds(-10);
-            //while (true)
-            //{
-            //    Console.WriteLine("任务存活检测");
-
-            //    DelegateEvent("孕妇档案-新建", ref LastWorkTimeOf_PregnantInfo_SyncTask_Create, () =>
-            //    {
-            //        LastWorkTimeOf_PregnantInfo_SyncTask_Create = DateTime.Now;
-            //        Console.WriteLine("异常终止,{0}", LastWorkTimeOf_PregnantInfo_SyncTask_Create);
-            //        throw new NotImplementedException("222");
-
-            //        var context = new ServiceContext();
-            //        var syncTask = new PregnantInfo_SyncTask_Create(context);
-            //        syncTask.DoLogOnGetSource = (sourceData) =>
-            //        {
-            //            StringBuilder sb = new StringBuilder();
-            //            sb.AppendLine(sourceData.ToJson());
-            //            var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\To-Create-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
-            //            File.WriteAllText(file, sb.ToString());
-            //            Console.WriteLine($"result:{file}");
-            //        };
-            //        syncTask.DoLogOnWork = (sourceData, sb) =>
-            //        {
-            //            var file = Path.Combine(FileHelper.GetDirectory("SyncLog\\Create-孕妇档案-" + DateTime.Now.ToString("yyyy_MM_dd")), sourceData.PersonName + "_" + sourceData.IdCard + ".txt");
-            //            File.WriteAllText(file, sb.ToString());
-            //            Console.WriteLine($"result:{file}");
-            //        };
-            //        syncTask.Start_Auto_DoWork(context, SDBLL.UserInfos, 30 * 1000);
-            //    });
-
-            //    System.Threading.Thread.Sleep(3 * 1000);
-            //}
-            //Console.ReadLine();
-            //return;
-
+            Console.WriteLine("1 for data after 2021-01-01");
+            Console.WriteLine("2 for data in last 1 day");
+            var item = Console.ReadLine();
+            switch (item)
+            {
+                case "1":
+                    PregnantDAL.limiter = "DATEADD(day,-1 ,getdate())";
+                    break;
+                case "2":
+                    PregnantDAL.limiter = "'2021-01-01'";
+                    break;
+                case "3":
+                    var item2 = Console.ReadLine();
+                    PregnantDAL.limiter = item2;
+                    break;
+                default:
+                    return;
+            }
             Console.WriteLine($"任务启动=>孕妇档案-新建");
             Task.Factory.StartNew(() =>
             {

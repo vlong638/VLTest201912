@@ -160,6 +160,36 @@ namespace FS.SyncManager.Controllers
         /// 删除同步记录
         /// </summary>
         [HttpPost]
+        public JsonResult RetrySyncs(List<long> syncOrderIds)
+        {
+            if (syncOrderIds.Count == 0)
+                return Error(false, "无效的Id");
+
+            var serviceResult = new ServiceContext().SyncService.RetrySyncByIds(syncOrderIds);
+            if (!serviceResult.IsSuccess)
+                return Error(serviceResult.Data, serviceResult.Messages);
+            return Success(serviceResult.Data, $"清理日志{(serviceResult.Data ? "成功,请稍后查看同步结果" : "失败")}");
+        }
+
+        /// <summary>
+        /// 重试同步
+        /// </summary>
+        [HttpPost]
+        public JsonResult RetrySync(long syncOrderId)
+        {
+            if (syncOrderId <= 0)
+                return Error(false, "无效的Id");
+
+            var serviceResult = new ServiceContext().SyncService.RetrySyncById(syncOrderId);
+            if (!serviceResult.IsSuccess)
+                return Error(serviceResult.Data, serviceResult.Messages);
+            return Success(serviceResult.Data, $"清理日志{(serviceResult.Data ? "成功,请稍后查看同步结果" : "失败")}");
+        }
+
+        /// <summary>
+        /// 重试同步
+        /// </summary>
+        [HttpPost]
         public JsonResult DeleteSyncOrders(List<long> syncOrderIds)
         {
             if (syncOrderIds.Count == 0)

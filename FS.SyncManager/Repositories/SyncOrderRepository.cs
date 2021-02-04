@@ -43,5 +43,20 @@ namespace FS.SyncManager.Repositories
             var pars = request.GetParams();
             return _context.DbGroup.Connection.ExecuteScalar<int>(sql, pars, transaction: _transaction);
         }
+
+        internal List<SyncOrder> GetByIds(List<long> syncOrderIds)
+        {
+            return _context.DbGroup.Connection.Query<SyncOrder>("select * from SyncForFS where id in @ids ", new { ids = syncOrderIds }, transaction: _transaction).ToList();
+        }
+
+        internal int UpdateToRetry(long syncOrderId)
+        {
+            return _context.DbGroup.Connection.Execute("update SyncForFS set SyncStatus = 3 where id = @id ", new { id = syncOrderId }, transaction: _transaction);
+        }
+
+        internal int UpdateToRetry(List<long> syncOrderIds)
+        {
+            return _context.DbGroup.Connection.Execute("update SyncForFS set SyncStatus = 3 where ids in @ids ", new { ids = syncOrderIds }, transaction: _transaction);
+        }
     }
 }

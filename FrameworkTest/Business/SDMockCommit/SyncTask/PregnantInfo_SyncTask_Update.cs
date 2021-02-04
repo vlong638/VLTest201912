@@ -27,6 +27,8 @@ namespace FrameworkTest.Business.SDMockCommit
         {
             var syncOrder = Context.PregnantService.GetSyncOrder(sourceData.TargetType, sourceData.SourceId);
             syncOrder.SyncTime = DateTime.Now;
+            syncOrder.OperateType = OperateType.Edit;
+            syncOrder.SyncStatus = SyncStatus.Success;
             try
             {
                 var pregnantInfo = context.FSService.GetBase8(userInfo, sourceData.IdCard, ref logger);

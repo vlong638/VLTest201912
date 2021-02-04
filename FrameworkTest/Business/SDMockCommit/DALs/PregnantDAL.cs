@@ -9,8 +9,8 @@ namespace FrameworkTest.Business.SDMockCommit
 {
     public class PregnantDAL
     {
-        //public const string limiter = "DATEADD(day,-1 ,getdate())";
-        public const string limiter = "'2021-01-01'";
+        public static string limiter = "DATEADD(day,-1 ,getdate())";
+        //public const string limiter = "'2021-01-01'";
 
         #region SyncOrder
 
@@ -110,18 +110,10 @@ from
 				FROM PregnantInfo pi 
 				LEFT JOIN MHC_VisitRecord vr on pi.idcard = vr.idcard 
 				left join SyncForFS se on se.TargetType = 3 and se.SourceId = vr.Id			
-				where se.id is not null and se.SyncStatus = 2
+				where se.id is not null and ((se.SyncStatus = 2
 				and vr.updatetime > DATEADD( SECOND,10 ,se.SyncTime)
 				and vr.visitdate = convert(nvarchar,getdate(),23)				
-                -- 追加13周前同步一次规则
-				and (
-					DATEADD(DAY,-189,pi.dateofprenatal) < vr.visitdate
-					or 
-					(DATEADD(DAY,-189,pi.dateofprenatal) > vr.visitdate and not EXISTS (
-						select 1 from SyncForFS s13 left join MHC_VisitRecord v13 on s13.TargetType = 3 and s13.SourceId = v13.id
-						where v13.idcard = pi.idcard
-					))
-				)
+                ) or s6.SyncStatus = 3)
 		)  as toCreate 
 		LEFT JOIN MHC_VisitRecord vr on toCreate.idcard = vr.idcard  and vr.id = toCreate.sourceId
 		GROUP BY vr.id,vr.idcard
@@ -206,8 +198,9 @@ FROM PregnantInfo pi
 LEFT JOIN MHC_VisitRecord vr on pi.idcard = vr.idcard 
 left join SyncForFS s4 on s4.TargetType = 4 and s4.SourceId = vr.Id			
 where vr.visitdate = convert(nvarchar,getdate(),23)
-and s4.id is not null and s4.SyncStatus = 2
+and s4.id is not null and ((s4.SyncStatus = 2
 and vr.updatetime > DATEADD( SECOND,10 ,s4.SyncTime)
+) or s6.SyncStatus = 3)
 ", transaction: dbGroup.Transaction).ToList();
         }
         //and vr.idcard = '142328199610271518'
@@ -271,7 +264,6 @@ union
 )
 union
 (
-
 	select 
 	Top 1
 	s4.id sid,
@@ -296,8 +288,9 @@ select Top 1 s.id sid
 ,pi.createtime,pi.updatetime
 ,pi.* from PregnantInfo pi
 left join SyncForFS s on s.TargetType = 1 and s.SourceId = pi.Id
-where s.id is not null and s.SyncStatus = 2
+where s.id is not null and ((s.SyncStatus = 2
 and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
+) or s6.SyncStatus = 3)
 ", transaction: dbGroup.Transaction).ToList();
 
             //in (2, 11)
@@ -327,8 +320,8 @@ select Top 1 se.id seid,se.SyncTime,pi.*
 from PregnantInfo pi
 left join SyncForFS se on se.TargetType = 2 and se.SourceId = pi.Id
 where se.id is not null 
-and se.SyncStatus = 2 
-and pi.updatetime > DATEADD( SECOND,10 ,se.SyncTime)
+and ((se.SyncStatus = 2 
+and pi.updatetime > DATEADD( SECOND,10 ,se.SyncTime)) or s6.SyncStatus = 3)
 ", transaction: dbGroup.Transaction).ToList();
         }
 

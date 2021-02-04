@@ -361,7 +361,7 @@
     <Content Include="Business\ExcelGenerator\ExportConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Common\Scripts\Common-Constraints-1.0.0.js">
+    <Content Include="Common\Scripts\Common-Constraints-1.0.1.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Common\Scripts\Common-1.0.11.js">

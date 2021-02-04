@@ -32,8 +32,8 @@ namespace FrameworkTest.Business.SDMockCommit
                 TargetType = sourceDataModel.TargetType,
                 SyncTime = DateTime.Now,
                 SyncStatus = SyncStatus.Success,
-            }
-;
+                OperateType = OperateType.Create,
+            };
             try
             {
                 //获取八项基础信息

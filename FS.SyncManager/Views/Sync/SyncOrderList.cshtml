@@ -13,6 +13,7 @@
             <select class="easyui-combobox" id="where_SyncStatus" style="width:200px;"></select>
             <a href="#" class="easyui-linkbutton" plain="true" onclick="doSearch()">搜索</a>
             <a href="#" class="easyui-linkbutton" plain="true" onclick="deleteAllLogs()">批量清理同步记录</a>
+            <a href="#" class="easyui-linkbutton" plain="true" onclick="retryAll()">批量重试</a>
         </div>
     </div>
     <div style="margin-top:5px">
@@ -88,6 +89,63 @@
             });
     }
 
+    function retryAll() {
+        var rows = $('#db_list').datagrid('getSelections');
+        if (rows.length == 0) {
+            return;
+        }
+
+        var ids = [];
+        for (var i = 0; i < rows.length; i++) {
+            var row = rows[i];
+            ids.push(row.Id);
+        }
+
+        vl.confirm(vlConstraints.Sync_RetrySync
+            , function () {
+                $.ajax({
+                    url: '/Sync/RetrySyncs',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        syncOrderIds: ids
+                    },
+                    success: function (resp) {
+                        console.log(resp);
+                        if (resp.Message) {
+                            vl.alert(resp.Message);
+                        }
+                        location.reload();
+                    }
+                });
+            });
+    }
+
+    function retry(id) {
+        if (id <= 0) {
+            jAlert("id异常,无效的记录id");
+        }
+
+        vl.confirm(vlConstraints.Sync_RetrySync
+            , function () {
+                $.ajax({
+                    url: '/Sync/RetrySync',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        syncOrderId: id
+                    },
+                    success: function (resp) {
+                        console.log(resp);
+                        if (resp.Message) {
+                            vl.alert(resp.Message);
+                        }
+                        location.reload();
+                    }
+                });
+            });
+    }
+
     $(function () {
         vl.select("SyncStatus", false, "#where_SyncStatus");
         vl.select("TargetType", false, "#where_TargetType");
@@ -117,6 +175,7 @@
                                 var id = row.Id;
                                 if (id && id > 0) {
                                     str += '<a href="#" class="easyui-linkbutton" plain="true" onclick="deleteLog(' + id + ')">清理同步记录</a>';
+                                    str += '<a href="#" class="easyui-linkbutton" plain="true" onclick="retry(' + id + ')">重试同步</a>';
                                 }
                                 return str;
                             }

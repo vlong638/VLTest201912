@@ -1,10 +1,8 @@
 ﻿using FrameworkTest.Common.DBSolution;
 using FrameworkTest.Common.PagerSolution;
 using FrameworkTest.Common.ServiceSolution;
-using FrameworkTest.Common.ValuesSolution;
 using FS.SyncManager.Models;
 using FS.SyncManager.Repositories;
-using System;
 using System.Collections.Generic;
 
 namespace FS.SyncManager.Service
@@ -83,7 +81,26 @@ namespace FS.SyncManager.Service
             });
             return result;
         }
+        internal ServiceResult<bool> RetrySyncById(long syncOrderId)
+        {
+            var result = DbContext.DbGroup.DelegateTransaction(() =>
+            {
+                SyncOrderRepository.UpdateToRetry(syncOrderId);
+                return true;
+            });
+            return result;
+        }
 
+        internal ServiceResult<bool> RetrySyncByIds(List<long> syncOrderIds)
+        {
+            var result = DbContext.DbGroup.DelegateTransaction(() =>
+            {
+                SyncOrderRepository.UpdateToRetry(syncOrderIds);
+                return true;
+            });
+            return result;
+        }
+        
         #endregion
 
         #region MotherDischarge

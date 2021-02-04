@@ -76,9 +76,10 @@ from HELEESB.dbo.V_FWPT_GY_ZHUYUANFM fm
 left join HL_Pregnant.dbo.SyncForFS s5 on s5.TargetType = 5 and s5.SourceId = fm.inp_no
 left join HELEESB.dbo.V_FWPT_GY_BINGRENXXZY br on br.bingrenid = fm.inp_no and br.liushuih=fm.visit_id
 left join HL_Pregnant.dbo.PregnantInfo pi on pi.idcard = br.shenfenzh
-where s5.id is not null and s5.SyncStatus = 2
+where s5.id is not null and ((s5.SyncStatus = 2
 and br.chuyuanrqfixed is not null
 and fm.downloadtime > s5.SyncTime
+) or s6.SyncStatus = 3)
 -- and fm.inp_no ='0000312639'
 ", transaction: dbGroup.Transaction).ToList();
         }
@@ -133,9 +134,9 @@ from HELEESB.dbo.V_FWPT_GY_ZHUYUANFMYE yr
 left join HELEESB.dbo.V_FWPT_GY_ZHUYUANFM fm on yr.inp_no = fm.inp_no
 left join HELEESB.dbo.V_FWPT_GY_BINGRENXXZY br on br.bingrenid = yr.inp_no and br.liushuih=fm.visit_id
 left join HL_Pregnant.dbo.SyncForFS s6 on s6.TargetType = 6 and s6.SourceId = fm.inp_no
-where s6.id is not null and s6.SyncStatus = 2
+where s6.id is not null and ((s6.SyncStatus = 2
 and br.chuyuanrqfixed is not null
-and yr.downloadtime > s6.SyncTime
+and yr.downloadtime > s6.SyncTime) or s6.SyncStatus = 3)
 ", transaction: dbGroup.Transaction).ToList();
         }
 

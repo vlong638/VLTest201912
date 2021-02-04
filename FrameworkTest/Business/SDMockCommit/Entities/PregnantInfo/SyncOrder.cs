@@ -33,8 +33,17 @@ namespace FrameworkTest.Business.SDMockCommit
         public TargetType TargetType { set; get; }
         public DateTime SyncTime { set; get; }
         public SyncStatus SyncStatus { set; get; }
+        public OperateType OperateType { set; get; }
         public string ErrorMessage { set; get; }
     }
+
+    public enum OperateType
+    {
+        None = 0,
+        Create = 1,
+        Edit = 2,
+    }
+
     public enum SourceType
     {
         [Description("")]
@@ -110,6 +119,8 @@ namespace FrameworkTest.Business.SDMockCommit
         Invalid = 16,//
         [Description("成功")]
         Success = 2,//处理成功
+        [Description("编辑待重试")]
+        RetryEdit = 3,
         AllError = 99,//更新成功 仅作测试使用
     }
 }

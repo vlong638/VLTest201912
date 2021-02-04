@@ -26,7 +26,7 @@ namespace FrameworkTest.Business.SDMockCommit
                 TargetType = sourceData.TargetType,
                 SyncTime = DateTime.Now,
                 SyncStatus = SyncStatus.Success,
-                ErrorMessage = SyncStatus.Success.GetDescription(),
+                OperateType = OperateType.Create,
             };
             try
             {

@@ -30,6 +30,7 @@ namespace FrameworkTest.Business.SDMockCommit
                 TargetType = sourceDataModel.TargetType,
                 SyncTime = DateTime.Now,
                 SyncStatus = SyncStatus.Success,
+                OperateType = OperateType.Create,
             };
             try
             {
