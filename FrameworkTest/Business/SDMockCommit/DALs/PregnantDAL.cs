@@ -113,7 +113,7 @@ from
 				where se.id is not null and ((se.SyncStatus = 2
 				and vr.updatetime > DATEADD( SECOND,10 ,se.SyncTime)
 				and vr.visitdate = convert(nvarchar,getdate(),23)				
-                ) or s6.SyncStatus = 3)
+                ) or se.SyncStatus = 3)
 		)  as toCreate 
 		LEFT JOIN MHC_VisitRecord vr on toCreate.idcard = vr.idcard  and vr.id = toCreate.sourceId
 		GROUP BY vr.id,vr.idcard
@@ -200,7 +200,7 @@ left join SyncForFS s4 on s4.TargetType = 4 and s4.SourceId = vr.Id
 where vr.visitdate = convert(nvarchar,getdate(),23)
 and s4.id is not null and ((s4.SyncStatus = 2
 and vr.updatetime > DATEADD( SECOND,10 ,s4.SyncTime)
-) or s6.SyncStatus = 3)
+) or s4.SyncStatus = 3)
 ", transaction: dbGroup.Transaction).ToList();
         }
         //and vr.idcard = '142328199610271518'
@@ -290,7 +290,7 @@ select Top 1 s.id sid
 left join SyncForFS s on s.TargetType = 1 and s.SourceId = pi.Id
 where s.id is not null and ((s.SyncStatus = 2
 and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
-) or s6.SyncStatus = 3)
+) or s.SyncStatus = 3)
 ", transaction: dbGroup.Transaction).ToList();
 
             //in (2, 11)
@@ -321,7 +321,7 @@ from PregnantInfo pi
 left join SyncForFS se on se.TargetType = 2 and se.SourceId = pi.Id
 where se.id is not null 
 and ((se.SyncStatus = 2 
-and pi.updatetime > DATEADD( SECOND,10 ,se.SyncTime)) or s6.SyncStatus = 3)
+and pi.updatetime > DATEADD( SECOND,10 ,se.SyncTime)) or se.SyncStatus = 3)
 ", transaction: dbGroup.Transaction).ToList();
         }
 

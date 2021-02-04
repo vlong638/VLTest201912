@@ -79,7 +79,7 @@ left join HL_Pregnant.dbo.PregnantInfo pi on pi.idcard = br.shenfenzh
 where s5.id is not null and ((s5.SyncStatus = 2
 and br.chuyuanrqfixed is not null
 and fm.downloadtime > s5.SyncTime
-) or s6.SyncStatus = 3)
+) or s5.SyncStatus = 3)
 -- and fm.inp_no ='0000312639'
 ", transaction: dbGroup.Transaction).ToList();
         }
