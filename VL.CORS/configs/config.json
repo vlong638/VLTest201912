@@ -45,7 +45,7 @@
     ]
   },
   "EasyResearch": {
-    "MainRoute": "PregnantInfo"
-    //"MainRoute": "PF_GeneralInfo"
+    //"MainRoute": "PregnantInfo"
+    "MainRoute": "PF_GeneralInfo"
   }
 }

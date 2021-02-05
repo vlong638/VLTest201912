@@ -89,9 +89,9 @@
 			<Property Id="102002024" DisplayName="手测肌力" SourceName="handmusclestrength" ColumnType="String"/>
 			<Property Id="102002025" DisplayName="编号" SourceName="id" ColumnType="Int"/>
 			<Property Id="102002026" DisplayName="哺乳期" SourceName="iflactation" ColumnType="String"/>
-			<Property Id="102002027" DisplayName="尿频尿急问询结果" SourceName="INQUIRYRESULT1" ColumnType="String"/>
-			<Property Id="102002028" DisplayName="尿失禁问询结果" SourceName="INQUIRYRESULT2" ColumnType="String"/>
-			<Property Id="102002029" DisplayName="排尿情况问询结果" SourceName="INQUIRYRESULT3" ColumnType="String"/>
+			<!--<Property Id="102002027" DisplayName="尿频尿急问询结果" SourceName="INQUIRYRESULT1" ColumnType="String"/>-->
+			<!--<Property Id="102002028" DisplayName="尿失禁问询结果" SourceName="INQUIRYRESULT2" ColumnType="String"/>-->
+			<!--<Property Id="102002029" DisplayName="排尿情况问询结果" SourceName="INQUIRYRESULT3" ColumnType="String"/>-->
 			<Property Id="102002030" DisplayName="药物治疗" SourceName="medicinetreatment" ColumnType="String"/>
 			<Property Id="102002031" DisplayName="紧张" SourceName="nervous" ColumnType="String"/>
 			<Property Id="102002032" DisplayName="手术史名称" SourceName="operationhistoryname" ColumnType="String"/>
@@ -344,7 +344,7 @@
 			<Property Id="102007035" DisplayName="盆底肌压力功能检查日期" SourceName="examdate2" ColumnType="DateTime"/>
 			<Property Id="102007036" DisplayName="盆底肌张力功能检查日期" SourceName="examdate3" ColumnType="DateTime"/>
 			<Property Id="102007037" DisplayName="盆底肌控尿功能及盆底性功能检查日期" SourceName="examdate4" ColumnType="DateTime"/>
-			<Property Id="102007038" DisplayName="表面肌电评估检查时间" SourceName="examdate5" ColumnType="DateTime"/>
+			<!--<Property Id="102007038" DisplayName="表面肌电评估检查时间" SourceName="examdate5" ColumnType="DateTime"/>-->
 			<Property Id="102007039" DisplayName="随访中特殊情况记录" SourceName="exceptionalcase" ColumnType="String"/>
 			<Property Id="102007040" DisplayName="跌倒评估" SourceName="falleva" ColumnType="String"/>
 			<Property Id="102007041" DisplayName="快肌最大值(uv)" SourceName="fasttwitchmaxval" ColumnType="Decimal"/>

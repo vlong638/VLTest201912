@@ -657,21 +657,29 @@ namespace ResearchAPI.CORS.Services
                     {
                         var tempTable = tempTables[i];
                         sqlLog.AppendLine(tempTable.SQL);
+                    }
+                    sqlLog.Append(mainSQL);
+                    for (int i = 0; i < tempTables.Count(); i++)
+                    {
+                        var tempTable = tempTables[i];
+                        sqlLog.AppendLine($"drop table {tempTable.Alias}");
+                    }
+                    Log4NetLogger.LogSQL(sqlLog.ToString(), parameters);
+                    for (int i = 0; i < tempTables.Count(); i++)
+                    {
+                        var tempTable = tempTables[i];
                         var result = SharedRepository.CreateTempTable(tempTable.SQL, parameters);
                         ProjectScheduleRepository.UpdateSchedule(schedule.Id, ScheduleStatus.Started, "", $"执行中,创建临时表{i + 1}/{tempTables.Count()}");
                     }
                     //2.核心数据报表
-                    sqlLog.Append(mainSQL);
                     dataTable = SharedRepository.GetDataTable(mainSQL, parameters);
                     //3.临时表清理
                     for (int i = 0; i < tempTables.Count(); i++)
                     {
                         var tempTable = tempTables[i];
-                        sqlLog.AppendLine($"drop table {tempTable.Alias}");
                         var result = SharedRepository.DropTempTable(tempTable.Alias);
                         ProjectScheduleRepository.UpdateSchedule(schedule.Id, ScheduleStatus.Started, "", $"执行中,清理临时表{i + 1}/{tempTables.Count()}");
                     }
-                    Log4NetLogger.LogSQL(sqlLog.ToString(), parameters);
                     Log4NetLogger.Info("查询数据成功");
                     //4.结果输出
                     //转译处理结果

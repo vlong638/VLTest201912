@@ -314,8 +314,7 @@ namespace ResearchAPI.CORS.Common
                 {
                     //Router
                     var router = routers.FirstOrDefault(c => c.To == item.EntitySourceName);
-                    if (router != null && !reportTask.Routers.Contains(router))
-                        reportTask.Routers.Add(router);
+                    AddRouter(reportTask, router, routers);
                     //Property
                     reportTask.Properties.Add(new COBusinessEntityProperty()
                     {
@@ -342,6 +341,21 @@ namespace ResearchAPI.CORS.Common
                 Value = c.Value,
             }));
 
+        }
+
+        private static void AddRouter(ReportTask reportTask, Router router, Routers routers)
+        {
+            if (router == null)
+                return;
+
+            if (!reportTask.Routers.Contains(router))
+                reportTask.Routers.Add(router);
+
+            if (!reportTask.Routers.Exists(c=>c.To == router.From))
+            {
+                var parentRouter = routers.FirstOrDefault(c => c.To == router.From);
+                AddRouter(reportTask, parentRouter, routers);
+            }
         }
     }
 

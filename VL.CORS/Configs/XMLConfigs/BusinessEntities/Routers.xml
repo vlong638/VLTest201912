@@ -35,7 +35,7 @@
 	<Router From="PF_GeneralInfo" To="PF_TreatmentRecord" RouteType="LeftJoin">
 		<On FromField="id" ToField="generalinfoid"/>
 	</Router>
-	<Router From="PF_GeneralInfo" To="PF_TreatmentDetail" RouteType="LeftJoin">
-		<On FromField="id" ToField="generalinfoid"/>
+	<Router From="PF_TreatmentRecord" To="PF_TreatmentDetail" RouteType="LeftJoin">
+		<On FromField="id" ToField="treatmentrecordid"/>
 	</Router>
 </Routers>
