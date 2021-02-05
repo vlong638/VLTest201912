@@ -232,13 +232,15 @@ namespace FrameworkTest.Business.SDMockCommit
             if (D26.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D26))));
             if (D31.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D31))));
             if (D32.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D32))));
-            if (D33.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D33))));
-            if (D34.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D34))));
-            if (D35.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D35))));
-            if (D36.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D36))));
-            if (D37.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D37))));
-            if (D38.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D38))));
-            if (D39.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D39))));
+            //if (D33.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D33))));
+            if (D33 == "1")
+                if (D34.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D34))));
+            //if (D35.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D35))));
+            //if (D36.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D36))));
+            if (!D36.IsNullOrEmpty())
+                if (D37.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D37))));
+            //if (D38.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D38))));
+            //if (D39.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D39))));
             if (D43.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D43))));
             if (D47.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D47))));
             if (D48.IsNullOrEmpty()) return new ValidateResult(ValidateResultCode.IsNullOrEmpty, ValidateResult.GetNullOrEmptyMessage(this.GetProperty(nameof(D48))));
