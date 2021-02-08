@@ -34,8 +34,8 @@ namespace ResearchAPI.CORS.Common
             if (sessionId.FirstOrDefault().IsNullOrEmpty())
                 return null;
             var currentUser = redisCache.Get<CurrentUser>(sessionId);
-            if (currentUser == null)
-                throw new NotImplementedException("当前用户不存在");
+            //if (currentUser == null)
+            //    throw new NotImplementedException("当前用户不存在");
             return currentUser;
         }
 

@@ -76,10 +76,12 @@ namespace ResearchAPI.CORS.Common
             if (currentUser == null)
             {
                 context.Result = new UnauthorizedObjectResult("Unauthorized");
+                return;
             }
             if (!currentUser.UserAuthorityIds.Any(c=>Authorities.Contains(c)))
             {
                 context.Result = new UnauthorizedObjectResult("Unauthorized Access To Action");
+                return;
             }
             base.OnActionExecuting(context);
         }

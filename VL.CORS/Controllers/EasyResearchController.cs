@@ -234,9 +234,9 @@ namespace ResearchAPI.CORS.Controllers
         /// 1.1.3.获取项目详情
         /// </summary>
         [HttpPost]
-        [AllowAnonymous]
         [EnableCors("AllCors")]
 
+        [VLAuthorize(SystemAuthority.查看项目列表)]
         public APIResult<GetProjectModel> GetProject([FromServices] APIContext context, [FromServices] ReportTaskService service, [FromBody] SimpleProjectRequest request)
         {
             var currentUser = context.GetCurrentUser();

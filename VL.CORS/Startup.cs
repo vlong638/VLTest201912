@@ -70,7 +70,6 @@ namespace ResearchAPI.CORS
 
                 //ÔÊÐí¿çÓò
                 services.AddCors(option => option.AddPolicy("AllCors", policy => policy
-                //.AllowAnyOrigin()
                 .WithOrigins(
                     Configuration.GetSection("CORS").Get<CORSConfig>().Origins.Select(c => c.Value).ToArray()
                     //"http://localhost:63342" //ÎÄÐÀ

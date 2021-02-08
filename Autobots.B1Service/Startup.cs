@@ -57,6 +57,7 @@ namespace Autobots.B1Service
 
             //×¢²áRPCÅäÖÃ
             services.Configure<ServiceDisvoveryOptions>(Configuration.GetSection("ServiceDiscovery"));
+
             //×¢²áRPC·şÎñ
             services.AddSingleton<IRPCService, RPCService>();
         }

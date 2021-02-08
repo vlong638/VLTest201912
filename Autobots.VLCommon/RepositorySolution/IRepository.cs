@@ -29,6 +29,5 @@
         /// <param name="id"></param>
         /// <returns></returns>
         TEntity GetById(long id);
-
     }
 }
