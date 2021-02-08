@@ -24,12 +24,10 @@ namespace Autobots.Infrastracture.Common.RepositorySolution
         {
             return _connection.Insert(entity, _transaction);
         }
-
-        public virtual bool Delete(TEntity entity)
+        public virtual TEntity GetById(long id)
         {
-            return _connection.Delete(entity, _transaction);
+            return _connection.Get<TEntity>(id, _transaction);
         }
-
         public virtual bool DeleteById(long id)
         {
             var entity = _connection.Get<TEntity>(id, _transaction);
@@ -37,15 +35,9 @@ namespace Autobots.Infrastracture.Common.RepositorySolution
                 return false;
             return _connection.Delete(entity, _transaction);
         }
-
         public virtual bool Update(TEntity entity)
         {
             return _connection.Update(entity, _transaction);
-        }
-
-        public virtual TEntity GetById(long id)
-        {
-            return _connection.Get<TEntity>(id, _transaction);
         }
     }
 }

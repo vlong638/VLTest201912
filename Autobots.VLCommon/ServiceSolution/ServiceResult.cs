@@ -7,11 +7,20 @@
     {
         public const int SuccessCode = 0;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="messages"></param>
         public ServiceResult(params string[] messages)
         {
             this.Code = SuccessCode;
             this.Messages = messages;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="code"></param>
+        /// <param name="messages"></param>
         public ServiceResult(int code, params string[] messages)
         {
             this.Code = code;
@@ -49,10 +58,21 @@
     /// <typeparam name="T"></typeparam>
     public class ServiceResult<T> : ServiceResult
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="code"></param>
+        /// <param name="messages"></param>
         public ServiceResult(T data, int code, params string[] messages) : base(code, messages)
         {
             Data = data;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="messages"></param>
 
         public ServiceResult(T data, params string[] messages) : base(messages)
         {

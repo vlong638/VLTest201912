@@ -3,6 +3,9 @@ using System.Data.SqlClient;
 
 namespace Autobots.Infrastracture.Common.DBSolution
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class DBHelper
     {
         /// <summary>

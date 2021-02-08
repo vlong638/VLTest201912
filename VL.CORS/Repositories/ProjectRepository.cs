@@ -28,7 +28,7 @@ namespace ResearchAPI.CORS.Repositories
                 .FirstOrDefault();
         }
 
-        public override bool DeleteById(long id)
+        public bool DeleteById(long id)
         {
             return _connection.Execute("update [Project] set IsDeleted = 1 where Id = @Id ;"
                 , new { Id = id }, transaction: _transaction) > 0;

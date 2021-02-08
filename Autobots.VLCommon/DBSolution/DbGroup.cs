@@ -7,10 +7,23 @@ namespace Autobots.Infrastracture.Common.DBSolution
     /// </summary>
     public class DbGroup
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public IDbConnection Connection;
+        /// <summary>
+        /// 
+        /// </summary>
         public IDbCommand Command;
+        /// <summary>
+        /// 
+        /// </summary>
         public IDbTransaction Transaction;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dbConnection"></param>
         public DbGroup(IDbConnection dbConnection)
         {
             this.Connection = dbConnection;
