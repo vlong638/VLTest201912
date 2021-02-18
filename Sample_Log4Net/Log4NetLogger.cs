@@ -19,7 +19,7 @@ namespace Sample_Log4Net
 
         static Log4NetLogger()
         {
-            var repository = LogManager.CreateRepository("NETCoreRepository");
+            var repository = LogManager.CreateRepository("NETRepository");
             if (logger == null)
             {
                 //log4net从log4net.config文件中读取配置信息
