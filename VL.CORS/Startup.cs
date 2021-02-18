@@ -95,7 +95,8 @@ namespace ResearchAPI.CORS
             }
             catch (Exception ex)
             {
-                Log4NetLogger.Error("StartUp", ex);
+                Log4NetLogger Logger = Log4NetLogger.GetLogger();
+                Logger.Error("StartUp", ex);
             }
         }
 

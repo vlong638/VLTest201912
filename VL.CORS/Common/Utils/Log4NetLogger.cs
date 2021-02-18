@@ -1,4 +1,5 @@
-﻿using log4net;
+﻿using Autobots.Infrastracture.Common.LoggerSolution;
+using log4net;
 using log4net.Config;
 using System;
 using System.Collections.Generic;
@@ -10,26 +11,30 @@ namespace ResearchAPI.CORS.Common
     /// <summary>
     /// Log4Net Logger
     /// </summary>
-    public class Log4NetLogger
+    public class Log4NetLogger: ILogger
     {
-        private static ILog logger;
-        private static ILog sqlLogger;
+        internal ILog logger;
+        internal ILog sqlLogger;
+
+        static Log4NetLogger _Log4NetLogger;
 
         static Log4NetLogger()
         {
+            _Log4NetLogger = new Log4NetLogger();
             var repository = LogManager.CreateRepository("NETCoreRepository");
-            if (logger == null)
-            {
-                //log4net从log4net.config文件中读取配置信息
-                XmlConfigurator.Configure(repository, new FileInfo("configs/log4net.config"));
-                logger = LogManager.GetLogger(repository.Name, "filelogger");
-            }
-            if (sqlLogger == null)
-            {
-                //log4net从log4net.config文件中读取配置信息
-                XmlConfigurator.Configure(repository, new FileInfo("configs/log4net.config"));
-                sqlLogger = LogManager.GetLogger(repository.Name, "sqlLogger");
-            }
+            XmlConfigurator.Configure(repository, new FileInfo("configs/log4net.config"));
+            _Log4NetLogger.logger = LogManager.GetLogger(repository.Name, "filelogger");
+            XmlConfigurator.Configure(repository, new FileInfo("configs/log4net.config"));
+            _Log4NetLogger.sqlLogger = LogManager.GetLogger(repository.Name, "sqlLogger");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static Log4NetLogger GetLogger()
+        {
+            return _Log4NetLogger;
         }
 
         /// <summary>
@@ -37,7 +42,7 @@ namespace ResearchAPI.CORS.Common
         /// </summary>
         /// <param name="message"></param>
         /// <param name="exception"></param>
-        public static void Info(string message, Exception exception = null)
+        public void Info(string message, Exception exception = null)
         {
             if (exception == null)
                 logger.Info(message);
@@ -50,7 +55,7 @@ namespace ResearchAPI.CORS.Common
         /// </summary>
         /// <param name="message"></param>
         /// <param name="exception"></param>
-        public static void Warn(string message, Exception exception = null)
+        public void Warn(string message, Exception exception = null)
         {
             if (exception == null)
                 logger.Warn(message);
@@ -63,7 +68,7 @@ namespace ResearchAPI.CORS.Common
         /// </summary>
         /// <param name="message"></param>
         /// <param name="exception"></param>
-        public static void Error(string message, Exception exception = null)
+        public void Error(string message, Exception exception = null)
         {
             if (exception == null)
                 logger.Error(message);
@@ -74,7 +79,7 @@ namespace ResearchAPI.CORS.Common
         /// <summary>
         /// DHF日志
         /// </summary>
-        public static void LogSQL(string sql, Dictionary<string, object> pars)
+        public void LogSQL(string sql, Dictionary<string, object> pars)
         {
             StringBuilder sb = new StringBuilder();
             if (pars != null)

@@ -2616,6 +2616,12 @@
             Log4Net Logger
             </summary>
         </member>
+        <member name="M:ResearchAPI.CORS.Common.Log4NetLogger.GetLogger">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:ResearchAPI.CORS.Common.Log4NetLogger.Info(System.String,System.Exception)">
             <summary>
             普通日志
@@ -3108,21 +3114,6 @@
         <member name="M:ResearchAPI.CORS.Services.ReportTaskService.#ctor(ResearchAPI.CORS.Common.APIContext)">
             <summary>
             
-            </summary>
-        </member>
-        <member name="T:ResearchAPI.CORS.Services.DbContextEX">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:ResearchAPI.CORS.Services.DbContextEX.DelegateTransaction``1(Autobots.Infrastracture.Common.DBSolution.DbContext,System.Func{Autobots.Infrastracture.Common.DBSolution.DbContext,``0})">
-            <summary>
-            扩展事务(服务层)通用处理
-            </summary>
-        </member>
-        <member name="M:ResearchAPI.CORS.Services.DbContextEX.DelegateNonTransaction``1(Autobots.Infrastracture.Common.DBSolution.DbContext,System.Func{Autobots.Infrastracture.Common.DBSolution.DbContext,``0})">
-            <summary>
-            扩展事务(服务层)通用处理
             </summary>
         </member>
         <member name="T:ResearchAPI.CORS.Startup">

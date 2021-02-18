@@ -1,6 +1,7 @@
 ﻿using Autobots.Infrastracture.Common.DBSolution;
 using Autobots.Infrastracture.Common.PagerSolution;
 using Autobots.Infrastracture.Common.ServiceSolution;
+using Autobots.Infrastracture.Common.TransactionSolution;
 using Autobots.Infrastracture.Common.ValuesSolution;
 using ResearchAPI.CORS.Common;
 using ResearchAPI.CORS.Repositories;
@@ -15,6 +16,7 @@ namespace ResearchAPI.CORS.Services
     /// </summary>
     public class AccountService
     {
+        Log4NetLogger Logger = Log4NetLogger.GetLogger();
         APIContext APIContext { get; set; }
         DbContext ResearchDbContext { set; get; }
 
@@ -54,7 +56,7 @@ namespace ResearchAPI.CORS.Services
 
         internal ServiceResult<User> GetUserInfo(long userId)
         {
-            return ResearchDbContext.DelegateNonTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateNonTransaction(c =>
             {
                 var user = UserRepository.GetById(userId);
                 if (user == null)
@@ -62,12 +64,12 @@ namespace ResearchAPI.CORS.Services
                     throw new NotImplementedException("用户不存在");
                 }
                 return user;
-            });
+            }, Logger);
         }
 
         internal ServiceResult<User> PasswordSignIn(string userName, string password)
         {
-            return ResearchDbContext.DelegateNonTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateNonTransaction(c =>
             {
                 var user = UserRepository.GetByUserNameAndPassword(userName, password.ToMD5());
                 if (user == null)
@@ -75,21 +77,21 @@ namespace ResearchAPI.CORS.Services
                     throw new NotImplementedException("用户不存在或密码错误");
                 }
                 return user;
-            });
+            }, Logger);
         }
 
         internal ServiceResult<Dictionary<long, string>> GetAllRolesIdAndName()
         {
-            return ResearchDbContext.DelegateNonTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateNonTransaction(c =>
             {
                 var result = RoleRepository.GetAllSystemRoles();
                 return result.ToDictionary(c => c.Id, c => c.Name);
-            });
+            }, Logger);
         }
 
         internal ServiceResult<VLPagerResult<List<GetUserModel>>> GetPagedUsers(int page, int limit, string username, string nickname)
         {
-            return ResearchDbContext.DelegateTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateTransaction(c =>
             {
                 var list = UserRepository.GetPagedUsers(page, limit, username, nickname).Select(c =>
                 {
@@ -112,7 +114,7 @@ namespace ResearchAPI.CORS.Services
                 });
                 var count = UserRepository.GetPagedUserCount(username, nickname);
                 return new VLPagerResult<List<GetUserModel>>() { List = list, Count = count };
-            });
+            }, Logger);
         }
 
         internal object EditUser(User user, List<long> roleIds, object departmentIds)
@@ -122,7 +124,7 @@ namespace ResearchAPI.CORS.Services
 
         internal ServiceResult<long> CreateUser(User user, List<long> roleIds, List<long> departmentIds)
         {
-            return ResearchDbContext.DelegateTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateTransaction(c =>
             {
                 user.CreatedAt = DateTime.Now;
                 user.Password = user.Password.ToMD5();
@@ -135,12 +137,12 @@ namespace ResearchAPI.CORS.Services
                 UserRoleRepository.BatchInsert(userId, roleIds);
                 UserDepartmentRepository.BatchInsert(userId, departmentIds);
                 return userId;
-            });
+            }, Logger);
         }
 
         internal ServiceResult<VLPagerResult<List<GetRoleModel>>> GetPagedSystemRoles(int page, int limit, string roleName)
         {
-            return ResearchDbContext.DelegateTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateTransaction(c =>
             {
                 var list = RoleRepository.GetPagedSystemRoles(page, limit, roleName).Select(c => new GetRoleModel()
                 {
@@ -149,21 +151,21 @@ namespace ResearchAPI.CORS.Services
                 }).ToList();
                 var count = RoleRepository.GetPagedRolesCount(roleName);
                 return new VLPagerResult<List<GetRoleModel>>() { List = list, Count = count };
-            });
+            }, Logger);
         }
 
         internal ServiceResult<bool> UpdateUserStatus(long userId, bool currentStatus)
         {
-            return ResearchDbContext.DelegateTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateTransaction(c =>
             {
                 var result = UserRepository.UpdateUserStatus(userId, fromStatus: currentStatus, toStatus: !currentStatus);
                 return result > 0;
-            });
+            }, Logger);
         }
 
         internal ServiceResult<bool> EditUser(User newUser, List<long> roleIds, List<long> departmentIds)
         {
-            return ResearchDbContext.DelegateTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateTransaction(c =>
             {
                 newUser.CreatedAt = DateTime.Now;
                 var user = UserRepository.GetById(newUser.Id);
@@ -184,12 +186,12 @@ namespace ResearchAPI.CORS.Services
                 UserDepartmentRepository.DeleteByUserId(newUser.Id);
                 UserDepartmentRepository.BatchInsert(newUser.Id, departmentIds);
                 return true;
-            });
+            }, Logger);
         }
 
         internal ServiceResult<bool> EditRole(Role newRole)
         {
-            return ResearchDbContext.DelegateTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateTransaction(c =>
             {
                 var role = RoleRepository.GetByName(newRole.Name);
                 if (role != null)
@@ -197,22 +199,22 @@ namespace ResearchAPI.CORS.Services
                     throw new Exception("角色名已被使用");
                 }
                 return RoleRepository.UpdateRoleName(newRole.Id,newRole.Name)>0;
-            });
+            }, Logger);
         }
 
         internal ServiceResult<bool> DeleteRole(long roleId)
         {
-            return ResearchDbContext.DelegateTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateTransaction(c =>
             {
                 var result1 = UserRoleRepository.DeleteByRoleId(roleId);
                 var result2 = RoleRepository.DeleteById(roleId);
                 return result2;
-            });
+            }, Logger);
         }
 
         internal ServiceResult<long> CreateRole(Role role)
         {
-            return ResearchDbContext.DelegateTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateTransaction(c =>
             {
                 var repeat = RoleRepository.GetByName(role.Name);
                 if (repeat != null)
@@ -221,35 +223,35 @@ namespace ResearchAPI.CORS.Services
                 }
                 var id = RoleRepository.InsertOne(role);
                 return id;
-            });
+            }, Logger);
         }
 
         internal ServiceResult<List<RoleAuthority>> GetRoleAuthorities(long roleId)
         {
-            return ResearchDbContext.DelegateNonTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateNonTransaction(c =>
             {
                 var roleAuthorities = RoleAuthorityRepository.GetByRoleIds(roleId);
                 return roleAuthorities;
-            });
+            }, Logger);
         }
 
         internal ServiceResult<bool> EditRoleAuthorities(long roleId, List<long> authorityIds)
         {
-            return ResearchDbContext.DelegateTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateTransaction(c =>
             {
                 var result = RoleAuthorityRepository.DeleteByRoleId(roleId);
                 if (authorityIds.Count > 0)
                     result = RoleAuthorityRepository.BatchInsert(roleId, authorityIds);
                 return true;
-            });
+            }, Logger);
         }
 
         internal ServiceResult<List<long>> GetSystemAuthorityIds(long userId)
         {
-            return ResearchDbContext.DelegateNonTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateNonTransaction(c =>
             {
                 return UserRoleRepository.GetSystemAuthorityIds(userId);
-            });
+            }, Logger);
         }
     }
 }

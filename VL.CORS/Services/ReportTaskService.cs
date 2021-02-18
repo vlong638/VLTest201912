@@ -2,6 +2,7 @@
 using Autobots.Infrastracture.Common.ExcelSolution;
 using Autobots.Infrastracture.Common.PagerSolution;
 using Autobots.Infrastracture.Common.ServiceSolution;
+using Autobots.Infrastracture.Common.TransactionSolution;
 using Autobots.Infrastracture.Common.ValuesSolution;
 using ResearchAPI.CORS.Common;
 using ResearchAPI.CORS.Controllers;
@@ -22,6 +23,7 @@ namespace ResearchAPI.CORS.Services
     /// </summary>
     public class ReportTaskService
     {
+        Log4NetLogger Logger = Log4NetLogger.GetLogger();
         APIContext APIContext { get; set; }
         DbContext ResearchDbContext { set; get; }
 
@@ -83,27 +85,27 @@ namespace ResearchAPI.CORS.Services
 
         internal ServiceResult<List<VLKeyValue<string, long>>> GetFavoriteProjects(long userid)
         {
-            return ResearchDbContext.DelegateNonTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateNonTransaction(c =>
             {
                 var result = ProjectRepository.GetFavoriteProjects(userid);
                 return new List<VLKeyValue<string, long>>(
                     result.Select(c => new VLKeyValue<string, long>(c.ProjectName, c.ProjectId)).ToList()
                 );
-            });
+            },Logger);
         }
 
         internal ServiceResult<Dictionary<string, long>> GetProjectMemberIdAndName(long projectId)
         {
-            return ResearchDbContext.DelegateNonTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateNonTransaction(c =>
             {
                 var users = ProjectMemberRepository.GetUsersByProjectId(projectId);
                 return users.ToDictionary(key => key.Name, value => value.Id);
-            });
+            },Logger);
         }
 
         internal ServiceResult<GetProjectModel> GetProject(long projectId, long userId)
         {
-            return ResearchDbContext.DelegateNonTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateNonTransaction(c =>
             {
                 var result = new GetProjectModel();
                 var project = ProjectRepository.GetById(projectId);
@@ -119,52 +121,52 @@ namespace ResearchAPI.CORS.Services
                 result.IsFavorite = FavoriteProjectRepository.GetOne(new FavoriteProject(project.Id, userId)) != null;
                 result.CreatorId = project.CreatorId;
                 return result;
-            });
+            },Logger);
         }
 
         internal ServiceResult<Dictionary<long, string>> GetAllUsersIdAndName()
         {
-            return ResearchDbContext.DelegateNonTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateNonTransaction(c =>
             {
                 var result = DomainConstraits.Users;
                 return result;
-            });
+            },Logger);
         }
 
         internal ServiceResult<Dictionary<long, string>> GetUsersDictionary()
         {
-            return ResearchDbContext.DelegateNonTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateNonTransaction(c =>
             {
                 var result = UserRepository.GetAllUsers();
                 return result.ToDictionary(c => c.Id, c => c.Name);
-            });
+            },Logger);
         }
 
         internal ServiceResult<Dictionary<long, string>> GetProjectRolesDictionary()
         {
-            return ResearchDbContext.DelegateNonTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateNonTransaction(c =>
             {
                 var result = RoleRepository.GetAllProjectRoles();
                 return result.ToDictionary(c => c.Id, c => c.Name);
-            });
+            },Logger);
         }
 
         internal ServiceResult<List<User>> GetAllUsers()
         {
-            return ResearchDbContext.DelegateNonTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateNonTransaction(c =>
             {
                 var result = UserRepository.GetAllUsers();
                 return result;
-            });
+            },Logger);
         }
 
         internal ServiceResult<bool> DeleteProject(long projectId)
         {
-            return ResearchDbContext.DelegateNonTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateNonTransaction(c =>
             {
                 var result = ProjectRepository.DeleteById(projectId);
                 return result;
-            });
+            },Logger);
         }
 
         internal ServiceResult<VLPagerResult<List<Dictionary<string, object>>>> GetPagedResultBySQLConfig(GetCommonSelectRequest request)
@@ -173,27 +175,27 @@ namespace ResearchAPI.CORS.Services
             sqlConfig.PageIndex = request.page;
             sqlConfig.PageSize = request.limit;
             sqlConfig.UpdateWheres(request.search);
-            return ResearchDbContext.DelegateTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateTransaction(c =>
             {
                 var list = SharedRepository.GetCommonSelect(sqlConfig.Source, sqlConfig.Skip, sqlConfig.Limit);
                 var count = SharedRepository.GetCommonSelectCount(sqlConfig.Source);
                 sqlConfig.Source.DoTransforms(ref list);
                 return new VLPagerResult<List<Dictionary<string, object>>>() { List = list.ToList(), Count = count };
-            });
+            },Logger);
         }
 
         internal ServiceResult<int> DeleteProjectIndicators(List<long> indicatorIds)
         {
-            return ResearchDbContext.DelegateNonTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateNonTransaction(c =>
             {
                 var result = ProjectIndicatorRepository.DeleteByIds(indicatorIds);
                 return result;
-            });
+            },Logger);
         }
 
         internal ServiceResult<List<BusinessEntityPropertyModel>> CreateCustomIndicator(CreateCustomIndicatorRequest request, BusinessEntityTemplate template)
         {
-            return ResearchDbContext.DelegateTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateTransaction(c =>
             {
                 List<BusinessEntityPropertyModel> results = new List<BusinessEntityPropertyModel>();
                 foreach (var periodTemplate in request.PeriodTemplates)
@@ -263,7 +265,7 @@ namespace ResearchAPI.CORS.Services
                     results.AddRange(CreateCustomProjectIndicator(templateBE, templateBEProperties, templateBEWheres, projectProperties));
                 }
                 return results;
-            });
+            },Logger);
         }
 
         private List<BusinessEntityPropertyModel> CreateCustomProjectIndicator(CustomBusinessEntity templateBE, List<CustomBusinessEntityProperty> templateBEProperties, List<CustomBusinessEntityWhere> templateBEWheres, List<ProjectIndicator> projectProperties)
@@ -294,7 +296,7 @@ namespace ResearchAPI.CORS.Services
 
         internal ServiceResult<List<GetProjectOperateHistoryModel>> GetProjectOperateHistory(GetProjectOperateHistoryRequest request)
         {
-            return ResearchDbContext.DelegateNonTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateNonTransaction(c =>
             {
                 var result = ProjectLogRepository.GetProjectLogs(request).Select(d => new GetProjectOperateHistoryModel()
                 {
@@ -302,16 +304,16 @@ namespace ResearchAPI.CORS.Services
                     OperatorSummary = d.Text,
                 }).ToList();
                 return result;
-            });
+            },Logger);
         }
 
         internal ServiceResult<bool> DeleteProjectIndicator(long indicatorId)
         {
-            return ResearchDbContext.DelegateNonTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateNonTransaction(c =>
             {
                 var result = ProjectIndicatorRepository.DeleteById(indicatorId);
                 return result;
-            });
+            },Logger);
         }
 
         internal ServiceResult<long> CreateProject(CreateProjectRequest request, long userid)
@@ -324,7 +326,7 @@ namespace ResearchAPI.CORS.Services
                 ProjectDescription = request.ProjectDescription,
                 ViewAuthorizeType = request.ViewAuthorizeType,
             };
-            return ResearchDbContext.DelegateTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateTransaction(c =>
             {
                 var projectId = ProjectRepository.Insert(project);
                 var members = new List<ProjectMember>();
@@ -337,16 +339,16 @@ namespace ResearchAPI.CORS.Services
                 var projectDepartments = request.DepartmentIds.Select(c => new ProjectDepartment() { ProjectId = projectId, DepartmentId = c }).ToList();
                 ProjectDepartmentRepository.BatchInsert(projectDepartments);
                 return projectId;
-            });
+            },Logger);
         }
 
         internal ServiceResult<bool> UpdateIndicatorName(long indicatorId, string name)
         {
-            return ResearchDbContext.DelegateTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateTransaction(c =>
             {
                 var result = ProjectIndicatorRepository.UpdateIndicatorName(indicatorId, name) > 0;
                 return result;
-            });
+            },Logger);
         }
 
         internal ServiceResult<bool> EditProject(EditProjectRequest request, long userid)
@@ -360,7 +362,7 @@ namespace ResearchAPI.CORS.Services
                 ProjectDescription = request.ProjectDescription,
                 ViewAuthorizeType = request.ViewAuthorizeType,
             };
-            return ResearchDbContext.DelegateTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateTransaction(c =>
             {
                 var oldProject = ProjectRepository.GetById(project.Id);
                 if (oldProject == null)
@@ -381,12 +383,12 @@ namespace ResearchAPI.CORS.Services
                 ProjectDepartmentRepository.DeleteByProjectId(projectId);
                 ProjectDepartmentRepository.BatchInsert(projectDepartments);
                 return true;
-            });
+            },Logger);
         }
 
         internal ServiceResult<List<GetProjectIndicatorModel>> GetProjectIndicators(long projectId)
         {
-            return ResearchDbContext.DelegateNonTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateNonTransaction(c =>
             {
                 var projectIndicators = ProjectIndicatorRepository.GetProjectIndicatorDisplayModelByProjectId(projectId);
                 return projectIndicators.Select(c =>
@@ -411,20 +413,20 @@ namespace ResearchAPI.CORS.Services
                     }
                     return m;
                 }).ToList();
-            });
+            },Logger);
         }
 
         internal ServiceResult<List<Role>> GetAllRoles()
         {
-            return ResearchDbContext.DelegateNonTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateNonTransaction(c =>
             {
                 return RoleRepository.GetAllProjectRoles();
-            });
+            },Logger);
         }
 
         internal ServiceResult<bool> AddFavoriteProject(long projectId, long userId)
         {
-            return ResearchDbContext.DelegateNonTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateNonTransaction(c =>
             {
                 var favoriteProject = new FavoriteProject(projectId, userId);
                 var exist = FavoriteProjectRepository.GetOne(favoriteProject);
@@ -434,35 +436,35 @@ namespace ResearchAPI.CORS.Services
                 if (project == null)
                     throw new NotImplementedException("项目不存在");
                 return FavoriteProjectRepository.InsertOne(favoriteProject) > 0;
-            });
+            },Logger);
         }
 
         internal ServiceResult<ProjectTask> GetTaskById(long taskId)
         {
-            return ResearchDbContext.DelegateNonTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateNonTransaction(c =>
             {
                 var task = ProjectTaskRepository.GetById(taskId);
                 if (task == null)
                     throw new NotImplementedException("队列不存在");
                 return task;
-            });
+            },Logger);
         }
 
         internal ServiceResult<bool> DeleteFavoriteProject(long projectId, long userId)
         {
-            return ResearchDbContext.DelegateNonTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateNonTransaction(c =>
             {
                 var favoriteProject = new FavoriteProject(projectId, userId);
                 var exist = FavoriteProjectRepository.GetOne(favoriteProject);
                 if (exist == null)
                     throw new NotImplementedException("收藏不存在");
                 return FavoriteProjectRepository.DeleteOne(favoriteProject) > 0;
-            });
+            },Logger);
         }
 
         internal ServiceResult<long> AddProjectLog(long userId, long projectId, ActionType actionType, string text)
         {
-            return ResearchDbContext.DelegateTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateTransaction(c =>
             {
                 var projectLog = new ProjectLog()
                 {
@@ -472,7 +474,7 @@ namespace ResearchAPI.CORS.Services
                     Text = text,
                 };
                 return ProjectLogRepository.InsertOne(projectLog);
-            });
+            },Logger);
         }
 
         internal ServiceResult<bool> AddProjectIndicators(AddIndicatorsRequest request)
@@ -490,17 +492,17 @@ namespace ResearchAPI.CORS.Services
                 return projectIndicator;
             }).ToList();
             //Logic
-            return ResearchDbContext.DelegateTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateTransaction(c =>
             {
                 ProjectIndicatorRepository.DeleteByEntityId(request.ProjectId, request.BusinessEntityId);
                 var successCount = ProjectIndicatorRepository.InsertBatch(projectIndicators);
                 return successCount == request.BusinessEntityPropertyIds.Count();
-            });
+            },Logger);
         }
 
         internal ServiceResult<long> CreateTask(CreateTaskRequest request)
         {
-            return ResearchDbContext.DelegateTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateTransaction(c =>
             {
                 if (request.CopyTaskId.HasValue && request.CopyTaskId > 0)
                 {
@@ -516,12 +518,12 @@ namespace ResearchAPI.CORS.Services
                     task.Id = ProjectTaskRepository.Insert(task);
                     return task.Id;
                 }
-            });
+            },Logger);
         }
 
         internal ServiceResult<bool> EditTaskV2(EditTaskV2Request request)
         {
-            return ResearchDbContext.DelegateTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateTransaction(c =>
             {
                 //ProjectTask
                 var projectTask = ProjectTaskRepository.GetById(request.TaskId);
@@ -539,12 +541,12 @@ namespace ResearchAPI.CORS.Services
                 ProjectTaskWhereRepository.DeleteByTaskId(request.TaskId);
                 request.GroupedCondition.CreateTaskWhere(null, projectTask, projectIndicators, ProjectTaskWhereRepository);
                 return true;
-            });
+            },Logger);
         }
 
         internal ServiceResult<bool> EditTask(EditTaskRequest request)
         {
-            return ResearchDbContext.DelegateTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateTransaction(c =>
             {
                 var projectTask = ProjectTaskRepository.GetById(request.TaskId);
                 if (projectTask == null)
@@ -591,20 +593,20 @@ namespace ResearchAPI.CORS.Services
                     c.Id = ProjectTaskWhereRepository.Insert(c);
                 });
                 return true;
-            });
+            },Logger);
         }
 
 
         internal ServiceResult<bool> StartSchedule(long scheduleId)
         {
-            return ResearchDbContext.DelegateNonTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateNonTransaction(c =>
             {
                 var schedule = ProjectScheduleRepository.GetById(scheduleId);
                 if (schedule == null)
                     throw new NotImplementedException("计划不存在");
                 try
                 {
-                    Log4NetLogger.Info("开始数据导出");
+                    Logger.Info("开始数据导出");
                     //更新处理任务状态
                     ProjectScheduleRepository.UpdateSchedule(schedule.Id, ScheduleStatus.Started, "", "任务正在执行中");
 
@@ -639,7 +641,7 @@ namespace ResearchAPI.CORS.Services
                     DataTable dataTable = null;
                     var reportTask = new ReportTask(task.Name);
                     reportTask.Update(projectIndicators, taskWheres, groupedCondition, customBusinessEntities, customBusinessEntityWheres, defaultRouters, templates, reportTask);
-                    Log4NetLogger.Info("引擎装载成功");
+                    Logger.Info("引擎装载成功");
                     //string.Join("\r\n",parameters.Select(c=> "declare @"+c.Key+" nvarchar(50); set @"+c.Key+" = '"+ c.Value+"'"))
 
                     //将核心报表结果处理拆分成几个环节
@@ -664,7 +666,7 @@ namespace ResearchAPI.CORS.Services
                         var tempTable = tempTables[i];
                         sqlLog.AppendLine($"drop table {tempTable.Alias}");
                     }
-                    Log4NetLogger.LogSQL(sqlLog.ToString(), parameters);
+                    Logger.LogSQL(sqlLog.ToString(), parameters);
                     for (int i = 0; i < tempTables.Count(); i++)
                     {
                         var tempTable = tempTables[i];
@@ -680,7 +682,7 @@ namespace ResearchAPI.CORS.Services
                         var result = SharedRepository.DropTempTable(tempTable.Alias);
                         ProjectScheduleRepository.UpdateSchedule(schedule.Id, ScheduleStatus.Started, "", $"执行中,清理临时表{i + 1}/{tempTables.Count()}");
                     }
-                    Log4NetLogger.Info("查询数据成功");
+                    Logger.Info("查询数据成功");
                     //4.结果输出
                     //转译处理结果
                     var repeatCount = 0;
@@ -700,9 +702,9 @@ namespace ResearchAPI.CORS.Services
                     var projectIndicators2 = projectIndicators;
                     var filePath = $"{schedule.Id}_{DateTime.Now.ToString("yyyy_MM_dd_mm_hh_ss")}.xlsx";
                     var fullPath = Path.Combine(FileHelper.GetDirectory("Export"), filePath);
-                    Log4NetLogger.Info("开始数据导出");
+                    Logger.Info("开始数据导出");
                     ExcelHelper.ExportDataTableToExcel(dataTable, fullPath);
-                    Log4NetLogger.Info("导出数据成功");
+                    Logger.Info("导出数据成功");
                     //更新处理任务状态
                     ProjectScheduleRepository.UpdateSchedule(schedule.Id, ScheduleStatus.Completed, "Export/" + filePath, "");
                 }
@@ -713,28 +715,28 @@ namespace ResearchAPI.CORS.Services
                     throw ex;
                 }
                 return true;
-            });
+            },Logger);
         }
 
         internal ServiceResult<bool> EditTaskName(EditTaskNameRequest request)
         {
-            return ResearchDbContext.DelegateTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateTransaction(c =>
             {
                 return ProjectTaskRepository.UpdateName(request.TaskId, request.TaskName) > 0;
-            });
+            },Logger);
         }
 
         internal ServiceResult<bool> DeleteTask(long taskId)
         {
-            return ResearchDbContext.DelegateTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateTransaction(c =>
             {
                 return ProjectTaskRepository.DeleteById(taskId);
-            });
+            },Logger);
         }
 
         internal ServiceResult<List<GetTaskV2Model>> GetTasksV2(long projectId)
         {
-            return ResearchDbContext.DelegateNonTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateNonTransaction(c =>
             {
                 var tasks = ProjectTaskRepository.GetByProjectId(projectId);
                 var taskProperties = ProjectIndicatorRepository.GetByProjectId(projectId);
@@ -762,12 +764,12 @@ namespace ResearchAPI.CORS.Services
                     return model;
                 }).ToList();
                 return result;
-            });
+            },Logger);
         }
 
         internal ServiceResult<List<GetTaskModel>> GetTasks(long projectId)
         {
-            return ResearchDbContext.DelegateNonTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateNonTransaction(c =>
             {
                 var tasks = ProjectTaskRepository.GetByProjectId(projectId);
                 var taskProperties = ProjectIndicatorRepository.GetByProjectId(projectId);
@@ -799,15 +801,15 @@ namespace ResearchAPI.CORS.Services
                     return model;
                 }).ToList();
                 return result;
-            });
+            },Logger);
         }
 
         internal ServiceResult<List<VLKeyValue<string, string>>> GetTaskNameAndIds(long projectId)
         {
-            return ResearchDbContext.DelegateNonTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateNonTransaction(c =>
             {
                 return ProjectTaskRepository.GetTaskNameAndIds(projectId);
-            });
+            },Logger);
         }
 
         internal ServiceResult<long> CommitTask(CommitTaskRequest request)
@@ -818,7 +820,7 @@ namespace ResearchAPI.CORS.Services
             schedule.StartedAt = request.IsStartNow ? DateTime.Now : request.StartAt;
             schedule.Status = ScheduleStatus.Ready;
             schedule.ResultFile = "";
-            return ResearchDbContext.DelegateTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateTransaction(c =>
             {
                 var old = ProjectScheduleRepository.GetLastestByTaskId(schedule.TaskId);
                 if (old != null && old.IsWorking())
@@ -827,12 +829,12 @@ namespace ResearchAPI.CORS.Services
                 }
                 schedule.Id = ProjectScheduleRepository.InsertOne(schedule);
                 return schedule.Id;
-            });
+            },Logger);
         }
 
         internal ServiceResult<GetTaskStatusModel> GetTaskStatus(long taskId)
         {
-            return ResearchDbContext.DelegateNonTransaction(c =>
+            return ResearchDbContext.DbGroup.DelegateNonTransaction(c =>
             {
                 var taskStatus = ProjectScheduleRepository.GetTaskStatus(taskId);
                 if (taskStatus == null)
@@ -840,80 +842,8 @@ namespace ResearchAPI.CORS.Services
                     throw new NotImplementedException("执行任务不存在");
                 }
                 return taskStatus;
-            });
+            },Logger);
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    public static class DbContextEX
-    {
-        /// <summary>
-        /// 扩展事务(服务层)通用处理
-        /// </summary>
-        public static ServiceResult<T> DelegateTransaction<T>(this DbContext context, Func<DbContext, T> exec)
-        {
-            try
-            {
-                if (context.DbGroup.Connection.State != ConnectionState.Open)
-                    context.DbGroup.Connection.Open();
-                context.DbGroup.Transaction = context.DbGroup.Connection.BeginTransaction();
-                context.DbGroup.Command.Transaction = context.DbGroup.Transaction;
-                try
-                {
-                    var result = exec(context);
-                    context.DbGroup.Transaction.Commit();
-                    return new ServiceResult<T>(result);
-                }
-                catch (Exception ex)
-                {
-                    context.DbGroup.Transaction.Rollback();
-                    Log4NetLogger.Error("DelegateTransaction Exception", ex);
-
-                    return new ServiceResult<T>(default(T), code: 500, ex.Message);
-                }
-                finally
-                {
-                    context.DbGroup.Connection.Close();
-                }
-            }
-            catch (Exception e)
-            {
-                Log4NetLogger.Error("打开数据库连接配置失败,当前数据库连接," + context.DbGroup.Connection.ConnectionString);
-                return new ServiceResult<T>(default(T), code: 500, e.Message);
-            }
-        }
-        /// <summary>
-        /// 扩展事务(服务层)通用处理
-        /// </summary>
-        public static ServiceResult<T> DelegateNonTransaction<T>(this DbContext context, Func<DbContext, T> exec)
-        {
-            try
-            {
-                if (context.DbGroup.Connection.State != ConnectionState.Open)
-                    context.DbGroup.Connection.Open();
-                try
-                {
-                    var result = exec(context);
-                    return new ServiceResult<T>(result);
-                }
-                catch (Exception ex)
-                {
-                    Log4NetLogger.Error("DelegateTransaction Exception", ex);
-                    return new ServiceResult<T>(default(T), ex.Message);
-                }
-                finally
-                {
-                    context.DbGroup.Connection.Close();
-                }
-            }
-            catch (Exception e)
-            {
-                //集成Log4Net
-                Log4NetLogger.Error("打开数据库连接配置失败,当前数据库连接," + context.DbGroup.Connection.ConnectionString);
-                return new ServiceResult<T>(default(T), e.Message);
-            }
-        }
-    }
 }

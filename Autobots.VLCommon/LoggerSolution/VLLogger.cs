@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace FrameworkTest.Common.LoggerSolution
+namespace Autobots.Infrastracture.Common.LoggerSolution
 {
     public class VLLogger
     {

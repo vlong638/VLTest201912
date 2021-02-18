@@ -180,6 +180,7 @@
     <Compile Include="Business\GJPredeliveryAsync\PreDelivery.cs" />
     <Compile Include="Business\SDMockCommit\Entities\Common\ValidateResult.cs" />
     <Compile Include="Business\SDMockCommit\SDHttpHelper.cs" />
+    <Compile Include="Common\TransactionSolution\DbGroupEX.cs" />
     <Compile Include="Utils\Log4NetLogger.cs" />
     <Content Include="Business\Profile\Input.txt" />
     <Compile Include="Business\Research\Entities\Patient.cs" />
