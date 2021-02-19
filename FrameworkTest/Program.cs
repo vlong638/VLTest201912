@@ -760,7 +760,7 @@ order by def.[TableName],def.Id
                 //模拟登陆,成功(注意需要关闭AntiForgeryToken)
                 string url = "http://localhost/Research/Account/Login";
                 string postData = string.Format("UserName={0}&Password={1}", "vlong638", "701616");
-                var result = SDHttpHelper.Post(url, postData, ref container);
+                var result = FSHttpHelper.Post(url, postData, ref container);
                 Console.WriteLine(result);
 
                 //模拟登陆后 请求可匿名的GET接口,成功
@@ -768,7 +768,7 @@ order by def.[TableName],def.Id
                 {
                     url = "http://localhost/Research/Home/GetListConfig";
                     postData = "listName=O_PregnantInfo";
-                    result = SDHttpHelper.Post(url, postData, ref container);
+                    result = FSHttpHelper.Post(url, postData, ref container);
                 }
 
                 //模拟登陆后 请求带权限的GET接口,成功
@@ -776,7 +776,7 @@ order by def.[TableName],def.Id
                 {
                     url = "http://localhost/Research/Pregnant/AllStatistics";
                     postData = "";
-                    result = SDHttpHelper.Get(url, postData, ref container);
+                    result = FSHttpHelper.Get(url, postData, ref container);
                 }
 
                 //模拟登陆后 列表GET及POST接口,成功
@@ -784,7 +784,7 @@ order by def.[TableName],def.Id
                 {
                     url = "http://localhost/Research/Pregnant/VisitRecordList?pregnantInfoId=67116";
                     postData = "";
-                    result = SDHttpHelper.Get(url, postData, ref container);
+                    result = FSHttpHelper.Get(url, postData, ref container);
 
                     //Request URL: http://localhost/Research/Pregnant/GetPagedListOfVisitRecord
                     //Request Method: POST
@@ -813,7 +813,7 @@ order by def.[TableName],def.Id
 
                     url = "http://localhost/Research/Pregnant/GetPagedListOfVisitRecord";
                     postData = "page=1&rows=20&pregnantInfoId=64116";
-                    result = SDHttpHelper.Post(url, postData, ref container);
+                    result = FSHttpHelper.Post(url, postData, ref container);
                 }
 
                 //模拟登陆后 请求带权限的POST接口,404(注意 此处有奇怪的问题,发布站点页面无法访问,调试可以访问,暂时无法解决)
@@ -837,7 +837,7 @@ order by def.[TableName],def.Id
 
                     url = "http://localhost/Pregnant/GetPagedListOfPregnantInfo";
                     postData = string.Format("page={0}&rows={1}", "1", "20");
-                    result = SDHttpHelper.Post(url, postData, ref container);
+                    result = FSHttpHelper.Post(url, postData, ref container);
                 }
 
                 Console.WriteLine(result);
@@ -847,7 +847,7 @@ order by def.[TableName],def.Id
                 CookieContainer container = new CookieContainer();
                 string url = "http://19.130.211.1:8090/FSFY/logon/publicKey";
                 string postData = "";
-                var result = SDHttpHelper.Get(url, postData, ref container);
+                var result = FSHttpHelper.Get(url, postData, ref container);
                 Console.WriteLine(result);
                 //http://localhost/VL.API/api/OrientSample/GetOne
             }));
@@ -924,7 +924,7 @@ order by def.[TableName],def.Id
                 {
                     var url = "http://localhost:51228/api/OrientSample/MockLogin";
                     var postData = new { url = "logon/myRoles", uid = 35000528, pwd = "2d36cfe9d49ccdb6cd313c75a7f4308036092f701a068f7fa66ab1835cd03baa3cbc80191e3bf502453d0cacec215a51adcfb883aa24ecc09025b6dc68d9cca20c722dc3e766e92fb15103b434a6c5fc640bbf7937f016c63a11ecad72018a30b0800a67f21d57f6014057f49c29595e7c3f9e5d1874e109a8e9c37be46ce59b" }.ToJson();
-                    var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/json;charset=utf-8");
+                    var result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/json;charset=utf-8");
                     Console.WriteLine(result);
                 }
                 //线上测试 模拟登陆
@@ -932,7 +932,7 @@ order by def.[TableName],def.Id
                 {
                     var url = "http://19.130.211.1:8090/FSFY/logon/myRoles";
                     var postData = new { url = "logon/myRoles", uid = "35000528", pwd = "2d36cfe9d49ccdb6cd313c75a7f4308036092f701a068f7fa66ab1835cd03baa3cbc80191e3bf502453d0cacec215a51adcfb883aa24ecc09025b6dc68d9cca20c722dc3e766e92fb15103b434a6c5fc640bbf7937f016c63a11ecad72018a30b0800a67f21d57f6014057f49c29595e7c3f9e5d1874e109a8e9c37be46ce59b" }.ToJson();
-                    var result = SDHttpHelper.Post(url, postData, ref container);
+                    var result = FSHttpHelper.Post(url, postData, ref container);
                     Console.WriteLine("--------------Mock Login");
                     Console.WriteLine(result);
                 }
@@ -941,7 +941,7 @@ order by def.[TableName],def.Id
                 {
                     var url = "http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_SAVE&sUserID=35000528&sParams=9BC060258D073697E050A8C01F0A710D$9BBF6C400D0280F0E050A8C01F0A4CC8$45608491-9$%E5%BB%96%E5%87%A4%E8%B4%A4$null$null$null$%E6%99%AE%E9%80%9A%E6%8A%A4%E5%A3%AB%E4%BA%A7%E6%A3%80";
                     var postData = $@"data=%5B%7B%22D2%22%3A%224406000000000035%22%2C%22D57%22%3A%22%22%2C%22D70%22%3A%22%22%2C%22D71%22%3A%22%22%2C%22D72%22%3A%22%22%2C%22D1%22%3A%2200000035%22%2C%22D3%22%3A%22%E6%B5%8B%E8%AF%95%22%2C%22D4%22%3A%22CN%22%2C%22D5%22%3A%2201%22%2C%22D6%22%3A%2202%22%2C%22D7%22%3A%2212345678998798%22%2C%22D8%22%3A%221990-01-01%22%2C%22curdate1%22%3A%22%22%2C%22D9%22%3A%2232%22%2C%22D10%22%3A%222%22%2C%22D11%22%3A%2213211111111%22%2C%22D12%22%3A%222%22%2C%22D69%22%3A%22%E4%BD%9B%E5%B1%B1%E5%B8%82%E5%A6%87%E5%B9%BC%E4%BF%9D%E5%81%A5%E9%99%A2%22%2C%22D13%22%3A%22%E5%8D%95%E4%BD%8D%22%2C%22D14%22%3A%22%22%2C%22D15%22%3A%2244%22%2C%22D16%22%3A%224419%22%2C%22D17%22%3A%22441901%22%2C%22D18%22%3A%22%22%2C%22D19%22%3A%22%22%2C%22D20%22%3A%22%E5%B9%BF%E4%B8%9C%E7%9C%81%E4%B8%9C%E8%8E%9E%E5%B8%82%E5%B8%82%E7%9B%B4%E8%BE%96%E4%B9%A1%E4%B8%9C%E5%B9%B3%E7%A4%BE%E5%8C%BA%E5%B1%85%E5%A7%94%E4%BC%9A%22%2C%22D21%22%3A%2244%22%2C%22D22%22%3A%224406%22%2C%22D23%22%3A%22440604%22%2C%22D24%22%3A%22440604009%22%2C%22D25%22%3A%22440604009025%22%2C%22D26%22%3A%22%E5%B9%BF%E4%B8%9C%E7%9C%81%E4%BD%9B%E5%B1%B1%E5%B8%82%E7%A6%85%E5%9F%8E%E5%8C%BA%E7%9F%B3%E6%B9%BE%E9%95%87%E8%A1%97%E9%81%93%E4%B8%9C%E5%B9%B3%E7%A4%BE%E5%8C%BA%E5%B1%85%E5%A7%94%E4%BC%9A%22%2C%22D27%22%3A%2244%22%2C%22D28%22%3A%224401%22%2C%22D29%22%3A%22440114%22%2C%22D30%22%3A%22%22%2C%22D31%22%3A%22%22%2C%22D32%22%3A%22%E5%B9%BF%E4%B8%9C%E7%9C%81%E5%B9%BF%E5%B7%9E%E5%B8%82%E8%8A%B1%E9%83%BD%E5%8C%BA%22%2C%22D33%22%3A%221%22%2C%22D34%22%3A%222%22%2C%22D35%22%3A%22%22%2C%22D36%22%3A%221%22%2C%22D37%22%3A%22%22%2C%22D38%22%3A%22%22%2C%22D62%22%3A%22%22%2C%22D63%22%3A%22%22%2C%22D64%22%3A%222%22%2C%22D65%22%3A%221%22%2C%22D66%22%3A%221%22%2C%22D67%22%3A%221%22%2C%22D68%22%3A%224%22%2C%22D39%22%3A%22%E8%AF%B7%E9%97%AE%22%2C%22D40%22%3A%22CN%22%2C%22D41%22%3A%2201%22%2C%22D42%22%3A%2204%22%2C%22D43%22%3A%221111111111%22%2C%22D44%22%3A%221990-01-01%22%2C%22D45%22%3A%2230%22%2C%22D46%22%3A%22%22%2C%22D47%22%3A%22%E5%B9%BF%E4%B8%9C%22%2C%22D48%22%3A%221322222222%22%2C%22D49%22%3A%22%22%2C%22D50%22%3A%22%22%2C%22D51%22%3A%2244%22%2C%22D52%22%3A%224406%22%2C%22D53%22%3A%22440605%22%2C%22D54%22%3A%22440605124%22%2C%22D55%22%3A%22%22%2C%22D56%22%3A%22%E5%B9%BF%E4%B8%9C%E7%9C%81%E4%BD%9B%E5%B1%B1%E5%B8%82%E5%8D%97%E6%B5%B7%E5%8C%BA%E7%8B%AE%E5%B1%B1%E9%95%87%E6%B2%99%E7%A4%BE%E5%8C%BA%E5%B1%85%E5%A7%94%E4%BC%9A%22%2C%22D58%22%3A%222020-01-10%22%2C%22D59%22%3A%22440023366%22%2C%22D60%22%3A%22%E9%83%AD%E6%99%93%E7%8E%B2%22%2C%22D61%22%3A%22%22%7D%5D";
-                    var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                    var result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                     Console.WriteLine("--------------Mock Commit");
                     Console.WriteLine(result);
                 }
@@ -996,7 +996,7 @@ order by def.[TableName],def.Id
                     var idcard = $"452427200208013323";
                     var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID=35000528&sParams=P${idcard}$P$P";
                     var postData = "";
-                    var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                    var result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                     Console.WriteLine(result);
                 }
                 //返回值测试
@@ -1051,7 +1051,7 @@ yjadata:[
                     var idcard = $"522301200408100084";
                     var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID=35000528&sParams=P${idcard}$P$P";
                     var postData = "";
-                    var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                    var result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                     Console.WriteLine(result);
                 }
                 //返回值测试
@@ -1238,7 +1238,7 @@ yjadata:[
                 {
                     var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID=35000528&sParams=P${pregnantInfo.idcard}$P$P";
                     var postData = "";
-                    var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                    var result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                     var re1 = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
                     bool isExist = re1.data.Count != 0;
                     Console.WriteLine($"{isExist},{pregnantInfo.idcard},{pregnantInfo.personname},{pregnantInfo.mobilenumber}");
@@ -1332,7 +1332,7 @@ yjadata:[
                     //查询基本信息
                     var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID={userId}&sParams=P${pregnantInfo.idcard}$P$P";
                     var postData = "";
-                    var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                    var result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                     var re1 = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
                     bool isExist = re1.data.Count != 0;
                     Console.WriteLine($"{isExist},{pregnantInfo.idcard},{pregnantInfo.personname},{pregnantInfo.mobilenumber}");
@@ -1341,14 +1341,14 @@ yjadata:[
                     //Create 患者主索引
                     url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_QHJC_ID_GET&sUserID={userId}&sParams=1";
                     postData = "";
-                    result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                    result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                     var mainId = result.FromJsonToAnonymousType(new { id = "" }).id;
                     Console.WriteLine($"当前孕妇:{pregnantInfo.personname},IdCard:{pregnantInfo.idcard}");
                     Console.WriteLine($"mainId:{mainId}");
                     //Create 保健号
                     url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=CDH_GET_ID1&sUserID={userId}&sParams={orgId}";
                     postData = "";
-                    result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                    result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                     var careId = result.FromJsonToAnonymousType(new { id = "" }).id;
                     Console.WriteLine($"careId:{careId}");
                     var careIdL8 = careId.Substring(8);
@@ -1433,7 +1433,7 @@ yjadata:[
                     };
                     var json = data.ToString();
                     postData = "data=" + HttpUtility.UrlEncode(data.ToString());
-                    result = SDHttpHelper.Post(url, postData, ref container, contentType: "text/text;charset=UTF-8");
+                    result = FSHttpHelper.Post(url, postData, ref container, contentType: "text/text;charset=UTF-8");
                     Console.WriteLine($"result:{result}");
                     break;
                 }
@@ -2222,7 +2222,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     //查询基本信息
                     var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID={userId}&sParams=P${pregnantInfo.idcard}$P$P";
                     var postData = "";
-                    var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                    var result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                     var re1 = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
                     bool isExist = re1.data.Count != 0;
                     Console.WriteLine($"{isExist},{pregnantInfo.idcard},{pregnantInfo.personname},{pregnantInfo.mobilenumber}");
@@ -2247,7 +2247,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 //Create 患者主索引
                 var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_QHJC_ID_GET&sUserID={userId}&sParams=1";
                 var postData = "";
-                var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                var result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                 var mainId = result.FromJsonToAnonymousType(new { id = "" }).id;
                 Console.WriteLine($"当前孕妇:{pregnantInfo.personname},IdCard:{pregnantInfo.idcard}");
                 Console.WriteLine($"mainId:{mainId}");
@@ -2258,7 +2258,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 //Create 保健号
                 url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=CDH_GET_ID1&sUserID={userId}&sParams={orgId}";
                 postData = "";
-                result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                 var careId = result.FromJsonToAnonymousType(new { id = "" }).id;
                 Console.WriteLine($"careId:{careId}");
                 sb.AppendLine("Create 保健号");
@@ -2268,7 +2268,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 //--------查重
                 url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_CC&sUserID={userId}&sParams={mainId}$P${pregnantInfo.idcard}&pageSize=10000&pageIndex=0";
                 postData = "";
-                result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                 sb.AppendLine("--------查重");
                 sb.AppendLine(result);
                 //Create 基本信息
@@ -2353,7 +2353,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     };
                 var json = data.ToJson();
                 postData = "data=" + json;
-                result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                 var file = Path.Combine(Directory.GetCurrentDirectory(), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
                 sb.AppendLine("Create 基本信息");
                 sb.AppendLine(url);
@@ -2377,7 +2377,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 //Create 患者主索引
                 var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_QHJC_ID_GET&sUserID={userId}&sParams=1";
                 var postData = "";
-                var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                var result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                 var mainId = result.FromJsonToAnonymousType(new { id = "" }).id;
                 Console.WriteLine($"当前孕妇:{pregnantInfo.personname},IdCard:{pregnantInfo.idcard}");
                 Console.WriteLine($"mainId:{mainId}");
@@ -2388,7 +2388,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 //Create 保健号
                 url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=CDH_GET_ID1&sUserID={userId}&sParams={orgId}";
                 postData = "";
-                result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                 var careId = result.FromJsonToAnonymousType(new { id = "" }).id;
                 Console.WriteLine($"careId:{careId}");
                 sb.AppendLine("Create 保健号");
@@ -2398,7 +2398,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 //--------查重
                 url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_CC&sUserID={userId}&sParams={mainId}$P${pregnantInfo.idcard}&pageSize=10000&pageIndex=0";
                 postData = "";
-                result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                 sb.AppendLine("--------查重");
                 sb.AppendLine(result);
                 //Create 基本信息
@@ -2483,7 +2483,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     };
                 var json = data.ToJson();
                 postData = "data=" + HttpUtility.UrlEncode(json);
-                result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                 var file = Path.Combine(Directory.GetCurrentDirectory(), pregnantInfo.personname + "_" + pregnantInfo.idcard + ".txt");
                 sb.AppendLine("Create 基本信息");
                 sb.AppendLine(url);
@@ -2507,7 +2507,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 //Create 患者主索引
                 var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_QHJC_ID_GET&sUserID={userId}&sParams=1";
                 var postData = "";
-                var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                var result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                 var mainId = result.FromJsonToAnonymousType(new { id = "" }).id;
                 Console.WriteLine($"当前孕妇:{pregnantInfo.personname},IdCard:{pregnantInfo.idcard}");
                 Console.WriteLine($"mainId:{mainId}");
@@ -2518,7 +2518,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 //Create 保健号
                 url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=CDH_GET_ID1&sUserID={userId}&sParams={orgId}";
                 postData = "";
-                result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                 var careId = result.FromJsonToAnonymousType(new { id = "" }).id;
                 Console.WriteLine($"careId:{careId}");
                 sb.AppendLine("Create 保健号");
@@ -2528,7 +2528,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 //--------查重
                 url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_CC&sUserID={userId}&sParams={mainId}$P${pregnantInfo.idcard}&pageSize=10000&pageIndex=0";
                 postData = "";
-                result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                 sb.AppendLine("--------查重");
                 sb.AppendLine(result);
                 //Create 基本信息
@@ -2625,8 +2625,8 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             }));
             cmds.Add(new Command("m21,0618,模拟-获取待新增的孕妇", () =>
             {
-                SDBLL.TempPregnantInfos = SDBLL.GetPregnantInfoForCreate();
-                foreach (var pregnantInfo in SDBLL.TempPregnantInfos)
+                SDService.TempPregnantInfos = SDService.GetPregnantInfoForCreate();
+                foreach (var pregnantInfo in SDService.TempPregnantInfos)
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(pregnantInfo.ToJson());
@@ -2637,18 +2637,18 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             }));
             cmds.Add(new Command("m22,0618,模拟-模拟新增", () =>
             {
-                SDBLL.MockCommitCreatePregnantInfo(SDBLL.TempPregnantInfos);
+                SDService.MockCommitCreatePregnantInfo(SDService.TempPregnantInfos);
             }));
             cmds.Add(new Command("m23,0618,模拟-获取待更新的孕妇", () =>
             {
-                SDBLL.TempPregnantInfos = SDBLL.GetPregnantInfosToUpdate();
+                SDService.TempPregnantInfos = SDService.GetPregnantInfosToUpdate();
             }));
             cmds.Add(new Command("m24,0618,模拟-模拟更新(仅记录数据)", () =>
             {
                 var testOne = false;
                 var conntectingStringSD = "Data Source=201.201.201.89;Initial Catalog=HL_Pregnant;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sdfy;Password=sdfy123456";
                 var dbContext = DBHelper.GetSqlDbContext(conntectingStringSD);
-                foreach (var pregnantInfo in SDBLL.TempPregnantInfos)
+                foreach (var pregnantInfo in SDService.TempPregnantInfos)
                 {
                     if (testOne)
                         break;
@@ -2667,7 +2667,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                         return;
                     //查询孕妇 概要数据(各类Id)
                     url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID={userId}&sParams=P${pregnantInfo.idcard}$P$P";
-                    result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                    result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                     var resultBase = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
                     sb.AppendLine(result);
                     if (resultBase.data.Count == 0)
@@ -2692,7 +2692,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     //查询孕妇 基本数据
                     var baseMain = resultBase.data.First();
                     url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_READ&sUserID={userId}&sParams={baseMain.MainId}";
-                    result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                    result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                     var resultBaseInfo = result.FromJson<WMH_CQBJ_JBXX_FORM_READResponse>();
                     if (resultBaseInfo.data.Count == 0)
                     {
@@ -2866,16 +2866,16 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             cmds.Add(new Command("m25,0618,模拟-模拟更新", () =>
             {
                 var isTestOne = true;
-                SDBLL.MockCommitUpdatePregnantInfo(isTestOne);
+                SDService.MockCommitUpdatePregnantInfo(isTestOne);
             }));
             cmds.Add(new Command("m26,0618,模拟-筛选待新增的孕妇", () =>
             {
-                SDBLL.TempPregnantInfos = SDBLL.GetPregnantInfoForCreateBefore0630();
-                var dbContext = DBHelper.GetSqlDbContext(SDBLL.ConntectingStringSD);
-                foreach (var pregnantInfo in SDBLL.TempPregnantInfos)
+                SDService.TempPregnantInfos = SDService.GetPregnantInfoForCreateBefore0630();
+                var dbContext = DBHelper.GetSqlDbContext(SDService.ConntectingStringSD);
+                foreach (var pregnantInfo in SDService.TempPregnantInfos)
                 {
                     Console.WriteLine($"当前孕妇{pregnantInfo.personname}");
-                    var userInfo = SDBLL.UserInfo;
+                    var userInfo = SDService.UserInfo;
                     var container = new CookieContainer();
                     var userId = userInfo.UserId;
                     var userName = userInfo.UserName;
@@ -2889,7 +2889,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                         return;
                     //孕妇是否已存在
                     url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID={userId}&sParams=P${pregnantInfo.idcard}$P$P";
-                    result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                    result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                     var re = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
                     if (re.data.Count != 0)
                     {
@@ -2908,9 +2908,9 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             }));
             cmds.Add(new Command("m301,0623,模拟-获取待新增的`问询病史`", () =>
             {
-                var userInfo = SDBLL.UserInfo;
-                SDBLL.TempPregnantInfos = SDBLL.GetPregnantInfosToCreateEnquiries();
-                foreach (var pregnantInfo in SDBLL.TempPregnantInfos)
+                var userInfo = SDService.UserInfo;
+                SDService.TempPregnantInfos = SDService.GetPregnantInfosToCreateEnquiries();
+                foreach (var pregnantInfo in SDService.TempPregnantInfos)
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(pregnantInfo.ToJson());
@@ -2921,9 +2921,9 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             }));
             cmds.Add(new Command("m302,0623,模拟-获取待更新的`问询病史`", () =>
             {
-                var userInfo = SDBLL.UserInfo;
-                SDBLL.TempPregnantInfos = SDBLL.GetPregnantInfosToUpdateEnquiries();
-                foreach (var pregnantInfo in SDBLL.TempPregnantInfos)
+                var userInfo = SDService.UserInfo;
+                SDService.TempPregnantInfos = SDService.GetPregnantInfosToUpdateEnquiries();
+                foreach (var pregnantInfo in SDService.TempPregnantInfos)
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(pregnantInfo.ToJson());
@@ -2934,9 +2934,9 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             }));
             cmds.Add(new Command("m303,0623,模拟-获取李丽", () =>
             {
-                var userInfo = SDBLL.UserInfo;
-                SDBLL.TempPregnantInfos = SDBLL.GetPregnantInfosForTest();
-                foreach (var pregnantInfo in SDBLL.TempPregnantInfos)
+                var userInfo = SDService.UserInfo;
+                SDService.TempPregnantInfos = SDService.GetPregnantInfosForTest();
+                foreach (var pregnantInfo in SDService.TempPregnantInfos)
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(pregnantInfo.ToJson());
@@ -2951,9 +2951,9 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                 var pregnanthistorys2 = @"[{ ""index"":""0"",""pregstatus"":""人流"",""babysex"":""0"",""babyweight"":"""",""pregnantage"":""2017年6月""},{ ""index"":""2"",""pregstatus"":""顺产-足月-健,足月产-亡,巨大胎,顺产-早产-健,早产-亡"",""babysex"":"""",""babyweight"":"""",""pregnantage"":""""}]".FromJson<List<pregnanthistory>>();
 
 
-                var userInfo = SDBLL.UserInfo;
-                var dbContext = DBHelper.GetSqlDbContext(SDBLL.ConntectingStringSD);
-                foreach (var pregnantInfo in SDBLL.TempPregnantInfos)
+                var userInfo = SDService.UserInfo;
+                var dbContext = DBHelper.GetSqlDbContext(SDService.ConntectingStringSD);
+                foreach (var pregnantInfo in SDService.TempPregnantInfos)
                 {
                     StringBuilder sb = new StringBuilder();
                     var serviceResult = dbContext.DelegateTransaction((Func<DbGroup, bool>)((group) =>
@@ -2967,17 +2967,17 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                         try
                         {
                             syncForFS.SyncTime = DateTime.Now;
-                            var base8 = SDBLL.GetBase8(userInfo, pregnantInfo.idcard, ref sb);
+                            var base8 = SDService.GetBase8(userInfo, pregnantInfo.idcard, ref sb);
                             if (!base8.IsAvailable)
                             {
                                 syncForFS.SyncStatus = SyncStatus.Error;
                                 syncForFS.ErrorMessage = "No Base8 Data";
-                                SDBLL.SaveSyncOrder(dbContext.DbGroup, syncForFS);
+                                SDService.SaveSyncOrder(dbContext.DbGroup, syncForFS);
                                 return (bool)true;
                             }
-                            var enquiryResponse = SDBLL.GetEnquiry(userInfo, base8, ref sb);
+                            var enquiryResponse = SDService.GetEnquiry(userInfo, base8, ref sb);
                             var enquiryData = enquiryResponse.data.FirstOrDefault();
-                            var result = SDBLL.PostUpdateEnquiryToFS(pregnantInfo, enquiryData, userInfo, base8, ref sb);
+                            var result = SDService.PostUpdateEnquiryToFS(pregnantInfo, enquiryData, userInfo, base8, ref sb);
                             if (!result.Contains((string)"处理成功"))
                             {
                                 throw new NotImplementedException(result);
@@ -2990,7 +2990,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                             {
                                 pregnanthistory.PregnantageIndex = pregnanthistorys.IndexOf(pregnanthistory) + 1;
                             }
-                            var enquiryPregnanthResponse = SDBLL.GetEnquiryPregnanths(userInfo, base8, ref sb);
+                            var enquiryPregnanthResponse = SDService.GetEnquiryPregnanths(userInfo, base8, ref sb);
                             //新增
                             var toAddHistories = pregnanthistorys.Where(c => enquiryPregnanthResponse.data.FirstOrDefault(d => d.IssueDate == c.pregnantage) == null).OrderBy(c => c.pregnantage);
                             foreach (var toAddHistory in toAddHistories)
@@ -3000,7 +3000,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                                 toAdd._state = "added";
                                 if (toAdd.Validate(ref sb))
                                 {
-                                    result = SDBLL.PostAddEnquiryPregnanth(toAdd, userInfo, base8, ref sb);
+                                    result = SDService.PostAddEnquiryPregnanth(toAdd, userInfo, base8, ref sb);
                                 }
                                 if (!result.Contains((string)"处理成功"))
                                 {
@@ -3014,7 +3014,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                                 if (pregnanthistory == null)
                                 {
                                     //删除
-                                    result = SDBLL.DeleteEnquiryPregnanth(toChange, userInfo, base8, ref sb);
+                                    result = SDService.DeleteEnquiryPregnanth(toChange, userInfo, base8, ref sb);
                                     if (!result.Contains((string)"处理成功"))
                                     {
                                         throw new NotImplementedException(result);
@@ -3026,7 +3026,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                                 toChange._state = "modified";
                                 if (toChange.Validate(ref sb))
                                 {
-                                    result = SDBLL.UpdateEnquiryPregnanth(toChange, userInfo, base8, ref sb);
+                                    result = SDService.UpdateEnquiryPregnanth(toChange, userInfo, base8, ref sb);
                                 }
                                 if (!result.Contains((string)"处理成功"))
                                 {
@@ -3039,7 +3039,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                             syncForFS.SyncStatus = SyncStatus.Error;
                             syncForFS.ErrorMessage = ex.ToString();
                         }
-                        syncForFS.Id = SDBLL.SaveSyncOrder(dbContext.DbGroup, syncForFS);
+                        syncForFS.Id = SDService.SaveSyncOrder(dbContext.DbGroup, syncForFS);
                         sb.AppendLine((string)syncForFS.ToJson());
                         return (bool)(syncForFS.SyncStatus != SyncStatus.Error);
                     }));
@@ -3054,35 +3054,35 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             }));
             cmds.Add(new Command("m32,0623,模拟-更新`问询病史`", () =>
             {
-                var userInfo = SDBLL.UserInfo;
-                var dbContext = DBHelper.GetSqlDbContext(SDBLL.ConntectingStringSD);
-                foreach (var pregnantInfo in SDBLL.TempPregnantInfos)
+                var userInfo = SDService.UserInfo;
+                var dbContext = DBHelper.GetSqlDbContext(SDService.ConntectingStringSD);
+                foreach (var pregnantInfo in SDService.TempPregnantInfos)
                 {
                     StringBuilder sb = new StringBuilder();
                     var serviceResult = dbContext.DelegateTransaction((Func<DbGroup, bool>)((group) =>
                     {
-                        var syncForFS = SDBLL.GetSyncOrderBySource(group, TargetType.HistoryEnquiry, pregnantInfo.Id.ToString()).First();
+                        var syncForFS = SDService.GetSyncOrderBySource(group, TargetType.HistoryEnquiry, pregnantInfo.Id.ToString()).First();
                         try
                         {
                             syncForFS.SyncTime = DateTime.Now;
-                            var base8 = SDBLL.GetBase8(userInfo, pregnantInfo.idcard, ref sb);
+                            var base8 = SDService.GetBase8(userInfo, pregnantInfo.idcard, ref sb);
                             if (!base8.IsAvailable)
                             {
                                 syncForFS.SyncStatus = SyncStatus.Error;
                                 syncForFS.ErrorMessage = "No Base8 Data";
-                                SDBLL.SaveSyncOrder(dbContext.DbGroup, syncForFS);
+                                SDService.SaveSyncOrder(dbContext.DbGroup, syncForFS);
                                 return (bool)true;
                             }
-                            var enquiryResponse = SDBLL.GetEnquiry(userInfo, base8, ref sb);
+                            var enquiryResponse = SDService.GetEnquiry(userInfo, base8, ref sb);
                             var enquiryData = enquiryResponse.data.FirstOrDefault();
-                            var result = SDBLL.PostUpdateEnquiryToFS(pregnantInfo, enquiryData, userInfo, base8, ref sb);
+                            var result = SDService.PostUpdateEnquiryToFS(pregnantInfo, enquiryData, userInfo, base8, ref sb);
                             if (!result.Contains((string)"处理成功"))
                             {
                                 throw new NotImplementedException(result);
                             }
                             //[{ "index":"0","pregstatus":"人流","babysex":"0","babyweight":"","pregnantage":"2017年6月"},{ "index":"2","pregstatus":"顺产-足月-健,足月产-亡,巨大胎,顺产-早产-健,早产-亡","babysex":"","babyweight":"","pregnantage":""}]
                             var pregnanthistorys = pregnantInfo.pregnanthistory?.FromJson<List<pregnanthistory>>();
-                            var enquiryPregnanthResponse = SDBLL.GetEnquiryPregnanths(userInfo, base8, ref sb);
+                            var enquiryPregnanthResponse = SDService.GetEnquiryPregnanths(userInfo, base8, ref sb);
                             //新增
                             var toAddHistories = pregnanthistorys.Where(c => enquiryPregnanthResponse.data.FirstOrDefault(d => d.IssueDate == c.pregnantage) == null);
                             foreach (var toAddHistory in toAddHistories)
@@ -3092,7 +3092,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                                 toAdd._state = "added";
                                 if (toAdd.Validate(ref sb))
                                 {
-                                    result = SDBLL.PostAddEnquiryPregnanth(toAdd, userInfo, base8, ref sb);
+                                    result = SDService.PostAddEnquiryPregnanth(toAdd, userInfo, base8, ref sb);
                                 }
                                 if (!result.Contains((string)"处理成功"))
                                 {
@@ -3106,7 +3106,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                                 if (pregnanthistory == null)
                                 {
                                     //删除
-                                    result = SDBLL.DeleteEnquiryPregnanth(toChange, userInfo, base8, ref sb);
+                                    result = SDService.DeleteEnquiryPregnanth(toChange, userInfo, base8, ref sb);
                                     if (!result.Contains((string)"处理成功"))
                                     {
                                         throw new NotImplementedException(result);
@@ -3118,7 +3118,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                                 toChange._state = "modified";
                                 if (toChange.Validate(ref sb))
                                 {
-                                    result = SDBLL.UpdateEnquiryPregnanth(toChange, userInfo, base8, ref sb);
+                                    result = SDService.UpdateEnquiryPregnanth(toChange, userInfo, base8, ref sb);
                                 }
                                 if (!result.Contains((string)"处理成功"))
                                 {
@@ -3131,7 +3131,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                             syncForFS.SyncStatus = SyncStatus.Error;
                             syncForFS.ErrorMessage = ex.ToString();
                         }
-                        SDBLL.SaveSyncOrder(dbContext.DbGroup, syncForFS);
+                        SDService.SaveSyncOrder(dbContext.DbGroup, syncForFS);
                         sb.AppendLine((string)syncForFS.ToJson());
                         return (bool)(syncForFS.SyncStatus != SyncStatus.Error);
                     }));
@@ -3147,8 +3147,8 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             List<PhysicalExaminationModel> examinations = new List<PhysicalExaminationModel>();
             cmds.Add(new Command("m401,0628,模拟-获取待新增的`体格检查`", () =>
             {
-                var userInfo = SDBLL.UserInfo;
-                examinations = SDBLL.GetPhysicalExaminationDatasForCreatePhysicalExaminations();
+                var userInfo = SDService.UserInfo;
+                examinations = SDService.GetPhysicalExaminationDatasForCreatePhysicalExaminations();
                 foreach (var examination in examinations)
                 {
                     StringBuilder sb = new StringBuilder();
@@ -3160,8 +3160,8 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             }));
             cmds.Add(new Command("m402,0628,模拟-获取待更新的`体格检查`", () =>
             {
-                var userInfo = SDBLL.UserInfo;
-                examinations = SDBLL.GetPhysicalExaminationDatasForUpdatePhysicalExaminations();
+                var userInfo = SDService.UserInfo;
+                examinations = SDService.GetPhysicalExaminationDatasForUpdatePhysicalExaminations();
                 foreach (var examination in examinations)
                 {
                     StringBuilder sb = new StringBuilder();
@@ -3173,9 +3173,9 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             }));
             cmds.Add(new Command("m403,0628,模拟-获取李丽", () =>
             {
-                var userInfo = SDBLL.UserInfo;
-                SDBLL.TempPregnantInfos = SDBLL.GetPregnantInfosForTest();
-                foreach (var pregnantInfo in SDBLL.TempPregnantInfos)
+                var userInfo = SDService.UserInfo;
+                SDService.TempPregnantInfos = SDService.GetPregnantInfosForTest();
+                foreach (var pregnantInfo in SDService.TempPregnantInfos)
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine(pregnantInfo.ToJson());
@@ -3328,7 +3328,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             var sourceDatas = new List<ProfessionalExaminationModel_SourceData>();
             cmds.Add(new Command("m501,0701,模拟-获取待新增的`专科检查`", () =>
             {
-                var userInfo = SDBLL.UserInfo;
+                var userInfo = SDService.UserInfo;
                 sourceDatas = syncTask_Create_PhysicalExaminationModel.GetSourceDatas(userInfo);
                 foreach (var sourceData in sourceDatas)
                 {
@@ -3341,7 +3341,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
             }));
             cmds.Add(new Command("m502,0703,模拟-获取待更新的`专科检查`", () =>
             {
-                var userInfo = SDBLL.UserInfo;
+                var userInfo = SDService.UserInfo;
                 sourceDatas = syncTask_Update_PhysicalExaminationModel.GetSourceDatas(userInfo);
                 foreach (var sourceData in sourceDatas)
                 {
@@ -3418,7 +3418,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
-                syncTask.Start_Auto_DoWork(context, SDBLL.UserInfo);
+                syncTask.Start_Auto_DoWork(context, SDService.UserInfo);
             }));
             cmds.Add(new Command("m92,0623,自动同步-更新`孕妇档案`", () =>
             {
@@ -3438,7 +3438,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
-                syncTask.Start_Auto_DoWork(context, SDBLL.UserInfo);
+                syncTask.Start_Auto_DoWork(context, SDService.UserInfo);
             }));
             cmds.Add(new Command("m93,0628,自动同步-新增`问询病史`", () =>
             {
@@ -3458,7 +3458,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
-                syncTask.Start_Auto_DoWork(context, SDBLL.UserInfo);
+                syncTask.Start_Auto_DoWork(context, SDService.UserInfo);
             }));
             cmds.Add(new Command("m94,0629,自动同步-更新`问询病史`", () =>
             {
@@ -3478,7 +3478,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
-                syncTask.Start_Auto_DoWork(context, SDBLL.UserInfo);
+                syncTask.Start_Auto_DoWork(context, SDService.UserInfo);
             }));
             cmds.Add(new Command("m95,0630,自动同步-新增`体格检查`", () =>
             {
@@ -3498,7 +3498,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
-                syncTask.Start_Auto_DoWork(context, SDBLL.UserInfo);
+                syncTask.Start_Auto_DoWork(context, SDService.UserInfo);
             }));
             cmds.Add(new Command("m96,0630,自动同步-更新`体格检查`", () =>
             {
@@ -3518,7 +3518,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
-                syncTask.Start_Auto_DoWork(context, SDBLL.UserInfo);
+                syncTask.Start_Auto_DoWork(context, SDService.UserInfo);
             }));
             cmds.Add(new Command("m97,0630,自动同步-新增`专科检查`", () =>
             {
@@ -3538,7 +3538,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
-                syncTask.Start_Auto_DoWork(context, SDBLL.UserInfo);
+                syncTask.Start_Auto_DoWork(context, SDService.UserInfo);
             }));
             cmds.Add(new Command("m98,0703,自动同步-更新`专科检查`", () =>
             {
@@ -3558,7 +3558,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
-                syncTask.Start_Auto_DoWork(context, SDBLL.UserInfo);
+                syncTask.Start_Auto_DoWork(context, SDService.UserInfo);
             }));
             cmds.Add(new Command("m99,0703,自动同步-扩展范围`孕妇档案`", () =>
             {
@@ -3578,7 +3578,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     Console.WriteLine($"result:{file}");
                 };
                 //自动执行
-                syncTask.Start_Auto_DoWork(context, SDBLL.UserInfo);
+                syncTask.Start_Auto_DoWork(context, SDService.UserInfo);
             }));
             cmds.Add(new Command("m101,0702,行政区", () =>
             {
@@ -3708,7 +3708,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                         File.WriteAllText(file, sb.ToString());
                         Console.WriteLine($"result:{file}");
                     };
-                    syncTask.Start_Auto_DoWork(context, SDBLL.UserInfo);
+                    syncTask.Start_Auto_DoWork(context, SDService.UserInfo);
                 });
 
                 Console.WriteLine($"任务启动=>孕妇档案-更新");
@@ -3729,7 +3729,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                         File.WriteAllText(file, sb.ToString());
                         Console.WriteLine($"result:{file}");
                     };
-                    syncTask.Start_Auto_DoWork(context, SDBLL.UserInfo);
+                    syncTask.Start_Auto_DoWork(context, SDService.UserInfo);
                 });
 
                 Console.WriteLine($"任务启动=>问询病史-新建");
@@ -3750,7 +3750,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                         File.WriteAllText(file, sb.ToString());
                         Console.WriteLine($"result:{file}");
                     };
-                    syncTask.Start_Auto_DoWork(context, SDBLL.UserInfo);
+                    syncTask.Start_Auto_DoWork(context, SDService.UserInfo);
                 });
 
                 Console.WriteLine($"任务启动=>问询病史-更新");
@@ -3771,7 +3771,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                         File.WriteAllText(file, sb.ToString());
                         Console.WriteLine($"result:{file}");
                     };
-                    syncTask.Start_Auto_DoWork(context, SDBLL.UserInfo);
+                    syncTask.Start_Auto_DoWork(context, SDService.UserInfo);
                 });
 
                 Console.WriteLine($"任务启动=>体格检查-新建");
@@ -3792,7 +3792,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                         File.WriteAllText(file, sb.ToString());
                         Console.WriteLine($"result:{file}");
                     };
-                    syncTask.Start_Auto_DoWork(context, SDBLL.UserInfo);
+                    syncTask.Start_Auto_DoWork(context, SDService.UserInfo);
                 });
 
                 Console.WriteLine($"任务启动=>体格检查-更新");
@@ -3813,7 +3813,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                         File.WriteAllText(file, sb.ToString());
                         Console.WriteLine($"result:{file}");
                     };
-                    syncTask.Start_Auto_DoWork(context, SDBLL.UserInfo);
+                    syncTask.Start_Auto_DoWork(context, SDService.UserInfo);
                 });
 
                 Console.WriteLine($"任务启动=>专科检查-新建");
@@ -3834,7 +3834,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                         File.WriteAllText(file, sb.ToString());
                         Console.WriteLine($"result:{file}");
                     };
-                    syncTask.Start_Auto_DoWork(context, SDBLL.UserInfo);
+                    syncTask.Start_Auto_DoWork(context, SDService.UserInfo);
                 });
 
                 Console.WriteLine($"任务启动=>专科检查-更新");
@@ -3855,7 +3855,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                         File.WriteAllText(file, sb.ToString());
                         Console.WriteLine($"result:{file}");
                     };
-                    syncTask.Start_Auto_DoWork(context, SDBLL.UserInfo);
+                    syncTask.Start_Auto_DoWork(context, SDService.UserInfo);
                 });
 
                 Console.WriteLine($"任务启动=>孕妇出院-新增");
@@ -3876,7 +3876,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                         File.WriteAllText(file, sb.ToString());
                         Console.WriteLine($"result:{file}");
                     };
-                    syncTask.Start_Auto_DoWork(context, SDBLL.UserInfo);
+                    syncTask.Start_Auto_DoWork(context, SDService.UserInfo);
                 });
 
                 Console.WriteLine($"任务启动=>孕妇出院-更新");
@@ -3897,7 +3897,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                         File.WriteAllText(file, sb.ToString());
                         Console.WriteLine($"result:{file}");
                     };
-                    syncTask.Start_Auto_DoWork(context, SDBLL.UserInfo);
+                    syncTask.Start_Auto_DoWork(context, SDService.UserInfo);
                 });
 
                 Console.WriteLine($"任务启动=>婴儿出院-新增");
@@ -3918,7 +3918,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                         File.WriteAllText(file, sb.ToString());
                         Console.WriteLine($"result:{file}");
                     };
-                    syncTask.Start_Auto_DoWork(context, SDBLL.UserInfo);
+                    syncTask.Start_Auto_DoWork(context, SDService.UserInfo);
                 });
 
                 Console.WriteLine($"任务启动=>婴儿出院-更新");
@@ -3939,7 +3939,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                         File.WriteAllText(file, sb.ToString());
                         Console.WriteLine($"result:{file}");
                     };
-                    syncTask.Start_Auto_DoWork(context, SDBLL.UserInfo);
+                    syncTask.Start_Auto_DoWork(context, SDService.UserInfo);
                 });
 
             }));
@@ -3960,7 +3960,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
-                syncTask.Start_Auto_DoWork(context, SDBLL.UserInfo);
+                syncTask.Start_Auto_DoWork(context, SDService.UserInfo);
             }));
             cmds.Add(new Command("m112,0721,自动同步-更新`孕妇出院`", () =>
             {
@@ -3979,7 +3979,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
-                syncTask.Start_Auto_DoWork(context, SDBLL.UserInfo);
+                syncTask.Start_Auto_DoWork(context, SDService.UserInfo);
             }));
             cmds.Add(new Command("m113,0722,自动同步-新增`婴儿出院`", () =>
             {
@@ -3998,7 +3998,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
-                syncTask.Start_Auto_DoWork(context, SDBLL.UserInfo);
+                syncTask.Start_Auto_DoWork(context, SDService.UserInfo);
             }));
             cmds.Add(new Command("m114,0722,自动同步-更新`婴儿出院`", () =>
             {
@@ -4017,7 +4017,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
-                syncTask.Start_Auto_DoWork(context, SDBLL.UserInfo);
+                syncTask.Start_Auto_DoWork(context, SDService.UserInfo);
             }));
             cmds.Add(new Command("m115,0723,自动同步-新增`孕妇档案`强制重试", () =>
             {
@@ -4037,7 +4037,7 @@ new PregnantInfo("350600199004014543","郑雅华","18138351772"),
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
-                syncTask.Start_Auto_DoWork(context, SDBLL.UserInfo);
+                syncTask.Start_Auto_DoWork(context, SDService.UserInfo);
             }));
             #endregion
             #region 国健,产前记录解析

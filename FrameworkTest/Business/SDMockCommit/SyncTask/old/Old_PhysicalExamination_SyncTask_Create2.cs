@@ -15,8 +15,8 @@ namespace FrameworkTest.Business.SDMockCommit
         {
             while (true)
             {
-                var userInfo = SDBLL.UserInfo;
-                var examinations = SDBLL.GetPhysicalExaminationDatasForCreatePhysicalExaminations();
+                var userInfo = SDService.UserInfo;
+                var examinations = SDService.GetPhysicalExaminationDatasForCreatePhysicalExaminations();
                 foreach (var examination in examinations)
                 {
                     StringBuilder sb = new StringBuilder();
@@ -25,7 +25,7 @@ namespace FrameworkTest.Business.SDMockCommit
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 }
-                var context = DBHelper.GetSqlDbContext(SDBLL.ConntectingStringSD);
+                var context = DBHelper.GetSqlDbContext(SDService.ConntectingStringSD);
                 foreach (var examination in examinations)
                 {
                     StringBuilder sb = new StringBuilder();
@@ -41,20 +41,20 @@ namespace FrameworkTest.Business.SDMockCommit
                         {
                             syncForFS.SyncTime = DateTime.Now;
                             //获取Base8信息
-                            var base8 = SDBLL.GetBase8(userInfo, examination.idcard, ref sb);
+                            var base8 = SDService.GetBase8(userInfo, examination.idcard, ref sb);
                             if (!base8.IsAvailable)
                             {
                                 syncForFS.SyncStatus = SyncStatus.Error;
                                 syncForFS.ErrorMessage = "No Base8 Data";
-                                SDBLL.SaveSyncOrder(context.DbGroup, syncForFS);
+                                SDService.SaveSyncOrder(context.DbGroup, syncForFS);
                                 return (bool)true;
                             }
                             //获取体格检查
-                            var physicalExaminationId = SDBLL.GetPhysicalExaminationId(userInfo, base8, DateTime.Now, ref sb);
+                            var physicalExaminationId = SDService.GetPhysicalExaminationId(userInfo, base8, DateTime.Now, ref sb);
                             if (!string.IsNullOrEmpty(physicalExaminationId))
                             {
                                 syncForFS.SyncStatus = SyncStatus.Existed;
-                                SDBLL.SaveSyncOrder(context.DbGroup, syncForFS);
+                                SDService.SaveSyncOrder(context.DbGroup, syncForFS);
                                 return (bool)true;
                             }
                             //新建体格检查
@@ -62,20 +62,20 @@ namespace FrameworkTest.Business.SDMockCommit
                             var data = new WMH_CQBJ_CQJC_TGJC_NEW_SAVE_Data();
                             data.UpdateExamination(examination);
                             datas.Add(data);
-                            var result = SDBLL.CreatePhysicalExamination(datas, userInfo, base8, ref sb);
+                            var result = SDService.CreatePhysicalExamination(datas, userInfo, base8, ref sb);
                             if (!result.Contains("处理成功"))
                             {
                                 syncForFS.SyncStatus = SyncStatus.Error;
-                                SDBLL.SaveSyncOrder(context.DbGroup, syncForFS);
+                                SDService.SaveSyncOrder(context.DbGroup, syncForFS);
                                 return (bool)true;
                             }
                             //获取体格检查
-                            physicalExaminationId = SDBLL.GetPhysicalExaminationId(userInfo, base8, DateTime.Now, ref sb);
+                            physicalExaminationId = SDService.GetPhysicalExaminationId(userInfo, base8, DateTime.Now, ref sb);
                             if (string.IsNullOrEmpty(physicalExaminationId))
                             {
                                 syncForFS.SyncStatus = SyncStatus.Error;
                                 syncForFS.ErrorMessage = "未能成功新建体格检查";
-                                SDBLL.SaveSyncOrder(context.DbGroup, syncForFS);
+                                SDService.SaveSyncOrder(context.DbGroup, syncForFS);
                                 return (bool)true;
                             }
                         }
@@ -85,7 +85,7 @@ namespace FrameworkTest.Business.SDMockCommit
                             syncForFS.ErrorMessage = ex.ToString();
                             sb.Append(ex.ToString());
                         }
-                        syncForFS.Id = SDBLL.SaveSyncOrder(context.DbGroup, syncForFS);
+                        syncForFS.Id = SDService.SaveSyncOrder(context.DbGroup, syncForFS);
                         sb.AppendLine((string)syncForFS.ToJson());
                         return (bool)(syncForFS.SyncStatus != SyncStatus.Error);
                     }));

@@ -95,6 +95,7 @@ namespace FrameworkTest
                 default:
                     return;
             }
+
             Console.WriteLine($"任务启动=>孕妇档案-新建");
             Task.Factory.StartNew(() =>
             {
@@ -114,7 +115,7 @@ namespace FrameworkTest
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
-                syncTask.Start_Auto_DoWork(context, SDBLL.UserInfos, 30 * 1000);
+                syncTask.Start_Auto_DoWork(context, SDService.UserInfos, 30 * 1000);
             });
 
             Console.WriteLine($"任务启动=>孕妇档案-更新");
@@ -136,7 +137,7 @@ namespace FrameworkTest
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
-                syncTask.Start_Auto_DoWork(context, SDBLL.UserInfos, 30 * 1000);
+                syncTask.Start_Auto_DoWork(context, SDService.UserInfos, 30 * 1000);
             });
 
             Console.WriteLine($"任务启动=>问询病史-新建");
@@ -158,7 +159,7 @@ namespace FrameworkTest
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
-                syncTask.Start_Auto_DoWork(context, SDBLL.UserInfos, 30 * 1000);
+                syncTask.Start_Auto_DoWork(context, SDService.UserInfos, 30 * 1000);
             });
 
             Console.WriteLine($"任务启动=>问询病史-更新");
@@ -180,7 +181,7 @@ namespace FrameworkTest
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
-                syncTask.Start_Auto_DoWork(context, SDBLL.UserInfos, 30 * 1000);
+                syncTask.Start_Auto_DoWork(context, SDService.UserInfos, 30 * 1000);
             });
 
             Console.WriteLine($"任务启动=>体格检查-新建");
@@ -202,7 +203,7 @@ namespace FrameworkTest
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
-                syncTask.Start_Auto_DoWork(context, SDBLL.UserInfos, 30 * 1000);
+                syncTask.Start_Auto_DoWork(context, SDService.UserInfos, 30 * 1000);
             });
 
             Console.WriteLine($"任务启动=>体格检查-更新");
@@ -224,7 +225,7 @@ namespace FrameworkTest
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
-                syncTask.Start_Auto_DoWork(context, SDBLL.UserInfos, 30 * 1000);
+                syncTask.Start_Auto_DoWork(context, SDService.UserInfos, 30 * 1000);
             });
 
             Console.WriteLine($"任务启动=>专科检查-新建");
@@ -246,7 +247,7 @@ namespace FrameworkTest
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
-                syncTask.Start_Auto_DoWork(context, SDBLL.UserInfos, 30 * 1000);
+                syncTask.Start_Auto_DoWork(context, SDService.UserInfos, 30 * 1000);
             });
 
             Console.WriteLine($"任务启动=>专科检查-更新");
@@ -268,7 +269,7 @@ namespace FrameworkTest
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
-                syncTask.Start_Auto_DoWork(context, SDBLL.UserInfos, 30 * 1000);
+                syncTask.Start_Auto_DoWork(context, SDService.UserInfos, 30 * 1000);
             });
 
             Console.WriteLine($"任务启动=>孕妇出院-新增");
@@ -290,7 +291,7 @@ namespace FrameworkTest
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
-                syncTask.Start_Auto_DoWork(context, SDBLL.UserInfos, 30 * 1000);
+                syncTask.Start_Auto_DoWork(context, SDService.UserInfos, 30 * 1000);
             });
 
             Console.WriteLine($"任务启动=>孕妇出院-更新");
@@ -312,7 +313,7 @@ namespace FrameworkTest
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
-                syncTask.Start_Auto_DoWork(context, SDBLL.UserInfos, 30 * 1000);
+                syncTask.Start_Auto_DoWork(context, SDService.UserInfos, 30 * 1000);
             });
 
             Console.WriteLine($"任务启动=>婴儿出院-新增");
@@ -334,7 +335,7 @@ namespace FrameworkTest
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
-                syncTask.Start_Auto_DoWork(context, SDBLL.UserInfos, 30 * 1000);
+                syncTask.Start_Auto_DoWork(context, SDService.UserInfos, 30 * 1000);
             });
 
             Console.WriteLine($"任务启动=>婴儿出院-更新");
@@ -356,7 +357,7 @@ namespace FrameworkTest
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 };
-                syncTask.Start_Auto_DoWork(context, SDBLL.UserInfos, 30 * 1000);
+                syncTask.Start_Auto_DoWork(context, SDService.UserInfos, 30 * 1000);
             });
             Console.ReadLine();
         }

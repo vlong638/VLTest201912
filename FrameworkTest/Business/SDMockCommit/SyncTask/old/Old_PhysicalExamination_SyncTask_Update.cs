@@ -15,8 +15,8 @@ namespace FrameworkTest.Business.SDMockCommit
         {
             while (true)
             {
-                var userInfo = SDBLL.UserInfo;
-                var examinations = SDBLL.GetPhysicalExaminationDatasForUpdatePhysicalExaminations();
+                var userInfo = SDService.UserInfo;
+                var examinations = SDService.GetPhysicalExaminationDatasForUpdatePhysicalExaminations();
                 foreach (var examination in examinations)
                 {
                     StringBuilder sb = new StringBuilder();
@@ -25,38 +25,38 @@ namespace FrameworkTest.Business.SDMockCommit
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 }
-                var context = DBHelper.GetSqlDbContext(SDBLL.ConntectingStringSD);
+                var context = DBHelper.GetSqlDbContext(SDService.ConntectingStringSD);
                 foreach (var examination in examinations)
                 {
                     StringBuilder sb = new StringBuilder();
                     var serviceResult = context.DelegateTransaction((Func<DbGroup, bool>)((group) =>
                     {
-                        var syncForFS = SDBLL.GetSyncOrder((DbGroup)context.DbGroup, (TargetType)TargetType.PhysicalExamination, examination.Id.ToString());
+                        var syncForFS = SDService.GetSyncOrder((DbGroup)context.DbGroup, (TargetType)TargetType.PhysicalExamination, examination.Id.ToString());
                         try
                         {
                             syncForFS.SyncTime = DateTime.Now;
                             //获取Base8信息
-                            var base8 = SDBLL.GetBase8(userInfo, examination.idcard, ref sb);
+                            var base8 = SDService.GetBase8(userInfo, examination.idcard, ref sb);
                             if (!base8.IsAvailable)
                             {
                                 syncForFS.SyncStatus = SyncStatus.Error;
                                 syncForFS.ErrorMessage = "No Base8 Data";
-                                SDBLL.SaveSyncOrder(context.DbGroup, syncForFS);
+                                SDService.SaveSyncOrder(context.DbGroup, syncForFS);
                                 return (bool)true;
                             }
                             //获取体格检查
-                            var physicalExaminationId = SDBLL.GetPhysicalExaminationId(userInfo, base8, DateTime.Now, ref sb);
+                            var physicalExaminationId = SDService.GetPhysicalExaminationId(userInfo, base8, DateTime.Now, ref sb);
                             if (string.IsNullOrEmpty(physicalExaminationId))
                             {
                                 syncForFS.SyncStatus = SyncStatus.NotExisted;
-                                SDBLL.SaveSyncOrder(context.DbGroup, syncForFS);
+                                SDService.SaveSyncOrder(context.DbGroup, syncForFS);
                                 return (bool)true;
                             }
-                            var physicalExamination = SDBLL.GetPhysicalExamination(physicalExaminationId, userInfo, base8, DateTime.Now, ref sb);
+                            var physicalExamination = SDService.GetPhysicalExamination(physicalExaminationId, userInfo, base8, DateTime.Now, ref sb);
                             if (physicalExamination == null)
                             {
                                 syncForFS.SyncStatus = SyncStatus.NotExisted;
-                                SDBLL.SaveSyncOrder(context.DbGroup, syncForFS);
+                                SDService.SaveSyncOrder(context.DbGroup, syncForFS);
                                 return (bool)true;
                             }
                             //更新体格检查
@@ -64,11 +64,11 @@ namespace FrameworkTest.Business.SDMockCommit
                             var data = new WMH_CQBJ_CQJC_TGJC_NEW_SAVE_Data(physicalExamination);
                             data.UpdateExamination(examination);
                             datas.Add(data);
-                            var result = SDBLL.UpdatePhysicalExamination(physicalExaminationId, datas, userInfo, base8, ref sb);
+                            var result = SDService.UpdatePhysicalExamination(physicalExaminationId, datas, userInfo, base8, ref sb);
                             if (!result.Contains("处理成功"))
                             {
                                 syncForFS.SyncStatus = SyncStatus.Error;
-                                SDBLL.SaveSyncOrder(context.DbGroup, syncForFS);
+                                SDService.SaveSyncOrder(context.DbGroup, syncForFS);
                                 return (bool)true;
                             }
                         }
@@ -78,7 +78,7 @@ namespace FrameworkTest.Business.SDMockCommit
                             syncForFS.ErrorMessage = ex.ToString();
                             sb.Append(ex.ToString());
                         }
-                        syncForFS.Id = SDBLL.SaveSyncOrder(context.DbGroup, syncForFS);
+                        syncForFS.Id = SDService.SaveSyncOrder(context.DbGroup, syncForFS);
                         sb.AppendLine((string)syncForFS.ToJson());
                         return (bool)(syncForFS.SyncStatus != SyncStatus.Error);
                     }));

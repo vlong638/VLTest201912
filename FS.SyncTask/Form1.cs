@@ -54,7 +54,7 @@ namespace FS.SyncTask
                             {
                                 var url=$@"http://{TargetService}/FSFY/disPatchJsonOut?&clazz=SENDJBXX&encode=0";
                                 var postData = new Target_BaseInfo(pregnantInfo).ToJson();
-                                var result = SDHttpHelper.Post(url,postData ,ref container);
+                                var result = FSHttpHelper.Post(url,postData ,ref container);
                                 var message = result?.Substring(0,result.Length>500? 500:result.Length);
                                 var syncForFS=new SyncForFS()
                                 {

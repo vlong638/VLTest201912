@@ -5,7 +5,7 @@ using System.Net;
 
 namespace FrameworkTest.Business.SDMockCommit
 {
-    public class SDHttpHelper
+    public class FSHttpHelper
     {
         public static string Post(string url, string postData, ref CookieContainer container, string contentType = "application/x-www-form-urlencoded; charset=UTF-8", Action<HttpWebRequest> configRequest = null, List<KeyValuePair<string, string>> keyValues = null)
         {

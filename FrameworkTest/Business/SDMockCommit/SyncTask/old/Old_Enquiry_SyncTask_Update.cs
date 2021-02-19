@@ -15,8 +15,8 @@ namespace FrameworkTest.Business.SDMockCommit
         {
             while (true)
             {
-                var userInfo = SDBLL.UserInfo;
-                var tempPregnantInfos = SDBLL.GetPregnantInfosToUpdateEnquiries();
+                var userInfo = SDService.UserInfo;
+                var tempPregnantInfos = SDService.GetPregnantInfosToUpdateEnquiries();
                 foreach (var pregnantInfo in tempPregnantInfos)
                 {
                     StringBuilder sb = new StringBuilder();
@@ -25,27 +25,27 @@ namespace FrameworkTest.Business.SDMockCommit
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                 }
-                var context = DBHelper.GetSqlDbContext(SDBLL.ConntectingStringSD);
+                var context = DBHelper.GetSqlDbContext(SDService.ConntectingStringSD);
                 foreach (var pregnantInfo in tempPregnantInfos)
                 {
                     StringBuilder sb = new StringBuilder();
                     var serviceResult = context.DelegateTransaction((Func<DbGroup, bool>)((group) =>
                     {
-                        var syncForFS = SDBLL.GetSyncOrder((DbGroup)context.DbGroup, (TargetType)TargetType.HistoryEnquiry, (string)pregnantInfo.Id.ToString());
+                        var syncForFS = SDService.GetSyncOrder((DbGroup)context.DbGroup, (TargetType)TargetType.HistoryEnquiry, (string)pregnantInfo.Id.ToString());
                         try
                         {
                             syncForFS.SyncTime = DateTime.Now;
-                            var base8 = SDBLL.GetBase8((UserInfo)userInfo, (string)pregnantInfo.idcard, ref sb);
+                            var base8 = SDService.GetBase8((UserInfo)userInfo, (string)pregnantInfo.idcard, ref sb);
                             if (!base8.IsAvailable)
                             {
                                 syncForFS.SyncStatus = SyncStatus.Error;
                                 syncForFS.ErrorMessage = "No Base8 Data";
-                                SDBLL.SaveSyncOrder((DbGroup)context.DbGroup, (SyncOrder)syncForFS);
+                                SDService.SaveSyncOrder((DbGroup)context.DbGroup, (SyncOrder)syncForFS);
                                 return (bool)true;
                             }
-                            var enquiryResponse = SDBLL.GetEnquiry((UserInfo)userInfo, (WCQBJ_CZDH_DOCTOR_READResponse)base8, ref sb);
+                            var enquiryResponse = SDService.GetEnquiry((UserInfo)userInfo, (WCQBJ_CZDH_DOCTOR_READResponse)base8, ref sb);
                             var enquiryData = enquiryResponse.data.FirstOrDefault();
-                            var result = SDBLL.PostUpdateEnquiryToFS((PregnantInfo)pregnantInfo, (MQDA_READ_NEWData)enquiryData, (UserInfo)userInfo, (WCQBJ_CZDH_DOCTOR_READResponse)base8, ref sb);
+                            var result = SDService.PostUpdateEnquiryToFS((PregnantInfo)pregnantInfo, (MQDA_READ_NEWData)enquiryData, (UserInfo)userInfo, (WCQBJ_CZDH_DOCTOR_READResponse)base8, ref sb);
                             if (!result.Contains((string)"处理成功"))
                             {
                                 syncForFS.SyncStatus = SyncStatus.Error;
@@ -96,7 +96,7 @@ namespace FrameworkTest.Business.SDMockCommit
                             {
                                 pregnanthistory.PregnantageIndex = pregnanthistorys.IndexOf(pregnanthistory) + 1;
                             }
-                            var enquiryPregnanthResponse = SDBLL.GetEnquiryPregnanths(userInfo, base8, ref sb);
+                            var enquiryPregnanthResponse = SDService.GetEnquiryPregnanths(userInfo, base8, ref sb);
                             sb.Append("---------------------pregnantInfo.pregnanthistory");
                             sb.Append(pregnantInfo.pregnanthistory);
                             var toAddHistories = pregnanthistorys.Where(c => enquiryPregnanthResponse.data.FirstOrDefault(d => d.IssueDate == c.pregnantage) == null);
@@ -107,7 +107,7 @@ namespace FrameworkTest.Business.SDMockCommit
                                 toAdd._state = "added";
                                 if (toAdd.Validate(ref sb))
                                 {
-                                    result = SDBLL.PostAddEnquiryPregnanth(toAdd, userInfo, base8, ref sb);
+                                    result = SDService.PostAddEnquiryPregnanth(toAdd, userInfo, base8, ref sb);
                                 }
                                 if (!result.Contains((string)"处理成功"))
                                 {
@@ -121,7 +121,7 @@ namespace FrameworkTest.Business.SDMockCommit
                                 if (pregnanthistory == null)
                                 {
                                     //删除
-                                    result = SDBLL.DeleteEnquiryPregnanth(toChange, userInfo, base8, ref sb);
+                                    result = SDService.DeleteEnquiryPregnanth(toChange, userInfo, base8, ref sb);
                                     if (!result.Contains((string)"处理成功"))
                                     {
                                         throw new NotImplementedException(result);
@@ -133,7 +133,7 @@ namespace FrameworkTest.Business.SDMockCommit
                                 toChange._state = "modified";
                                 if (toChange.Validate(ref sb))
                                 {
-                                    result = SDBLL.UpdateEnquiryPregnanth(toChange, userInfo, base8, ref sb);
+                                    result = SDService.UpdateEnquiryPregnanth(toChange, userInfo, base8, ref sb);
                                 }
                                 if (!result.Contains((string)"处理成功"))
                                 {
@@ -146,7 +146,7 @@ namespace FrameworkTest.Business.SDMockCommit
                             syncForFS.SyncStatus = SyncStatus.Error;
                             syncForFS.ErrorMessage = ex.ToString();
                         }
-                        syncForFS.Id = SDBLL.SaveSyncOrder((DbGroup)context.DbGroup, (SyncOrder)syncForFS);
+                        syncForFS.Id = SDService.SaveSyncOrder((DbGroup)context.DbGroup, (SyncOrder)syncForFS);
                         sb.AppendLine((string)syncForFS.ToJson());
                         return (bool)(syncForFS.SyncStatus != SyncStatus.Error);
                     }));

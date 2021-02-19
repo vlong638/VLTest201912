@@ -16,10 +16,10 @@ using System.Web;
 namespace FrameworkTest.Business.SDMockCommit
 {
 
-    public class SDBLL
+    public class SDService
     {
         public static string ConntectingStringSD = "Data Source=201.201.201.89;Initial Catalog=HL_Pregnant;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=sdfy;Password=sdfy123456";
-        public static DbContext GetDBContext { get { return DBHelper.GetSqlDbContext(SDBLL.ConntectingStringSD); } }
+        public static DbContext GetDBContext { get { return DBHelper.GetSqlDbContext(SDService.ConntectingStringSD); } }
         public static List<PregnantInfo> TempPregnantInfos = new List<PregnantInfo>();
         //BaseInfo baseInfo = new BaseInfo()
         //{
@@ -74,7 +74,7 @@ namespace FrameworkTest.Business.SDMockCommit
 
         private DbContext DBContext;
 
-        public SDBLL(DbContext context)
+        public SDService(DbContext context)
         {
             this.DBContext = context;
         }
@@ -100,7 +100,7 @@ namespace FrameworkTest.Business.SDMockCommit
                     return;
                 //查询孕妇 概要数据(各类Id) 基础8
                 url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID={UserInfo.UserId}&sParams=P${pregnantInfo.idcard}$P$P";
-                result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                 var resultBase = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
                 sb.AppendLine($"查询孕妇 概要数据(各类Id)");
                 sb.AppendLine(result);
@@ -126,7 +126,7 @@ namespace FrameworkTest.Business.SDMockCommit
                 //查询孕妇 基础77
                 var baseMain = resultBase.data.First();
                 url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_READ&sUserID={UserInfo.UserId}&sParams={baseMain.MainId}";
-                result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                 sb.AppendLine($"查询孕妇 基本数据");
                 sb.AppendLine(result);
                 var resultBaseInfo = result.FromJson<WMH_CQBJ_JBXX_FORM_READResponse>();
@@ -160,7 +160,7 @@ namespace FrameworkTest.Business.SDMockCommit
                 url = $"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_SAVE&sUserID={UserInfo.UserId}&sParams={jbxx.MainIdForChange}${baseMain.MainId}${UserInfo.OrgId}${UserInfo.EncodeUserName}$null$null$null$%E6%99%AE%E9%80%9A%E6%8A%A4%E5%A3%AB%E4%BA%A7%E6%A3%80";
                 var json = new List<WMH_CQBJ_JBXX_FORM_SAVEData>() { data }.ToJson();
                 postData = "data=" + HttpUtility.UrlEncode(json);
-                result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                 sb.AppendLine("--------------Mock Commit End");
                 sb.AppendLine("--------------pregnantInfo");
                 sb.AppendLine(pregnantInfo.ToJson());
@@ -273,7 +273,7 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
                     return;
                 //查询孕妇 概要数据(各类Id) 基础8
                 url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID={UserInfo.UserId}&sParams=P${pregnantInfo.idcard}$P$P";
-                result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                 var resultBase = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
                 sb.AppendLine($"查询孕妇 概要数据(各类Id)");
                 sb.AppendLine(result);
@@ -295,7 +295,7 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
                 //查询孕妇 基础77
                 var baseMain = resultBase.data.First();
                 url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_READ&sUserID={UserInfo.UserId}&sParams={baseMain.MainId}";
-                result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                 sb.AppendLine($"查询孕妇 基本数据");
                 sb.AppendLine(result);
                 var resultBaseInfo = result.FromJson<WMH_CQBJ_JBXX_FORM_READResponse>();
@@ -325,7 +325,7 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
                 url = $"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_SAVE&sUserID={UserInfo.UserId}&sParams={jbxx.MainIdForChange}${baseMain.MainId}${UserInfo.OrgId}${UserInfo.EncodeUserName}$null$null$null$%E6%99%AE%E9%80%9A%E6%8A%A4%E5%A3%AB%E4%BA%A7%E6%A3%80";
                 var json = new List<WMH_CQBJ_JBXX_FORM_SAVEData>() { data }.ToJson();
                 postData = "data=" + HttpUtility.UrlEncode(json);
-                result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                 sb.AppendLine("--------------Mock Commit End");
                 sb.AppendLine("--------------pregnantInfo");
                 sb.AppendLine(pregnantInfo.ToJson());
@@ -369,7 +369,7 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
             var container = new CookieContainer();
             var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID={baseInfo.UserId}&sParams=P${idcard}$P$P";
             var postData = "";
-            var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             var re = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
             logger.AppendLine($"查询-Base8");
             logger.AppendLine(url);
@@ -387,7 +387,7 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
             var container = new CookieContainer();
             var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/MQDA_READ_NEW&sUserID={baseInfo.UserId}&sParams={base8.MainId}${baseInfo.OrgId}";
             var postData = "";
-            var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             logger.AppendLine($"查询-问询病史");
             logger.AppendLine(url);
             logger.AppendLine(result);
@@ -407,7 +407,7 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
             var container = new CookieContainer();
             var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_CQJC_PRE_READ&sUserID={userInfo.UserId}&sParams={base8.MainId}";
             var postData = "pageIndex=0&pageSize=1000&sortField=&sortOrder=";
-            var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             var re = result.FromJson<WMH_CQBJ_CQJC_PRE_READ>();
             logger.AppendLine($"查询-问询病史-生育史");
             logger.AppendLine(url);
@@ -438,7 +438,7 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
                         return;
                     //孕妇是否已存在
                     url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID={userId}&sParams=P${pregnantInfo.idcard}$P$P";
-                    result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                    result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                     var re = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
                     sb.AppendLine(result);
                     if (re.data.Count != 0)
@@ -462,7 +462,7 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
                         //Create 患者主索引
                         url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_QHJC_ID_GET&sUserID={userId}&sParams=1";
                         postData = "";
-                        result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                        result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                         var mainId = result.FromJsonToAnonymousType(new { id = "" }).id;
                         Console.WriteLine($"当前孕妇:{pregnantInfo.personname},IdCard:{pregnantInfo.idcard}");
                         //Console.WriteLine($"mainId:{mainId}");
@@ -479,7 +479,7 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
                             //Create 保健号
                             url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=CDH_GET_ID1&sUserID={userId}&sParams={orgId}";
                             postData = "";
-                            result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                            result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                             careId = result.FromJsonToAnonymousType(new { id = "" }).id;
                             //Console.WriteLine($"careId:{careId}");
                             sb.AppendLine("Create 保健号");
@@ -489,7 +489,7 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
                             //--------查重
                             url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_CC&sUserID={userId}&sParams={mainId}$P${careId}${pregnantInfo.idcard}&pageSize=10000&pageIndex=0";
                             postData = "";
-                            result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                            result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                             var repeatData = result.FromJson<WMH_CQBJ_JBXX_FORM_CC>();
                             if (repeatData.data.Count != 0 && repeatData.data.FirstOrDefault(c => c.PersonName != pregnantInfo.personname) != null)
                             {
@@ -543,7 +543,7 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
                         datas.Add(data);
                         var json = datas.ToJson();
                         postData = "data=" + HttpUtility.UrlEncode(json);
-                        result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                        result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                         sb.AppendLine("Create 基本信息");
                         sb.AppendLine(url);
                         sb.AppendLine(json);
@@ -552,7 +552,7 @@ and pi.updatetime > DATEADD( SECOND,10 ,s.SyncTime)
 
                         //孕妇是否已存在
                         url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID={userId}&sParams=P${pregnantInfo.idcard}$P$P";
-                        result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                        result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                         re = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
                         var syncStatus = SyncStatus.Success;
                         var message = "";
@@ -726,7 +726,7 @@ and se.id is null
             var json = datas.ToJson();
             var container = new CookieContainer();
             var postData = "data=" + HttpUtility.UrlEncode(json);
-            var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             logger.AppendLine("Create 问询病史");
             logger.AppendLine(url);
             logger.AppendLine(json);
@@ -745,7 +745,7 @@ and se.id is null
             var json = datas.ToJson();
             var container = new CookieContainer();
             var postData = "data=" + HttpUtility.UrlEncode(json);
-            var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             logger.AppendLine("Update 问询病史");
             logger.AppendLine(url);
             logger.AppendLine(json);
@@ -761,7 +761,7 @@ and se.id is null
             var json = datas.ToJson();
             var container = new CookieContainer();
             var postData = "data=" + HttpUtility.UrlEncode(json);
-            var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             logger.AppendLine("Create 问询病史-生育史");
             logger.AppendLine(url);
             logger.AppendLine(json);
@@ -779,7 +779,7 @@ and se.id is null
             var json = datas.ToJson();
             var container = new CookieContainer();
             var postData = "data=" + HttpUtility.UrlEncode(json);
-            var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             logger.AppendLine("Update 问询病史-生育史");
             logger.AppendLine(url);
             logger.AppendLine(json);
@@ -795,7 +795,7 @@ and se.id is null
             var json = datas.ToJson();
             var container = new CookieContainer();
             var postData = "data=" + HttpUtility.UrlEncode(json);
-            var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             logger.AppendLine("Update 问询病史-生育史");
             logger.AppendLine(url);
             logger.AppendLine(json);
@@ -810,7 +810,7 @@ and se.id is null
             //获取体格检查Id
             var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_TODAY_CQJC_ID_READ&sUserID={userInfo.UserId}&sParams={base8.MainId}${dateStr}";
             var postData = "";
-            var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             logger.AppendLine($"查询-获取体格检查Id");
             logger.AppendLine(url);
             logger.AppendLine(result);
@@ -826,7 +826,7 @@ and se.id is null
             //查询体格检查详情
             var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_CQJC_TGJC_NEW_READ&sUserID={userInfo.UserId}&sParams={base8.MainId}${tgjcId}";
             var postData = "";
-            var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             logger.AppendLine($"查询-查询体格检查详情");
             logger.AppendLine(url);
             logger.AppendLine(result);
@@ -952,7 +952,7 @@ and vr_data.id = T1.Id
             var container = new CookieContainer();
             var url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_QHJC_ID_GET&sUserID={userInfo.UserId}&sParams=1";
             var postData = "";
-            var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             var newId = result.FromJsonToAnonymousType(new { id = "" }).id;
             if (string.IsNullOrEmpty(newId))
                 throw new NotImplementedException("无效的ID");
@@ -961,7 +961,7 @@ and vr_data.id = T1.Id
             url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_CQJC_TGJC_NEW_SAVE&sUserID={userInfo.UserId}&sParams={userInfo.OrgId}${base8.MainId}$null${newId}";
             var json = datas.ToJson();
             postData = "data=" + HttpUtility.UrlEncode(json);
-            result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             logger.AppendLine("Create 体格检查");
             logger.AppendLine(url);
             logger.AppendLine(json);
@@ -977,7 +977,7 @@ and vr_data.id = T1.Id
             var url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?&clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_CQJC_TGJC_NEW_SAVE&sUserID={userInfo.UserId}&sParams={userInfo.OrgId}${base8.MainId}$null${physicalExaminationId}";
             var json = datas.ToJson();
             var postData = "data=" + HttpUtility.UrlEncode(json);
-            var result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+            var result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
             logger.AppendLine("Update 体格检查");
             logger.AppendLine(url);
             logger.AppendLine(json);
@@ -1053,7 +1053,7 @@ left join MHC_VisitRecord vr_data on vr_data.idcard = T1.idcard and vr_data.visi
                         return;
                     //孕妇是否已存在
                     url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID={userId}&sParams=P${pregnantInfo.idcard}$P$P";
-                    result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                    result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                     var re = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
                     sb.AppendLine(result);
                     if (re.data.Count != 0)
@@ -1077,7 +1077,7 @@ left join MHC_VisitRecord vr_data on vr_data.idcard = T1.idcard and vr_data.visi
                         //Create 患者主索引
                         url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_QHJC_ID_GET&sUserID={userId}&sParams=1";
                         postData = "";
-                        result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                        result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                         var mainId = result.FromJsonToAnonymousType(new { id = "" }).id;
                         Console.WriteLine($"当前孕妇:{pregnantInfo.personname},IdCard:{pregnantInfo.idcard}");
                         //Console.WriteLine($"mainId:{mainId}");
@@ -1094,7 +1094,7 @@ left join MHC_VisitRecord vr_data on vr_data.idcard = T1.idcard and vr_data.visi
                             //Create 保健号
                             url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=CDH_GET_ID1&sUserID={userId}&sParams={orgId}";
                             postData = "";
-                            result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                            result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                             careId = result.FromJsonToAnonymousType(new { id = "" }).id;
                             //Console.WriteLine($"careId:{careId}");
                             sb.AppendLine("Create 保健号");
@@ -1104,7 +1104,7 @@ left join MHC_VisitRecord vr_data on vr_data.idcard = T1.idcard and vr_data.visi
                             //--------查重
                             url = $@"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WMH_CQBJ_JBXX_FORM_CC&sUserID={userId}&sParams={mainId}$P${careId}${pregnantInfo.idcard}&pageSize=10000&pageIndex=0";
                             postData = "";
-                            result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                            result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                             var repeatData = result.FromJson<WMH_CQBJ_JBXX_FORM_CC>();
                             if (repeatData.data.Count != 0 && repeatData.data.FirstOrDefault(c => c.PersonName != pregnantInfo.personname) != null)
                             {
@@ -1158,7 +1158,7 @@ left join MHC_VisitRecord vr_data on vr_data.idcard = T1.idcard and vr_data.visi
                         datas.Add(data);
                         var json = datas.ToJson();
                         postData = "data=" + HttpUtility.UrlEncode(json);
-                        result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                        result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                         sb.AppendLine("Create 基本信息");
                         sb.AppendLine(url);
                         sb.AppendLine(json);
@@ -1167,7 +1167,7 @@ left join MHC_VisitRecord vr_data on vr_data.idcard = T1.idcard and vr_data.visi
 
                         //孕妇是否已存在
                         url = $"http://19.130.211.1:8090/FSFY/disPatchJson?clazz=READDATA&UITYPE=WCQBJ/WCQBJ_CZDH_DOCTOR_READ&sUserID={userId}&sParams=P${pregnantInfo.idcard}$P$P";
-                        result = SDHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
+                        result = FSHttpHelper.Post(url, postData, ref container, contentType: "application/x-www-form-urlencoded; charset=UTF-8");
                         re = result.FromJson<WCQBJ_CZDH_DOCTOR_READResponse>();
                         var syncStatus = SyncStatus.Success;
                         var message = "";

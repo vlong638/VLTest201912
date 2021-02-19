@@ -179,7 +179,7 @@
     <Compile Include="Business\ExcelGenerator\PlaceHolder.cs" />
     <Compile Include="Business\GJPredeliveryAsync\PreDelivery.cs" />
     <Compile Include="Business\SDMockCommit\Entities\Common\ValidateResult.cs" />
-    <Compile Include="Business\SDMockCommit\SDHttpHelper.cs" />
+    <Compile Include="Business\SDMockCommit\FSHttpHelper.cs" />
     <Compile Include="Common\TransactionSolution\DbGroupEX.cs" />
     <Compile Include="Utils\Log4NetLogger.cs" />
     <Content Include="Business\Profile\Input.txt" />
@@ -300,7 +300,7 @@
     <Compile Include="Common\DBSolution\DBHelper.cs" />
     <Compile Include="Common\DBSolution\ServiceResult.cs" />
     <Compile Include="Business\SDMockCommit\Entities\PregnantInfo\SyncOrder.cs" />
-    <Compile Include="Business\SDMockCommit\SDBLL.cs" />
+    <Compile Include="Business\SDMockCommit\Services\SDService.cs" />
     <Compile Include="Common\JsonSolution\JsonHelper.cs" />
     <Compile Include="Common\ValuesSolution\DataRowEx.cs" />
     <Compile Include="Business\Research\TransformInfo.cs" />

@@ -15,8 +15,8 @@ namespace FrameworkTest.Business.SDMockCommit
         {
             while (true)
             {
-                var userInfo = SDBLL.UserInfo;
-                var tempPregnantInfos = SDBLL.GetPregnantInfosToCreateEnquiries();
+                var userInfo = SDService.UserInfo;
+                var tempPregnantInfos = SDService.GetPregnantInfosToCreateEnquiries();
                 StringBuilder sb = new StringBuilder();
                 foreach (var pregnantInfo in tempPregnantInfos)
                 {
@@ -26,7 +26,7 @@ namespace FrameworkTest.Business.SDMockCommit
                     File.WriteAllText(file, sb.ToString());
                     Console.WriteLine($"result:{file}");
                     //业务处理
-                    var context = DBHelper.GetSqlDbContext(SDBLL.ConntectingStringSD);
+                    var context = DBHelper.GetSqlDbContext(SDService.ConntectingStringSD);
                     var serviceResult = context.DelegateTransaction((group) =>
                     {
                         var syncForFS = new SyncOrder()
@@ -38,17 +38,17 @@ namespace FrameworkTest.Business.SDMockCommit
                         try
                         {
                             syncForFS.SyncTime = DateTime.Now;
-                            var base8 = SDBLL.GetBase8(userInfo, pregnantInfo.idcard, ref sb);
+                            var base8 = SDService.GetBase8(userInfo, pregnantInfo.idcard, ref sb);
                             if (!base8.IsAvailable)
                             {
                                 syncForFS.SyncStatus = SyncStatus.Error;
                                 syncForFS.ErrorMessage = "No Base8 Data";
-                                SDBLL.SaveSyncOrder(context.DbGroup, syncForFS);
+                                SDService.SaveSyncOrder(context.DbGroup, syncForFS);
                                 return (bool)true;
                             }
-                            var enquiryResponse = SDBLL.GetEnquiry(userInfo, base8, ref sb);
+                            var enquiryResponse = SDService.GetEnquiry(userInfo, base8, ref sb);
                             var enquiryData = enquiryResponse.data.FirstOrDefault();
-                            var result = SDBLL.PostUpdateEnquiryToFS(pregnantInfo, enquiryData, userInfo, base8, ref sb);
+                            var result = SDService.PostUpdateEnquiryToFS(pregnantInfo, enquiryData, userInfo, base8, ref sb);
                             if (!result.Contains((string)"处理成功"))
                             {
                                 throw new NotImplementedException(result);
@@ -99,7 +99,7 @@ namespace FrameworkTest.Business.SDMockCommit
                             {
                                 pregnanthistory.PregnantageIndex = pregnanthistorys.IndexOf(pregnanthistory) + 1;
                             }
-                            var enquiryPregnanthResponse = SDBLL.GetEnquiryPregnanths(userInfo, base8, ref sb);
+                            var enquiryPregnanthResponse = SDService.GetEnquiryPregnanths(userInfo, base8, ref sb);
                             sb.Append("---------------------pregnantInfo.pregnanthistory");
                             sb.Append(pregnantInfo.pregnanthistory);
                             var toAddHistories = pregnanthistorys.Where(c => enquiryPregnanthResponse.data.FirstOrDefault(d => d.IssueDate == c.pregnantage) == null);
@@ -110,7 +110,7 @@ namespace FrameworkTest.Business.SDMockCommit
                                 toAdd._state = "added";
                                 if (toAdd.Validate(ref sb))
                                 {
-                                    result = SDBLL.PostAddEnquiryPregnanth(toAdd, userInfo, base8, ref sb);
+                                    result = SDService.PostAddEnquiryPregnanth(toAdd, userInfo, base8, ref sb);
                                 }
                                 if (!result.Contains((string)"处理成功"))
                                 {
@@ -124,7 +124,7 @@ namespace FrameworkTest.Business.SDMockCommit
                                 if (pregnanthistory == null)
                                 {
                                     //删除
-                                    result = SDBLL.DeleteEnquiryPregnanth(toChange, userInfo, base8, ref sb);
+                                    result = SDService.DeleteEnquiryPregnanth(toChange, userInfo, base8, ref sb);
                                     if (!result.Contains((string)"处理成功"))
                                     {
                                         throw new NotImplementedException(result);
@@ -136,7 +136,7 @@ namespace FrameworkTest.Business.SDMockCommit
                                 toChange._state = "modified";
                                 if (toChange.Validate(ref sb))
                                 {
-                                    result = SDBLL.UpdateEnquiryPregnanth(toChange, userInfo, base8, ref sb);
+                                    result = SDService.UpdateEnquiryPregnanth(toChange, userInfo, base8, ref sb);
                                 }
                                 if (!result.Contains((string)"处理成功"))
                                 {
@@ -149,7 +149,7 @@ namespace FrameworkTest.Business.SDMockCommit
                             syncForFS.SyncStatus = SyncStatus.Error;
                             syncForFS.ErrorMessage = ex.ToString();
                         }
-                        syncForFS.Id = SDBLL.SaveSyncOrder(context.DbGroup, syncForFS);
+                        syncForFS.Id = SDService.SaveSyncOrder(context.DbGroup, syncForFS);
                         sb.AppendLine((string)syncForFS.ToJson());
                         return (bool)(syncForFS.SyncStatus != SyncStatus.Error);
                     });
