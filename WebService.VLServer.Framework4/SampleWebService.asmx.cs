@@ -23,6 +23,14 @@ namespace WebService.VLServer.Framework4
         }
 
         [WebMethod]
+        public void HelloWorldReturnJson(string name)
+        {
+            Context.Response.Charset = "UTF-8"; //设置字符集类型 
+            Context.Response.ContentType = "application/json";
+            Context.Response.Write(string.Format(@"{0}", name));
+        }
+
+        [WebMethod]
         public string HelloWorld(HelloRequest hello)
         {
             return "common 15:33";
