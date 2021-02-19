@@ -17,6 +17,12 @@ namespace WebService.VLServer.Framework4
     public class SampleWebService : System.Web.Services.WebService
     {
         [WebMethod]
+        public string HelloWorldStr(string name)
+        {
+            return "HelloWorld from:" + name;
+        }
+
+        [WebMethod]
         public string HelloWorld(HelloRequest hello)
         {
             return "common 15:33";
