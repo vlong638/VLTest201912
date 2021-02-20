@@ -49,12 +49,12 @@ namespace ResearchAPI.CORS.Common
             //GroupedCondition
             var currentGroup = new ProjectTaskWhere()
             {
-                ParentId = c?.Id,
+                ParentId = c?.Id ?? null,
                 ProjectId = projectTask.ProjectId,
                 TaskId = projectTask.Id,
                 WhereCategory = IsAnd ? ProjectTaskWhereCategory.GroupAnd : ProjectTaskWhereCategory.GroupOr,
             };
-            currentGroup.Id = projectTaskWhereRepository.Insert(currentGroup);
+            currentGroup.Id = projectTaskWhereRepository.InsertOne(currentGroup);
             //WhereConditions
             foreach (var where in WhereConditions)
             {

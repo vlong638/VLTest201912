@@ -31,6 +31,23 @@ namespace WebService.VLServer.Framework4
         }
 
         [WebMethod]
+        public void HelloWorldReturnJsonVersionDZBL(string input)
+        {
+            Decode(ref input);
+
+            Context.Response.Charset = "UTF-8"; //设置字符集类型 
+            Context.Response.ContentType = "application/json";
+            Context.Response.Write(string.Format(@"{0}", input));
+        }
+
+        public static void Decode(ref string value)
+        {
+            value = System.Web.HttpUtility.UrlDecode(value, System.Text.Encoding.GetEncoding("UTF-8"));
+            if (!(value + "").Contains("+"))
+                value = System.Web.HttpUtility.UrlDecode(value, System.Text.Encoding.GetEncoding("UTF-8"));
+        }
+
+        [WebMethod]
         public string HelloWorld(HelloRequest hello)
         {
             return "common 15:33";
