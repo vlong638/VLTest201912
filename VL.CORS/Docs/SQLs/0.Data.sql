@@ -76,5 +76,22 @@ insert into BusinessEntityProperty (BusinessEntityId,TableName,ColumnName,Displa
 insert into BusinessEntityProperty (BusinessEntityId,TableName,ColumnName,DisplayName) Values((select id from BusinessEntity where Name = '孕妇基本信息'),'PregnantInfo','Sex','性别')
 select * from BusinessEntityProperty
 
-
+--
+INSERT INTO [Role]([db_createtime], [db_updatetime], [Name], [Category]) VALUES ('2021-01-06 14:49:04.860', NULL, N'超级管理员', 2);
+declare @UserId int
+set @UserId = (select Id from [User] where Name = 'admin')
+declare @RoleId int
+set @RoleId = (select Id from Role where Name = '超级管理员')
+INSERT INTO UserRole(UserId,[RoleId]) VALUES(@UserId,@RoleId);
+INSERT INTO RoleAuthority([RoleId], [AuthorityId]) VALUES(@RoleId, 999);
+INSERT INTO RoleAuthority([RoleId], [AuthorityId]) VALUES(@RoleId, 101001001);
+INSERT INTO RoleAuthority([RoleId], [AuthorityId]) VALUES(@RoleId, 999001001);
+INSERT INTO RoleAuthority([RoleId], [AuthorityId]) VALUES(@RoleId, 999001002);
+INSERT INTO RoleAuthority([RoleId], [AuthorityId]) VALUES(@RoleId, 999001003);
+INSERT INTO RoleAuthority([RoleId], [AuthorityId]) VALUES(@RoleId, 999001004);
+INSERT INTO RoleAuthority([RoleId], [AuthorityId]) VALUES(@RoleId, 999002001);
+INSERT INTO RoleAuthority([RoleId], [AuthorityId]) VALUES(@RoleId, 999002002);
+INSERT INTO RoleAuthority([RoleId], [AuthorityId]) VALUES(@RoleId, 999002003);
+INSERT INTO RoleAuthority([RoleId], [AuthorityId]) VALUES(@RoleId, 999002004);
+INSERT INTO RoleAuthority([RoleId], [AuthorityId]) VALUES(@RoleId, 999002005);
 			

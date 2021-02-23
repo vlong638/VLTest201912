@@ -8,6 +8,7 @@ GO
 CREATE TABLE [dbo].[ProjectTaskWhere](
 	[Id][bigint] IDENTITY(1, 2) NOT NULL,
 	[ProjectId][bigint] NOT NULL,
+	[ParentId][bigint] NOT NULL,
 	[TaskId][bigint] NOT NULL,
 	[IndicatorId][bigint] NOT NULL,
 	BusinessEntityId [bigint] NOT NULL,
@@ -20,6 +21,7 @@ CREATE TABLE [dbo].[ProjectTaskWhere](
 	[PropertyName] nvarchar(20) NULL,
 	[Operator] nvarchar(20) NULL,
 	[Value] nvarchar(20) NULL,
+	[WhereCategory][tinyint] NOT NULL,
 	-------------------------------------------
 
 	CONSTRAINT[PK_ProjectTaskWhere] PRIMARY KEY CLUSTERED 

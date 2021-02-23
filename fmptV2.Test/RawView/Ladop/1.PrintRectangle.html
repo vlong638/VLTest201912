@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <button id="CheckIsInstall">CheckIsInstall</button>
+    <button id="PrintRectangle">PrintRectangle</button>
+    <script type="text/javascript" src="../../Scripts/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="../../Scripts/LodopFuncs.js"></script>
+    <script type="text/javascript">
+        //版本校验
+        //版本校验不通过会给出下载 需要下载文件与设置的路径相同,默认即页面目录
+        function CheckIsInstall() {
+            try {
+                var LODOP = getLodop();
+                if (LODOP.VERSION) {
+                    if (LODOP.CVERSION)
+                        alert("当前有WEB打印服务C-Lodop可用!\n C-Lodop版本:" + LODOP.CVERSION + "(内含Lodop" + LODOP.VERSION + ")");
+                    else
+                        alert("本机已成功安装了Lodop控件！\n 版本号:" + LODOP.VERSION);
+
+                };
+            } catch (err) {
+            }
+        };
+        $(function () {
+            $("#CheckIsInstall").on("click", function () {
+                CheckIsInstall();
+            });
+            $("#PrintRectangle").on("click", function () {
+                PrintRectangle();
+            });
+        })
+
+        //矩形打印
+        function PrintRectangle() {
+            var LODOP = getLodop();
+            LODOP.PRINT_INIT("打印任务名");
+            LODOP.ADD_PRINT_RECT(10, 55, 360, 220, 0, 1);
+            LODOP.PREVIEW();
+        };
+    </script>
+</body>
+</html>
