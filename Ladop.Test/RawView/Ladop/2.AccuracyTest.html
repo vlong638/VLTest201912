@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <ul>
+        <li><button onclick="MarginTest()">边距</button></li>
+        <li><button onclick="LocationTest()">定位</button></li>
+    </ul>
+    <script type="text/javascript" src="../../Scripts/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="../../Scripts/LodopFuncs.js"></script>
+    <script type="text/javascript">
+        //http://www.lodop.net/demolist/PrintSample34.html
+        //如下是相关函数清单(红色参数部分):
+        //ADD_PRINT_TEXT(Top, Left, Width, Height, strContent: );
+        //ADD_PRINT_HTM(Top, Left, Width, Height, strHtml);
+        //ADD_PRINT_TABLE(Top, Left, Width, Height, strHtml);
+        //ADD_PRINT_URL(Top, Left, Width, Height, strURL);
+        //ADD_PRINT_IMAGE(Top, Left, Width, Height, strHtml);
+        //ADD_PRINT_TBURL(Top, Left, Width, Height, strURL);
+        //ADD_PRINT_HTML(Top, Left, Width, Height, strHtml);
+        //ADD_PRINT_LINE(Top1, Left1, Top2, Left2, intLineStyle, intLineWidth);
+        //ADD_PRINT_RECT(Top, Left, Width, Height, intLineStyle, intLineWidth);
+        //ADD_PRINT_ELLIPSE(Top, Left, Width, Height, intLineStyle, intLineWidth);
+        //ADD_PRINT_SHAPE(intShapeType, Top, Left, Width, Height, intLineStyle, intLineWidth);
+        //ADD_PRINT_TEXTA(strItemName, Top, Left, Width, Height, strContent);
+
+        function MarginTest() {
+            var LODOP = getLodop();
+            LODOP.PRINT_INIT("测试");
+            //ADD_PRINT_RECT(Top, Left, Width, Height, intLineStyle, intLineWidth)
+            //支持单位：in (英寸) 、cm(厘米) 、mm(毫米) 、pt(磅) 、px(1 / 96英寸) 、% (百分比)
+            //intLineStyle：线条类型，数字型，0--实线 1--破折线 2--点线 3--点划线 4--双点划线
+            //intLineWidth：线条宽，整数型，单位是(打印)像素，缺省值是1，非实线的线条宽也是0。
+            LODOP.ADD_PRINT_RECT("10mm", "20mm", "90mm", "120mm", 0, 1);
+
+            //ADD_PRINT_LINE(Top1, Left1, Top2, Left2, intLineStyle, intLineWidth)
+            //支持单位：in (英寸) 、cm(厘米) 、mm(毫米) 、pt(磅) 、px(1 / 96英寸) 、% (百分比)
+            //intLineStyle：线条类型，数字型，0--实线 1--破折线 2--点线 3--点划线 4--双点划线
+            //intLineWidth：线条宽，整数型，单位是(打印)像素，缺省值是1，非实线的线条宽也是0。
+            LODOP.ADD_PRINT_LINE("0mm", "0mm", "0mm", "200mm", 0, 1);
+            LODOP.ADD_PRINT_LINE("0mm", "0mm", "287mm", "0mm", 0, 1);
+
+            var defaultMargin = "10mm";
+            LODOP.ADD_PRINT_LINE(defaultMargin, "0mm", defaultMargin, "210mm", 0, 1);
+            LODOP.ADD_PRINT_LINE("0mm", defaultMargin, "297mm", defaultMargin, 0, 1);
+
+            defaultMargin = "20mm";
+            LODOP.ADD_PRINT_LINE(defaultMargin, "0mm", defaultMargin, "201mm", 0, 1);
+            LODOP.ADD_PRINT_LINE("0mm", defaultMargin, "288mm", defaultMargin, 0, 1);
+
+            defaultMargin = "30mm";
+            LODOP.ADD_PRINT_LINE(defaultMargin, "0mm", defaultMargin, "202mm", 0, 1);
+            LODOP.ADD_PRINT_LINE("0mm", defaultMargin, "289mm", defaultMargin, 0, 1);
+
+            defaultMargin = "40mm";
+            LODOP.ADD_PRINT_LINE(defaultMargin, "0mm", defaultMargin, "200mm", 0, 2);
+            LODOP.ADD_PRINT_LINE("0mm", defaultMargin, "287mm", defaultMargin, 0, 2);
+
+            defaultMargin = "50mm";
+            LODOP.ADD_PRINT_LINE(defaultMargin, "0mm", defaultMargin, "201mm", 0, 2);
+            LODOP.ADD_PRINT_LINE("0mm", defaultMargin, "288mm", defaultMargin, 0, 2);
+
+            defaultMargin = "60mm";
+            LODOP.ADD_PRINT_LINE(defaultMargin, "0mm", defaultMargin, "202mm", 0, 2);
+            LODOP.ADD_PRINT_LINE("0mm", defaultMargin, "289mm", defaultMargin, 0, 2);
+
+            defaultMargin = "70mm";
+            LODOP.ADD_PRINT_LINE(defaultMargin, "0mm", defaultMargin, "202mm", 0, 4);
+            LODOP.ADD_PRINT_LINE("0mm", defaultMargin, "289mm", defaultMargin, 0, 4);
+
+            defaultMargin = "80mm";
+            LODOP.ADD_PRINT_LINE(defaultMargin, "0mm", defaultMargin, "201mm", 0, 4);
+            LODOP.ADD_PRINT_LINE("0mm", defaultMargin, "288mm", defaultMargin, 0, 4);
+
+            defaultMargin = "90mm";
+            LODOP.ADD_PRINT_LINE(defaultMargin, "0mm", defaultMargin, "200mm", 0, 4);
+            LODOP.ADD_PRINT_LINE("0mm", defaultMargin, "287mm", defaultMargin, 0, 4);
+
+
+            //可以看到打印的结果起点 左上边距各6mm 默认有5mm的边距
+            //A4规格210mm×297mm
+            //那么 打印200mm则应该是满纸 左右5mm 287mm 上下5mm
+
+            // 测试结果 1单位粗细 满纸202mm,289mm 左右上下保留距离各5mm
+            // 测试结果 1单位粗细 满纸202mm,289mm 左右上下保留距离各5mm
+            // 测试结果 1单位粗细 满纸202mm,289mm 左右上下保留距离各5mm
+
+            LODOP.PREVIEW()
+        };
+
+        function LocationTest() {
+            var LODOP = getLodop();
+            LODOP.PRINT_INIT("测试");
+
+            //绘制全表格
+            var size = 1;
+            for (var i = 0; i < 21; i++) {
+                for (var j = 0; j < 30; j++) {
+                    var top = j * 10 + "mm";
+                    var left = i * 10 + "mm";
+                    LODOP.ADD_PRINT_LINE(top, "0mm", top, "202mm", 0, size);
+                    LODOP.ADD_PRINT_LINE("0mm", left, "297mm", left, 0, size);
+                }
+            }
+
+            //字体
+            LODOP.ADD_PRINT_TEXT("80mm", 0, "202mm", 23, "一二三四五六七");
+            LODOP.SET_PRINT_STYLE("FontSize", 11);
+
+            //绘线的宽度为202mm 绘字的宽度为210mm
+            //绘线的宽度为202mm 绘字的宽度为210mm
+            //绘线的宽度为202mm 绘字的宽度为210mm
+
+            //23号字体 中文 绘字的宽度为210mm 支持52个字
+            //23号字体 中文 绘字的宽度为210mm 支持52个字
+            //23号字体 中文 绘字的宽度为210mm 支持52个字
+            LODOP.ADD_PRINT_TEXT("100mm", 0, "214mm", 23, "一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十");
+
+            //23号字体 英文 绘字的宽度为223-224mm 支持104个字母
+            //23号字体 英文 绘字的宽度为223-224mm 支持104个字母
+            //23号字体 英文 绘字的宽度为223-224mm 支持104个字母
+            LODOP.ADD_PRINT_TEXT("220mm", 0, "223mm", 23, "ottffssentottffssentottffssentottffssentottffssentottffssentottffssentottffssentottffssentottffssentottffssent");
+            LODOP.ADD_PRINT_TEXT("230mm", 0, "224mm", 23, "ottffssentottffssentottffssentottffssentottffssentottffssentottffssentottffssentottffssentottffssentottffssent");
+
+
+            //23号字体 中文 绘字的宽度为214-215mm 支持52个字
+            //23号字体 中文 绘字的宽度为214-215mm 支持52个字
+            //23号字体 中文 绘字的宽度为214-215mm 支持52个字
+            LODOP.ADD_PRINT_TEXT("170mm", 0, "214mm", 23, "一o二t三t四f五f六s七s八e九n十t一o二t三t四f五f六s七s八e九n十t一o二t三t四f五f六s七s八e九n十t一o二t三t四f五f六s七s八e九n十t");
+            LODOP.ADD_PRINT_TEXT("180mm", 0, "215mm", 23, "一o二t三t四f五f六s七s八e九n十t一o二t三t四f五f六s七s八e九n十t一o二t三t四f五f六s七s八e九n十t一o二t三t四f五f六s七s八e九n十t");
+
+            //连词现象比较恶心
+            LODOP.ADD_PRINT_TEXT("130mm", 0, "223mm", 23, "一1234567890ottffssentottffssentottffssentottffssentottffssentottffssentottffssentottffssentottffssent12345678901234567890");
+            LODOP.ADD_PRINT_TEXT("140mm", 0, "223mm", 23, "一一1234567890ottffssentottffssentottffssentottffssentottffssentottffssentottffssentottffssent12345678901234567890");
+            LODOP.ADD_PRINT_TEXT("150mm", 0, "214mm", 23, "一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十123 567 901 345 789 123 567 901 345 789 ");
+            //对中英文混合测试得出结果
+            //中英文绘字大小存在偏差
+            //中文多则接近214mm 英文多则接近224
+
+            //每多十个中文则224-2*n mm宽度
+            //每多十个英文文则214+1*n mm宽度
+            LODOP.ADD_PRINT_TEXT("240mm", 0, "223mm", 23, "一二三四五六七八九十ottffssentottffssentottffssentottffssentottffssentottffssentottffssentottffssent1234");
+            LODOP.ADD_PRINT_TEXT("250mm", 0, "221mm", 23, "一二三四五六七八九十一二三四五六七八九十ottffssentottffssentottffssentottffssentottffssentottffssent1234");
+
+            LODOP.PREVIEW()
+        };
+    </script>
+</body>
+</html>

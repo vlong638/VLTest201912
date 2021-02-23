@@ -7,27 +7,9 @@
 <body>
     测试页面
     <ul>
-        <li><a href="../RawView/Ladop/0.Preview.html">Preview</a></li>
-        <li><a href="../RawView/Ladop/1.PrintRectangle.html">PrintRectangle</a></li>
+        <li><a href="../RawView/Ladop/1.PrintTest.html">打印功能测试</a></li>
+        <li><a href="../RawView/Ladop/2.AccuracyTest.html">精度功能测试</a></li>
+        <li><a href="../RawView/Ladop/3.DesginTest.html">开发支持测试</a></li>
     </ul>
-    <script type="text/javascript" src="../Scripts/jquery-3.5.1.js"></script>
-    <script>
-        $(
-            function () {
-                var request = {}
-                request.id = 1;
-                $.ajax({
-                    url: 'https://localhost:44300/api/WeatherForecast/GetWeatherForecast',
-                    type: 'post',
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    data: null,
-                    success: function (resp) {
-                        console.log(resp);
-                    }
-                })
-            }
-        )
-    </script>
 </body>
 </html>
