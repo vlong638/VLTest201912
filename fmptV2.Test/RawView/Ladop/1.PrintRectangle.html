@@ -5,12 +5,14 @@
     <title></title>
 </head>
 <body>
-    <button id="CheckIsInstall">CheckIsInstall</button>
-    <button id="PrintRectangle">PrintRectangle</button>
+    <ul>
+        <li><button onclick="CheckIsInstall()">控件检测</button></li>
+        <li><button onclick="PrintRectangle()">打印矩形</button></li>
+        <li><button onclick="PrintStyleFont()">打印样式(名片样例)</button></li>
+    </ul>
     <script type="text/javascript" src="../../Scripts/jquery-3.5.1.js"></script>
     <script type="text/javascript" src="../../Scripts/LodopFuncs.js"></script>
     <script type="text/javascript">
-        //版本校验
         //版本校验不通过会给出下载 需要下载文件与设置的路径相同,默认即页面目录
         function CheckIsInstall() {
             try {
@@ -25,20 +27,31 @@
             } catch (err) {
             }
         };
-        $(function () {
-            $("#CheckIsInstall").on("click", function () {
-                CheckIsInstall();
-            });
-            $("#PrintRectangle").on("click", function () {
-                PrintRectangle();
-            });
-        })
-
-        //矩形打印
         function PrintRectangle() {
             var LODOP = getLodop();
             LODOP.PRINT_INIT("打印任务名");
+            //1、画一个名片大小的矩形边框：
             LODOP.ADD_PRINT_RECT(10, 55, 360, 220, 0, 1);
+            LODOP.PREVIEW();
+        };
+        function PrintStyleFont() {
+            var LODOP = getLodop();
+            //6、在发送以上指令前，一般要初始化并设置打印任务名：
+            LODOP.PRINT_INIT("打印插件功能演示_代码功能_名片");
+            //1、画一个名片大小的矩形边框：
+            LODOP.ADD_PRINT_RECT(10, 55, 360, 220, 0, 1);
+            //2、设置基本打印风格：
+            LODOP.SET_PRINT_STYLE("FontSize", 11);
+            //3、在矩形框内打印姓名栏：
+            LODOP.ADD_PRINT_TEXT(20, 180, 100, 25, "郭德强");
+            //4、设置姓名栏的打印风格：
+            LODOP.SET_PRINT_STYLEA(2, "FontName", "隶书");
+            LODOP.SET_PRINT_STYLEA(2, "FontSize", 15);
+            //5、下面打印其职务、地址、电话等(用基本风格) ：
+            LODOP.ADD_PRINT_TEXT(53, 187, 75, 20, "科学家");
+            LODOP.ADD_PRINT_TEXT(100, 131, 272, 20, "地址：中国北京社会科学院附近东大街西胡同");
+            LODOP.ADD_PRINT_TEXT(138, 132, 166, 20, "电话：010-88811888");
+            //预览打印
             LODOP.PREVIEW();
         };
     </script>
