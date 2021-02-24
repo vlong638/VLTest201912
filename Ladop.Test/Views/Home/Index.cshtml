@@ -8,7 +8,7 @@
     <button class="btn-normal" id="btn-print">
         打印
     </button>
-    <textarea id="S1"></textarea>
+    <textarea id="S1" style="width:500px;height:500px">
     <script type="text/javascript" src="~/lib/Lodop/dist/LodopFuncs.js"></script>
     <script type="text/javascript">
         $(function () {
@@ -16,7 +16,7 @@
         });
 
         var LODOP;
-        var MyData 
+        var MyData
         function initControlls() {
             $("#btn-print").on("click", function () {
                 $.ajax({
@@ -40,5 +40,5 @@
             });
         }
 
-    </script>
+</script>
 </div>

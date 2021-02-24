@@ -43,9 +43,23 @@ namespace Ladop.Test.Controllers
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             var fileContent = Encoding.GetEncoding("GB2312").GetString(System.IO.File.ReadAllBytes(filePath)) ;
             var data = GetData();
-            var line = data.Rows[0];
-            fileContent = fileContent.Replace("#姓名", data.Rows[0]["姓名"].ToString());
+            fileContent = UpdateByDataRow(fileContent, data.Rows[0]);
             return Json(fileContent);
+        }
+
+        /// <summary>
+        /// 通用替换方案
+        /// </summary>
+        /// <param name="fileContent"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        private static string UpdateByDataRow(string fileContent, DataRow data)
+        {
+            foreach (DataColumn column in data.Table.Columns)
+            {
+                fileContent = fileContent.Replace("#" + column.ColumnName, data[column.ColumnName].ToString());
+            }
+            return fileContent;
         }
 
         private DataTable GetData()
