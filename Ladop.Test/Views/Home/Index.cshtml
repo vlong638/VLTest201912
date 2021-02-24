@@ -5,4 +5,40 @@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <button class="btn-normal" id="btn-print">
+        打印
+    </button>
+    <textarea id="S1"></textarea>
+    <script type="text/javascript" src="~/lib/Lodop/dist/LodopFuncs.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            initControlls();
+        });
+
+        var LODOP;
+        var MyData 
+        function initControlls() {
+            $("#btn-print").on("click", function () {
+                $.ajax({
+                    url: "/Home/PrintFile",
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        "type": "Delivery",
+                    },
+                    success: function (resp) {
+                        LODOP = getLodop();
+                        LODOP.PRINT_INIT("打印控件功能演示_Lodop功能_获得程序代码");
+                        //运行文件脚本
+                        eval(resp);
+                        //保存预览结果
+                        if (LODOP.CVERSION) CLODOP.On_Return = function (TaskID, Value) { document.getElementById('S1').value = Value; };
+                        LODOP.PRINT_DESIGN();
+                    }
+                })
+                return false;
+            });
+        }
+
+    </script>
 </div>

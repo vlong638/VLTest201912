@@ -9,8 +9,8 @@
         <li><button onclick="MarginTest()">边距</button></li>
         <li><button onclick="LocationTest()">定位</button></li>
     </ul>
-    <script type="text/javascript" src="../../Scripts/jquery-3.5.1.js"></script>
-    <script type="text/javascript" src="../../Scripts/LodopFuncs.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="../Scripts/LodopFuncs.js"></script>
     <script type="text/javascript">
         //http://www.lodop.net/demolist/PrintSample34.html
         //如下是相关函数清单(红色参数部分):
@@ -140,8 +140,8 @@
             //中英文绘字大小存在偏差
             //中文多则接近214mm 英文多则接近224
 
-            //每多十个中文则224-2*n mm宽度
-            //每多十个英文文则214+1*n mm宽度
+            //每多十个中文   104 = 224mm  224-2*c mm宽度
+            //每多十个英文   52  = 214mm  214+1*e mm宽度
             LODOP.ADD_PRINT_TEXT("240mm", 0, "223mm", 23, "一二三四五六七八九十ottffssentottffssentottffssentottffssentottffssentottffssentottffssentottffssent1234");
             LODOP.ADD_PRINT_TEXT("250mm", 0, "221mm", 23, "一二三四五六七八九十一二三四五六七八九十ottffssentottffssentottffssentottffssentottffssentottffssent1234");
 
