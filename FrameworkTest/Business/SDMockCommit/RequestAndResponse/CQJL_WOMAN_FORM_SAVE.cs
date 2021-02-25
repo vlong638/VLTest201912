@@ -145,12 +145,13 @@ namespace FrameworkTest.Business.SDMockCommit
             switch (this.D48)
             {
                 case "1"://顺产
-                    this.D16 = "1";//"无=1",       //会阴伤口
+                    this.D16 = "2";//"无=1",       //会阴伤口
                     break;
                 case "2"://剖宫产
-                    this.D16 = "2";//"愈合好=2",   //会阴伤口
+                    this.D16 = "1";//"愈合好=2",   //会阴伤口
                     break;
                 default:
+                    this.D16 = "2";//"无=1",       //会阴伤口
                     break;
             }
             this.D15 = "1";//"1",          //腹部伤口 //无法传值
