@@ -13,7 +13,7 @@ CREATE TABLE [dbo].[ProjectTask](
 	[db_createtime] [datetime] DEFAULT CURRENT_TIMESTAMP,
 	[db_updatetime] [datetime] NULL,
 	-------------------------------------------
-	[Name] nvarchar(20) NULL,
+	[Name] nvarchar(50) NULL,
 	-------------------------------------------
 
 	CONSTRAINT[PK_ProjectTask] PRIMARY KEY CLUSTERED 

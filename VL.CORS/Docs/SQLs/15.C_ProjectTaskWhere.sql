@@ -17,8 +17,8 @@ CREATE TABLE [dbo].[ProjectTaskWhere](
 	[db_createtime] [datetime] DEFAULT CURRENT_TIMESTAMP,
 	[db_updatetime] [datetime] NULL,
 	-------------------------------------------
-	[EntityName] nvarchar(20) NULL,
-	[PropertyName] nvarchar(20) NULL,
+	[EntityName] nvarchar(50) NULL,
+	[PropertyName] nvarchar(50) NULL,
 	[Operator] nvarchar(20) NULL,
 	[Value] nvarchar(20) NULL,
 	[WhereCategory][tinyint] NOT NULL,

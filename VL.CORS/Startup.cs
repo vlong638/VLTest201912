@@ -134,7 +134,7 @@ namespace ResearchAPI.CORS
             app.UseSwagger();
             app.UseSwaggerUI(p =>
             {
-                p.SwaggerEndpoint("/swagger/v1/swagger.json", "VL API");
+                p.SwaggerEndpoint(Configuration["Swagger:SwaggerEndpoint"], "VL API");
             });
         }
     }

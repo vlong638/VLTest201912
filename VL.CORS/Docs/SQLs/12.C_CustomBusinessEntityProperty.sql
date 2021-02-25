@@ -14,11 +14,11 @@ CREATE TABLE [dbo].[CustomBusinessEntityProperty](
 	[db_createtime] [datetime] DEFAULT CURRENT_TIMESTAMP,
 	[db_updatetime] [datetime] NULL,
 	-------------------------------------------
-	[EntityName] nvarchar(20) NULL,
-	[Name] nvarchar(20) NULL,
-	[DisplayName] nvarchar(20) NULL,
+	[EntityName] nvarchar(50) NULL,
+	[Name] nvarchar(50) NULL,
+	[DisplayName] nvarchar(50) NULL,
 	[ColumnType] TinyInt NULL,
-	[EnumType] nvarchar(20) NULL,
+	[EnumType] nvarchar(50) NULL,
 	-------------------------------------------
 	[CreatorBy] bigint NULL,
 	[CreatedAt] datetime NULL,
