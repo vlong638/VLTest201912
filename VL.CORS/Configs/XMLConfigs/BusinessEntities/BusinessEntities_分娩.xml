@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<BusinessEntities Id="103" BusinessType="分娩">
+	<BusinessEntity Id="103001" DisplayName ="产妇信息" SourceName="FM_Mother">
+		<Properties>
+			<Property Id="103001001" DisplayName="id" SourceName="id" ColumnType="Int"/>
+			<Property Id="103001002" DisplayName="姓名" SourceName="name" ColumnType="String"/>
+			<Property Id="103001003" DisplayName="证件号码" SourceName="card_no" ColumnType="String"/>
+			<Property Id="103001004" DisplayName="证件类型: 1=身份证" SourceName="card_type" ColumnType="Int"/>
+			<Property Id="103001005" DisplayName="就诊号,病人Id" SourceName="binglih" ColumnType="String"/>
+			<Property Id="103001006" DisplayName="创建时间" SourceName="create_time" ColumnType="DateTime"/>
+			<Property Id="103001007" DisplayName="更新时间" SourceName="update_time" ColumnType="DateTime"/>
+			<Property Id="103001008" DisplayName="--" SourceName="jihua_id" ColumnType="Int"/>
+			<Property Id="103001009" DisplayName="数据状态" SourceName="status" ColumnType="Int"/>
+			<Property Id="103001010" DisplayName="年龄" SourceName="age" ColumnType="Int"/>
+			<Property Id="103001011" DisplayName="--" SourceName="high_risk" ColumnType="Int"/>
+			<Property Id="103001012" DisplayName="-- 未启用 催产功能基于产前记录" SourceName="cuichan" ColumnType="Int"/>
+			<Property Id="103001013" DisplayName="-- 未启用 镇静剂功能基于产前记录" SourceName="zhenjing" ColumnType="Int"/>
+			<Property Id="103001014" DisplayName="产妇去向" SourceName="quxiang" ColumnType="String"/>
+			<Property Id="103001015" DisplayName="产妇状态: 0=待产室,1=入产房,2=出产房" SourceName="chanfuStatus" ColumnType="Int"/>
+			<Property Id="103001016" DisplayName="产程1" SourceName="chanchen_time1" ColumnType="DateTime"/>
+			<Property Id="103001017" DisplayName="产程2" SourceName="chanchen_time2" ColumnType="DateTime"/>
+			<Property Id="103001018" DisplayName="产程3" SourceName="chanchen_time3" ColumnType="DateTime"/>
+			<Property Id="103001019" DisplayName="产程4" SourceName="chanchen_time4" ColumnType="DateTime"/>
+			<Property Id="103001020" DisplayName="产程5" SourceName="chanchen_time5" ColumnType="DateTime"/>
+			<Property Id="103001021" DisplayName="产程6" SourceName="chanchen_time6" ColumnType="DateTime"/>
+			<Property Id="103001022" DisplayName="出产房时间" SourceName="outroom_time" ColumnType="DateTime"/>
+			<Property Id="103001023" DisplayName="病案号" SourceName="RecordCode" ColumnType="String"/>
+			<Property Id="103001024" DisplayName="住院床号" SourceName="HospitalBedCode" ColumnType="String"/>
+			<Property Id="103001025" DisplayName="住院次数" SourceName="zycs" ColumnType="String"/>
+		</Properties>
+	</BusinessEntity>
+	<BusinessEntity Id="103003" DisplayName ="待产记录" SourceName="FM_WaitDelivery">
+		<Properties>
+			<Property Id="103003001" DisplayName="id" SourceName="id" ColumnType="Int"/>
+			<Property Id="103003002" DisplayName="产妇Id" SourceName="chanfu_id" ColumnType="Int"/>
+			<Property Id="103003003" DisplayName="待产日期" SourceName="daichan_date" ColumnType="DateTime"/>
+			<Property Id="103003004" DisplayName="待产时间" SourceName="daichan_time" ColumnType="DateTime"/>
+			<Property Id="103003005" DisplayName="胎方位" SourceName="tai_fangwei" ColumnType="String"/>
+			<Property Id="103003006" DisplayName="胎心" SourceName="tai_xin" ColumnType="String"/>
+			<Property Id="103003007" DisplayName="宫缩强度" SourceName="gongsuo_qd" ColumnType="String"/>
+			<Property Id="103003008" DisplayName="持续" SourceName="chixu" ColumnType="String"/>
+			<Property Id="103003009" DisplayName="间隔" SourceName="jiange" ColumnType="String"/>
+			<Property Id="103003010" DisplayName="先露高低" SourceName="xianlu" ColumnType="String"/>
+			<Property Id="103003011" DisplayName="宫口" SourceName="gongkou" ColumnType="String"/>
+			<Property Id="103003012" DisplayName="宫颈厚薄水肿" SourceName="gongjing" ColumnType="String"/>
+			<Property Id="103003013" DisplayName="胎膜" SourceName="tai_mo" ColumnType="String"/>
+			<Property Id="103003014" DisplayName="检查方法" SourceName="jiancha_type" ColumnType="String"/>
+			<Property Id="103003015" DisplayName="血压1" SourceName="xueya1" ColumnType="String"/>
+			<Property Id="103003016" DisplayName="血压2" SourceName="xueya2" ColumnType="String"/>
+			<Property Id="103003017" DisplayName="脉搏" SourceName="maibo" ColumnType="String"/>
+			<Property Id="103003018" DisplayName="检查人" SourceName="jiancha_ren" ColumnType="String"/>
+			<Property Id="103003019" DisplayName="药物" SourceName="yaowu" ColumnType="String"/>
+			<Property Id="103003020" DisplayName="其他" SourceName="qita" ColumnType="String"/>
+			<Property Id="103003021" DisplayName="创建时间" SourceName="create_time" ColumnType="DateTime"/>
+			<Property Id="103003022" DisplayName="更新时间" SourceName="update_time" ColumnType="DateTime"/>
+			<Property Id="103003023" DisplayName="状态" SourceName="status" ColumnType="Int"/>
+			<Property Id="103003024" DisplayName="羊水性状" SourceName="yangshuixz" ColumnType="String"/>
+			<Property Id="103003025" DisplayName="体温" SourceName="tiwen" ColumnType="String"/>
+			<Property Id="103003026" DisplayName="血氧" SourceName="xueyang" ColumnType="String"/>
+			<Property Id="103003027" DisplayName="胎先露类型" SourceName="FetalPresentation" ColumnType="Int"/>
+			<Property Id="103003028" DisplayName="宫颈容受" SourceName="Capacity" ColumnType="String"/>
+			<Property Id="103003029" DisplayName="创建人" SourceName="OperatorId" ColumnType="BigInt"/>
+		</Properties>
+	</BusinessEntity>
+	<BusinessEntity Id="103004" DisplayName ="分娩记录" SourceName="FM_Delivery">
+	</BusinessEntity>
+	<BusinessEntity Id="103005" DisplayName ="分娩记录子项" SourceName="FM_DeliveryChild">
+	</BusinessEntity>
+	<BusinessEntity Id="103006" DisplayName ="新生儿记录" SourceName="FM_Child">
+	</BusinessEntity>
+	<BusinessEntity Id="103007" DisplayName ="产后记录" SourceName="FM_Postnatal">
+	</BusinessEntity>
+</BusinessEntities>

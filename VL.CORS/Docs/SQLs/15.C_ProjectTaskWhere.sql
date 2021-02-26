@@ -8,7 +8,7 @@ GO
 CREATE TABLE [dbo].[ProjectTaskWhere](
 	[Id][bigint] IDENTITY(1, 2) NOT NULL,
 	[ProjectId][bigint] NOT NULL,
-	[ParentId][bigint] NOT NULL,
+	[ParentId][bigint] NULL,
 	[TaskId][bigint] NOT NULL,
 	[IndicatorId][bigint] NOT NULL,
 	BusinessEntityId [bigint] NOT NULL,

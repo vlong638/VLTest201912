@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Routers>
+	<!--产科-->
 	<Router From="PregnantInfo" To="MHC_VisitRecord" RouteType="LeftJoin">
 		<On FromField="Id" ToField="pregnantInfoId"/>
 	</Router>
@@ -19,7 +20,7 @@
 	<Router From="LabOrder" To="LabResult" RouteType="LeftJoin">
 		<On FromField="OrderId" ToField="OrderId"/>
 	</Router>
-
+	<!--盆底-->
 	<Router From="PF_GeneralInfo" To="PF_PregnancyHistory" RouteType="LeftJoin">
 		<On FromField="idcard" ToField="idcard"/>
 	</Router>
@@ -37,5 +38,9 @@
 	</Router>
 	<Router From="PF_TreatmentRecord" To="PF_TreatmentDetail" RouteType="LeftJoin">
 		<On FromField="id" ToField="treatmentrecordid"/>
+	</Router>
+	<!--分娩-->
+	<Router From="FM_Mother" To="FM_WaitDelivery" RouteType="LeftJoin">
+		<On FromField="id" ToField="chanfu_id"/>
 	</Router>
 </Routers>
