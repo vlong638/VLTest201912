@@ -60,5 +60,11 @@ namespace ResearchAPI.CORS.Repositories
             return _connection.Query<VLKeyValue<string, string>>("select id as [value],name as [key] from [ProjectTask] where projectId = @projectId and IsDeleted = 0"
                 , new { projectId }, transaction: _transaction).ToList();
         }
+
+        internal ProjectTask GetByName(long projectId, string taskName)
+        {
+            return _connection.Query<ProjectTask>("select * from [ProjectTask] where projectId = @projectId and name = @taskName and IsDeleted = 0"
+                , new { projectId,taskName }, transaction: _transaction).FirstOrDefault();
+        }
     }
 }

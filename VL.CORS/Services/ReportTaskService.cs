@@ -510,6 +510,12 @@ namespace ResearchAPI.CORS.Services
                 }
                 else
                 {
+                    var old = ProjectTaskRepository.GetByName(request.ProjectId, request.TaskName);
+                    if (old!=null)
+                    {
+                        throw new NotImplementedException("队列名称重复");
+                    }
+
                     var task = new ProjectTask()
                     {
                         Name = request.TaskName,
@@ -722,6 +728,13 @@ namespace ResearchAPI.CORS.Services
         {
             return ResearchDbContext.DbGroup.DelegateTransaction(c =>
             {
+                var task = ProjectTaskRepository.GetById(request.TaskId);
+                var old = ProjectTaskRepository.GetByName(task.ProjectId, request.TaskName);
+                if (old != null)
+                {
+                    throw new NotImplementedException("队列名称重复");
+                }
+
                 return ProjectTaskRepository.UpdateName(request.TaskId, request.TaskName) > 0;
             },Logger);
         }
