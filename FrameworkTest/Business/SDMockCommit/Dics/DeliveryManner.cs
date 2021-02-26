@@ -11,12 +11,17 @@ namespace FrameworkTest.Business.SDMockCommit
     /// </summary>
     public partial class VLConstraints
     {
-        //运行时常量 readonly static (引用型),编译时常量 const (值类型)
         public readonly static Dictionary<string, string> DeliveryManner = new Dictionary<string, string>()
         {
             {"1" ,"顺产"},
             {"2" ,"剖宫产"},
             {"3" ,"钳产"},
+            {"6" ,"臀位助产"},
+            {"7" ,"其他"},
+            {"8" ,"胎头吸引产"},
+            {"9" ,"臀位牵引"},
+            {"10" ,"剖宫取胎"},
+            {"11" ,"中孕引产"},
         };
 
         public readonly static Dictionary<string, string> DeliveryManner_FM = new Dictionary<string, string>()
@@ -25,7 +30,7 @@ namespace FrameworkTest.Business.SDMockCommit
             {"剖宫产" ,"剖宫产"},
             {"钳产" ,"钳产"},
             {"吸引产" ,"吸引产"},
-            {"臀助产/臀牵引" ,"臀助产/臀牵引"},
+            {"臂助产" ,"臂助产"},
         };
 
         /// <summary>
@@ -37,15 +42,17 @@ namespace FrameworkTest.Business.SDMockCommit
         {
             if (string.IsNullOrEmpty(key))
                 return "";
-            if (!DeliveryManner_FM.ContainsKey(key))
-                return "";
             if (key == "顺产")
                 return "1";
             else if (key == "剖宫产")
                 return "2";
             else if (key == "钳产")
                 return "3";
-            return "";
+            else if (key == "臂助产")
+                return "6";
+            else if (key == "吸引产")
+                return "8";
+            return "7";
         }
     }
 }
