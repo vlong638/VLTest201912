@@ -19,17 +19,17 @@ namespace ResearchAPI.CORS
             Host.CreateDefaultBuilder(args)
             .ConfigureAppConfiguration((context, builder) =>
             {
-                //显示设置当前程序运行目录
+                //加载Json配置
                 builder.SetBasePath(System.IO.Directory.GetCurrentDirectory());
-                //Json配置
                 builder.AddJsonFile("configs/config.json", optional: false, reloadOnChange: false);
-                //常量配置
                 var configs = builder.Build();
+                //全局配置
                 APIContraints.DBConfig = configs.GetSection("DB").Get<DBConfig>();
                 APIContraints.EasyResearchConfig = configs.GetSection("EasyResearch").Get<EasyResearchConfig>();
                 //静态常量
                 var dbConnectiongString = APIContraints.DBConfig.ConnectionStrings.FirstOrDefault(c => c.Key == APIContraints.ResearchDbContext).Value;
                 var dbContext = new DbContext(DBHelper.GetDbConnection(dbConnectiongString));
+                //领域常量
                 DomainConstraits.InitData(new ReportTaskService(dbContext));
             })
             .ConfigureWebHostDefaults(webBuilder =>
