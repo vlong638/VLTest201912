@@ -12,7 +12,7 @@ namespace ResearchAPI.CORS.Common
     public class EditTaskWhereCondition
     {
         public long IndicatorId { set; get; }
-        public string Operator { set; get; }
+        public ProjectTaskWhereOperator Operator { set; get; }
         public string Value { set; get; }
     }
 }

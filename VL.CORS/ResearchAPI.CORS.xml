@@ -1612,7 +1612,7 @@
             
             </summary>
         </member>
-        <member name="M:ResearchAPI.CORS.Common.EditTaskV2GroupedCondition.#ctor(ResearchAPI.CORS.Common.ProjectTaskWhere,System.Collections.Generic.List{ResearchAPI.CORS.Common.ProjectIndicator},System.Collections.Generic.List{ResearchAPI.CORS.Common.ProjectTaskWhere})">
+        <member name="M:ResearchAPI.CORS.Common.EditTaskV2GroupedCondition.#ctor(ResearchAPI.CORS.Common.ProjectTaskWhere,System.Collections.Generic.List{ResearchAPI.CORS.Common.ProjectTaskWhere})">
             <summary>
             
             </summary>
@@ -2409,13 +2409,12 @@
             
             </summary>
         </member>
-        <member name="M:ResearchAPI.CORS.Common.GetTaskV2GroupedCondition.#ctor(ResearchAPI.CORS.Common.ProjectTaskWhere,System.Collections.Generic.List{ResearchAPI.CORS.Common.ProjectIndicator},System.Collections.Generic.List{ResearchAPI.CORS.Common.ProjectTaskWhere})">
+        <member name="M:ResearchAPI.CORS.Common.GetTaskV2GroupedCondition.#ctor(System.Collections.Generic.List{ResearchAPI.CORS.Common.ProjectIndicator},ResearchAPI.CORS.Common.EditTaskV2GroupedCondition)">
             <summary>
             
             </summary>
-            <param name="current"></param>
             <param name="taskProperties"></param>
-            <param name="taskWheres"></param>
+            <param name="editTaskV2GroupedCondition"></param>
         </member>
         <member name="P:ResearchAPI.CORS.Common.GetTaskV2GroupedCondition.IsAnd">
             <summary>

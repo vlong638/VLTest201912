@@ -36,9 +36,8 @@ namespace ResearchAPI.CORS.Common
         /// 
         /// </summary>
         /// <param name="current"></param>
-        /// <param name="taskProperties"></param>
         /// <param name="taskWheres"></param>
-        public EditTaskV2GroupedCondition(ProjectTaskWhere current, List<ProjectIndicator> taskProperties, List<ProjectTaskWhere> taskWheres)
+        public EditTaskV2GroupedCondition(ProjectTaskWhere current, List<ProjectTaskWhere> taskWheres)
         {
             switch (current.WhereCategory)
             {
@@ -57,14 +56,14 @@ namespace ResearchAPI.CORS.Common
                 WhereConditions.Add(new EditTaskWhereCondition()
                 {
                     IndicatorId = where.IndicatorId,
-                    Operator = where.Operator.ToString(),
+                    Operator = where.Operator,
                     Value = where.Value,
                 });
             }
             var groups = taskWheres.Where(c => c.ParentId == current.Id && c.WhereCategory != ProjectTaskWhereCategory.Indicator);
             foreach (var group in groups)
             {
-                GroupedConditions.Add(new EditTaskV2GroupedCondition(group, taskProperties, taskWheres));
+                GroupedConditions.Add(new EditTaskV2GroupedCondition(group, taskWheres));
             }
         }
 
@@ -110,7 +109,7 @@ namespace ResearchAPI.CORS.Common
                     IndicatorId = indicator.Id,
                     BusinessEntityId = indicator.BusinessEntityId,
                     BusinessEntityPropertyId = indicator.BusinessEntityPropertyId,
-                    Operator = (ProjectTaskWhereOperator)Enum.Parse(typeof(ProjectTaskWhereOperator), where.Operator),
+                    Operator = where.Operator,
                     Value = where.Value,
                     WhereCategory = ProjectTaskWhereCategory.Indicator,
                 };

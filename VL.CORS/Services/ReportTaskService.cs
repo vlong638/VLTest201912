@@ -517,10 +517,9 @@ namespace ResearchAPI.CORS.Services
                 task.Id = ProjectTaskRepository.Insert(task);
                 if (request.CopyTaskId.HasValue && request.CopyTaskId > 0)
                 {
-                    var projectIndicators = ProjectIndicatorRepository.GetByProjectId(request.ProjectId);
                     var projectTaskWheres = ProjectTaskWhereRepository.GetByTaskId(request.CopyTaskId.Value);
                     var current = projectTaskWheres.FirstOrDefault(c => c.ParentId == null);
-                    var groupedCondition = new EditTaskV2GroupedCondition(current, projectIndicators, projectTaskWheres);
+                    var groupedCondition = new EditTaskV2GroupedCondition(current, projectTaskWheres);
                     EditTaskV2(task.Id, groupedCondition);
                 }
                 return task.Id;
@@ -586,7 +585,7 @@ namespace ResearchAPI.CORS.Services
                         IndicatorId = indicator.Id,
                         BusinessEntityId = indicator.BusinessEntityId,
                         BusinessEntityPropertyId = indicator.BusinessEntityPropertyId,
-                        Operator = (ProjectTaskWhereOperator)Enum.Parse(typeof(ProjectTaskWhereOperator), c.Operator),
+                        Operator = c.Operator,
                         Value = c.Value,
                     };
                     if (!indicator.IsTemplate())
@@ -780,7 +779,7 @@ namespace ResearchAPI.CORS.Services
                     var current = currentTaskWheres.FirstOrDefault(c => c.ParentId == null);
                     if (current != null)
                     {
-                        model.GroupedCondition = new GetTaskV2GroupedCondition(current, taskProperties, currentTaskWheres);
+                        model.GroupedCondition = new GetTaskV2GroupedCondition(taskProperties, new EditTaskV2GroupedCondition(current, currentTaskWheres));
                     }
                     return model;
                 }).ToList();

@@ -65,44 +65,61 @@ namespace ResearchAPI.CORS.Common
         public GetTaskV2GroupedCondition()
         {
         }
-
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="current"></param>
         /// <param name="taskProperties"></param>
-        /// <param name="taskWheres"></param>
-        public GetTaskV2GroupedCondition(ProjectTaskWhere current, List<ProjectIndicator> taskProperties, List<ProjectTaskWhere> taskWheres)
+        /// <param name="editTaskV2GroupedCondition"></param>
+        public GetTaskV2GroupedCondition(List<ProjectIndicator> taskProperties, EditTaskV2GroupedCondition editTaskV2GroupedCondition)
         {
-            switch (current.WhereCategory)
+            WhereConditions = editTaskV2GroupedCondition.WhereConditions.Select(c => new GetTaskV2WhereCondition()
             {
-                case ProjectTaskWhereCategory.GroupAnd:
-                    IsAnd = true;
-                    break;
-                case ProjectTaskWhereCategory.GroupOr:
-                    IsAnd = false;
-                    break;
-                default:
-                    throw new NotImplementedException("无效的操作类型");
-            }
-            var wheres = taskWheres.Where(c => c.ParentId == current.Id && c.WhereCategory == ProjectTaskWhereCategory.Indicator);
-            foreach (var where in wheres)
-            {
-                WhereConditions.Add(new GetTaskV2WhereCondition()
-                {
-                    IndicatorId = where.IndicatorId,
-                    IndicatorName = DomainConstraits.RenderIdToText(where.IndicatorId, taskProperties.ToDictionary(key => key.Id, value => value.PropertyDisplayName)),
-                    Operator = where.Operator.ToString(),
-                    OperatorName = where.Operator.GetDescription(),
-                    Value = where.Value,
-                });
-            }
-            var groups = taskWheres.Where(c => c.ParentId == current.Id && c.WhereCategory != ProjectTaskWhereCategory.Indicator);
-            foreach (var group in groups)
-            {
-                GroupedConditions.Add(new GetTaskV2GroupedCondition(group, taskProperties, taskWheres));
-            }
+                IndicatorId = c.IndicatorId,
+                Operator = c.Operator,
+                Value = c.Value,
+                IndicatorName = DomainConstraits.RenderIdToText(c.IndicatorId, taskProperties.ToDictionary(key => key.Id, value => value.PropertyDisplayName)),
+                OperatorName = c.Operator.GetDescription(),
+            }).ToList();
+            GroupedConditions = editTaskV2GroupedCondition.GroupedConditions.Select(c => new GetTaskV2GroupedCondition(taskProperties, c)).ToList();
         }
+
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="current"></param>
+        ///// <param name="taskProperties"></param>
+        ///// <param name="taskWheres"></param>
+        //public GetTaskV2GroupedCondition(ProjectTaskWhere current, List<ProjectIndicator> taskProperties, List<ProjectTaskWhere> taskWheres)
+        //{
+        //    switch (current.WhereCategory)
+        //    {
+        //        case ProjectTaskWhereCategory.GroupAnd:
+        //            IsAnd = true;
+        //            break;
+        //        case ProjectTaskWhereCategory.GroupOr:
+        //            IsAnd = false;
+        //            break;
+        //        default:
+        //            throw new NotImplementedException("无效的操作类型");
+        //    }
+        //    var wheres = taskWheres.Where(c => c.ParentId == current.Id && c.WhereCategory == ProjectTaskWhereCategory.Indicator);
+        //    foreach (var where in wheres)
+        //    {
+        //        WhereConditions.Add(new GetTaskV2WhereCondition()
+        //        {
+        //            IndicatorId = where.IndicatorId,
+        //            IndicatorName = DomainConstraits.RenderIdToText(where.IndicatorId, taskProperties.ToDictionary(key => key.Id, value => value.PropertyDisplayName)),
+        //            Operator = where.Operator,
+        //            OperatorName = where.Operator.GetDescription(),
+        //            Value = where.Value,
+        //        });
+        //    }
+        //    var groups = taskWheres.Where(c => c.ParentId == current.Id && c.WhereCategory != ProjectTaskWhereCategory.Indicator);
+        //    foreach (var group in groups)
+        //    {
+        //        GroupedConditions.Add(new GetTaskV2GroupedCondition(group, taskProperties, taskWheres));
+        //    }
+        //}
 
         /// <summary>
         /// 组合方式: 
