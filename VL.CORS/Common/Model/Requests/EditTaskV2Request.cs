@@ -25,8 +25,47 @@ namespace ResearchAPI.CORS.Common
     /// </summary>
     public class EditTaskV2GroupedCondition
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public EditTaskV2GroupedCondition()
         {
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="current"></param>
+        /// <param name="taskProperties"></param>
+        /// <param name="taskWheres"></param>
+        public EditTaskV2GroupedCondition(ProjectTaskWhere current, List<ProjectIndicator> taskProperties, List<ProjectTaskWhere> taskWheres)
+        {
+            switch (current.WhereCategory)
+            {
+                case ProjectTaskWhereCategory.GroupAnd:
+                    IsAnd = true;
+                    break;
+                case ProjectTaskWhereCategory.GroupOr:
+                    IsAnd = false;
+                    break;
+                default:
+                    throw new NotImplementedException("无效的操作类型");
+            }
+            var wheres = taskWheres.Where(c => c.ParentId == current.Id && c.WhereCategory == ProjectTaskWhereCategory.Indicator);
+            foreach (var where in wheres)
+            {
+                WhereConditions.Add(new EditTaskWhereCondition()
+                {
+                    IndicatorId = where.IndicatorId,
+                    Operator = where.Operator.ToString(),
+                    Value = where.Value,
+                });
+            }
+            var groups = taskWheres.Where(c => c.ParentId == current.Id && c.WhereCategory != ProjectTaskWhereCategory.Indicator);
+            foreach (var group in groups)
+            {
+                GroupedConditions.Add(new EditTaskV2GroupedCondition(group, taskProperties, taskWheres));
+            }
         }
 
         /// <summary>

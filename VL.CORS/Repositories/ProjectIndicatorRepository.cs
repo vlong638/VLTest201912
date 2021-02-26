@@ -71,5 +71,11 @@ where ProjectId = @ProjectId
             return _connection.Execute("update ProjectIndicator set PropertyDisplayName = @name where id = @indicatorId"
                 , new { name, indicatorId }, transaction: _transaction);
         }
+
+        internal int DeleteByTaskId(long taskId)
+        {
+            return _connection.Execute("delete from [ProjectIndicator] where taskId = @taskId"
+                , new { taskId }, transaction: _transaction);
+        }
     }
 }

@@ -1607,6 +1607,19 @@
             组合条件
             </summary>
         </member>
+        <member name="M:ResearchAPI.CORS.Common.EditTaskV2GroupedCondition.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Common.EditTaskV2GroupedCondition.#ctor(ResearchAPI.CORS.Common.ProjectTaskWhere,System.Collections.Generic.List{ResearchAPI.CORS.Common.ProjectIndicator},System.Collections.Generic.List{ResearchAPI.CORS.Common.ProjectTaskWhere})">
+            <summary>
+            
+            </summary>
+            <param name="current"></param>
+            <param name="taskProperties"></param>
+            <param name="taskWheres"></param>
+        </member>
         <member name="P:ResearchAPI.CORS.Common.EditTaskV2GroupedCondition.IsAnd">
             <summary>
             组合方式: 
@@ -2382,31 +2395,6 @@
             </summary>
         </member>
         <member name="T:ResearchAPI.CORS.Common.GetTaskV2WhereCondition">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.CORS.Common.GetTaskV2WhereCondition.IndicatorId">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.CORS.Common.GetTaskV2WhereCondition.IndicatorName">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.CORS.Common.GetTaskV2WhereCondition.Operator">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.CORS.Common.GetTaskV2WhereCondition.OperatorName">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:ResearchAPI.CORS.Common.GetTaskV2WhereCondition.Value">
             <summary>
             
             </summary>

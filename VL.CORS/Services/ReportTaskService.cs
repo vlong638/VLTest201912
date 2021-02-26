@@ -504,26 +504,26 @@ namespace ResearchAPI.CORS.Services
         {
             return ResearchDbContext.DbGroup.DelegateTransaction(c =>
             {
+                var old = ProjectTaskRepository.GetByName(request.ProjectId, request.TaskName);
+                if (old != null)
+                {
+                    throw new NotImplementedException("队列名称重复");
+                }
+                var task = new ProjectTask()
+                {
+                    Name = request.TaskName,
+                    ProjectId = request.ProjectId,
+                };
+                task.Id = ProjectTaskRepository.Insert(task);
                 if (request.CopyTaskId.HasValue && request.CopyTaskId > 0)
                 {
-                    throw new NotImplementedException("未支持队列复制");
+                    var projectIndicators = ProjectIndicatorRepository.GetByProjectId(request.ProjectId);
+                    var projectTaskWheres = ProjectTaskWhereRepository.GetByTaskId(request.CopyTaskId.Value);
+                    var current = projectTaskWheres.FirstOrDefault(c => c.ParentId == null);
+                    var groupedCondition = new EditTaskV2GroupedCondition(current, projectIndicators, projectTaskWheres);
+                    EditTaskV2(task.Id, groupedCondition);
                 }
-                else
-                {
-                    var old = ProjectTaskRepository.GetByName(request.ProjectId, request.TaskName);
-                    if (old!=null)
-                    {
-                        throw new NotImplementedException("队列名称重复");
-                    }
-
-                    var task = new ProjectTask()
-                    {
-                        Name = request.TaskName,
-                        ProjectId = request.ProjectId,
-                    };
-                    task.Id = ProjectTaskRepository.Insert(task);
-                    return task.Id;
-                }
+                return task.Id;
             },Logger);
         }
 
@@ -531,23 +531,30 @@ namespace ResearchAPI.CORS.Services
         {
             return ResearchDbContext.DbGroup.DelegateTransaction(c =>
             {
-                //ProjectTask
-                var projectTask = ProjectTaskRepository.GetById(request.TaskId);
-                if (projectTask == null)
-                {
-                    throw new NotImplementedException("队列不存在");
-                }
-                //ProjectIndicator
-                var projectIndicators = ProjectIndicatorRepository.GetProjectIndicatorDisplayModelByProjectId(projectTask.ProjectId);
-                if (projectIndicators.Count == 0)
-                {
-                    throw new NotImplementedException("无项目指标");
-                }
-                //ProjectTaskWhere
-                ProjectTaskWhereRepository.DeleteByTaskId(request.TaskId);
-                request.GroupedCondition.CreateTaskWhere(null, projectTask, projectIndicators, ProjectTaskWhereRepository);
+                var taskId = request.TaskId;
+                var groupedCondition = request.GroupedCondition;
+                EditTaskV2(taskId, groupedCondition);
                 return true;
-            },Logger);
+            }, Logger);
+        }
+
+        private void EditTaskV2(long taskId, EditTaskV2GroupedCondition groupedCondition)
+        {
+            //ProjectTask
+            var projectTask = ProjectTaskRepository.GetById(taskId);
+            if (projectTask == null)
+            {
+                throw new NotImplementedException("队列不存在");
+            }
+            //ProjectIndicator
+            var projectIndicators = ProjectIndicatorRepository.GetProjectIndicatorDisplayModelByProjectId(projectTask.ProjectId);
+            if (projectIndicators.Count == 0)
+            {
+                throw new NotImplementedException("无项目指标");
+            }
+            //ProjectTaskWhere
+            ProjectTaskWhereRepository.DeleteByTaskId(taskId);
+            groupedCondition.CreateTaskWhere(null, projectTask, projectIndicators, ProjectTaskWhereRepository);
         }
 
         internal ServiceResult<bool> EditTask(EditTaskRequest request)
@@ -601,7 +608,6 @@ namespace ResearchAPI.CORS.Services
                 return true;
             },Logger);
         }
-
 
         internal ServiceResult<bool> StartSchedule(long scheduleId)
         {
@@ -743,6 +749,8 @@ namespace ResearchAPI.CORS.Services
         {
             return ResearchDbContext.DbGroup.DelegateTransaction(c =>
             {
+                //ProjectIndicatorRepository.DeleteByTaskId(taskId);
+                //ProjectTaskWhereRepository.DeleteByTaskId(taskId);
                 return ProjectTaskRepository.DeleteById(taskId);
             },Logger);
         }

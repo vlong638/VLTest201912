@@ -48,28 +48,10 @@ namespace ResearchAPI.CORS.Common
     /// <summary>
     /// 
     /// </summary>
-    public class GetTaskV2WhereCondition
+    public class GetTaskV2WhereCondition: EditTaskWhereCondition
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public long IndicatorId { set; get; }
-        /// <summary>
-        /// 
-        /// </summary>
         public string IndicatorName { set; get; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Operator { set; get; }
-        /// <summary>
-        /// 
-        /// </summary>
         public string OperatorName { set; get; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Value { set; get; }
     }
 
     /// <summary>
