@@ -13,14 +13,17 @@
 	<Router From="PregnantInfo" To="MHC_HighRiskReason" RouteType="LeftJoin">
 		<On FromField="Id" ToField="pregnantInfoId"/>
 	</Router>
-	
 	<Router From="PregnantInfo" To="LabOrder" RouteType="LeftJoin">
 		<On FromField="Idcard" ToField="Idcard"/>
 	</Router>
 	<Router From="LabOrder" To="LabResult" RouteType="LeftJoin">
 		<On FromField="OrderId" ToField="OrderId"/>
 	</Router>
+	
 	<!--盆底-->
+	<!--<Router From="PregnantInfo" To="PF_GeneralInfo" RouteType="LeftJoin">
+		<On FromField="idcard" ToField="idcard"/>
+	</Router>-->
 	<Router From="PF_GeneralInfo" To="PF_PregnancyHistory" RouteType="LeftJoin">
 		<On FromField="idcard" ToField="idcard"/>
 	</Router>
@@ -40,6 +43,9 @@
 		<On FromField="id" ToField="treatmentrecordid"/>
 	</Router>
 	<!--分娩-->
+	<!--<Router From="PregnantInfo" To="FM_Mother" RouteType="LeftJoin">
+		<On FromField="idcard" ToField="card_no"/>
+	</Router>-->
 	<Router From="FM_Mother" To="FM_WaitDelivery" RouteType="LeftJoin">
 		<On FromField="id" ToField="chanfu_id"/>
 	</Router>

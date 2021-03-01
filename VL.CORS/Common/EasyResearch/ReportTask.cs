@@ -216,7 +216,12 @@ namespace ResearchAPI.CORS.Common
             else
             {
                 StringBuilder sb = new StringBuilder();
-                var root = routers.FirstOrDefault(c => !routers.Exists(d => d.To == c.From)).From;
+                var topFroms = routers.Where(c => !routers.Exists(d => d.To == c.From)).Select(c => c.From).Distinct();
+                if (topFroms.Count() > 1)
+                {
+                    throw new NotImplementedException("数据无法完成自动路由," + string.Join(",", topFroms));
+                }
+                var root = topFroms.First();
                 sb.AppendLine($" from [{root}] ");
                 AppendRoute(sb, routers, root, templates, templateWheres);
                 return sb.ToString();
