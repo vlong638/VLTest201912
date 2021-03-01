@@ -43,4 +43,16 @@
 	<Router From="FM_Mother" To="FM_WaitDelivery" RouteType="LeftJoin">
 		<On FromField="id" ToField="chanfu_id"/>
 	</Router>
+	<Router From="FM_Mother" To="FM_Delivery" RouteType="LeftJoin">
+		<On FromField="id" ToField="chanfu_id"/>
+	</Router>
+	<Router From="FM_Mother" To="FM_DeliveryChild" RouteType="LeftJoin">
+		<On FromField="id" ToField="MotherId"/>
+	</Router>
+	<Router From="FM_Mother" To="FM_Child" RouteType="LeftJoin">
+		<On FromField="id" ToField="chanfu_id"/>
+	</Router>
+	<Router From="FM_Mother" To="FM_Postnatal" RouteType="LeftJoin">
+		<On FromField="id" ToField="chanfu_id"/>
+	</Router>
 </Routers>

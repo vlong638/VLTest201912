@@ -1,11 +1,12 @@
+-- 注意: text暂不支持 需改为varchar(max) 大规格内容不支持科研系统输出
 
 declare @startIndex int
-set @startIndex = 103003000
+set @startIndex = 103007000
 
 declare @sourceName nvarchar(50)
-set @sourceName = 'fm_daichan'
+set @sourceName = 'fm_postnatal'
 
-select '<Properties>' as [Output], 1 as Row
+select '<Properties>' as [Output], 1 as Row,1 as ColumnType
 union all
 select 
 	concat(
@@ -28,6 +29,7 @@ select
 		,'/>'
 	) as [Output]
 	, 2 as Row
+	,t.ColumnType
 from
 (
 
@@ -42,6 +44,7 @@ from
 		when tp.name = 'datetime' then 2
 		when tp.name = 'date' then 2
 		when tp.name = 'int' then 3
+		when tp.name = 'tinyint' then 3
 		when tp.name = 'bit' then 3
 		when tp.name = 'nchar' then 1
 		when tp.name = 'char' then 1
@@ -74,6 +77,6 @@ from
 	WHERE tb.name = @sourceName
 ) as t
 union all
-select '</Properties>' as [Output], 3 as Row
+select '</Properties>' as [Output], 3 as Row,1 as ColumnType
 order by Row
 

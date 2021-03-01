@@ -216,7 +216,7 @@ namespace ResearchAPI.CORS.Common
             else
             {
                 StringBuilder sb = new StringBuilder();
-                var root = APIContraints.EasyResearchConfig.MainRoute;
+                var root = routers.FirstOrDefault(c => !routers.Exists(d => d.To == c.From)).From;
                 sb.AppendLine($" from [{root}] ");
                 AppendRoute(sb, routers, root, templates, templateWheres);
                 return sb.ToString();

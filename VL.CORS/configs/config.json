@@ -46,9 +46,9 @@
     ]
   },
   "EasyResearch": {
-    //"MainRoute": "PregnantInfo",
+    "MainRoute": "PregnantInfo",
     //"MainRoute": "PF_GeneralInfo"
-    "MainRoute": "FM_Mother"
+    //"MainRoute": "FM_Mother"
   },
   "Swagger": {
     "SwaggerEndpoint": "/swagger/v1/swagger.json"

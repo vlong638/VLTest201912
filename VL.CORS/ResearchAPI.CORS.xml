@@ -1617,7 +1617,6 @@
             
             </summary>
             <param name="current"></param>
-            <param name="taskProperties"></param>
             <param name="taskWheres"></param>
         </member>
         <member name="P:ResearchAPI.CORS.Common.EditTaskV2GroupedCondition.IsAnd">
