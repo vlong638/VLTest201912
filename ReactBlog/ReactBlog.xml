@@ -4,6 +4,38 @@
         <name>ReactBlog</name>
     </assembly>
     <members>
+        <member name="T:ReactBlog.Common.Log4NetLogger">
+            <summary>
+            Log4Net Logger
+            </summary>
+        </member>
+        <member name="M:ReactBlog.Common.Log4NetLogger.GetLogger">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ReactBlog.Common.Log4NetLogger.Info(System.String,System.Exception)">
+            <summary>
+            普通日志
+            </summary>
+            <param name="message"></param>
+            <param name="exception"></param>
+        </member>
+        <member name="M:ReactBlog.Common.Log4NetLogger.Warn(System.String,System.Exception)">
+            <summary>
+            告警日志
+            </summary>
+            <param name="message"></param>
+            <param name="exception"></param>
+        </member>
+        <member name="M:ReactBlog.Common.Log4NetLogger.Error(System.String,System.Exception)">
+            <summary>
+            错误日志
+            </summary>
+            <param name="message"></param>
+            <param name="exception"></param>
+        </member>
         <member name="T:ReactBlog.Common.AuthHeaderFilter">
             <summary>
             自定义header扩展
@@ -15,6 +47,28 @@
             </summary>
             <param name="operation"></param>
             <param name="context"></param>
+        </member>
+        <member name="T:ReactBlog.Controllers.WeatherForecastController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ReactBlog.Controllers.WeatherForecastController.#ctor(Microsoft.Extensions.Logging.ILogger{ReactBlog.Controllers.WeatherForecastController})">
+            <summary>
+            
+            </summary>
+            <param name="logger"></param>
+        </member>
+        <member name="M:ReactBlog.Controllers.WeatherForecastController.GetTest">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ReactBlog.Controllers.WeatherForecastController.LogInfo">
+            <summary>
+            
+            </summary>
         </member>
         <member name="T:ReactBlog.Program">
             <summary>
