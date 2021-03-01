@@ -293,7 +293,7 @@ namespace ResearchAPI.CORS.Controllers
                 var adminNames = DomainConstraits.RenderIdToText(adminIds, DomainConstraits.Users);
                 if (adminNames != null && adminNames.Count > 0)
                 {
-                    text = $"{userName}添加了项目管理员:{string.Join(",", adminNames)}";
+                    text = $"{userName}设置了项目管理员:{string.Join(",", adminNames)}";
                     service.AddProjectLog(userId, projectId, ActionType.AddProjectManager, text);
                 }
 
@@ -302,7 +302,7 @@ namespace ResearchAPI.CORS.Controllers
                 var memberNames = DomainConstraits.RenderIdToText(memberIds, DomainConstraits.Users);
                 if (memberNames != null && memberNames.Count > 0)
                 {
-                    text = $"{userName}添加了项目成员:{string.Join(",", memberNames)}";
+                    text = $"{userName}设置了项目成员:{string.Join(",", memberNames)}";
                     service.AddProjectLog(userId, projectId, ActionType.AddProjectMember, text);
                 }
 
@@ -311,7 +311,7 @@ namespace ResearchAPI.CORS.Controllers
                 var departmentNames = DomainConstraits.RenderIdToText(departmentIds, DomainConstraits.Departments);
                 if (departmentNames!=null && departmentNames.Count>0)
                 {
-                    text = $"{userName}添加了关联科室:{string.Join(",", departmentNames)}";
+                    text = $"{userName}设置了关联科室:{string.Join(",", departmentNames)}";
                     service.AddProjectLog(userId, projectId, ActionType.AddProjectDepartment, text);
                 }
 
@@ -358,8 +358,50 @@ namespace ResearchAPI.CORS.Controllers
         [EnableCors("AllCors")]
         public APIResult<bool> EditProject([FromServices] APIContext context, [FromServices] ReportTaskService service, [FromBody] EditProjectRequest request)
         {
-            var userid = context.GetCurrentUser().UserId;
-            var result = service.EditProject(request, userid);
+            var userId = context.GetCurrentUser().UserId;
+            var result = service.EditProject(request, userId);
+            if (result.IsSuccess)
+            {
+                var projectId = request.ProjectId;
+
+                //{用户}设置了项目名称{项目名称}，
+                var userName = context.GetCurrentUser().UserName;
+                var text = $"{userName}设置了项目名称:{request.ProjectName}";
+                service.AddProjectLog(userId, projectId, ActionType.EditProjectName, text);
+
+                //{用户}添加了项目管理员{用户名}，
+                var adminIds = request.AdminIds;
+                var adminNames = DomainConstraits.RenderIdToText(adminIds, DomainConstraits.Users);
+                if (adminNames != null && adminNames.Count > 0)
+                {
+                    text = $"{userName}设置了项目管理员:{string.Join(",", adminNames)}";
+                    service.AddProjectLog(userId, projectId, ActionType.AddProjectManager, text);
+                }
+
+                //{用户}添加了项目成员{用户名}，
+                var memberIds = request.MemberIds;
+                var memberNames = DomainConstraits.RenderIdToText(memberIds, DomainConstraits.Users);
+                if (memberNames != null && memberNames.Count > 0)
+                {
+                    text = $"{userName}设置了项目成员:{string.Join(",", memberNames)}";
+                    service.AddProjectLog(userId, projectId, ActionType.AddProjectMember, text);
+                }
+
+                //{用户}添加了关联科室{科室名称}，
+                var departmentIds = request.DepartmentIds;
+                var departmentNames = DomainConstraits.RenderIdToText(departmentIds, DomainConstraits.Departments);
+                if (departmentNames != null && departmentNames.Count > 0)
+                {
+                    text = $"{userName}设置了关联科室:{string.Join(",", departmentNames)}";
+                    service.AddProjectLog(userId, projectId, ActionType.AddProjectDepartment, text);
+                }
+
+                //{用户}修改项目查看权限为{权限名称}，
+                var viewAuthorizeType = request.ViewAuthorizeType;
+                var viewAuthorizeTypeName = DomainConstraits.RenderIdToText(viewAuthorizeType, DomainConstraits.ViewAuthorizeTypes);
+                text = $"{userName}设置了项目查看权限:{viewAuthorizeTypeName}";
+                service.AddProjectLog(userId, projectId, ActionType.SetProjectViewAtuhorityType, text);
+            }
             return new APIResult<bool>(result);
         }
 
