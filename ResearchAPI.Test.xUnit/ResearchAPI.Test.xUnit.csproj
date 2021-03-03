@@ -26,5 +26,28 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-
 </Project>
+
+
+
+标题: 新建发布向导
+------------------------------
+
+SQL Server 无法使用指定的密码连接到分发服务器。
+
+有关帮助信息，请单击: http://go.microsoft.com/fwlink?ProdName=Microsoft%20SQL%20Server&ProdVer=11.0.3000.0&EvtSrc=Microsoft.SqlServer.Management.UI.ReplUtilitiesErrorSR&EvtID=CantConnectAdminPassword&LinkId=20476
+
+------------------------------
+其他信息:
+
+连接到服务器 [MS-ULAVPRGZHCDS] 失败。
+链接服务器"5988D140-20A9-4F6A-B89B-6B1D4A171C64"的 OLE DB 访问接口 "SQLNCLI11" 返回了消息 "Login timeout expired"。
+链接服务器"5988D140-20A9-4F6A-B89B-6B1D4A171C64"的 OLE DB 访问接口 "SQLNCLI11" 返回了消息 "A network-related or instance-specific error has occurred while establishing a connection to SQL Server. Server is not found or not accessible. Check if instance name is correct and if SQL Server is configured to allow remote connections. For more information see SQL Server Books Online."。 (Microsoft SQL Server，错误: 21670)
+
+有关帮助信息，请单击: http://go.microsoft.com/fwlink?ProdName=Microsoft%20SQL%20Server&ProdVer=11.00.3000&EvtSrc=MSSQLServer&EvtID=21670&LinkId=20476
+
+------------------------------
+按钮:
+
+确定
+------------------------------

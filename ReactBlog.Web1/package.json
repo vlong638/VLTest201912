@@ -1,0 +1,9 @@
+{
+  "name": "react-blog.web1",
+  "version": "0.0.0",
+  "description": "ReactBlog.Web1",
+  "main": "app.js",
+  "author": {
+    "name": ""
+  }
+}
