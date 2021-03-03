@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<SynchronizeEntities BusinessType="产科">
+	<SynchronizeEntity SourceName="PregnantInfo" TargetName="PT_PregnantInfo">
+		<Properties>
+			<Property SourceName="personname" TargetName="personame" DisplayName="姓名" ColumnType="String"/>
+			<Property SourceName="dateofprenatal" TargetName="dateofprenatal" DisplayName="预产期" ColumnType="DateTime"/>
+			<Property SourceName="afterblood" TargetName="afterblood"  DisplayName="产后出血" ColumnType="String" EnumType="SHIFOU"/>
+			<Property SourceName="abortiontimes" TargetName="abortiontimes" DisplayName="流产次数" ColumnType="Int"/>
+		</Properties>
+	</SynchronizeEntity>
+</SynchronizeEntities>

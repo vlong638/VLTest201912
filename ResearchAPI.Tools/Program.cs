@@ -24,63 +24,37 @@ namespace ResearchAPI.Tools
             {
                 var configs = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Configs", "config.json")).FromJson<DBConfig>();
                 var files = Directory.GetFiles(Path.Combine(Environment.CurrentDirectory, "Docs/SQLs"));
-                var dBContext = DBHelper.GetDbContext(configs.ConnectionStrings.First().Value);
+                var dBContext = DBHelper.GetDbContext(configs.ConnectionStrings.First(c=>c.Key== "ResearchConnectionString").Value);
                 foreach (var file in files)
                 {
                     var sql = File.ReadAllText(file);
                     Console.WriteLine($"正在执行{file}");
+                    dBContext.Execute(sql);
+                    Console.WriteLine($"执行成功");
+                }
+            }));
+            cmds.Add(new Command("s1 for synchronization", () =>
+            {
+                var configs = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Configs", "config.json")).FromJson<DBConfig>();
+                var sourceDBContext = DBHelper.GetDbContext(configs.ConnectionStrings.First(c =>c.Key== "SourceData").Value);
+                var targetDBContext = DBHelper.GetDbContext(configs.ConnectionStrings.First(c =>c.Key== "TargetData").Value);
+                var businessEntities = ConfigHelper.GetBusinessEntities(Path.Combine(Environment.CurrentDirectory, "Configs/XMLConfigs/BusinessEntities"), "BusinessEntities_产科.xml");
+                foreach (var businessEntity in businessEntities)
+                {
+                    Console.WriteLine($"正在执行同步{targetDBContext.DbGroup.Connection.Database}.dbo.{businessEntity.TargetName}=>{sourceDBContext.DbGroup.Connection.Database}.dbo.{businessEntity.SourceName}");
                     try
                     {
-                        dBContext.Execute(sql);
-                        Console.WriteLine($"执行成功");
+                        var sql = $"select * into {targetDBContext.DbGroup.Connection.Database}.dbo.{businessEntity.TargetName} from {sourceDBContext.DbGroup.Connection.Database}.dbo.{businessEntity.SourceName}";
+                        targetDBContext.Execute(sql);
+                        Console.WriteLine($"成功");
                     }
-                    catch (Exception ex)
+                    catch (Exception ex )
                     {
-                        Console.WriteLine(ex.ToString());
-                        break;
+                        Console.WriteLine($"失败");
                     }
                 }
             }));
-
-
             cmds.Start();
-
-
-
-            //var businessEntities = ConfigHelper.GetBusinessEntities(Path.Combine(Environment.CurrentDirectory, "Configs/XMLConfigs/BusinessEntities"), "BusinessEntities_产科.xml");
-            //var configs = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Configs", "config.json")).FromJson<DBConfig>();
-            //Console.WriteLine("1 for init database");
-            //Console.WriteLine("1 for enum update");
-            //var item = Console.ReadLine();
-            //switch (item)
-            //{
-            //    case "1":
-            //        var files = Directory.GetFiles(Path.Combine(Environment.CurrentDirectory, "Docs/SQLs"));
-            //        var dBContext = DBHelper.GetDbContext(configs.ConnectionStrings.First().Value);
-            //        foreach (var file in files)
-            //        {
-            //            var sql = File.ReadAllText(file);
-            //            Console.WriteLine($"正在执行{file}");
-            //            try
-            //            {
-            //                dBContext.Execute(sql);
-            //                Console.WriteLine($"执行成功");
-            //            }
-            //            catch (Exception ex)
-            //            {
-            //                Console.WriteLine(ex.ToString());
-            //                break;
-            //            }
-            //        }
-            //        break;
-            //    case "2":
-            //        break;
-            //    case "3":
-            //        break;
-            //    default:
-            //        return;
-            //}
-            //Console.ReadLine();
         }
     }
 

@@ -1,18 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <BusinessEntities Id="101" BusinessType="产科">
-	<!--
-	关键字段:
-	孕妇姓名
-	预产期
-	身份证,Idcard
-	-->
-	<BusinessEntity Id="101001" DisplayName ="基本档案" SourceName="PregnantInfo">
+	<BusinessEntity Id="101001" DisplayName ="基本档案" SourceName="PregnantInfo" TargetName="PT_PregnantInfo">
 		<Properties>
 			<Property Id="101001186" DisplayName="孕妇姓名" SourceName="personname" ColumnType="String"/>
 			<Property Id="101001033" DisplayName="预产期" SourceName="dateofprenatal" ColumnType="DateTime"/>
 			<Property Id="101001124" DisplayName="孕妇证件号" SourceName="idcard" ColumnType="String"/>
 			<Property Id="101001007" DisplayName="出生日期" SourceName="birthday" ColumnType="DateTime"/>
-			
 			<Property Id="101001125" DisplayName="证件类型" SourceName="idtype" ColumnType="Enum" EnumType="IDTYPE"/>
 			<Property Id="101001001" DisplayName="畸形儿次数" SourceName="abnormality" ColumnType="Int"/>
 			<Property Id="101001002" DisplayName="流产次数" SourceName="abortiontimes" ColumnType="Int"/>
@@ -271,16 +264,7 @@
 			<Property Id="101001260" DisplayName="邮政编码" SourceName="zipcode" ColumnType="String"/>
 		</Properties>
 	</BusinessEntity>
-	<!--
-	关键字段:
-	孕妇基本档案Id,pregnantinfoid
-	检查时间
-	检查孕周
-	检查孕天
-	主诊断
-	次诊断
-	-->
-	<BusinessEntity Id="101002" DisplayName ="产检" SourceName="MHC_VisitRecord">
+	<BusinessEntity Id="101002" DisplayName ="产检" SourceName="MHC_VisitRecord" TargetName="PT_MHC_VisitRecord">
 		<Properties>
 			<Property Id="101002247" DisplayName="检查时间" SourceName="visitdate" ColumnType="DateTime"/>
 			<Property Id="101002029" DisplayName="检查孕周" SourceName="checkweek" ColumnType="Int"/>
@@ -545,79 +529,7 @@
 			<Property Id="101002260" DisplayName="邮政编码" SourceName="zipcode" ColumnType="String"/>
 		</Properties>
 	</BusinessEntity>
-	<!--
-	关键字段:
-	身份证号,Idcard
-	检验单号,OrderId
-	开单时间
-	-->
-	<!--
-	<BusinessEntity Id="101003" DisplayName ="检查单" SourceName="LabOrder">
-		<Properties>
-			<Property Id="101003010" DisplayName="身份证号" SourceName="idcard" ColumnType="String"/>
-			<Property Id="101003016" DisplayName="检验单号" SourceName="orderid" ColumnType="String"/>
-			<Property Id="101003017" DisplayName="开单时间" SourceName="ordertime" ColumnType="DateTime"/>
-			
-			<Property Id="101003001" DisplayName="传输日期" SourceName="deliverydate" ColumnType="DateTime"/>
-			<Property Id="101003002" DisplayName="传输编号" SourceName="deliveryid" ColumnType="String"/>
-			<Property Id="101003003" DisplayName="检验编码" SourceName="examcode" ColumnType="String"/>
-			<Property Id="101003004" DisplayName="检验是否出结果" SourceName="examfinished" ColumnType="Int"/>
-			<Property Id="101003005" DisplayName="检查医院" SourceName="examhospital" ColumnType="String"/>
-			<Property Id="101003006" DisplayName="检验项目名称" SourceName="examname" ColumnType="String"/>
-			<Property Id="101003007" DisplayName="检查时间" SourceName="examtime" ColumnType="DateTime"/>
-			<Property Id="101003008" DisplayName="检查者姓名" SourceName="executer" ColumnType="String"/>
-			<Property Id="101003009" DisplayName="编号" SourceName="ID" ColumnType="BigInt"/>
-			<Property Id="101003011" DisplayName="导入时间" SourceName="importtime" ColumnType="DateTime"/>
-			<Property Id="101003012" DisplayName="机构代码" SourceName="jigoudm" ColumnType="String"/>
-			<Property Id="101003013" DisplayName="姓名" SourceName="name" ColumnType="String"/>
-			<Property Id="101003014" DisplayName="开单医生工号" SourceName="orderdocid" ColumnType="String"/>
-			<Property Id="101003015" DisplayName="开单医生姓名" SourceName="orderdocname" ColumnType="String"/>
-			<Property Id="101003018" DisplayName="病人编号" SourceName="patientid" ColumnType="String"/>
-			<Property Id="101003019" DisplayName="报告时间" SourceName="reporttime" ColumnType="DateTime"/>
-			<Property Id="101003020" DisplayName="状态为1为存在，0为删除" SourceName="status" ColumnType="Int"/>
-			<Property Id="101003021" DisplayName="技术员姓名" SourceName="technician" ColumnType="String"/>
-		</Properties>
-	</BusinessEntity>
-	-->
-	<!--
-	关键字段:
-	身份证号,Idcard
-	检验单号,OrderId
-	检验项目编号
-	检验项目名称
-	检验项目结果
-	-->
-	<!--
-	<BusinessEntity Id="101004" DisplayName ="检验项" SourceName="LabResult">
-		<Properties>
-			<Property Id="101004001" DisplayName="传输日期" SourceName="deliverydate" ColumnType="DateTime"/>
-			<Property Id="101004002" DisplayName="编号" SourceName="ID" ColumnType="BigInt"/>
-			<Property Id="101004003" DisplayName="身份证号" SourceName="idcard" ColumnType="String"/>
-			<Property Id="101004004" DisplayName="检验项目编号" SourceName="itemid" ColumnType="String"/>
-			<Property Id="101004005" DisplayName="检验项目名称" SourceName="itemname" ColumnType="String"/>
-			
-			<Property Id="101004006" DisplayName="姓名" SourceName="name" ColumnType="String"/>
-			<Property Id="101004007" DisplayName="检验单号" SourceName="orderid" ColumnType="String"/>
-			<Property Id="101004008" DisplayName="病人编号" SourceName="patientid" ColumnType="String"/>
-			<Property Id="101004009" DisplayName="参考值" SourceName="reference" ColumnType="String"/>
-			<Property Id="101004010" DisplayName="结果上升，下降标志" SourceName="resultflag" ColumnType="String"/>
-			<Property Id="101004011" DisplayName="检验项目排序" SourceName="setid" ColumnType="Int"/>
-			<Property Id="101004012" DisplayName="状态位" SourceName="status" ColumnType="Int"/>
-			<Property Id="101004013" DisplayName="单位" SourceName="unit" ColumnType="String"/>
-			<Property Id="101004014" DisplayName="检验项目结果" SourceName="value" ColumnType="String"/>
-		</Properties>
-	</BusinessEntity>-->
-	<!--
-	关键字段:
-	孕妇基本档案Id,pregnantinfoid
-	检查时间
-	孕周
-	孕天
-	主诉
-	主诊断
-	次诊断
-	-->
-	<BusinessEntity Id="101005" DisplayName ="首检" SourceName="MHC_FirstVisitRecord">
+	<BusinessEntity Id="101005" DisplayName ="首检" SourceName="MHC_FirstVisitRecord" TargetName="PT_MHC_FirstVisitRecord">
 		<Properties>
 			<Property Id="101006113" DisplayName="检查时间" SourceName="visitdate" ColumnType="DateTime"/>
 			<Property Id="101005009" DisplayName="孕周" SourceName="checkweek" ColumnType="Int"/>
@@ -883,19 +795,7 @@
 			<Property Id="101005260" DisplayName="邮政编码" SourceName="zipcode" ColumnType="String"/>
 		</Properties>
 	</BusinessEntity>
-	<!--
-	关键字段:
-	孕妇基本档案Id,pregnantinfoid
-	分娩日期
-	检查时间
-	身份证
-	产后天数
-	
-	主诉
-	主诊断
-	次诊断
-	-->	
-	<BusinessEntity Id="101007" DisplayName ="产后42天" SourceName="MHC_Postnatal42dayRecord">
+	<BusinessEntity Id="101007" DisplayName ="产后42天" SourceName="MHC_Postnatal42dayRecord" TargetName="PT_MHC_Postnatal42dayRecord">
 		<Properties>
 			<Property Id="101007020" DisplayName="分娩日期" SourceName="childbirth" ColumnType="DateTime"/>
 			<Property Id="101007013" DisplayName="检查时间" SourceName="checkdate" ColumnType="DateTime"/>
@@ -1010,18 +910,7 @@
 			<Property Id="101007110" DisplayName="伤口" SourceName="wound" ColumnType="Enum" EnumType="WOUND"/>
 		</Properties>
 	</BusinessEntity>
-	<!--
-	关键字段:
-	孕妇基本档案Id,pregnantinfoid
-	预产期
-	孕周
-	孕天
-	诊断
-	
-	高危等级
-	高危因素
-	-->	
-	<BusinessEntity Id="101008" DisplayName ="高危妊娠风险报告" SourceName="HighRiskReport">
+	<BusinessEntity Id="101008" DisplayName ="高危妊娠风险报告" SourceName="HighRiskReport" TargetName="PT_HighRiskReport">
 		<Properties>
 			<Property Id="101008026" DisplayName="孕妇姓名" SourceName="personname" ColumnType="String"/>
 			<Property Id="101008018" DisplayName="身份证号" SourceName="idcard" ColumnType="String"/>
@@ -1066,15 +955,7 @@
 			<Property Id="101008040" DisplayName="更新时间" SourceName="updatetime" ColumnType="DateTime"/>
 		</Properties>
 	</BusinessEntity>
-	<!--
-	关键字段:
-	孕妇基本档案Id,pregnantinfoid
-	身份证号,Idcard
-	
-	高危等级
-	高危因素
-	-->	
-	<BusinessEntity Id="101009" DisplayName ="高危因素" SourceName="MHC_HighRiskReason">
+	<BusinessEntity Id="101009" DisplayName ="高危因素" SourceName="MHC_HighRiskReason" TargetName="PT_MHC_HighRiskReason">
 		<Properties>
 			<Property Id="101009011" DisplayName="身份证号" SourceName="idcard" ColumnType="String"/>
 			
