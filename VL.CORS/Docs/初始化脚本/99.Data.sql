@@ -34,6 +34,9 @@ insert into RoleAuthority (roleid,authorityId) values ((select id from role wher
 select * from [RoleAuthority];
 
 --
+truncate table UserRole
+truncate table RoleAuthority
+
 INSERT INTO [Role]([db_createtime], [db_updatetime], [Name], [Category]) VALUES ('2021-01-06 14:49:04.860', NULL, N'超级管理员', 2);
 declare @UserId int
 set @UserId = (select Id from [User] where Name = 'admin')

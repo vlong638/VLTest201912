@@ -12,43 +12,121 @@ namespace ResearchAPI.Tools
     {
         static void Main(string[] args)
         {
-            var businessEntities = ConfigHelper.GetBusinessEntities(Path.Combine(Environment.CurrentDirectory, "Configs/XMLConfigs/BusinessEntities"), "BusinessEntities_产科.xml");
-            var configs = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Configs", "config.json")).FromJson<DBConfig>();
-            Console.WriteLine("1 for enum update");
-            Console.WriteLine("2 for init database");
-            var item = Console.ReadLine();
-            switch (item)
+            CommandCollection cmds = new CommandCollection();
+            cmds.Add(new Command("ls", () =>
             {
-                case "1":
-                    break;
-                case "2":
-                    var files = Directory.GetFiles(Path.Combine(Environment.CurrentDirectory, "Docs/SQLs"));
-                    var dBContext = DBHelper.GetDbContext(configs.ConnectionStrings.First().Value);
-                    foreach (var file in files)
+                foreach (var cmd in cmds)
+                {
+                    Console.WriteLine(cmd.Name);
+                }
+            }));
+            cmds.Add(new Command("i1 for init database", () =>
+            {
+                var configs = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Configs", "config.json")).FromJson<DBConfig>();
+                var files = Directory.GetFiles(Path.Combine(Environment.CurrentDirectory, "Docs/SQLs"));
+                var dBContext = DBHelper.GetDbContext(configs.ConnectionStrings.First().Value);
+                foreach (var file in files)
+                {
+                    var sql = File.ReadAllText(file);
+                    Console.WriteLine($"正在执行{file}");
+                    try
                     {
-                        var sql = File.ReadAllText(file);
-                        Console.WriteLine($"正在执行{file}");
-                        try
-                        {
-                            dBContext.Execute(sql);
-                            Console.WriteLine($"执行成功");
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine(ex.ToString());
-                            break;
-                        }
+                        dBContext.Execute(sql);
+                        Console.WriteLine($"执行成功");
                     }
-                    break;
-                case "3":
-                    break;
-                default:
-                    return;
-            }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.ToString());
+                        break;
+                    }
+                }
+            }));
 
-            Console.ReadLine();
+
+            cmds.Start();
+
+
+
+            //var businessEntities = ConfigHelper.GetBusinessEntities(Path.Combine(Environment.CurrentDirectory, "Configs/XMLConfigs/BusinessEntities"), "BusinessEntities_产科.xml");
+            //var configs = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Configs", "config.json")).FromJson<DBConfig>();
+            //Console.WriteLine("1 for init database");
+            //Console.WriteLine("1 for enum update");
+            //var item = Console.ReadLine();
+            //switch (item)
+            //{
+            //    case "1":
+            //        var files = Directory.GetFiles(Path.Combine(Environment.CurrentDirectory, "Docs/SQLs"));
+            //        var dBContext = DBHelper.GetDbContext(configs.ConnectionStrings.First().Value);
+            //        foreach (var file in files)
+            //        {
+            //            var sql = File.ReadAllText(file);
+            //            Console.WriteLine($"正在执行{file}");
+            //            try
+            //            {
+            //                dBContext.Execute(sql);
+            //                Console.WriteLine($"执行成功");
+            //            }
+            //            catch (Exception ex)
+            //            {
+            //                Console.WriteLine(ex.ToString());
+            //                break;
+            //            }
+            //        }
+            //        break;
+            //    case "2":
+            //        break;
+            //    case "3":
+            //        break;
+            //    default:
+            //        return;
+            //}
+            //Console.ReadLine();
         }
     }
+
+    public class CommandCollection : List<Command>
+    {
+        public void Start()
+        {
+            Console.WriteLine("wait for a command,enter `q` to close");
+            string s = "ls";
+            do
+            {
+                var command = this.FirstOrDefault(c => c.Name.StartsWith(s));
+                if (command == null)
+                {
+                    Console.WriteLine("wait for a command,enter `q` to close");
+                    continue;
+                }
+                try
+                {
+                    command.Execute();
+                }
+                catch (Exception e
+                )
+                {
+                    var error = e;
+                    Console.WriteLine(e.ToString());
+                }
+                Console.WriteLine("wait for a command,enter `q` to close");
+            }
+            while ((s = Console.ReadLine().ToLower()) != "q");
+        }
+    }
+
+    public class Command
+    {
+        public Command(string name, Action exe)
+        {
+            Name = name.ToLower();
+            Execute = exe;
+        }
+
+        public string Name { set; get; }
+
+        public Action Execute { set; get; }
+    }
+
     /// <summary>
     /// 配置样例
     /// </summary>
