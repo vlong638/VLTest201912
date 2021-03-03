@@ -8,6 +8,7 @@ using System.Linq;
 
 namespace ResearchAPI.CORS
 {
+
     public class Program
     {
         public static void Main(string[] args)

@@ -64,7 +64,7 @@
     <None Update="Configs\XMLConfigs\BusinessEntities\Template_孕周检验.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Docs\SQLs\01.C_User.sql">
+    <None Update="Docs\初始化脚本\01.C_User.sql">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Update="Export\1207.csv">

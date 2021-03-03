@@ -1,0 +1,30 @@
+﻿[
+  {
+    "key": "",
+    "value": 0
+  },
+  {
+    "key": "String",
+    "value": 1
+  },
+  {
+    "key": "DateTime",
+    "value": 2
+  },
+  {
+    "key": "Int",
+    "value": 3
+  },
+  {
+    "key": "Enum",
+    "value": 4
+  },
+  {
+    "key": "Decimal",
+    "value": 5
+  },
+  {
+    "key": "BigInt",
+    "value": 6
+  }
+]

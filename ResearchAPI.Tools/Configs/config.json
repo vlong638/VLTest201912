@@ -1,0 +1,8 @@
+{
+  "ConnectionStrings": [
+    {
+      "Key": "ResearchConnectionString",
+      "Value": "Data Source=127.0.0.1;Initial Catalog=EasyResearch;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=vl;Password=123"
+    }
+  ]
+}

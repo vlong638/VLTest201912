@@ -191,6 +191,8 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "ReactBlog.Web(1)", "ReactBl
 		SlnRelativePath = "ReactBlog.Web\"
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResearchAPI.Tools", "ResearchAPI.Tools\ResearchAPI.Tools.csproj", "{5B2D3737-9B6B-4722-9179-7536BB55693A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -453,6 +455,10 @@ Global
 		{8093C9E0-7C28-4196-8DA9-C5E57A425B94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8093C9E0-7C28-4196-8DA9-C5E57A425B94}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{8093C9E0-7C28-4196-8DA9-C5E57A425B94}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{5B2D3737-9B6B-4722-9179-7536BB55693A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B2D3737-9B6B-4722-9179-7536BB55693A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B2D3737-9B6B-4722-9179-7536BB55693A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B2D3737-9B6B-4722-9179-7536BB55693A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -528,6 +534,7 @@ Global
 		{6C2D183D-D623-40FC-9B08-2F6039BD7368} = {F6DF81FC-DA78-4B0F-8BA3-00E91B8F703B}
 		{FDEE8FC2-1AF2-417B-AA39-EBD8D37E9A72} = {F6DF81FC-DA78-4B0F-8BA3-00E91B8F703B}
 		{8093C9E0-7C28-4196-8DA9-C5E57A425B94} = {F6DF81FC-DA78-4B0F-8BA3-00E91B8F703B}
+		{5B2D3737-9B6B-4722-9179-7536BB55693A} = {6148F30A-8C0B-492B-884F-4E3E0C88B458}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1BEAF6BD-B42E-40E0-929E-2233182F9868}

@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Dapper;
 using System.Data;
 
 namespace Autobots.Infrastracture.Common.DBSolution
@@ -27,6 +27,19 @@ namespace Autobots.Infrastracture.Common.DBSolution
             DbGroup = new DbGroup(connection);
         }
 
+        #region 基础方法
+
+        public int Execute(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return DbGroup.Connection.Execute(sql, param, DbGroup.Transaction, commandTimeout, commandType);
+        }
+
+        public T ExecuteScalar<T>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return (T)DbGroup.Connection.ExecuteScalar( sql, param, DbGroup.Transaction, commandTimeout, commandType);
+        }
+
+        #endregion
     }
     /// <summary>
     /// 工作单元模式
