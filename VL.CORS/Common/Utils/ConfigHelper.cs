@@ -24,6 +24,14 @@ namespace ResearchAPI.CORS.Common
             return new COBusinessEntities(root);
         }
 
+        public static COSyncEntities GetCOSyncEntities(string directory, string file)
+        {
+            var path = Path.Combine(AppContext.BaseDirectory, directory, file);
+            XDocument doc = XDocument.Load(path);
+            var root = doc.Element(COSyncEntities.ElementName);
+            return new COSyncEntities(root);
+        }
+
         public static Routers GetRouters(string directory, string file)
         {
             var path = Path.Combine(AppContext.BaseDirectory, directory, file);

@@ -939,6 +939,22 @@
             
             </summary>
         </member>
+        <member name="F:ResearchAPI.CORS.Common.COSyncEntities.ElementName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Common.COSyncEntities.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Common.COSyncEntities.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            
+            </summary>
+            <param name="element"></param>
+        </member>
         <member name="T:ResearchAPI.CORS.Common.DropDownItem">
             <summary>
             下拉项

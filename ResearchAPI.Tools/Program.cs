@@ -22,7 +22,7 @@ namespace ResearchAPI.Tools
                     Console.WriteLine(cmd.Name);
                 }
             }));
-            cmds.Add(new Command("i1 for init database", () =>
+            cmds.Add(new Command("i1 for 科研表结构初始化", () =>
             {
                 var configs = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Configs", "config.json")).FromJson<DBConfig>();
                 var files = Directory.GetFiles(Path.Combine(Environment.CurrentDirectory, "Docs/SQLs"));
@@ -35,28 +35,49 @@ namespace ResearchAPI.Tools
                     Console.WriteLine($"执行成功");
                 }
             }));
-            cmds.Add(new Command("s1 for synchronization", () =>
+            cmds.Add(new Command("s1 for 数据初始化", () =>
             {
                 var configs = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Configs", "config.json")).FromJson<DBConfig>();
                 var sourceDBContext = DBHelper.GetDbContext(configs.ConnectionStrings.First(c =>c.Key== "SourceData").Value);
                 var targetDBContext = DBHelper.GetDbContext(configs.ConnectionStrings.First(c =>c.Key== "TargetData").Value);
                 var researchDBContext = DBHelper.GetDbContext(configs.ConnectionStrings.First(c => c.Key == "ResearchConnectionString").Value);
-                var businessEntities = ConfigHelper.GetBusinessEntities(Path.Combine(Environment.CurrentDirectory, "Configs/XMLConfigs/BusinessEntities"),  "BusinessEntities_产科.xml");
+                var businessEntities = ConfigHelper.GetCOSyncEntities(Path.Combine(Environment.CurrentDirectory, "Configs/XMLConfigs/SyncEntities"), "SyncEntities_产科.xml");
                 foreach (var businessEntity in businessEntities)
                 {
-                    Console.WriteLine($"正在执行初始化{targetDBContext.DbGroup.Connection.Database}.dbo.{businessEntity.TargetName}=>{sourceDBContext.DbGroup.Connection.Database}.dbo.{businessEntity.SourceName}");
-                    var manage = new SyncManage($"{targetDBContext.DbGroup.Connection.Database}.dbo.{businessEntity.TargetName}"
-                        , $"{sourceDBContext.DbGroup.Connection.Database}.dbo.{businessEntity.SourceName}"
+                    var fromTable = businessEntity.SourceName;
+                    var toTable = businessEntity.TargetName;
+                    Console.WriteLine($"正在执行初始化{targetDBContext.DbGroup.Connection.Database}.dbo.{toTable}=>{sourceDBContext.DbGroup.Connection.Database}.dbo.{fromTable}");
+
+                    #region 表结构初始化
+                    var manage = new SyncManage($"{targetDBContext.DbGroup.Connection.Database}.dbo.{toTable}"
+                        , $"{sourceDBContext.DbGroup.Connection.Database}.dbo.{fromTable}"
                         , DateTime.Now
                         , DateTime.Now
                         , ""
-                        , "镜像初始化处理成功"
-                        , OperateType.InitData);
+                        , ""
+                        , OperateType.InitTable);
                     try
                     {
-                        var sql = $"select * into {targetDBContext.DbGroup.Connection.Database}.dbo.{businessEntity.TargetName} from {sourceDBContext.DbGroup.Connection.Database}.dbo.{businessEntity.SourceName}";
+                        StringBuilder sb = new StringBuilder();
+                        sb.AppendLine($"CREATE TABLE [dbo].[{toTable}] (");
+                        foreach (var property in businessEntity.Properties)
+                        {
+                            var columnName = property.SourceName;
+                            var columnType = property.GetTargetColumnType();
+                            sb.AppendLine($"  [{columnName}] {columnType} NULL,");
+                        }
+                        sb.AppendLine($"[db_createtime] [datetime] DEFAULT CURRENT_TIMESTAMP");
+                        sb.AppendLine($")");
+                        foreach (var property in businessEntity.Properties)
+                        {
+                            var columnName = property.SourceName;
+                            var comment = property.DisplayName;
+                            sb.AppendLine($"  EXEC sp_addextendedproperty 'MS_Description', N'{comment}','SCHEMA', N'dbo','TABLE', N'{toTable}','COLUMN', N'{columnName}'");
+                        }
+                        var sql = sb.ToString();
                         targetDBContext.Execute(sql);
-                        Console.WriteLine($"成功");
+                        manage.Message = $"成功_数据表结构初始化";
+                        Console.WriteLine(manage.Message);
                     }
                     catch (Exception ex)
                     {
@@ -64,7 +85,45 @@ namespace ResearchAPI.Tools
                         manage.Message = ex.ToString();
                     }
                     researchDBContext.Execute(manage.ToInsertSQL(), manage);
+                    #endregion
+
+                    #region 表数据同步
+                    if (manage.Message.Contains("成功"))
+                    {
+                        manage = new SyncManage($"{targetDBContext.DbGroup.Connection.Database}.dbo.{toTable}"
+                            , $"{sourceDBContext.DbGroup.Connection.Database}.dbo.{fromTable}"
+                            , DateTime.Now
+                            , DateTime.Now
+                            , ""
+                            , ""
+                            , OperateType.InitTable);
+                        try
+                        {
+                            var sql = $@"
+insert into {targetDBContext.DbGroup.Connection.Database}.dbo.{businessEntity.TargetName} ({string.Join(",", businessEntity.Properties.Select(c => c.SourceName))}) 
+select {string.Join(",", businessEntity.Properties.Select(c => c.SourceName))} from {sourceDBContext.DbGroup.Connection.Database}.dbo.{businessEntity.SourceName}";
+                            targetDBContext.Execute(sql);
+                            manage.Message = $"成功_数据表数据初始化";
+                            Console.WriteLine(manage.Message);
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"失败");
+                            manage.Message = ex.ToString();
+                        }
+                        researchDBContext.Execute(manage.ToInsertSQL(), manage);
+                    }
+                    #endregion
                 }
+            }));
+            cmds.Add(new Command("s2 for 数据清洗", () =>
+            {
+
+
+
+            }));
+            cmds.Add(new Command("s3 for 数据统计预处理", () =>
+            {
             }));
             cmds.Start();
         }
@@ -98,7 +157,8 @@ namespace ResearchAPI.Tools
     public enum OperateType
     {
         None = 0,
-        InitData = 1,
+        InitTable = 1,
+        InitData = 2,
     }
 
     public static class EntityEx
@@ -126,7 +186,6 @@ namespace ResearchAPI.Tools
             return sb.ToString();
         }
     }
-
 
     public class CommandCollection : List<Command>
     {

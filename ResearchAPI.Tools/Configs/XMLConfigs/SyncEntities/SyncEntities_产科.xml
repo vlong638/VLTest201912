@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<SyncEntities Id="101" BusinessType="产科">
+	<SyncEntity Id="101001" DisplayName ="基本档案" SourceName="PregnantInfo" TargetName="PT_PregnantInfo">
+		<Properties>
+			<Property Id="101001001" DisplayName="自动编号" SourceName="id" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="101001002" DisplayName="孕妇姓名" SourceName="personname" ColumnType="varchar" MaxLength="20" Precision="0" Scale="0"/>
+			<Property Id="101001003" DisplayName="性别" SourceName="sexcode" ColumnType="char" MaxLength="1" Precision="0" Scale="0" Enum="SEXCODE" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001004" DisplayName="证件照编号" SourceName="photo" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0"/>
+			<Property Id="101001005" DisplayName="就诊卡号" SourceName="cardno" ColumnType="varchar" MaxLength="50" Precision="0" Scale="0"/>
+			<Property Id="101001006" DisplayName="孕妇证件号" SourceName="idcard" ColumnType="varchar" MaxLength="30" Precision="0" Scale="0"/>
+			<Property Id="101001007" DisplayName="户籍标志" SourceName="registeredpermanent" ColumnType="varchar" MaxLength="2" Precision="0" Scale="0" Enum="REGISTEREDPERMANENT" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001008" DisplayName="血型" SourceName="bloodtypecode" ColumnType="char" MaxLength="1" Precision="0" Scale="0" Enum="BLOODTYPECODE" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001009" DisplayName="出生地" SourceName="homeplace" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0"/>
+			<Property Id="101001010" DisplayName="联系地址" SourceName="address" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0"/>
+			<Property Id="101001011" DisplayName="邮政编码" SourceName="zipcode" ColumnType="varchar" MaxLength="6" Precision="0" Scale="0"/>
+			<Property Id="101001012" DisplayName="出生日期" SourceName="birthday" ColumnType="datetime" MaxLength="8" Precision="23" Scale="3"/>
+			<Property Id="101001013" DisplayName="国籍" SourceName="nationalitycode" ColumnType="varchar" MaxLength="3" Precision="0" Scale="0" Enum="NATIONALITYCODE" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001014" DisplayName="民族" SourceName="nationcode" ColumnType="varchar" MaxLength="2" Precision="0" Scale="0" Enum="NATIONCODE" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001015" DisplayName="RH血型" SourceName="rhbloodcode" ColumnType="char" MaxLength="1" Precision="0" Scale="0" Enum="RHBLOODCODE" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001016" DisplayName="婚姻状况" SourceName="maritalstatuscode" ColumnType="char" MaxLength="1" Precision="0" Scale="0" Enum="MARITALSTATUSCODE" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001017" DisplayName="职业类别" SourceName="workcode" ColumnType="varchar" MaxLength="3" Precision="0" Scale="0" Enum="WORKCODE" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001018" DisplayName="保险类别" SourceName="insurancecode" ColumnType="varchar" MaxLength="2" Precision="0" Scale="0" Enum="INSURANCECODE" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001019" DisplayName="文化程度" SourceName="educationcode" ColumnType="varchar" MaxLength="2" Precision="0" Scale="0" Enum="EDUCATIONCODE" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001020" DisplayName="状态" SourceName="status" ColumnType="char" MaxLength="1" Precision="0" Scale="0" Enum="0正常 1结案" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001021" DisplayName="工作单位" SourceName="workplace" ColumnType="varchar" MaxLength="50" Precision="0" Scale="0"/>
+			<Property Id="101001022" DisplayName="联系人" SourceName="contact" ColumnType="varchar" MaxLength="20" Precision="0" Scale="0" Enum="CONTACT" IsEnumText="是" ControlType="单选框"/>
+			<Property Id="101001023" DisplayName="联系人电话" SourceName="contactphone" ColumnType="varchar" MaxLength="20" Precision="0" Scale="0"/>
+			<Property Id="101001024" DisplayName="医保类别" SourceName="insurancetype" ColumnType="varchar" MaxLength="2" Precision="0" Scale="0" Enum="INSURANCETYPE" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001025" DisplayName="是否农业户籍" SourceName="isagrregister" ColumnType="char" MaxLength="1" Precision="0" Scale="0" Enum="SHIFOU" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001026" DisplayName="预产期" SourceName="dateofprenatal" ColumnType="date" MaxLength="3" Precision="10" Scale="0"/>
+			<Property Id="101001027" DisplayName="孕次" SourceName="gravidity" ColumnType="varchar" MaxLength="10" Precision="0" Scale="0"/>
+			<Property Id="101001028" DisplayName="健康档案编号" SourceName="phrid" ColumnType="varchar" MaxLength="17" Precision="0" Scale="0"/>
+			<Property Id="101001029" DisplayName="产次" SourceName="parity" ColumnType="varchar" MaxLength="10" Precision="0" Scale="0"/>
+			<Property Id="101001030" DisplayName="前次分娩方式" SourceName="predeliverymode" ColumnType="varchar" MaxLength="2" Precision="0" Scale="0" Enum="PREDELIVERYMODE" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001031" DisplayName="末次月经时间" SourceName="lastmenstrualperiod" ColumnType="date" MaxLength="3" Precision="10" Scale="0"/>
+			<Property Id="101001032" DisplayName="妊娠并发症史" SourceName="gestationneuropathy" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0" Enum="GESTATIONNEUROPATHY" IsEnumText="是" ControlType="多选框"/>
+			<Property Id="101001033" DisplayName="手术史" SourceName="operationhistory" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0" Enum="OPERATIONHISTORY" IsEnumText="是" ControlType="多选框"/>
+			<Property Id="101001034" DisplayName="收缩压(mmHg)" SourceName="sbp" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="101001035" DisplayName="舒张压(mmHg)" SourceName="dbp" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="101001036" DisplayName="户籍地址" SourceName="homeaddress" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0" Enum="行政区划编码" IsEnumText="是" ControlType="单选框"/>
+			<Property Id="101001037" DisplayName="孕册号" SourceName="pregnantbookid" ColumnType="varchar" MaxLength="50" Precision="0" Scale="0"/>
+			<Property Id="101001038" DisplayName="妇保医生姓名" SourceName="mhcdoctorname" ColumnType="varchar" MaxLength="20" Precision="0" Scale="0"/>
+			<Property Id="101001039" DisplayName="产休地" SourceName="restregioncode" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0" Enum="行政区划编码" IsEnumText="是" ControlType="单选框"/>
+			<Property Id="101001040" DisplayName="孕妇归属地" SourceName="ownerarea" ColumnType="varchar" MaxLength="16" Precision="0" Scale="0" Enum="OWNERAREA" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001041" DisplayName="居(暂)住地址" SourceName="realregioncode" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0"/>
+			<Property Id="101001042" DisplayName="居(暂)住地址-文本" SourceName="residencecode" ColumnType="varchar" MaxLength="20" Precision="0" Scale="0"/>
+			<Property Id="101001043" DisplayName="办居住证日期" SourceName="residencepermit" ColumnType="date" MaxLength="3" Precision="10" Scale="0"/>
+			<Property Id="101001044" DisplayName="初潮年龄" SourceName="menarcheage" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="101001045" DisplayName="经期(天)" SourceName="menstrualperiod" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="101001046" DisplayName="周期" SourceName="cycle" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="101001047" DisplayName="月经量" SourceName="menstrualblood" ColumnType="char" MaxLength="1" Precision="0" Scale="0" Enum="MENSTRUALBLOOD" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001048" DisplayName="痛经" SourceName="dysmenorrhea" ColumnType="char" MaxLength="1" Precision="0" Scale="0" Enum="DYSMENORRHEA" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001049" DisplayName="(无)异常孕产史" SourceName="unusualbone" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0"/>
+			<Property Id="101001050" DisplayName="人工流产次数" SourceName="trafficflow" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="101001051" DisplayName="自然流产次数" SourceName="naturalabortion" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="101001052" DisplayName="中期引产次数" SourceName="odinopoeia" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="101001053" DisplayName="早产次数" SourceName="preterm" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="101001054" DisplayName="难产次数" SourceName="dystocia" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="101001055" DisplayName="死胎死产次数" SourceName="died" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="101001056" DisplayName="畸形儿次数" SourceName="abnormality" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="101001057" DisplayName="死亡儿次数" SourceName="newbrondied" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="101001058" DisplayName="药物流产次数" SourceName="qwetimes" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="101001059" DisplayName="宫外孕次数" SourceName="ectopicpregnancy" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="101001060" DisplayName="葡萄胎次数" SourceName="vesicularmole" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="101001061" DisplayName="前妊娠终止日期" SourceName="pregestationdate" ColumnType="date" MaxLength="3" Precision="10" Scale="0"/>
+			<Property Id="101001062" DisplayName="前次终止方式" SourceName="pregestationmode" ColumnType="varchar" MaxLength="20" Precision="0" Scale="0" Enum="PREGESTATIONMODE" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001063" DisplayName="前次分娩日期" SourceName="predeliverydate" ColumnType="date" MaxLength="3" Precision="10" Scale="0"/>
+			<Property Id="101001064" DisplayName="既往病史" SourceName="pasthistory" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0" Enum="YOUWU" IsEnumText="是" ControlType="多选框"/>
+			<Property Id="101001065" DisplayName="家族史" SourceName="familyhistory" ColumnType="varchar" MaxLength="350" Precision="0" Scale="0" Enum="FAMILYHISTORY" IsEnumText="是" ControlType="多选框"/>
+			<Property Id="101001066" DisplayName="妇科手术史" SourceName="gynecologyops" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0" Enum="YOUWUBX" IsEnumText="是" ControlType="多选框"/>
+			<Property Id="101001067" DisplayName="过敏史" SourceName="allergichistory" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0" Enum="YOUWUBX" IsEnumText="是" ControlType="多选框"/>
+			<Property Id="101001068" DisplayName="毒物接触史" SourceName="poisontouchhis" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0" Enum="YOUWUBX" IsEnumText="是" ControlType="多选框"/>
+			<Property Id="101001069" DisplayName="遗传家族史" SourceName="heredityfamilyhistory" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0" Enum="YOUWUBX" IsEnumText="是" ControlType="多选框"/>
+			<Property Id="101001070" DisplayName="丈夫家族史" SourceName="husbandfamilyhistory" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0" Enum="YOUWU" IsEnumText="是" ControlType="单选框"/>
+			<Property Id="101001071" DisplayName="建册孕周" SourceName="gestationalweeks" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="101001072" DisplayName="身高(cm)" SourceName="height" ColumnType="decimal" MaxLength="5" Precision="8" Scale="2"/>
+			<Property Id="101001073" DisplayName="基础体重(kg)" SourceName="weight" ColumnType="decimal" MaxLength="5" Precision="8" Scale="2"/>
+			<Property Id="101001074" DisplayName="孕妇档案号" SourceName="pregnantid" ColumnType="varchar" MaxLength="30" Precision="0" Scale="0"/>
+			<Property Id="101001075" DisplayName="管辖机构" SourceName="manaunitid" ColumnType="varchar" MaxLength="30" Precision="0" Scale="0" Enum="机构代码" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001076" DisplayName="建册日期" SourceName="createdate" ColumnType="date" MaxLength="3" Precision="10" Scale="0"/>
+			<Property Id="101001077" DisplayName="处理标志" SourceName="mark" ColumnType="char" MaxLength="1" Precision="0" Scale="0"/>
+			<Property Id="101001078" DisplayName="上传时间" SourceName="uploadtime" ColumnType="date" MaxLength="3" Precision="10" Scale="0"/>
+			<Property Id="101001079" DisplayName="处理时间" SourceName="updatetime" ColumnType="datetime" MaxLength="8" Precision="23" Scale="3"/>
+			<Property Id="101001080" DisplayName="预留0" SourceName="reserved0" ColumnType="varchar" MaxLength="50" Precision="0" Scale="0"/>
+			<Property Id="101001081" DisplayName="预留1" SourceName="reserved1" ColumnType="varchar" MaxLength="50" Precision="0" Scale="0"/>
+			<Property Id="101001082" DisplayName="预留2" SourceName="reserved2" ColumnType="varchar" MaxLength="50" Precision="0" Scale="0"/>
+			<Property Id="101001083" DisplayName="预留3" SourceName="reserved3" ColumnType="varchar" MaxLength="50" Precision="0" Scale="0"/>
+			<Property Id="101001084" DisplayName="预留4" SourceName="reserved4" ColumnType="varchar" MaxLength="50" Precision="0" Scale="0"/>
+			<Property Id="101001085" DisplayName="家庭电话" SourceName="phonenumber" ColumnType="varchar" MaxLength="50" Precision="0" Scale="0"/>
+			<Property Id="101001086" DisplayName="本人电话" SourceName="mobilenumber" ColumnType="varchar" MaxLength="50" Precision="0" Scale="0"/>
+			<Property Id="101001087" DisplayName="妇保医生姓名" SourceName="responsedoctorname" ColumnType="varchar" MaxLength="50" Precision="0" Scale="0"/>
+			<Property Id="101001088" DisplayName="丈夫姓名" SourceName="husbandname" ColumnType="varchar" MaxLength="50" Precision="0" Scale="0"/>
+			<Property Id="101001089" DisplayName="录入孕周" SourceName="inputpregweeks" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="101001090" DisplayName="是否补充叶酸" SourceName="folicsupplementation" ColumnType="char" MaxLength="1" Precision="0" Scale="0" Enum="FOLICSUPPLEMENTATION" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001091" DisplayName="病人id" SourceName="patientid" ColumnType="varchar" MaxLength="50" Precision="0" Scale="0"/>
+			<Property Id="101001092" DisplayName="医保卡号" SourceName="patientaccount" ColumnType="varchar" MaxLength="50" Precision="0" Scale="0"/>
+			<Property Id="101001093" DisplayName="计划表" SourceName="schedule" ColumnType="varchar" MaxLength="5000" Precision="0" Scale="0"/>
+			<Property Id="101001094" DisplayName="户籍地址-文本" SourceName="homeaddress_text" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0" IsEnumText="是"/>
+			<Property Id="101001095" DisplayName="随访医生姓名" SourceName="followupdoctorname" ColumnType="varchar" MaxLength="50" Precision="0" Scale="0"/>
+			<Property Id="101001096" DisplayName="创建时间" SourceName="createtime" ColumnType="datetime" MaxLength="8" Precision="23" Scale="3"/>
+			<Property Id="101001097" DisplayName="录入护士工号" SourceName="editorcode" ColumnType="varchar" MaxLength="20" Precision="0" Scale="0"/>
+			<Property Id="101001098" DisplayName="录入护士姓名" SourceName="editorname" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0"/>
+			<Property Id="101001099" DisplayName="脉搏" SourceName="pulse" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="101001100" DisplayName="预产期修正标志" SourceName="dateofprenatalflag" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="101001101" DisplayName="最后修改时间" SourceName="lastmodifydate" ColumnType="datetime" MaxLength="8" Precision="23" Scale="3"/>
+			<Property Id="101001102" DisplayName="建档医生" SourceName="create_localuser" ColumnType="varchar" MaxLength="20" Precision="0" Scale="0" IsEnumText="是"/>
+			<Property Id="101001103" DisplayName="来源单位" SourceName="sourceunit" ColumnType="varchar" MaxLength="22" Precision="0" Scale="0" Enum="InstitutionaCodeAll" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001104" DisplayName="修改标志" SourceName="updateflag" ColumnType="char" MaxLength="1" Precision="0" Scale="0"/>
+			<Property Id="101001105" DisplayName="上传至传输平台时间" SourceName="deliverydate" ColumnType="datetime" MaxLength="8" Precision="23" Scale="3"/>
+			<Property Id="101001106" DisplayName="建大卡时间" SourceName="builtkcal" ColumnType="datetime" MaxLength="8" Precision="23" Scale="3"/>
+			<Property Id="101001107" DisplayName="daqtaskid" SourceName="daqtaskid" ColumnType="varchar" MaxLength="17" Precision="0" Scale="0"/>
+			<Property Id="101001108" DisplayName="deliverytime" SourceName="deliverytime" ColumnType="datetime2" MaxLength="8" Precision="27" Scale="7"/>
+			<Property Id="101001109" DisplayName="deliverystatus" SourceName="deliverystatus" ColumnType="char" MaxLength="1" Precision="0" Scale="0"/>
+			<Property Id="101001110" DisplayName="数据中心关联的唯一键" SourceName="deliveryid" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0"/>
+			<Property Id="101001111" DisplayName="nutrition_visit" SourceName="nutrition_visit" ColumnType="varchar" MaxLength="1" Precision="0" Scale="0"/>
+			<Property Id="101001112" DisplayName="psy_visit" SourceName="psy_visit" ColumnType="varchar" MaxLength="1" Precision="0" Scale="0"/>
+			<Property Id="101001113" DisplayName="cmed_visit" SourceName="cmed_visit" ColumnType="varchar" MaxLength="1" Precision="0" Scale="0"/>
+			<Property Id="101001114" DisplayName="medquery_visit" SourceName="medquery_visit" ColumnType="varchar" MaxLength="1" Precision="0" Scale="0"/>
+			<Property Id="101001115" DisplayName="结案标志" SourceName="filestatus" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="101001116" DisplayName="胚胎停育次数" SourceName="embryowithdrawal" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="101001117" DisplayName="建册孕天" SourceName="gestationaldays" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="101001118" DisplayName="丈夫家族史详情" SourceName="husbandfamilyhistorytext" ColumnType="varchar" MaxLength="500" Precision="0" Scale="0" IsEnumText="是"/>
+			<Property Id="101001119" DisplayName="居住地址" SourceName="liveplace" ColumnType="varchar" MaxLength="500" Precision="0" Scale="0"/>
+			<Property Id="101001120" DisplayName="职业" SourceName="workname" ColumnType="varchar" MaxLength="500" Precision="0" Scale="0"/>
+			<Property Id="101001121" DisplayName="足月产次数" SourceName="termbirthtimes" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="101001122" DisplayName="早产次数" SourceName="pretermbirthtimes" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="101001123" DisplayName="流产次数" SourceName="abortiontimes" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="101001124" DisplayName="现存子女数" SourceName="existingchildrennum" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="101001125" DisplayName="孕产史" SourceName="pregnanthistory" ColumnType="varchar" MaxLength="2000" Precision="0" Scale="0"/>
+			<Property Id="101001126" DisplayName="本次怀孕方式" SourceName="tpregnancymanner" ColumnType="char" MaxLength="1" Precision="0" Scale="0" Enum="TPREGNANCYMANNER" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001127" DisplayName="体质指数" SourceName="bmi" ColumnType="varchar" MaxLength="10" Precision="0" Scale="0"/>
+			<Property Id="101001128" DisplayName="本次怀孕详情" SourceName="tpregnancymanner_text" ColumnType="varchar" MaxLength="200" Precision="0" Scale="0"/>
+			<Property Id="101001129" DisplayName="居住地址详情" SourceName="liveplace_text" ColumnType="varchar" MaxLength="1000" Precision="0" Scale="0"/>
+			<Property Id="101001130" DisplayName="丈夫身份证号" SourceName="husbandidcard" ColumnType="varchar" MaxLength="50" Precision="0" Scale="0"/>
+			<Property Id="101001131" DisplayName="转入机构" SourceName="changein_unit" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0" Enum="机构代码" IsEnumText="是" ControlType="单选框"/>
+			<Property Id="101001132" DisplayName="转入日期" SourceName="changein_date" ColumnType="date" MaxLength="3" Precision="10" Scale="0"/>
+			<Property Id="101001133" DisplayName="转入来源区属" SourceName="changein_ascription" ColumnType="varchar" MaxLength="200" Precision="0" Scale="0"/>
+			<Property Id="101001134" DisplayName="门诊号" SourceName="jiuzhenid" ColumnType="nchar" MaxLength="20" Precision="0" Scale="0"/>
+			<Property Id="101001135" DisplayName="证件类型" SourceName="idtype" ColumnType="varchar" MaxLength="1" Precision="0" Scale="0" Enum="IDTYPE" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001136" DisplayName="建册年龄" SourceName="createage" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="101001137" DisplayName="丈夫出生日期" SourceName="husbandbirthday" ColumnType="date" MaxLength="3" Precision="10" Scale="0"/>
+			<Property Id="101001138" DisplayName="丈夫年龄 " SourceName="husbandage" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="101001139" DisplayName="丈夫联系电话 " SourceName="husbandmobile" ColumnType="varchar" MaxLength="50" Precision="0" Scale="0"/>
+			<Property Id="101001140" DisplayName="丈夫工作单位 " SourceName="husbandworkplace" ColumnType="varchar" MaxLength="50" Precision="0" Scale="0"/>
+			<Property Id="101001141" DisplayName="丈夫民族 " SourceName="husbandnationcode" ColumnType="varchar" MaxLength="2" Precision="0" Scale="0" Enum="NATIONCODE" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001142" DisplayName="丈夫国籍编码 " SourceName="husbandnationalitycode" ColumnType="varchar" MaxLength="3" Precision="0" Scale="0" Enum="NATIONALITYCODE" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001143" DisplayName="户籍地址联系电话 " SourceName="homeaddressphone" ColumnType="varchar" MaxLength="50" Precision="0" Scale="0"/>
+			<Property Id="101001144" DisplayName="家庭地址编号 " SourceName="liveaddresscode" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0" Enum="行政区划编码" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001145" DisplayName="家庭地址名称 " SourceName="liveaddresstext" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0"/>
+			<Property Id="101001146" DisplayName="产后休养地址" SourceName="restregiontext" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0" Enum="行政区划编码" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001147" DisplayName="产后休养地址电话 " SourceName="restregionphone" ColumnType="varchar" MaxLength="50" Precision="0" Scale="0"/>
+			<Property Id="101001148" DisplayName="丈夫户籍地址编号 " SourceName="husbandhomeaddress" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0" Enum="行政区划编码" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001149" DisplayName="丈夫户籍地址 " SourceName="husbandhomeaddress_text" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0"/>
+			<Property Id="101001150" DisplayName="户口类型 " SourceName="registrationtype" ColumnType="varchar" MaxLength="2" Precision="0" Scale="0" Enum="REGISTRATIONTYPE" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001151" DisplayName="生殖健康服务证发放地 " SourceName="healthplace" ColumnType="varchar" MaxLength="1" Precision="0" Scale="0" Enum="HEALTHPLACE" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001152" DisplayName="录入机构名称 " SourceName="sourceunittext" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0"/>
+			<Property Id="101001153" DisplayName="孕妇民族名称 " SourceName="nationtext" ColumnType="varchar" MaxLength="50" Precision="0" Scale="0"/>
+			<Property Id="101001154" DisplayName="阴道分娩 " SourceName="vaginaldeliverynum" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="101001155" DisplayName="剖宫产 " SourceName="caesareansectionnum" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="101001156" DisplayName="现病史 " SourceName="presenthistory" ColumnType="varchar" MaxLength="1" Precision="0" Scale="0" Enum="YOUWUYC" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001157" DisplayName="现病史异常详述 " SourceName="presenthistorytext" ColumnType="varchar" MaxLength="200" Precision="0" Scale="0"/>
+			<Property Id="101001158" DisplayName="既往病史详述" SourceName="pasthistorytext" ColumnType="varchar" MaxLength="200" Precision="0" Scale="0" Enum="PASTHISTORYTEXT" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001159" DisplayName="既往病史详述值，逗号相隔" SourceName="pasthistoryval" ColumnType="varchar" MaxLength="200" Precision="0" Scale="0"/>
+			<Property Id="101001160" DisplayName="遗传家族史" SourceName="heredityfamilyhistorytext" ColumnType="varchar" MaxLength="200" Precision="0" Scale="0"/>
+			<Property Id="101001161" DisplayName="精神疾病史 " SourceName="mentalhistory" ColumnType="varchar" MaxLength="1" Precision="0" Scale="0" Enum="YOUWUBX" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001162" DisplayName="精神疾病史详述 " SourceName="mentalhistorytext" ColumnType="varchar" MaxLength="200" Precision="0" Scale="0"/>
+			<Property Id="101001163" DisplayName="智障 " SourceName="retarded" ColumnType="varchar" MaxLength="1" Precision="0" Scale="0" Enum="YOUWUBX" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001164" DisplayName="智障程度 " SourceName="retardedlevel" ColumnType="varchar" MaxLength="1" Precision="0" Scale="0" Enum="CHENGDU" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001165" DisplayName="智障详述 " SourceName="retardedtext" ColumnType="varchar" MaxLength="200" Precision="0" Scale="0"/>
+			<Property Id="101001166" DisplayName="畸形 " SourceName="malformation" ColumnType="varchar" MaxLength="1" Precision="0" Scale="0" Enum="YOUWUBX" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001167" DisplayName="畸形详述 " SourceName="malformationtext" ColumnType="varchar" MaxLength="200" Precision="0" Scale="0"/>
+			<Property Id="101001168" DisplayName="孕妇其他家族病史 " SourceName="otherfamilyhistory" ColumnType="varchar" MaxLength="1" Precision="0" Scale="0" Enum="YOUWUBX" IsEnumText="是" ControlType="单选框"/>
+			<Property Id="101001169" DisplayName="孕妇其他家族史详述 " SourceName="otherfamilyhistorytext" ColumnType="varchar" MaxLength="200" Precision="0" Scale="0"/>
+			<Property Id="101001170" DisplayName="丈夫遗传性疾病史 " SourceName="husheredityfamilyhistory" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0" Enum="YOUWUBX" IsEnumText="是" ControlType="单选框"/>
+			<Property Id="101001171" DisplayName="丈夫遗传性疾病史详述 " SourceName="husheredityfamilyhistorytext" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0"/>
+			<Property Id="101001172" DisplayName="精神疾病史 " SourceName="husmentalhistory" ColumnType="varchar" MaxLength="1" Precision="0" Scale="0" Enum="YOUWUBX" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001173" DisplayName="精神疾病史详述 " SourceName="husmentalhistorytext" ColumnType="varchar" MaxLength="200" Precision="0" Scale="0"/>
+			<Property Id="101001174" DisplayName="智障 " SourceName="husretarded" ColumnType="varchar" MaxLength="1" Precision="0" Scale="0" Enum="YOUWUBX" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001175" DisplayName="智障程度 " SourceName="husretardedlevel" ColumnType="varchar" MaxLength="1" Precision="0" Scale="0" Enum="CHENGDU" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001176" DisplayName="智障详述 " SourceName="husretardedtext" ColumnType="varchar" MaxLength="200" Precision="0" Scale="0"/>
+			<Property Id="101001177" DisplayName="畸形 " SourceName="husmalformation" ColumnType="varchar" MaxLength="1" Precision="0" Scale="0" Enum="YOUWUBX" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001178" DisplayName="畸形详述 " SourceName="husmalformationtext" ColumnType="varchar" MaxLength="200" Precision="0" Scale="0"/>
+			<Property Id="101001179" DisplayName="丈夫其他家族病史 " SourceName="husotherfamilyhistory" ColumnType="varchar" MaxLength="1" Precision="0" Scale="0" Enum="YOUWUBX" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001180" DisplayName="丈夫其他家族史详述 " SourceName="husotherfamilyhistorytext" ColumnType="varchar" MaxLength="200" Precision="0" Scale="0"/>
+			<Property Id="101001181" DisplayName="个人史 " SourceName="personnalhistory" ColumnType="varchar" MaxLength="1" Precision="0" Scale="0" Enum="YOUWU" IsEnumText="是" ControlType="多选框"/>
+			<Property Id="101001182" DisplayName="吸烟 " SourceName="smoking" ColumnType="varchar" MaxLength="1" Precision="0" Scale="0" Enum="SHIFOU" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001183" DisplayName="吸烟详述 " SourceName="smokingtext" ColumnType="varchar" MaxLength="200" Precision="0" Scale="0"/>
+			<Property Id="101001184" DisplayName="饮酒 " SourceName="drinking" ColumnType="varchar" MaxLength="1" Precision="0" Scale="0" Enum="YOUWUBX" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001185" DisplayName="饮酒详述 " SourceName="drinkingtext" ColumnType="varchar" MaxLength="200" Precision="0" Scale="0"/>
+			<Property Id="101001186" DisplayName="服用药物 " SourceName="medicine" ColumnType="varchar" MaxLength="1" Precision="0" Scale="0" Enum="YONGYAOWYY" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001187" DisplayName="服用药物详述 " SourceName="medicinetext" ColumnType="varchar" MaxLength="200" Precision="0" Scale="0"/>
+			<Property Id="101001188" DisplayName="药物过敏史详述 " SourceName="allergichistorytext" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0"/>
+			<Property Id="101001189" DisplayName="接触有毒有害物质详述 " SourceName="poisontouchhistext" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0"/>
+			<Property Id="101001190" DisplayName="接触放射线 " SourceName="radiation" ColumnType="varchar" MaxLength="1" Precision="0" Scale="0" Enum="YOUWUBX" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001191" DisplayName="接触放射线详述 " SourceName="radiationtext" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0"/>
+			<Property Id="101001192" DisplayName="外伤史 " SourceName="traumahistory" ColumnType="varchar" MaxLength="1" Precision="0" Scale="0" Enum="YOUWUBX" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001193" DisplayName="外伤史详述 " SourceName="traumahistorytext" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0"/>
+			<Property Id="101001194" DisplayName="其他个人史 " SourceName="otherpersonnalhistory" ColumnType="varchar" MaxLength="1" Precision="0" Scale="0" Enum="YOUWUBX" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001195" DisplayName="其他个人史详述 " SourceName="otherpersonnalhistorytext" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0"/>
+			<Property Id="101001196" DisplayName="妇科手术史" SourceName="gynecologyopstext" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0"/>
+			<Property Id="101001197" DisplayName="其他手术史 " SourceName="otheroperationhistory" ColumnType="varchar" MaxLength="1" Precision="0" Scale="0" Enum="YOUWUBX" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001198" DisplayName="其他手术史详述 " SourceName="otheroperationhistorytext" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0"/>
+			<Property Id="101001199" DisplayName="是否有避孕史 " SourceName="contraceptionhistory" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0" Enum="YOUWU" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001200" DisplayName="是否避孕 " SourceName="contraception" ColumnType="varchar" MaxLength="1" Precision="0" Scale="0" Enum="YOUWUBX" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001201" DisplayName="避孕史详述 " SourceName="contraceptiontext" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0"/>
+			<Property Id="101001202" DisplayName="孕产史 " SourceName="pregnancyhistory" ColumnType="varchar" MaxLength="1" Precision="0" Scale="0"/>
+			<Property Id="101001203" DisplayName="下载时间" SourceName="downloadtime" ColumnType="datetime" MaxLength="8" Precision="23" Scale="3"/>
+			<Property Id="101001204" DisplayName="预产期详述" SourceName="dateofprenataltext" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0"/>
+			<Property Id="101001205" DisplayName="生育史" SourceName="birthhistorytext" ColumnType="varchar" MaxLength="200" Precision="0" Scale="0"/>
+			<Property Id="101001206" DisplayName="管辖地址编码" SourceName="manageaddresscode" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0"/>
+			<Property Id="101001207" DisplayName="管辖地址-详细地址" SourceName="manageaddresstext" ColumnType="varchar" MaxLength="500" Precision="0" Scale="0"/>
+			<Property Id="101001208" DisplayName="是否流动人群" SourceName="isflowpeople" ColumnType="char" MaxLength="1" Precision="0" Scale="0" Enum="SHIFOU1" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001209" DisplayName="周期-下限" SourceName="cyclemin" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="101001210" DisplayName="周期-上限" SourceName="cyclemax" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="101001211" DisplayName="经期(天)-下限" SourceName="menstrualperiodmin" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="101001212" DisplayName="经期(天)-上限" SourceName="menstrualperiodmax" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="101001213" DisplayName="丈夫证件类型" SourceName="husbandidtype" ColumnType="varchar" MaxLength="1" Precision="0" Scale="0" Enum="IDTYPE" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001214" DisplayName="丈夫职业类别" SourceName="husbandworkcode" ColumnType="varchar" MaxLength="3" Precision="0" Scale="0"/>
+			<Property Id="101001215" DisplayName="丈夫职业名称" SourceName="husbandworkname" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0"/>
+			<Property Id="101001216" DisplayName="丈夫文化程度" SourceName="husbandeducationcode" ColumnType="varchar" MaxLength="2" Precision="0" Scale="0" Enum="EDUCATIONCODE" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001217" DisplayName="丈夫家庭电话" SourceName="husbandphonenumber" ColumnType="varchar" MaxLength="50" Precision="0" Scale="0"/>
+			<Property Id="101001218" DisplayName="丈夫家庭地址编号 " SourceName="husbandliveaddresscode" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0"/>
+			<Property Id="101001219" DisplayName="丈夫家庭地址名称 " SourceName="husbandliveaddresstext" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0"/>
+			<Property Id="101001220" DisplayName="丈夫户口类型 " SourceName="husbandregistrationtype" ColumnType="varchar" MaxLength="2" Precision="0" Scale="0" Enum="REGISTRATIONTYPE" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001221" DisplayName="产前出血" SourceName="preblood" ColumnType="varchar" MaxLength="1" Precision="0" Scale="0" Enum="SHIFOU" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001222" DisplayName="产后出血" SourceName="afterblood" ColumnType="varchar" MaxLength="1" Precision="0" Scale="0" Enum="SHIFOU" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001223" DisplayName="妊高症" SourceName="pih" ColumnType="varchar" MaxLength="1" Precision="0" Scale="0" Enum="YOUWU" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001224" DisplayName="丈夫是否农业户籍" SourceName="husbandisagrregister" ColumnType="char" MaxLength="1" Precision="0" Scale="0" Enum="SHIFOU" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001225" DisplayName="死胎次数" SourceName="died_fetal" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="101001226" DisplayName="死产次数" SourceName="died_stillbirth" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="101001227" DisplayName="过期产次数" SourceName="overdelivery" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="101001228" DisplayName="产休地名称" SourceName="restregionname" ColumnType="varchar" MaxLength="500" Precision="0" Scale="0"/>
+			<Property Id="101001229" DisplayName="户籍地址名称" SourceName="homeaddressname" ColumnType="varchar" MaxLength="500" Precision="0" Scale="0" IsEnumText="是"/>
+			<Property Id="101001230" DisplayName="丈夫户籍地址名称" SourceName="husbandhomeaddressname" ColumnType="varchar" MaxLength="500" Precision="0" Scale="0"/>
+			<Property Id="101001231" DisplayName="丈夫居住地址名称" SourceName="husbandliveaddressname" ColumnType="varchar" MaxLength="500" Precision="0" Scale="0"/>
+			<Property Id="101001232" DisplayName="是否建册" SourceName="iscreatebook" ColumnType="char" MaxLength="1" Precision="0" Scale="0" Enum="SHIFOU" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001233" DisplayName="预产期修改原因" SourceName="dateofprenatalmodifyreason" ColumnType="varchar" MaxLength="1000" Precision="0" Scale="0"/>
+			<Property Id="101001234" DisplayName="丈夫ABO血型" SourceName="husbandbloodtypecode" ColumnType="varchar" MaxLength="10" Precision="0" Scale="0" Enum="BLOODTYPECODE" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001235" DisplayName="丈夫RH血型" SourceName="husbandrhbloodcode" ColumnType="varchar" MaxLength="10" Precision="0" Scale="0" Enum="RHBLOODCODE" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001236" DisplayName="建册机构" SourceName="createbookunit" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0" Enum="机构代码" IsEnumText="是" ControlType="单选框"/>
+			<Property Id="101001237" DisplayName="boyname" SourceName="boyname" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0"/>
+			<Property Id="101001238" DisplayName="girlname" SourceName="girlname" ColumnType="varchar" MaxLength="100" Precision="0" Scale="0"/>
+			<Property Id="101001239" DisplayName="marryyears" SourceName="marryyears" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="101001240" DisplayName="husbandpresenthistory" SourceName="husbandpresenthistory" ColumnType="varchar" MaxLength="500" Precision="0" Scale="0" Enum="HUSBANDPRESENTHISTORY" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001241" DisplayName="husbandpersonnalhistory" SourceName="husbandpersonnalhistory" ColumnType="varchar" MaxLength="1" Precision="0" Scale="0" Enum="YOUWU" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001242" DisplayName="husbandsmoking" SourceName="husbandsmoking" ColumnType="varchar" MaxLength="1" Precision="0" Scale="0"/>
+			<Property Id="101001243" DisplayName="husbandsmokingtext" SourceName="husbandsmokingtext" ColumnType="varchar" MaxLength="200" Precision="0" Scale="0"/>
+			<Property Id="101001244" DisplayName="husbanddrinking" SourceName="husbanddrinking" ColumnType="varchar" MaxLength="1" Precision="0" Scale="0"/>
+			<Property Id="101001245" DisplayName="husbanddrinkingtext" SourceName="husbanddrinkingtext" ColumnType="varchar" MaxLength="200" Precision="0" Scale="0"/>
+			<Property Id="101001246" DisplayName="closemarry" SourceName="closemarry" ColumnType="varchar" MaxLength="1" Precision="0" Scale="0" Enum="SHIFOU" IsEnumText="否" ControlType="单选框"/>
+			<Property Id="101001247" DisplayName="husbandliveaddresszipcode" SourceName="husbandliveaddresszipcode" ColumnType="varchar" MaxLength="20" Precision="0" Scale="0"/>
+			<Property Id="101001248" DisplayName="husbandemermobile" SourceName="husbandemermobile" ColumnType="varchar" MaxLength="50" Precision="0" Scale="0"/>
+			<Property Id="101001249" DisplayName="emrmobilenumber" SourceName="emrmobilenumber" ColumnType="varchar" MaxLength="50" Precision="0" Scale="0"/>
+			<Property Id="101001250" DisplayName="restregionmobilenumber" SourceName="restregionmobilenumber" ColumnType="varchar" MaxLength="50" Precision="0" Scale="0"/>
+			<Property Id="101001251" DisplayName="homeaddressowner" SourceName="homeaddressowner" ColumnType="varchar" MaxLength="1000" Precision="0" Scale="0"/>
+		</Properties>
+	</SyncEntity>
+</SyncEntities>
