@@ -409,5 +409,14 @@ namespace Autobots.Infrastracture.Common.ValuesSolution
         }
 
         #endregion
+
+        #region IEnum
+
+        public static string ToArrayString(this IEnumerable<string> array,string splitter)
+        {
+            return string.Join(splitter, array);
+        }
+
+        #endregion
     }
 }

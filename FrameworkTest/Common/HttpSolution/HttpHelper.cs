@@ -24,9 +24,12 @@ namespace FrameworkTest.Common.HttpSolution
                 request.AllowAutoRedirect = true;
                 request.CookieContainer = container;//获取验证码时候获取到的cookie会附加在这个容器里面
                 request.KeepAlive = true;//建立持久性连接
-                foreach (var keyValue in keyValues)
+                if (keyValues!=null)
                 {
-                    request.Headers.Add(keyValue.Key, keyValue.Value);
+                    foreach (var keyValue in keyValues)
+                    {
+                        request.Headers.Add(keyValue.Key, keyValue.Value);
+                    }
                 }
                 if (bytepostData != null)
                 {

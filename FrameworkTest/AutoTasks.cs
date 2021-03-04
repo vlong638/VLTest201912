@@ -3,6 +3,7 @@ using FrameworkTest.Common.FileSolution;
 using FrameworkTest.Common.ValuesSolution;
 using System;
 using System.IO;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -77,6 +78,9 @@ namespace FrameworkTest
 
         static void Main(string[] args)
         {
+            CookieContainer container = new CookieContainer();
+            Common.HttpSolution.HttpHelper.Post("http://za2.dhwz555.top/", "", ref container);
+
             Console.WriteLine("1 for data after 2021-01-01");
             Console.WriteLine("2 for data in last 1 day");
             var item = Console.ReadLine();

@@ -20,9 +20,6 @@
     <None Update="Configs\XMLConfigs\BusinessEntities\BusinessEntities_产科.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Configs\XMLConfigs\SynchronizeEntities\SynchronizeEntities_产科.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="Docs\SQLs\01.C_User.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -81,6 +78,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Docs\SQLs\18.C_ProjectDepartment.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Docs\SQLs\19.C_SyncManage.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Docs\SQLs\99.Data.sql">
