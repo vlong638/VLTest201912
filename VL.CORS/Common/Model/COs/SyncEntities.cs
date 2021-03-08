@@ -91,15 +91,15 @@ namespace ResearchAPI.CORS.Common
             DisplayName = element.Attribute(nameof(DisplayName))?.Value;
             SourceName = element.Attribute(nameof(SourceName))?.Value;
             ColumnType = element.Attribute(nameof(ColumnType))?.Value;
-            MaxLength = element.Attribute(nameof(MaxLength))?.Value;
+            MaxLength = element.Attribute(nameof(MaxLength))?.Value.ToInt() ?? 0;
             Precision = element.Attribute(nameof(Precision))?.Value;
             Scale = element.Attribute(nameof(Scale))?.Value;
             Enum = element.Attribute(nameof(Enum))?.Value;
-            IsEnumText = element.Attribute(nameof(IsEnumText))?.Value;
+            IsEnumText = element.Attribute(nameof(IsEnumText))?.Value == "是";
             ControlType = element.Attribute(nameof(ControlType))?.Value;
         }
 
-        public string GetTargetColumnType()
+        public string GetTargetColumnDefinition()
         {
             //单选框
             //多选框
@@ -109,9 +109,13 @@ namespace ResearchAPI.CORS.Common
             }
             //否
             //是
-            if (IsEnumText=="是")
+            if (IsEnumText)
             {
                 return "nvarchar(255)";
+            }
+            if (!Enum.IsNullOrEmpty())
+            {
+                MaxLength = MaxLength > 20 ? MaxLength : 20;
             }
             switch (ColumnType)
             {
@@ -123,10 +127,14 @@ namespace ResearchAPI.CORS.Common
                     return $"decimal({Precision},{Scale})";
                 case "int":
                     return "int";
+                case "bigint":
+                    return "bigint";
+                case "bit":
                 case "char":
                 case "nchar":
-                    return "nvarchar(10)";
+                    return "nvarchar(20)";
                 case "varchar":
+                case "nvarchar":
                     var maxLength = MaxLength.ToInt().Value;
                     return $"nvarchar({(maxLength < 0 ? "max" : (maxLength > 4000 ? 4000 : maxLength).ToString())})";
                 default:
@@ -138,11 +146,11 @@ namespace ResearchAPI.CORS.Common
         public string DisplayName { set; get; }
         public string SourceName { set; get; }
         public string ColumnType { set; get; }
-        public string MaxLength { set; get; }
+        public int MaxLength { set; get; }
         public string Precision { set; get; }
         public string Scale { set; get; }
         public string Enum { set; get; }
-        public string IsEnumText { set; get; }
+        public bool IsEnumText { set; get; }
         public string ControlType { set; get; }
     }
 }

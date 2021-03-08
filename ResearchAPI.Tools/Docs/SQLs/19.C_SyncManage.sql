@@ -9,7 +9,8 @@ CREATE TABLE [dbo].[SyncManage](
 	[db_createtime] [datetime] DEFAULT CURRENT_TIMESTAMP,
 	[From] [varchar](100) NULL, -- 来源表
 	[To] [varchar](100) NULL, -- 目标表
-	[OperateType] [tinyint] NULL, -- 目标表
+	[OperateType] [tinyint] NULL, -- 操作类型
+	[OperateStatus] [tinyint] NULL, -- 操作状态
 	[IssueTime] [datetime] NULL, --同步时间
 	[LatestDataTime] [datetime] NULL, --同步时间
 	[LatestDataField] [varchar](100) NULL, --同步信息记录

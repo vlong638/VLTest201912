@@ -52,18 +52,40 @@ namespace ResearchAPI.Tools
                     var manage = new SyncManage($"{targetDBContext.DbGroup.Connection.Database}.dbo.{toTable}"
                         , $"{sourceDBContext.DbGroup.Connection.Database}.dbo.{fromTable}"
                         , DateTime.Now
-                        , DateTime.Now
+                        , null
                         , ""
-                        , ""
-                        , OperateType.InitTable);
+                        ,$"成功_数据表结构初始化"
+                        , OperateType.InitTable
+                        ,OperateStatus.Success);
                     try
                     {
+                        //前置校验
+                        foreach (var property in businessEntity.Properties)
+                        {
+                            if (property.Enum.IsNullOrEmpty())
+                            {
+                                continue;
+                            }
+                            var json = ConfigHelper.GetJsonFileData(Path.Combine(Environment.CurrentDirectory, "Configs\\JsonConfigs", businessEntities.BusinessType), property.Enum);
+                            if (json.IsNullOrEmpty())
+                            {
+                                throw new Exception(property.Enum + ",Json文件不存在");
+                            }
+                            var dic = json.FromJson<VLKeyValues>();
+                            var maxLength = dic.Max(c => c.Key.Length);
+                            if (property.MaxLength < maxLength)
+                            {
+                                manage.Message += $"\r\n字段{property.SourceName}长度由于枚举,校准为{maxLength}";
+                                property.MaxLength = maxLength;
+                            }
+                        }
+
                         StringBuilder sb = new StringBuilder();
                         sb.AppendLine($"CREATE TABLE [dbo].[{toTable}] (");
                         foreach (var property in businessEntity.Properties)
                         {
                             var columnName = property.SourceName;
-                            var columnType = property.GetTargetColumnType();
+                            var columnType = property.GetTargetColumnDefinition();
                             sb.AppendLine($"  [{columnName}] {columnType} NULL,");
                         }
                         sb.AppendLine($"[db_createtime] [datetime] DEFAULT CURRENT_TIMESTAMP");
@@ -76,13 +98,13 @@ namespace ResearchAPI.Tools
                         }
                         var sql = sb.ToString();
                         targetDBContext.Execute(sql);
-                        manage.Message = $"成功_数据表结构初始化";
                         Console.WriteLine(manage.Message);
                     }
                     catch (Exception ex)
                     {
                         Console.WriteLine($"失败");
                         manage.Message = ex.ToString();
+                        manage.OperateStatus = OperateStatus.Error;
                     }
                     researchDBContext.Execute(manage.ToInsertSQL(), manage);
                     #endregion
@@ -93,23 +115,25 @@ namespace ResearchAPI.Tools
                         manage = new SyncManage($"{targetDBContext.DbGroup.Connection.Database}.dbo.{toTable}"
                             , $"{sourceDBContext.DbGroup.Connection.Database}.dbo.{fromTable}"
                             , DateTime.Now
-                            , DateTime.Now
+                            , null
                             , ""
                             , ""
-                            , OperateType.InitTable);
+                            , OperateType.InitData
+                            , OperateStatus.Success);
                         try
                         {
                             var sql = $@"
 insert into {targetDBContext.DbGroup.Connection.Database}.dbo.{businessEntity.TargetName} ({string.Join(",", businessEntity.Properties.Select(c => c.SourceName))}) 
 select {string.Join(",", businessEntity.Properties.Select(c => c.SourceName))} from {sourceDBContext.DbGroup.Connection.Database}.dbo.{businessEntity.SourceName}";
                             targetDBContext.Execute(sql);
-                            manage.Message = $"成功_数据表数据初始化";
+                            manage.Message += $"成功_数据表数据初始化";
                             Console.WriteLine(manage.Message);
                         }
                         catch (Exception ex)
                         {
                             Console.WriteLine($"失败");
                             manage.Message = ex.ToString();
+                            manage.OperateStatus = OperateStatus.Error;
                         }
                         researchDBContext.Execute(manage.ToInsertSQL(), manage);
                     }
@@ -118,9 +142,88 @@ select {string.Join(",", businessEntity.Properties.Select(c => c.SourceName))} f
             }));
             cmds.Add(new Command("s2 for 数据清洗", () =>
             {
+                var configs = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Configs", "config.json")).FromJson<DBConfig>();
+                var sourceDBContext = DBHelper.GetDbContext(configs.ConnectionStrings.First(c => c.Key == "SourceData").Value);
+                var targetDBContext = DBHelper.GetDbContext(configs.ConnectionStrings.First(c => c.Key == "TargetData").Value);
+                var researchDBContext = DBHelper.GetDbContext(configs.ConnectionStrings.First(c => c.Key == "ResearchConnectionString").Value);
+                var businessEntities = ConfigHelper.GetCOSyncEntities(Path.Combine(Environment.CurrentDirectory, "Configs/XMLConfigs/SyncEntities"), "SyncEntities_产科.xml");
 
+                #region 数据清洗
+                foreach (var businessEntity in businessEntities)
+                {
+                    var fromTable = businessEntity.SourceName;
+                    var toTable = businessEntity.TargetName;
+                    Console.WriteLine($"正在执行数据清洗{targetDBContext.DbGroup.Connection.Database}.dbo.{toTable}");
 
+                    var manage = new SyncManage($"{targetDBContext.DbGroup.Connection.Database}.dbo.{toTable}"
+                        , ""
+                        , DateTime.Now
+                        , null
+                        , ""
+                        , ""
+                        , OperateType.DataTransform
+                        ,OperateStatus.Success);
+                    try
+                    {
+                        bool hasError = false;
+                        //前置校验
+                        foreach (var property in businessEntity.Properties)
+                        {
+                            if (property.Enum.IsNullOrEmpty())
+                            {
+                                continue;
+                            }
+                            var json = ConfigHelper.GetJsonFileData(Path.Combine(Environment.CurrentDirectory, "Configs\\JsonConfigs", businessEntities.BusinessType), property.Enum);
+                            if (json.IsNullOrEmpty())
+                            {
+                                throw new Exception(property.Enum + ",Json文件不存在");
+                            }
+                        }
+                        //数据清洗
+                        foreach (var property in businessEntity.Properties)
+                        {
+                            var propertyName = property.SourceName;
+                            var propertyManage = new SyncManage($"{targetDBContext.DbGroup.Connection.Database}.dbo.{toTable}"
+                                , $"{propertyName}"
+                                , DateTime.Now
+                                , null
+                                , ""
+                                , ""
+                                , OperateType.EnumTransform
+                                ,OperateStatus.Success);
+                            if (property.Enum.IsNullOrEmpty()||property.IsEnumText)
+                            {
+                                continue;
+                            }
+                            var json = ConfigHelper.GetJsonFileData(Path.Combine(Environment.CurrentDirectory, "Configs\\JsonConfigs", businessEntities.BusinessType), property.Enum);
+                            var dic = json.FromJson<VLKeyValues>();
+                            try
+                            {
+                                var sql = $@"update {targetDBContext.DbGroup.Connection.Database}.dbo.{toTable} set {propertyName} = {dic.ToCaseSQL(propertyName)}";
+                                targetDBContext.Execute(sql);
 
+                                propertyManage.Message = $@"成功,字段{propertyName}转换为枚举{property.Enum}";
+                            }
+                            catch (Exception ex2)
+                            {
+                                propertyManage.Message = $@"失败,{ex2.ToString()}";
+                                propertyManage.OperateStatus = OperateStatus.Error;
+                                hasError = true;
+                            }
+                            Console.WriteLine(propertyManage.Message);
+                            researchDBContext.Execute(propertyManage.ToInsertSQL(), propertyManage);
+                        }
+                        manage.Message = hasError ? "失败" : "成功";
+                    }
+                    catch (Exception ex)
+                    {
+                        manage.Message = ex.ToString();
+                        manage.OperateStatus = OperateStatus.Error;
+                    }
+                    Console.WriteLine(manage.Message);
+                    researchDBContext.Execute(manage.ToInsertSQL(), manage);
+                }
+                #endregion
             }));
             cmds.Add(new Command("s3 for 数据统计预处理", () =>
             {
@@ -132,7 +235,7 @@ select {string.Join(",", businessEntity.Properties.Select(c => c.SourceName))} f
     [Table("SyncManage")]
     public class SyncManage
     {
-        public SyncManage(string from, string to, DateTime issueTime, DateTime latestDataTime, string latestDataField, string message, OperateType operateType)
+        public SyncManage(string from, string to, DateTime issueTime, DateTime? latestDataTime, string latestDataField, string message, OperateType operateType, OperateStatus operateStatus)
         {
             From = from;
             To = to;
@@ -141,6 +244,7 @@ select {string.Join(",", businessEntity.Properties.Select(c => c.SourceName))} f
             LatestDataField = latestDataField;
             Message = message;
             OperateType = operateType;
+            OperateStatus = operateStatus;
         }
 
         [Key]
@@ -148,17 +252,39 @@ select {string.Join(",", businessEntity.Properties.Select(c => c.SourceName))} f
         public string From { set; get; }
         public string To { set; get; }
         public OperateType OperateType { set; get; }
+        public OperateStatus OperateStatus { set; get; }
         public DateTime IssueTime { set; get; }
-        public DateTime LatestDataTime { set; get; }
+        public DateTime? LatestDataTime { set; get; }
         public string LatestDataField { set; get; }
         public string Message { set; get; }
+    }
+
+    public enum OperateStatus
+    {
+        None = 0,
+        Success = 1,
+        Error = 2,
     }
 
     public enum OperateType
     {
         None = 0,
+        /// <summary>
+        /// 表结构初始化
+        /// </summary>
         InitTable = 1,
+        /// <summary>
+        /// 数据初始化
+        /// </summary>
         InitData = 2,
+        /// <summary>
+        /// 数据转换
+        /// </summary>
+        DataTransform = 3,
+        /// <summary>
+        /// 枚举转换
+        /// </summary>
+        EnumTransform = 4,
     }
 
     public static class EntityEx

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Autobots.Infrastracture.Common.ValuesSolution
@@ -29,6 +30,7 @@ namespace Autobots.Infrastracture.Common.ValuesSolution
         /// </summary>
         public string Value { set; get; }
     }
+
     /// <summary>
     /// 键值对
     /// </summary>
@@ -94,4 +96,16 @@ namespace Autobots.Infrastracture.Common.ValuesSolution
         public T4 Value { set; get; }
     }
 
+    public class VLKeyValues : List<VLKeyValue>
+    {
+        public string ToCaseSQL(string fieldName)
+        {
+            return $@"
+case 
+{string.Join("\r\n", this.Select(c => $"when {fieldName} = '{c.Value}' then '{c.Key}' "))}
+else {fieldName}
+end
+";
+        }
+    }
 }

@@ -140,6 +140,23 @@ namespace ResearchAPI.CORS.Common
             return "";
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="directoryName"></param>
+        /// <param name="jsonName"></param>
+        /// <returns></returns>
+        public static string GetJsonFileData(string directoryName,string jsonName)
+        {
+            var directory = Path.Combine(AppContext.BaseDirectory, directoryName);
+            var file = (Path.Combine(directory, jsonName + ".json"));
+            if (File.Exists(file))
+            {
+                var data = System.IO.File.ReadAllText(file);
+                return data;
+            }
+            return null;
+        }
 
         internal static List<VLKeyValue<T1, T2,T3,T4>> GetJsonConfig<T1, T2, T3, T4>(string type)
         {

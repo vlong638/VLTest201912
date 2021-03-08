@@ -17,6 +17,9 @@
     <ProjectReference Include="..\VL.CORS\ResearchAPI.CORS.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="Configs\JsonConfigs\产科\YOUWU2.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Configs\XMLConfigs\SyncEntities\SyncEntities_产科.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

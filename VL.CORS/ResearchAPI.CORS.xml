@@ -2613,6 +2613,14 @@
             <param name="viewName"></param>
             <returns></returns>
         </member>
+        <member name="M:ResearchAPI.CORS.Common.ConfigHelper.GetJsonFileData(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="directoryName"></param>
+            <param name="jsonName"></param>
+            <returns></returns>
+        </member>
         <member name="T:ResearchAPI.CORS.Common.Log4NetLogger">
             <summary>
             Log4Net Logger
