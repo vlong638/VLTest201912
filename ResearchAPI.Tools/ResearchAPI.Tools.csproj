@@ -4,9 +4,15 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Configs\config - 复制.json" />
     <None Remove="Configs\config.json" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Configs\config - 复制.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
     <Content Include="Configs\config.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
@@ -29,6 +35,12 @@
     <None Update="Configs\XMLConfigs\SyncEntities\SyncEntities_产科.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Docs\SQLs\01.C_Role.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Docs\SQLs\01.C_Role_Trigger.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Docs\SQLs\01.C_User.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -38,7 +50,13 @@
     <None Update="Docs\SQLs\01.C_UserRole.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Docs\SQLs\01.C_User_Trigger.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Docs\SQLs\02.C_Project.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Docs\SQLs\02.C_Project_Trigger.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Docs\SQLs\03.C_ProjectMember.sql">
@@ -56,34 +74,67 @@
     <None Update="Docs\SQLs\07.C_ProjectIndicator.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Docs\SQLs\07.C_ProjectIndicator_Trigger.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Docs\SQLs\08.C_CustomBusinessEntity.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Docs\SQLs\08.C_CustomBusinessEntity_Trigger.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Docs\SQLs\09.C_BusinessType.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Docs\SQLs\09.C_BusinessType_Trigger.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Docs\SQLs\10.C_BusinessEntity.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Docs\SQLs\10.C_BusinessEntity_Trigger.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Docs\SQLs\11.C_BusinessEntityProperty.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Docs\SQLs\11.C_BusinessEntityProperty_Trigger.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Docs\SQLs\12.C_CustomBusinessEntityProperty.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Docs\SQLs\12.C_CustomBusinessEntityProperty_Trigger.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Docs\SQLs\13.C_CustomBusinessEntityWhere.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Docs\SQLs\13.C_CustomBusinessEntityWhere_Trigger.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Docs\SQLs\14.C_ProjectTask.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Docs\SQLs\14.C_ProjectTask_Trigger.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Docs\SQLs\15.C_ProjectTaskWhere.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Docs\SQLs\15.C_ProjectTaskWhere_Trigger.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Docs\SQLs\16.C_ProjectSchedule.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Docs\SQLs\16.C_ProjectSchedule_Trigger.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Docs\SQLs\17.C_ProjectLog.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Docs\SQLs\17.C_ProjectLog_Trigger.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Docs\SQLs\18.C_ProjectDepartment.sql">

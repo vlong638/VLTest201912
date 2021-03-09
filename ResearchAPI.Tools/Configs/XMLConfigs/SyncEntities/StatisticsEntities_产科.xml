@@ -250,8 +250,8 @@
 		</SQL>
 	</StatisticsEntity>
 	<!--Id="199001"-->
-    <StatisticsEntity Id="199001001" Name ="Common_LabOrderCount" Discription="检验记录数"><SQL>select count(1) from PT_LabResult</SQL></StatisticsEntity>
+    <StatisticsEntity Id="199001001" Name ="Common_LabOrderCount" Discription="检验记录数"><SQL>select count(1) from Common_LabResult</SQL></StatisticsEntity>
 
 	<!--Id="199002"-->
-    <StatisticsEntity Id="199002001" Name ="Common_LabResultCount" Discription="检验记录项目数"><SQL>select count(1) from PT_LabOrder</SQL></StatisticsEntity>
+    <StatisticsEntity Id="199002001" Name ="Common_LabResultCount" Discription="检验记录项目数"><SQL>select count(1) from Common_LabOrder</SQL></StatisticsEntity>
 </StatisticsEntities>

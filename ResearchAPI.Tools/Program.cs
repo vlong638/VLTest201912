@@ -45,6 +45,7 @@ namespace ResearchAPI.Tools
                 var targetDBContext = DBHelper.GetDbContext(configs.ConnectionStrings.First(c => c.Key == "TargetData").Value);
                 var researchDBContext = DBHelper.GetDbContext(configs.ConnectionStrings.First(c => c.Key == "ResearchConnectionString").Value);
                 var businessEntities = ConfigHelper.GetCOSyncEntities(Path.Combine(Environment.CurrentDirectory, "Configs/XMLConfigs/SyncEntities"), "SyncEntities_产科.xml");
+                businessEntities.AddRange(ConfigHelper.GetCOSyncEntities(Path.Combine(Environment.CurrentDirectory, "Configs/XMLConfigs/SyncEntities"), "SyncEntities_检验.xml"));
                 foreach (var businessEntity in businessEntities)
                 {
                     var fromTable = businessEntity.SourceName;

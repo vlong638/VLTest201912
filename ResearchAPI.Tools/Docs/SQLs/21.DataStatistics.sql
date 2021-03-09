@@ -9,11 +9,11 @@ CREATE TABLE [dbo].[DataStatistics](
 	[db_createtime] [datetime] DEFAULT CURRENT_TIMESTAMP,
 	[db_updatetime] [datetime] NULL,
 	-------------------------------------------
-	[Name] nvarchar(20) COLLATE Chinese_PRC_CI_AS  NULL,
+	[Name] nvarchar(50) COLLATE Chinese_PRC_CI_AS  NULL,
 	[IssueTime] datetime  NULL,
 	[Category] int  NULL,
-	[Value] nvarchar(20) COLLATE Chinese_PRC_CI_AS  NULL,
-	[Parent] nvarchar(20) COLLATE Chinese_PRC_CI_AS  NULL,
+	[Value] nvarchar(50) COLLATE Chinese_PRC_CI_AS  NULL,
+	[Parent] nvarchar(50) COLLATE Chinese_PRC_CI_AS  NULL,
 	[Message] nvarchar(max) COLLATE Chinese_PRC_CI_AS  NULL,
 
 	CONSTRAINT[PK_DataStatistics] PRIMARY KEY CLUSTERED 
