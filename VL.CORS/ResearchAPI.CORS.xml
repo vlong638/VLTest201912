@@ -1098,6 +1098,244 @@
             值
             </summary>
         </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_PatientCount">
+            <summary>
+            产妇总数
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_PregnantRecordCount">
+            <summary> 
+             档案总数
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_CreateBookAge_lt20_Count">
+            <summary> 
+             建册年龄分布 lt20  @createtime,birthday 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_CreateBookAge_20_29_Count">
+            <summary> 
+             建册年龄分布 20-29  @createtime,birthday 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_CreateBookAge_30_34_Count">
+            <summary> 
+             建册年龄分布 30-34  @createtime,birthday 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_CreateBookAge_35_39_Count">
+            <summary> 
+             建册年龄分布 35-39  @createtime,birthday 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_CreateBookAge_40_44_Count">
+            <summary> 
+             建册年龄分布 40-44  @createtime,birthday 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_CreateBookAge_gt_44_Count">
+            <summary> 
+             建册年龄分布 gt44  @createtime,birthday 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_MHC_VisitRecordCount">
+            <summary> 
+             病历总数 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_MHC_VisitRecordCount_Monthly">
+            <summary> 
+             病历总数 月周期 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_RiskLevel_Green_Count">
+            <summary> 
+             五色高危分布_绿色 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_RiskLevel_Yellow_Count">
+            <summary> 
+             五色高危分布_黄色 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_RiskLevel_Orange_Count">
+            <summary> 
+             五色高危分布_橙色 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_RiskLevel_Red_Count">
+            <summary> 
+             五色高危分布_红色 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_RiskLevel_Violet_Count">
+            <summary> 
+             五色高危分布_紫色 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_ChildCount">
+            <summary> 
+             新生儿总数 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_ChildRecordCount">
+            <summary> 
+             新生儿档案总数 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_BoyCount">
+            <summary> 
+             新生儿男孩总数 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_GirlCount">
+            <summary> 
+             新生儿女孩总数 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_ChildRecordCount_Monthly">
+            <summary> 
+             新生儿档案总数月周期 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_MotherCount">
+            <summary> 
+             已分娩产妇总数 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_PregnantCount">
+            <summary> 
+             待分娩产妇总数 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_AbortionCount">
+            <summary> 
+             流产产妇总数 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_PregnancyOutcomeAliveCount">
+            <summary> 
+             分娩结局`存活`母亲总数 @fenmianjjmc 
+             CDH_DeliveryRecord: 553773
+             PregnantInfo: 1174824
+             342148 = 13s
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_PregnancyOutcomeStillBirthCount">
+            <summary> 
+             分娩结局`死胎`母亲总数 @fenmianjjmc 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_PregnancyOutcomeDeadBirthCount">
+            <summary> 
+             分娩结局`死产`母亲总数 @fenmianjjmc 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_MotherOutcomeDeadBirthCount">
+            <summary> 
+             母亲结局`产时死亡`母亲总数 @chanfujjmc 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_MotherOutcomeAliveCount">
+            <summary> 
+             母亲结局`存活`母亲总数 @chanfujjmc 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_Boy_DeliveryWeekCount_lt28">
+            <summary> 
+             分娩孕周 小于28周 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_Boy_DeliveryWeekCount_28_37">
+            <summary> 
+             分娩孕周 28周-37周 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_Boy_DeliveryWeekCount_37_41">
+            <summary> 
+             分娩孕周 37周-41周 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_Boy_DeliveryWeekCount_gt41">
+            <summary> 
+             分娩孕周 大于41周 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_Girl_DeliveryWeekCount_lt28">
+            <summary> 
+             分娩孕周 小于28周 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_Girl_DeliveryWeekCount_28_37">
+            <summary> 
+             分娩孕周 28周-37周 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_Girl_DeliveryWeekCount_37_41">
+            <summary> 
+             分娩孕周 37周-41周 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_Girl_DeliveryWeekCount_gt41">
+            <summary> 
+             分娩孕周 大于41周 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_DeliveryMode_ForcepsCount">
+            <summary> 
+             分娩方式`产钳助产` @fenmianfsmc 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_DeliveryMode_DestroyCount">
+            <summary> 
+             分娩方式`毁胎术` @fenmianfsmc 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_DeliveryMode_CaesareanCount">
+            <summary> 
+             分娩方式`剖宫产` @fenmianfsmc 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_DeliveryMode_OtherCount">
+            <summary> 
+             分娩方式`其他` @fenmianfsmc 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_DeliveryMode_Other2Count">
+            <summary> 
+             分娩方式`其它` @fenmianfsmc 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_DeliveryMode_ExtractionCount">
+            <summary> 
+             分娩方式`胎头吸引` @fenmianfsmc 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_DeliveryMode_BreechAssistCount">
+            <summary> 
+             分娩方式`臀位助产` @fenmianfsmc 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_DeliveryMode_VaginalCount">
+            <summary> 
+             分娩方式`阴道自然分娩` @fenmianfsmc 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_DeliveryMode_InducedCount">
+            <summary> 
+             分娩方式`治疗性引产` @fenmianfsmc 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.Common_LabOrderCount">
+            <summary> 
+             检验记录数 
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.Common_LabResultCount">
+            <summary> 
+             检验记录项目数 
+            </summary>
+        </member>
         <member name="T:ResearchAPI.CORS.Common.ViewAuthorizeType">
             <summary>
             项目查看权限
@@ -2717,6 +2955,21 @@
         <member name="M:ResearchAPI.CORS.Controllers.EasyResearchController.GetDropdownsWithParent(ResearchAPI.CORS.Services.ReportTaskService,ResearchAPI.CORS.Common.GetDropdownsWithParentRequest)">
             <summary>
             下拉项
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Controllers.EasyResearchController.GetStatistics(ResearchAPI.CORS.Services.ReportTaskService,ResearchAPI.CORS.Controllers.EasyResearchController.GetStatisticsRequest)">
+            <summary>
+            统计,Statistics
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Controllers.EasyResearchController.GetStatisticsRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Controllers.EasyResearchController.GetStatisticsRequest.Ids">
+            <summary>
+            获取键值的类型
             </summary>
         </member>
         <member name="M:ResearchAPI.CORS.Controllers.EasyResearchController.GetFavoriteProjects(ResearchAPI.CORS.Common.APIContext,ResearchAPI.CORS.Services.ReportTaskService)">

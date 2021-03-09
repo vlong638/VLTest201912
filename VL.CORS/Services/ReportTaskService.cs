@@ -27,10 +27,11 @@ namespace ResearchAPI.CORS.Services
         APIContext APIContext { get; set; }
         DbContext ResearchDbContext { set; get; }
 
+        BusinessEntityPropertyRepository BusinessEntityPropertyRepository { set; get; }
         CustomBusinessEntityPropertyRepository CustomBusinessEntityPropertyRepository { set; get; }
         CustomBusinessEntityRepository CustomBusinessEntityRepository { set; get; }
         CustomBusinessEntityWhereRepository CustomBusinessEntityWhereRepository { set; get; }
-        BusinessEntityPropertyRepository BusinessEntityPropertyRepository { set; get; }
+        DataStatisticsRepository DataStatisticsRepository { set; get; }
         FavoriteProjectRepository FavoriteProjectRepository { set; get; }
         ProjectDepartmentRepository ProjectDepartmentRepository { set; get; }
         ProjectRepository ProjectRepository { set; get; }
@@ -43,7 +44,6 @@ namespace ResearchAPI.CORS.Services
         RoleRepository RoleRepository { set; get; }
         SharedRepository SharedRepository { set; get; }
         UserRepository UserRepository { set; get; }
-
         /// <summary>
         /// 
         /// </summary>
@@ -65,10 +65,11 @@ namespace ResearchAPI.CORS.Services
         private void Init(DbContext DbContext)
         {
             //repositories
+            BusinessEntityPropertyRepository = new BusinessEntityPropertyRepository(DbContext);
             CustomBusinessEntityPropertyRepository = new CustomBusinessEntityPropertyRepository(DbContext);
             CustomBusinessEntityRepository = new CustomBusinessEntityRepository(DbContext);
             CustomBusinessEntityWhereRepository = new CustomBusinessEntityWhereRepository(DbContext);
-            BusinessEntityPropertyRepository = new BusinessEntityPropertyRepository(DbContext);
+            DataStatisticsRepository = new DataStatisticsRepository(DbContext);
             FavoriteProjectRepository = new FavoriteProjectRepository(DbContext);
             ProjectDepartmentRepository = new ProjectDepartmentRepository(DbContext);
             ProjectRepository = new ProjectRepository(DbContext);
@@ -91,7 +92,7 @@ namespace ResearchAPI.CORS.Services
                 return new List<VLKeyValue<string, long>>(
                     result.Select(c => new VLKeyValue<string, long>(c.ProjectName, c.ProjectId)).ToList()
                 );
-            },Logger);
+            }, Logger);
         }
 
         internal ServiceResult<Dictionary<string, long>> GetProjectMemberIdAndName(long projectId)
@@ -100,7 +101,7 @@ namespace ResearchAPI.CORS.Services
             {
                 var users = ProjectMemberRepository.GetUsersByProjectId(projectId);
                 return users.ToDictionary(key => key.Name, value => value.Id);
-            },Logger);
+            }, Logger);
         }
 
         internal ServiceResult<GetProjectModel> GetProject(long projectId, long userId)
@@ -121,7 +122,7 @@ namespace ResearchAPI.CORS.Services
                 result.IsFavorite = FavoriteProjectRepository.GetOne(new FavoriteProject(project.Id, userId)) != null;
                 result.CreatorId = project.CreatorId;
                 return result;
-            },Logger);
+            }, Logger);
         }
 
         internal ServiceResult<Dictionary<long, string>> GetAllUsersIdAndName()
@@ -130,7 +131,7 @@ namespace ResearchAPI.CORS.Services
             {
                 var result = DomainConstraits.Users;
                 return result;
-            },Logger);
+            }, Logger);
         }
 
         internal ServiceResult<Dictionary<long, string>> GetUsersDictionary()
@@ -139,7 +140,7 @@ namespace ResearchAPI.CORS.Services
             {
                 var result = UserRepository.GetAllUsers();
                 return result.ToDictionary(c => c.Id, c => c.Name);
-            },Logger);
+            }, Logger);
         }
 
         internal ServiceResult<Dictionary<long, string>> GetProjectRolesDictionary()
@@ -148,7 +149,7 @@ namespace ResearchAPI.CORS.Services
             {
                 var result = RoleRepository.GetAllProjectRoles();
                 return result.ToDictionary(c => c.Id, c => c.Name);
-            },Logger);
+            }, Logger);
         }
 
         internal ServiceResult<List<User>> GetAllUsers()
@@ -157,7 +158,7 @@ namespace ResearchAPI.CORS.Services
             {
                 var result = UserRepository.GetAllUsers();
                 return result;
-            },Logger);
+            }, Logger);
         }
 
         internal ServiceResult<bool> DeleteProject(long projectId)
@@ -166,7 +167,7 @@ namespace ResearchAPI.CORS.Services
             {
                 var result = ProjectRepository.DeleteById(projectId);
                 return result;
-            },Logger);
+            }, Logger);
         }
 
         internal ServiceResult<VLPagerResult<List<Dictionary<string, object>>>> GetPagedResultBySQLConfig(GetCommonSelectRequest request)
@@ -181,7 +182,7 @@ namespace ResearchAPI.CORS.Services
                 var count = SharedRepository.GetCommonSelectCount(sqlConfig.Source);
                 sqlConfig.Source.DoTransforms(ref list);
                 return new VLPagerResult<List<Dictionary<string, object>>>() { List = list.ToList(), Count = count };
-            },Logger);
+            }, Logger);
         }
 
         internal ServiceResult<int> DeleteProjectIndicators(List<long> indicatorIds)
@@ -190,7 +191,7 @@ namespace ResearchAPI.CORS.Services
             {
                 var result = ProjectIndicatorRepository.DeleteByIds(indicatorIds);
                 return result;
-            },Logger);
+            }, Logger);
         }
 
         internal ServiceResult<List<BusinessEntityPropertyModel>> CreateCustomIndicator(CreateCustomIndicatorRequest request, BusinessEntityTemplate template)
@@ -259,13 +260,21 @@ namespace ResearchAPI.CORS.Services
                             TemplatePropertyId = templateProperty.Id,
                             ProjectId = request.ProjectId,
                             PropertySourceName = templateProperty.SourceName,
-                            PropertyDisplayName =$"{periodTemplate.StartAt}_{periodTemplate.EndAt}{itemPrefix}_{templateProperty.DisplayName}_{request.GetRuleDisplayName()}"  ,
+                            PropertyDisplayName = $"{periodTemplate.StartAt}_{periodTemplate.EndAt}{itemPrefix}_{templateProperty.DisplayName}_{request.GetRuleDisplayName()}",
                         };
                     }).ToList();
                     results.AddRange(CreateCustomProjectIndicator(templateBE, templateBEProperties, templateBEWheres, projectProperties));
                 }
                 return results;
-            },Logger);
+            }, Logger);
+        }
+
+        internal ServiceResult<List<VLKeyValue<string, string>>> GetStatistics(List<long> categories)
+        {
+            return ResearchDbContext.DbGroup.DelegateNonTransaction(c =>
+            {
+                return DataStatisticsRepository.GetByCategories(categories).Select(c => new VLKeyValue<string, string>(((int)c.Category).ToString(), c.Value)).ToList();
+            }, Logger);
         }
 
         private List<BusinessEntityPropertyModel> CreateCustomProjectIndicator(CustomBusinessEntity templateBE, List<CustomBusinessEntityProperty> templateBEProperties, List<CustomBusinessEntityWhere> templateBEWheres, List<ProjectIndicator> projectProperties)
@@ -304,7 +313,7 @@ namespace ResearchAPI.CORS.Services
                     OperatorSummary = d.Text,
                 }).ToList();
                 return result;
-            },Logger);
+            }, Logger);
         }
 
         internal ServiceResult<bool> DeleteProjectIndicator(long indicatorId)
@@ -313,7 +322,7 @@ namespace ResearchAPI.CORS.Services
             {
                 var result = ProjectIndicatorRepository.DeleteById(indicatorId);
                 return result;
-            },Logger);
+            }, Logger);
         }
 
         internal ServiceResult<long> CreateProject(CreateProjectRequest request, long userid)
@@ -339,7 +348,7 @@ namespace ResearchAPI.CORS.Services
                 var projectDepartments = request.DepartmentIds.Select(c => new ProjectDepartment() { ProjectId = projectId, DepartmentId = c }).ToList();
                 ProjectDepartmentRepository.BatchInsert(projectDepartments);
                 return projectId;
-            },Logger);
+            }, Logger);
         }
 
         internal ServiceResult<bool> UpdateIndicatorName(long indicatorId, string name)
@@ -348,7 +357,7 @@ namespace ResearchAPI.CORS.Services
             {
                 var result = ProjectIndicatorRepository.UpdateIndicatorName(indicatorId, name) > 0;
                 return result;
-            },Logger);
+            }, Logger);
         }
 
         internal ServiceResult<bool> EditProject(EditProjectRequest request, long userid)
@@ -383,7 +392,7 @@ namespace ResearchAPI.CORS.Services
                 ProjectDepartmentRepository.DeleteByProjectId(projectId);
                 ProjectDepartmentRepository.BatchInsert(projectDepartments);
                 return true;
-            },Logger);
+            }, Logger);
         }
 
         internal ServiceResult<List<GetProjectIndicatorModel>> GetProjectIndicators(long projectId)
@@ -413,7 +422,7 @@ namespace ResearchAPI.CORS.Services
                     }
                     return m;
                 }).ToList();
-            },Logger);
+            }, Logger);
         }
 
         internal ServiceResult<List<Role>> GetAllRoles()
@@ -421,7 +430,7 @@ namespace ResearchAPI.CORS.Services
             return ResearchDbContext.DbGroup.DelegateNonTransaction(c =>
             {
                 return RoleRepository.GetAllProjectRoles();
-            },Logger);
+            }, Logger);
         }
 
         internal ServiceResult<bool> AddFavoriteProject(long projectId, long userId)
@@ -436,7 +445,7 @@ namespace ResearchAPI.CORS.Services
                 if (project == null)
                     throw new NotImplementedException("项目不存在");
                 return FavoriteProjectRepository.InsertOne(favoriteProject) > 0;
-            },Logger);
+            }, Logger);
         }
 
         internal ServiceResult<ProjectTask> GetTaskById(long taskId)
@@ -447,7 +456,7 @@ namespace ResearchAPI.CORS.Services
                 if (task == null)
                     throw new NotImplementedException("队列不存在");
                 return task;
-            },Logger);
+            }, Logger);
         }
 
         internal ServiceResult<bool> DeleteFavoriteProject(long projectId, long userId)
@@ -459,7 +468,7 @@ namespace ResearchAPI.CORS.Services
                 if (exist == null)
                     throw new NotImplementedException("收藏不存在");
                 return FavoriteProjectRepository.DeleteOne(favoriteProject) > 0;
-            },Logger);
+            }, Logger);
         }
 
         internal ServiceResult<long> AddProjectLog(long userId, long projectId, ActionType actionType, string text)
@@ -474,7 +483,7 @@ namespace ResearchAPI.CORS.Services
                     Text = text,
                 };
                 return ProjectLogRepository.InsertOne(projectLog);
-            },Logger);
+            }, Logger);
         }
 
         internal ServiceResult<bool> AddProjectIndicators(AddIndicatorsRequest request)
@@ -497,7 +506,7 @@ namespace ResearchAPI.CORS.Services
                 ProjectIndicatorRepository.DeleteByEntityId(request.ProjectId, request.BusinessEntityId);
                 var successCount = ProjectIndicatorRepository.InsertBatch(projectIndicators);
                 return successCount == request.BusinessEntityPropertyIds.Count();
-            },Logger);
+            }, Logger);
         }
 
         internal ServiceResult<long> CreateTask(CreateTaskRequest request)
@@ -523,7 +532,7 @@ namespace ResearchAPI.CORS.Services
                     EditTaskV2(task.Id, groupedCondition);
                 }
                 return task.Id;
-            },Logger);
+            }, Logger);
         }
 
         internal ServiceResult<bool> EditTaskV2(EditTaskV2Request request)
@@ -605,7 +614,7 @@ namespace ResearchAPI.CORS.Services
                     c.Id = ProjectTaskWhereRepository.Insert(c);
                 });
                 return true;
-            },Logger);
+            }, Logger);
         }
 
         internal ServiceResult<bool> StartSchedule(long scheduleId)
@@ -726,7 +735,7 @@ namespace ResearchAPI.CORS.Services
                     throw ex;
                 }
                 return true;
-            },Logger);
+            }, Logger);
         }
 
         internal ServiceResult<bool> EditTaskName(EditTaskNameRequest request)
@@ -741,7 +750,7 @@ namespace ResearchAPI.CORS.Services
                 }
 
                 return ProjectTaskRepository.UpdateName(request.TaskId, request.TaskName) > 0;
-            },Logger);
+            }, Logger);
         }
 
         internal ServiceResult<bool> DeleteTask(long taskId)
@@ -751,7 +760,7 @@ namespace ResearchAPI.CORS.Services
                 //ProjectIndicatorRepository.DeleteByTaskId(taskId);
                 //ProjectTaskWhereRepository.DeleteByTaskId(taskId);
                 return ProjectTaskRepository.DeleteById(taskId);
-            },Logger);
+            }, Logger);
         }
 
         internal ServiceResult<List<GetTaskV2Model>> GetTasksV2(long projectId)
@@ -784,7 +793,7 @@ namespace ResearchAPI.CORS.Services
                     return model;
                 }).ToList();
                 return result;
-            },Logger);
+            }, Logger);
         }
 
         internal ServiceResult<List<GetTaskModel>> GetTasks(long projectId)
@@ -821,7 +830,7 @@ namespace ResearchAPI.CORS.Services
                     return model;
                 }).ToList();
                 return result;
-            },Logger);
+            }, Logger);
         }
 
         internal ServiceResult<List<VLKeyValue<string, string>>> GetTaskNameAndIds(long projectId)
@@ -829,7 +838,7 @@ namespace ResearchAPI.CORS.Services
             return ResearchDbContext.DbGroup.DelegateNonTransaction(c =>
             {
                 return ProjectTaskRepository.GetTaskNameAndIds(projectId);
-            },Logger);
+            }, Logger);
         }
 
         internal ServiceResult<long> CommitTask(CommitTaskRequest request)
@@ -849,7 +858,7 @@ namespace ResearchAPI.CORS.Services
                 }
                 schedule.Id = ProjectScheduleRepository.InsertOne(schedule);
                 return schedule.Id;
-            },Logger);
+            }, Logger);
         }
 
         internal ServiceResult<GetTaskStatusModel> GetTaskStatus(long taskId)
@@ -862,7 +871,7 @@ namespace ResearchAPI.CORS.Services
                     throw new NotImplementedException("执行任务不存在");
                 }
                 return taskStatus;
-            },Logger);
+            }, Logger);
         }
     }
 

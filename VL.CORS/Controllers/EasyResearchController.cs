@@ -196,6 +196,34 @@ namespace ResearchAPI.CORS.Controllers
 
         #endregion
 
+        #region 通用,Statistics
+
+        /// <summary>
+        /// 统计,Statistics
+        /// </summary>
+        [HttpPost]
+        [AllowAnonymous]
+        [EnableCors("AllCors")]
+        public APIResult<List<VLKeyValue<string, string>>> GetStatistics( [FromServices] ReportTaskService reportTaskService, [FromBody] GetStatisticsRequest request)
+        {
+            List<VLKeyValue<string, string>> values = new List<VLKeyValue<string, string>>();
+            values = reportTaskService.GetStatistics(request.Ids).Data;
+            return Success(values);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public class GetStatisticsRequest
+        {
+            /// <summary>
+            /// 获取键值的类型
+            /// </summary>
+            public List<long> Ids { set; get; }
+        }
+
+        #endregion
+
         #region 项目,Project
 
         /// <summary>
