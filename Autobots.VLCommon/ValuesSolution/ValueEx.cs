@@ -297,6 +297,16 @@ namespace Autobots.Infrastracture.Common.ValuesSolution
             return str.TrimStart(strToTrim).TrimEnd(strToTrim);
         }
 
+        public static string Replace(this string str, Dictionary<string,object> dic)
+        {
+            foreach (var item in dic)
+            {
+                str = str.Replace(item.Key, item.Value.ToString());
+            }
+            return str;
+        }
+
+
         /// <summary>
         /// 
         /// </summary>
@@ -321,7 +331,29 @@ namespace Autobots.Infrastracture.Common.ValuesSolution
             }
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="start">0-based</param>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        public static Dictionary<string, object> ToDictionary(this string str, string itemSplitter,string valueSplitter)
+        {
+            Dictionary<string, object> dic = new Dictionary<string, object>();
+            var items = str.Split(itemSplitter);
+            foreach (var item in items)
+            {
+                var values =item.Split(valueSplitter);
+                var key = values[0];
+                if (dic.ContainsKey(key))
+                {
+                    throw new NotImplementedException("重复的key:" + key);
+                }
+                dic.Add(key, values[1]);
+            }
+            return dic;
+        }
         #endregion
 
         #region int

@@ -38,6 +38,10 @@ namespace Autobots.Infrastracture.Common.DBSolution
         {
             return (T)DbGroup.Connection.ExecuteScalar( sql, param, DbGroup.Transaction, commandTimeout, commandType);
         }
+        public object ExecuteScalar(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return DbGroup.Connection.ExecuteScalar(sql, param, DbGroup.Transaction, commandTimeout, commandType);
+        }
 
         #endregion
     }

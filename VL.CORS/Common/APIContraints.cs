@@ -11,6 +11,5 @@
         public static DBConfig DBConfig { set; get; }
 
         public static string ResearchDbContext { set; get; } = "ResearchConnectionString";
-        public static EasyResearchConfig EasyResearchConfig { get; internal set; }
     }
 }

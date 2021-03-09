@@ -929,12 +929,48 @@
             
             </summary>
         </member>
-        <member name="T:ResearchAPI.CORS.Common.EasyResearchConfig">
+        <member name="F:ResearchAPI.CORS.Common.COStatisticsEntities.ElementName">
             <summary>
-            配置样例
+            
             </summary>
         </member>
-        <member name="P:ResearchAPI.CORS.Common.EasyResearchConfig.MainRoute">
+        <member name="M:ResearchAPI.CORS.Common.COStatisticsEntities.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Common.COStatisticsEntities.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            
+            </summary>
+            <param name="element"></param>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.COStatisticsEntity.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.COStatisticsEntity.Name">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.COStatisticsEntity.Parameters">
+            <summary>
+            默认参数
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.COStatisticsEntity.RawSQL">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.COStatisticsEntity.SQLEntity">
+            <summary>
+            预设SQL
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.COStatisticsEntity.ParentFormatter">
             <summary>
             
             </summary>

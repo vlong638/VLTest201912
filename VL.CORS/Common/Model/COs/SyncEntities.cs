@@ -101,15 +101,16 @@ namespace ResearchAPI.CORS.Common
 
         public string GetTargetColumnDefinition()
         {
-            //单选框
-            //多选框
-            if (ColumnType=="多选框")
+            var maxLength = MaxLength.ToInt().Value;
+            if (maxLength < 0)
+            {
+                return "nvarchar(max)";
+            }            
+            if (ColumnType == "多选框")//单选框//多选框
             {
                 return "nvarchar(255)";
-            }
-            //否
-            //是
-            if (IsEnumText)
+            }            
+            if (IsEnumText)//否//是
             {
                 return "nvarchar(255)";
             }
@@ -135,7 +136,6 @@ namespace ResearchAPI.CORS.Common
                     return "nvarchar(20)";
                 case "varchar":
                 case "nvarchar":
-                    var maxLength = MaxLength.ToInt().Value;
                     return $"nvarchar({(maxLength < 0 ? "max" : (maxLength > 4000 ? 4000 : maxLength).ToString())})";
                 default:
                     throw new NotImplementedException(ColumnType + ",类型处理未实现");

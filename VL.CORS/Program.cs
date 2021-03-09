@@ -26,7 +26,6 @@ namespace ResearchAPI.CORS
                 var configs = builder.Build();
                 //全局配置
                 APIContraints.DBConfig = configs.GetSection("DB").Get<DBConfig>();
-                APIContraints.EasyResearchConfig = configs.GetSection("EasyResearch").Get<EasyResearchConfig>();
                 //静态常量
                 var dbConnectiongString = APIContraints.DBConfig.ConnectionStrings.FirstOrDefault(c => c.Key == APIContraints.ResearchDbContext).Value;
                 var dbContext = new DbContext(DBHelper.GetDbConnection(dbConnectiongString));

@@ -32,7 +32,6 @@ namespace ResearchAPI.CORS.Common
         {
             var field = new DBField();
             return new KeyValuePair<string, object>(GetParameterName(), field.GetValue(Value, ValueFormat));
-
         }
 
         public string GetParameterName()

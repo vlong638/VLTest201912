@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<SyncEntities Id="199" BusinessType="检验">
+	<SyncEntity Id="199001" DisplayName ="检验单" SourceName="temp0305_LabOrder" TargetName="Common_LabOrder">
+		<Properties>
+			<Property Id="199001001" DisplayName="-" SourceName="ID" ColumnType="bigint" MaxLength="8" Precision="19" Scale="0"/>
+			<Property Id="199001002" DisplayName="-" SourceName="patientid" ColumnType="nvarchar" MaxLength="100" Precision="0" Scale="0"/>
+			<Property Id="199001003" DisplayName="-" SourceName="idcard" ColumnType="varchar" MaxLength="30" Precision="0" Scale="0"/>
+			<Property Id="199001004" DisplayName="-" SourceName="name" ColumnType="nvarchar" MaxLength="100" Precision="0" Scale="0"/>
+			<Property Id="199001005" DisplayName="-" SourceName="pregnantinfoid" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="199001006" DisplayName="-" SourceName="attachedid" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="199001007" DisplayName="-" SourceName="attachedtype" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="199001008" DisplayName="-" SourceName="orderid" ColumnType="nvarchar" MaxLength="100" Precision="0" Scale="0"/>
+			<Property Id="199001009" DisplayName="-" SourceName="examname" ColumnType="nvarchar" MaxLength="400" Precision="0" Scale="0"/>
+			<Property Id="199001010" DisplayName="-" SourceName="examcode" ColumnType="nvarchar" MaxLength="100" Precision="0" Scale="0"/>
+			<Property Id="199001011" DisplayName="-" SourceName="ordertime" ColumnType="datetime" MaxLength="8" Precision="23" Scale="3"/>
+			<Property Id="199001012" DisplayName="-" SourceName="orderdocid" ColumnType="nchar" MaxLength="20" Precision="0" Scale="0"/>
+			<Property Id="199001013" DisplayName="-" SourceName="orderdocname" ColumnType="nvarchar" MaxLength="100" Precision="0" Scale="0"/>
+			<Property Id="199001014" DisplayName="-" SourceName="technician" ColumnType="nvarchar" MaxLength="100" Precision="0" Scale="0"/>
+			<Property Id="199001015" DisplayName="-" SourceName="executer" ColumnType="nvarchar" MaxLength="100" Precision="0" Scale="0"/>
+			<Property Id="199001016" DisplayName="-" SourceName="examtime" ColumnType="datetime" MaxLength="8" Precision="23" Scale="3"/>
+			<Property Id="199001017" DisplayName="-" SourceName="reporttime" ColumnType="datetime" MaxLength="8" Precision="23" Scale="3"/>
+			<Property Id="199001018" DisplayName="-" SourceName="examfinished" ColumnType="bit" MaxLength="1" Precision="1" Scale="0"/>
+			<Property Id="199001019" DisplayName="-" SourceName="status" ColumnType="bit" MaxLength="1" Precision="1" Scale="0"/>
+			<Property Id="199001020" DisplayName="-" SourceName="examhospital" ColumnType="varchar" MaxLength="500" Precision="0" Scale="0"/>
+			<Property Id="199001021" DisplayName="-" SourceName="importtime" ColumnType="datetime" MaxLength="8" Precision="23" Scale="3"/>
+			<Property Id="199001022" DisplayName="-" SourceName="deliveryid" ColumnType="varchar" MaxLength="32" Precision="0" Scale="0"/>
+			<Property Id="199001023" DisplayName="-" SourceName="deliveryversion" ColumnType="bigint" MaxLength="8" Precision="19" Scale="0"/>
+			<Property Id="199001024" DisplayName="-" SourceName="deliverysource" ColumnType="varchar" MaxLength="30" Precision="0" Scale="0"/>
+			<Property Id="199001025" DisplayName="-" SourceName="lastmodifysource" ColumnType="varchar" MaxLength="30" Precision="0" Scale="0"/>
+			<Property Id="199001026" DisplayName="-" SourceName="deliveryupdateflag" ColumnType="char" MaxLength="1" Precision="0" Scale="0"/>
+			<Property Id="199001027" DisplayName="-" SourceName="tmp" ColumnType="varchar" MaxLength="500" Precision="0" Scale="0"/>
+		</Properties>
+	</SyncEntity>
+	<SyncEntity Id="199002" DisplayName ="检验项" SourceName="temp0305_LabResult" TargetName="Common_LabResult">
+		<Properties>
+			<Property Id="199002001" DisplayName="-" SourceName="ID" ColumnType="bigint" MaxLength="8" Precision="19" Scale="0"/>
+			<Property Id="199002002" DisplayName="-" SourceName="patientid" ColumnType="nvarchar" MaxLength="100" Precision="0" Scale="0"/>
+			<Property Id="199002003" DisplayName="-" SourceName="idcard" ColumnType="varchar" MaxLength="30" Precision="0" Scale="0"/>
+			<Property Id="199002004" DisplayName="-" SourceName="name" ColumnType="nvarchar" MaxLength="100" Precision="0" Scale="0"/>
+			<Property Id="199002005" DisplayName="-" SourceName="orderid" ColumnType="nvarchar" MaxLength="100" Precision="0" Scale="0"/>
+			<Property Id="199002006" DisplayName="-" SourceName="setid" ColumnType="int" MaxLength="4" Precision="10" Scale="0"/>
+			<Property Id="199002007" DisplayName="-" SourceName="itemid" ColumnType="nchar" MaxLength="20" Precision="0" Scale="0"/>
+			<Property Id="199002008" DisplayName="-" SourceName="itemname" ColumnType="nvarchar" MaxLength="100" Precision="0" Scale="0"/>
+			<Property Id="199002009" DisplayName="-" SourceName="value" ColumnType="nvarchar" MaxLength="100" Precision="0" Scale="0"/>
+			<Property Id="199002010" DisplayName="-" SourceName="unit" ColumnType="nvarchar" MaxLength="100" Precision="0" Scale="0"/>
+			<Property Id="199002011" DisplayName="-" SourceName="reference" ColumnType="nvarchar" MaxLength="-1" Precision="0" Scale="0"/>
+			<Property Id="199002012" DisplayName="-" SourceName="resultflag" ColumnType="nchar" MaxLength="20" Precision="0" Scale="0"/>
+			<Property Id="199002013" DisplayName="-" SourceName="status" ColumnType="bit" MaxLength="1" Precision="1" Scale="0"/>
+			<Property Id="199002014" DisplayName="-" SourceName="examhospital" ColumnType="varchar" MaxLength="500" Precision="0" Scale="0"/>
+			<Property Id="199002015" DisplayName="-" SourceName="deliveryid" ColumnType="varchar" MaxLength="32" Precision="0" Scale="0"/>
+			<Property Id="199002016" DisplayName="-" SourceName="deliveryversion" ColumnType="bigint" MaxLength="8" Precision="19" Scale="0"/>
+			<Property Id="199002017" DisplayName="-" SourceName="deliverysource" ColumnType="varchar" MaxLength="30" Precision="0" Scale="0"/>
+			<Property Id="199002018" DisplayName="-" SourceName="lastmodifysource" ColumnType="varchar" MaxLength="30" Precision="0" Scale="0"/>
+			<Property Id="199002019" DisplayName="-" SourceName="deliveryupdateflag" ColumnType="char" MaxLength="1" Precision="0" Scale="0"/>
+		</Properties>
+	</SyncEntity>
+</SyncEntities>

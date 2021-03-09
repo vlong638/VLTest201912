@@ -32,6 +32,14 @@ namespace ResearchAPI.CORS.Common
             return new COSyncEntities(root);
         }
 
+        public static COStatisticsEntities GetCOStatisticsEntities(string directory, string file)
+        {
+            var path = Path.Combine(AppContext.BaseDirectory, directory, file);
+            XDocument doc = XDocument.Load(path);
+            var root = doc.Element(COStatisticsEntities.ElementName);
+            return new COStatisticsEntities(root);
+        }
+
         public static Routers GetRouters(string directory, string file)
         {
             var path = Path.Combine(AppContext.BaseDirectory, directory, file);
