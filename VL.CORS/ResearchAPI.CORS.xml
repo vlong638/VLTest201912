@@ -2967,9 +2967,29 @@
             
             </summary>
         </member>
-        <member name="P:ResearchAPI.CORS.Controllers.EasyResearchController.GetStatisticsRequest.Ids">
+        <member name="P:ResearchAPI.CORS.Controllers.EasyResearchController.GetStatisticsRequest.Categories">
             <summary>
-            获取键值的类型
+            统计类型
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Controllers.EasyResearchController.GetMultipleStatistics(ResearchAPI.CORS.Services.ReportTaskService,ResearchAPI.CORS.Controllers.EasyResearchController.GetMultipleStatisticsRequest)">
+            <summary>
+            统计,Statistics
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Controllers.EasyResearchController.GetMultipleStatisticsRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Controllers.EasyResearchController.GetMultipleStatisticsRequest.Category">
+            <summary>
+            统计类型
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Controllers.EasyResearchController.GetMultipleStatisticsRequest.Parents">
+            <summary>
+            子项分类上级类型
             </summary>
         </member>
         <member name="M:ResearchAPI.CORS.Controllers.EasyResearchController.GetFavoriteProjects(ResearchAPI.CORS.Common.APIContext,ResearchAPI.CORS.Services.ReportTaskService)">

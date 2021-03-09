@@ -269,11 +269,23 @@ namespace ResearchAPI.CORS.Services
             }, Logger);
         }
 
+        internal ServiceResult<List<VLKeyValue<string, string>>> GetMultipleStatistics(long category, List<string> parents)
+        {
+            return ResearchDbContext.DbGroup.DelegateNonTransaction(c =>
+            {
+                return DataStatisticsRepository.GetMultipleStatistics(category, parents)
+                .Select(c => new VLKeyValue<string, string>(c.Parent, c.Value))
+                .ToList();
+            }, Logger);
+        }
+
         internal ServiceResult<List<VLKeyValue<string, string>>> GetStatistics(List<long> categories)
         {
             return ResearchDbContext.DbGroup.DelegateNonTransaction(c =>
             {
-                return DataStatisticsRepository.GetByCategories(categories).Select(c => new VLKeyValue<string, string>(((int)c.Category).ToString(), c.Value)).ToList();
+                return DataStatisticsRepository.GetByCategories(categories)
+                .Select(c => new VLKeyValue<string, string>(((int)c.Category).ToString(), c.Value))
+                .ToList();
             }, Logger);
         }
 

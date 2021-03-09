@@ -207,7 +207,7 @@ namespace ResearchAPI.CORS.Controllers
         public APIResult<List<VLKeyValue<string, string>>> GetStatistics( [FromServices] ReportTaskService reportTaskService, [FromBody] GetStatisticsRequest request)
         {
             List<VLKeyValue<string, string>> values = new List<VLKeyValue<string, string>>();
-            values = reportTaskService.GetStatistics(request.Ids).Data;
+            values = reportTaskService.GetStatistics(request.Categories).Data;
             return Success(values);
         }
 
@@ -217,9 +217,37 @@ namespace ResearchAPI.CORS.Controllers
         public class GetStatisticsRequest
         {
             /// <summary>
-            /// 获取键值的类型
+            /// 统计类型
             /// </summary>
-            public List<long> Ids { set; get; }
+            public List<long> Categories { set; get; }
+        }
+
+        /// <summary>
+        /// 统计,Statistics
+        /// </summary>
+        [HttpPost]
+        [AllowAnonymous]
+        [EnableCors("AllCors")]
+        public APIResult<List<VLKeyValue<string, string>>> GetMultipleStatistics([FromServices] ReportTaskService reportTaskService, [FromBody] GetMultipleStatisticsRequest request)
+        {
+            List<VLKeyValue<string, string>> values = new List<VLKeyValue<string, string>>();
+            values = reportTaskService.GetMultipleStatistics(request.Category, request.Parents).Data;
+            return Success(values);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public class GetMultipleStatisticsRequest
+        {
+            /// <summary>
+            /// 统计类型
+            /// </summary>
+            public long Category { set; get; }
+            /// <summary>
+            /// 子项分类上级类型
+            /// </summary>
+            public List<string> Parents { set; get; }
         }
 
         #endregion

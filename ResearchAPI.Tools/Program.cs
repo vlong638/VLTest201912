@@ -263,7 +263,7 @@ select {string.Join(",", businessEntity.Properties.Select(c => c.SourceName))} f
                         var value = targetDBContext.ExecuteScalar(sql, paras);
                         dataStatistics.Value = value.ToString();
                         dataStatistics.Parent = parent;
-                        Console.WriteLine($"处理成功,统计分类{dataStatistics.Category.GetDescription()}");
+                        Console.WriteLine($"处理成功,统计分类{dataStatistics.Category.GetDescription()} {parent}");
                     }
                     catch (Exception ex2)
                     {
