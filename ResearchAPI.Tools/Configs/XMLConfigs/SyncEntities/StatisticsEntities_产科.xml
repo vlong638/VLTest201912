@@ -12,8 +12,17 @@
 
 	<!--Id="101003"-->
     <StatisticsEntity Id="101003001" Name ="PT_MHC_VisitRecordCount" Discription="病历总数"><SQL>select count(1) from  PT_MHC_VisitRecord</SQL></StatisticsEntity>
+    <StatisticsEntity Id="101003991" Name ="PT_MHC_VisitRecord_MainDiagnosis" Discription="主诊断_频次统计预处理"><SQL>select count(1) from  PT_MHC_VisitRecord</SQL></StatisticsEntity>
+
+    <StatisticsEntity Id="101003001" Name ="PT_MHC_VisitRecordCount" Discription="病历总数"><SQL>select count(1) from  PT_MHC_VisitRecord</SQL></StatisticsEntity>
+
 
 	<!--Id="101103"-->
+	<StatisticsEntity Id="101103001" Name ="PT_MHC_VisitRecordCount_Monthly" Discription="病历总数 月周期" Parameters="@Year=2021,@Month=03" ParentFormatter="@Year-@Month">
+		<SQL>
+			select count(1) from  PT_MHC_VisitRecord where DATEPART(year,visitdate) = @Year and  DATEPART(month,visitdate) = @Month
+		</SQL>
+	</StatisticsEntity>
 	<StatisticsEntity Id="101103001" Name ="PT_MHC_VisitRecordCount_Monthly" Discription="病历总数 月周期" Parameters="@Year=2021,@Month=02" ParentFormatter="@Year-@Month">
 		<SQL>
 			select count(1) from  PT_MHC_VisitRecord where DATEPART(year,visitdate) = @Year and  DATEPART(month,visitdate) = @Month
@@ -25,6 +34,16 @@
 		</SQL>
 	</StatisticsEntity>
 	<StatisticsEntity Id="101103001" Name ="PT_MHC_VisitRecordCount_Monthly" Discription="病历总数 月周期" Parameters="@Year=2020,@Month=12" ParentFormatter="@Year-@Month">
+		<SQL>
+			select count(1) from  PT_MHC_VisitRecord where DATEPART(year,visitdate) = @Year and  DATEPART(month,visitdate) = @Month
+		</SQL>
+	</StatisticsEntity>
+	<StatisticsEntity Id="101103001" Name ="PT_MHC_VisitRecordCount_Monthly" Discription="病历总数 月周期" Parameters="@Year=2020,@Month=11" ParentFormatter="@Year-@Month">
+		<SQL>
+			select count(1) from  PT_MHC_VisitRecord where DATEPART(year,visitdate) = @Year and  DATEPART(month,visitdate) = @Month
+		</SQL>
+	</StatisticsEntity>
+	<StatisticsEntity Id="101103001" Name ="PT_MHC_VisitRecordCount_Monthly" Discription="病历总数 月周期" Parameters="@Year=2020,@Month=10" ParentFormatter="@Year-@Month">
 		<SQL>
 			select count(1) from  PT_MHC_VisitRecord where DATEPART(year,visitdate) = @Year and  DATEPART(month,visitdate) = @Month
 		</SQL>

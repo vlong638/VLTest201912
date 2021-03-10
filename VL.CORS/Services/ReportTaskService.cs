@@ -43,6 +43,7 @@ namespace ResearchAPI.CORS.Services
         ProjectIndicatorRepository ProjectIndicatorRepository { set; get; }
         RoleRepository RoleRepository { set; get; }
         SharedRepository SharedRepository { set; get; }
+        SyncManageRepository SyncManageRepository { set; get; }
         UserRepository UserRepository { set; get; }
         /// <summary>
         /// 
@@ -81,6 +82,7 @@ namespace ResearchAPI.CORS.Services
             ProjectIndicatorRepository = new ProjectIndicatorRepository(DbContext);
             RoleRepository = new RoleRepository(DbContext);
             SharedRepository = new SharedRepository(DbContext);
+            SyncManageRepository = new SyncManageRepository(DbContext);
             UserRepository = new UserRepository(DbContext);
         }
 
@@ -269,6 +271,14 @@ namespace ResearchAPI.CORS.Services
             }, Logger);
         }
 
+        internal ServiceResult<SyncManage> GetSyncManageTime(string from, OperateType operateType, OperateStatus operateStatus)
+        {
+            return ResearchDbContext.DbGroup.DelegateNonTransaction(c =>
+            {
+                return SyncManageRepository.GetBy(from, operateType, operateStatus);
+            }, Logger);
+        }
+
         internal ServiceResult<List<VLKeyValue<string, string>>> GetMultipleStatistics(long category, List<string> parents)
         {
             return ResearchDbContext.DbGroup.DelegateNonTransaction(c =>
@@ -285,6 +295,15 @@ namespace ResearchAPI.CORS.Services
             {
                 return DataStatisticsRepository.GetByCategories(categories)
                 .Select(c => new VLKeyValue<string, string>(((int)c.Category).ToString(), c.Value))
+                .ToList();
+            }, Logger);
+        }
+
+        internal ServiceResult<List<GetLatestProjectModel>> GetLatestProjects(int limit)
+        {
+            return ResearchDbContext.DbGroup.DelegateNonTransaction(c =>
+            {
+                return ProjectRepository.GetLatestProjects(limit)
                 .ToList();
             }, Logger);
         }

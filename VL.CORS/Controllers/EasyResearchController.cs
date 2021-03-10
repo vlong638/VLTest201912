@@ -206,8 +206,22 @@ namespace ResearchAPI.CORS.Controllers
         [EnableCors("AllCors")]
         public APIResult<List<VLKeyValue<string, string>>> GetStatistics( [FromServices] ReportTaskService reportTaskService, [FromBody] GetStatisticsRequest request)
         {
+            //特殊统计数据
+            if (request.Categories.Any(c => c == DataStatisticsCategory.PT_GeneratedTime))
+            {
+                var serviceResult = reportTaskService.GetSyncManageTime("%PregnantInfo%", OperateType.InitData, OperateStatus.Success);
+                if (serviceResult.IsSuccess)
+                {
+                    return Success(new List<VLKeyValue<string, string>>() { new VLKeyValue<string, string>(((long)DataStatisticsCategory.PT_GeneratedTime).ToString(), serviceResult.Data.IssueTime.ToString()) });
+                }
+                else
+                {
+                    return Error<List<VLKeyValue<string, string>>>(null, serviceResult.Messages);
+                } 
+            }
+
             List<VLKeyValue<string, string>> values = new List<VLKeyValue<string, string>>();
-            values = reportTaskService.GetStatistics(request.Categories).Data;
+            values = reportTaskService.GetStatistics(request.Categories.Select(c => (long)c).ToList()).Data;
             return Success(values);
         }
 
@@ -219,7 +233,7 @@ namespace ResearchAPI.CORS.Controllers
             /// <summary>
             /// 统计类型
             /// </summary>
-            public List<long> Categories { set; get; }
+            public List<DataStatisticsCategory> Categories { set; get; }
         }
 
         /// <summary>
@@ -249,6 +263,32 @@ namespace ResearchAPI.CORS.Controllers
             /// </summary>
             public List<string> Parents { set; get; }
         }
+
+        /// <summary>
+        /// 获取最近的几个科研项目
+        /// </summary>
+        [HttpPost]
+        [EnableCors("AllCors")]
+        [VLAuthorize(SystemAuthority.查看项目列表)]
+        public APIResult<List<GetLatestProjectModel>> GetLatestProjects([FromServices] ReportTaskService service, GetLatestProjectsRequest request)
+        {
+            var result = service.GetLatestProjects(request.Limit);
+            return new APIResult<List<GetLatestProjectModel>>(result);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public class GetLatestProjectsRequest
+        {
+            /// <summary>
+            /// 
+            /// </summary>
+            public int Limit { set; get; }
+        }
+
+        //public APIResult<List<GetLatestProjectModel>> GetDiagnosisFrequency([FromServices] ReportTaskService service, GetLatestProjectsRequest request)
+
 
         #endregion
 

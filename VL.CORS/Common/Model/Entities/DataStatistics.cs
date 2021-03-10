@@ -20,6 +20,11 @@ namespace ResearchAPI.CORS.Common
 
     public enum DataStatisticsCategory
     {
+        /// <summary>
+        /// 产科数据生成时间
+        /// </summary>
+        PT_GeneratedTime =101001,
+
         #region PregnantInfo, 101001
 
         /// <summary>
@@ -72,6 +77,11 @@ namespace ResearchAPI.CORS.Common
         /// </summary>
         [Description("病历总数")]
         PT_MHC_VisitRecordCount = 101003001,
+
+        [Description("主诊断_频次统计预处理")]
+        PT_MHC_VisitRecord_MainDiagnosis = 101003991,
+        [Description("次诊断_单项频次统计预处理")]
+        PT_MHC_VisitRecord_SecondaryDiagnosis = 101003992,
 
         #endregion
 

@@ -1098,6 +1098,11 @@
             值
             </summary>
         </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_GeneratedTime">
+            <summary>
+            产科数据生成时间
+            </summary>
+        </member>
         <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_PatientCount">
             <summary>
             产妇总数
@@ -1601,6 +1606,26 @@
             权限 
             前三位代表业务系统,后三位表示模块内功能模块,后三位表示功能模块内细分功能
             通用功能为000
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.OperateType.InitTable">
+            <summary>
+            表结构初始化
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.OperateType.InitData">
+            <summary>
+            数据初始化
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.OperateType.DataTransform">
+            <summary>
+            数据转换
+            </summary>
+        </member>
+        <member name="F:ResearchAPI.CORS.Common.OperateType.EnumTransform">
+            <summary>
+            枚举转换
             </summary>
         </member>
         <member name="T:ResearchAPI.CORS.Common.Sex">
@@ -2341,6 +2366,26 @@
             规则
             </summary>
         </member>
+        <member name="T:ResearchAPI.CORS.Common.GetLatestProjectModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetLatestProjectModel.ProjectId">
+            <summary>
+            项目名称
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetLatestProjectModel.ProjectName">
+            <summary>
+            项目名称
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Common.GetLatestProjectModel.LastModifiedAt">
+            <summary>
+            项目更新日期
+            </summary>
+        </member>
         <member name="T:ResearchAPI.CORS.Common.GetPagedProjectsModel">
             <summary>
             
@@ -2990,6 +3035,21 @@
         <member name="P:ResearchAPI.CORS.Controllers.EasyResearchController.GetMultipleStatisticsRequest.Parents">
             <summary>
             子项分类上级类型
+            </summary>
+        </member>
+        <member name="M:ResearchAPI.CORS.Controllers.EasyResearchController.GetLatestProjects(ResearchAPI.CORS.Services.ReportTaskService,ResearchAPI.CORS.Controllers.EasyResearchController.GetLatestProjectsRequest)">
+            <summary>
+            获取最近的几个科研项目
+            </summary>
+        </member>
+        <member name="T:ResearchAPI.CORS.Controllers.EasyResearchController.GetLatestProjectsRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ResearchAPI.CORS.Controllers.EasyResearchController.GetLatestProjectsRequest.Limit">
+            <summary>
+            
             </summary>
         </member>
         <member name="M:ResearchAPI.CORS.Controllers.EasyResearchController.GetFavoriteProjects(ResearchAPI.CORS.Common.APIContext,ResearchAPI.CORS.Services.ReportTaskService)">
