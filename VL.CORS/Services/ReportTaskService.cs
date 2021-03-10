@@ -4,6 +4,7 @@ using Autobots.Infrastracture.Common.PagerSolution;
 using Autobots.Infrastracture.Common.ServiceSolution;
 using Autobots.Infrastracture.Common.TransactionSolution;
 using Autobots.Infrastracture.Common.ValuesSolution;
+using Dapper;
 using ResearchAPI.CORS.Common;
 using ResearchAPI.CORS.Controllers;
 using ResearchAPI.CORS.Repositories;
@@ -84,6 +85,14 @@ namespace ResearchAPI.CORS.Services
             SharedRepository = new SharedRepository(DbContext);
             SyncManageRepository = new SyncManageRepository(DbContext);
             UserRepository = new UserRepository(DbContext);
+        }
+
+        internal ServiceResult<List<VLKeyValue>> GetDiagnosisFrequency(int category)
+        {
+            return ResearchDbContext.DbGroup.DelegateNonTransaction(c =>
+            {
+                return ResearchDbContext.QueryList<VLKeyValue>("select Name as [key], Num as [Value] from DiagnosisFrequency where Category = @Category ", new { Category = category });
+            }, Logger);
         }
 
         internal ServiceResult<List<VLKeyValue<string, long>>> GetFavoriteProjects(long userid)

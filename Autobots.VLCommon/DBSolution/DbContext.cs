@@ -1,5 +1,7 @@
 ﻿using Dapper;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 
 namespace Autobots.Infrastracture.Common.DBSolution
 {
@@ -41,6 +43,16 @@ namespace Autobots.Infrastracture.Common.DBSolution
         public object ExecuteScalar(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
         {
             return DbGroup.Connection.ExecuteScalar(sql, param, DbGroup.Transaction, commandTimeout, commandType);
+        }
+
+        public T Query<T>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return DbGroup.Connection.Query<T>(sql, param, DbGroup.Transaction).FirstOrDefault();
+        }
+
+        public List<T> QueryList<T>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return DbGroup.Connection.Query<T>(sql, param, DbGroup.Transaction).ToList();
         }
 
         #endregion

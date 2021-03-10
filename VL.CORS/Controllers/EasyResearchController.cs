@@ -74,6 +74,35 @@ namespace ResearchAPI.CORS.Controllers
                     return Success(values);
             }
         }
+        /// <summary>
+        /// 下拉项
+        /// </summary>
+        [HttpPost]
+        [AllowAnonymous]
+        [EnableCors("AllCors")]
+
+        public APIResult<List<VLKeyValue<string, string, string>>> GetMergedKeyValues([FromServices] AccountService accountService, [FromServices] ReportTaskService reportTaskService, [FromBody] GetDropdownsRequest request)
+        {
+            List<VLKeyValue<string, string>> values = new List<VLKeyValue<string, string>>();
+            switch (request.Type)
+            {
+                case "DiagnosisFrequency":
+                    var data1= reportTaskService.GetDiagnosisFrequency(1);
+                    if (!data1.IsSuccess)
+                    {
+                        return Error<List<VLKeyValue<string, string, string>>>(data1.Message);
+                    }
+                    var data2= reportTaskService.GetDiagnosisFrequency(2);
+                    if (!data2.IsSuccess)
+                    {
+                        return Error<List<VLKeyValue<string, string, string>>>(data2.Message);
+                    }
+                    var data = VLKeyValue<string, string, string>.Merge(data1.Data, data2.Data);
+                    return Success(data);
+                default:
+                    throw new NotImplementedException("未支持的数据类型");
+            }
+        }
 
         /// <summary>
         /// 下拉项
@@ -81,14 +110,14 @@ namespace ResearchAPI.CORS.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<List<VLKeyValue<string, string, string, string>>> GetTreeDropdowns([FromServices] AccountService accountService, [FromBody] GetDropdownsRequest request)
+        public APIResult<List<VLKeyValueWithParent<string, string, string, string>>> GetTreeDropdowns([FromServices] AccountService accountService, [FromBody] GetDropdownsRequest request)
         {
             return Success(GetTreeDropdowns(request.Type));
         }
 
-        static internal List<VLKeyValue<string, string, string, string>> GetTreeDropdowns(string type)
+        static internal List<VLKeyValueWithParent<string, string, string, string>> GetTreeDropdowns(string type)
         {
-            List<VLKeyValue<string, string, string, string>> values = new List<VLKeyValue<string, string, string, string>>();
+            List<VLKeyValueWithParent<string, string, string, string>> values = new List<VLKeyValueWithParent<string, string, string, string>>();
             switch (type)
             {
                 case "SystemAuthority":
@@ -101,11 +130,11 @@ namespace ResearchAPI.CORS.Controllers
                     values.AddRange(kvs.Select(c =>
                     {
                         var parent = pkvs.FirstOrDefault(p => c.Value.StartsWith(p.Value));
-                        return new VLKeyValue<string, string, string, string>(parent.Key, parent.Value, c.Key, c.Value);
+                        return new VLKeyValueWithParent<string, string, string, string>(parent.Key, parent.Value, c.Key, c.Value);
                     }));
                     values.AddRange(pkvs.Select(c =>
                     {
-                        return new VLKeyValue<string, string, string, string>("", "", c.Key, c.Value);
+                        return new VLKeyValueWithParent<string, string, string, string>("", "", c.Key, c.Value);
                     }));
                     return values;
                 default:
@@ -287,8 +316,16 @@ namespace ResearchAPI.CORS.Controllers
             public int Limit { set; get; }
         }
 
-        //public APIResult<List<GetLatestProjectModel>> GetDiagnosisFrequency([FromServices] ReportTaskService service, GetLatestProjectsRequest request)
-
+        ///// <summary>
+        ///// 获取常用诊断
+        ///// </summary>
+        ///// <param name="service"></param>
+        ///// <returns></returns>
+        //public APIResult<List<VLKeyValue<string, long, long>>> GetDiagnosisFrequency([FromServices] ReportTaskService service)
+        //{
+        //    var result = service.GetDiagnosisFrequency();
+        //    return new APIResult<List<GetLatestProjectModel>>(result);
+        //}
 
         #endregion
 

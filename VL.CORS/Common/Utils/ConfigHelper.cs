@@ -166,18 +166,18 @@ namespace ResearchAPI.CORS.Common
             return null;
         }
 
-        internal static List<VLKeyValue<T1, T2,T3,T4>> GetJsonConfig<T1, T2, T3, T4>(string type)
+        internal static List<VLKeyValueWithParent<T1, T2,T3,T4>> GetJsonConfig<T1, T2, T3, T4>(string type)
         {
-            List<VLKeyValue<T1, T2, T3, T4>> values = new List<VLKeyValue<T1, T2, T3, T4>>();
+            List<VLKeyValueWithParent<T1, T2, T3, T4>> values = new List<VLKeyValueWithParent<T1, T2, T3, T4>>();
             var data = GetJsonFileData(type);
             if (data.IsNullOrEmpty())
             {
-                values.Add(new VLKeyValue<T1, T2, T3, T4>(default(T1), default(T2), default(T3), default(T4)));
+                values.Add(new VLKeyValueWithParent<T1, T2, T3, T4>(default(T1), default(T2), default(T3), default(T4)));
                 return values;
             }
             else
             {
-                values = Newtonsoft.Json.JsonConvert.DeserializeObject<List<VLKeyValue<T1, T2, T3, T4>>>(data);
+                values = Newtonsoft.Json.JsonConvert.DeserializeObject<List<VLKeyValueWithParent<T1, T2, T3, T4>>>(data);
                 return values;
             }
         }

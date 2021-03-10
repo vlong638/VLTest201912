@@ -2992,6 +2992,11 @@
             下拉项
             </summary>
         </member>
+        <member name="M:ResearchAPI.CORS.Controllers.EasyResearchController.GetMergedKeyValues(ResearchAPI.CORS.Services.AccountService,ResearchAPI.CORS.Services.ReportTaskService,ResearchAPI.CORS.Common.GetDropdownsRequest)">
+            <summary>
+            下拉项
+            </summary>
+        </member>
         <member name="M:ResearchAPI.CORS.Controllers.EasyResearchController.GetTreeDropdowns(ResearchAPI.CORS.Services.AccountService,ResearchAPI.CORS.Common.GetDropdownsRequest)">
             <summary>
             下拉项

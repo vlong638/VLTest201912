@@ -78,10 +78,8 @@ namespace ResearchAPI.CORS.Common
         [Description("病历总数")]
         PT_MHC_VisitRecordCount = 101003001,
 
-        [Description("主诊断_频次统计预处理")]
-        PT_MHC_VisitRecord_MainDiagnosis = 101003991,
-        [Description("次诊断_单项频次统计预处理")]
-        PT_MHC_VisitRecord_SecondaryDiagnosis = 101003992,
+        [Description("诊断_频次统计预处理")]
+        PT_MHC_VisitRecord_Diagnosis = 101003991,
 
         #endregion
 

@@ -78,7 +78,7 @@ namespace ResearchAPI.CORS.Common
         public static Dictionary<long, string> ScheduleStatuss { get; private set; }
         public static Dictionary<long, string> ViewAuthorizeTypes { private set; get; }
         public static Dictionary<string, string> LabOrders { get; private set; }
-        public static List<IGrouping<string, VLKeyValue<string, string, string, string>>> LabResults { get; private set; }
+        public static List<IGrouping<string, VLKeyValueWithParent<string, string, string, string>>> LabResults { get; private set; }
         public static Dictionary<string, string> LabResultItems { get; private set; }
         public static List<BusinessEntityTemplate> Templates { get; private set; }
 
