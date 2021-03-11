@@ -18,10 +18,6 @@ namespace ResearchAPI.CORS.Common
         /// <summary>
         /// 项目更新日期
         /// </summary>
-        public string LastModifiedAtStr { get { return LastModifiedAt.ToString();  } }
-        /// <summary>
-        /// 项目更新日期
-        /// </summary>
         public DateTime LastModifiedAt { set; get; }
     }
 }
