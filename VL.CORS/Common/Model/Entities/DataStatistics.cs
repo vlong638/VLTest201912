@@ -312,6 +312,16 @@ namespace ResearchAPI.CORS.Common
 
         #endregion
 
+        #region LabOrder 199101
+
+        /// <summary> 
+        ///  检验记录数 
+        /// </summary>
+        [Description("检验记录数_月周期")]
+        Common_LabOrderCount_Monthly = 199101001,
+
+        #endregion
+
         #region LabResult 199002
 
         /// <summary> 

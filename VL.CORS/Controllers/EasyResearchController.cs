@@ -236,7 +236,7 @@ namespace ResearchAPI.CORS.Controllers
         public APIResult<List<VLKeyValue<string, string>>> GetStatistics( [FromServices] ReportTaskService reportTaskService, [FromBody] GetStatisticsRequest request)
         {
             //特殊统计数据
-            if (request.Categories.Any(c => c == DataStatisticsCategory.PT_GeneratedTime))
+            if (request.Categories.Any(c => c == (long)DataStatisticsCategory.PT_GeneratedTime))
             {
                 var serviceResult = reportTaskService.GetSyncManageTime("%PregnantInfo%", OperateType.InitData, OperateStatus.Success);
                 if (serviceResult.IsSuccess)
@@ -250,7 +250,7 @@ namespace ResearchAPI.CORS.Controllers
             }
 
             List<VLKeyValue<string, string>> values = new List<VLKeyValue<string, string>>();
-            values = reportTaskService.GetStatistics(request.Categories.Select(c => (long)c).ToList()).Data;
+            values = reportTaskService.GetStatistics(request.Categories.ToList()).Data;
             return Success(values);
         }
 
@@ -262,7 +262,7 @@ namespace ResearchAPI.CORS.Controllers
             /// <summary>
             /// 统计类型
             /// </summary>
-            public List<DataStatisticsCategory> Categories { set; get; }
+            public List<long> Categories { set; get; }
         }
 
         /// <summary>

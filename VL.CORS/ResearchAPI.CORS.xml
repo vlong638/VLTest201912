@@ -1336,6 +1336,11 @@
              检验记录数 
             </summary>
         </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.Common_LabOrderCount_Monthly">
+            <summary> 
+             检验记录数 
+            </summary>
+        </member>
         <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.Common_LabResultCount">
             <summary> 
              检验记录项目数 

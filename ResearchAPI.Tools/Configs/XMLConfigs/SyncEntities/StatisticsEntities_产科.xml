@@ -57,31 +57,6 @@
 			select count(1) from  PT_MHC_VisitRecord where DATEPART(year,visitdate) = @Year and  DATEPART(month,visitdate) = @Month
 		</SQL>
 	</StatisticsEntity>
-	<StatisticsEntity Id="101103001" Name ="PT_MHC_VisitRecordCount_Monthly" Discription="病历总数 月周期" Parameters="@Year=2021,@Month=02" ParentFormatter="@Year-@Month">
-		<SQL>
-			select count(1) from  PT_MHC_VisitRecord where DATEPART(year,visitdate) = @Year and  DATEPART(month,visitdate) = @Month
-		</SQL>
-	</StatisticsEntity>
-	<StatisticsEntity Id="101103001" Name ="PT_MHC_VisitRecordCount_Monthly" Discription="病历总数 月周期" Parameters="@Year=2021,@Month=01" ParentFormatter="@Year-@Month">
-		<SQL>
-			select count(1) from  PT_MHC_VisitRecord where DATEPART(year,visitdate) = @Year and  DATEPART(month,visitdate) = @Month
-		</SQL>
-	</StatisticsEntity>
-	<StatisticsEntity Id="101103001" Name ="PT_MHC_VisitRecordCount_Monthly" Discription="病历总数 月周期" Parameters="@Year=2020,@Month=12" ParentFormatter="@Year-@Month">
-		<SQL>
-			select count(1) from  PT_MHC_VisitRecord where DATEPART(year,visitdate) = @Year and  DATEPART(month,visitdate) = @Month
-		</SQL>
-	</StatisticsEntity>
-	<StatisticsEntity Id="101103001" Name ="PT_MHC_VisitRecordCount_Monthly" Discription="病历总数 月周期" Parameters="@Year=2020,@Month=11" ParentFormatter="@Year-@Month">
-		<SQL>
-			select count(1) from  PT_MHC_VisitRecord where DATEPART(year,visitdate) = @Year and  DATEPART(month,visitdate) = @Month
-		</SQL>
-	</StatisticsEntity>
-	<StatisticsEntity Id="101103001" Name ="PT_MHC_VisitRecordCount_Monthly" Discription="病历总数 月周期" Parameters="@Year=2020,@Month=10" ParentFormatter="@Year-@Month">
-		<SQL>
-			select count(1) from  PT_MHC_VisitRecord where DATEPART(year,visitdate) = @Year and  DATEPART(month,visitdate) = @Month
-		</SQL>
-	</StatisticsEntity>
 
 	<!--Id="101007"-->
     <StatisticsEntity Id="101007001" Name ="PT_RiskLevel_Green_Count" Discription="五色高危分布_绿色">
@@ -107,7 +82,7 @@
     <StatisticsEntity Id="101008005" Name ="PT_GirlCount" Discription="新生儿女孩总数"><SQL>select count(1) from PT_CDH_NeonateRecord a where xingbiemc ='女性'</SQL></StatisticsEntity>
 		
 	<!--Id="101108"-->
-	<StatisticsEntity Id="101108002" Name ="PT_ChildRecordCount_Monthly" Discription="新生儿档案总数月周期" Parameters="@Year=2021,@Month=02" ParentFormatter="@Year-@Month">
+	<StatisticsEntity Id="101108002" Name ="PT_ChildRecordCount_Monthly" Discription="新生儿档案总数月周期" Parameters="@Year=2021,@Month=03" ParentFormatter="@Year-@Month">
 		<SQL>
 			select count(1) from PT_CDH_NeonateRecord nr where DATEPART(year,CreateTime) = @Year and  DATEPART(month,CreateTime) = @Month
 		</SQL>
@@ -264,14 +239,7 @@
 		<SQL>
 			select count(DISTINCT(pi.idcard)) from PT_PregnantInfo pi
 			left join PT_CDH_DeliveryRecord dr on pi.idcard = dr.shenfenzjhm and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300
-			where dr.id is not null and dr.fenmianfsmc ='其他'
-		</SQL>
-	</StatisticsEntity>
-	<StatisticsEntity Id="101009024" Name ="PT_DeliveryMode_Other2Count" Discription="分娩方式`其它` @fenmianfsmc">
-		<SQL>
-			select count(DISTINCT(pi.idcard)) from PT_PregnantInfo pi
-			left join PT_CDH_DeliveryRecord dr on pi.idcard = dr.shenfenzjhm and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300
-			where dr.id is not null and dr.fenmianfsmc ='其它'
+			where dr.id is not null and (dr.fenmianfsmc ='其他' or dr.fenmianfsmc ='其它')
 		</SQL>
 	</StatisticsEntity>
 	<StatisticsEntity Id="101009025" Name ="PT_DeliveryMode_ExtractionCount" Discription="分娩方式`胎头吸引` @fenmianfsmc">
@@ -304,6 +272,38 @@
 	</StatisticsEntity>
 	<!--Id="199001"-->
     <StatisticsEntity Id="199001001" Name ="Common_LabOrderCount" Discription="检验记录数"><SQL>select count(1) from Common_LabResult</SQL></StatisticsEntity>
+
+	<!--Id="199101"-->
+	<StatisticsEntity Id="199101001" Name ="Common_LabOrderCount_Monthly" Discription="检验记录数 月周期" Parameters="@Year=2021,@Month=03" ParentFormatter="@Year-@Month">
+		<SQL>
+			select count(1) from  Common_LabOrder where DATEPART(year,examtime) = @Year and  DATEPART(month,examtime) = @Month
+		</SQL>
+	</StatisticsEntity>
+	<StatisticsEntity Id="199101001" Name ="Common_LabOrderCount_Monthly" Discription="检验记录数 月周期" Parameters="@Year=2021,@Month=02" ParentFormatter="@Year-@Month">
+		<SQL>
+			select count(1) from  Common_LabOrder where DATEPART(year,examtime) = @Year and  DATEPART(month,examtime) = @Month
+		</SQL>
+	</StatisticsEntity>
+	<StatisticsEntity Id="199101001" Name ="Common_LabOrderCount_Monthly" Discription="检验记录数 月周期" Parameters="@Year=2021,@Month=01" ParentFormatter="@Year-@Month">
+		<SQL>
+			select count(1) from  Common_LabOrder where DATEPART(year,examtime) = @Year and  DATEPART(month,examtime) = @Month
+		</SQL>
+	</StatisticsEntity>
+	<StatisticsEntity Id="199101001" Name ="Common_LabOrderCount_Monthly" Discription="检验记录数 月周期" Parameters="@Year=2020,@Month=12" ParentFormatter="@Year-@Month">
+		<SQL>
+			select count(1) from  Common_LabOrder where DATEPART(year,examtime) = @Year and  DATEPART(month,examtime) = @Month
+		</SQL>
+	</StatisticsEntity>
+	<StatisticsEntity Id="199101001" Name ="Common_LabOrderCount_Monthly" Discription="检验记录数 月周期" Parameters="@Year=2020,@Month=11" ParentFormatter="@Year-@Month">
+		<SQL>
+			select count(1) from  Common_LabOrder where DATEPART(year,examtime) = @Year and  DATEPART(month,examtime) = @Month
+		</SQL>
+	</StatisticsEntity>
+	<StatisticsEntity Id="199101001" Name ="Common_LabOrderCount_Monthly" Discription="检验记录数 月周期" Parameters="@Year=2020,@Month=10" ParentFormatter="@Year-@Month">
+		<SQL>
+			select count(1) from  Common_LabOrder where DATEPART(year,examtime) = @Year and  DATEPART(month,examtime) = @Month
+		</SQL>
+	</StatisticsEntity>
 
 	<!--Id="199002"-->
     <StatisticsEntity Id="199002001" Name ="Common_LabResultCount" Discription="检验记录项目数"><SQL>select count(1) from Common_LabOrder</SQL></StatisticsEntity>
