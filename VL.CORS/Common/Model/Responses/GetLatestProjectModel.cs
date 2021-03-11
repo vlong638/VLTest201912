@@ -1,4 +1,6 @@
-﻿namespace ResearchAPI.CORS.Common
+﻿using System;
+
+namespace ResearchAPI.CORS.Common
 {
     /// <summary>
     /// 
@@ -16,6 +18,10 @@
         /// <summary>
         /// 项目更新日期
         /// </summary>
-        public string LastModifiedAt { set; get; }
+        public string LastModifiedAtStr { get { return LastModifiedAt.ToString();  } }
+        /// <summary>
+        /// 项目更新日期
+        /// </summary>
+        public DateTime LastModifiedAt { set; get; }
     }
 }

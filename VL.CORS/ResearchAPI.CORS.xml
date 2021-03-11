@@ -2386,6 +2386,11 @@
             项目名称
             </summary>
         </member>
+        <member name="P:ResearchAPI.CORS.Common.GetLatestProjectModel.LastModifiedAtStr">
+            <summary>
+            项目更新日期
+            </summary>
+        </member>
         <member name="P:ResearchAPI.CORS.Common.GetLatestProjectModel.LastModifiedAt">
             <summary>
             项目更新日期

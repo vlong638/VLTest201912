@@ -372,6 +372,8 @@ namespace ResearchAPI.CORS.Services
                 Name = request.ProjectName,
                 CreatedAt = DateTime.Now,
                 CreatorId = userid,
+                LastModifiedAt = DateTime.Now,
+                LastModifiedBy = userid,
                 ProjectDescription = request.ProjectDescription,
                 ViewAuthorizeType = request.ViewAuthorizeType,
             };
@@ -406,8 +408,8 @@ namespace ResearchAPI.CORS.Services
             {
                 Id = request.ProjectId,
                 Name = request.ProjectName,
-                CreatedAt = DateTime.Now,
-                CreatorId = userid,
+                LastModifiedAt = DateTime.Now,
+                LastModifiedBy = userid,
                 ProjectDescription = request.ProjectDescription,
                 ViewAuthorizeType = request.ViewAuthorizeType,
             };
