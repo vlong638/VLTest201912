@@ -29,6 +29,9 @@
     <None Update="Configs\XMLConfigs\SyncEntities\StatisticsEntities_产科.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Configs\XMLConfigs\SyncEntities\SyncEntities_盆底.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Configs\XMLConfigs\SyncEntities\SyncEntities_检验.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
