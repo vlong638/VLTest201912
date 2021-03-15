@@ -238,14 +238,14 @@
 							select pi.idcard,pi.dateofprenatal
 							<If Operator="eq" ComponentName="多值时取值方式" Value="1"> ,min(vr.visitdate) visitdate </If>
 							<If Operator="eq" ComponentName="多值时取值方式" Value="2"> ,max(vr.visitdate) visitdate </If>
-							from MHC_VisitRecord vr
-							left join PregnantInfo pi on vr.idcard = pi.idcard
+							from PT_MHC_VisitRecord vr
+							left join PT_PregnantInfo pi on vr.idcard = pi.idcard
 							where 1=1
 							and datediff(week,pi.dateofprenatal,vr.visitdate)+40 &gt;= @起始孕周
 							and datediff(week,pi.dateofprenatal,vr.visitdate)+40 &lt;= @截止孕周
 							group by pi.idcard,pi.dateofprenatal
 					) as temp
-					left join MHC_VisitRecord vr on temp.idcard = vr.idcard and temp.visitdate = vr.visitdate
+					left join PT_MHC_VisitRecord vr on temp.idcard = vr.idcard and temp.visitdate = vr.visitdate
 				) as vr
 				group by idcard,dateofprenatal,IssueWeek
 					,vr.visitdate,vr.checkweek,vr.checkday,vr.chiefcomplaint,vr.maindiagnosis,vr.secondarydiagnosis,vr.dbp,vr.sbp
@@ -256,7 +256,7 @@
 			</If>
 		</SQL>
 	</SQLConfig>
-	<Router From="PregnantInfo" FromAlias="pi" RouteType="LeftJoin">
+	<Router From="PT_PregnantInfo" FromAlias="pi" RouteType="LeftJoin">
 		<On FromField="Idcard" ToField="Idcard"/>
 		<On FromField="DateOfPrenatal" ToField="DateOfPrenatal"/>
 	</Router>

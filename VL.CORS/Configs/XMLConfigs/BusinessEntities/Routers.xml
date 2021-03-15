@@ -1,27 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Routers>
 	<!--产科-->
-	<Router From="PregnantInfo" To="MHC_VisitRecord" RouteType="LeftJoin">
-		<On FromField="Id" ToField="pregnantInfoId"/>
+	<Router From="PT_PregnantInfo" To="PT_MHC_VisitRecord" RouteType="LeftJoin">
+		<On FromField="Id" ToField="PT_PregnantInfoId"/>
 	</Router>
-	<Router From="PregnantInfo" To="MHC_FirstVisitRecord" RouteType="LeftJoin">
-		<On FromField="Id" ToField="pregnantInfoId"/>
+	<Router From="PT_PregnantInfo" To="PT_MHC_FirstVisitRecord" RouteType="LeftJoin">
+		<On FromField="Id" ToField="PT_PregnantInfoId"/>
 	</Router>
-	<Router From="PregnantInfo" To="HighRiskReport" RouteType="LeftJoin">
-		<On FromField="Id" ToField="pregnantInfoId"/>
+	<Router From="PT_PregnantInfo" To="PT_HighRiskReport" RouteType="LeftJoin">
+		<On FromField="Id" ToField="PT_PregnantInfoId"/>
 	</Router>
-	<Router From="PregnantInfo" To="MHC_HighRiskReason" RouteType="LeftJoin">
-		<On FromField="Id" ToField="pregnantInfoId"/>
+	<Router From="PT_PregnantInfo" To="PT_MHC_HighRiskReason" RouteType="LeftJoin">
+		<On FromField="Id" ToField="PT_PregnantInfoId"/>
 	</Router>
-	<Router From="PregnantInfo" To="LabOrder" RouteType="LeftJoin">
+	<Router From="PT_PregnantInfo" To="Common_LabOrder" RouteType="LeftJoin">
 		<On FromField="Idcard" ToField="Idcard"/>
 	</Router>
-	<Router From="LabOrder" To="LabResult" RouteType="LeftJoin">
+	<Router From="Common_LabOrder" To="Common_LabResult" RouteType="LeftJoin">
 		<On FromField="OrderId" ToField="OrderId"/>
 	</Router>
 	
 	<!--盆底-->
-	<!--<Router From="PregnantInfo" To="PF_GeneralInfo" RouteType="LeftJoin">
+	<!--<Router From="PT_PregnantInfo" To="PF_GeneralInfo" RouteType="LeftJoin">
 		<On FromField="idcard" ToField="idcard"/>
 	</Router>-->
 	<Router From="PF_GeneralInfo" To="PF_PregnancyHistory" RouteType="LeftJoin">
@@ -43,7 +43,7 @@
 		<On FromField="id" ToField="treatmentrecordid"/>
 	</Router>
 	<!--分娩-->
-	<!--<Router From="PregnantInfo" To="FM_Mother" RouteType="LeftJoin">
+	<!--<Router From="PT_PregnantInfo" To="FM_Mother" RouteType="LeftJoin">
 		<On FromField="idcard" ToField="card_no"/>
 	</Router>-->
 	<Router From="FM_Mother" To="FM_WaitDelivery" RouteType="LeftJoin">

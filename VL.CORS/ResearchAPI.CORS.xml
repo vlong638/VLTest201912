@@ -3181,7 +3181,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:ResearchAPI.CORS.Controllers.EasyResearchController.EditTaskV2(ResearchAPI.CORS.Common.APIContext,ResearchAPI.CORS.Services.ReportTaskService,ResearchAPI.CORS.Common.EditTaskV2Request)">
+        <member name="M:ResearchAPI.CORS.Controllers.EasyResearchController.EditTaskV2(ResearchAPI.CORS.Services.ReportTaskService,ResearchAPI.CORS.Common.EditTaskV2Request)">
             <summary>
             01/22 编辑队列
             </summary>

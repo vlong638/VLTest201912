@@ -6,7 +6,7 @@
 	预产期
 	身份证,Idcard
 	-->
-	<BusinessEntity Id="101001" DisplayName ="基本档案" SourceName="PregnantInfo">
+	<BusinessEntity Id="101001" DisplayName ="基本档案" SourceName="PT_PregnantInfo">
 		<Properties>
 			<Property Id="101001186" DisplayName="孕妇姓名" SourceName="personname" ColumnType="String"/>
 			<Property Id="101001033" DisplayName="预产期" SourceName="dateofprenatal" ColumnType="DateTime"/>
@@ -280,7 +280,7 @@
 	主诊断
 	次诊断
 	-->
-	<BusinessEntity Id="101002" DisplayName ="产检" SourceName="MHC_VisitRecord">
+	<BusinessEntity Id="101002" DisplayName ="产检" SourceName="PT_MHC_VisitRecord">
 		<Properties>
 			<Property Id="101002247" DisplayName="检查时间" SourceName="visitdate" ColumnType="DateTime"/>
 			<Property Id="101002029" DisplayName="检查孕周" SourceName="checkweek" ColumnType="Int"/>
@@ -617,7 +617,7 @@
 	主诊断
 	次诊断
 	-->
-	<BusinessEntity Id="101005" DisplayName ="首检" SourceName="MHC_FirstVisitRecord">
+	<BusinessEntity Id="101005" DisplayName ="首检" SourceName="PT_MHC_FirstVisitRecord">
 		<Properties>
 			<Property Id="101006113" DisplayName="检查时间" SourceName="visitdate" ColumnType="DateTime"/>
 			<Property Id="101005009" DisplayName="孕周" SourceName="checkweek" ColumnType="Int"/>
@@ -895,7 +895,7 @@
 	主诊断
 	次诊断
 	-->	
-	<BusinessEntity Id="101007" DisplayName ="产后42天" SourceName="MHC_Postnatal42dayRecord">
+	<BusinessEntity Id="101007" DisplayName ="产后42天" SourceName="PT_MHC_Postnatal42dayRecord">
 		<Properties>
 			<Property Id="101007020" DisplayName="分娩日期" SourceName="childbirth" ColumnType="DateTime"/>
 			<Property Id="101007013" DisplayName="检查时间" SourceName="checkdate" ColumnType="DateTime"/>
@@ -1021,7 +1021,7 @@
 	高危等级
 	高危因素
 	-->	
-	<BusinessEntity Id="101008" DisplayName ="高危妊娠风险报告" SourceName="HighRiskReport">
+	<BusinessEntity Id="101008" DisplayName ="高危妊娠风险报告" SourceName="PT_HighRiskReport">
 		<Properties>
 			<Property Id="101008026" DisplayName="孕妇姓名" SourceName="personname" ColumnType="String"/>
 			<Property Id="101008018" DisplayName="身份证号" SourceName="idcard" ColumnType="String"/>
@@ -1074,7 +1074,7 @@
 	高危等级
 	高危因素
 	-->	
-	<BusinessEntity Id="101009" DisplayName ="高危因素" SourceName="MHC_HighRiskReason">
+	<BusinessEntity Id="101009" DisplayName ="高危因素" SourceName="PT_MHC_HighRiskReason">
 		<Properties>
 			<Property Id="101009011" DisplayName="身份证号" SourceName="idcard" ColumnType="String"/>
 			

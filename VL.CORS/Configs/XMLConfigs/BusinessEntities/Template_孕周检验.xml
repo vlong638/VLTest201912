@@ -28,17 +28,17 @@
 						select pi.idcard,pi.dateofprenatal
 						<If Operator="eq" ComponentName="多值时取值方式" Value="1"> ,min(lo.examtime) targetexamtime </If>
 						<If Operator="eq" ComponentName="多值时取值方式" Value="2"> ,max(lo.examtime) targetexamtime </If>
-						from LabOrder lo
-						left join LabResult lr on lo.orderid = lr.orderid
-						left join PregnantInfo pi on lo.idcard = pi.idcard
+						from Common_LabOrder lo
+						left join Common_LabResult lr on lo.orderid = lr.orderid
+						left join PT_PregnantInfo pi on lo.idcard = pi.idcard
 						where 1=1
 						<If Operator="NotEmpty" ComponentName="检验类别"> and lr.itemid = @检验类别</If>
 						<If Operator="NotEmpty" ComponentName="起始孕周"> and datediff(week,pi.dateofprenatal,lo.examtime)+40 &gt;= @起始孕周 </If>
 						<If Operator="NotEmpty" ComponentName="截止孕周"> and datediff(week,pi.dateofprenatal,lo.examtime)+40 &lt;= @截止孕周 </If>
 						group by pi.idcard,pi.dateofprenatal
 					) as temp
-					left join LabOrder lo on temp.idcard = lo.idcard and temp.targetexamtime = lo.examtime
-					left join LabResult lr on lo.orderid = lr.orderid
+					left join Common_LabOrder lo on temp.idcard = lo.idcard and temp.targetexamtime = lo.examtime
+					left join Common_LabResult lr on lo.orderid = lr.orderid
 					<If Operator="NotEmpty" ComponentName="检验类别"> and lr.itemid = @检验类别</If>
 				) as temp2
 				where value is not null
@@ -52,9 +52,9 @@
 					<If Operator="eq" ComponentName="多值时取值方式" Value="3"> ,min(convert(decimal,lr.value)) as value </If>
 					<If Operator="eq" ComponentName="多值时取值方式" Value="4"> ,max(convert(decimal,lr.value)) as value </If>
 					<If Operator="eq" ComponentName="多值时取值方式" Value="5"> ,avg(convert(decimal,lr.value)) as value </If>
-					from LabOrder lo
-					left join LabResult lr on lo.orderid = lr.orderid
-					left join PregnantInfo pi on lo.idcard = pi.idcard
+					from Common_LabOrder lo
+					left join Common_LabResult lr on lo.orderid = lr.orderid
+					left join PT_PregnantInfo pi on lo.idcard = pi.idcard
 					where 1=1
 					<If Operator="NotEmpty" ComponentName="检验类别"> and lr.itemid = @检验类别</If>
 					<If Operator="NotEmpty" ComponentName="起始孕周"> and datediff(week,pi.dateofprenatal,lo.examtime)+40 &gt;= @起始孕周 </If>
@@ -66,7 +66,7 @@
 			</If>
 		</SQL>
 	</SQLConfig>
-	<Router From="PregnantInfo" FromAlias="pi" RouteType="LeftJoin">
+	<Router From="PT_PregnantInfo" FromAlias="pi" RouteType="LeftJoin">
 		<On FromField="Idcard" ToField="Idcard"/>
 		<On FromField="DateOfPrenatal" ToField="DateOfPrenatal"/>
 	</Router>
