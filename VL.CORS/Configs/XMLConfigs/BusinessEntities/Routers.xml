@@ -2,16 +2,16 @@
 <Routers>
 	<!--产科-->
 	<Router From="PT_PregnantInfo" To="PT_MHC_VisitRecord" RouteType="LeftJoin">
-		<On FromField="Id" ToField="PT_PregnantInfoId"/>
+		<On FromField="Id" ToField="PregnantInfoId"/>
 	</Router>
 	<Router From="PT_PregnantInfo" To="PT_MHC_FirstVisitRecord" RouteType="LeftJoin">
-		<On FromField="Id" ToField="PT_PregnantInfoId"/>
+		<On FromField="Id" ToField="PregnantInfoId"/>
 	</Router>
 	<Router From="PT_PregnantInfo" To="PT_HighRiskReport" RouteType="LeftJoin">
-		<On FromField="Id" ToField="PT_PregnantInfoId"/>
+		<On FromField="Id" ToField="PregnantInfoId"/>
 	</Router>
 	<Router From="PT_PregnantInfo" To="PT_MHC_HighRiskReason" RouteType="LeftJoin">
-		<On FromField="Id" ToField="PT_PregnantInfoId"/>
+		<On FromField="Id" ToField="PregnantInfoId"/>
 	</Router>
 	<Router From="PT_PregnantInfo" To="Common_LabOrder" RouteType="LeftJoin">
 		<On FromField="Idcard" ToField="Idcard"/>

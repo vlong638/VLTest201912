@@ -87,191 +87,196 @@
 			select count(1) from PT_CDH_NeonateRecord nr where DATEPART(year,CreateTime) = @Year and  DATEPART(month,CreateTime) = @Month
 		</SQL>
 	</StatisticsEntity>
-
 	<!--Id="101009"-->
-	<StatisticsEntity Id="101009001" Name ="PT_MotherCount" Discription="已分娩产妇总数">
+	<StatisticsEntity Id="101009000" Name ="PT_DeliveryCount" Discription="分娩记录总数">
 		<SQL>
-			select count(DISTINCT(pi.idcard)) from PT_PregnantInfo pi
-			left join PT_CDH_DeliveryRecord dr on pi.idcard = dr.shenfenzjhm and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300
-			where dr.id is null
+			select count(dr.id) from PT_CDH_DeliveryRecord dr
 		</SQL>
 	</StatisticsEntity>
-	<StatisticsEntity Id="101009002" Name ="PT_PregnantCount" Discription="待分娩产妇总数">
+	<StatisticsEntity Id="101009001" Name ="PT_MotherCount" Discription="已分娩记录总数">
 		<SQL>
-			select count(DISTINCT(pi.idcard)) from PT_PregnantInfo pi
-			left join PT_CDH_DeliveryRecord dr on pi.idcard = dr.shenfenzjhm and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300
-			where dr.id is not null
+			select count(distinct(pi.id)) from PT_PregnantInfo pi
+			left join PT_CDH_DeliveryRecord dr on pi.idcard = dr.shenfenzjhm
+			where dr.id is not null and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300
+		</SQL>
+	</StatisticsEntity>
+	<StatisticsEntity Id="101009002" Name ="PT_PregnantCount" Discription="待分娩记录总数">
+		<SQL>	
+			select count(distinct(pi.id)) from PT_PregnantInfo pi
+			left join PT_CDH_DeliveryRecord dr on pi.idcard = dr.shenfenzjhm
+			where dr.id is null 
 		</SQL>
 	</StatisticsEntity>
 	<!--<StatisticsEntity Id="101009003" Name ="PT_AbortionCount" Discription="流产产妇总数"><SQL></SQL></StatisticsEntity>-->
 	<StatisticsEntity Id="101009004" Name ="PT_PregnancyOutcomeAliveCount" Discription="分娩结局`存活`母亲总数 @fenmianjjmc">
 		<SQL>
-			select count(DISTINCT(pi.idcard)) from PT_PregnantInfo pi
-			left join PT_CDH_DeliveryRecord dr on pi.idcard = dr.shenfenzjhm and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300
-			where dr.id is not null and dr.fenmianjjmc ='存活'
+			select count(distinct(dr.id)) from PT_CDH_DeliveryRecord dr
+			left join PT_PregnantInfo pi on pi.idcard = dr.shenfenzjhm
+			where pi.id is not null and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300 and dr.fenmianjjmc ='存活'
 		</SQL>
 	</StatisticsEntity>
 	<StatisticsEntity Id="101009005" Name ="PT_PregnancyOutcomeStillBirthCount" Discription="分娩结局`死胎`母亲总数 @fenmianjjmc">
 		<SQL>
-			select count(DISTINCT(pi.idcard)) from PT_PregnantInfo pi
-			left join PT_CDH_DeliveryRecord dr on pi.idcard = dr.shenfenzjhm and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300
-			where dr.id is not null and dr.fenmianjjmc ='死胎'
+			select count(distinct(dr.id)) from PT_CDH_DeliveryRecord dr
+			left join PT_PregnantInfo pi on pi.idcard = dr.shenfenzjhm
+			where pi.id is not null and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300 and dr.fenmianjjmc ='死胎'
 		</SQL>
 	</StatisticsEntity>
 	<StatisticsEntity Id="101009006" Name ="PT_PregnancyOutcomeDeadBirthCount" Discription="分娩结局`死产`母亲总数 @fenmianjjmc">
 		<SQL>
-			select count(DISTINCT(pi.idcard)) from PT_PregnantInfo pi
-			left join PT_CDH_DeliveryRecord dr on pi.idcard = dr.shenfenzjhm and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300
-			where dr.id is not null and dr.fenmianjjmc ='死产'
+			select count(distinct(dr.id)) from PT_CDH_DeliveryRecord dr
+			left join PT_PregnantInfo pi on pi.idcard = dr.shenfenzjhm
+			where pi.id is not null and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300 and dr.fenmianjjmc ='死产'
 		</SQL>
 	</StatisticsEntity>
 	<StatisticsEntity Id="101009007" Name ="PT_MotherOutcomeDeadBirthCount" Discription="母亲结局`产时死亡`母亲总数 @chanfujjmc">
 		<SQL>
-			select count(DISTINCT(pi.idcard)) from PT_PregnantInfo pi
-			left join PT_CDH_DeliveryRecord dr on pi.idcard = dr.shenfenzjhm and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300
-			where dr.id is not null and dr.chanfujjmc ='产时死亡'
+			select count(distinct(dr.id)) from PT_CDH_DeliveryRecord dr
+			left join PT_PregnantInfo pi on pi.idcard = dr.shenfenzjhm
+			where pi.id is not null and  abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300 and dr.chanfujjmc ='产时死亡'
 		</SQL>
 	</StatisticsEntity>
 	<StatisticsEntity Id="101009008" Name ="PT_MotherOutcomeAliveCount" Discription="母亲结局`存活`母亲总数 @chanfujjmc">
 		<SQL>
-			select count(DISTINCT(pi.idcard)) from PT_PregnantInfo pi
-			left join PT_CDH_DeliveryRecord dr on pi.idcard = dr.shenfenzjhm and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300
-			where dr.id is not null and dr.chanfujjmc ='存活'
+			select count(distinct(dr.id)) from PT_CDH_DeliveryRecord dr
+			left join PT_PregnantInfo pi on pi.idcard = dr.shenfenzjhm
+			where pi.id is not null and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300 and dr.chanfujjmc ='存活'
 		</SQL>
 	</StatisticsEntity>
 	<StatisticsEntity Id="101009011" Name ="PT_Boy_DeliveryWeekCount_lt28" Discription="男孩分娩孕周 小于28周">
 		<SQL>
-			select count(DISTINCT(pi.idcard)) from PT_PregnantInfo pi
-			left join PT_CDH_NeonateRecord nr on pi.idcard = nr.muqinsfzjhm and nr.xingbiemc ='男性' 
+			select count(DISTINCT(nr.id)) from PT_CDH_NeonateRecord nr 
+			left join PT_PregnantInfo pi on pi.idcard = nr.muqinsfzjhm
+			where nr.id is not null and nr.xingbiemc ='男性'
 			and abs(datediff(day,pi.dateofprenatal,nr.fenmianrqsj))&lt;300
 			and (280 + datediff(day,pi.dateofprenatal,nr.fenmianrqsj))/7 &lt; 28
-			where nr.id is not null
 		</SQL>
 	</StatisticsEntity>
 	<StatisticsEntity Id="101009012" Name ="PT_Boy_DeliveryWeekCount_28_37" Discription="男孩分娩孕周 28周-37周">
 		<SQL>
-			select count(DISTINCT(pi.idcard)) from PT_PregnantInfo pi
-			left join PT_CDH_NeonateRecord nr on pi.idcard = nr.muqinsfzjhm and nr.xingbiemc ='男性' 
+			select count(DISTINCT(nr.id)) from PT_CDH_NeonateRecord nr 
+			left join PT_PregnantInfo pi on pi.idcard = nr.muqinsfzjhm
+			where nr.id is not null and nr.xingbiemc ='男性' 
 			and abs(datediff(day,pi.dateofprenatal,nr.fenmianrqsj))&lt;300
 			and (280 + datediff(day,pi.dateofprenatal,nr.fenmianrqsj))/7 &gt;= 28
 			and (280 + datediff(day,pi.dateofprenatal,nr.fenmianrqsj))/7 &lt; 37
-			where nr.id is not null
 		</SQL>
 	</StatisticsEntity>
 	<StatisticsEntity Id="101009013" Name ="PT_Boy_DeliveryWeekCount_37_41" Discription="男孩分娩孕周 37周-41周">
 		<SQL>
-			select count(DISTINCT(pi.idcard)) from PT_PregnantInfo pi
-			left join PT_CDH_NeonateRecord nr on pi.idcard = nr.muqinsfzjhm and nr.xingbiemc ='男性' 
+			select count(DISTINCT(nr.id)) from PT_CDH_NeonateRecord nr 
+			left join PT_PregnantInfo pi on pi.idcard = nr.muqinsfzjhm
+			where nr.id is not null and nr.xingbiemc ='男性' 
 			and abs(datediff(day,pi.dateofprenatal,nr.fenmianrqsj))&lt;300
 			and (280 + datediff(day,pi.dateofprenatal,nr.fenmianrqsj))/7 &gt;= 37
-			and (280 + datediff(day,pi.dateofprenatal,nr.fenmianrqsj))/7 &lt; 42
-			where nr.id is not null
+			and (280 + datediff(day,pi.dateofprenatal,nr.fenmianrqsj))/7 &lt;= 41
 		</SQL>
 	</StatisticsEntity>
 	<StatisticsEntity Id="101009014" Name ="PT_Boy_DeliveryWeekCount_gt41" Discription="男孩分娩孕周 大于41周">
 		<SQL>
-			select count(DISTINCT(pi.idcard)) from PT_PregnantInfo pi
-			left join PT_CDH_NeonateRecord nr on pi.idcard = nr.muqinsfzjhm and nr.xingbiemc ='男性' 
+			select count(DISTINCT(nr.id)) from PT_CDH_NeonateRecord nr 
+			left join PT_PregnantInfo pi on pi.idcard = nr.muqinsfzjhm
+			where nr.id is not null and nr.xingbiemc ='男性' 
 			and abs(datediff(day,pi.dateofprenatal,nr.fenmianrqsj))&lt;300
 			and (280 + datediff(day,pi.dateofprenatal,nr.fenmianrqsj))/7 &gt; 41
-			where nr.id is not null
 		</SQL>
 	</StatisticsEntity>
 	<StatisticsEntity Id="101009015" Name ="PT_Girl_DeliveryWeekCount_lt28" Discription="女孩分娩孕周 小于28周">
 		<SQL>
-			select count(DISTINCT(pi.idcard)) from PT_PregnantInfo pi
-			left join PT_CDH_NeonateRecord nr on pi.idcard = nr.muqinsfzjhm and nr.xingbiemc ='女性' 
+			select count(DISTINCT(nr.id)) from PT_CDH_NeonateRecord nr 
+			left join PT_PregnantInfo pi on pi.idcard = nr.muqinsfzjhm
+			where nr.id is not null and nr.xingbiemc ='女性' 
 			and abs(datediff(day,pi.dateofprenatal,nr.fenmianrqsj))&lt;300
 			and (280 + datediff(day,pi.dateofprenatal,nr.fenmianrqsj))/7 &lt; 28
-			where nr.id is not null
 		</SQL>
 	</StatisticsEntity>
 	<StatisticsEntity Id="101009016" Name ="PT_Girl_DeliveryWeekCount_28_37" Discription="女孩分娩孕周 28周-37周">
 		<SQL>
-			select count(DISTINCT(pi.idcard)) from PT_PregnantInfo pi
-			left join PT_CDH_NeonateRecord nr on pi.idcard = nr.muqinsfzjhm and nr.xingbiemc ='女性' 
+			select count(DISTINCT(nr.id)) from PT_CDH_NeonateRecord nr 
+			left join PT_PregnantInfo pi on pi.idcard = nr.muqinsfzjhm
+			where nr.id is not null and nr.xingbiemc ='女性' 
 			and abs(datediff(day,pi.dateofprenatal,nr.fenmianrqsj))&lt;300
 			and (280 + datediff(day,pi.dateofprenatal,nr.fenmianrqsj))/7 &gt;= 28
 			and (280 + datediff(day,pi.dateofprenatal,nr.fenmianrqsj))/7 &lt; 37
-			where nr.id is not null
 		</SQL>
 	</StatisticsEntity>
 	<StatisticsEntity Id="101009017" Name ="PT_Girl_DeliveryWeekCount_37_41" Discription="女孩分娩孕周 37周-41周">
 		<SQL>
-			select count(DISTINCT(pi.idcard)) from PT_PregnantInfo pi
-			left join PT_CDH_NeonateRecord nr on pi.idcard = nr.muqinsfzjhm and nr.xingbiemc ='女性' 
+			select count(DISTINCT(nr.id)) from PT_CDH_NeonateRecord nr 
+			left join PT_PregnantInfo pi on pi.idcard = nr.muqinsfzjhm
+			where nr.id is not null and nr.xingbiemc ='女性' 
 			and abs(datediff(day,pi.dateofprenatal,nr.fenmianrqsj))&lt;300
 			and (280 + datediff(day,pi.dateofprenatal,nr.fenmianrqsj))/7 &gt;= 37
-			and (280 + datediff(day,pi.dateofprenatal,nr.fenmianrqsj))/7 &lt; 42
+			and (280 + datediff(day,pi.dateofprenatal,nr.fenmianrqsj))/7 &lt;= 41
 		</SQL>
 	</StatisticsEntity>
 	<StatisticsEntity Id="101009018" Name ="PT_Girl_DeliveryWeekCount_gt41" Discription="女孩分娩孕周 大于41周">
 		<SQL>
-			select count(DISTINCT(pi.idcard)) from PT_PregnantInfo pi
-			left join PT_CDH_NeonateRecord nr on pi.idcard = nr.muqinsfzjhm and nr.xingbiemc ='女性' 
+			select count(DISTINCT(nr.id)) from PT_CDH_NeonateRecord nr 
+			left join PT_PregnantInfo pi on pi.idcard = nr.muqinsfzjhm
+			where nr.id is not null and nr.xingbiemc ='女性' 
 			and abs(datediff(day,pi.dateofprenatal,nr.fenmianrqsj))&lt;300
-			and (280 + datediff(day,pi.dateofprenatal,nr.fenmianrqsj))/7 &lt; 28
-			where nr.id is not null
+			and (280 + datediff(day,pi.dateofprenatal,nr.fenmianrqsj))/7 &gt;41
 		</SQL>
 	</StatisticsEntity>
 	<StatisticsEntity Id="101009020" Name ="PT_DeliveryMode_ForcepsCount" Discription="分娩方式`产钳助产` @fenmianfsmc">
 		<SQL>
-			select count(DISTINCT(pi.idcard)) from PT_PregnantInfo pi
-			left join PT_CDH_DeliveryRecord dr on pi.idcard = dr.shenfenzjhm and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300
-			where dr.id is not null and dr.fenmianfsmc ='产钳助产'
+			select count(dr.id) from PT_CDH_DeliveryRecord dr
+			left join PT_PregnantInfo pi on pi.idcard = dr.shenfenzjhm 
+			where pi.id is not null and dr.fenmianfsmc ='产钳助产' and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300
 		</SQL>
 	</StatisticsEntity>
 	<StatisticsEntity Id="101009021" Name ="PT_DeliveryMode_DestroyCount" Discription="分娩方式`毁胎术` @fenmianfsmc">
 		<SQL>
-			select count(DISTINCT(pi.idcard)) from PT_PregnantInfo pi
-			left join PT_CDH_DeliveryRecord dr on pi.idcard = dr.shenfenzjhm and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300
-			where dr.id is not null and dr.fenmianfsmc ='毁胎术'
+			select count(dr.id) from PT_CDH_DeliveryRecord dr
+			left join PT_PregnantInfo pi on pi.idcard = dr.shenfenzjhm 
+			where pi.id is not null and dr.fenmianfsmc ='毁胎术' and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300
 		</SQL>
 	</StatisticsEntity>
 	<StatisticsEntity Id="101009022" Name ="PT_DeliveryMode_CesareanCount" Discription="分娩方式`剖宫产` @fenmianfsmc">
 		<SQL>
-			select count(DISTINCT(pi.idcard)) from PT_PregnantInfo pi
-			left join PT_CDH_DeliveryRecord dr on pi.idcard = dr.shenfenzjhm and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300
-			where dr.id is not null and dr.fenmianfsmc ='剖宫产'
+			select count(dr.id) from PT_CDH_DeliveryRecord dr
+			left join PT_PregnantInfo pi on pi.idcard = dr.shenfenzjhm 
+			where pi.id is not null and dr.fenmianfsmc ='剖宫产' and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300
 		</SQL>
 	</StatisticsEntity>
 	<StatisticsEntity Id="101009023" Name ="PT_DeliveryMode_OtherCount" Discription="分娩方式`其他` @fenmianfsmc">
 		<SQL>
-			select count(DISTINCT(pi.idcard)) from PT_PregnantInfo pi
-			left join PT_CDH_DeliveryRecord dr on pi.idcard = dr.shenfenzjhm and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300
-			where dr.id is not null and (dr.fenmianfsmc ='其他' or dr.fenmianfsmc ='其它')
+			select count(dr.id) from PT_CDH_DeliveryRecord dr
+			left join PT_PregnantInfo pi on pi.idcard = dr.shenfenzjhm 
+			where pi.id is not null and (dr.fenmianfsmc ='其他' or dr.fenmianfsmc ='其它') and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300
 		</SQL>
 	</StatisticsEntity>
 	<StatisticsEntity Id="101009025" Name ="PT_DeliveryMode_ExtractionCount" Discription="分娩方式`胎头吸引` @fenmianfsmc">
 		<SQL>
-			select count(DISTINCT(pi.idcard)) from PT_PregnantInfo pi
-			left join PT_CDH_DeliveryRecord dr on pi.idcard = dr.shenfenzjhm and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300
-			where dr.id is not null and dr.fenmianfsmc ='胎头吸引'
+			select count(dr.id) from PT_CDH_DeliveryRecord dr
+			left join PT_PregnantInfo pi on pi.idcard = dr.shenfenzjhm 
+			where pi.id is not null and dr.fenmianfsmc ='胎头吸引' and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300
 		</SQL>
 	</StatisticsEntity>
 	<StatisticsEntity Id="101009026" Name ="PT_DeliveryMode_BreechAssistCount" Discription="分娩方式`臀位助产` @fenmianfsmc">
 		<SQL>
-			select count(DISTINCT(pi.idcard)) from PT_PregnantInfo pi
-			left join PT_CDH_DeliveryRecord dr on pi.idcard = dr.shenfenzjhm and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300
-			where dr.id is not null and dr.fenmianfsmc ='臀位助产'
+			select count(dr.id) from PT_CDH_DeliveryRecord dr
+			left join PT_PregnantInfo pi on pi.idcard = dr.shenfenzjhm 
+			where pi.id is not null and dr.fenmianfsmc ='臀位助产' and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300
 		</SQL>
 	</StatisticsEntity>
 	<StatisticsEntity Id="101009027" Name ="PT_DeliveryMode_VaginalCount" Discription="分娩方式`阴道自然分娩` @fenmianfsmc">
 		<SQL>
-			select count(DISTINCT(pi.idcard)) from PT_PregnantInfo pi
-			left join PT_CDH_DeliveryRecord dr on pi.idcard = dr.shenfenzjhm and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300
-			where dr.id is not null and dr.fenmianfsmc ='阴道自然分娩'
+			select count(dr.id) from PT_CDH_DeliveryRecord dr
+			left join PT_PregnantInfo pi on pi.idcard = dr.shenfenzjhm 
+			where pi.id is not null and (dr.fenmianfsmc ='阴道自然分娩' or dr.fenmianfsmc is null or dr.fenmianfsmc = '') and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300
 		</SQL>
 	</StatisticsEntity>
 	<StatisticsEntity Id="101009028" Name ="PT_DeliveryMode_InducedCount" Discription="分娩方式`治疗性引产` @fenmianfsmc">
 		<SQL>
-			select count(DISTINCT(pi.idcard)) from PT_PregnantInfo pi
-			left join PT_CDH_DeliveryRecord dr on pi.idcard = dr.shenfenzjhm and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300
-			where dr.id is not null and dr.fenmianfsmc ='治疗性引产'
+			select count(dr.id) from PT_CDH_DeliveryRecord dr
+			left join PT_PregnantInfo pi on pi.idcard = dr.shenfenzjhm 
+			where pi.id is not null and dr.fenmianfsmc ='治疗性引产'
 		</SQL>
 	</StatisticsEntity>
 	<!--Id="199001"-->
-    <StatisticsEntity Id="199001001" Name ="Common_LabOrderCount" Discription="检验记录数"><SQL>select count(1) from Common_LabResult</SQL></StatisticsEntity>
+    <StatisticsEntity Id="199001001" Name ="Common_LabOrderCount" Discription="检验记录数"><SQL>select count(1) from Common_LabOrder</SQL></StatisticsEntity>
 
 	<!--Id="199101"-->
 	<StatisticsEntity Id="199101001" Name ="Common_LabOrderCount_Monthly" Discription="检验记录数 月周期" Parameters="@Year=2021,@Month=03" ParentFormatter="@Year-@Month">
@@ -306,5 +311,5 @@
 	</StatisticsEntity>
 
 	<!--Id="199002"-->
-    <StatisticsEntity Id="199002001" Name ="Common_LabResultCount" Discription="检验记录项目数"><SQL>select count(1) from Common_LabOrder</SQL></StatisticsEntity>
+    <StatisticsEntity Id="199002001" Name ="Common_LabResultCount" Discription="检验记录项目数"><SQL>select count(1) from Common_LabResult</SQL></StatisticsEntity>
 </StatisticsEntities>

@@ -1203,6 +1203,11 @@
              新生儿档案总数月周期 
             </summary>
         </member>
+        <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_DeliveryCount">
+            <summary> 
+             分娩产妇总数 
+            </summary>
+        </member>
         <member name="F:ResearchAPI.CORS.Common.DataStatisticsCategory.PT_MotherCount">
             <summary> 
              已分娩产妇总数 

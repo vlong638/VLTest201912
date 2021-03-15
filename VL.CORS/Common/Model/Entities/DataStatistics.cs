@@ -161,14 +161,19 @@ namespace ResearchAPI.CORS.Common
         #region CDH_DeliveryRecord 101009
 
         /// <summary> 
+        ///  分娩产妇总数 
+        /// </summary>
+        [Description("分娩记录总数")]
+        PT_DeliveryCount = 101009000,
+        /// <summary> 
         ///  已分娩产妇总数 
         /// </summary>
-        [Description("已分娩产妇总数")]
+        [Description("已分娩记录总数")]
         PT_MotherCount = 101009001,
         /// <summary> 
         ///  待分娩产妇总数 
         /// </summary>
-        [Description("待分娩产妇总数")]
+        [Description("待分娩记录总数")]
         PT_PregnantCount = 101009002,
         /// <summary> 
         ///  流产产妇总数 
@@ -214,43 +219,43 @@ namespace ResearchAPI.CORS.Common
         /// <summary> 
         ///  分娩孕周 小于28周 
         /// </summary>
-        [Description("分娩孕周 小于28周")]
+        [Description("男孩 分娩孕周 小于28周")]
         PT_Boy_DeliveryWeekCount_lt28 = 101009011,
         /// <summary> 
         ///  分娩孕周 28周-37周 
         /// </summary>
-        [Description("分娩孕周 28周-37周")]
+        [Description("男孩 分娩孕周 28周-37周")]
         PT_Boy_DeliveryWeekCount_28_37 = 101009012,
         /// <summary> 
         ///  分娩孕周 37周-41周 
         /// </summary>
-        [Description("分娩孕周 37周-41周")]
+        [Description("男孩 分娩孕周 37周-41周")]
         PT_Boy_DeliveryWeekCount_37_41 = 101009013,
         /// <summary> 
         ///  分娩孕周 大于41周 
         /// </summary>
-        [Description("分娩孕周 大于41周")]
+        [Description("男孩 分娩孕周 大于41周")]
         PT_Boy_DeliveryWeekCount_gt41 = 101009014,
 
         /// <summary> 
         ///  分娩孕周 小于28周 
         /// </summary>
-        [Description("分娩孕周 小于28周")]
+        [Description("女孩 分娩孕周 小于28周")]
         PT_Girl_DeliveryWeekCount_lt28 = 101009015,
         /// <summary> 
         ///  分娩孕周 28周-37周 
         /// </summary>
-        [Description("分娩孕周 28周-37周")]
+        [Description("女孩 分娩孕周 28周-37周")]
         PT_Girl_DeliveryWeekCount_28_37 = 101009016,
         /// <summary> 
         ///  分娩孕周 37周-41周 
         /// </summary>
-        [Description("分娩孕周 37周-41周")]
+        [Description("女孩 分娩孕周 37周-41周")]
         PT_Girl_DeliveryWeekCount_37_41 = 101009017,
         /// <summary> 
         ///  分娩孕周 大于41周 
         /// </summary>
-        [Description("分娩孕周 大于41周")]
+        [Description("女孩 分娩孕周 大于41周")]
         PT_Girl_DeliveryWeekCount_gt41 = 101009018,
 
 
