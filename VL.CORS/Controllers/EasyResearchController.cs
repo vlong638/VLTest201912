@@ -87,12 +87,12 @@ namespace ResearchAPI.CORS.Controllers
             switch (request.Type)
             {
                 case "DiagnosisFrequency":
-                    var data1= reportTaskService.GetDiagnosisFrequency(1);
+                    var data1 = reportTaskService.GetDiagnosisFrequency(1);
                     if (!data1.IsSuccess)
                     {
                         return Error<List<VLKeyValue<string, string, string>>>(data1.Message);
                     }
-                    var data2= reportTaskService.GetDiagnosisFrequency(2);
+                    var data2 = reportTaskService.GetDiagnosisFrequency(2);
                     if (!data2.IsSuccess)
                     {
                         return Error<List<VLKeyValue<string, string, string>>>(data2.Message);
@@ -207,7 +207,7 @@ namespace ResearchAPI.CORS.Controllers
                         case "202012221031": //Template_孕周检验.xml
                         case "202001221034": //Template_孕周检验.xml
                             var template = DomainConstraits.Templates.FirstOrDefault(c => c.Id == parentId.ToLong());
-                            if (template==null)
+                            if (template == null)
                             {
                                 throw new NotImplementedException("模板不存在");
                             }
@@ -233,7 +233,7 @@ namespace ResearchAPI.CORS.Controllers
         [HttpPost]
         [AllowAnonymous]
         [EnableCors("AllCors")]
-        public APIResult<List<VLKeyValue<string, string>>> GetStatistics( [FromServices] ReportTaskService reportTaskService, [FromBody] GetStatisticsRequest request)
+        public APIResult<List<VLKeyValue<string, string>>> GetStatistics([FromServices] ReportTaskService reportTaskService, [FromBody] GetStatisticsRequest request)
         {
             //特殊统计数据
             if (request.Categories.Any(c => c == (long)DataStatisticsCategory.PT_GeneratedTime))
@@ -246,7 +246,7 @@ namespace ResearchAPI.CORS.Controllers
                 else
                 {
                     return Error<List<VLKeyValue<string, string>>>(null, serviceResult.Messages);
-                } 
+                }
             }
 
             List<VLKeyValue<string, string>> values = new List<VLKeyValue<string, string>>();
@@ -442,7 +442,7 @@ namespace ResearchAPI.CORS.Controllers
                 //{用户}添加了关联科室{科室名称}，
                 var departmentIds = request.DepartmentIds;
                 var departmentNames = DomainConstraits.RenderIdToText(departmentIds, DomainConstraits.Departments);
-                if (departmentNames!=null && departmentNames.Count>0)
+                if (departmentNames != null && departmentNames.Count > 0)
                 {
                     text = $"{userName}设置了关联科室:{string.Join(",", departmentNames)}";
                     service.AddProjectLog(userId, projectId, ActionType.AddProjectDepartment, text);

@@ -2,16 +2,16 @@
   "ConnectionStrings": [
     {
       "Key": "ResearchConnectionString",
-      "Value": "Data Source=192.168.50.2;Initial Catalog=EasyResearch;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=vl;Password=123"
+      "Value": "Data Source=192.168.50.2;Initial Catalog=EasyResearch;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=vl;Password=vl123"
     },
     {
       "Key": "SourceData",
       //"Value": "Data Source=192.168.50.2;Initial Catalog=SampleTarget;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=vl;Password=123",
-      "Value": "Data Source=192.168.50.2;Initial Catalog=EasyResearch;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=vl;Password=123"
+      "Value": "Data Source=192.168.50.2;Initial Catalog=EasyResearch;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=vl;Password=vl123"
     },
     {
       "Key": "TargetData",
-      "Value": "Data Source=192.168.50.2;Initial Catalog=EasyResearch;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=vl;Password=123"
+      "Value": "Data Source=192.168.50.2;Initial Catalog=EasyResearch;Pooling=true;Max Pool Size=40000;Min Pool Size=0;User ID=vl;Password=vl123"
     }
   ]
 }

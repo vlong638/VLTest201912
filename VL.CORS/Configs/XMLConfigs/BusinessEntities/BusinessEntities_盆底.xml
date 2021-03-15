@@ -13,7 +13,7 @@
 			<Property Id="102001016" DisplayName="臀围(cm)" SourceName="hip" ColumnType="Decimal"/>
 			<Property Id="102001001" DisplayName="流产" SourceName="abortion" ColumnType="String"/>
 			<Property Id="102001002" DisplayName="地址" SourceName="address" ColumnType="String"/>
-			<Property Id="102001003" DisplayName="出生日期" SourceName="birthday" ColumnType="String"/>
+			<Property Id="102001003" DisplayName="出生日期" SourceName="birthday" ColumnType="DateTime"/>
 			<Property Id="102001004" DisplayName="ABO血型" SourceName="bloodtypecode" ColumnType="String"/>
 			<Property Id="102001005" DisplayName="BMI" SourceName="bmi" ColumnType="Decimal"/>
 			<Property Id="102001006" DisplayName="审核日期" SourceName="checkdate" ColumnType="DateTime"/>
@@ -193,12 +193,6 @@
 			<Property Id="102003050" DisplayName="耻骨联合分离疼痛评分" SourceName="pain3" ColumnType="Int"/>
 			<Property Id="102003051" DisplayName="会阴部坠胀疼痛评分" SourceName="pain4" ColumnType="Int"/>
 			<Property Id="102003052" DisplayName="盆腔痛(闭孔肌、梨状肌)评分" SourceName="pain5" ColumnType="Int"/>
-			<Property Id="102003053" DisplayName="-" SourceName="paintext0" ColumnType="String"/>
-			<Property Id="102003054" DisplayName="-" SourceName="paintext1" ColumnType="String"/>
-			<Property Id="102003055" DisplayName="-" SourceName="paintext2" ColumnType="String"/>
-			<Property Id="102003056" DisplayName="-" SourceName="paintext3" ColumnType="String"/>
-			<Property Id="102003057" DisplayName="-" SourceName="paintext4" ColumnType="String"/>
-			<Property Id="102003058" DisplayName="-" SourceName="paintext5" ColumnType="String"/>
 			<Property Id="102003059" DisplayName="盆底电生理功能" SourceName="pelvicfloorelectric" ColumnType="String"/>
 			<Property Id="102003060" DisplayName="盆底肌压力功能" SourceName="pelvicfloorpressure" ColumnType="String"/>
 			<Property Id="102003061" DisplayName="盆底表面肌电评估" SourceName="pelvicfloorsurfaceeval" ColumnType="String"/>

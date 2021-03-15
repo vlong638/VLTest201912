@@ -74,7 +74,8 @@ namespace ResearchAPI.Tools
                             {
                                 continue;
                             }
-                            var json = ConfigHelper.GetJsonFileData(Path.Combine(Environment.CurrentDirectory, "Configs\\JsonConfigs", businessEntities.BusinessType), property.Enum);
+                            //TODO , "盆底" 希望清洗用的枚举是归整的
+                            var json = ConfigHelper.GetJsonFileData(Path.Combine(Environment.CurrentDirectory, "Configs\\JsonConfigs", "盆底"), property.Enum);
                             if (json.IsNullOrEmpty())
                             {
                                 throw new Exception(property.Enum + ",Json文件不存在");

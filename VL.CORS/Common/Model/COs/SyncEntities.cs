@@ -117,6 +117,7 @@ namespace ResearchAPI.CORS.Common
             if (!Enum.IsNullOrEmpty())
             {
                 MaxLength = MaxLength > 20 ? MaxLength : 20;
+                return $"nvarchar({(maxLength < 0 ? "max" : (maxLength > 4000 ? 4000 : maxLength).ToString())})";
             }
             switch (ColumnType)
             {

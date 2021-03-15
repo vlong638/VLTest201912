@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using ResearchAPI.CORS.Common;
 using ResearchAPI.CORS.Services;
+using System.IO;
 using System.Linq;
 
 namespace ResearchAPI.CORS
