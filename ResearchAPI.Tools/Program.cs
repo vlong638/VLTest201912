@@ -45,8 +45,8 @@ namespace ResearchAPI.Tools
                 var targetDBContext = DBHelper.GetDbContext(configs.ConnectionStrings.First(c => c.Key == "TargetData").Value);
                 var researchDBContext = DBHelper.GetDbContext(configs.ConnectionStrings.First(c => c.Key == "ResearchConnectionString").Value);
                 var businessEntities = ConfigHelper.GetCOSyncEntities(Path.Combine(Environment.CurrentDirectory, "Configs/XMLConfigs/SyncEntities"), "SyncEntities_产科.xml");
-                businessEntities.AddRange(ConfigHelper.GetCOSyncEntities(Path.Combine(Environment.CurrentDirectory, "Configs/XMLConfigs/SyncEntities"), "SyncEntities_检验.xml"));
-                businessEntities.AddRange(ConfigHelper.GetCOSyncEntities(Path.Combine(Environment.CurrentDirectory, "Configs/XMLConfigs/SyncEntities"), "SyncEntities_盆底.xml"));
+                //businessEntities.AddRange(ConfigHelper.GetCOSyncEntities(Path.Combine(Environment.CurrentDirectory, "Configs/XMLConfigs/SyncEntities"), "SyncEntities_检验.xml"));
+                //businessEntities.AddRange(ConfigHelper.GetCOSyncEntities(Path.Combine(Environment.CurrentDirectory, "Configs/XMLConfigs/SyncEntities"), "SyncEntities_盆底.xml"));
 
                 //TODO 希望基于现有表 跳过已存在表的处理
 
@@ -156,9 +156,9 @@ select {string.Join(",", businessEntity.Properties.Select(c => c.SourceName))} f
                 var targetDBContext = DBHelper.GetDbContext(configs.ConnectionStrings.First(c => c.Key == "TargetData").Value);
                 var researchDBContext = DBHelper.GetDbContext(configs.ConnectionStrings.First(c => c.Key == "ResearchConnectionString").Value);
                 var businessEntities = new COSyncEntities();
-                //businessEntities.AddRange(ConfigHelper.GetCOSyncEntities(Path.Combine(Environment.CurrentDirectory, "Configs/XMLConfigs/SyncEntities"), "SyncEntities_产科.xml"));
+                businessEntities.AddRange(ConfigHelper.GetCOSyncEntities(Path.Combine(Environment.CurrentDirectory, "Configs/XMLConfigs/SyncEntities"), "SyncEntities_产科.xml"));
                 //businessEntities.AddRange(ConfigHelper.GetCOSyncEntities(Path.Combine(Environment.CurrentDirectory, "Configs/XMLConfigs/SyncEntities"), "SyncEntities_检验.xml"));
-                businessEntities.AddRange(ConfigHelper.GetCOSyncEntities(Path.Combine(Environment.CurrentDirectory, "Configs/XMLConfigs/SyncEntities"), "SyncEntities_盆底.xml"));
+                //businessEntities.AddRange(ConfigHelper.GetCOSyncEntities(Path.Combine(Environment.CurrentDirectory, "Configs/XMLConfigs/SyncEntities"), "SyncEntities_盆底.xml"));
 
                 #region 数据清洗
                 foreach (var businessEntity in businessEntities)

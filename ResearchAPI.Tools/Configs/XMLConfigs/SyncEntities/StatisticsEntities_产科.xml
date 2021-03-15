@@ -223,58 +223,58 @@
 		<SQL>
 			select count(dr.id) from PT_CDH_DeliveryRecord dr
 			left join PT_PregnantInfo pi on pi.idcard = dr.shenfenzjhm 
-			where pi.id is not null and dr.fenmianfsmc ='产钳助产' and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300
+			where pi.id is not null and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300 and dr.fenmianfsmc ='产钳助产'
 		</SQL>
 	</StatisticsEntity>
 	<StatisticsEntity Id="101009021" Name ="PT_DeliveryMode_DestroyCount" Discription="分娩方式`毁胎术` @fenmianfsmc">
 		<SQL>
 			select count(dr.id) from PT_CDH_DeliveryRecord dr
 			left join PT_PregnantInfo pi on pi.idcard = dr.shenfenzjhm 
-			where pi.id is not null and dr.fenmianfsmc ='毁胎术' and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300
+			where pi.id is not null and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300 and dr.fenmianfsmc ='毁胎术'
 		</SQL>
 	</StatisticsEntity>
 	<StatisticsEntity Id="101009022" Name ="PT_DeliveryMode_CesareanCount" Discription="分娩方式`剖宫产` @fenmianfsmc">
 		<SQL>
 			select count(dr.id) from PT_CDH_DeliveryRecord dr
 			left join PT_PregnantInfo pi on pi.idcard = dr.shenfenzjhm 
-			where pi.id is not null and dr.fenmianfsmc ='剖宫产' and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300
+			where pi.id is not null and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300 and dr.fenmianfsmc ='剖宫产'
 		</SQL>
 	</StatisticsEntity>
 	<StatisticsEntity Id="101009023" Name ="PT_DeliveryMode_OtherCount" Discription="分娩方式`其他` @fenmianfsmc">
 		<SQL>
 			select count(dr.id) from PT_CDH_DeliveryRecord dr
 			left join PT_PregnantInfo pi on pi.idcard = dr.shenfenzjhm 
-			where pi.id is not null and (dr.fenmianfsmc ='其他' or dr.fenmianfsmc ='其它') and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300
+			where pi.id is not null and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300 and (dr.fenmianfsmc ='其他' or dr.fenmianfsmc ='其它')
 		</SQL>
 	</StatisticsEntity>
 	<StatisticsEntity Id="101009025" Name ="PT_DeliveryMode_ExtractionCount" Discription="分娩方式`胎头吸引` @fenmianfsmc">
 		<SQL>
 			select count(dr.id) from PT_CDH_DeliveryRecord dr
 			left join PT_PregnantInfo pi on pi.idcard = dr.shenfenzjhm 
-			where pi.id is not null and dr.fenmianfsmc ='胎头吸引' and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300
+			where pi.id is not null and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300 and dr.fenmianfsmc ='胎头吸引'
 		</SQL>
 	</StatisticsEntity>
 	<StatisticsEntity Id="101009026" Name ="PT_DeliveryMode_BreechAssistCount" Discription="分娩方式`臀位助产` @fenmianfsmc">
 		<SQL>
 			select count(dr.id) from PT_CDH_DeliveryRecord dr
 			left join PT_PregnantInfo pi on pi.idcard = dr.shenfenzjhm 
-			where pi.id is not null and dr.fenmianfsmc ='臀位助产' and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300
+			where pi.id is not null and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300 and dr.fenmianfsmc ='臀位助产'
 		</SQL>
 	</StatisticsEntity>
 	<StatisticsEntity Id="101009027" Name ="PT_DeliveryMode_VaginalCount" Discription="分娩方式`阴道自然分娩` @fenmianfsmc">
 		<SQL>
 			select count(dr.id) from PT_CDH_DeliveryRecord dr
 			left join PT_PregnantInfo pi on pi.idcard = dr.shenfenzjhm 
-			where pi.id is not null and (dr.fenmianfsmc ='阴道自然分娩' or dr.fenmianfsmc is null or dr.fenmianfsmc = '') and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300
+			where pi.id is not null and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300 and (dr.fenmianfsmc ='阴道自然分娩' or dr.fenmianfsmc is null or dr.fenmianfsmc = '')
 		</SQL>
 	</StatisticsEntity>
-	<StatisticsEntity Id="101009028" Name ="PT_DeliveryMode_InducedCount" Discription="分娩方式`治疗性引产` @fenmianfsmc">
+	<!--<StatisticsEntity Id="101009028" Name ="PT_DeliveryMode_InducedCount" Discription="分娩方式`治疗性引产` @fenmianfsmc">
 		<SQL>
 			select count(dr.id) from PT_CDH_DeliveryRecord dr
 			left join PT_PregnantInfo pi on pi.idcard = dr.shenfenzjhm 
-			where pi.id is not null and dr.fenmianfsmc ='治疗性引产'
+			where pi.id is not null and abs(datediff(day,pi.dateofprenatal,dr.fenmianrqsj))&lt;300 and dr.fenmianfsmc ='治疗性引产'
 		</SQL>
-	</StatisticsEntity>
+	</StatisticsEntity>-->
 	<!--Id="199001"-->
     <StatisticsEntity Id="199001001" Name ="Common_LabOrderCount" Discription="检验记录数"><SQL>select count(1) from Common_LabOrder</SQL></StatisticsEntity>
 
